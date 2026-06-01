@@ -13,6 +13,7 @@ const characterGrid = document.querySelector("#character-grid");
 const selectedTeam = document.querySelector("#selected-team");
 const matchFeedback = document.querySelector("#match-feedback");
 const recommendations = document.querySelector("#recommendations");
+const recommendTitle = document.querySelector("#recommend-section h2");
 const selectedCount = document.querySelector("#selected-count");
 const clearButton = document.querySelector("#clear-button");
 const searchInput = document.querySelector("#search-input");
@@ -50,10 +51,25 @@ const savedTheme = localStorage.getItem("er-team-picker-theme");
 const playableStorageKey = "er-team-picker-playable-characters";
 const playableCharacterIds = new Set(JSON.parse(localStorage.getItem(playableStorageKey) ?? "[]"));
 let playableEditMode = false;
-let activeView = appMain?.dataset.view ?? "recommendations";
+let activeView = appMain?.dataset.view ?? "setup";
 
 function characterName(characterId) {
   return characterVariants.find((character) => character.characterId === characterId)?.name ?? characterId;
+}
+
+function characterById(characterId) {
+  return characterVariants.find((character) => character.characterId === characterId);
+}
+
+function characterBrief(characterId) {
+  const character = characterById(characterId);
+  if (!character) return { name: characterId, image: "", role: "", weapon: "" };
+  return {
+    name: character.name,
+    image: character.image,
+    role: roleNames[character.role] ?? character.role,
+    weapon: character.weaponLabel,
+  };
 }
 
 function characterSubtitle(character) {
@@ -84,9 +100,7 @@ function renderCharacters() {
   const query = searchInput.value.trim().toLowerCase();
   const filtered = characterVariants.filter((character) => {
     const matchesRole = activeRole === "all" || character.role === activeRole;
-    const matchesQuery =
-      matchesKoreanSearch(character.name, query) ||
-      matchesKoreanSearch(character.weaponLabel, query);
+    const matchesQuery = matchesKoreanSearch(character.name, query);
     return matchesRole && matchesQuery;
   });
 
@@ -249,23 +263,28 @@ function renderDetectedTeam(matches = [], status = "") {
   renderSlotOverlay();
 }
 
-function popularFeedbackRows() {
+function popularFeedbackRows(sortMode = "overall") {
   const rows = new Map();
   popularFeedback.forEach((row) => {
     if (!row.team_key || !row.candidate_id) return;
     const key = `${row.team_key}->${row.candidate_id}`;
-    const previous = rows.get(key) ?? { teamKey: row.team_key, candidateId: row.candidate_id, likes: 0, dislikes: 0, total: 0 };
+    const previous = rows.get(key) ?? { teamKey: row.team_key, candidateId: row.candidate_id, likes: 0, dislikes: 0, total: 0, updatedAt: "" };
     previous.likes += row.likes ?? 0;
     previous.dislikes += row.dislikes ?? 0;
     previous.total += row.total ?? 0;
+    if (!previous.updatedAt || (row.updated_at ?? "") > previous.updatedAt) previous.updatedAt = row.updated_at ?? "";
     rows.set(key, previous);
   });
+
+  const sorter = sortMode === "recent"
+    ? (a, b) => (b.updatedAt ?? "").localeCompare(a.updatedAt ?? "") || b.score - a.score || b.likes - a.likes
+    : (a, b) => b.score - a.score || b.likes - a.likes || b.total - a.total;
 
   return [...rows.values()]
     .map((row) => ({ ...row, score: row.likes - row.dislikes }))
     .filter((row) => row.likes > 0)
-    .sort((a, b) => b.score - a.score || b.likes - a.likes || b.total - a.total)
-    .slice(0, 4);
+    .sort(sorter)
+    .slice(0, 14);
 }
 
 function rankerCompositionRows() {
@@ -275,7 +294,7 @@ function rankerCompositionRows() {
       const bScore = (b.top3Rate ?? 0) * 4 + (b.winRate ?? 0) * 5 + Math.min(1.5, (b.games ?? 0) / 8) - (b.avgPlacement ?? 5) * 0.18;
       return bScore - aScore;
     })
-    .slice(0, 4);
+    .slice(0, 16);
 }
 
 function rankerCharacterRows() {
@@ -287,56 +306,141 @@ function rankerCharacterRows() {
       top3Rate: stat.top3Rate ?? 0,
     }))
     .sort((a, b) => b.score - a.score)
-    .slice(0, 6);
+    .slice(0, 24);
+}
+
+function compositionReason(row, isUserFeedback) {
+  const members = row.teamKey ? [...row.teamKey.split("+"), row.candidateId] : [...row.teammates, row.candidate];
+  const characters = members.map(characterById).filter(Boolean);
+  const roles = new Set(characters.map((character) => character.role));
+  const tags = new Set(characters.flatMap((character) => character.tags));
+  const ranges = new Set(characters.map((character) => character.weaponRange));
+
+  if (roles.has("frontline") && (roles.has("ranged") || roles.has("mage"))) {
+    return "앞라인이 시야와 진입 각을 만들고, 뒤에서 안정적으로 딜을 넣기 좋은 조합입니다.";
+  }
+  if ((roles.has("bruiser") || roles.has("assassin")) && tags.has("focus")) {
+    return "한 대상을 빠르게 몰아치는 포커싱이 좋아 교전 시작 후 킬 결정력이 높습니다.";
+  }
+  if (tags.has("initiate") && tags.has("cc")) {
+    return "이니쉬와 CC가 함께 있어 먼저 싸움을 열고 흐름을 잡기 좋습니다.";
+  }
+  if (tags.has("peel") && (roles.has("ranged") || roles.has("mage"))) {
+    return "보호 능력과 원거리 딜이 함께 있어 받아치는 교전에 강점이 있습니다.";
+  }
+  if (ranges.has("melee") && ranges.has("ranged")) {
+    return "근거리와 원거리 역할이 섞여 있어 교전 거리 선택지가 넓습니다.";
+  }
+
+  const top3 = Math.round((row.top3Rate ?? 0) * 100);
+  if (isUserFeedback) return "사용자 평가에서 실제 경기 후 반응이 좋았던 조합입니다.";
+  if (top3 >= 70) return "랭커 전적에서 상위권 마무리가 많아 안정성이 확인된 조합입니다.";
+  return "랭커 전적에서 반복적으로 등장해 참고할 만한 조합입니다.";
+}
+
+function renderCharacterFace(characterId) {
+  const character = characterBrief(characterId);
+  return `
+    <span class="combo-face">
+      ${character.image ? `<img src="${character.image}" alt="">` : ""}
+      <span>
+        <strong>${character.name}</strong>
+        <small>${[character.role, character.weapon].filter(Boolean).join(" · ")}</small>
+      </span>
+    </span>
+  `;
 }
 
 function renderHomeDashboard() {
-  const userComps = popularFeedbackRows();
+  const overallComps = popularFeedbackRows("overall");
+  const recentComps = popularFeedbackRows("recent");
   const fallbackComps = rankerCompositionRows();
-  const compItems = (userComps.length > 0 ? userComps : fallbackComps)
+
+  function renderComboCards(rows, titlePrefix, isUserFeedback) {
+    return rows
     .map((row, index) => {
-      const teamNames = row.teamKey
-        ? [...row.teamKey.split("+"), row.candidateId].map(characterName).join(" + ")
-        : [...row.teammates, row.candidate].map(characterName).join(" + ");
+      const members = row.teamKey ? [...row.teamKey.split("+"), row.candidateId] : [...row.teammates, row.candidate];
       const detail = row.teamKey ? `좋아요 ${row.likes} · 평가 ${row.total}` : `랭커 ${row.games}판 · TOP3 ${Math.round((row.top3Rate ?? 0) * 100)}%`;
-      return `<li><strong>${index + 1}. ${teamNames}</strong><span>${detail}</span></li>`;
+      return `
+        <article class="combo-card">
+          <div class="combo-card-head">
+            <span class="recommendation-rank">${titlePrefix} ${index + 1}</span>
+            <strong>${detail}</strong>
+          </div>
+          <div class="combo-members">${members.map(renderCharacterFace).join("")}</div>
+          <p>${compositionReason(row, isUserFeedback)}</p>
+        </article>
+      `;
+    })
+    .join("");
+  }
+
+  const overallItems = renderComboCards(overallComps.length > 0 ? overallComps : fallbackComps, "전체", overallComps.length > 0);
+  const recentItems = renderComboCards(recentComps.length > 0 ? recentComps : fallbackComps.slice(0, 14), "최근", recentComps.length > 0);
+
+  const rankItems = rankerCharacterRows()
+    .map((row, index) => {
+      const character = characterBrief(row.characterId);
+      return `
+        <article class="rank-card">
+          <span class="rank-number">${index + 1}</span>
+          ${character.image ? `<img src="${character.image}" alt="">` : ""}
+          <div>
+            <strong>${character.name}</strong>
+            <small>${character.role} · ${row.games}판 · TOP3 ${Math.round(row.top3Rate * 100)}%</small>
+          </div>
+        </article>
+      `;
     })
     .join("");
 
-  const rankItems = rankerCharacterRows()
-    .map((row, index) => `<li><strong>${index + 1}. ${characterName(row.characterId)}</strong><span>${row.games}판 · TOP3 ${Math.round(row.top3Rate * 100)}%</span></li>`)
-    .join("");
-
   recommendations.innerHTML = `
-    <div class="home-dashboard">
-      <section class="guide-panel">
-        <h3>사용 방법</h3>
-        <ol>
-          <li>실험체 카드를 누르면 팀원 1, 팀원 2, 나 순서로 기록됩니다.</li>
-          <li>가능 실험체를 설정하면 그 안에서만 추천합니다.</li>
-          <li>경기 후 좋았음/별로였음을 남기면 다음 추천에 반영됩니다.</li>
-        </ol>
+    <div class="recommendation-hub">
+      <section class="combo-section">
+        <div class="section-title-row">
+          <h3>추천 조합</h3>
+          <span>사용자 경기 후 평가 기준</span>
+        </div>
+        <div class="combo-split">
+          <div>
+            <h4>전체 득표 상위</h4>
+            <div class="combo-grid">${overallItems}</div>
+          </div>
+          <div>
+            <h4>최근 득표 상위</h4>
+            <div class="combo-grid">${recentItems}</div>
+          </div>
+        </div>
       </section>
-      <section class="mini-ranking">
-        <h3>${userComps.length > 0 ? "사용자 추천 조합" : "랭커 추천 조합"}</h3>
-        <ol>${compItems}</ol>
-      </section>
-      <section class="mini-ranking">
-        <h3>실험체 랭킹</h3>
-        <ol>${rankItems}</ol>
+      <section class="rank-section">
+        <div class="section-title-row">
+          <h3>실험체 랭킹</h3>
+          <span>DAK.GG 랭커 최근 스쿼드 전적 기준</span>
+        </div>
+        <div class="rank-grid">${rankItems}</div>
       </section>
     </div>
   `;
 }
 
 function renderRecommendations() {
-  if (selectedIds.size === 0) {
+  if (activeView === "recommendations") {
     renderHomeDashboard();
     return;
   }
 
+  if (selectedIds.size === 0) {
+    recommendations.innerHTML = `
+      <div class="setup-recommendation-empty">
+        <strong>팀원을 선택하면 추천 후보가 표시됩니다.</strong>
+        <span>실험체 카드를 누르면 팀원 1, 팀원 2, 나 순서로 기록되고 바로 추천이 갱신됩니다.</span>
+      </div>
+    `;
+    return;
+  }
+
   const playablePool = playableCharacterIds.size > 0 ? [...playableCharacterIds] : undefined;
-  const results = recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool);
+  const results = recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, popularFeedback);
   if (results.length === 0) {
     recommendations.innerHTML = `<p class="empty-state">가능 실험체 목록 안에서 추천할 후보가 없습니다.</p>`;
     return;
@@ -372,11 +476,11 @@ function renderRecommendations() {
 function renderMatchFeedback() {
   const chosen = characterVariants.find((character) => character.variantId === chosenPickId);
   if (!chosen) {
-    matchFeedback.innerHTML = `<p class="empty-state">왼쪽에서 '나' 슬롯을 선택하고 내가 고른 캐릭터를 지정하면 경기 후 평가할 수 있습니다.</p>`;
+    matchFeedback.innerHTML = `<p class="empty-state">내 픽을 지정하면 경기 후 평가할 수 있습니다.</p>`;
     return;
   }
 
-  const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback);
+  const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, popularFeedback);
   const reasonList = evaluation?.reasons.map((reason) => `<li>${reason}</li>`).join("") ?? "";
   const scoreTone = (evaluation?.score ?? 0) < 0 ? " negative-score" : "";
   const score = selectedIds.size > 0 ? `<strong class="chosen-score${scoreTone}">${evaluation?.score ?? "-"}</strong>` : "";
@@ -484,6 +588,7 @@ async function refreshPopularFeedback() {
 
 function render() {
   appMain.dataset.view = activeView;
+  recommendTitle.textContent = activeView === "recommendations" ? "랭킹" : "추천 후보";
   sideTabs.forEach((button) => {
     button.classList.toggle("active", button.dataset.view === activeView);
   });
@@ -612,7 +717,11 @@ matchFeedback.addEventListener("click", (event) => {
   recordRemoteFeedback([...selectedIds], chosenPickId, Number(button.dataset.matchFeedback), tierSelect.value)
     .then(() => {
       popularFeedbackLoaded = false;
-      return refreshRemoteFeedback();
+      return Promise.all([refreshRemoteFeedback(), refreshPopularFeedback()]);
+    })
+    .then(() => {
+      renderRecommendations();
+      renderMatchFeedback();
     })
     .catch((error) => {
       syncStatus.textContent = error.message ? `서버 저장 실패: ${error.message}` : "서버 저장 실패";

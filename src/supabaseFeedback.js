@@ -78,7 +78,7 @@ export async function loadRemoteFeedback(selectedIds, tier) {
   );
 }
 
-export async function loadPopularFeedback(limit = 80) {
+export async function loadPopularFeedback(limit = 500) {
   const client = await getClient();
   if (!client) return [];
 

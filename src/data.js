@@ -70,7 +70,7 @@ export const characters = [
   c("bernice", "버니스", "ranged", ["range", "cc", "sustained"], "basic", 3),
   c("blair", "블레어", "mage", ["poke", "zone", "burst"], "skill", 3),
   c("bianca", "비앙카", "mage", ["burst", "zone", "sustain"], "skill", 4),
-  c("bihyung", "비형", "assassin", ["burst", "dive", "mobility"], "skill", 4),
+  c("bihyung", "비형", "bruiser", ["burst", "dive", "mobility", "focus"], "skill", 4),
   c("charlotte", "샬럿", "support", ["healing", "shield", "peel"], "skill", 2),
   c("celine", "셀린", "mage", ["burst", "zone", "poke"], "skill", 5),
   c("sho", "쇼우", "frontline", ["durable", "peel", "sustained"], "hybrid", 3),

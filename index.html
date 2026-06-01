@@ -16,15 +16,15 @@
           <span>이터널 리턴 조합 추천</span>
         </div>
         <nav class="side-nav" aria-label="주요 메뉴">
-          <button class="side-tab active" type="button" data-view="recommendations">추천 후보</button>
-          <button class="side-tab" type="button" data-view="setup">입력 및 평가</button>
+          <button class="side-tab active" type="button" data-view="setup">조합 구성</button>
+          <button class="side-tab" type="button" data-view="recommendations">추천 후보</button>
         </nav>
         <div class="side-footer">
           <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="true">다크 모드</button>
         </div>
       </aside>
 
-      <section class="app-main" data-view="recommendations">
+      <section class="app-main" data-view="setup">
         <header class="topbar" aria-label="추천 설정">
           <div>
             <p class="eyebrow">Squad Draft Assistant</p>
@@ -59,13 +59,18 @@
                 </div>
                 <button class="ghost-button" id="clear-button" type="button">초기화</button>
               </div>
-              <p class="helper-text">실험체 카드를 누르면 팀원 1, 팀원 2, 나 순서로 자동 기록됩니다. 특정 칸을 바꾸고 싶을 때만 아래 칸을 먼저 누르세요.</p>
+              <p class="helper-text">카드를 누르면 팀원 1, 팀원 2, 나 순서로 기록됩니다.</p>
               <div class="manual-slots" id="manual-slots" aria-label="팀 슬롯 현황">
                 <button class="manual-slot self-slot" type="button" data-manual-slot="0">나</button>
                 <button class="manual-slot" type="button" data-manual-slot="1">팀원 1</button>
                 <button class="manual-slot" type="button" data-manual-slot="2">팀원 2</button>
               </div>
               <div class="selected-team" id="selected-team"></div>
+            </section>
+
+            <section class="panel guide-strip" aria-label="사용 방법">
+              <strong>간단 안내</strong>
+              <span>실험체 선택이 주 입력입니다. 가능 실험체를 지정하면 그 안에서 추천하고, 경기 후 평가는 다음 추천에 반영됩니다.</span>
             </section>
 
             <section class="panel capture-box" id="capture-section" aria-label="화면 인식">
