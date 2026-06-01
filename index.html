@@ -16,17 +16,15 @@
           <span>이터널 리턴 조합 추천</span>
         </div>
         <nav class="side-nav" aria-label="주요 메뉴">
-          <a class="active" href="#team-section">팀 선택</a>
-          <a href="#recommend-section">추천 후보</a>
-          <a href="#capture-section">화면 인식</a>
-          <a href="#feedback-section">경기 평가</a>
+          <button class="side-tab active" type="button" data-view="recommendations">추천 후보</button>
+          <button class="side-tab" type="button" data-view="setup">입력 및 평가</button>
         </nav>
         <div class="side-footer">
           <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="true">다크 모드</button>
         </div>
       </aside>
 
-      <section class="app-main">
+      <section class="app-main" data-view="recommendations">
         <header class="topbar" aria-label="추천 설정">
           <div>
             <p class="eyebrow">Squad Draft Assistant</p>
@@ -53,7 +51,7 @@
 
         <div class="workspace">
           <section class="content-stack">
-            <section class="panel roster-panel" id="team-section" aria-label="캐릭터 선택">
+            <section class="panel roster-panel" id="team-section" aria-label="팀 선택">
               <div class="panel-header">
                 <div>
                   <p class="section-kicker">Team Setup</p>
@@ -70,7 +68,7 @@
               <div class="selected-team" id="selected-team"></div>
             </section>
 
-            <section class="panel capture-box" id="capture-section" aria-label="스크린샷 자동 감지">
+            <section class="panel capture-box" id="capture-section" aria-label="화면 인식">
               <div class="panel-header">
                 <div>
                   <p class="section-kicker">Capture</p>
@@ -120,7 +118,7 @@
           </section>
 
           <aside class="result-column">
-            <section class="panel result-panel" id="recommend-section" aria-label="추천 결과">
+            <section class="panel result-panel" id="recommend-section" aria-label="추천 후보">
               <div class="panel-header">
                 <div>
                   <p class="section-kicker">Recommendation</p>

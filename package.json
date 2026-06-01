@@ -10,7 +10,7 @@
     "collect-dak": "\"C:\\Program Files\\nodejs\\node.exe\" tools/dak_collector.mjs --rankers 200 --matchesPerRanker 12",
     "dist": "electron-builder --win portable",
     "pack": "electron-builder --dir",
-    "package-win": "electron-packager . \"ER Team Picker\" --platform=win32 --arch=x64 --out=release --overwrite --icon=assets/app-icon.ico --ignore=\"dist($|/)\" --ignore=\"release($|/)\"",
+    "package-win": "electron-packager . \"ER Team Picker\" --platform=win32 --arch=x64 --out=release --overwrite --icon=assets/app-icon.ico --ignore=dist --ignore=release --ignore=release-icon-test",
     "installer-win": "\"C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe\" installer\\ERTeamPicker.iss"
   },
   "devDependencies": {

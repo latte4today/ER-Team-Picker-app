@@ -146,19 +146,26 @@ p {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.side-nav a {
+.side-nav a,
+.side-tab {
   display: flex;
   align-items: center;
+  width: 100%;
   min-height: 30px;
   padding: 0 9px;
   border-radius: 4px;
+  background: transparent;
   color: #d6dbe6;
+  cursor: pointer;
   font-size: 13px;
   font-weight: 800;
+  text-align: left;
 }
 
 .side-nav a:hover,
-.side-nav a.active {
+.side-nav a.active,
+.side-tab:hover,
+.side-tab.active {
   background: #383d4d;
   color: #fff;
 }
@@ -237,6 +244,27 @@ h2 {
 
 .result-column {
   grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.app-main[data-view="recommendations"] .workspace {
+  grid-template-columns: 1fr;
+}
+
+.app-main[data-view="recommendations"] .content-stack,
+.app-main[data-view="recommendations"] .feedback-panel {
+  display: none;
+}
+
+.app-main[data-view="recommendations"] .result-column {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.app-main[data-view="setup"] .result-panel {
+  display: none;
+}
+
+.app-main[data-view="setup"] .workspace {
+  grid-template-columns: minmax(560px, 1fr) minmax(300px, 380px);
 }
 
 .panel {
@@ -792,6 +820,15 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--surface-2);
+}
+
+.app-main[data-view="recommendations"] .recommendations {
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  align-content: start;
+}
+
+.app-main[data-view="recommendations"] .home-dashboard {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .recommendation-title {

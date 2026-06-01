@@ -180,5 +180,5 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
     .filter((candidate) => !candidatePool || candidatePool.has(candidate.characterId))
     .map((candidate) => evaluateCandidate(selectedIds, candidate.variantId, tier, remoteFeedback))
     .sort((a, b) => b.score - a.score)
-    .slice(0, 6);
+    .slice(0, 18);
 }

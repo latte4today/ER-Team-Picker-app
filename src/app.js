@@ -33,6 +33,8 @@ const themeToggle = document.querySelector("#theme-toggle");
 const playableModeButton = document.querySelector("#playable-mode-button");
 const clearPlayableButton = document.querySelector("#clear-playable-button");
 const playableStatus = document.querySelector("#playable-status");
+const appMain = document.querySelector(".app-main");
+const sideTabs = document.querySelectorAll("[data-view]");
 
 let screenshotImage;
 let activeSlot = null;
@@ -48,6 +50,7 @@ const savedTheme = localStorage.getItem("er-team-picker-theme");
 const playableStorageKey = "er-team-picker-playable-characters";
 const playableCharacterIds = new Set(JSON.parse(localStorage.getItem(playableStorageKey) ?? "[]"));
 let playableEditMode = false;
+let activeView = appMain?.dataset.view ?? "recommendations";
 
 function characterName(characterId) {
   return characterVariants.find((character) => character.characterId === characterId)?.name ?? characterId;
@@ -480,6 +483,10 @@ async function refreshPopularFeedback() {
 }
 
 function render() {
+  appMain.dataset.view = activeView;
+  sideTabs.forEach((button) => {
+    button.classList.toggle("active", button.dataset.view === activeView);
+  });
   renderRoleFilters();
   renderCharacters();
   renderPlayableTools();
@@ -549,6 +556,13 @@ clearButton.addEventListener("click", () => {
   chosenPickId = null;
   renderDetectedTeam();
   render();
+});
+
+sideTabs.forEach((button) => {
+  button.addEventListener("click", () => {
+    activeView = button.dataset.view;
+    render();
+  });
 });
 
 searchInput.addEventListener("input", renderCharacters);

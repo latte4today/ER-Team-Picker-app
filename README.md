@@ -1,195 +1,85 @@
-# Eternal Return Team Picker
+# ER Team Picker
 
-Offline-first prototype for recommending an Eternal Return character from the
-current team composition.
+이터널 리턴 스쿼드 조합 추천 데스크톱 앱입니다.
 
-The current data is hand-tagged sample data so the recommendation flow can be
-tested while waiting for an official API key.
+팀원이 고른 실험체 2명을 입력하면, 현재 조합에 어울리는 내 실험체와 무기 후보를 추천합니다. 내가 실제로 고른 픽은 경기 후 `좋았음 / 별로였음`으로 평가할 수 있고, 이 평가는 다음 추천 점수에 반영됩니다.
 
-## Run
+## 주요 기능
 
-### Browser Preview
+- 팀원 1, 팀원 2, 내 픽을 실험체 카드 클릭으로 빠르게 입력
+- 추천 후보를 별도 탭에서 넓게 확인
+- 내가 할 수 있는 실험체 목록을 지정하면 그 안에서만 추천
+- DAK.GG 랭커/티어 데이터를 반영한 메타 보정
+- Supabase를 이용한 사용자 평가 저장
+- 스크린샷 파일, Ctrl+V 붙여넣기, 현재 화면 캡처 지원
+- 다크 모드 UI
+- Windows 데스크톱 앱 실행 및 패키징
 
-The local preview is available at:
+## 실행 방법
 
-```text
-http://127.0.0.1:8765/index.html
-```
-
-If the preview is not running, start it from this folder:
-
-```powershell
-python -m http.server 8765 --bind 127.0.0.1
-```
-
-### Desktop App
-
-Install the desktop runtime once:
+Node.js가 설치되어 있어야 합니다.
 
 ```powershell
 npm install
-```
-
-Then run:
-
-```powershell
 npm run app
 ```
 
-Or double-click `run-app.bat`.
-
-To create a portable Windows app for sharing:
+PowerShell에서 `npm`이 잡히지 않으면 아래처럼 실행할 수 있습니다.
 
 ```powershell
-npm run dist
+& 'C:\Program Files\nodejs\npm.cmd' run app
 ```
 
-The shareable `.exe` will be created under `dist/`.
+## 설치 파일 만들기
 
-### Easy Windows Installer
-
-For non-technical users, prefer a single installer file instead of a zip.
-
-1. Install Inno Setup 6 once.
-2. Build the packaged app:
+공유용 앱 폴더를 만들려면:
 
 ```powershell
 npm run package-win
 ```
 
-3. Build the installer:
+설치 파일을 만들려면 Inno Setup 6 설치 후:
 
 ```powershell
 npm run installer-win
 ```
 
-The shareable installer will be:
+생성된 설치 파일은 GitHub의 `Releases`에 올리면 됩니다. 사용자는 소스 코드를 받는 대신 `ER-Team-Picker-Setup.exe`를 다운로드해서 설치하면 됩니다.
 
-```text
-dist/ER-Team-Picker-Setup.exe
-```
+## GitHub에 올릴 때
 
-You can also double-click `build-installer.bat` after Inno Setup is installed.
+이 저장소는 `.gitignore`로 아래 파일들을 제외합니다.
 
-## Later API Integration
+- `node_modules/`
+- `dist/`
+- `release/`
+- `data/dak-cache/`
+- `.env`
+- 실행 파일, 압축 파일, 임시 파일
 
-When the API key is ready, add it to a local `.env` file and connect the
-collector under `tools/`. The app is shaped so collected match data can replace
-the sample synergy values without changing the UI.
+코드를 수정한 뒤 GitHub Desktop에서:
 
-```powershell
-$env:ER_API_KEY="your-personal-key"
-python tools/collector.py --season 32 --server SEOUL --team-mode 3 --rankers 20 --games-per-user 20
-```
+1. 변경사항 확인
+2. Summary 입력
+3. `Commit to main`
+4. `Push origin`
 
-## DAK.GG Meta Data Before The Official API
+순서로 올리면 GitHub에 반영됩니다.
 
-Until the official API is connected, app recommendations can read aggregate meta
-data from `src/metaData.js`.
+## Supabase 설정
 
-- `experimentTiers`: character tier values from `https://dak.gg/er/statistics`.
-- `rankerCompositionStats`: leaderboard-derived team results from `https://dak.gg/er/leaderboard`.
-- `oneTrickRatio`: high one-character specialist samples are down-weighted so one-trick data does not dominate normal team recommendations.
+`src/supabaseConfig.js`에 Supabase URL과 anon public key를 넣으면 사용자 평가를 서버에 저장할 수 있습니다.
 
-Recommended aggregate row shape:
+주의: service role key는 절대 클라이언트 앱이나 GitHub에 올리면 안 됩니다.
 
-```js
-{
-  teammates: ["lenox", "hart"],
-  candidate: "yuki",
-  games: 18,
-  avgPlacement: 2.8,
-  winRate: 0.22,
-  top3Rate: 0.61,
-  oneTrickRatio: 0.18,
-}
-```
+Supabase SQL은 `supabase/schema.sql`에 있습니다.
 
-The recommender still keeps role, damage type, weapon range, and user feedback in
-the score, because real teammates may not always draft around the player.
+## 데이터 갱신
 
-To collect DAK.GG data from the public pages/API used by the website:
+공식 API를 붙이기 전까지는 DAK.GG의 공개 데이터를 기반으로 `src/metaData.js`를 생성합니다.
 
 ```powershell
 npm run collect-dak
 ```
 
-Default collection uses 200 leaderboard players and 12 recent ranked squad games
-per player. It caches responses under `data/dak-cache/`, so interrupted runs can
-resume without refetching everything.
-
-For a quicker test:
-
-```powershell
-node tools/dak_collector.mjs --rankers 20 --matchesPerRanker 5 --delayMs 650
-```
-
-## Skin Templates
-
-The screenshot detector can compare multiple images per character. Put extra
-skin mini images under `assets/characters/skins/<character-id>/`, then add them
-to `src/skinTemplates.js`.
-
-```js
-export const skinTemplates = {
-  yuki: [
-    "assets/characters/skins/yuki/yuki_skin_01.png",
-    "assets/characters/skins/yuki/yuki_skin_02.png",
-  ],
-};
-```
-
-The default mini image is always used, so only additional skin images need to be
-listed here.
-
-## Weapon Templates
-
-The screenshot detector can also compare weapon icons when template images are
-available. Put weapon icon images under `assets/weapons/`, then add them to
-`src/weaponTemplates.js`.
-
-```js
-export const weaponTemplates = {
-  dagger: ["assets/weapons/dagger.png"],
-  two_handed_sword: ["assets/weapons/two_handed_sword.png"],
-  axe: ["assets/weapons/axe.png"],
-};
-```
-
-If no weapon template exists, the detector still identifies the character and
-uses that character's first registered weapon as a fallback.
-
-## Feedback And Tiers
-
-Local feedback is grouped by tier. In a future shared backend, store one vote per
-user per `tier + team composition + recommended character` key.
-
-Recommended anti-abuse rules for a shared service:
-
-- Require a stable login or device identity before accepting feedback.
-- Allow only one active vote per user for the same tier/composition/candidate.
-- Rate-limit feedback writes per account and per IP.
-- Weight votes by trust, such as account age, verified API profile, or enough
-  normal usage history.
-- Use Bayesian smoothing so a few votes cannot swing a recommendation heavily.
-- Down-weight repeated identical votes from the same device/network cluster.
-- Keep raw vote logs separate from aggregate scores so suspicious batches can be
-  removed later.
-
-## Supabase Setup
-
-1. Create a Supabase project.
-2. Enable anonymous sign-ins in Authentication settings.
-3. Open the SQL editor and run `supabase/schema.sql`.
-4. Copy your project URL and anon public key.
-5. Fill `src/supabaseConfig.js`.
-
-```js
-export const supabaseConfig = {
-  url: "https://your-project.supabase.co",
-  anonKey: "your-anon-public-key",
-};
-```
-
-When these values are empty, the app stays in local-only mode. Never put a
-service role key in the browser app.
+기본 설정은 랭커 200명과 최근 랭크 스쿼드 경기 데이터를 수집합니다. 수집 캐시는 `data/dak-cache/`에 저장되며 GitHub에는 올리지 않습니다.
