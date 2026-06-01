@@ -4,7 +4,7 @@ import { getFeedbackEntry, recordFeedback } from "./feedback.js";
 import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend } from "./recommender.js";
-import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback } from "./supabaseFeedback.js";
+import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
 
 const selectedIds = new Set();
 let activeRole = "all";
@@ -34,6 +34,12 @@ const themeToggle = document.querySelector("#theme-toggle");
 const playableModeButton = document.querySelector("#playable-mode-button");
 const clearPlayableButton = document.querySelector("#clear-playable-button");
 const playableStatus = document.querySelector("#playable-status");
+const contactOpenButton = document.querySelector("#contact-open-button");
+const contactModal = document.querySelector("#contact-modal");
+const contactForm = document.querySelector("#contact-form");
+const contactReply = document.querySelector("#contact-reply");
+const contactMessage = document.querySelector("#contact-message");
+const contactStatus = document.querySelector("#contact-status");
 const appMain = document.querySelector(".app-main");
 const sideTabs = document.querySelectorAll("[data-view]");
 
@@ -85,6 +91,17 @@ function setTheme(theme) {
 }
 
 setTheme(savedTheme ?? "dark");
+
+function openContactModal() {
+  contactModal.hidden = false;
+  contactStatus.textContent = "";
+  contactMessage.focus();
+}
+
+function closeContactModal() {
+  contactModal.hidden = true;
+  contactStatus.textContent = "";
+}
 
 function renderRoleFilters() {
   const filters = [{ id: "all", label: "전체" }, ...roles];
@@ -668,6 +685,47 @@ sideTabs.forEach((button) => {
     activeView = button.dataset.view;
     render();
   });
+});
+
+contactOpenButton.addEventListener("click", openContactModal);
+
+contactModal.addEventListener("click", (event) => {
+  if (event.target.closest("[data-contact-close]")) closeContactModal();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !contactModal.hidden) closeContactModal();
+});
+
+contactForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const replyTo = contactReply.value.trim();
+  const message = contactMessage.value.trim();
+  if (!replyTo) {
+    contactStatus.textContent = "답장 받을 이메일을 입력해주세요.";
+    contactReply.focus();
+    return;
+  }
+  if (!message) {
+    contactStatus.textContent = "문의 내용을 입력해주세요.";
+    contactMessage.focus();
+    return;
+  }
+
+  contactStatus.textContent = "전송 중";
+  submitContactMessage({
+    replyTo,
+    message,
+    appVersion: "desktop",
+  })
+    .then(() => {
+      contactStatus.textContent = "문의가 전송되었습니다.";
+      contactForm.reset();
+      setTimeout(closeContactModal, 900);
+    })
+    .catch((error) => {
+      contactStatus.textContent = error.message ? `전송 실패: ${error.message}` : "전송 실패";
+    });
 });
 
 searchInput.addEventListener("input", renderCharacters);

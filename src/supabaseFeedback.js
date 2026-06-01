@@ -91,3 +91,25 @@ export async function loadPopularFeedback(limit = 500) {
   if (error) throw error;
   return data;
 }
+
+export async function submitContactMessage({ replyTo = "", message = "", appVersion = "" }) {
+  const client = await getClient();
+  if (!client) throw new Error("Supabase 연결이 필요합니다.");
+
+  const { data: userData, error: userError } = await client.auth.getUser();
+  if (userError) throw userError;
+
+  const payload = {
+    user_id: userData.user.id,
+    reply_to: replyTo.trim() || null,
+    message: message.trim(),
+    app_version: appVersion || null,
+    user_agent: navigator.userAgent,
+  };
+
+  const { error } = await client.from("contact_messages").insert(payload);
+  if (error) throw error;
+
+  client.functions.invoke("contact-notify", { body: payload }).catch(() => {});
+  return true;
+}

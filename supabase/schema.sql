@@ -49,3 +49,27 @@ group by tier, team_key, candidate_id;
 
 grant select on public.recommendation_feedback_summary to anon, authenticated;
 grant select, insert, update on public.recommendation_votes to authenticated;
+
+create table if not exists public.contact_messages (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  reply_to text,
+  message text not null check (char_length(message) between 1 and 1200),
+  app_version text,
+  user_agent text,
+  status text not null default 'new',
+  created_at timestamptz not null default now()
+);
+
+create index if not exists contact_messages_created_at_idx
+  on public.contact_messages (created_at desc);
+
+alter table public.contact_messages enable row level security;
+
+create policy "Users can create contact messages"
+  on public.contact_messages
+  for insert
+  to authenticated
+  with check ((select auth.uid()) = user_id);
+
+grant insert on public.contact_messages to authenticated;

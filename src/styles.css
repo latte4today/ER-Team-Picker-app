@@ -57,6 +57,7 @@ body {
 body,
 button,
 input,
+textarea,
 select {
   font: 14px/1.45 Inter, Pretendard, "Noto Sans KR", system-ui, sans-serif;
 }
@@ -64,7 +65,8 @@ select {
 button,
 a,
 select,
-input {
+input,
+textarea {
   color: inherit;
 }
 
@@ -173,6 +175,23 @@ p {
 .side-footer {
   margin-top: auto;
   padding-top: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.contact-button {
+  min-height: 34px;
+  border: 1px solid rgba(67, 194, 223, 0.42);
+  border-radius: 5px;
+  background: rgba(67, 194, 223, 0.1);
+  color: var(--accent-strong);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.contact-button:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .app-main {
@@ -1261,6 +1280,88 @@ h2 {
   min-height: 30px;
   padding: 0 10px;
   font-size: 13px;
+}
+
+.contact-modal[hidden] {
+  display: none;
+}
+
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+}
+
+.contact-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 4, 10, 0.68);
+  backdrop-filter: blur(6px);
+}
+
+.contact-dialog {
+  position: relative;
+  width: min(520px, 100%);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+  padding: 16px;
+}
+
+.contact-form {
+  display: grid;
+  gap: 12px;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  outline: none;
+  background: #151820;
+  color: var(--ink);
+  padding: 10px;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+}
+
+.contact-note,
+#contact-status {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.contact-actions #contact-status {
+  margin-right: auto;
+}
+
+.contact-submit {
+  width: auto;
+  margin-top: 0;
 }
 
 @media (max-width: 1100px) {
