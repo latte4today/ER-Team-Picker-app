@@ -1,0 +1,39 @@
+{
+  "name": "eternal-return-team-picker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Desktop app for Eternal Return team composition recommendations.",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "start": "cmd /d /s /c start \"\" \"%CD%\\node_modules\\electron\\dist\\electron.exe\" --no-sandbox \"%CD%\"",
+    "app": "cmd /d /s /c start \"\" \"%CD%\\node_modules\\electron\\dist\\electron.exe\" --no-sandbox \"%CD%\"",
+    "collect-dak": "\"C:\\Program Files\\nodejs\\node.exe\" tools/dak_collector.mjs --rankers 200 --matchesPerRanker 12",
+    "dist": "electron-builder --win portable",
+    "pack": "electron-builder --dir",
+    "package-win": "electron-packager . \"ER Team Picker\" --platform=win32 --arch=x64 --out=release --overwrite --icon=assets/app-icon.ico --ignore=\"dist($|/)\" --ignore=\"release($|/)\"",
+    "installer-win": "\"C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe\" installer\\ERTeamPicker.iss"
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.0.0",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.er.team-picker",
+    "productName": "ER Team Picker",
+    "files": [
+      "index.html",
+      "src/**/*",
+      "assets/**/*",
+      "electron/**/*",
+      "supabase/**/*",
+      "README.md"
+    ],
+    "win": {
+      "icon": "assets/app-icon.ico",
+      "target": [
+        "portable"
+      ]
+    }
+  }
+}

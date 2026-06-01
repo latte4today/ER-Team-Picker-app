@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>이터널 리턴 조합 추천</title>
+    <link rel="icon" href="assets/app-icon.png" type="image/png">
+    <link rel="stylesheet" href="src/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="app-sidebar" aria-label="앱 메뉴">
+        <div class="brand-panel">
+          <img src="assets/app-icon.png" alt="">
+          <strong>ER Team Picker</strong>
+          <span>이터널 리턴 조합 추천</span>
+        </div>
+        <nav class="side-nav" aria-label="주요 메뉴">
+          <a class="active" href="#team-section">팀 선택</a>
+          <a href="#recommend-section">추천 후보</a>
+          <a href="#capture-section">화면 인식</a>
+          <a href="#feedback-section">경기 평가</a>
+        </nav>
+        <div class="side-footer">
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="true">다크 모드</button>
+        </div>
+      </aside>
+
+      <section class="app-main">
+        <header class="topbar" aria-label="추천 설정">
+          <div>
+            <p class="eyebrow">Squad Draft Assistant</p>
+            <h1>우리 팀에 맞는 실험체 추천</h1>
+          </div>
+          <div class="topbar-actions">
+            <div class="summary-pill">
+              <span id="selected-count">0</span>
+              <span>/ 2명 선택됨</span>
+            </div>
+            <label class="tier-select">
+              <span>내 티어</span>
+              <select id="tier-select">
+                <option value="all">전체</option>
+                <option value="iron_bronze">아이언/브론즈</option>
+                <option value="silver_gold">실버/골드</option>
+                <option value="platinum_diamond">플래티넘/다이아</option>
+                <option value="meteor_mithril">메테오/미스릴</option>
+                <option value="demigod_eternity">데미갓/이터니티</option>
+              </select>
+            </label>
+          </div>
+        </header>
+
+        <div class="workspace">
+          <section class="content-stack">
+            <section class="panel roster-panel" id="team-section" aria-label="캐릭터 선택">
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">Team Setup</p>
+                  <h2>팀 선택</h2>
+                </div>
+                <button class="ghost-button" id="clear-button" type="button">초기화</button>
+              </div>
+              <p class="helper-text">실험체 카드를 누르면 팀원 1, 팀원 2, 나 순서로 자동 기록됩니다. 특정 칸을 바꾸고 싶을 때만 아래 칸을 먼저 누르세요.</p>
+              <div class="manual-slots" id="manual-slots" aria-label="팀 슬롯 현황">
+                <button class="manual-slot self-slot" type="button" data-manual-slot="0">나</button>
+                <button class="manual-slot" type="button" data-manual-slot="1">팀원 1</button>
+                <button class="manual-slot" type="button" data-manual-slot="2">팀원 2</button>
+              </div>
+              <div class="selected-team" id="selected-team"></div>
+            </section>
+
+            <section class="panel capture-box" id="capture-section" aria-label="스크린샷 자동 감지">
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">Capture</p>
+                  <h2>화면 인식</h2>
+                </div>
+              </div>
+              <div class="capture-actions">
+                <label class="capture-drop">
+                  <input id="screenshot-input" type="file" accept="image/*">
+                  <span>스크린샷 선택 또는 Ctrl+V</span>
+                </label>
+                <button class="ghost-button" id="screen-capture-button" type="button">현재 화면 캡처</button>
+                <button class="ghost-button" id="clear-screenshot-button" type="button" disabled>스크린샷 지우기</button>
+              </div>
+              <button class="primary-button" id="detect-button" type="button" disabled>팀 선택 자동 인식</button>
+              <canvas id="capture-canvas" hidden></canvas>
+              <div class="capture-preview" id="capture-preview" hidden>
+                <img id="screenshot-preview" alt="">
+                <div class="slot-overlay" id="slot-overlay" aria-label="팀 슬롯 선택">
+                  <button class="slot-button self-slot" type="button" data-slot="0">나</button>
+                  <button class="slot-button" type="button" data-slot="1">팀원 1</button>
+                  <button class="slot-button" type="button" data-slot="2">팀원 2</button>
+                </div>
+              </div>
+              <div class="detected-team" id="detected-team"></div>
+            </section>
+
+            <section class="panel character-panel" aria-label="실험체 목록">
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">Roster</p>
+                  <h2>실험체 선택</h2>
+                </div>
+              </div>
+              <label class="search-box">
+                <span>검색</span>
+                <input id="search-input" type="search" placeholder="실험체 또는 무기 검색">
+              </label>
+              <div class="playable-tools" aria-label="가능 실험체 설정">
+                <button class="ghost-button" id="playable-mode-button" type="button" aria-pressed="false">가능 실험체 설정</button>
+                <button class="ghost-button" id="clear-playable-button" type="button">가능 목록 초기화</button>
+                <span id="playable-status">전체 실험체 추천 중</span>
+              </div>
+              <div class="filter-row" id="role-filters"></div>
+              <div class="character-grid" id="character-grid"></div>
+            </section>
+          </section>
+
+          <aside class="result-column">
+            <section class="panel result-panel" id="recommend-section" aria-label="추천 결과">
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">Recommendation</p>
+                  <h2>추천 후보</h2>
+                </div>
+                <div class="status-group">
+                  <span class="sync-chip" id="sync-status">로컬 저장</span>
+                </div>
+              </div>
+              <div class="recommendations" id="recommendations"></div>
+            </section>
+
+            <section class="panel feedback-panel" id="feedback-section" aria-label="경기 후 평가">
+              <div class="panel-header">
+                <div>
+                  <p class="section-kicker">Review</p>
+                  <h2>경기 후 평가</h2>
+                </div>
+              </div>
+              <div class="match-feedback" id="match-feedback"></div>
+            </section>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>

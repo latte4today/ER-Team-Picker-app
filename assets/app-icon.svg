@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="ER Team Picker">
+  <defs>
+    <linearGradient id="bg" x1="36" y1="20" x2="220" y2="236" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#080d1f"/>
+      <stop offset="1" stop-color="#10152b"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="46" y1="70" x2="140" y2="182" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#47f7ff"/>
+      <stop offset="1" stop-color="#0099ff"/>
+    </linearGradient>
+    <linearGradient id="violet" x1="126" y1="76" x2="218" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#b982ff"/>
+      <stop offset="1" stop-color="#5d29ff"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect x="18" y="18" width="220" height="220" rx="47" fill="url(#bg)" stroke="#29314f" stroke-width="4"/>
+  <g filter="url(#glow)" opacity="0.95">
+    <path d="M68 185h120" stroke="url(#violet)" stroke-width="4"/>
+    <path d="M99 86 74 126" stroke="url(#cyan)" stroke-width="5"/>
+    <path d="M157 85 181 124" stroke="url(#violet)" stroke-width="5"/>
+    <path d="M70 183a17 17 0 1 0 0 .1" fill="none" stroke="url(#cyan)" stroke-width="5"/>
+    <circle cx="70" cy="172" r="6" fill="#34efff"/>
+    <path d="M58 192c3-8 21-8 24 0v5H58z" fill="#22bfff"/>
+    <path d="M128 62a17 17 0 1 0 0 .1" fill="none" stroke="url(#cyan)" stroke-width="5"/>
+    <circle cx="128" cy="51" r="6" fill="#34efff"/>
+    <path d="M116 71c3-8 21-8 24 0v5h-24z" fill="#22bfff"/>
+    <path d="M190 183a17 17 0 1 0 0 .1" fill="none" stroke="url(#violet)" stroke-width="5"/>
+    <circle cx="190" cy="172" r="6" fill="#9d68ff"/>
+    <path d="M178 192c3-8 21-8 24 0v5h-24z" fill="#7d42ff"/>
+  </g>
+  <path d="M88 96h61l-15 18h-35l-7 18h33l-15 17H85l-8 20h43l-17 19H54z" fill="url(#cyan)"/>
+  <path d="M149 101h38l21 20-10 42-23 25-21-40 18-13h14l5-21-8-8h-17l-25 82-24-7z" fill="url(#violet)"/>
+</svg>
