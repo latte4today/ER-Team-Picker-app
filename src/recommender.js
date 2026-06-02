@@ -13,9 +13,9 @@ import {
 const requiredTags = ["initiate", "focus", "peel", "cc", "sustained", "poke", "burst"];
 
 const damageLabels = {
-  basic: "평타딜",
-  skill: "스킬딜",
-  hybrid: "평타와 스킬을 함께 쓰는 혼합딜",
+  basic: "평타 딜러",
+  skill: "스킬 딜러",
+  hybrid: "교전형 딜러",
 };
 
 const roleJobs = {
@@ -56,7 +56,7 @@ const damageCapableTankIds = new Set(["estelle", "elena", "lenox", "mirka", "mar
 const signatureReasons = {
   garnet: "가넷은 단단하게 버티면서 광역 CC로 진입각을 열 수 있어 앞라인이 필요한 조합에 잘 맞습니다.",
   nadine: "나딘은 오브젝트와 긴 교전에서 누적 화력이 강해 앞라인이 시간을 벌어주는 조합에서 가치가 큽니다.",
-  nathapon: "나타폰은 카메라 스킬딜과 CC로 대치 중 상대를 묶어 아군 스킬 적중률을 높여줍니다.",
+  nathapon: "나타폰은 카메라 기반 스킬 화력과 CC로 대치 중 상대를 묶어 아군 스킬 적중률을 높여줍니다.",
   nia: "니아는 짧은 폭딜과 포커싱이 강해 CC가 걸린 대상을 빠르게 마무리하기 좋습니다.",
   nicky: "니키는 반격과 진입으로 상대 핵심 딜러에게 압박을 줄 수 있어 박치기 조합의 선봉 역할에 어울립니다.",
   daniel: "다니엘은 후방 딜러를 노리는 암살 압박이 강해 상대 원딜 중심 조합을 흔들기 좋습니다.",
@@ -86,7 +86,7 @@ const signatureReasons = {
   sua: "수아는 단단함과 CC, 유지력을 함께 갖춰 앞에서 오래 버티며 교전을 이어갑니다.",
   sissela: "시셀라는 원거리 견제와 생존력을 바탕으로 대치 중 체력을 깎고 받아치는 구도에 강합니다.",
   silvia: "실비아는 기동성으로 교전 각을 빠르게 바꾸며 짧은 거리에서 딜과 진입을 함께 수행합니다.",
-  adela: "아델라는 스킬 배치와 CC로 상대 이동을 제한해 아군 스킬딜러의 적중 각을 만들어줍니다.",
+  adela: "아델라는 스킬 배치와 CC로 상대 이동을 제한해 아군 스킬 딜러의 적중 각을 만들어줍니다.",
   arda: "아르다는 CC와 보조 능력으로 박치기 조합의 진입 호응을 안정적으로 만들어줍니다.",
   alonso: "알론소는 확정 CC와 넓은 광역 제어로 한 번에 교전을 열어 아군 포커싱 대상을 만들어줍니다.",
   yan: "얀은 근접 난전에서 CC와 압박을 넣어 상대 딜러가 편하게 딜하지 못하게 만듭니다.",
@@ -97,10 +97,10 @@ const signatureReasons = {
   cathy: "캐시는 빠른 진입과 폭딜로 상대 후방을 직접 노리는 암살 압박을 제공합니다.",
   kenneth: "케네스는 단단한 근접 지속딜로 앞라인과 함께 오래 싸우는 난전에 강합니다.",
   theodore: "테오도르는 원거리 지원과 보호막을 통해 대치 구도에서 아군 딜러의 안정성을 높입니다.",
-  hart: "하트는 짧은 거리에서 꾸준한 평타딜과 기동성을 살려 앞라인이 만든 교전 안에서 화력을 냅니다.",
+  hart: "하트는 짧은 거리에서 꾸준한 평타 화력과 기동성을 살려 앞라인이 만든 교전 안에서 힘을 냅니다.",
   tazia: "타지아는 짧은 거리 스킬 폭딜로 CC에 걸린 대상을 빠르게 마무리하는 데 강점이 있습니다.",
   karla: "칼라는 석궁 견제와 CC를 섞어 근거리로 붙는 상대를 제어하며 딜을 넣습니다.",
-  jenny: "제니는 기동성과 순간 스킬딜로 짧은 교전에서 포커싱 대상을 빠르게 압박합니다.",
+  jenny: "제니는 기동성과 순간 스킬 화력으로 짧은 교전에서 포커싱 대상을 빠르게 압박합니다.",
   tsubame: "츠바메는 후방 진입과 암살 압박으로 상대 원거리 딜러의 포지션을 무너뜨립니다.",
 };
 
@@ -111,6 +111,9 @@ const variantSignatureReasons = {
   "markus:hammer": "망치 마커스는 단단한 진입과 광역 압박으로 앞라인 교전을 열기 좋습니다.",
   "sho:dagger": "단검 쇼우는 탱커 역할을 하되 짧은 교전에서 더 빠르게 압박을 넣는 선택지입니다.",
   "sho:spear": "창 쇼우는 앞라인에서 버티며 지속 교전과 진입각을 안정적으로 만들어줍니다.",
+  "aya:pistol": "권총 아야는 기동성이 좋은 스킬 딜러라 위치를 바꾸며 포킹과 마무리 딜을 넣기 좋습니다.",
+  "aya:sniper_rifle": "저격총 아야는 더 강한 스킬 화력과 긴 사거리로 대치 구도에서 상대 핵심 딜러를 압박합니다.",
+  "aya:assault_rifle": "돌격소총 아야는 평타 지속딜이 안정적이라 앞라인 뒤에서 꾸준히 화력을 넣을 수 있습니다.",
 };
 
 function labelList(values) {
@@ -189,17 +192,13 @@ function ccCoverageScore(candidate, selected) {
 function ccSummary(character) {
   const cc = character.ccProfile ?? {};
   const parts = [];
-  if (cc.targeted) parts.push(`타겟팅 CC ${cc.targeted}개`);
-  if (cc.nonTarget) parts.push(`논타겟 CC ${cc.nonTarget}개`);
+  const total = (cc.targeted ?? 0) + (cc.nonTarget ?? 0);
+  const areaTotal = (cc.wide ?? 0) + (cc.medium ?? 0);
 
-  const areas = [];
-  if (cc.wide) areas.push(`넓은 광역 ${cc.wide}개`);
-  if (cc.medium) areas.push(`중간 광역 ${cc.medium}개`);
-  if (cc.narrow) areas.push(`좁은 광역 ${cc.narrow}개`);
-  if (cc.veryNarrow) areas.push(`매우 좁은 광역 ${cc.veryNarrow}개`);
-  if (cc.single) areas.push(`단일 대상 ${cc.single}개`);
-  if (areas.length) parts.push(areas.join(", "));
-  if (cc.conditional) parts.push("조건부 CC 포함");
+  if (cc.targeted) parts.push("확정 CC");
+  if (areaTotal) parts.push("광역 CC");
+  if (total > 0 && parts.length === 0) parts.push("CC기");
+  if (cc.conditional && parts.length > 0) parts.push("조건부 CC");
 
   return parts.join(", ");
 }
@@ -258,6 +257,17 @@ function teamShape(team) {
     sustainedCarries: team.filter(isSustainedCarry).length,
     diveFollowUps: team.filter(isDiveFollowUp).length,
   };
+}
+
+function teamShapeLabel(shape) {
+  if (shape.tanks === 1 && shape.backline === 2 && shape.melee === 0 && shape.supports === 0) return "1탱 2원";
+  if (shape.tanks === 0 && shape.melee === 1 && shape.backline === 2 && shape.supports === 0) return "1근 2원";
+  if (shape.tanks === 0 && shape.melee === 2 && shape.backline === 1 && shape.supports === 0) return "2근 1원";
+  if (shape.tanks === 0 && shape.melee === 2 && shape.supports === 1 && shape.backline === 0) return "2근 1서포터";
+  if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1 && shape.supports === 0) return "1탱 1근 1원";
+  if (shape.tanks >= 1 && shape.supports >= 1) return "탱커+서포터";
+  if (shape.tanks >= 2) return "투탱";
+  return `${shape.tanks}탱 ${shape.melee}근 ${shape.backline}원${shape.supports ? ` ${shape.supports}서포터` : ""}`;
 }
 
 function teamShapeScore(candidate, selected) {
@@ -319,10 +329,17 @@ function roleBalanceScore(candidate, selected) {
   return 0.5;
 }
 
-function damageBalanceScore(candidate, selected) {
+function killPressureScore(candidate, selected) {
+  if (!isBacklineDealer(candidate)) return 0;
   const damageTypes = selected.map((character) => character.damage);
-  const sameTypeCount = damageTypes.filter((type) => type === candidate.damage).length;
-  return sameTypeCount >= 2 ? -1.2 : sameTypeCount === 1 ? -0.2 : 0.8;
+  const basicCount = damageTypes.filter((type) => type === "basic").length;
+  const skillCount = damageTypes.filter((type) => type === "skill").length;
+
+  if (candidate.damage === "basic" && basicCount === 0) return 0.7;
+  if (candidate.damage === "skill" && skillCount === 0) return 0.45;
+  if (candidate.damage === "hybrid" && basicCount === 0) return 0.35;
+  if (candidate.damage === "skill" && skillCount >= 2 && basicCount === 0) return -0.7;
+  return 0;
 }
 
 function weaponBalanceScore(candidate, selected) {
@@ -489,7 +506,8 @@ function explain(candidate, selected, scores) {
   const currentTags = new Set(selected.flatMap((character) => character.tags));
   const addedTags = candidate.tags.filter((tag) => requiredTags.includes(tag) && !currentTags.has(tag));
   const job = roleJobs[candidate.role] ?? `${roleLabel(candidate)} 역할을 맡을 수 있습니다`;
-  const identity = `${subjectName(candidate)} ${candidate.weaponLabel} 무기를 쓰는 ${roleLabel(candidate)} / ${damageLabel(candidate)} 실험체입니다.`;
+  const identityDetail = isBacklineDealer(candidate) ? ` / ${damageLabel(candidate)}` : "";
+  const identity = `${subjectName(candidate)} ${candidate.weaponLabel} 무기를 쓰는 ${roleLabel(candidate)}${identityDetail} 실험체입니다.`;
   const signature = signatureReason(candidate);
 
   if (scores.teamShape <= -2.2) {
@@ -516,10 +534,14 @@ function explain(candidate, selected, scores) {
       reasons.push(`1탱 1근 1원 구조라 기본 효율은 낮지만, ${subjectName(tank)} 딜 기여가 가능한 탱커라 화력 보충을 전제로 선택할 수 있습니다.`);
     }
   }
-  if (scores.teamShape >= 1.4) reasons.push(`${objectName(candidate)} 넣으면 1탱 2원, 2근 1원, 2근 1서포터처럼 딜 자리가 충분한 안정적인 조합 형태가 됩니다.`);
+  if (scores.teamShape >= 1.4) {
+    const shape = teamShape([...selected, candidate]);
+    const shapeLabel = teamShapeLabel(shape);
+    reasons.push(`${objectName(candidate)} 넣으면 ${shapeLabel} 조합이 됩니다. 딜러 자리가 충분해 교전에서 상대를 마무리할 화력이 나옵니다.`);
+  }
   if (signature) reasons.push(signature);
 
-  if (scores.roleBalance >= 1.5 && reasons.length < 2) {
+  if (scores.roleBalance >= 1.5 && reasons.length < 1) {
     if (["frontline", "bruiser"].includes(candidate.role) && !selectedRoles.includes("frontline")) {
       reasons.push(`${identity} ${job}. 팀의 핵심 딜러가 뒤에서 딜할 시간을 벌어줍니다.`);
     } else if (["ranged", "mage"].includes(candidate.role) && !selectedRoles.includes("ranged") && !selectedRoles.includes("mage")) {
@@ -544,13 +566,11 @@ function explain(candidate, selected, scores) {
   if (scores.relationship >= 0.7) reasons.push(`누적 평가 데이터에서 ${withName(candidate)} 현재 팀원의 실제 궁합이 좋게 기록되어 가산점이 반영되었습니다.`);
   if (scores.relationship <= -0.7) reasons.push(`누적 평가 데이터에서 ${withName(candidate)} 현재 팀원의 궁합 평가가 낮아 감점이 반영되었습니다.`);
 
-  if (scores.damageBalance > 0) {
+  if (scores.killPressure > 0 && isBacklineDealer(candidate)) {
     if (candidate.damage === "basic") {
-      reasons.push(`평타딜을 보태 스킬딜 위주 조합의 딜 공백을 줄이고, 긴 교전에서 꾸준한 압박을 만듭니다.`);
+      reasons.push(`평타 딜러라 스킬이 빗나간 뒤에도 확정적으로 킬캐치를 이어갈 수 있습니다.`);
     } else if (candidate.damage === "skill") {
-      reasons.push(`스킬딜 타이밍을 보태 평타딜 위주 조합의 교전 패턴을 보완합니다.`);
-    } else {
-      reasons.push(`평타와 스킬을 함께 쓰는 혼합딜로 팀의 딜 방식이 한쪽으로 치우치지 않게 합니다.`);
+      reasons.push(`스킬 딜러라 유틸, 사거리, 순간 화력을 보태 교전 각을 더 다양하게 만듭니다.`);
     }
   }
 
@@ -601,7 +621,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     synergy: pairScore(candidate, selected),
     coverage: coverageScore(candidate, selected),
     roleBalance: roleBalanceScore(candidate, selected),
-    damageBalance: damageBalanceScore(candidate, selected),
+    killPressure: killPressureScore(candidate, selected),
     weaponBalance: weaponBalanceScore(candidate, selected),
     teamShape: teamShapeScore(candidate, selected),
     conflict: conflictScore(candidate, selected),
@@ -613,7 +633,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.synergy * 1.6 +
     scores.coverage +
     scores.roleBalance +
-    scores.damageBalance +
+    scores.killPressure +
     scores.weaponBalance +
     scores.teamShape +
     scores.conflict +

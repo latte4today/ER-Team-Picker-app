@@ -380,6 +380,9 @@ const tankVariantIds = new Set([
 ]);
 
 export const variantOverrides = {
+  "aya:pistol": { role: "mage", damage: "skill", tags: ["poke", "mobility", "focus"] },
+  "aya:sniper_rifle": { role: "mage", damage: "skill", tags: ["range", "burst", "poke"] },
+  "aya:assault_rifle": { role: "ranged", damage: "basic", tags: ["sustained", "range", "objective"] },
   "jackie:dagger": { role: "assassin", tags: ["burst", "dive", "focus"] },
   "magnus:bat": { tags: ["dive", "cc", "durable"] },
 };
