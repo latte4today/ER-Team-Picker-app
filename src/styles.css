@@ -179,7 +179,8 @@ p {
   gap: 8px;
 }
 
-.contact-button {
+.contact-button,
+.update-button {
   min-height: 34px;
   border: 1px solid rgba(67, 194, 223, 0.42);
   border-radius: 5px;
@@ -189,9 +190,46 @@ p {
   font-weight: 900;
 }
 
-.contact-button:hover {
+.contact-button:hover,
+.update-button:hover {
   border-color: var(--accent);
   background: var(--accent-soft);
+}
+
+.update-button:disabled {
+  cursor: wait;
+  opacity: 0.62;
+}
+
+.update-status {
+  display: grid;
+  gap: 4px;
+  min-height: 18px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.update-status strong {
+  color: var(--text);
+  font-size: 12px;
+}
+
+.update-status a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  border: 1px solid rgba(64, 255, 202, 0.5);
+  border-radius: 5px;
+  color: var(--accent-strong);
+  background: rgba(64, 255, 202, 0.1);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.update-status small {
+  color: var(--muted);
 }
 
 .app-main {

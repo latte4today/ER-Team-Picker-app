@@ -4,6 +4,7 @@ import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend } from "./recommender.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
+import { appVersion, releaseConfig } from "./updateConfig.js";
 
 const selectedIds = new Set();
 let activeRole = "all";
@@ -31,6 +32,8 @@ const contactForm = document.querySelector("#contact-form");
 const contactReply = document.querySelector("#contact-reply");
 const contactMessage = document.querySelector("#contact-message");
 const contactStatus = document.querySelector("#contact-status");
+const updateCheckButton = document.querySelector("#update-check-button");
+const updateStatus = document.querySelector("#update-status");
 const appMain = document.querySelector(".app-main");
 const sideTabs = document.querySelectorAll("[data-view]");
 
@@ -90,6 +93,82 @@ function openContactModal() {
 function closeContactModal() {
   contactModal.hidden = true;
   contactStatus.textContent = "";
+}
+
+function normalizeVersion(version) {
+  return String(version ?? "")
+    .trim()
+    .replace(/^v/i, "")
+    .split(".")
+    .map((part) => Number.parseInt(part, 10) || 0);
+}
+
+function compareVersions(a, b) {
+  const left = normalizeVersion(a);
+  const right = normalizeVersion(b);
+  const length = Math.max(left.length, right.length);
+  for (let index = 0; index < length; index += 1) {
+    const diff = (left[index] ?? 0) - (right[index] ?? 0);
+    if (diff !== 0) return diff;
+  }
+  return 0;
+}
+
+function releaseInstallerUrl(release) {
+  const asset = release.assets?.find((item) => releaseConfig.installerPattern.test(item.name));
+  return asset?.browser_download_url ?? release.html_url;
+}
+
+async function checkForUpdates() {
+  updateCheckButton.disabled = true;
+  updateStatus.innerHTML = "최신 버전 확인 중";
+  try {
+    const release = await fetchLatestRelease();
+    const latestVersion = release.tag_name ?? release.name ?? "";
+    if (compareVersions(latestVersion, appVersion) <= 0) {
+      updateStatus.innerHTML = `현재 최신 버전입니다. <small>v${appVersion}</small>`;
+      return;
+    }
+
+    const installerUrl = releaseInstallerUrl(release);
+    updateStatus.innerHTML = `
+      <strong>새 버전 ${latestVersion}</strong>
+      <a href="${installerUrl}" target="_blank" rel="noreferrer">설치 파일 열기</a>
+      <small>설치 전 앱을 종료해주세요.</small>
+    `;
+  } catch (error) {
+    updateStatus.innerHTML = `업데이트 확인 실패 <small>${error.message ?? "네트워크를 확인해주세요."}</small>`;
+  } finally {
+    updateCheckButton.disabled = false;
+  }
+}
+
+async function fetchLatestRelease() {
+  const response = await fetch(`https://api.github.com/repos/${releaseConfig.owner}/${releaseConfig.repo}/releases/latest`, {
+    headers: { Accept: "application/vnd.github+json" },
+  });
+  if (!response.ok) throw new Error(`GitHub 응답 오류 ${response.status}`);
+  return response.json();
+}
+
+async function checkForUpdatesOnStartup() {
+  try {
+    const release = await fetchLatestRelease();
+    const latestVersion = release.tag_name ?? release.name ?? "";
+    if (compareVersions(latestVersion, appVersion) <= 0) return;
+
+    const installerUrl = releaseInstallerUrl(release);
+    updateStatus.innerHTML = `
+      <strong>새 버전 ${latestVersion}</strong>
+      <a href="${installerUrl}" target="_blank" rel="noreferrer">설치 파일 열기</a>
+      <small>설치 전 앱을 종료해주세요.</small>
+    `;
+
+    const wantsUpdate = window.confirm(`새로운 업데이트가 있습니다.\n\n현재 버전: v${appVersion}\n최신 버전: ${latestVersion}\n\n업데이트를 받으시겠습니까?`);
+    if (wantsUpdate) window.open(installerUrl, "_blank", "noopener,noreferrer");
+  } catch {
+    // 시작할 때 네트워크가 막혀 있어도 앱 사용은 계속 가능해야 합니다.
+  }
 }
 
 function renderRoleFilters() {
@@ -199,7 +278,7 @@ function renderSelectedTeam() {
   selectedCount.textContent = selected.length;
 
   if (selected.length === 0) {
-    selectedTeam.innerHTML = `<p class="empty-state">팀원이 고른 캐릭터를 선택하면 추천이 바로 갱신됩니다.</p>`;
+    selectedTeam.innerHTML = `<p class="empty-state">팀원이 고른 실험체를 선택하면 추천이 바로 갱신됩니다.</p>`;
     return;
   }
 
@@ -320,16 +399,16 @@ function compositionReason(row, isUserFeedback) {
   const ranges = new Set(characters.map((character) => character.weaponRange));
 
   if (roles.has("frontline") && (roles.has("ranged") || roles.has("mage"))) {
-    return "앞라인이 시야와 진입 각을 만들고, 뒤에서 안정적으로 딜을 넣기 좋은 조합입니다.";
+    return "앞라인이 시야와 진입각을 만들고, 후방 딜러가 안정적으로 딜을 넣기 좋은 조합입니다.";
   }
   if ((roles.has("bruiser") || roles.has("assassin")) && tags.has("focus")) {
-    return "한 대상을 빠르게 몰아치는 포커싱이 좋아 교전 시작 후 킬 결정력이 높습니다.";
+    return "한 대상을 빠르게 몰아칠 수 있어 교전 시작 후 킬 결정력이 높습니다.";
   }
   if (tags.has("initiate") && tags.has("cc")) {
     return "이니쉬와 CC가 함께 있어 먼저 싸움을 열고 흐름을 잡기 좋습니다.";
   }
   if (tags.has("peel") && (roles.has("ranged") || roles.has("mage"))) {
-    return "보호 능력과 원거리 딜이 함께 있어 받아치는 교전에 강점이 있습니다.";
+    return "아군 보호 능력과 원거리 딜이 함께 있어 받아치는 교전에 강점이 있습니다.";
   }
   if (ranges.has("melee") && ranges.has("ranged")) {
     return "근거리와 원거리 역할이 섞여 있어 교전 거리 선택지가 넓습니다.";
@@ -337,7 +416,7 @@ function compositionReason(row, isUserFeedback) {
 
   const top3 = Math.round((row.top3Rate ?? 0) * 100);
   if (isUserFeedback) return "사용자 평가에서 실제 경기 후 반응이 좋았던 조합입니다.";
-  if (top3 >= 70) return "랭커 전적에서 상위권 마무리가 많아 안정성이 확인된 조합입니다.";
+  if (top3 >= 70) return "랭커 전적에서 상위권으로 마무리한 비율이 높아 안정성이 확인된 조합입니다.";
   return "랭커 전적에서 반복적으로 등장해 참고할 만한 조합입니다.";
 }
 
@@ -402,7 +481,7 @@ function renderHomeDashboard() {
       <section class="combo-section">
         <div class="section-title-row">
           <h3>추천 조합</h3>
-          <span>사용자 경기 후 평가 기준</span>
+        <span>사용자 경기 후 평가 기준</span>
         </div>
         <div class="combo-split">
           <div>
@@ -436,7 +515,7 @@ function renderRecommendations() {
     recommendations.innerHTML = `
       <div class="setup-recommendation-empty">
         <strong>팀원을 선택하면 추천 후보가 표시됩니다.</strong>
-        <span>실험체 카드를 누르면 팀원 1, 팀원 2, 나 순서로 기록되고 바로 추천이 갱신됩니다.</span>
+        <span>실험체 카드를 누르면 팀원 1, 팀원 2, 나 순서로 기록되며 추천이 바로 갱신됩니다.</span>
       </div>
     `;
     return;
@@ -445,7 +524,7 @@ function renderRecommendations() {
   const playablePool = playableCharacterIds.size > 0 ? [...playableCharacterIds] : undefined;
   const results = recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, popularFeedback);
   if (results.length === 0) {
-    recommendations.innerHTML = `<p class="empty-state">가능 실험체 목록 안에서 추천할 후보가 없습니다.</p>`;
+    recommendations.innerHTML = `<p class="empty-state">현재 가능 실험체 목록 안에는 추천할 후보가 없습니다.</p>`;
     return;
   }
   recommendations.innerHTML = results
@@ -635,6 +714,7 @@ sideTabs.forEach((button) => {
 });
 
 contactOpenButton.addEventListener("click", openContactModal);
+updateCheckButton.addEventListener("click", checkForUpdates);
 
 contactModal.addEventListener("click", (event) => {
   if (event.target.closest("[data-contact-close]")) closeContactModal();
@@ -649,7 +729,7 @@ contactForm.addEventListener("submit", (event) => {
   const replyTo = contactReply.value.trim();
   const message = contactMessage.value.trim();
   if (!replyTo) {
-    contactStatus.textContent = "답장 받을 이메일을 입력해주세요.";
+    contactStatus.textContent = "답장받을 이메일을 입력해주세요.";
     contactReply.focus();
     return;
   }
@@ -740,7 +820,7 @@ manualSlots.addEventListener("click", (event) => {
   const button = event.target.closest("[data-manual-slot]");
   if (!button) return;
   activeSlot = Number(button.dataset.manualSlot);
-  renderDetectedTeam([], `${button.textContent} 변경 모드입니다. 아래 카드 하나를 누르면 이 칸에 기록됩니다.`);
+  renderDetectedTeam([], `${button.textContent} 변경 모드입니다. 아래 실험체 카드 하나를 누르면 이 칸에 기록됩니다.`);
   renderManualSlots();
 });
 
@@ -750,3 +830,4 @@ themeToggle.addEventListener("click", () => {
 });
 
 render();
+setTimeout(checkForUpdatesOnStartup, 1200);

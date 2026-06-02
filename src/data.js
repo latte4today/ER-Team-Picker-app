@@ -223,31 +223,198 @@ export const characterWeapons = {
   zahir: ["throw", "shuriken"],
 };
 
+const emptyCcProfile = {
+  targeted: 0,
+  nonTarget: 0,
+  single: 0,
+  veryNarrow: 0,
+  narrow: 0,
+  medium: 0,
+  wide: 0,
+  conditional: 0,
+};
+
+function cc(profile) {
+  return { ...emptyCcProfile, ...profile };
+}
+
+export const ccProfiles = {
+  garnet: cc({ nonTarget: 3, medium: 1, single: 2 }),
+  nathapon: cc({ nonTarget: 3, medium: 2, single: 1 }),
+  nia: cc({ nonTarget: 2, narrow: 2 }),
+  nicky: cc({ targeted: 1, nonTarget: 1, single: 1, medium: 1 }),
+  darko: cc({ targeted: 1, nonTarget: 1, single: 1, medium: 1 }),
+  debi_marlene: cc({ nonTarget: 2, medium: 1, narrow: 1 }),
+  tia: cc({ nonTarget: 2, wide: 1, medium: 1 }),
+  laura: cc({ nonTarget: 2, narrow: 1, medium: 1 }),
+  lenox: cc({ nonTarget: 2, medium: 1, single: 1 }),
+  leni: cc({ nonTarget: 2, narrow: 2 }),
+  leon: cc({ nonTarget: 2, narrow: 1, wide: 1 }),
+  luke: cc({ nonTarget: 1, veryNarrow: 1 }),
+  lenore: cc({ nonTarget: 3, medium: 2, single: 1 }),
+  li_dailin: cc({ nonTarget: 1, single: 1 }),
+  martina: cc({ nonTarget: 2, narrow: 1, medium: 1 }),
+  mai: cc({ nonTarget: 1, medium: 1 }),
+  markus: cc({ nonTarget: 2, single: 1, medium: 1 }),
+  magnus: cc({ targeted: 1, single: 1, conditional: 1 }),
+  mirka: cc({ nonTarget: 3, medium: 3 }),
+  vanya: cc({ nonTarget: 1, wide: 1 }),
+  barbara: cc({ nonTarget: 2, medium: 2 }),
+  bernice: cc({ nonTarget: 2, veryNarrow: 1, medium: 1 }),
+  bianca: cc({ nonTarget: 1, single: 1 }),
+  bihyung: cc({ nonTarget: 1, medium: 1 }),
+  celine: cc({ nonTarget: 1, medium: 1 }),
+  sho: cc({ nonTarget: 1, medium: 1 }),
+  sua: cc({ nonTarget: 2, single: 1, narrow: 1 }),
+  sissela: cc({ nonTarget: 1, single: 1 }),
+  silvia: cc({ nonTarget: 1, narrow: 1 }),
+  adela: cc({ nonTarget: 2, narrow: 2 }),
+  adina: cc({ nonTarget: 1, narrow: 1 }),
+  arda: cc({ nonTarget: 3, medium: 2, narrow: 1 }),
+  aya: cc({ nonTarget: 1, wide: 1 }),
+  isol: cc({ nonTarget: 1, single: 1 }),
+  isaac: cc({ nonTarget: 1, narrow: 1 }),
+  alex: cc({ nonTarget: 2, narrow: 1, medium: 1 }),
+  alonso: cc({ targeted: 2, nonTarget: 1, single: 2, wide: 1 }),
+  yan: cc({ nonTarget: 2, narrow: 2 }),
+  estelle: cc({ targeted: 1, nonTarget: 2, single: 2, wide: 1 }),
+  aiden: cc({ nonTarget: 2, medium: 2 }),
+  echion: cc({ nonTarget: 1, medium: 1, conditional: 1 }),
+  elena: cc({ nonTarget: 1, wide: 1, conditional: 1 }),
+  emma: cc({ targeted: 1, nonTarget: 1, medium: 1, narrow: 1 }),
+  johann: cc({ nonTarget: 1, medium: 1 }),
+  william: cc({ nonTarget: 1, narrow: 1 }),
+  yumin: cc({ nonTarget: 2, medium: 1, wide: 1 }),
+  yuki: cc({ targeted: 1, single: 1 }),
+  irem: cc({ nonTarget: 2, narrow: 1, medium: 1 }),
+  eva: cc({ nonTarget: 1, medium: 1 }),
+  istvan: cc({ nonTarget: 1, medium: 1 }),
+  ian: cc({ nonTarget: 2, narrow: 1, medium: 1 }),
+  eleven: cc({ nonTarget: 2, medium: 2 }),
+  zahir: cc({ nonTarget: 1, medium: 1 }),
+  jenny: cc({ nonTarget: 1, medium: 1 }),
+  camilo: cc({ nonTarget: 1, medium: 1, conditional: 1 }),
+  cathy: cc({ nonTarget: 1, narrow: 1 }),
+  kenneth: cc({ nonTarget: 2, medium: 2 }),
+  coreline: cc({ nonTarget: 1, medium: 1 }),
+  chloe: cc({ nonTarget: 1, medium: 1 }),
+  chiara: cc({ nonTarget: 1, single: 1 }),
+  tazia: cc({ nonTarget: 1, narrow: 1 }),
+  theodore: cc({ nonTarget: 1, medium: 1 }),
+  fenrir: cc({ targeted: 1, nonTarget: 1, single: 2 }),
+  felix: cc({ nonTarget: 2, narrow: 1, medium: 1 }),
+  priya: cc({ nonTarget: 1, wide: 1 }),
+  fiora: cc({ nonTarget: 1, narrow: 1 }),
+  piolo: cc({ nonTarget: 1, single: 1 }),
+  haze: cc({ nonTarget: 1, narrow: 1 }),
+  henry: cc({ nonTarget: 2, wide: 1, medium: 1 }),
+  hyunwoo: cc({ nonTarget: 1, medium: 1 }),
+  hyejin: cc({ nonTarget: 2, medium: 2 }),
+  hisui: cc({ nonTarget: 1, single: 1 }),
+};
+
+const initiatorCharacterIds = new Set([
+  "garnet",
+  "nathapon",
+  "nia",
+  "nicky",
+  "darko",
+  "debi_marlene",
+  "tia",
+  "laura",
+  "lenox",
+  "leni",
+  "leon",
+  "martina",
+  "mai",
+  "markus",
+  "magnus",
+  "mirka",
+  "barbara",
+  "bernice",
+  "bianca",
+  "bihyung",
+  "sua",
+  "sissela",
+  "adela",
+  "arda",
+  "alex",
+  "alonso",
+  "yan",
+  "estelle",
+  "elena",
+  "ian",
+  "eleven",
+  "cathy",
+  "kenneth",
+  "theodore",
+]);
+
+const shortRangeDealerIds = new Set([
+  "rozzi",
+  "bernice",
+  "barbara",
+  "silvia",
+  "henry",
+  "hart",
+  "tazia",
+  "karla",
+  "tsubame",
+  "jenny",
+]);
+
+const tankVariantIds = new Set([
+  "estelle:axe",
+  "alonso:glove",
+  "sho:dagger",
+  "sho:spear",
+  "elena:rapier",
+  "lenox:whip",
+  "magnus:hammer",
+  "mai:whip",
+  "eleven:hammer",
+  "mirka:hammer",
+  "garnet:bat",
+  "markus:hammer",
+  "markus:axe",
+]);
+
 export const variantOverrides = {
   "jackie:dagger": { role: "assassin", tags: ["burst", "dive", "focus"] },
-  "magnus:bat": { role: "bruiser", tags: ["dive", "cc", "durable"] },
+  "magnus:bat": { tags: ["dive", "cc", "durable"] },
 };
 
 characters.forEach((character) => {
   character.weapons = characterWeapons[character.id] ?? ["unknown"];
   character.image = `assets/characters/mini/${character.id}.png`;
   character.imageTemplates = [character.image, ...(skinTemplates[character.id] ?? [])];
+  character.ccProfile = ccProfiles[character.id] ?? emptyCcProfile;
 });
 
 export const characterVariants = characters.flatMap((character) =>
   character.weapons.map((weapon) => {
     const weaponType = weaponTypes[weapon] ?? weaponTypes.unknown;
     const override = variantOverrides[`${character.id}:${weapon}`] ?? {};
-    const tags = override.tags ?? character.tags;
+    const variantId = `${character.id}:${weapon}`;
+    const role = tankVariantIds.has(variantId)
+      ? "frontline"
+      : override.role ?? (character.role === "frontline" ? "bruiser" : character.role);
+    const tags = [
+      ...(override.tags ?? character.tags),
+      ...(initiatorCharacterIds.has(character.id) ? ["initiate"] : []),
+      ...(shortRangeDealerIds.has(character.id) ? ["short_range_dealer"] : []),
+    ];
     return {
       ...character,
       ...override,
-      variantId: `${character.id}:${weapon}`,
+      variantId,
       characterId: character.id,
+      role,
       weapon,
       weaponLabel: weaponType.label,
       weaponStyle: weaponType.style ?? "",
       weaponRange: weaponType.range,
+      ccProfile: ccProfiles[character.id] ?? emptyCcProfile,
       tags: [...new Set(tags)],
     };
   }),

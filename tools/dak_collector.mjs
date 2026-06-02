@@ -319,8 +319,11 @@ export function oneTrickWeight(oneTrickRatio = 0) {
 }
 
 export function placementScore({ avgPlacement, winRate = 0, top3Rate = 0 }) {
-  const placement = typeof avgPlacement === "number" ? Math.max(0, 1 - (avgPlacement - 1) / 7) : 0.45;
-  return placement * 0.9 + winRate * 1.4 + top3Rate * 0.9;
+  const placement = typeof avgPlacement === "number" ? (4.5 - avgPlacement) / 3.5 : 0;
+  const top3 = top3Rate - 0.375;
+  const win = winRate - 0.125;
+  const score = placement * 1.35 + top3 * 1.15 + win * 1.45;
+  return Math.max(-2.4, Math.min(2.8, score));
 }
 `;
 }

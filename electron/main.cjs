@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, desktopCapturer, session } = require("electron");
+const { app, BrowserWindow, Menu, desktopCapturer, session, shell } = require("electron");
 const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
@@ -82,6 +82,10 @@ async function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
+  mainWindow.webContents.setWindowOpenHandler(({ url: targetUrl }) => {
+    shell.openExternal(targetUrl);
+    return { action: "deny" };
+  });
   await mainWindow.loadURL(url);
 }
 

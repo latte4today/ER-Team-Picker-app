@@ -17,9 +17,11 @@
         </div>
         <nav class="side-nav" aria-label="주요 메뉴">
           <button class="side-tab active" type="button" data-view="setup">조합 구성</button>
-          <button class="side-tab" type="button" data-view="recommendations">추천 후보</button>
+          <button class="side-tab" type="button" data-view="recommendations">랭킹</button>
         </nav>
         <div class="side-footer">
+          <button class="update-button" id="update-check-button" type="button">업데이트 확인</button>
+          <div class="update-status" id="update-status" role="status"></div>
           <button class="contact-button" id="contact-open-button" type="button">문의 보내기</button>
           <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="true">다크 모드</button>
         </div>
@@ -71,7 +73,7 @@
 
             <section class="panel guide-strip" aria-label="사용 방법">
               <strong>간단 안내</strong>
-              <span>실험체 선택이 주 입력입니다. 가능 실험체를 지정하면 그 안에서 추천하고, 경기 후 평가는 다음 추천에 반영됩니다.</span>
+              <span>실험체 카드를 눌러 팀을 구성하세요. 가능 실험체를 지정하면 해당 목록 안에서만 추천하고, 경기 후 평가는 다음 추천에 반영됩니다.</span>
             </section>
 
             <section class="panel character-panel" aria-label="실험체 목록">
@@ -83,7 +85,7 @@
               </div>
               <label class="search-box">
                 <span>검색</span>
-                <input id="search-input" type="search" placeholder="실험체 또는 무기 검색">
+                <input id="search-input" type="search" placeholder="실험체 이름 검색">
               </label>
               <div class="playable-tools" aria-label="가능 실험체 설정">
                 <button class="ghost-button" id="playable-mode-button" type="button" aria-pressed="false">가능 실험체 설정</button>
