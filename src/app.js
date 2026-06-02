@@ -1,5 +1,4 @@
 import { characterVariants, roleNames, roles } from "./data.js";
-import { detectTeamFromScreenshot } from "./detector.js";
 import { getFeedbackEntry, recordFeedback } from "./feedback.js";
 import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
@@ -18,16 +17,8 @@ const selectedCount = document.querySelector("#selected-count");
 const clearButton = document.querySelector("#clear-button");
 const searchInput = document.querySelector("#search-input");
 const roleFilters = document.querySelector("#role-filters");
-const screenshotInput = document.querySelector("#screenshot-input");
-const screenCaptureButton = document.querySelector("#screen-capture-button");
-const clearScreenshotButton = document.querySelector("#clear-screenshot-button");
-const detectButton = document.querySelector("#detect-button");
-const captureCanvas = document.querySelector("#capture-canvas");
-const screenshotPreview = document.querySelector("#screenshot-preview");
-const capturePreview = document.querySelector("#capture-preview");
 const detectedTeam = document.querySelector("#detected-team");
 const tierSelect = document.querySelector("#tier-select");
-const slotOverlay = document.querySelector("#slot-overlay");
 const syncStatus = document.querySelector("#sync-status");
 const manualSlots = document.querySelector("#manual-slots");
 const themeToggle = document.querySelector("#theme-toggle");
@@ -43,14 +34,12 @@ const contactStatus = document.querySelector("#contact-status");
 const appMain = document.querySelector(".app-main");
 const sideTabs = document.querySelectorAll("[data-view]");
 
-let screenshotImage;
 let activeSlot = null;
 let remoteFeedback = {};
 let popularFeedback = [];
 let isRefreshingRemote = false;
 let isRefreshingPopular = false;
 let popularFeedbackLoaded = false;
-let screenStream;
 let chosenPickId = null;
 const slotAssignments = [null, null, null];
 const savedTheme = localStorage.getItem("er-team-picker-theme");
@@ -229,7 +218,6 @@ function primaryVariantForCharacter(characterId, weapon) {
 function renderDetectedTeam(matches = [], status = "") {
   if (status) {
     detectedTeam.innerHTML = `<p class="detected-status">${status}</p>`;
-    renderSlotOverlay();
     return;
   }
 
@@ -242,7 +230,6 @@ function renderDetectedTeam(matches = [], status = "") {
 
   if (assigned.length === 0 && matches.length === 0) {
     detectedTeam.innerHTML = `<p class="detected-status">카드를 클릭하면 팀원 1, 팀원 2, 나 순서로 자동 기록됩니다.</p>`;
-    renderSlotOverlay();
     return;
   }
 
@@ -277,7 +264,6 @@ function renderDetectedTeam(matches = [], status = "") {
     : "";
 
   detectedTeam.innerHTML = manualChips || detectedChips;
-  renderSlotOverlay();
 }
 
 function popularFeedbackRows(sortMode = "overall") {
@@ -542,34 +528,6 @@ function feedbackLabel(candidateId) {
   return `좋음 ${entry.likes} · 싫음 ${entry.dislikes}`;
 }
 
-function setScreenshotSource(src, status = "스크린샷을 불러왔습니다.") {
-  screenshotImage = new Image();
-  screenshotImage.onload = () => {
-    screenshotPreview.src = src;
-    capturePreview.hidden = false;
-    detectButton.disabled = false;
-    clearScreenshotButton.disabled = false;
-    activeSlot = null;
-    renderDetectedTeam([], status);
-  };
-  screenshotImage.src = src;
-}
-
-function clearScreenshot() {
-  screenshotImage = undefined;
-  screenshotPreview.removeAttribute("src");
-  screenshotInput.value = "";
-  capturePreview.hidden = true;
-  detectButton.disabled = true;
-  clearScreenshotButton.disabled = true;
-  activeSlot = null;
-  slotAssignments.fill(null);
-  chosenPickId = null;
-  syncSelectedFromSlots();
-  renderDetectedTeam([], "스크린샷을 지웠습니다.");
-  render();
-}
-
 async function refreshRemoteFeedback() {
   if (isRefreshingRemote) return;
   isRefreshingRemote = true;
@@ -615,7 +573,6 @@ function render() {
   renderSelectedTeam();
   renderMatchFeedback();
   renderRecommendations();
-  renderSlotOverlay();
   renderManualSlots();
   refreshRemoteFeedback();
   refreshPopularFeedback();
@@ -628,16 +585,6 @@ function renderManualSlots() {
     button.classList.toggle("active", activeSlot === slotIndex);
     button.classList.toggle("filled", Boolean(variant));
     button.textContent = variant ? `${slotIndex === 0 ? "나" : `팀원 ${slotIndex}`} · ${variant.name}` : slotIndex === 0 ? "나" : `팀원 ${slotIndex}`;
-  });
-}
-
-function renderSlotOverlay() {
-  slotOverlay.querySelectorAll("[data-slot]").forEach((button) => {
-    const slotIndex = Number(button.dataset.slot);
-    const variant = characterVariants.find((character) => character.variantId === slotAssignments[slotIndex]);
-    button.classList.toggle("active", activeSlot === slotIndex);
-    button.classList.toggle("filled", Boolean(variant));
-    button.textContent = variant ? `${slotIndex === 0 ? "나" : `팀원 ${slotIndex}`} · ${variant.name}` : button.dataset.slot === "0" ? "나" : `팀원 ${slotIndex}`;
   });
 }
 
@@ -789,91 +736,12 @@ matchFeedback.addEventListener("click", (event) => {
   renderRecommendations();
 });
 
-screenshotInput.addEventListener("change", () => {
-  const file = screenshotInput.files?.[0];
-  if (!file) return;
-
-  const url = URL.createObjectURL(file);
-  setScreenshotSource(url);
-});
-
-document.addEventListener("paste", (event) => {
-  const imageItem = [...(event.clipboardData?.items ?? [])].find((item) => item.type.startsWith("image/"));
-  if (!imageItem) return;
-
-  const file = imageItem.getAsFile();
-  if (!file) return;
-
-  setScreenshotSource(URL.createObjectURL(file), "붙여넣은 이미지를 불러왔습니다.");
-});
-
-screenCaptureButton.addEventListener("click", async () => {
-  if (!navigator.mediaDevices?.getDisplayMedia) {
-    renderDetectedTeam([], "이 브라우저는 화면 캡처를 지원하지 않습니다.");
-    return;
-  }
-
-  try {
-    screenStream = await navigator.mediaDevices.getDisplayMedia({
-      video: { frameRate: 1 },
-      audio: false,
-    });
-    const video = document.createElement("video");
-    video.srcObject = screenStream;
-    await video.play();
-
-    const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext("2d").drawImage(video, 0, 0);
-    setScreenshotSource(canvas.toDataURL("image/png"), "현재 화면을 캡처했습니다.");
-  } catch {
-    renderDetectedTeam([], "화면 캡처가 취소되었습니다.");
-  } finally {
-    screenStream?.getTracks().forEach((track) => track.stop());
-    screenStream = undefined;
-  }
-});
-
-clearScreenshotButton.addEventListener("click", clearScreenshot);
-
 manualSlots.addEventListener("click", (event) => {
   const button = event.target.closest("[data-manual-slot]");
   if (!button) return;
   activeSlot = Number(button.dataset.manualSlot);
   renderDetectedTeam([], `${button.textContent} 변경 모드입니다. 아래 카드 하나를 누르면 이 칸에 기록됩니다.`);
   renderManualSlots();
-});
-
-slotOverlay.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-slot]");
-  if (!button) return;
-  activeSlot = Number(button.dataset.slot);
-  renderDetectedTeam([], `${button.textContent} 슬롯을 선택했습니다. 아래 캐릭터/무기 카드를 눌러 지정하세요.`);
-  renderCharacters();
-});
-
-detectButton.addEventListener("click", async () => {
-  if (!screenshotImage) return;
-  detectButton.disabled = true;
-  renderDetectedTeam([], "팀 선택 정보를 확인하는 중입니다.");
-
-  try {
-    const matches = await detectTeamFromScreenshot(screenshotImage, captureCanvas);
-    slotAssignments.fill(null);
-    selectedIds.clear();
-    matches.forEach((match) => {
-      const variant = primaryVariantForCharacter(match.character.id, match.weapon);
-      if (variant) slotAssignments[match.slotIndex] = variant.variantId;
-    });
-    syncSelectedFromSlots();
-    renderDetectedTeam(matches);
-    render();
-  } catch (error) {
-    renderDetectedTeam([], "이미지 감지에 실패했습니다.");
-  } finally {
-    detectButton.disabled = false;
-  }
 });
 
 themeToggle.addEventListener("click", () => {

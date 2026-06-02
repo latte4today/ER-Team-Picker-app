@@ -74,34 +74,6 @@
               <span>실험체 선택이 주 입력입니다. 가능 실험체를 지정하면 그 안에서 추천하고, 경기 후 평가는 다음 추천에 반영됩니다.</span>
             </section>
 
-            <section class="panel capture-box" id="capture-section" aria-label="화면 인식">
-              <div class="panel-header">
-                <div>
-                  <p class="section-kicker">Capture</p>
-                  <h2>화면 인식</h2>
-                </div>
-              </div>
-              <div class="capture-actions">
-                <label class="capture-drop">
-                  <input id="screenshot-input" type="file" accept="image/*">
-                  <span>스크린샷 선택 또는 Ctrl+V</span>
-                </label>
-                <button class="ghost-button" id="screen-capture-button" type="button">현재 화면 캡처</button>
-                <button class="ghost-button" id="clear-screenshot-button" type="button" disabled>스크린샷 지우기</button>
-              </div>
-              <button class="primary-button" id="detect-button" type="button" disabled>팀 선택 자동 인식</button>
-              <canvas id="capture-canvas" hidden></canvas>
-              <div class="capture-preview" id="capture-preview" hidden>
-                <img id="screenshot-preview" alt="">
-                <div class="slot-overlay" id="slot-overlay" aria-label="팀 슬롯 선택">
-                  <button class="slot-button self-slot" type="button" data-slot="0">나</button>
-                  <button class="slot-button" type="button" data-slot="1">팀원 1</button>
-                  <button class="slot-button" type="button" data-slot="2">팀원 2</button>
-                </div>
-              </div>
-              <div class="detected-team" id="detected-team"></div>
-            </section>
-
             <section class="panel character-panel" aria-label="실험체 목록">
               <div class="panel-header">
                 <div>
@@ -120,6 +92,7 @@
               </div>
               <div class="filter-row" id="role-filters"></div>
               <div class="character-grid" id="character-grid"></div>
+              <div class="detected-team" id="detected-team"></div>
             </section>
           </section>
 
