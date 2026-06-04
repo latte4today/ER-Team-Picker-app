@@ -74,9 +74,9 @@ const signatureReasons = {
   rio: "리오는 긴 사거리의 평타 지속딜로 앞라인 뒤에서 안정적으로 핵심 화력을 담당합니다.",
   martina: "마르티나는 카메라 기반 견제와 후반 화력이 있어 대치가 길어지는 조합에서 힘을 냅니다.",
   mai: "마이는 보호와 세이브 능력이 좋아 아군 핵심 딜러를 살리는 받아치기 조합에 어울립니다.",
-  markus: "마커스는 단단한 진입과 딜 기여를 함께 할 수 있어 1탱 1근 1원에서도 화력 공백을 줄여줍니다.",
+  markus: "마커스는 단단한 진입과 데미지 기여를 함께 할 수 있어 1탱 1근 1원에서도 화력 공백을 줄여줍니다.",
   magnus: "매그너스는 강한 진입과 근접 압박으로 상대 진형을 밀어내고 교전 시작점을 만들기 좋습니다.",
-  mirka: "미르카는 탱커 중에서도 딜 기여와 광역 CC가 있어 앞라인과 화력 보충을 동시에 맡을 수 있습니다.",
+  mirka: "미르카는 탱커 중에서도 데미지 기여와 광역 CC가 있어 앞라인과 화력 보충을 동시에 맡을 수 있습니다.",
   vanya: "바냐는 보호막과 광역 견제로 상대 진입을 받아치며 긴 교전을 안정적으로 만듭니다.",
   barbara: "바바라는 설치물 중심의 지역 장악으로 상대가 들어오는 길을 제한하고 지속 화력을 냅니다.",
   bernice: "버니스는 덫과 저지력으로 상대 진입을 끊어 짧은 사거리 딜러의 약점을 보완합니다.",
@@ -91,8 +91,8 @@ const signatureReasons = {
   arda: "아르다는 CC와 보조 능력으로 박치기 조합의 진입 호응을 안정적으로 만들어줍니다.",
   alonso: "알론소는 확정 CC와 넓은 광역 제어로 한 번에 교전을 열어 아군 포커싱 대상을 만들어줍니다.",
   yan: "얀은 근접 난전에서 CC와 압박을 넣어 상대 딜러가 편하게 딜하지 못하게 만듭니다.",
-  estelle: "에스텔은 보호와 딜 기여가 모두 가능해 탱커지만 화력 공백을 어느 정도 메울 수 있습니다.",
-  elena: "엘레나는 광역 진입과 딜 기여가 있어 앞라인을 세우면서도 교전 화력을 보탭니다.",
+  estelle: "에스텔은 보호와 데미지 기여가 모두 가능해 탱커지만 화력 공백을 어느 정도 메울 수 있습니다.",
+  elena: "엘레나는 광역 진입과 데미지 기여가 있어 앞라인을 세우면서도 교전 화력을 보탭니다.",
   yumin: "유민은 스킬 딜러로 중거리 포킹과 유틸을 섞어 앞라인 뒤에서 안정적으로 압박을 넣습니다.",
   justina: "유스티나는 스킬 화력과 기동성을 살려 대치 중 빈틈을 찌르고 포커싱 대상을 빠르게 압박합니다.",
   ian: "이안은 진입 후 폭딜과 포커싱이 강해 CC가 들어간 대상을 빠르게 녹이는 데 어울립니다.",
@@ -229,10 +229,39 @@ function isReliableDps(character) {
   return isMeleeDealer(character) || isBacklineDealer(character);
 }
 
+function isFrontRole(character) {
+  return isTank(character) || character.role === "bruiser";
+}
+
+function isHighDamageFront(character) {
+  return isFrontRole(character) && character.frontDamage === "high";
+}
+
+function isLowDamageFront(character) {
+  return isFrontRole(character) && character.frontDamage === "low";
+}
+
+function isHighDamageBackline(character) {
+  return isBacklineDealer(character) && character.backlineDamage === "high";
+}
+
+function isLowDamageBackline(character) {
+  return isBacklineDealer(character) && character.backlineDamage === "low";
+}
+
+function isHighDamageContributor(character) {
+  return isHighDamageFront(character) || isHighDamageBackline(character) || character.role === "assassin";
+}
+
+function isLowDamageContributor(character) {
+  return isLowDamageFront(character) || isLowDamageBackline(character) || isSupport(character);
+}
+
 function isDamageLeaningTank(character) {
   return (
     isTank(character) &&
-    (character.damage === "hybrid" ||
+    (character.frontDamage === "high" ||
+      character.damage === "hybrid" ||
       character.tags.includes("burst") ||
       character.tags.includes("sustained") ||
       damageCapableTankIds.has(character.characterId))
@@ -259,6 +288,12 @@ function teamShape(team) {
     supports: team.filter(isSupport).length,
     reliableDps: team.filter(isReliableDps).length,
     damageTanks: team.filter(isDamageLeaningTank).length,
+    highDamageFronts: team.filter(isHighDamageFront).length,
+    lowDamageFronts: team.filter(isLowDamageFront).length,
+    highDamageBacklines: team.filter(isHighDamageBackline).length,
+    lowDamageBacklines: team.filter(isLowDamageBackline).length,
+    highDamageContributors: team.filter(isHighDamageContributor).length,
+    lowDamageContributors: team.filter(isLowDamageContributor).length,
     longRangeCarries: team.filter(isLongRangeCarry).length,
     sustainedCarries: team.filter(isSustainedCarry).length,
     diveFollowUps: team.filter(isDiveFollowUp).length,
@@ -288,9 +323,18 @@ function teamShapeScore(candidate, selected) {
   if (shape.reliableDps < 2) score -= 3.2;
   if (shape.tanks >= 2) score -= 2.2;
   if (shape.tanks >= 1 && shape.supports >= 1) score -= shape.reliableDps >= 2 ? 1.8 : 3.8;
-  if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1) score -= isDamageLeaningTank(team.find(isTank)) ? 1.2 : 8.0;
+  if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1) {
+    const tank = team.find(isTank);
+    if (isHighDamageFront(tank)) score -= 0.8;
+    else if (isDamageLeaningTank(tank)) score -= 1.4;
+    else if (isLowDamageFront(tank)) score -= 7.6;
+    else score -= 5.2;
+  }
 
-  if (shape.tanks === 1 && shape.backline === 2 && shape.supports === 0) score += 1.9;
+  if (shape.tanks === 1 && shape.backline === 2 && shape.supports === 0) {
+    const tank = team.find(isTank);
+    score += isLowDamageFront(tank) ? 1.55 : 1.9;
+  }
   if (shape.tanks === 0 && shape.melee === 2 && shape.backline === 1) score += 1.7;
   if (shape.tanks === 0 && shape.melee === 2 && shape.supports === 1) score += 1.5;
 
@@ -333,6 +377,71 @@ function roleBalanceScore(candidate, selected) {
   if (!roles.includes("support") && candidate.role === "support") return 1.0;
   if (roles.includes(candidate.role)) return -0.8;
   return 0.5;
+}
+
+function frontDamageScore(candidate, selected) {
+  if (!isFrontRole(candidate) || selected.length === 0) return 0;
+
+  const team = [...selected, candidate];
+  const shape = teamShape(team);
+  let score = 0;
+
+  if (isHighDamageFront(candidate)) {
+    if (shape.reliableDps < 2) score += 0.75;
+    if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1) score += isTank(candidate) ? 0.85 : 0.45;
+    if (shape.tanks === 0 && shape.melee === 2 && shape.backline === 1) score += 0.35;
+  }
+
+  if (isLowDamageFront(candidate)) {
+    if (shape.reliableDps < 2) score -= 1.1;
+    if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1) score -= 0.75;
+    if (shape.tanks >= 1 && shape.supports >= 1) score -= 0.45;
+  }
+
+  return Math.max(-1.6, Math.min(1.4, score));
+}
+
+function backlineDamageScore(candidate, selected) {
+  if (!isBacklineDealer(candidate) || selected.length === 0) return 0;
+
+  const team = [...selected, candidate];
+  const shape = teamShape(team);
+  const selectedBacklines = selected.filter(isBacklineDealer).length;
+  const selectedReliableDps = selected.filter(isReliableDps).length;
+  let score = 0;
+
+  if (isHighDamageBackline(candidate)) {
+    if (selectedReliableDps < 2) score += 0.9;
+    if (selectedBacklines === 0) score += 0.55;
+    if (shape.tanks >= 1 || shape.melee >= 1) score += 0.35;
+    if (candidate.damage === "basic") score += 0.18;
+  }
+
+  if (isLowDamageBackline(candidate)) {
+    if (selectedReliableDps < 2) score -= 1.0;
+    if (selectedBacklines === 0) score -= 0.45;
+    if (shape.tanks >= 1 && shape.supports >= 1) score -= 0.35;
+  }
+
+  return Math.max(-1.5, Math.min(1.6, score));
+}
+
+function teamDamageBudgetScore(candidate, selected) {
+  const team = [...selected, candidate];
+  if (team.length < 3) return 0;
+
+  const shape = teamShape(team);
+  let score = 0;
+
+  if (shape.highDamageContributors === 0) score -= 2.4;
+  if (shape.highDamageContributors === 1 && shape.lowDamageContributors >= 2) score -= 1.15;
+  if (shape.lowDamageContributors >= 3) score -= 2.0;
+  if (shape.reliableDps < 2 && shape.highDamageContributors <= 1) score -= 1.0;
+
+  if (shape.highDamageContributors >= 2 && shape.lowDamageContributors <= 1) score += 0.6;
+  if (shape.highDamageContributors >= 1 && shape.reliableDps >= 2 && shape.lowDamageContributors <= 1) score += 0.35;
+
+  return Math.max(-3.2, Math.min(1.0, score));
 }
 
 function killPressureScore(candidate, selected) {
@@ -524,27 +633,53 @@ function explain(candidate, selected, scores) {
     } else if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1) {
       const tank = team.find(isTank);
       if (isDamageLeaningTank(tank)) {
-        reasons.push(`1탱 1근 1원 구조지만, ${subjectName(tank)} 딜 기여가 가능한 탱커라 화력 보충을 전제로 어느 정도 성립할 수 있습니다.`);
+        reasons.push(`1탱 1근 1원 구조지만, ${subjectName(tank)} 데미지 기여가 가능한 탱커라 부족한 화력을 보완할 수 있습니다.`);
       } else {
-        reasons.push(`1탱 1근 1원 구조는 근딜이 먼저 점사당하기 쉽고 탱커의 딜 기여도 낮아 감점되었습니다.`);
+        reasons.push(`1탱 1근 1원 구조는 근딜이 먼저 점사당하기 쉽고 탱커의 데미지 기여도 부족해 감점되었습니다.`);
       }
     } else if (shape.reliableDps < 2) {
       reasons.push(`현재 형태는 딜러 자리가 부족해 상대를 마무리할 화력이 모자랄 수 있습니다.`);
     }
   }
+
+  if (scores.teamDamageBudget <= -1.4) {
+    const shape = teamShape([...selected, candidate]);
+    if (shape.highDamageContributors === 0) {
+      reasons.push(`세 명 모두 데미지 기여가 부족한 편이라, 교전에서 상대를 마무리할 화력이 모자랄 수 있습니다.`);
+    } else {
+      reasons.push(`데미지 기여가 부족한 픽이 많이 겹쳐 현재 조합은 킬캐치와 화력 총량이 부족해질 위험이 있습니다.`);
+    }
+  }
+
   if (scores.teamShape > -2.2) {
     const team = [...selected, candidate];
     const shape = teamShape(team);
     const tank = team.find(isTank);
     if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1 && isDamageLeaningTank(tank)) {
-      reasons.push(`1탱 1근 1원 구조라 기본 효율은 낮지만, ${subjectName(tank)} 딜 기여가 가능한 탱커라 화력 보충을 전제로 선택할 수 있습니다.`);
+      reasons.push(`1탱 1근 1원 구조라 기본 효율은 낮지만, ${subjectName(tank)} 데미지 기여가 가능한 탱커라 부족한 화력을 보완할 수 있습니다.`);
     }
   }
-  if (scores.teamShape >= 1.4) {
+  if (scores.teamShape >= 1.4 && scores.teamDamageBudget > -1.0) {
     const shape = teamShape([...selected, candidate]);
     const shapeLabel = teamShapeLabel(shape);
     reasons.push(`${objectName(candidate)} 넣으면 ${shapeLabel} 조합이 됩니다. 딜러 자리가 충분해 교전에서 상대를 마무리할 화력이 나옵니다.`);
   }
+  if (scores.frontDamage >= 0.6 && isHighDamageFront(candidate)) {
+    reasons.push(`${subjectName(candidate)} 데미지 기여가 충분한 ${roleLabel(candidate)}라서 앞라인을 세우면서도 부족한 화력을 보탤 수 있습니다.`);
+  }
+
+  if (scores.frontDamage <= -0.6 && isLowDamageFront(candidate)) {
+    reasons.push(`${subjectName(candidate)} 데미지 기여가 부족한 편이라 현재 조합처럼 딜러 자리가 부족할 때는 감점했습니다.`);
+  }
+
+  if (scores.backlineDamage >= 0.65 && isHighDamageBackline(candidate)) {
+    reasons.push(`${subjectName(candidate)} 데미지 기여가 충분한 ${damageLabel(candidate)}라서 현재 조합에 부족한 마무리 화력을 채워줍니다.`);
+  }
+
+  if (scores.backlineDamage <= -0.65 && isLowDamageBackline(candidate)) {
+    reasons.push(`${subjectName(candidate)} 유틸 성향이 강하고 데미지 기여는 부족한 편이라, 딜러 자리가 부족한 조합에서는 감점했습니다.`);
+  }
+
   if (signature) reasons.push(signature);
 
   if (scores.roleBalance >= 1.5 && reasons.length < 1) {
@@ -627,6 +762,9 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     synergy: pairScore(candidate, selected),
     coverage: coverageScore(candidate, selected),
     roleBalance: roleBalanceScore(candidate, selected),
+    frontDamage: frontDamageScore(candidate, selected),
+    backlineDamage: backlineDamageScore(candidate, selected),
+    teamDamageBudget: teamDamageBudgetScore(candidate, selected),
     killPressure: killPressureScore(candidate, selected),
     weaponBalance: weaponBalanceScore(candidate, selected),
     teamShape: teamShapeScore(candidate, selected),
@@ -639,6 +777,9 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.synergy * 1.6 +
     scores.coverage +
     scores.roleBalance +
+    scores.frontDamage +
+    scores.backlineDamage +
+    scores.teamDamageBudget +
     scores.killPressure +
     scores.weaponBalance +
     scores.teamShape +

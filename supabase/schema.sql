@@ -6,10 +6,27 @@ create table if not exists public.recommendation_votes (
   candidate_id text not null,
   value smallint not null check (value in (-1, 1)),
   vote_day date not null default current_date,
+  vote_bucket text not null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  unique (user_id, tier, team_key, candidate_id, vote_day)
+  unique (user_id, tier, team_key, candidate_id, vote_bucket)
 );
+
+alter table public.recommendation_votes
+  add column if not exists vote_bucket text;
+
+update public.recommendation_votes
+set vote_bucket = to_char(date_trunc('day', vote_day::timestamptz), 'YYYY-MM-DD"T"HH24')
+where vote_bucket is null;
+
+alter table public.recommendation_votes
+  alter column vote_bucket set not null;
+
+alter table public.recommendation_votes
+  drop constraint if exists recommendation_votes_user_id_tier_team_key_candidate_id_vote_day_key;
+
+create unique index if not exists recommendation_votes_vote_bucket_unique_idx
+  on public.recommendation_votes (user_id, tier, team_key, candidate_id, vote_bucket);
 
 create index if not exists recommendation_votes_lookup_idx
   on public.recommendation_votes (tier, team_key, candidate_id);

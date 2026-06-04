@@ -379,6 +379,101 @@ const tankVariantIds = new Set([
   "markus:axe",
 ]);
 
+const highAverageDamageFrontVariantIds = new Set([
+  "estelle:axe",
+  "elena:rapier",
+  "lenox:whip",
+  "magnus:hammer",
+  "magnus:bat",
+  "markus:axe",
+  "markus:hammer",
+  "mirka:hammer",
+  "debi_marlene:two_handed_sword",
+  "laura:whip",
+  "luke:bat",
+  "li_dailin:glove",
+  "li_dailin:nunchaku",
+  "silvia:pistol",
+  "isaac:tonfa",
+  "alex:flex",
+  "aiden:two_handed_sword",
+  "echion:vf_prosthetic",
+  "yuki:two_handed_sword",
+  "yuki:dual_swords",
+  "istvan:spear",
+  "jackie:two_handed_sword",
+  "jackie:axe",
+  "jackie:dual_swords",
+  "camilo:dual_swords",
+  "camilo:rapier",
+  "kenneth:axe",
+  "chiara:rapier",
+  "felix:spear",
+  "fiora:two_handed_sword",
+  "fiora:rapier",
+  "fiora:spear",
+  "piolo:nunchaku",
+  "hisui:two_handed_sword",
+]);
+
+const lowAverageDamageFrontVariantIds = new Set([
+  "alonso:glove",
+  "sho:dagger",
+  "sho:spear",
+  "mai:whip",
+  "eleven:hammer",
+  "garnet:bat",
+  "nicky:glove",
+  "darko:bat",
+  "leon:glove",
+  "leon:tonfa",
+  "shirin:rapier",
+]);
+
+const highAverageDamageBacklineVariantIds = new Set([
+  "nadine:bow",
+  "nadine:crossbow",
+  "nathapon:camera",
+  "nia:pistol",
+  "rozzi:pistol",
+  "rio:bow",
+  "barbara:pistol",
+  "celine:throw",
+  "sissela:throw",
+  "sissela:shuriken",
+  "adriana:throw",
+  "aya:sniper_rifle",
+  "aya:assault_rifle",
+  "isol:pistol",
+  "isol:assault_rifle",
+  "eva:throw",
+  "zahir:throw",
+  "zahir:shuriken",
+  "jenny:pistol",
+  "tsubame:shuriken",
+  "katja:sniper_rifle",
+  "karla:crossbow",
+  "tazia:shuriken",
+  "haze:assault_rifle",
+  "henry:shuriken",
+  "hyejin:shuriken",
+  "hyejin:bow",
+]);
+
+const lowAverageDamageBacklineVariantIds = new Set([
+  "lenore:guitar",
+  "martina:camera",
+  "bernice:sniper_rifle",
+  "chloe:shuriken",
+  "theodore:sniper_rifle",
+  "coreline:arcana",
+  "arda:arcana",
+  "emma:arcana",
+  "emma:shuriken",
+  "vanya:arcana",
+  "yumin:arcana",
+]);
+
 export const variantOverrides = {
   "nadine:bow": { role: "mage", damage: "skill", tags: ["poke", "range", "objective"] },
   "isol:pistol": { role: "mage", damage: "skill", tags: ["poke", "zone", "mobility"] },
@@ -404,6 +499,22 @@ export const characterVariants = characters.flatMap((character) =>
     const role = tankVariantIds.has(variantId)
       ? "frontline"
       : override.role ?? (character.role === "frontline" ? "bruiser" : character.role);
+    const frontDamage =
+      role === "frontline" || role === "bruiser" || role === "assassin"
+        ? highAverageDamageFrontVariantIds.has(variantId)
+          ? "high"
+          : lowAverageDamageFrontVariantIds.has(variantId)
+            ? "low"
+            : "medium"
+        : undefined;
+    const backlineDamage =
+      role === "ranged" || role === "mage"
+        ? highAverageDamageBacklineVariantIds.has(variantId)
+          ? "high"
+          : lowAverageDamageBacklineVariantIds.has(variantId)
+            ? "low"
+            : "medium"
+        : undefined;
     const tags = [
       ...(override.tags ?? character.tags),
       ...(initiatorCharacterIds.has(character.id) ? ["initiate"] : []),
@@ -419,6 +530,8 @@ export const characterVariants = characters.flatMap((character) =>
       weaponLabel: weaponType.label,
       weaponStyle: weaponType.style ?? "",
       weaponRange: weaponType.range,
+      frontDamage,
+      backlineDamage,
       ccProfile: ccProfiles[character.id] ?? emptyCcProfile,
       tags: [...new Set(tags)],
     };

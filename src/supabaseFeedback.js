@@ -1,10 +1,19 @@
 import { supabaseConfig } from "./supabaseConfig.js";
 
+const VOTE_WINDOW_HOURS = 4;
+
 function normalizeTeam(selectedIds) {
   return selectedIds
     .map((id) => id.split(":")[0])
     .sort()
     .join("+");
+}
+
+function voteBucket(date = new Date()) {
+  const bucket = new Date(date);
+  bucket.setUTCMinutes(0, 0, 0);
+  bucket.setUTCHours(Math.floor(bucket.getUTCHours() / VOTE_WINDOW_HOURS) * VOTE_WINDOW_HOURS);
+  return bucket.toISOString().slice(0, 13);
 }
 
 function isConfigured() {
@@ -43,13 +52,14 @@ export async function recordRemoteFeedback(selectedIds, candidateId, value, tier
     candidate_id: candidateId.split(":")[0],
     value,
     vote_day: new Date().toISOString().slice(0, 10),
+    vote_bucket: voteBucket(),
     updated_at: new Date().toISOString(),
   };
 
   const { error } = await client
     .from("recommendation_votes")
     .upsert(payload, {
-      onConflict: "user_id,tier,team_key,candidate_id,vote_day",
+      onConflict: "user_id,tier,team_key,candidate_id,vote_bucket",
     });
 
   if (error) throw error;

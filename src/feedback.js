@@ -1,4 +1,6 @@
 const STORAGE_KEY = "er-team-picker-feedback-v1";
+const RECENT_VOTE_KEY = "er-team-picker-feedback-windows-v1";
+const VOTE_WINDOW_HOURS = 4;
 
 function normalizeTeam(selectedIds) {
   return selectedIds
@@ -12,6 +14,17 @@ export function feedbackKey(selectedIds, candidateId, tier = "all") {
   return `${tier}:${team}->${candidateId.split(":")[0]}`;
 }
 
+export function voteBucket(date = new Date()) {
+  const bucket = new Date(date);
+  bucket.setUTCMinutes(0, 0, 0);
+  bucket.setUTCHours(Math.floor(bucket.getUTCHours() / VOTE_WINDOW_HOURS) * VOTE_WINDOW_HOURS);
+  return bucket.toISOString().slice(0, 13);
+}
+
+export function feedbackWindowKey(selectedIds, candidateId, tier = "all", date = new Date()) {
+  return `${feedbackKey(selectedIds, candidateId, tier)}@${voteBucket(date)}`;
+}
+
 export function loadFeedback() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? {};
@@ -22,6 +35,35 @@ export function loadFeedback() {
 
 export function saveFeedback(feedback) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback));
+}
+
+function loadRecentVotes() {
+  try {
+    return JSON.parse(localStorage.getItem(RECENT_VOTE_KEY)) ?? {};
+  } catch {
+    return {};
+  }
+}
+
+function saveRecentVotes(recentVotes) {
+  localStorage.setItem(RECENT_VOTE_KEY, JSON.stringify(recentVotes));
+}
+
+export function hasRecentFeedback(selectedIds, candidateId, tier = "all") {
+  return Boolean(loadRecentVotes()[feedbackWindowKey(selectedIds, candidateId, tier)]);
+}
+
+export function markRecentFeedback(selectedIds, candidateId, tier = "all") {
+  const recentVotes = loadRecentVotes();
+  const currentKey = feedbackWindowKey(selectedIds, candidateId, tier);
+  const currentBucket = voteBucket();
+
+  Object.keys(recentVotes).forEach((key) => {
+    if (!key.endsWith(`@${currentBucket}`)) delete recentVotes[key];
+  });
+
+  recentVotes[currentKey] = Date.now();
+  saveRecentVotes(recentVotes);
 }
 
 export function recordFeedback(selectedIds, candidateId, value, tier = "all") {

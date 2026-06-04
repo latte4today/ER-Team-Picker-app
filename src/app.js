@@ -1,5 +1,5 @@
 import { characterVariants, roleNames, roles } from "./data.js";
-import { feedbackKey, getFeedbackEntry, recordFeedback } from "./feedback.js";
+import { feedbackWindowKey, getFeedbackEntry, hasRecentFeedback, markRecentFeedback, recordFeedback } from "./feedback.js";
 import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend } from "./recommender.js";
@@ -866,14 +866,13 @@ function renderMatchFeedback() {
   const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, popularFeedback);
   const scoreTone = (evaluation?.score ?? 0) < 0 ? " negative-score" : "";
   const score = selectedIds.size > 0 ? `<strong class="chosen-score${scoreTone}">${evaluation?.score ?? "-"}</strong>` : "";
-  const currentFeedbackKey = feedbackKey([...selectedIds], chosen.variantId, tierSelect.value);
-  const feedbackEntry = getFeedbackEntry([...selectedIds], chosen.variantId, tierSelect.value);
-  const hasSubmittedFeedback = submittedFeedbackKeys.has(currentFeedbackKey) || feedbackEntry.likes + feedbackEntry.dislikes > 0;
+  const currentFeedbackKey = feedbackWindowKey([...selectedIds], chosen.variantId, tierSelect.value);
+  const hasSubmittedFeedback =
+    submittedFeedbackKeys.has(currentFeedbackKey) || hasRecentFeedback([...selectedIds], chosen.variantId, tierSelect.value);
   const feedbackControls = hasSubmittedFeedback
     ? `
       <div class="chosen-feedback-done" aria-live="polite">
         <strong>평가가 반영되었습니다.</strong>
-        <span>다음 추천에 이 조합 평가가 반영됩니다.</span>
       </div>
       <button class="icon-button clear-pick-button" type="button" data-clear-pick aria-label="선택 해제" title="선택 해제">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1134,7 +1133,7 @@ matchFeedback.addEventListener("click", (event) => {
   const button = event.target.closest("[data-match-feedback]");
   if (!button || !chosenPickId) return;
 
-  const currentFeedbackKey = feedbackKey([...selectedIds], chosenPickId, tierSelect.value);
+  const currentFeedbackKey = feedbackWindowKey([...selectedIds], chosenPickId, tierSelect.value);
   if (submittedFeedbackKeys.has(currentFeedbackKey)) return;
 
   submittedFeedbackKeys.add(currentFeedbackKey);
@@ -1144,6 +1143,7 @@ matchFeedback.addEventListener("click", (event) => {
   });
 
   recordFeedback([...selectedIds], chosenPickId, Number(button.dataset.matchFeedback), tierSelect.value);
+  markRecentFeedback([...selectedIds], chosenPickId, tierSelect.value);
   syncStatus.textContent = "서버 저장 중";
   syncStatus.dataset.state = "loading";
   recordRemoteFeedback([...selectedIds], chosenPickId, Number(button.dataset.matchFeedback), tierSelect.value)

@@ -406,7 +406,7 @@ h2 {
 
 .app-main[data-view="setup"] .feedback-panel {
   padding: 10px;
-  max-height: 132px;
+  max-height: 146px;
   overflow: hidden;
 }
 
@@ -1612,12 +1612,10 @@ h2 {
 
 .chosen-feedback-done {
   grid-column: 1 / 3;
-  display: flex;
+  display: grid;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 4px 7px;
-  min-height: 34px;
-  padding: 6px 9px;
+  min-height: 30px;
+  padding: 5px 8px;
   border: 1px solid rgba(54, 210, 150, 0.36);
   border-radius: 5px;
   background: rgba(54, 210, 150, 0.1);
@@ -1626,14 +1624,11 @@ h2 {
 
 .chosen-feedback-done strong {
   color: var(--ok);
-  font-size: 12px;
-  line-height: 1.25;
-}
-
-.chosen-feedback-done span {
-  color: var(--muted);
+  overflow: hidden;
   font-size: 11px;
-  line-height: 1.25;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .chosen-pick > .clear-pick-button {
