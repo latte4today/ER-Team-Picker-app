@@ -18,6 +18,7 @@
         <nav class="side-nav" aria-label="주요 메뉴">
           <button class="side-tab active" type="button" data-view="setup">조합 구성</button>
           <button class="side-tab" type="button" data-view="recommendations">랭킹</button>
+          <button class="side-tab" type="button" data-view="union">유니온</button>
         </nav>
         <div class="side-footer">
           <button class="update-button" id="update-check-button" type="button">업데이트 확인</button>
@@ -123,6 +124,37 @@
             </section>
           </aside>
         </div>
+
+        <section class="union-view" aria-label="유니온 조합">
+          <section class="panel union-builder">
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">Union Draft</p>
+                <h2>유니온 실험체 폭 설정</h2>
+              </div>
+              <button class="ghost-button" id="union-clear-button" type="button">초기화</button>
+            </div>
+            <p class="helper-text">플레이어 1~4의 실험체 폭을 등록하세요. 비어 있는 칸은 없는 멤버로 처리하고, 실험체 폭이 있는 멤버가 4명이면 출전할 3명을 체크합니다.</p>
+            <div class="union-player-grid" id="union-player-grid"></div>
+            <label class="search-box union-search">
+              <span>검색</span>
+              <input id="union-search-input" type="search" placeholder="실험체 이름 검색">
+            </label>
+            <div class="filter-row" id="union-role-filters"></div>
+            <div class="union-character-grid" id="union-character-grid"></div>
+          </section>
+
+          <section class="panel union-result-panel">
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">Recommendation</p>
+                <h2>유니온 추천 조합</h2>
+              </div>
+              <span class="sync-chip" id="union-summary">0개 조합</span>
+            </div>
+            <div class="union-results" id="union-results"></div>
+          </section>
+        </section>
       </section>
     </main>
 

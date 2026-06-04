@@ -1,5 +1,5 @@
 #define MyAppName "ER Team Picker"
-#define MyAppVersion "0.1.3"
+#define MyAppVersion "0.1.4"
 #define MyAppPublisher "ER Team Picker"
 #define MyAppExeName "ER Team Picker.exe"
 #define SourceDir "..\dist\win-unpacked"

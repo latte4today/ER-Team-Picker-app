@@ -1,4 +1,4 @@
-export const appVersion = "0.1.3";
+export const appVersion = "0.1.4";
 
 export const releaseConfig = {
   owner: "latte4today",
