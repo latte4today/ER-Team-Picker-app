@@ -864,13 +864,11 @@ function renderMatchFeedback() {
   }
 
   const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, popularFeedback);
-  const reasonList = evaluation?.reasons.map((reason) => `<li>${reason}</li>`).join("") ?? "";
   const scoreTone = (evaluation?.score ?? 0) < 0 ? " negative-score" : "";
   const score = selectedIds.size > 0 ? `<strong class="chosen-score${scoreTone}">${evaluation?.score ?? "-"}</strong>` : "";
   const currentFeedbackKey = feedbackKey([...selectedIds], chosen.variantId, tierSelect.value);
   const feedbackEntry = getFeedbackEntry([...selectedIds], chosen.variantId, tierSelect.value);
   const hasSubmittedFeedback = submittedFeedbackKeys.has(currentFeedbackKey) || feedbackEntry.likes + feedbackEntry.dislikes > 0;
-  const reasonMarkup = hasSubmittedFeedback ? "" : `<ul class="chosen-reasons">${reasonList}</ul>`;
   const feedbackControls = hasSubmittedFeedback
     ? `
       <div class="chosen-feedback-done" aria-live="polite">
@@ -917,7 +915,6 @@ function renderMatchFeedback() {
       ${score}
       ${feedbackControls}
     </div>
-    ${reasonMarkup}
   `;
 }
 

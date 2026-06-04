@@ -406,8 +406,8 @@ h2 {
 
 .app-main[data-view="setup"] .feedback-panel {
   padding: 10px;
-  max-height: 154px;
-  overflow: auto;
+  max-height: 132px;
+  overflow: hidden;
 }
 
 .capture-box {
@@ -1722,16 +1722,6 @@ h2 {
   .character-card::after {
     animation: none;
   }
-}
-
-.chosen-reasons {
-  margin-top: 6px;
-  font-size: 12px;
-}
-
-.app-main[data-view="setup"] .chosen-reasons {
-  max-height: 38px;
-  overflow: auto;
 }
 
 .compact-button {
