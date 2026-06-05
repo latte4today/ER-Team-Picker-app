@@ -48,6 +48,8 @@ function startStaticServer() {
     });
 
     server.on("error", reject);
+    // 포트 0 → 랜덤 포트이므로 origin이 매번 바뀌어 localStorage가 초기화됨.
+    // persist:er-team-picker 파티션을 사용하면 origin과 무관하게 userData에 저장됨.
     server.listen(0, "127.0.0.1", () => {
       const address = server.address();
       resolve(`http://127.0.0.1:${address.port}/index.html`);
@@ -58,7 +60,10 @@ function startStaticServer() {
 async function createWindow() {
   const url = await startStaticServer();
 
-  session.defaultSession.setDisplayMediaRequestHandler(async (_request, callback) => {
+  // persist: 접두어를 붙이면 앱 userData 경로에 영구 저장됨 (포트 변경 영향 없음)
+  const appSession = session.fromPartition("persist:er-team-picker");
+
+  appSession.setDisplayMediaRequestHandler(async (_request, callback) => {
     const sources = await desktopCapturer.getSources({
       types: ["window", "screen"],
       thumbnailSize: { width: 1280, height: 720 },
@@ -78,6 +83,7 @@ async function createWindow() {
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
+      session: appSession,  // 고정 파티션 → localStorage가 포트와 무관하게 유지됨
     },
   });
 
