@@ -90,3 +90,5 @@ create policy "Users can create contact messages"
   with check ((select auth.uid()) = user_id);
 
 grant insert on public.contact_messages to authenticated;
+
+notify pgrst, 'reload schema';

@@ -1,8 +1,28 @@
 import { characterVariants, roleNames, roles } from "./data.js";
-import { feedbackWindowKey, getFeedbackEntry, hasRecentFeedback, markRecentFeedback, recordFeedback } from "./feedback.js";
+import {
+  feedbackWindowKey,
+  getFeedbackEntry,
+  hasRecentFeedback,
+  loadPendingRemoteFeedback,
+  markRecentFeedback,
+  queueRemoteFeedback,
+  recordFeedback,
+  recoverLocalFeedbackToPendingQueue,
+  removePendingRemoteFeedback,
+  updatePendingRemoteFeedback,
+} from "./feedback.js";
 import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend } from "./recommender.js";
+import { teamMetricProfile, teamMetricTags } from "./characterMetrics.js";
+import {
+  helpsMeleeEngage,
+  isCounterOnlyRanged,
+  isFirstEngageStyle,
+  isGuardOnly,
+  isPokeThenEngage,
+  likesDiveFollow,
+} from "./combatProfiles.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
 import { appVersion, releaseConfig } from "./updateConfig.js";
 
@@ -46,10 +66,6 @@ const unionSearchInput = document.querySelector("#union-search-input");
 const unionResults = document.querySelector("#union-results");
 const unionSummary = document.querySelector("#union-summary");
 const unionClearButton = document.querySelector("#union-clear-button");
-const tutorialModal = document.querySelector("#tutorial-modal");
-const tutorialStartButton = document.querySelector("#tutorial-start-button");
-const tutorialBanner = document.querySelector("#tutorial-banner");
-const tutorialEndButton = document.querySelector("#tutorial-end-button");
 
 let activeSlot = null;
 let recentlyAssignedVariantId = null;
@@ -57,12 +73,13 @@ let remoteFeedback = {};
 let popularFeedback = [];
 let isRefreshingRemote = false;
 let isRefreshingPopular = false;
+let isFlushingPendingFeedback = false;
 let popularFeedbackLoaded = false;
+let lastPromptedUpdateVersion = null;
 let chosenPickId = null;
 const submittedFeedbackKeys = new Set();
 const slotAssignments = [null, null, null];
 const savedTheme = localStorage.getItem("er-team-picker-theme");
-const tutorialStorageKey = "er-team-picker-tutorial-seen";
 const legacyPlayableStorageKey = "er-team-picker-playable-characters";
 const playableStorageKey = "er-team-picker-playable-variants";
 const unionStorageKey = "er-team-picker-union-rosters";
@@ -81,8 +98,6 @@ const unionPlayerNames = ["플레이어 1", "플레이어 2", "플레이어 3", 
 const unionParticipatingPlayers = new Set([0, 1, 2]);
 const savedUnionRosters = JSON.parse(localStorage.getItem(unionStorageKey) ?? "[]");
 const unionRosters = Array.from({ length: 4 }, (_, index) => new Set(savedUnionRosters[index] ?? []));
-let tutorialMode = false;
-let tutorialFeedbackSubmitted = false;
 
 function characterName(characterId) {
   return characterVariants.find((character) => character.characterId === characterId)?.name ?? characterId;
@@ -149,50 +164,6 @@ function setTheme(theme) {
 
 setTheme(savedTheme ?? "dark");
 
-function closeTutorialModal(markSeen = true) {
-  if (tutorialModal) tutorialModal.hidden = true;
-  if (markSeen) localStorage.setItem(tutorialStorageKey, "1");
-}
-
-function showTutorialModalIfNeeded() {
-  if (!tutorialModal || localStorage.getItem(tutorialStorageKey) === "1") return;
-  tutorialModal.hidden = false;
-}
-
-function setTutorialBannerVisible(visible) {
-  if (tutorialBanner) tutorialBanner.hidden = !visible;
-}
-
-function startTutorial() {
-  tutorialMode = true;
-  tutorialFeedbackSubmitted = false;
-  activeView = "setup";
-  activeSlot = null;
-  playableEditMode = false;
-  slotAssignments[0] = null;
-  slotAssignments[1] = "arda:arcana";
-  slotAssignments[2] = "piolo:nunchaku";
-  syncSelectedFromSlots();
-  closeTutorialModal(true);
-  setTutorialBannerVisible(true);
-  renderDetectedTeam([], "샘플 팀원 2명을 넣었습니다. 오른쪽 추천 후보에서 내 픽을 하나 기록해보세요.");
-  render();
-}
-
-function endTutorial({ clearSample = true } = {}) {
-  tutorialMode = false;
-  tutorialFeedbackSubmitted = false;
-  setTutorialBannerVisible(false);
-  localStorage.setItem(tutorialStorageKey, "1");
-  if (clearSample) {
-    slotAssignments.fill(null);
-    selectedIds.clear();
-    chosenPickId = null;
-    activeSlot = null;
-    renderDetectedTeam([], "튜토리얼을 종료했습니다.");
-  }
-  render();
-}
 
 function openContactModal() {
   contactModal.hidden = false;
@@ -229,25 +200,39 @@ function releaseInstallerUrl(release) {
   return asset?.browser_download_url ?? release.html_url;
 }
 
-async function checkForUpdates() {
-  updateCheckButton.disabled = true;
-  updateStatus.innerHTML = "최신 버전 확인 중";
+function renderUpdateAvailable(release, latestVersion) {
+  const installerUrl = releaseInstallerUrl(release);
+  updateStatus.innerHTML = `
+    <strong>새 버전 ${latestVersion}</strong>
+    <a href="${installerUrl}" target="_blank" rel="noreferrer">설치 파일 열기</a>
+    <small>설치 전 앱을 종료해주세요.</small>
+  `;
+  return installerUrl;
+}
+
+async function checkForUpdates({ prompt = false, silent = false } = {}) {
+  if (!silent) {
+    updateCheckButton.disabled = true;
+    updateStatus.innerHTML = "최신 버전 확인 중";
+  }
   try {
     const release = await fetchLatestRelease();
     const latestVersion = release.tag_name ?? release.name ?? "";
     if (compareVersions(latestVersion, appVersion) <= 0) {
-      updateStatus.innerHTML = `현재 최신 버전입니다. <small>v${appVersion}</small>`;
-      return;
+      if (!silent) updateStatus.innerHTML = `현재 최신 버전입니다. <small>v${appVersion}</small>`;
+      return false;
     }
 
-    const installerUrl = releaseInstallerUrl(release);
-    updateStatus.innerHTML = `
-      <strong>새 버전 ${latestVersion}</strong>
-      <a href="${installerUrl}" target="_blank" rel="noreferrer">설치 파일 열기</a>
-      <small>설치 전 앱을 종료해주세요.</small>
-    `;
+    const installerUrl = renderUpdateAvailable(release, latestVersion);
+    if (prompt && latestVersion !== lastPromptedUpdateVersion) {
+      lastPromptedUpdateVersion = latestVersion;
+      const wantsUpdate = window.confirm(`새로운 업데이트가 있습니다.\n\n현재 버전: v${appVersion}\n최신 버전: ${latestVersion}\n\n업데이트를 받으시겠습니까?`);
+      if (wantsUpdate) window.open(installerUrl, "_blank", "noopener,noreferrer");
+    }
+    return true;
   } catch (error) {
-    updateStatus.innerHTML = `업데이트 확인 실패 <small>${error.message ?? "네트워크를 확인해주세요."}</small>`;
+    if (!silent) updateStatus.innerHTML = `업데이트 확인 실패 <small>${error.message ?? "네트워크를 확인해주세요."}</small>`;
+    return false;
   } finally {
     updateCheckButton.disabled = false;
   }
@@ -262,25 +247,25 @@ async function fetchLatestRelease() {
 }
 
 async function checkForUpdatesOnStartup() {
-  try {
-    const release = await fetchLatestRelease();
-    const latestVersion = release.tag_name ?? release.name ?? "";
-    if (compareVersions(latestVersion, appVersion) <= 0) return;
-
-    const installerUrl = releaseInstallerUrl(release);
-    updateStatus.innerHTML = `
-      <strong>새 버전 ${latestVersion}</strong>
-      <a href="${installerUrl}" target="_blank" rel="noreferrer">설치 파일 열기</a>
-      <small>설치 전 앱을 종료해주세요.</small>
-    `;
-
-    const wantsUpdate = window.confirm(`새로운 업데이트가 있습니다.\n\n현재 버전: v${appVersion}\n최신 버전: ${latestVersion}\n\n업데이트를 받으시겠습니까?`);
-    if (wantsUpdate) window.open(installerUrl, "_blank", "noopener,noreferrer");
-  } catch {
-    // 시작할 때 네트워크가 막혀 있어도 앱 사용은 계속 가능해야 합니다.
-  }
+  await checkForUpdates({ prompt: true, silent: true });
 }
 
+function startPeriodicUpdateChecks() {
+  window.setInterval(() => {
+    checkForUpdates({ prompt: true, silent: true });
+  }, 60 * 60 * 1000);
+}
+
+function startPeriodicPendingFeedbackSync() {
+  window.setInterval(() => {
+    flushPendingRemoteFeedback().then((remaining) => {
+      if (remaining > 0) {
+        syncStatus.textContent = `미전송 평가 ${remaining}개 보관 중`;
+        syncStatus.dataset.state = "error";
+      }
+    });
+  }, 10 * 60 * 1000);
+}
 function renderRoleFilters() {
   const filters = [{ id: "all", label: "전체" }, ...roles];
   roleFilters.innerHTML = filters
@@ -482,16 +467,113 @@ function unionComboScore(combo) {
 function unionComboReason(combo, reasons) {
   const rolesInCombo = new Set(combo.map((character) => character.role));
   const tags = new Set(combo.flatMap((character) => character.tags));
+  const metricTags = teamMetricTags(combo);
+  const backlineCount = combo.filter((character) => character.role === "ranged" || character.role === "mage").length;
+  const meleeCount = combo.filter((character) => character.role === "bruiser" || character.role === "assassin" || character.role === "frontline").length;
+  const hasInitiate = tags.has("initiate");
+  const hasCc = tags.has("cc") || metricTags.includes("CC 강함");
+  const hasPeel = tags.has("peel") || tags.has("shield") || tags.has("healing") || metricTags.includes("보조 능력 높음");
+  const hasDamage = metricTags.includes("화력 충분");
+
+  if (backlineCount === 3 && (hasCc || hasPeel) && hasDamage) {
+    return "세 명 모두 뒤에서 싸우지만, CC/보조와 화력이 있어 대치전 중심으로 운영할 수 있습니다.";
+  }
+  if (meleeCount === 3 && hasInitiate && hasCc && hasDamage) {
+    return "근접 실험체가 많지만, 이니시와 CC가 있어 짧은 교전을 빠르게 열기 좋습니다.";
+  }
   if (rolesInCombo.has("frontline") && (rolesInCombo.has("ranged") || rolesInCombo.has("mage"))) {
     return "앞라인과 후방 딜러가 함께 있어 교전 구조가 안정적입니다.";
   }
   if ((rolesInCombo.has("bruiser") || rolesInCombo.has("assassin")) && tags.has("focus")) {
     return "진입 후 한 대상을 빠르게 몰아치는 포커싱이 좋습니다.";
   }
-  if (tags.has("initiate") && tags.has("cc")) {
-    return "이니쉬와 CC가 있어 먼저 싸움을 열기 좋습니다.";
+  if (hasInitiate && hasCc) {
+    return "이니시와 CC가 있어 먼저 싸움을 열기 좋습니다.";
+  }
+  if (metricTags.length > 0) {
+    return `${metricTags.slice(0, 2).join(" · ")} 성향이 뚜렷한 조합입니다.`;
   }
   return reasons[0] ?? "세 플레이어의 실험체 폭 안에서 점수가 높은 조합입니다.";
+}
+function unionComboPlan(combo) {
+  const tags = new Set(combo.flatMap((character) => character.tags));
+  const { total, average } = teamMetricProfile(combo);
+  const backlineCount = combo.filter((character) => character.role === "ranged" || character.role === "mage").length;
+  const meleeCount = combo.filter((character) => character.role === "bruiser" || character.role === "assassin" || character.role === "frontline").length;
+  const tankCount = combo.filter((character) => character.role === "frontline").length;
+  const supportCount = combo.filter((character) => character.role === "support").length;
+  const hasLenox = combo.some((character) => character.characterId === "lenox");
+  const hasCoreline = combo.some((character) => character.characterId === "coreline");
+  const hasVanya = combo.some((character) => character.characterId === "vanya");
+  const hasInitiate = tags.has("initiate") || total.crowdControl >= 9;
+  const hasFocus = tags.has("focus") || tags.has("burst");
+  const hasPeel = tags.has("peel") || tags.has("shield") || tags.has("healing") || total.utility >= 8;
+  const hasZone = tags.has("zone") || tags.has("poke") || tags.has("range");
+  const hasDive = tags.has("dive") || tags.has("mobility") || average.mobility >= 3.6;
+  const hasObjective = tags.has("objective");
+  const firstEngagers = combo.filter(isFirstEngageStyle);
+  const rangedHelpers = combo.filter(helpsMeleeEngage);
+  const diveFollowers = combo.filter(likesDiveFollow);
+  const counterOnly = combo.filter(isCounterOnlyRanged);
+  const pokeThenEngage = combo.filter(isPokeThenEngage);
+  const guardOnly = combo.filter(isGuardOnly);
+
+  if (firstEngagers.length >= 1 && meleeCount >= 2) {
+    return `${firstEngagers[0].name}이 먼저 각을 열고, 나머지 둘은 같은 대상을 바로 점사하세요. 좁은 길이나 벽 근처에서 싸우면 진입 성공률이 높습니다.`;
+  }
+  if (firstEngagers.length >= 1 && rangedHelpers.length >= 1) {
+    return `${firstEngagers[0].name}이 먼저 들어갈 때 ${rangedHelpers[0].name}이 CC와 견제로 진입 각을 도와주는 조합입니다. 한 명을 부르면 셋이 동시에 마무리하세요.`;
+  }
+  if (firstEngagers.length >= 1 && diveFollowers.length >= 1) {
+    return `${firstEngagers[0].name}이 먼저 시야를 열고 붙으면, 후방 딜러는 거리만 유지한 채 같은 대상을 녹이세요. 길게 대치하기보다 한 번에 템포를 맞추는 편이 좋습니다.`;
+  }
+  if (guardOnly.length >= 1 && backlineCount >= 2) {
+    return `${guardOnly[0].name}이 진입을 막아주는 동안 두 딜러가 입구를 잡고 체력을 깎으세요. 먼저 박기보다 들어오는 한 명을 같이 받아치는 운영이 좋습니다.`;
+  }
+  if (counterOnly.length >= 2 || (counterOnly.length >= 1 && pokeThenEngage.length >= 1)) {
+    return "먼저 무리해서 들어가기보다 대치로 체력을 깎고, 상대가 들어오는 순간 CC와 화력을 모아 받아치는 조합입니다.";
+  }
+
+  if (hasLenox && backlineCount >= 2) {
+    return "레녹스가 진입을 막아주는 동안 두 딜러가 입구를 잡고 체력을 깎으세요. 먼저 쫓기보다 들어오는 한 명을 역점사하는 운영이 좋습니다.";
+  }
+  if (tankCount === 1 && meleeCount === 2 && backlineCount === 0) {
+    return "탱커가 먼저 열고 어그로를 받는 순간 두 근딜이 같은 대상을 물어야 합니다. 따로 들어가면 힘이 빠지니 콜을 하나로 맞추세요.";
+  }
+  if (supportCount >= 1 && total.damage >= 10) {
+    return "서포터가 핵심 딜러를 살리는 동안 나머지 둘이 같은 대상을 마무리하세요. 먼저 무리해서 열기보다 보호 후 역점사가 안정적입니다.";
+  }
+  if (hasCoreline && meleeCount >= 1) {
+    return "코렐라인이 진입 각을 도와줄 수 있으니 근딜이 먼저 혼자 깊게 들어가지 말고, 스킬이 깔린 타이밍에 같이 들어가세요.";
+  }
+  if (hasVanya) {
+    return "바냐는 늦게 붙는 쪽이 좋습니다. 먼저 몸을 던지기보다 앞에서 싸움이 열린 뒤 장판과 보호막으로 교전을 굳히세요.";
+  }
+  if (meleeCount >= 2 && hasInitiate && hasFocus) {
+    return "시야를 먼저 잡고 한 명을 콜해서 같이 들어가세요. 좁은 길이나 벽 근처에서 싸우면 점사각이 더 잘 나옵니다.";
+  }
+  if (meleeCount === 3 && hasDive) {
+    return "긴 대치전보다 먼저 붙는 싸움이 좋습니다. 한 명이 깊게 들어가면 나머지 둘도 바로 호응해서 짧게 끝내세요.";
+  }
+  if (backlineCount === 3 && hasPeel) {
+    return "먼저 들어가기보다 좁은 입구를 잡고 받아치세요. 상대가 진입할 때 CC와 보호기로 끊고 같은 대상을 녹이는 식이 좋습니다.";
+  }
+  if (backlineCount >= 2 && hasZone) {
+    return "오브젝트와 좁은 길을 먼저 잡고 체력을 깎으세요. 무리하게 추격하기보다 상대 진입을 유도해서 받아치는 운영이 좋습니다.";
+  }
+  if (hasObjective && hasZone) {
+    return "오브젝트를 먼저 치면서 상대를 끌어내세요. 진입로에 스킬을 깔고 들어오는 한 명을 같이 마무리하는 방식이 좋습니다.";
+  }
+  if (hasInitiate && total.crowdControl >= 8) {
+    return "먼저 CC를 맞힌 대상을 세 명이 같이 보세요. 스킬을 나눠 쓰기보다 한 명을 전장이탈시키는 운영이 강합니다.";
+  }
+  if (hasPeel && total.damage >= 10) {
+    return "핵심 딜러 옆에서 싸우면서 상대 진입을 받아치세요. 먼저 무리해서 열기보다 보호 후 역점사가 안정적입니다.";
+  }
+  if (average.mobility >= 3.6) {
+    return "빠르게 합류해서 수적 우위를 만드는 조합입니다. 사이드에서 한 명을 발견하면 바로 핑을 찍고 같이 덮치세요.";
+  }
+  return "첫 스킬을 맞힌 대상에게 콜을 맞추는 것이 중요합니다. 셋이 각자 때리기보다 한 명을 먼저 줄이는 운영이 좋습니다.";
 }
 
 function buildUnionCombos() {
@@ -583,14 +665,14 @@ function renderUnionResults() {
                 <span class="combo-face">
                   <img src="${character.image}" alt="">
                   <span>
-                    <strong>${item.players[memberIndex] + 1}P · ${character.name}</strong>
-                    <small>${characterSubtitle(character)}</small>
+                    <strong>${character.name}</strong>
+                    <small>${character.weaponLabel}</small>
                   </span>
                 </span>
               `)
               .join("")}
           </div>
-          <p>${unionComboReason(item.combo, item.reasons)}</p>
+          <p>${unionComboPlan(item.combo)}</p>
         </article>
       `;
     })
@@ -992,10 +1074,9 @@ function renderMatchFeedback() {
   const score = selectedIds.size > 0 ? `<strong class="chosen-score${scoreTone}">${evaluation?.score ?? "-"}</strong>` : "";
   const currentFeedbackKey = feedbackWindowKey([...selectedIds], chosen.variantId, tierSelect.value);
   const hasSubmittedFeedback =
-    (tutorialMode && tutorialFeedbackSubmitted) ||
     submittedFeedbackKeys.has(currentFeedbackKey) ||
     hasRecentFeedback([...selectedIds], chosen.variantId, tierSelect.value);
-  const doneText = tutorialMode ? "튜토리얼 평가 완료 · 실제 데이터에는 저장되지 않았습니다." : "평가가 반영되었습니다.";
+  const doneText = "평가가 반영되었습니다.";
   const feedbackControls = hasSubmittedFeedback
     ? `
       <div class="chosen-feedback-done" aria-live="polite">
@@ -1066,24 +1147,48 @@ async function refreshRemoteFeedback() {
   if (isRefreshingRemote) return;
   isRefreshingRemote = true;
   try {
-    syncStatus.textContent = "서버 확인 중";
+    syncStatus.textContent = "?? ?? ?";
     syncStatus.dataset.state = "loading";
     remoteFeedback = await loadRemoteFeedback([...selectedIds], tierSelect.value);
-    syncStatus.textContent = "서버 연결됨";
+    const remaining = await flushPendingRemoteFeedback();
+    syncStatus.textContent = remaining > 0 ? `서버 연결됨 · 미전송 ${remaining}개` : "서버 연결됨";
     syncStatus.dataset.state = "ok";
   } catch {
     remoteFeedback = {};
-    syncStatus.textContent = "서버 연결 실패";
+    const pendingCount = loadPendingRemoteFeedback().length;
+    syncStatus.textContent = pendingCount > 0 ? `서버 연결 실패 · 미전송 ${pendingCount}개 보관 중` : "서버 연결 실패";
     syncStatus.dataset.state = "error";
   } finally {
     isRefreshingRemote = false;
   }
-  // 랭킹 탭에서는 re-render 생략 (스크롤 초기화 방지)
   if (activeView !== "recommendations") {
     renderRecommendations();
   }
 }
 
+async function flushPendingRemoteFeedback() {
+  if (isFlushingPendingFeedback) return loadPendingRemoteFeedback().length;
+  const pending = loadPendingRemoteFeedback();
+  if (pending.length === 0) return 0;
+
+  isFlushingPendingFeedback = true;
+  try {
+    for (const item of pending) {
+      try {
+        await recordRemoteFeedback(item.selectedIds, item.candidateId, item.value, item.tier);
+        removePendingRemoteFeedback(item.id);
+      } catch (error) {
+        updatePendingRemoteFeedback(item.id, {
+          attempts: (item.attempts ?? 0) + 1,
+          lastError: error.message ?? "server failed",
+        });
+      }
+    }
+  } finally {
+    isFlushingPendingFeedback = false;
+  }
+  return loadPendingRemoteFeedback().length;
+}
 async function refreshPopularFeedback() {
   if (isRefreshingPopular || popularFeedbackLoaded) return;
   isRefreshingPopular = true;
@@ -1187,7 +1292,7 @@ sideTabs.forEach((button) => {
 });
 
 contactOpenButton.addEventListener("click", openContactModal);
-updateCheckButton.addEventListener("click", checkForUpdates);
+updateCheckButton.addEventListener("click", () => checkForUpdates());
 
 contactModal.addEventListener("click", (event) => {
   if (event.target.closest("[data-contact-close]")) closeContactModal();
@@ -1195,15 +1300,8 @@ contactModal.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !contactModal.hidden) closeContactModal();
-  if (event.key === "Escape" && tutorialModal && !tutorialModal.hidden) closeTutorialModal(true);
 });
 
-tutorialStartButton?.addEventListener("click", startTutorial);
-tutorialEndButton?.addEventListener("click", () => endTutorial());
-tutorialModal?.addEventListener("click", (event) => {
-  if (!event.target.closest("[data-tutorial-skip]")) return;
-  closeTutorialModal(true);
-});
 
 contactForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -1299,24 +1397,17 @@ matchFeedback.addEventListener("click", (event) => {
     item.disabled = true;
   });
 
-  if (tutorialMode) {
-    tutorialFeedbackSubmitted = true;
-    syncStatus.textContent = "튜토리얼 평가라 저장하지 않았습니다.";
-    syncStatus.dataset.state = "ok";
-    window.setTimeout(() => {
-      renderMatchFeedback();
-      renderRecommendations();
-    }, 420);
-    return;
-  }
 
   submittedFeedbackKeys.add(currentFeedbackKey);
-  recordFeedback([...selectedIds], chosenPickId, Number(button.dataset.matchFeedback), tierSelect.value);
+  const feedbackValue = Number(button.dataset.matchFeedback);
+  const pendingItem = queueRemoteFeedback([...selectedIds], chosenPickId, feedbackValue, tierSelect.value, "new-feedback");
+  recordFeedback([...selectedIds], chosenPickId, feedbackValue, tierSelect.value);
   markRecentFeedback([...selectedIds], chosenPickId, tierSelect.value);
   syncStatus.textContent = "서버 저장 중";
   syncStatus.dataset.state = "loading";
-  recordRemoteFeedback([...selectedIds], chosenPickId, Number(button.dataset.matchFeedback), tierSelect.value)
+  recordRemoteFeedback([...selectedIds], chosenPickId, feedbackValue, tierSelect.value)
     .then(() => {
+      removePendingRemoteFeedback(pendingItem.id);
       popularFeedbackLoaded = false;
       return Promise.all([refreshRemoteFeedback(), refreshPopularFeedback()]);
     })
@@ -1324,7 +1415,11 @@ matchFeedback.addEventListener("click", (event) => {
       renderRecommendations();
     })
     .catch((error) => {
-      syncStatus.textContent = error.message ? `서버 저장 실패: ${error.message}` : "서버 저장 실패";
+      updatePendingRemoteFeedback(pendingItem.id, {
+        attempts: (pendingItem.attempts ?? 0) + 1,
+        lastError: error.message ?? "server failed",
+      });
+      syncStatus.textContent = "서버 저장 실패 · 나중에 자동 재시도";
       syncStatus.dataset.state = "error";
     });
   window.setTimeout(() => {
@@ -1437,6 +1532,13 @@ themeToggle.addEventListener("click", () => {
   setTheme(current === "dark" ? "light" : "dark");
 });
 
+const recoveredFeedbackCount = recoverLocalFeedbackToPendingQueue();
+if (recoveredFeedbackCount > 0) {
+  syncStatus.textContent = `로컬 평가 ${recoveredFeedbackCount}개 서버 전송 대기`;
+  syncStatus.dataset.state = "loading";
+}
+
 render();
-showTutorialModalIfNeeded();
 setTimeout(checkForUpdatesOnStartup, 1200);
+startPeriodicUpdateChecks();
+startPeriodicPendingFeedbackSync();

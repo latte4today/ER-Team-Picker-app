@@ -53,14 +53,6 @@
           </div>
         </header>
 
-        <section class="tutorial-banner" id="tutorial-banner" hidden>
-          <div>
-            <strong>튜토리얼 체험 중</strong>
-            <span>샘플 팀원으로 추천과 평가 흐름을 연습합니다. 이 모드의 평가는 실제 추천 데이터에 저장되지 않습니다.</span>
-          </div>
-          <button class="ghost-button compact-button" id="tutorial-end-button" type="button">튜토리얼 종료</button>
-        </section>
-
         <div class="workspace">
           <section class="content-stack">
             <section class="panel roster-panel" id="team-section" aria-label="팀 선택">
@@ -192,25 +184,6 @@
             <button class="primary-button contact-submit" type="submit">보내기</button>
           </div>
         </form>
-      </section>
-    </div>
-
-    <div class="tutorial-modal" id="tutorial-modal" hidden>
-      <div class="tutorial-backdrop" data-tutorial-skip></div>
-      <section class="tutorial-dialog" role="dialog" aria-modal="true" aria-labelledby="tutorial-title">
-        <p class="section-kicker">Quick Start</p>
-        <h2 id="tutorial-title">처음이라면 샘플 조합으로 한 번 써보세요</h2>
-        <p>팀원 2명을 넣으면 오른쪽에 추천 후보가 나옵니다. 추천 후보에서 내 픽을 기록하고, 경기 후 평가를 남기면 다음 추천에 반영됩니다.</p>
-        <ol>
-          <li>샘플 팀원 2명이 자동으로 입력됩니다.</li>
-          <li>추천 후보에서 하나를 눌러 내 픽으로 기록해봅니다.</li>
-          <li>경기 후 평가 버튼을 눌러 흐름을 확인합니다.</li>
-        </ol>
-        <p class="tutorial-note">튜토리얼에서 누른 평가는 로컬/Supabase 데이터에 저장되지 않습니다.</p>
-        <div class="tutorial-actions">
-          <button class="ghost-button" type="button" data-tutorial-skip>건너뛰기</button>
-          <button class="primary-button tutorial-start-button" id="tutorial-start-button" type="button">샘플로 해보기</button>
-        </div>
       </section>
     </div>
 

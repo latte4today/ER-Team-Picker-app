@@ -1547,11 +1547,28 @@ h2 {
 
 .union-combo-card .combo-face {
   grid-template-columns: 34px minmax(0, 1fr);
+  align-items: start;
+  padding: 6px;
+  min-width: 0;
 }
 
 .union-combo-card .combo-face img {
   width: 34px;
   height: 34px;
+}
+
+.union-combo-card .combo-face strong {
+  white-space: normal;
+  line-height: 1.2;
+  overflow: visible;
+  text-overflow: clip;
+  word-break: keep-all;
+}
+
+.union-combo-card .combo-face small {
+  -webkit-line-clamp: 3;
+  line-height: 1.25;
+  word-break: keep-all;
 }
 
 .union-combo-card p {

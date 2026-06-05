@@ -12,6 +12,17 @@ import {
 } from "./metaData.js";
 import { metricCompositionReason, teamMetricProfile } from "./characterMetrics.js";
 import { tournamentCompositions } from "./tournamentMeta.js";
+import {
+  cannotStartEngage,
+  helpsMeleeEngage,
+  isCounterOnlyRanged,
+  isDelayedEngageStyle,
+  isFirstEngageStyle,
+  isGuardOnly,
+  isGuardSometimesEngage,
+  isPokeThenEngage,
+  likesDiveFollow,
+} from "./combatProfiles.js";
 
 const requiredTags = ["initiate", "focus", "peel", "cc", "sustained", "poke", "burst"];
 
@@ -54,7 +65,11 @@ const tagLabels = {
   short_range_dealer: "인파이팅 딜",
 };
 
-const damageCapableTankIds = new Set(["estelle", "elena", "lenox", "mirka", "markus", "magnus"]);
+const counterEngageAnchorIds = new Set(["lenox"]);
+const lateButCanStartIds = new Set(["fenrir", "bihyung"]);
+const lateEngageIds = new Set(["vanya"]);
+const needsEngageHelpIds = new Set(["jackie", "daniel", "shoichi", "cathy"]);
+const meleeEngageHelperIds = new Set(["coreline"]);
 
 const signatureReasons = {
   garnet: "가넷은 단단하게 버티면서 광역 CC로 진입각을 열 수 있어 앞라인이 필요한 조합에 잘 맞습니다.",
@@ -266,8 +281,7 @@ function isDamageLeaningTank(character) {
     (character.frontDamage === "high" ||
       character.damage === "hybrid" ||
       character.tags.includes("burst") ||
-      character.tags.includes("sustained") ||
-      damageCapableTankIds.has(character.characterId))
+      character.tags.includes("sustained"))
   );
 }
 
@@ -281,6 +295,24 @@ function isSustainedCarry(character) {
 
 function isDiveFollowUp(character) {
   return character.tags.includes("dive") || character.tags.includes("mobility") || isMeleeDealer(character);
+}
+
+function isPrimaryEngage(character) {
+  return (
+    isFirstEngageStyle(character) ||
+    character.tags.includes("initiate") ||
+    (character.role === "frontline" && !isGuardOnly(character)) ||
+    (ccPower(character) >= 2.4 && !isCounterOnlyRanged(character) && !isGuardOnly(character)) ||
+    lateButCanStartIds.has(character.characterId)
+  );
+}
+
+function isLongPokeCharacter(character) {
+  return isCounterOnlyRanged(character) || isPokeThenEngage(character) || (
+    character.tags.includes("poke") ||
+    character.tags.includes("zone") ||
+    character.tags.includes("range")
+  ) && !character.tags.includes("dive");
 }
 
 function teamShape(team) {
@@ -300,6 +332,15 @@ function teamShape(team) {
     longRangeCarries: team.filter(isLongRangeCarry).length,
     sustainedCarries: team.filter(isSustainedCarry).length,
     diveFollowUps: team.filter(isDiveFollowUp).length,
+    firstEngagers: team.filter(isFirstEngageStyle).length,
+    delayedEngagers: team.filter(isDelayedEngageStyle).length,
+    cannotStarters: team.filter(cannotStartEngage).length,
+    rangedEngageHelpers: team.filter(helpsMeleeEngage).length,
+    diveFollowRanged: team.filter(likesDiveFollow).length,
+    counterOnlyRanged: team.filter(isCounterOnlyRanged).length,
+    pokeThenEngage: team.filter(isPokeThenEngage).length,
+    guardOnly: team.filter(isGuardOnly).length,
+    guardSometimesEngage: team.filter(isGuardSometimesEngage).length,
   };
 }
 
@@ -309,9 +350,32 @@ function teamShapeLabel(shape) {
   if (shape.tanks === 0 && shape.melee === 2 && shape.backline === 1 && shape.supports === 0) return "2근 1원";
   if (shape.tanks === 0 && shape.melee === 2 && shape.supports === 1 && shape.backline === 0) return "2근 1서포터";
   if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1 && shape.supports === 0) return "1탱 1근 1원";
+  if (shape.backline === 3 && shape.tanks === 0 && shape.melee === 0) return "3원";
+  if (shape.melee + shape.tanks === 3 && shape.backline === 0 && shape.supports === 0) return "3근";
   if (shape.tanks >= 1 && shape.supports >= 1) return "탱커+서포터";
   if (shape.tanks >= 2) return "투탱";
   return `${shape.tanks}탱 ${shape.melee}근 ${shape.backline}원${shape.supports ? ` ${shape.supports}서포터` : ""}`;
+}
+
+function teamFeatureSummary(team, candidate) {
+  const shape = teamShape(team);
+  const { total, average } = teamMetricProfile(team);
+  if (shape.backline === 3 && total.damage >= 11 && (total.crowdControl >= 8 || total.utility >= 7)) {
+    return `${objectName(candidate)} 넣으면 후방 화력이 세 명으로 늘고, CC/보조 지표가 받쳐줘 대치전 중심 운영이 가능합니다.`;
+  }
+  if (shape.backline === 0 && shape.melee + shape.tanks === 3 && total.damage >= 10 && total.crowdControl >= 8 && average.mobility >= 3.0) {
+    return `${objectName(candidate)} 넣으면 근접 압박이 강해지고, 이니시와 CC로 짧은 교전을 빠르게 열 수 있습니다.`;
+  }
+  if (shape.tanks >= 1 && shape.backline >= 1) {
+    return `${objectName(candidate)} 넣으면 앞에서 버티는 자리와 뒤에서 마무리하는 화력이 함께 생깁니다.`;
+  }
+  if (shape.melee >= 2 && shape.backline >= 1) {
+    return `${objectName(candidate)} 넣으면 진입 압박과 후방 마무리 화력이 함께 갖춰집니다.`;
+  }
+  if (shape.supports >= 1 && shape.melee >= 2) {
+    return `${objectName(candidate)} 넣으면 근접 교전에 보조 능력이 더해져 한 번 들어간 싸움을 오래 이어갈 수 있습니다.`;
+  }
+  return `${objectName(candidate)} 넣으면 화력, CC, 기동 지표가 현재 팀원과 비교적 잘 맞습니다.`;
 }
 
 function teamShapeScore(candidate, selected) {
@@ -319,34 +383,49 @@ function teamShapeScore(candidate, selected) {
   if (team.length < 3) return 0;
 
   const shape = teamShape(team);
+  const { total, average } = teamMetricProfile(team);
   const hasInitiator = team.some((character) => character.tags.includes("initiate")) || teamCcPower(team) >= 3.0;
   const hasPeel = team.some((character) => character.tags.includes("peel") || character.tags.includes("shield") || character.tags.includes("healing"));
   let score = 0;
 
-  if (shape.reliableDps < 2) score -= 3.2;
-  if (shape.tanks >= 2) score -= 2.2;
-  if (shape.tanks >= 1 && shape.supports >= 1) score -= shape.reliableDps >= 2 ? 1.8 : 3.8;
+  if (shape.reliableDps < 2) score -= 2.4;
+  if (shape.tanks >= 2 && total.damage < 10) score -= 1.8;
+  if (shape.tanks >= 1 && shape.supports >= 1) score -= shape.reliableDps >= 2 && total.damage >= 10 ? 0.55 : 2.4;
+  if (shape.supports >= 1 && shape.reliableDps >= 2 && total.damage >= 10 && (total.crowdControl >= 7 || total.utility >= 8)) score += 0.75;
   if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1) {
     const tank = team.find(isTank);
-    if (isHighDamageFront(tank)) score -= 0.8;
-    else if (isDamageLeaningTank(tank)) score -= 1.4;
-    else if (isLowDamageFront(tank)) score -= 7.6;
-    else score -= 5.2;
+    if (isHighDamageFront(tank)) score -= 0.35;
+    else if (isDamageLeaningTank(tank)) score -= 0.85;
+    else if (isLowDamageFront(tank)) score -= 3.2;
+    else score -= 2.2;
   }
 
   if (shape.tanks === 1 && shape.backline === 2 && shape.supports === 0) {
     const tank = team.find(isTank);
-    score += isLowDamageFront(tank) ? 1.55 : 1.9;
+    score += isLowDamageFront(tank) ? 1.2 : 1.45;
   }
-  if (shape.tanks === 0 && shape.melee === 2 && shape.backline === 1) score += 1.7;
-  if (shape.tanks === 0 && shape.melee === 2 && shape.supports === 1) score += 1.5;
+  if (shape.tanks === 0 && shape.melee === 2 && shape.backline === 1) score += 1.25;
+  if (shape.tanks === 0 && shape.melee === 2 && shape.supports === 1) score += 1.1;
 
-  if (hasInitiator && shape.diveFollowUps >= 2) score += 1.0;
-  if (shape.longRangeCarries >= 1 && shape.sustainedCarries >= 1 && (hasPeel || teamCcPower(team) >= 2.4)) score += 0.9;
-  if (shape.longRangeCarries >= 2 && !hasPeel && teamCcPower(team) < 2.0) score -= 0.8;
-  if (shape.sustainedCarries >= 2 && teamCcPower(team) < 1.6) score -= 0.7;
+  if (shape.backline === 3 && shape.tanks === 0 && shape.melee === 0) {
+    if (total.damage >= 11 && (total.crowdControl >= 8 || total.utility >= 7 || hasPeel)) score += 1.15;
+    else if (shape.rangedEngageHelpers >= 1 && total.damage >= 10 && teamCcPower(team) >= 2.0) score += 0.45;
+    else if (shape.diveFollowRanged >= 1 && shape.pokeThenEngage + shape.counterOnlyRanged >= 1 && total.damage >= 10) score += 0.25;
+    else score -= 0.75;
+  }
 
-  return Math.max(-8.0, Math.min(2.6, score));
+  if (shape.backline === 0 && shape.supports === 0 && shape.tanks + shape.melee === 3) {
+    if (total.damage >= 10 && total.crowdControl >= 8 && (hasInitiator || average.mobility >= 3.2)) score += 1.05;
+    else if (shape.firstEngagers >= 1 && shape.delayedEngagers + shape.cannotStarters >= 1 && total.damage >= 10) score += 0.35;
+    else score -= 0.75;
+  }
+
+  if (hasInitiator && shape.diveFollowUps >= 2) score += 0.9;
+  if (shape.longRangeCarries >= 1 && shape.sustainedCarries >= 1 && (hasPeel || teamCcPower(team) >= 2.4)) score += 0.85;
+  if (shape.longRangeCarries >= 2 && !hasPeel && teamCcPower(team) < 2.0) score -= 0.7;
+  if (shape.sustainedCarries >= 2 && teamCcPower(team) < 1.6) score -= 0.6;
+
+  return Math.max(-5.4, Math.min(3.0, score));
 }
 
 function pairKey(a, b) {
@@ -373,13 +452,13 @@ function roleBalanceScore(candidate, selected) {
   const hasMeleeDealer = selected.some(isMeleeDealer);
   const hasBacklineDealer = selected.some(isBacklineDealer);
   const hasTank = selected.some(isTank);
-  if (selected.length >= 2 && isTank(candidate) && hasMeleeDealer && hasBacklineDealer) return -1.2;
-  if (selected.length >= 2 && isSupport(candidate) && hasTank) return -2.0;
-  if (!roles.includes("frontline") && ["frontline", "bruiser"].includes(candidate.role)) return 2.2;
-  if (!roles.includes("ranged") && ["ranged", "mage"].includes(candidate.role)) return 1.5;
-  if (!roles.includes("support") && candidate.role === "support") return 1.0;
-  if (roles.includes(candidate.role)) return -0.8;
-  return 0.5;
+  if (selected.length >= 2 && isTank(candidate) && hasMeleeDealer && hasBacklineDealer) return -0.8;
+  if (selected.length >= 2 && isSupport(candidate) && hasTank) return -1.4;
+  if (!roles.includes("frontline") && ["frontline", "bruiser"].includes(candidate.role)) return 1.35;
+  if (!roles.includes("ranged") && ["ranged", "mage"].includes(candidate.role)) return 1.0;
+  if (!roles.includes("support") && candidate.role === "support") return 0.6;
+  if (roles.includes(candidate.role)) return -0.25;
+  return 0.35;
 }
 
 function frontDamageScore(candidate, selected) {
@@ -512,6 +591,7 @@ function conflictScore(candidate, selected) {
   const ranges = nextTeam.map((character) => character.weaponRange);
   const tags = new Set(nextTeam.flatMap((character) => character.tags));
   const totalCc = teamCcPower(nextTeam);
+  const { total, average } = teamMetricProfile(nextTeam);
   let penalty = 0;
 
   const frontlineCount = roles.filter((role) => role === "frontline" || role === "bruiser").length;
@@ -519,17 +599,68 @@ function conflictScore(candidate, selected) {
   const supportCount = roles.filter((role) => role === "support").length;
   const assassinCount = roles.filter((role) => role === "assassin").length;
 
-  if (frontlineCount === 0) penalty -= 2.4;
-  if (rangedCount === 0) penalty -= 1.6;
-  if (supportCount >= 2) penalty -= 1.4;
-  if (assassinCount >= 2 && frontlineCount === 0) penalty -= 1.4;
-  if (ranges.every((range) => range === "melee")) penalty -= 1.2;
-  if (ranges.every((range) => range === "ranged")) penalty -= 0.9;
-  if (!tags.has("initiate") && !tags.has("cc")) penalty -= 1.1;
-  if (totalCc < 1.2) penalty -= 0.8;
-  if (!tags.has("focus") && !tags.has("burst")) penalty -= 0.8;
+  if (frontlineCount === 0 && total.defense <= 6 && totalCc < 2.2) penalty -= 1.4;
+  if (rangedCount === 0 && total.damage < 10 && totalCc < 3.0) penalty -= 1.0;
+  if (supportCount >= 2) penalty -= 1.2;
+  if (assassinCount >= 2 && frontlineCount === 0 && totalCc < 2.5) penalty -= 1.0;
+  if (ranges.every((range) => range === "melee") && !(total.damage >= 10 && totalCc >= 8 && average.mobility >= 3.0)) penalty -= 0.55;
+  if (ranges.every((range) => range === "ranged") && !(total.damage >= 11 && (totalCc >= 8 || total.utility >= 7))) penalty -= 0.45;
+  if (!tags.has("initiate") && !tags.has("cc") && totalCc < 4.5) penalty -= 0.8;
+  if (totalCc < 1.2) penalty -= 0.65;
+  if (!tags.has("focus") && !tags.has("burst") && total.damage < 10) penalty -= 0.55;
 
   return penalty;
+}
+
+function compositionGuideScore(candidate, selected) {
+  const team = [...selected, candidate];
+  if (team.length < 3) return 0;
+
+  const shape = teamShape(team);
+  const { total } = teamMetricProfile(team);
+  const hasLenox = team.some((character) => counterEngageAnchorIds.has(character.characterId));
+  const hasSupport = team.some(isSupport);
+  const hasPrimaryEngage = team.some(isPrimaryEngage);
+  const hasMeleeEngageHelper = team.some((character) => meleeEngageHelperIds.has(character.characterId) || helpsMeleeEngage(character));
+  const hasDiveTeam = team.filter((character) => character.tags.includes("dive") || isMeleeDealer(character)).length >= 2;
+  const hasFirstEngager = shape.firstEngagers > 0;
+  const hasHardDiveDirection = hasFirstEngager && (shape.melee >= 1 || shape.cannotStarters >= 1 || shape.delayedEngagers >= 1);
+  let score = 0;
+
+  if (hasLenox) {
+    if (shape.backline >= 2 && shape.melee === 0) score += 1.05;
+    if (shape.melee >= 1) score -= 1.85;
+  }
+
+  if (shape.guardOnly >= 1 && shape.melee >= 1) score -= 1.15;
+  if (shape.guardOnly >= 1 && shape.backline >= 2 && shape.counterOnlyRanged + shape.pokeThenEngage + shape.rangedEngageHelpers >= 1) score += 0.55;
+
+  if (hasSupport) {
+    if (shape.highDamageContributors >= 2 || total.damage >= 11) score += 0.65;
+    if (shape.lowDamageContributors >= 2 || total.damage <= 8) score -= 1.75;
+  }
+
+  if (!hasPrimaryEngage && (needsEngageHelpIds.has(candidate.characterId) || cannotStartEngage(candidate))) score -= 1.75;
+  if (!hasPrimaryEngage && team.some((character) => needsEngageHelpIds.has(character.characterId) || cannotStartEngage(character))) score -= 0.95;
+  if (!hasFirstEngager && shape.delayedEngagers >= 2) score -= 0.75;
+  if (hasFirstEngager && shape.delayedEngagers >= 1) score += 0.25;
+
+  if (shape.tanks === 1 && shape.melee === 2 && shape.backline === 0) {
+    const tank = team.find(isTank);
+    if (tank && !counterEngageAnchorIds.has(tank.characterId) && isPrimaryEngage(tank)) score += 0.85;
+  }
+
+  if (teamCcPower(team) < 1.2) score -= 1.2;
+  if (hasHardDiveDirection && shape.counterOnlyRanged >= 1 && !hasSupport && !hasMeleeEngageHelper) score -= 1.15;
+  if (hasHardDiveDirection && shape.pokeThenEngage >= 1 && !hasMeleeEngageHelper) score -= 0.35;
+  if (hasDiveTeam && isLongPokeCharacter(candidate) && !hasSupport && !hasMeleeEngageHelper && !likesDiveFollow(candidate)) score -= 0.75;
+  if (hasDiveTeam && hasMeleeEngageHelper) score += 0.7;
+  if (hasHardDiveDirection && shape.diveFollowRanged >= 1) score += 0.45;
+  if (shape.rangedEngageHelpers >= 1 && shape.melee >= 1) score += 0.55;
+  if (shape.backline >= 3 && shape.firstEngagers === 0 && shape.counterOnlyRanged + shape.pokeThenEngage + shape.rangedEngageHelpers >= 2 && teamCcPower(team) >= 2.0) score += 0.55;
+  if (lateEngageIds.has(candidate.characterId) && hasDiveTeam && !hasSupport) score -= 0.45;
+
+  return Math.max(-4.0, Math.min(2.2, score));
 }
 
 function dakCompositionScore(candidate, selected) {
@@ -582,18 +713,20 @@ function tournamentCompositionScore(candidate, selected) {
     const completesExactTeam = selected.length >= 2 && selectedIds.every((id) => members.has(id));
     const pairOnly = selected.length === 1 && members.has(selectedIds[0]);
     const repeatWeight = Math.min(1.35, Math.log2((row.appearances ?? 1) + 1));
-    const matchWeight = completesExactTeam ? 2.35 : pairOnly ? 0.48 : 0.72;
+    const matchWeight = completesExactTeam ? 2.75 : pairOnly ? 0.72 : 0.9;
     const score = tournamentResultScore(row) * matchWeight * repeatWeight;
 
     state.score += score;
     state.weight += matchWeight;
     state.exact += completesExactTeam ? 1 : 0;
+    state.exactScore += completesExactTeam ? Math.max(0.2, tournamentResultScore(row)) : 0;
     return state;
-  }, { score: 0, weight: 0, exact: 0 });
+  }, { score: 0, weight: 0, exact: 0, exactScore: 0 });
 
   if (aggregate.weight === 0) return 0;
-  const cap = aggregate.exact > 0 ? 2.15 : 0.55;
-  return Math.max(-1.0, Math.min(cap, aggregate.score / aggregate.weight));
+  const cap = aggregate.exact > 0 ? 2.6 : 0.85;
+  const exactCompletionBonus = aggregate.exact > 0 ? Math.min(10, aggregate.exact * 5 + aggregate.exactScore * 3) : 0;
+  return Math.max(-1.0, Math.min(cap + exactCompletionBonus, aggregate.score / aggregate.weight + exactCompletionBonus));
 }
 
 function characterByCharacterId(characterId) {
@@ -632,7 +765,7 @@ function tournamentArchetypeScore(candidate, selected) {
 
   if (aggregate.weight === 0) return 0;
   const raw = (aggregate.score / aggregate.weight) * Math.min(1, aggregate.bestSimilarity + 0.08);
-  return Math.max(-0.8, Math.min(0.9, raw * 0.75));
+  return Math.max(-0.8, Math.min(1.15, raw * 0.9));
 }
 
 function dakTierScore(candidate, tier) {
@@ -726,6 +859,54 @@ function relationshipScore(candidate, selected, tier, feedbackRows = [], localFe
   return Math.max(-2.2, Math.min(2.2, (weightedScore / totalWeight) * 3.4));
 }
 
+function candidateSpecificPenaltyReasons(candidate, selected, scores) {
+  const team = [...selected, candidate];
+  const selectedShape = teamShape(selected);
+  const nextShape = teamShape(team);
+  const reasons = [];
+  const selectedHasFirstEngage = selected.some(isPrimaryEngage);
+  const selectedHasDiveDirection =
+    selected.some(isFirstEngageStyle) ||
+    selected.filter((character) => character.tags.includes("dive") || isMeleeDealer(character)).length >= 1;
+
+  if (scores.compositionGuide <= -0.75) {
+    if (isGuardOnly(candidate) && selectedShape.melee >= 1) {
+      reasons.push(`${subjectName(candidate)} 먼저 열기보다 받아치는 쪽에 가까워서, 현재 근접 진입 조합에 넣으면 교전 방향이 갈릴 수 있습니다.`);
+    } else if (cannotStartEngage(candidate) && !selectedHasFirstEngage) {
+      reasons.push(`${subjectName(candidate)} 들어가면 강하지만 먼저 교전을 열기 어렵습니다. 현재 팀에 먼저 박아줄 실험체가 없어 진입 각이 잘 나오지 않습니다.`);
+    } else if (isCounterOnlyRanged(candidate) && selectedHasDiveDirection && !selected.some(helpsMeleeEngage)) {
+      reasons.push(`${subjectName(candidate)} 받아치기와 대치에 강한 픽이라, 팀원이 먼저 들어가는 조합에서는 호흡이 늦어질 수 있습니다.`);
+    } else if (isPokeThenEngage(candidate) && selectedShape.melee >= 2) {
+      reasons.push(`${subjectName(candidate)} 대치로 체력을 깎은 뒤 들어가는 쪽이 좋아서, 바로 박는 근접 조합과는 템포가 어긋날 수 있습니다.`);
+    } else if (isSupport(candidate) && teamMetricProfile(team).total.damage <= 8) {
+      reasons.push(`${subjectName(candidate)} 보호와 보조 성향이 강합니다. 현재 조합은 마무리 화력이 부족해서 서포터를 더하면 상대를 잡기 어려워질 수 있습니다.`);
+    }
+  }
+
+  if (scores.frontDamage <= -0.6 && isLowDamageFront(candidate)) {
+    const damageText = candidate.frontAverageDamage ? ` 평균 딜량 ${candidate.frontAverageDamage.toLocaleString("ko-KR")} 기준으로` : "";
+    reasons.push(`${subjectName(candidate)} DAK.GG 탱커 지표${damageText} 데미지 기여가 낮은 편입니다. 현재 팀처럼 화력이 필요한 상황에서는 앞라인은 서도 킬 압박을 보태기 어렵습니다.`);
+  }
+
+  if (scores.backlineDamage <= -0.65 && isLowDamageBackline(candidate)) {
+    reasons.push(`${subjectName(candidate)} 딜보다 견제/유틸 성향이 강한 편입니다. 현재 팀이 마무리 화력이 필요한 상태라면 우선순위가 낮아집니다.`);
+  }
+
+  if (scores.teamDamageBudget <= -1.4 && isLowDamageContributor(candidate)) {
+    reasons.push(`${objectName(candidate)} 넣으면 팀 전체 화력이 더 부족해질 수 있습니다. 이미 딜 기여가 낮은 픽이 있어, 이 후보는 부족한 데미지를 해결하지 못합니다.`);
+  }
+
+  if (scores.weaponBalance <= -0.5 && candidate.tags.includes("short_range_dealer") && !selected.some(isPrimaryEngage)) {
+    reasons.push(`${subjectName(candidate)} 짧은 거리에서 강한 픽이라 앞에서 각을 만들어줄 팀원이 필요합니다. 현재 조합에서는 딜을 넣기 전에 물릴 위험이 큽니다.`);
+  }
+
+  if (nextShape.guardOnly >= 1 && nextShape.melee >= 1 && candidate.characterId !== "lenox") {
+    reasons.push(`${subjectName(candidate)} 레녹스의 받아치기 구도와 달리 앞으로 들어가야 힘이 납니다. 레녹스 조합에서는 원거리 딜러 쪽이 더 안정적입니다.`);
+  }
+
+  return reasons;
+}
+
 function explain(candidate, selected, scores) {
   const reasons = [];
   const selectedRoles = selected.map((character) => character.role);
@@ -736,6 +917,7 @@ function explain(candidate, selected, scores) {
   const identityDetail = isBacklineDealer(candidate) ? ` / ${damageLabel(candidate)}` : "";
   const identity = `${subjectName(candidate)} ${candidate.weaponLabel} 무기를 쓰는 ${roleLabel(candidate)}${identityDetail} 실험체입니다.`;
   const signature = signatureReason(candidate);
+  reasons.push(...candidateSpecificPenaltyReasons(candidate, selected, scores));
 
   if (scores.teamShape <= -2.2) {
     const team = [...selected, candidate];
@@ -771,6 +953,30 @@ function explain(candidate, selected, scores) {
     reasons.push(`지표상 ${metricCompositionReason([...selected, candidate])} 현재 조합에서는 이 약점이 감점으로 반영됩니다.`);
   }
 
+  if (scores.compositionGuide >= 0.75) {
+    const team = [...selected, candidate];
+    if (team.some((character) => counterEngageAnchorIds.has(character.characterId)) && teamShape(team).backline >= 2) {
+      reasons.push("레녹스처럼 받아치는 앞라인이 있을 때는 2원거리 딜러로 대치와 역점사를 보는 구도가 좋습니다.");
+    } else if (teamShape(team).tanks === 1 && teamShape(team).melee === 2 && teamShape(team).backline === 0) {
+      reasons.push("탱커가 먼저 열고 어그로를 받아줄 수 있어 2근딜이 한 대상을 같이 물기 좋습니다.");
+    } else {
+      reasons.push("표 기준 운영상 현재 팀원과 교전 템포가 잘 맞는 조합입니다.");
+    }
+  }
+
+  if (scores.compositionGuide <= -0.75) {
+    const team = [...selected, candidate];
+    if (team.some((character) => counterEngageAnchorIds.has(character.characterId)) && teamShape(team).melee >= 1) {
+      reasons.push("레녹스 조합에 근딜이 섞이면 들어갈 사람과 받아칠 사람이 갈라져 교전 방향이 애매해질 수 있습니다.");
+    } else if (team.some(isSupport) && teamMetricProfile(team).total.damage <= 8) {
+      reasons.push("서포터가 있는 조합인데 나머지 화력이 부족해 상대를 마무리하기 어려운 구도입니다.");
+    } else if (!team.some(isPrimaryEngage) && team.some((character) => needsEngageHelpIds.has(character.characterId))) {
+      reasons.push("먼저 박아줄 사람이 없어서 선진입이 어려운 픽이 쉬는 시간이 길어질 수 있습니다.");
+    } else if (teamCcPower(team) < 1.2) {
+      reasons.push("팀 전체 CC가 거의 없어 상대 진입을 막거나 한 명을 묶어두기 어렵습니다.");
+    }
+  }
+
   if (scores.teamShape > -2.2) {
     const team = [...selected, candidate];
     const shape = teamShape(team);
@@ -780,9 +986,7 @@ function explain(candidate, selected, scores) {
     }
   }
   if (scores.teamShape >= 1.4 && scores.teamDamageBudget > -1.0) {
-    const shape = teamShape([...selected, candidate]);
-    const shapeLabel = teamShapeLabel(shape);
-    reasons.push(`${objectName(candidate)} 넣으면 ${shapeLabel} 조합이 됩니다. 딜러 자리가 충분해 교전에서 상대를 마무리할 화력이 나옵니다.`);
+    reasons.push(teamFeatureSummary([...selected, candidate], candidate));
   }
   if (scores.frontDamage >= 0.6 && isHighDamageFront(candidate)) {
     reasons.push(`${subjectName(candidate)} 데미지 기여가 충분한 ${roleLabel(candidate)}라서 앞라인을 세우면서도 부족한 화력을 보탤 수 있습니다.`);
@@ -897,6 +1101,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     weaponBalance: weaponBalanceScore(candidate, selected),
     teamShape: teamShapeScore(candidate, selected),
     conflict: conflictScore(candidate, selected),
+    compositionGuide: compositionGuideScore(candidate, selected),
     dakComposition: dakCompositionScore(candidate, selected),
     tournamentComposition: tournamentCompositionScore(candidate, selected),
     tournamentArchetype: tournamentArchetypeScore(candidate, selected),
@@ -916,9 +1121,10 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.weaponBalance +
     scores.teamShape +
     scores.conflict +
+    scores.compositionGuide +
     scores.dakComposition +
-    scores.tournamentComposition +
-    scores.tournamentArchetype +
+    scores.tournamentComposition * 1.25 +
+    scores.tournamentArchetype * 1.1 +
     scores.dakTier +
     scores.dakStatistics +
     scores.relationship -

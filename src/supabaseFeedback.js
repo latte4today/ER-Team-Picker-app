@@ -16,6 +16,11 @@ function voteBucket(date = new Date()) {
   return bucket.toISOString().slice(0, 13);
 }
 
+function isMissingVoteBucketError(error) {
+  const text = `${error?.message ?? ""} ${error?.details ?? ""} ${error?.hint ?? ""}`;
+  return text.includes("vote_bucket") || error?.code === "PGRST204";
+}
+
 function isConfigured() {
   return Boolean(supabaseConfig.url && supabaseConfig.anonKey);
 }
@@ -45,15 +50,19 @@ export async function recordRemoteFeedback(selectedIds, candidateId, value, tier
   const { data: userData, error: userError } = await client.auth.getUser();
   if (userError) throw userError;
 
-  const payload = {
+  const basePayload = {
     user_id: userData.user.id,
     tier,
     team_key: normalizeTeam(selectedIds),
     candidate_id: candidateId.split(":")[0],
     value,
     vote_day: new Date().toISOString().slice(0, 10),
-    vote_bucket: voteBucket(),
     updated_at: new Date().toISOString(),
+  };
+
+  const payload = {
+    ...basePayload,
+    vote_bucket: voteBucket(),
   };
 
   const { error } = await client
@@ -61,6 +70,16 @@ export async function recordRemoteFeedback(selectedIds, candidateId, value, tier
     .upsert(payload, {
       onConflict: "user_id,tier,team_key,candidate_id,vote_bucket",
     });
+
+  if (error && isMissingVoteBucketError(error)) {
+    const { error: fallbackError } = await client
+      .from("recommendation_votes")
+      .upsert(basePayload, {
+        onConflict: "user_id,tier,team_key,candidate_id,vote_day",
+      });
+    if (fallbackError) throw fallbackError;
+    return true;
+  }
 
   if (error) throw error;
   return true;

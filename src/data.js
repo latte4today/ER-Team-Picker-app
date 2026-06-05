@@ -379,15 +379,32 @@ const tankVariantIds = new Set([
   "markus:axe",
 ]);
 
+const frontAverageDamageByVariant = {
+  "alonso:glove": 11637,
+  "estelle:axe": 10725,
+  "sho:dagger": 11007,
+  "sho:spear": 10402,
+  "elena:rapier": 11816,
+  "lenox:whip": 9594,
+  "mai:whip": 9574,
+  "eleven:hammer": 7742,
+  "magnus:hammer": 13960,
+  "mirka:hammer": 12829,
+  "garnet:bat": 9533,
+  "markus:axe": 11261,
+  "markus:hammer": 11547,
+  "magnus:bat": 12836,
+};
+
+function frontDamageBucket(variantId) {
+  const damage = frontAverageDamageByVariant[variantId];
+  if (!damage) return undefined;
+  if (damage >= 11000) return "high";
+  if (damage < 10000) return "low";
+  return "medium";
+}
+
 const highAverageDamageFrontVariantIds = new Set([
-  "estelle:axe",
-  "elena:rapier",
-  "lenox:whip",
-  "magnus:hammer",
-  "magnus:bat",
-  "markus:axe",
-  "markus:hammer",
-  "mirka:hammer",
   "debi_marlene:two_handed_sword",
   "laura:whip",
   "luke:bat",
@@ -417,12 +434,6 @@ const highAverageDamageFrontVariantIds = new Set([
 ]);
 
 const lowAverageDamageFrontVariantIds = new Set([
-  "alonso:glove",
-  "sho:dagger",
-  "sho:spear",
-  "mai:whip",
-  "eleven:hammer",
-  "garnet:bat",
   "nicky:glove",
   "darko:bat",
   "leon:glove",
@@ -501,11 +512,12 @@ export const characterVariants = characters.flatMap((character) =>
       : override.role ?? (character.role === "frontline" ? "bruiser" : character.role);
     const frontDamage =
       role === "frontline" || role === "bruiser" || role === "assassin"
-        ? highAverageDamageFrontVariantIds.has(variantId)
-          ? "high"
-          : lowAverageDamageFrontVariantIds.has(variantId)
-            ? "low"
-            : "medium"
+        ? frontDamageBucket(variantId) ??
+          (highAverageDamageFrontVariantIds.has(variantId)
+            ? "high"
+            : lowAverageDamageFrontVariantIds.has(variantId)
+              ? "low"
+              : "medium")
         : undefined;
     const backlineDamage =
       role === "ranged" || role === "mage"
@@ -530,6 +542,7 @@ export const characterVariants = characters.flatMap((character) =>
       weaponLabel: weaponType.label,
       weaponStyle: weaponType.style ?? "",
       weaponRange: weaponType.range,
+      frontAverageDamage: frontAverageDamageByVariant[variantId],
       frontDamage,
       backlineDamage,
       ccProfile: ccProfiles[character.id] ?? emptyCcProfile,
