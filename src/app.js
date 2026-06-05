@@ -358,7 +358,7 @@ function renderUnionRoleFilters() {
 
 function unionRosterLabel(index) {
   const count = unionRosters[index].size;
-  return count > 0 ? `${count}개 픽 등록` : "실험체 폭 없음";
+  return count > 0 ? `${count} / 15개 픽 등록` : "실험체 폭 없음";
 }
 
 function saveUnionRosters() {
@@ -1078,7 +1078,10 @@ async function refreshRemoteFeedback() {
   } finally {
     isRefreshingRemote = false;
   }
-  renderRecommendations();
+  // 랭킹 탭에서는 re-render 생략 (스크롤 초기화 방지)
+  if (activeView !== "recommendations") {
+    renderRecommendations();
+  }
 }
 
 async function refreshPopularFeedback() {
@@ -1261,6 +1264,9 @@ recommendations.addEventListener("click", (event) => {
     return;
   }
 
+  // 랭킹 탭에서는 추천 픽 선택 로직을 실행하지 않음 (빈 영역 클릭 시 스크롤 초기화 방지)
+  if (activeView === "recommendations") return;
+
   const button = event.target.closest("[data-choose-pick]");
   if (!button) return;
 
@@ -1393,6 +1399,10 @@ unionCharacterGrid.addEventListener("click", (event) => {
   if (roster.has(variantId)) {
     roster.delete(variantId);
   } else {
+    if (roster.size >= 15) {
+      card.animate([{ transform: "translateX(-4px)" }, { transform: "translateX(4px)" }, { transform: "translateX(0)" }], { duration: 200 });
+      return;
+    }
     roster.add(variantId);
   }
   saveUnionRosters();

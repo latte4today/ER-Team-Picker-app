@@ -875,6 +875,7 @@ h2 {
   min-height: 0;
   overflow: auto;
   padding-right: 4px;
+  padding-top: 2px;
 }
 
 .character-panel {
@@ -1510,6 +1511,7 @@ h2 {
   min-height: 0;
   overflow: auto;
   padding-right: 4px;
+  padding-top: 2px;
   align-content: start;
 }
 
