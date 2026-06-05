@@ -143,6 +143,14 @@ async function collectCharacterTiers(options, dakMap) {
     diamond_plus: {},
     mithril_plus: {},
   };
+  const performance = {
+    all: {},
+    bronze: {},
+    gold: {},
+    platinum_plus: {},
+    diamond_plus: {},
+    mithril_plus: {},
+  };
 
   for (const [bucket, tier] of tierBuckets) {
     const url = `${API_BASE}/api/v1/character-stats?dt=7&teamMode=SQUAD&matchingMode=RANK&tier=${tier}`;
@@ -154,13 +162,33 @@ async function collectCharacterTiers(options, dakMap) {
       const weaponStats = stat.weaponStats ?? [];
       const best = weaponStats.sort((a, b) => (b.count ?? 0) - (a.count ?? 0))[0];
       if (best?.tier) tiers[bucket][localId] = best.tier;
+
+      const aggregate = weaponStats.reduce((state, weapon) => {
+        state.games += weapon.count ?? 0;
+        state.wins += weapon.win ?? 0;
+        state.top3 += weapon.top3 ?? 0;
+        state.place += weapon.place ?? 0;
+        return state;
+      }, { games: 0, wins: 0, top3: 0, place: 0 });
+
+      if (aggregate.games > 0) {
+        performance[bucket][localId] = {
+          games: aggregate.games,
+          avgPlacement: Number((aggregate.place / aggregate.games).toFixed(2)),
+          winRate: Number((aggregate.wins / aggregate.games).toFixed(3)),
+          top3Rate: Number((aggregate.top3 / aggregate.games).toFixed(3)),
+        };
+      }
     }
   }
 
   tiers.all = { ...tiers.diamond_plus };
   tiers.bronze = { ...tiers.platinum_plus };
   tiers.gold = { ...tiers.platinum_plus };
-  return tiers;
+  performance.all = { ...performance.diamond_plus };
+  performance.bronze = { ...performance.platinum_plus };
+  performance.gold = { ...performance.platinum_plus };
+  return { tiers, performance };
 }
 
 async function collectPlayerMatches(options, ranker, seasonKey) {
@@ -275,7 +303,7 @@ function formatObject(value) {
   return JSON.stringify(value, null, 2).replace(/"([a-zA-Z_][a-zA-Z0-9_]*)":/g, "$1:");
 }
 
-function buildMetaFile({ seasonKey, generatedAt, experimentTiers, rankerCompositionStats, rankerCandidateStats }) {
+function buildMetaFile({ seasonKey, generatedAt, experimentTiers, statisticsPerformance, rankerCompositionStats, rankerCandidateStats }) {
   return `export const DAK_META_SOURCE = {
   leaderboard: "https://dak.gg/er/leaderboard",
   statistics: "https://dak.gg/er/statistics",
@@ -302,6 +330,8 @@ export const tierScoreWeights = {
 };
 
 export const experimentTiers = ${formatObject(experimentTiers)};
+
+export const statisticsPerformance = ${formatObject(statisticsPerformance)};
 
 export const rankerCompositionStats = ${formatObject(rankerCompositionStats)};
 
@@ -340,13 +370,14 @@ async function main() {
   const dakMap = buildDakCharacterMap(characterById, localByName);
   console.log(`leaderboard rows: ${rankers.length}`);
 
-  const experimentTiers = await collectCharacterTiers(options, dakMap);
+  const { tiers: experimentTiers, performance: statisticsPerformance } = await collectCharacterTiers(options, dakMap);
   const { rankerCompositionStats, rankerCandidateStats } = await collectRankerStats(options, rankers, dakMap, seasonKey);
 
   const metaFile = buildMetaFile({
     seasonKey,
     generatedAt: new Date().toISOString(),
     experimentTiers,
+    statisticsPerformance,
     rankerCompositionStats,
     rankerCandidateStats,
   });

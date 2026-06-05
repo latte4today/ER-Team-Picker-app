@@ -396,6 +396,40 @@ h2 {
   box-shadow: var(--shadow);
 }
 
+.tutorial-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 48%, var(--line));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent-soft) 74%, var(--surface));
+  box-shadow: var(--shadow);
+}
+
+.tutorial-banner[hidden] {
+  display: none;
+}
+
+.tutorial-banner div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.tutorial-banner strong {
+  color: var(--accent-strong);
+  font-size: 13px;
+}
+
+.tutorial-banner span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
 .roster-panel,
 .character-panel,
 .capture-box,
@@ -406,8 +440,8 @@ h2 {
 
 .app-main[data-view="setup"] .feedback-panel {
   padding: 10px;
-  max-height: 146px;
-  overflow: hidden;
+  max-height: 230px;
+  overflow: auto;
 }
 
 .capture-box {
@@ -919,10 +953,13 @@ h2 {
 .character-card[aria-pressed="true"] {
   border-color: var(--gold);
   background: rgba(215, 184, 92, 0.14);
+}
+
+.character-card.pick-pop {
   animation: card-select-pop 180ms ease-out;
 }
 
-.character-card[aria-pressed="true"]::after {
+.character-card.pick-pop::after {
   animation: card-sheen 360ms ease-out;
 }
 
@@ -1260,6 +1297,11 @@ h2 {
   line-height: 1.32;
 }
 
+.app-main[data-view="setup"] .recommendation-details ul {
+  max-height: 92px;
+  overflow: auto;
+}
+
 .app-main[data-view="setup"] .feedback-row {
   margin-top: 6px;
 }
@@ -1295,6 +1337,66 @@ h2 {
   padding-left: 18px;
   color: var(--muted);
   line-height: 1.42;
+}
+
+.recommendation-summary {
+  margin: 0 0 7px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.app-main[data-view="setup"] .recommendation-summary {
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.recommendation-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 7px;
+}
+
+.recommendation-tags:empty {
+  display: none;
+}
+
+.recommendation-tags span {
+  max-width: 100%;
+  padding: 3px 7px;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-soft) 72%, transparent);
+  color: var(--accent-strong);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.recommendation-details {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.recommendation-details summary {
+  display: list-item;
+  width: max-content;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  user-select: none;
+}
+
+.recommendation-details summary:hover {
+  color: var(--accent-strong);
+}
+
+.recommendation-details ul {
+  margin-top: 7px;
 }
 
 .union-builder,
@@ -1536,6 +1638,40 @@ h2 {
   min-width: 0;
 }
 
+.combo-evaluation {
+  display: grid;
+  gap: 7px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.combo-evaluation strong {
+  color: var(--accent-strong);
+  font-size: 12px;
+}
+
+.combo-evaluation p {
+  margin: 2px 0 0;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.combo-evaluation .recommendation-tags {
+  margin-bottom: 0;
+}
+
+.combo-evaluation .recommendation-details {
+  font-size: 11px;
+}
+
+.combo-evaluation .recommendation-details ul {
+  max-height: 64px;
+  overflow: auto;
+}
+
 .chosen-score {
   font-size: 16px;
   min-width: 32px;
@@ -1725,11 +1861,13 @@ h2 {
   font-size: 13px;
 }
 
-.contact-modal[hidden] {
+.contact-modal[hidden],
+.tutorial-modal[hidden] {
   display: none;
 }
 
-.contact-modal {
+.contact-modal,
+.tutorial-modal {
   position: fixed;
   inset: 0;
   z-index: 30;
@@ -1738,14 +1876,16 @@ h2 {
   padding: 22px;
 }
 
-.contact-backdrop {
+.contact-backdrop,
+.tutorial-backdrop {
   position: absolute;
   inset: 0;
   background: rgba(2, 4, 10, 0.68);
   backdrop-filter: blur(6px);
 }
 
-.contact-dialog {
+.contact-dialog,
+.tutorial-dialog {
   position: relative;
   width: min(520px, 100%);
   border: 1px solid var(--line);
@@ -1753,6 +1893,50 @@ h2 {
   background: var(--surface);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
   padding: 16px;
+}
+
+.tutorial-dialog {
+  display: grid;
+  gap: 12px;
+}
+
+.tutorial-dialog h2 {
+  font-size: 22px;
+}
+
+.tutorial-dialog p,
+.tutorial-dialog li {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.tutorial-dialog ol {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tutorial-note {
+  padding: 9px 10px;
+  border: 1px solid rgba(54, 210, 150, 0.34);
+  border-radius: 6px;
+  background: rgba(54, 210, 150, 0.1);
+  color: var(--ok) !important;
+  font-weight: 800;
+}
+
+.tutorial-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.tutorial-start-button {
+  width: auto;
+  margin-top: 0;
 }
 
 .contact-form {

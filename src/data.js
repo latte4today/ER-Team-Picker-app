@@ -45,7 +45,7 @@ export const characters = [
   c("garnet", "가넷", "frontline", ["durable", "initiate", "cc"], "hybrid", 3),
   c("nadine", "나딘", "ranged", ["sustained", "range", "objective"], "basic", 4),
   c("nathapon", "나타폰", "mage", ["poke", "zone", "cc"], "skill", 4),
-  c("nia", "니아", "ranged", ["poke", "burst", "focus"], "skill", 3),
+  c("nia", "니아", "mage", ["poke", "burst", "focus"], "skill", 3),
   c("nicky", "니키", "frontline", ["initiate", "cc", "durable"], "hybrid", 3),
   c("daniel", "다니엘", "assassin", ["burst", "dive", "focus"], "skill", 4),
   c("darko", "다르코", "frontline", ["initiate", "cc", "durable"], "hybrid", 3),

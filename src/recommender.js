@@ -6,9 +6,12 @@ import {
   placementScore,
   rankerCandidateStats,
   rankerCompositionStats,
+  statisticsPerformance,
   statsBucketForTier,
   tierScoreWeights,
 } from "./metaData.js";
+import { metricCompositionReason, teamMetricProfile } from "./characterMetrics.js";
+import { tournamentCompositions } from "./tournamentMeta.js";
 
 const requiredTags = ["initiate", "focus", "peel", "cc", "sustained", "poke", "burst"];
 
@@ -444,6 +447,29 @@ function teamDamageBudgetScore(candidate, selected) {
   return Math.max(-3.2, Math.min(1.0, score));
 }
 
+function metricBalanceScore(candidate, selected) {
+  const team = [...selected, candidate];
+  if (team.length < 3) return 0;
+
+  const { total, average } = teamMetricProfile(team);
+  let score = 0;
+
+  if (total.damage <= 8) score -= 1.2;
+  else if (total.damage >= 11) score += 0.55;
+
+  if (total.defense <= 6 && average.mobility < 3.4) score -= 0.75;
+  else if (total.defense >= 9) score += 0.35;
+
+  if (total.crowdControl <= 5) score -= 0.65;
+  else if (total.crowdControl >= 9) score += 0.5;
+
+  if (average.mobility >= 3.7 && total.crowdControl >= 7) score += 0.35;
+  if (total.utility >= 8 && total.damage >= 9) score += 0.25;
+  if (total.utility >= 8 && total.damage <= 8) score -= 0.35;
+
+  return Math.max(-1.6, Math.min(1.25, score));
+}
+
 function killPressureScore(candidate, selected) {
   if (!isBacklineDealer(candidate)) return 0;
   const damageTypes = selected.map((character) => character.damage);
@@ -532,6 +558,83 @@ function dakCompositionScore(candidate, selected) {
   return Math.max(-2.8, Math.min(2.8, (aggregate.score / aggregate.weight) * 1.7));
 }
 
+function tournamentResultScore(row) {
+  const placement = (4.5 - (row.rank ?? 4.5)) / 3.5;
+  const teamScore = Math.min(1, (row.ts ?? 0) / 22);
+  const killScore = Math.min(1, (row.ks ?? 0) / 14);
+  return Math.max(-1.15, Math.min(1.35, placement * 0.78 + teamScore * 0.32 + killScore * 0.28));
+}
+
+function tournamentCompositionScore(candidate, selected) {
+  if (selected.length === 0 || tournamentCompositions.length === 0) return 0;
+
+  const candidateId = candidate.characterId;
+  const selectedIds = selected.map((character) => character.characterId);
+  const selectedSet = new Set(selectedIds);
+  const rows = tournamentCompositions.filter((row) => row.members.includes(candidateId));
+  if (rows.length === 0) return 0;
+
+  const aggregate = rows.reduce((state, row) => {
+    const members = new Set(row.members);
+    const matchedSelected = selectedIds.filter((id) => members.has(id)).length;
+    if (matchedSelected === 0) return state;
+
+    const completesExactTeam = selected.length >= 2 && selectedIds.every((id) => members.has(id));
+    const pairOnly = selected.length === 1 && members.has(selectedIds[0]);
+    const repeatWeight = Math.min(1.35, Math.log2((row.appearances ?? 1) + 1));
+    const matchWeight = completesExactTeam ? 2.35 : pairOnly ? 0.48 : 0.72;
+    const score = tournamentResultScore(row) * matchWeight * repeatWeight;
+
+    state.score += score;
+    state.weight += matchWeight;
+    state.exact += completesExactTeam ? 1 : 0;
+    return state;
+  }, { score: 0, weight: 0, exact: 0 });
+
+  if (aggregate.weight === 0) return 0;
+  const cap = aggregate.exact > 0 ? 2.15 : 0.55;
+  return Math.max(-1.0, Math.min(cap, aggregate.score / aggregate.weight));
+}
+
+function characterByCharacterId(characterId) {
+  return characterVariants.find((character) => character.characterId === characterId);
+}
+
+function metricSimilarityScore(team, referenceTeam) {
+  const teamAverage = teamMetricProfile(team).average;
+  const referenceAverage = teamMetricProfile(referenceTeam).average;
+  const fields = ["damage", "defense", "crowdControl", "mobility", "utility"];
+  const distance = fields.reduce((sum, field) => sum + Math.abs((teamAverage[field] ?? 0) - (referenceAverage[field] ?? 0)), 0);
+  return Math.max(0, 1 - distance / 7.5);
+}
+
+function tournamentArchetypeScore(candidate, selected) {
+  const team = [...selected, candidate];
+  if (team.length < 3 || tournamentCompositions.length === 0) return 0;
+
+  const teamIds = new Set(team.map((character) => character.characterId));
+  const aggregate = tournamentCompositions.reduce((state, row) => {
+    const referenceTeam = row.members.map(characterByCharacterId).filter(Boolean);
+    if (referenceTeam.length < 3) return state;
+
+    const overlap = row.members.filter((id) => teamIds.has(id)).length;
+    const similarity = metricSimilarityScore(team, referenceTeam);
+    if (similarity < 0.72 && overlap === 0) return state;
+
+    const result = tournamentResultScore(row);
+    const overlapWeight = overlap >= 2 ? 1.0 : overlap === 1 ? 0.45 : 0.22;
+    const weight = similarity * overlapWeight;
+    state.score += result * weight;
+    state.weight += weight;
+    state.bestSimilarity = Math.max(state.bestSimilarity, similarity);
+    return state;
+  }, { score: 0, weight: 0, bestSimilarity: 0 });
+
+  if (aggregate.weight === 0) return 0;
+  const raw = (aggregate.score / aggregate.weight) * Math.min(1, aggregate.bestSimilarity + 0.08);
+  return Math.max(-0.8, Math.min(0.9, raw * 0.75));
+}
+
 function dakTierScore(candidate, tier) {
   const bucket = statsBucketForTier(tier);
   const tierLabel = experimentTiers[bucket]?.[candidate.characterId] ?? experimentTiers.all?.[candidate.characterId];
@@ -539,6 +642,15 @@ function dakTierScore(candidate, tier) {
   const broadRanker = rankerCandidateStats[candidate.characterId];
   const broadRankerScore = broadRanker ? placementScore(broadRanker) * oneTrickWeight(broadRanker.oneTrickRatio) * 0.35 : 0;
   return tierScore + broadRankerScore;
+}
+
+function dakStatisticsScore(candidate, tier) {
+  const bucket = statsBucketForTier(tier);
+  const stats = statisticsPerformance?.[bucket]?.[candidate.characterId] ?? statisticsPerformance?.all?.[candidate.characterId];
+  if (!stats) return 0;
+
+  const confidence = Math.min(1, Math.log10((stats.games ?? 0) + 1) / 2.5);
+  return Math.max(-1.25, Math.min(1.35, placementScore(stats) * confidence * 0.85));
 }
 
 function feedbackSentiment(likes = 0, dislikes = 0) {
@@ -651,6 +763,14 @@ function explain(candidate, selected, scores) {
     }
   }
 
+  if (scores.metricBalance >= 0.65) {
+    reasons.push(`지표상 ${metricCompositionReason([...selected, candidate])}`);
+  }
+
+  if (scores.metricBalance <= -0.75) {
+    reasons.push(`지표상 ${metricCompositionReason([...selected, candidate])} 현재 조합에서는 이 약점이 감점으로 반영됩니다.`);
+  }
+
   if (scores.teamShape > -2.2) {
     const team = [...selected, candidate];
     const shape = teamShape(team);
@@ -735,9 +855,16 @@ function explain(candidate, selected, scores) {
   }
 
   if (scores.synergy >= 1.4) reasons.push(`${subjectName(candidate)} 현재 팀원과의 샘플 상성 점수가 높아 함께 쓸 때 기대값이 좋습니다.`);
+  if (scores.tournamentComposition >= 0.8) reasons.push(`대회 데이터에서 현재 팀원과 함께 완성 조합으로 쓰인 기록이 있어 조합 보정이 반영되었습니다.`);
+  if (scores.tournamentComposition >= 0.25 && scores.tournamentComposition < 0.8) reasons.push(`대회 데이터에서 현재 팀원과 함께 쓰인 페어 기록이 있어 소폭 가산했습니다.`);
+  if (scores.tournamentComposition <= -0.45) reasons.push(`대회 데이터에서 비슷한 조합이 낮은 결과를 낸 기록이 있어 조합 보정에서 감점되었습니다.`);
+  if (scores.tournamentArchetype >= 0.45) reasons.push(`선수들이 사용한 상위권 조합과 화력, 방어, CC, 기동 지표 구성이 비슷해 대회 조합 분석 보정이 반영되었습니다.`);
+  if (scores.tournamentArchetype <= -0.35) reasons.push(`선수들이 사용한 하위권 조합과 지표 구성이 비슷해 대회 조합 분석에서 감점되었습니다.`);
   if (scores.dakComposition >= 1.1) reasons.push(`랭커 전적에서 ${subjectName(candidate)} 비슷한 팀 조합과 함께 좋은 결과를 낸 기록이 있습니다.`);
   if (scores.dakComposition <= -0.8) reasons.push(`랭커 전적 기준으로 ${subjectName(candidate)} 비슷한 조합에서 하위권을 기록한 사례가 있어 감점되었습니다.`);
   if (scores.dakTier >= 0.8) reasons.push(`${candidate.name}의 최근 통계 티어가 높아 현재 메타 기준으로도 선택 가치가 있습니다.`);
+  if (scores.dakStatistics >= 0.55) reasons.push(`${candidate.name}의 현재 승률과 TOP3 지표가 좋아 메타 보정 점수가 반영되었습니다.`);
+  if (scores.dakStatistics <= -0.45) reasons.push(`${candidate.name}의 현재 승률과 TOP3 지표가 낮아 메타 보정에서 감점되었습니다.`);
   if (scores.conflict <= -2) reasons.push(`${objectName(candidate)} 넣으면 역할이나 교전 방식이 겹쳐 조합 점수가 낮게 계산됩니다.`);
   if (selected.length === 0) reasons.push(`${identity} ${job} 첫 픽으로 조합 방향을 잡기 쉽습니다.`);
   if (reasons.length === 0 && candidate.tags.includes("cc")) reasons.push(`${subjectName(candidate)} CC로 교전 시작과 받아치기에 필요한 제어 능력을 더합니다.`);
@@ -765,12 +892,16 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     frontDamage: frontDamageScore(candidate, selected),
     backlineDamage: backlineDamageScore(candidate, selected),
     teamDamageBudget: teamDamageBudgetScore(candidate, selected),
+    metricBalance: metricBalanceScore(candidate, selected),
     killPressure: killPressureScore(candidate, selected),
     weaponBalance: weaponBalanceScore(candidate, selected),
     teamShape: teamShapeScore(candidate, selected),
     conflict: conflictScore(candidate, selected),
     dakComposition: dakCompositionScore(candidate, selected),
+    tournamentComposition: tournamentCompositionScore(candidate, selected),
+    tournamentArchetype: tournamentArchetypeScore(candidate, selected),
     dakTier: dakTierScore(candidate, tier),
+    dakStatistics: dakStatisticsScore(candidate, tier),
     relationship: relationshipScore(candidate, selected, tier, relationshipRows),
   };
   const total =
@@ -780,12 +911,16 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.frontDamage +
     scores.backlineDamage +
     scores.teamDamageBudget +
+    scores.metricBalance +
     scores.killPressure +
     scores.weaponBalance +
     scores.teamShape +
     scores.conflict +
     scores.dakComposition +
+    scores.tournamentComposition +
+    scores.tournamentArchetype +
     scores.dakTier +
+    scores.dakStatistics +
     scores.relationship -
     candidate.difficulty * 0.08 +
     getFeedbackScore(selectedIds, candidate.variantId, tier) +
@@ -803,10 +938,11 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
 
   const selectedCharacters = new Set(selected.map((character) => character.characterId));
   const candidatePool = candidateCharacterIds?.length ? new Set(candidateCharacterIds) : undefined;
+  const candidateUsesVariants = candidateCharacterIds?.some((id) => String(id).includes(":")) ?? false;
 
   return characterVariants
     .filter((candidate) => !selectedCharacters.has(candidate.characterId))
-    .filter((candidate) => !candidatePool || candidatePool.has(candidate.characterId))
+    .filter((candidate) => !candidatePool || candidatePool.has(candidateUsesVariants ? candidate.variantId : candidate.characterId))
     .map((candidate) => evaluateCandidate(selectedIds, candidate.variantId, tier, remoteFeedback, relationshipRows))
     .sort((a, b) => b.score - a.score)
     .slice(0, 18);

@@ -46,8 +46,13 @@ const unionSearchInput = document.querySelector("#union-search-input");
 const unionResults = document.querySelector("#union-results");
 const unionSummary = document.querySelector("#union-summary");
 const unionClearButton = document.querySelector("#union-clear-button");
+const tutorialModal = document.querySelector("#tutorial-modal");
+const tutorialStartButton = document.querySelector("#tutorial-start-button");
+const tutorialBanner = document.querySelector("#tutorial-banner");
+const tutorialEndButton = document.querySelector("#tutorial-end-button");
 
 let activeSlot = null;
+let recentlyAssignedVariantId = null;
 let remoteFeedback = {};
 let popularFeedback = [];
 let isRefreshingRemote = false;
@@ -57,9 +62,17 @@ let chosenPickId = null;
 const submittedFeedbackKeys = new Set();
 const slotAssignments = [null, null, null];
 const savedTheme = localStorage.getItem("er-team-picker-theme");
-const playableStorageKey = "er-team-picker-playable-characters";
+const tutorialStorageKey = "er-team-picker-tutorial-seen";
+const legacyPlayableStorageKey = "er-team-picker-playable-characters";
+const playableStorageKey = "er-team-picker-playable-variants";
 const unionStorageKey = "er-team-picker-union-rosters";
-const playableCharacterIds = new Set(JSON.parse(localStorage.getItem(playableStorageKey) ?? "[]"));
+const savedPlayableVariants = JSON.parse(localStorage.getItem(playableStorageKey) ?? "[]");
+const savedPlayableCharacters = JSON.parse(localStorage.getItem(legacyPlayableStorageKey) ?? "[]");
+const playableVariantIds = new Set(savedPlayableVariants.length > 0
+  ? savedPlayableVariants
+  : characterVariants
+    .filter((character) => savedPlayableCharacters.includes(character.characterId))
+    .map((character) => character.variantId));
 let playableEditMode = false;
 let activeView = appMain?.dataset.view ?? "setup";
 let activeUnionPlayer = 0;
@@ -68,6 +81,8 @@ const unionPlayerNames = ["플레이어 1", "플레이어 2", "플레이어 3", 
 const unionParticipatingPlayers = new Set([0, 1, 2]);
 const savedUnionRosters = JSON.parse(localStorage.getItem(unionStorageKey) ?? "[]");
 const unionRosters = Array.from({ length: 4 }, (_, index) => new Set(savedUnionRosters[index] ?? []));
+let tutorialMode = false;
+let tutorialFeedbackSubmitted = false;
 
 function characterName(characterId) {
   return characterVariants.find((character) => character.characterId === characterId)?.name ?? characterId;
@@ -98,6 +113,32 @@ function characterSubtitle(character) {
   return [roleNames[character.role], character.weaponLabel, character.weaponStyle].filter(Boolean).join(" · ");
 }
 
+function compactReasonLabels(reasons = []) {
+  const joined = reasons.join(" ");
+  const labels = [];
+  const add = (label) => {
+    if (!labels.includes(label)) labels.push(label);
+  };
+
+  if (/앞라인|탱커|진입|받아치/.test(joined)) add("앞라인 보완");
+  if (/마무리|킬캐치|화력|데미지|딜러 자리/.test(joined)) add(/부족|모자|감점/.test(joined) ? "마무리 화력 부족" : "마무리 화력 보완");
+  if (/CC|이니시|교전 시작|진입각/.test(joined)) add("교전 시작 보완");
+  if (/보호|세이브|받아치|안정/.test(joined)) add("아군 보호 보완");
+  if (/사거리|포킹|대치/.test(joined)) add("대치 구도 보완");
+  if (/데미지 기여가 충분|화력을 보탤|화력을 채워/.test(joined)) add("데미지 충분");
+  if (/데미지 기여가 부족|화력 총량이 부족|화력이 부족/.test(joined)) add("데미지 부족 주의");
+  if (/평가 데이터|좋게 기록|랭커|전적/.test(joined)) add("데이터상 양호");
+  if (/감점|낮게 잡힐|위험/.test(joined)) add("주의 필요");
+
+  return labels.slice(0, 3);
+}
+
+function compactReasonText(reasons = []) {
+  const labels = compactReasonLabels(reasons);
+  if (labels.length > 0) return labels.join(" · ");
+  return "현재 조합에서 부족한 부분을 보완합니다.";
+}
+
 function setTheme(theme) {
   const nextTheme = theme === "light" ? "light" : "dark";
   document.documentElement.dataset.theme = nextTheme;
@@ -107,6 +148,51 @@ function setTheme(theme) {
 }
 
 setTheme(savedTheme ?? "dark");
+
+function closeTutorialModal(markSeen = true) {
+  if (tutorialModal) tutorialModal.hidden = true;
+  if (markSeen) localStorage.setItem(tutorialStorageKey, "1");
+}
+
+function showTutorialModalIfNeeded() {
+  if (!tutorialModal || localStorage.getItem(tutorialStorageKey) === "1") return;
+  tutorialModal.hidden = false;
+}
+
+function setTutorialBannerVisible(visible) {
+  if (tutorialBanner) tutorialBanner.hidden = !visible;
+}
+
+function startTutorial() {
+  tutorialMode = true;
+  tutorialFeedbackSubmitted = false;
+  activeView = "setup";
+  activeSlot = null;
+  playableEditMode = false;
+  slotAssignments[0] = null;
+  slotAssignments[1] = "arda:arcana";
+  slotAssignments[2] = "piolo:nunchaku";
+  syncSelectedFromSlots();
+  closeTutorialModal(true);
+  setTutorialBannerVisible(true);
+  renderDetectedTeam([], "샘플 팀원 2명을 넣었습니다. 오른쪽 추천 후보에서 내 픽을 하나 기록해보세요.");
+  render();
+}
+
+function endTutorial({ clearSample = true } = {}) {
+  tutorialMode = false;
+  tutorialFeedbackSubmitted = false;
+  setTutorialBannerVisible(false);
+  localStorage.setItem(tutorialStorageKey, "1");
+  if (clearSample) {
+    slotAssignments.fill(null);
+    selectedIds.clear();
+    chosenPickId = null;
+    activeSlot = null;
+    renderDetectedTeam([], "튜토리얼을 종료했습니다.");
+  }
+  render();
+}
 
 function openContactModal() {
   contactModal.hidden = false;
@@ -217,9 +303,10 @@ function renderCharacters({ preserveScroll = true } = {}) {
   characterGrid.innerHTML = filtered
     .map((character) => {
       const selected = selectedIds.has(character.variantId) || chosenPickId === character.variantId;
-      const playable = playableCharacterIds.has(character.characterId);
+      const playable = playableVariantIds.has(character.variantId);
+      const popClass = character.variantId === recentlyAssignedVariantId ? " pick-pop" : "";
       return `
-        <button class="character-card" type="button" data-id="${character.variantId}" data-playable="${playable}" aria-pressed="${selected}">
+        <button class="character-card${popClass}" type="button" data-id="${character.variantId}" data-playable="${playable}" aria-pressed="${selected}">
           <span class="avatar">
             <img src="${character.image}" alt="" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.hidden = false;">
             <span hidden>${character.name.slice(0, 1)}</span>
@@ -234,6 +321,29 @@ function renderCharacters({ preserveScroll = true } = {}) {
     })
     .join("");
   if (preserveScroll) characterGrid.scrollTop = previousScrollTop;
+}
+
+function markRecentlyAssigned(id) {
+  recentlyAssignedVariantId = id;
+  window.setTimeout(() => {
+    if (recentlyAssignedVariantId === id) {
+      recentlyAssignedVariantId = null;
+      characterGrid.querySelector(`[data-id="${CSS.escape(id)}"]`)?.classList.remove("pick-pop");
+    }
+  }, 260);
+}
+
+function toggleDetailsSummary(event) {
+  if (!(event.target instanceof Element)) return false;
+  const summary = event.target.closest(".recommendation-details summary");
+  if (!summary) return false;
+
+  const details = summary.closest("details");
+  if (!details) return false;
+  event.preventDefault();
+  event.stopPropagation();
+  details.open = !details.open;
+  return true;
 }
 
 function renderUnionRoleFilters() {
@@ -495,26 +605,26 @@ function renderUnion() {
 }
 
 function savePlayableCharacters() {
-  localStorage.setItem(playableStorageKey, JSON.stringify([...playableCharacterIds]));
+  localStorage.setItem(playableStorageKey, JSON.stringify([...playableVariantIds]));
 }
 
 function renderPlayableTools() {
-  const count = playableCharacterIds.size;
+  const count = playableVariantIds.size;
   playableModeButton.classList.toggle("active", playableEditMode);
   playableModeButton.textContent = playableEditMode ? "설정 완료" : "가능 실험체 설정";
   playableModeButton.setAttribute("aria-pressed", String(playableEditMode));
   clearPlayableButton.disabled = count === 0;
-  playableStatus.textContent = count > 0 ? `가능 실험체 ${count}명 안에서 추천` : "전체 실험체 추천 중";
+  playableStatus.textContent = count > 0 ? `가능 픽 ${count}개 안에서 추천` : "전체 실험체 추천 중";
 }
 
 function togglePlayableCharacter(variantId) {
   const variant = characterVariants.find((character) => character.variantId === variantId);
   if (!variant) return;
 
-  if (playableCharacterIds.has(variant.characterId)) {
-    playableCharacterIds.delete(variant.characterId);
+  if (playableVariantIds.has(variant.variantId)) {
+    playableVariantIds.delete(variant.variantId);
   } else {
-    playableCharacterIds.add(variant.characterId);
+    playableVariantIds.add(variant.variantId);
   }
 
   savePlayableCharacters();
@@ -822,7 +932,7 @@ function renderRecommendations() {
     return;
   }
 
-  const playablePool = playableCharacterIds.size > 0 ? [...playableCharacterIds] : undefined;
+  const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
   const results = recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, popularFeedback);
   if (results.length === 0) {
     recommendations.innerHTML = `<p class="empty-state">현재 가능 실험체 목록 안에는 추천할 후보가 없습니다.</p>`;
@@ -831,6 +941,10 @@ function renderRecommendations() {
   recommendations.innerHTML = results
     .map((result, index) => {
       const reasonList = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
+      const compactLabels = compactReasonLabels(result.reasons)
+        .map((label) => `<span>${label}</span>`)
+        .join("");
+      const compactText = compactReasonText(result.reasons);
       const scoreTone = result.score < 0 ? " negative-score" : "";
       return `
         <article class="recommendation-card">
@@ -844,7 +958,12 @@ function renderRecommendations() {
               <h3>${result.character.name}</h3>
               <span>${characterSubtitle(result.character)}</span>
             </div>
-            <ul>${reasonList}</ul>
+            <p class="recommendation-summary">${compactText}</p>
+            <div class="recommendation-tags">${compactLabels}</div>
+            <details class="recommendation-details">
+              <summary>상세 설명</summary>
+              <ul>${reasonList}</ul>
+            </details>
             <div class="feedback-row">
               <button class="feedback-button" type="button" data-choose-pick="${result.character.variantId}">내 선택으로 기록</button>
             </div>
@@ -864,15 +983,23 @@ function renderMatchFeedback() {
   }
 
   const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, popularFeedback);
+  const reasonList = evaluation?.reasons.map((reason) => `<li>${reason}</li>`).join("") ?? "";
+  const compactLabels = compactReasonLabels(evaluation?.reasons ?? [])
+    .map((label) => `<span>${label}</span>`)
+    .join("");
+  const compactText = compactReasonText(evaluation?.reasons ?? []);
   const scoreTone = (evaluation?.score ?? 0) < 0 ? " negative-score" : "";
   const score = selectedIds.size > 0 ? `<strong class="chosen-score${scoreTone}">${evaluation?.score ?? "-"}</strong>` : "";
   const currentFeedbackKey = feedbackWindowKey([...selectedIds], chosen.variantId, tierSelect.value);
   const hasSubmittedFeedback =
-    submittedFeedbackKeys.has(currentFeedbackKey) || hasRecentFeedback([...selectedIds], chosen.variantId, tierSelect.value);
+    (tutorialMode && tutorialFeedbackSubmitted) ||
+    submittedFeedbackKeys.has(currentFeedbackKey) ||
+    hasRecentFeedback([...selectedIds], chosen.variantId, tierSelect.value);
+  const doneText = tutorialMode ? "튜토리얼 평가 완료 · 실제 데이터에는 저장되지 않았습니다." : "평가가 반영되었습니다.";
   const feedbackControls = hasSubmittedFeedback
     ? `
       <div class="chosen-feedback-done" aria-live="polite">
-        <strong>평가가 반영되었습니다.</strong>
+        <strong>${doneText}</strong>
       </div>
       <button class="icon-button clear-pick-button" type="button" data-clear-pick aria-label="선택 해제" title="선택 해제">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -913,6 +1040,17 @@ function renderMatchFeedback() {
       </div>
       ${score}
       ${feedbackControls}
+    </div>
+    <div class="combo-evaluation">
+      <div>
+        <strong>현재 조합 진단</strong>
+        <p>${compactText}</p>
+      </div>
+      <div class="recommendation-tags">${compactLabels}</div>
+      <details class="recommendation-details">
+        <summary>상세 설명</summary>
+        <ul>${reasonList}</ul>
+      </details>
     </div>
   `;
 }
@@ -1007,6 +1145,7 @@ characterGrid.addEventListener("click", (event) => {
   }
 
   if (activeSlot !== null) {
+    markRecentlyAssigned(id);
     assignSlot(activeSlot, id);
     activeSlot = null;
     renderDetectedTeam();
@@ -1014,6 +1153,7 @@ characterGrid.addEventListener("click", (event) => {
     return;
   }
 
+  markRecentlyAssigned(id);
   assignNextPick(id);
   renderDetectedTeam();
   render();
@@ -1052,6 +1192,14 @@ contactModal.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !contactModal.hidden) closeContactModal();
+  if (event.key === "Escape" && tutorialModal && !tutorialModal.hidden) closeTutorialModal(true);
+});
+
+tutorialStartButton?.addEventListener("click", startTutorial);
+tutorialEndButton?.addEventListener("click", () => endTutorial());
+tutorialModal?.addEventListener("click", (event) => {
+  if (!event.target.closest("[data-tutorial-skip]")) return;
+  closeTutorialModal(true);
 });
 
 contactForm.addEventListener("submit", (event) => {
@@ -1092,7 +1240,7 @@ playableModeButton.addEventListener("click", () => {
   renderCharacters();
 });
 clearPlayableButton.addEventListener("click", () => {
-  playableCharacterIds.clear();
+  playableVariantIds.clear();
   savePlayableCharacters();
   renderPlayableTools();
   renderCharacters();
@@ -1104,6 +1252,8 @@ tierSelect.addEventListener("change", () => {
 });
 
 recommendations.addEventListener("click", (event) => {
+  if (toggleDetailsSummary(event)) return;
+
   const rankRoleButton = event.target.closest("[data-rank-role]");
   if (rankRoleButton) {
     activeRankRole = rankRoleButton.dataset.rankRole;
@@ -1121,6 +1271,8 @@ recommendations.addEventListener("click", (event) => {
 });
 
 matchFeedback.addEventListener("click", (event) => {
+  if (toggleDetailsSummary(event)) return;
+
   const clearPickButton = event.target.closest("[data-clear-pick]");
   if (clearPickButton) {
     chosenPickId = null;
@@ -1136,12 +1288,23 @@ matchFeedback.addEventListener("click", (event) => {
   const currentFeedbackKey = feedbackWindowKey([...selectedIds], chosenPickId, tierSelect.value);
   if (submittedFeedbackKeys.has(currentFeedbackKey)) return;
 
-  submittedFeedbackKeys.add(currentFeedbackKey);
   button.classList.add(Number(button.dataset.matchFeedback) > 0 ? "feedback-pop-like" : "feedback-pop-dislike");
   button.closest(".chosen-actions")?.querySelectorAll("[data-match-feedback]").forEach((item) => {
     item.disabled = true;
   });
 
+  if (tutorialMode) {
+    tutorialFeedbackSubmitted = true;
+    syncStatus.textContent = "튜토리얼 평가라 저장하지 않았습니다.";
+    syncStatus.dataset.state = "ok";
+    window.setTimeout(() => {
+      renderMatchFeedback();
+      renderRecommendations();
+    }, 420);
+    return;
+  }
+
+  submittedFeedbackKeys.add(currentFeedbackKey);
   recordFeedback([...selectedIds], chosenPickId, Number(button.dataset.matchFeedback), tierSelect.value);
   markRecentFeedback([...selectedIds], chosenPickId, tierSelect.value);
   syncStatus.textContent = "서버 저장 중";
@@ -1167,8 +1330,27 @@ matchFeedback.addEventListener("click", (event) => {
 manualSlots.addEventListener("click", (event) => {
   const button = event.target.closest("[data-manual-slot]");
   if (!button) return;
-  activeSlot = Number(button.dataset.manualSlot);
-  renderDetectedTeam([], `${button.textContent} 변경 모드입니다. 아래 실험체 카드 하나를 누르면 이 칸에 기록됩니다.`);
+  const slotIndex = Number(button.dataset.manualSlot);
+  const slotLabel = slotIndex === 0 ? "나" : `팀원 ${slotIndex}`;
+
+  if (slotAssignments[slotIndex]) {
+    slotAssignments[slotIndex] = null;
+    activeSlot = null;
+    syncSelectedFromSlots();
+    renderDetectedTeam([], `${slotLabel} 선택을 해제했습니다.`);
+    render();
+    return;
+  }
+
+  if (activeSlot === slotIndex) {
+    activeSlot = null;
+    renderDetectedTeam([], "슬롯 변경 모드를 취소했습니다.");
+    renderManualSlots();
+    return;
+  }
+
+  activeSlot = slotIndex;
+  renderDetectedTeam([], `${slotLabel} 변경 모드입니다. 아래 실험체 카드 하나를 누르면 이 칸에 기록됩니다.`);
   renderManualSlots();
 });
 
@@ -1246,4 +1428,5 @@ themeToggle.addEventListener("click", () => {
 });
 
 render();
+showTutorialModalIfNeeded();
 setTimeout(checkForUpdatesOnStartup, 1200);

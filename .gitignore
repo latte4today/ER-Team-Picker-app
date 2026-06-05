@@ -13,6 +13,7 @@ out/
 
 # Collector/cache output
 data/dak-cache/
+data/namu-debug.html
 
 # Local environment and secrets
 .env
