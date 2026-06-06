@@ -3,51 +3,133 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>이터널 리턴 조합 추천</title>
+    <title>ER Team Picker</title>
     <link rel="icon" href="assets/app-icon.png" type="image/png">
     <link rel="stylesheet" href="src/styles.css">
+    <style>
+      .language-gate {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        background:
+          radial-gradient(circle at 18% 18%, rgba(67, 194, 223, 0.2), transparent 30%),
+          radial-gradient(circle at 78% 28%, rgba(146, 97, 255, 0.2), transparent 32%),
+          #080d14;
+      }
+
+      .language-gate[hidden] {
+        display: none;
+      }
+
+      .language-panel {
+        width: min(920px, 100%);
+        padding: 28px;
+        border: 1px solid rgba(126, 150, 180, 0.28);
+        border-radius: 18px;
+        background: rgba(17, 26, 39, 0.92);
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.44);
+      }
+
+      .language-panel h1 {
+        margin: 0;
+        color: #f5f8ff;
+        font-size: 30px;
+        letter-spacing: 0;
+      }
+
+      .language-panel p {
+        margin: 10px 0 22px;
+        color: #aebbd0;
+        font-weight: 750;
+      }
+
+      .language-options {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .language-card {
+        min-height: 116px;
+        border: 1px solid rgba(126, 150, 180, 0.32);
+        border-radius: 14px;
+        background: #172233;
+        color: #f5f8ff;
+        font-size: 18px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .language-card:hover {
+        border-color: rgba(67, 194, 223, 0.72);
+        background: rgba(67, 194, 223, 0.14);
+      }
+
+      @media (max-width: 760px) {
+        .language-options {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
+    <div class="language-gate" id="language-gate" hidden>
+      <section class="language-panel" aria-labelledby="language-title">
+        <h1 id="language-title" data-i18n="language.title"></h1>
+        <p data-i18n="language.subtitle"></p>
+        <div class="language-options">
+          <button class="language-card" type="button" data-language-option="ko" data-i18n="language.ko"></button>
+          <button class="language-card" type="button" data-language-option="en" data-i18n="language.en"></button>
+          <button class="language-card" type="button" data-language-option="ja" data-i18n="language.ja"></button>
+          <button class="language-card" type="button" data-language-option="zhHans" data-i18n="language.zhHans"></button>
+          <button class="language-card" type="button" data-language-option="zhHant" data-i18n="language.zhHant"></button>
+        </div>
+      </section>
+    </div>
+
     <main class="app-shell">
-      <aside class="app-sidebar" aria-label="앱 메뉴">
+      <aside class="app-sidebar" data-i18n-label="app.sidebarLabel">
         <div class="brand-panel">
           <img src="assets/app-icon.png" alt="">
           <strong>ER Team Picker</strong>
-          <span>이터널 리턴 조합 추천</span>
+          <span data-i18n="app.brandSubtitle"></span>
         </div>
-        <nav class="side-nav" aria-label="주요 메뉴">
-          <button class="side-tab active" type="button" data-view="setup">조합 구성</button>
-          <button class="side-tab" type="button" data-view="recommendations">랭킹</button>
-          <button class="side-tab" type="button" data-view="union">유니온</button>
+        <nav class="side-nav" data-i18n-label="app.sidebarLabel">
+          <button class="side-tab active" type="button" data-view="setup" data-i18n="nav.setup"></button>
+          <button class="side-tab" type="button" data-view="recommendations" data-i18n="nav.recommendations"></button>
+          <button class="side-tab" type="button" data-view="union" data-i18n="nav.union"></button>
         </nav>
         <div class="side-footer">
-          <button class="update-button" id="update-check-button" type="button">업데이트 확인</button>
+          <button class="update-button" id="update-check-button" type="button" data-i18n="button.updateCheck"></button>
           <div class="update-status" id="update-status" role="status"></div>
-          <button class="contact-button" id="contact-open-button" type="button">문의 보내기</button>
-          <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="true">다크 모드</button>
+          <button class="contact-button" id="contact-open-button" type="button" data-i18n="button.contact"></button>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="true" data-i18n="button.darkMode"></button>
         </div>
       </aside>
 
       <section class="app-main" data-view="setup">
-        <header class="topbar" aria-label="추천 설정">
+        <header class="topbar">
           <div>
-            <p class="eyebrow">Squad Draft Assistant</p>
-            <h1>우리 팀에 맞는 실험체 추천</h1>
+            <p class="eyebrow" data-i18n="topbar.eyebrow.setup"></p>
+            <h1 data-i18n="topbar.title.setup"></h1>
           </div>
           <div class="topbar-actions">
             <div class="summary-pill">
               <span id="selected-count">0</span>
-              <span>/ 2명 선택됨</span>
+              <span data-i18n="topbar.selectedSuffix"></span>
             </div>
             <label class="tier-select">
-              <span>내 티어</span>
+              <span data-i18n="tier.label"></span>
               <select id="tier-select">
-                <option value="all">전체</option>
-                <option value="iron_bronze">아이언/브론즈</option>
-                <option value="silver_gold">실버/골드</option>
-                <option value="platinum_diamond">플래티넘/다이아</option>
-                <option value="meteor_mithril">메테오/미스릴</option>
-                <option value="demigod_eternity">데미갓/이터니티</option>
+                <option value="all" data-i18n="tier.all"></option>
+                <option value="iron_bronze" data-i18n="tier.ironBronze"></option>
+                <option value="silver_gold" data-i18n="tier.silverGold"></option>
+                <option value="platinum_diamond" data-i18n="tier.platinumDiamond"></option>
+                <option value="meteor_mithril" data-i18n="tier.meteorMithril"></option>
+                <option value="demigod_eternity" data-i18n="tier.demigodEternity"></option>
               </select>
             </label>
           </div>
@@ -55,43 +137,52 @@
 
         <div class="workspace">
           <section class="content-stack">
-            <section class="panel roster-panel" id="team-section" aria-label="팀 선택">
+            <section class="panel roster-panel" id="team-section">
               <div class="panel-header">
                 <div>
-                  <p class="section-kicker">Team Setup</p>
-                  <h2>팀 선택</h2>
+                  <p class="section-kicker" data-i18n="section.teamSetup.kicker"></p>
+                  <h2 data-i18n="section.teamSetup.title"></h2>
                 </div>
-                <button class="ghost-button" id="clear-button" type="button">초기화</button>
+                <button class="ghost-button" id="clear-button" type="button" data-i18n="button.reset"></button>
               </div>
-              <p class="helper-text">카드를 누르면 팀원 1, 팀원 2, 나 순서로 기록됩니다.</p>
-              <div class="manual-slots" id="manual-slots" aria-label="팀 슬롯 현황">
-                <button class="manual-slot self-slot" type="button" data-manual-slot="0">나</button>
-                <button class="manual-slot" type="button" data-manual-slot="1">팀원 1</button>
-                <button class="manual-slot" type="button" data-manual-slot="2">팀원 2</button>
+              <p class="helper-text" data-i18n="section.teamSetup.helper"></p>
+              <div class="manual-slots" id="manual-slots">
+                <button class="manual-slot self-slot" type="button" data-manual-slot="0" data-i18n="slot.self"></button>
+                <button class="manual-slot" type="button" data-manual-slot="1" data-i18n="slot.teammate1"></button>
+                <button class="manual-slot" type="button" data-manual-slot="2" data-i18n="slot.teammate2"></button>
               </div>
               <div class="selected-team" id="selected-team"></div>
             </section>
 
-            <section class="panel guide-strip" aria-label="사용 방법">
-              <strong>간단 안내</strong>
-              <span>실험체 카드를 눌러 팀을 구성하세요. 가능 실험체를 지정하면 해당 목록 안에서만 추천하고, 경기 후 평가는 다음 추천에 반영됩니다.</span>
+            <section class="panel guide-strip">
+              <strong data-i18n="guide.title"></strong>
+              <span data-i18n="guide.body"></span>
             </section>
 
-            <section class="panel character-panel" aria-label="실험체 목록">
+            <section class="panel character-panel">
               <div class="panel-header">
                 <div>
-                  <p class="section-kicker">Roster</p>
-                  <h2>실험체 선택</h2>
+                  <p class="section-kicker" data-i18n="section.roster.kicker"></p>
+                  <h2 data-i18n="section.roster.title"></h2>
                 </div>
               </div>
               <label class="search-box">
-                <span>검색</span>
-                <input id="search-input" type="search" placeholder="실험체 이름 검색">
+                <span data-i18n="search.label"></span>
+                <input id="search-input" type="search" data-i18n-placeholder="search.placeholder">
               </label>
-              <div class="playable-tools" aria-label="가능 실험체 설정">
-                <button class="ghost-button" id="playable-mode-button" type="button" aria-pressed="false">가능 실험체 설정</button>
-                <button class="ghost-button" id="clear-playable-button" type="button">가능 목록 초기화</button>
-                <span id="playable-status">전체 실험체 추천 중</span>
+              <div class="playable-tools">
+                <button class="ghost-button" id="playable-mode-button" type="button" aria-pressed="false" data-i18n="button.playableMode"></button>
+                <button class="ghost-button" id="clear-playable-button" type="button" data-i18n="button.clearPlayable"></button>
+                <span id="playable-status" data-i18n="playable.status.all"></span>
+              </div>
+              <div class="playable-presets">
+                <input id="playable-preset-name" type="text" maxlength="18" data-i18n-placeholder="preset.namePlaceholder">
+                <select id="playable-preset-select">
+                  <option value="" data-i18n="preset.empty"></option>
+                </select>
+                <button class="ghost-button" id="save-playable-preset-button" type="button" data-i18n="button.save"></button>
+                <button class="ghost-button" id="load-playable-preset-button" type="button" data-i18n="button.load"></button>
+                <button class="ghost-button" id="delete-playable-preset-button" type="button" data-i18n="button.delete"></button>
               </div>
               <div class="filter-row" id="role-filters"></div>
               <div class="character-grid" id="character-grid"></div>
@@ -100,24 +191,24 @@
           </section>
 
           <aside class="result-column">
-            <section class="panel result-panel" id="recommend-section" aria-label="추천 후보">
+            <section class="panel result-panel" id="recommend-section">
               <div class="panel-header">
                 <div>
-                  <p class="section-kicker">Recommendation</p>
-                  <h2>추천 후보</h2>
+                  <p class="section-kicker" data-i18n="section.recommendation.kicker"></p>
+                  <h2 data-i18n="section.recommendation.title"></h2>
                 </div>
                 <div class="status-group">
-                  <span class="sync-chip" id="sync-status">로컬 저장</span>
+                  <span class="sync-chip" id="sync-status" data-i18n="sync.local"></span>
                 </div>
               </div>
               <div class="recommendations" id="recommendations"></div>
             </section>
 
-            <section class="panel feedback-panel" id="feedback-section" aria-label="경기 후 평가">
+            <section class="panel feedback-panel" id="feedback-section">
               <div class="panel-header">
                 <div>
-                  <p class="section-kicker">Review</p>
-                  <h2>경기 후 평가</h2>
+                  <p class="section-kicker" data-i18n="section.review.kicker"></p>
+                  <h2 data-i18n="section.review.title"></h2>
                 </div>
               </div>
               <div class="match-feedback" id="match-feedback"></div>
@@ -125,20 +216,20 @@
           </aside>
         </div>
 
-        <section class="union-view" aria-label="유니온 조합">
+        <section class="union-view">
           <section class="panel union-builder">
             <div class="panel-header">
               <div>
-                <p class="section-kicker">Union Draft</p>
-                <h2>유니온 실험체 폭 설정</h2>
+                <p class="section-kicker" data-i18n="section.union.kicker"></p>
+                <h2 data-i18n="section.union.title"></h2>
               </div>
-              <button class="ghost-button" id="union-clear-button" type="button">초기화</button>
+              <button class="ghost-button" id="union-clear-button" type="button" data-i18n="button.reset"></button>
             </div>
-            <p class="helper-text">플레이어 1~4의 실험체 폭을 등록하세요. 비어 있는 칸은 없는 멤버로 처리하고, 실험체 폭이 있는 멤버가 4명이면 출전할 3명을 체크합니다. 인원당 최대 15개까지 선택 가능합니다.</p>
+            <p class="helper-text" data-i18n="section.union.helper"></p>
             <div class="union-player-grid" id="union-player-grid"></div>
             <label class="search-box union-search">
-              <span>검색</span>
-              <input id="union-search-input" type="search" placeholder="실험체 이름 검색">
+              <span data-i18n="search.label"></span>
+              <input id="union-search-input" type="search" data-i18n-placeholder="union.search.placeholder">
             </label>
             <div class="filter-row" id="union-role-filters"></div>
             <div class="union-character-grid" id="union-character-grid"></div>
@@ -147,10 +238,10 @@
           <section class="panel union-result-panel">
             <div class="panel-header">
               <div>
-                <p class="section-kicker">Recommendation</p>
-                <h2>유니온 추천 조합</h2>
+                <p class="section-kicker" data-i18n="section.recommendation.kicker"></p>
+                <h2 data-i18n="union.result.title"></h2>
               </div>
-              <span class="sync-chip" id="union-summary">0개 조합</span>
+              <span class="sync-chip" id="union-summary" data-i18n="union.summary.empty"></span>
             </div>
             <div class="union-results" id="union-results"></div>
           </section>
@@ -163,25 +254,25 @@
       <section class="contact-dialog" role="dialog" aria-modal="true" aria-labelledby="contact-title">
         <div class="panel-header">
           <div>
-            <p class="section-kicker">Contact</p>
-            <h2 id="contact-title">문의 보내기</h2>
+            <p class="section-kicker" data-i18n="contact.kicker"></p>
+            <h2 id="contact-title" data-i18n="contact.title"></h2>
           </div>
-          <button class="icon-button" type="button" data-contact-close aria-label="닫기">×</button>
+          <button class="icon-button" type="button" data-contact-close data-i18n-label="contact.closeLabel">x</button>
         </div>
         <form class="contact-form" id="contact-form">
           <label>
-            <span>답장 받을 이메일</span>
-            <input id="contact-reply" type="email" autocomplete="email" required placeholder="example@email.com">
+            <span data-i18n="contact.replyLabel"></span>
+            <input id="contact-reply" type="email" autocomplete="email" required data-i18n-placeholder="contact.replyPlaceholder">
           </label>
           <label>
-            <span>문의 내용</span>
-            <textarea id="contact-message" rows="7" maxlength="1200" required placeholder="불편한 점, 개선 제안, 오류 상황 등을 적어주세요."></textarea>
+            <span data-i18n="contact.messageLabel"></span>
+            <textarea id="contact-message" rows="7" maxlength="1200" required data-i18n-placeholder="contact.messagePlaceholder"></textarea>
           </label>
-          <p class="contact-note">문의자의 이메일은 답장 용도로만 저장되며, 운영자 메일 주소는 앱에 공개되지 않습니다.</p>
+          <p class="contact-note" data-i18n="contact.note"></p>
           <div class="contact-actions">
             <span id="contact-status" role="status"></span>
-            <button class="ghost-button" type="button" data-contact-close>취소</button>
-            <button class="primary-button contact-submit" type="submit">보내기</button>
+            <button class="ghost-button" type="button" data-contact-close data-i18n="button.cancel"></button>
+            <button class="primary-button contact-submit" type="submit" data-i18n="button.send"></button>
           </div>
         </form>
       </section>

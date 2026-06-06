@@ -10,11 +10,14 @@
     "collect-dak": "\"C:\\Program Files\\nodejs\\node.exe\" tools/dak_collector.mjs --rankers 200 --matchesPerRanker 12",
     "wiki-template": "\"C:\\Program Files\\nodejs\\node.exe\" tools/make_wiki_metrics_template.mjs",
     "wiki-apply": "\"C:\\Program Files\\nodejs\\node.exe\" tools/apply_wiki_metrics_csv.mjs",
-    "dist": "electron-builder --win portable",
+    "dist": "electron-builder --win nsis",
     "pack": "electron-builder --dir",
     "clean-build": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"foreach ($path in @('dist','release')) { if (Test-Path -LiteralPath $path) { Remove-Item -LiteralPath $path -Recurse -Force } }\"",
     "package-win": "npm run clean-build && electron-builder --dir",
-    "installer-win": "npm run package-win && \"C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe\" installer\\ERTeamPicker.iss"
+    "installer-win": "npm run clean-build && electron-builder --win nsis"
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.9"
   },
   "devDependencies": {
     "@electron/packager": "^20.0.0",
@@ -32,11 +35,32 @@
       "supabase/**/*",
       "README.md"
     ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "latte4today",
+        "repo": "ER-Team-Picker-app"
+      }
+    ],
     "win": {
       "icon": "assets/app-icon.ico",
       "target": [
-        "portable"
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
       ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ER Team Picker",
+      "deleteAppDataOnUninstall": false
     }
   }
 }

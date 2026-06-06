@@ -11,6 +11,8 @@ import {
   tierScoreWeights,
 } from "./metaData.js";
 import { metricCompositionReason, teamMetricProfile } from "./characterMetrics.js";
+import { dakggRealtimeStatsByVariant, realtimeStatAverages } from "./dakggRealtimeStats.js";
+import { t } from "./i18n/index.js";
 import { tournamentCompositions } from "./tournamentMeta.js";
 import {
   cannotStartEngage,
@@ -26,43 +28,47 @@ import {
 
 const requiredTags = ["initiate", "focus", "peel", "cc", "sustained", "poke", "burst"];
 
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
 const damageLabels = {
-  basic: "평타 딜러",
-  skill: "스킬 딜러",
-  hybrid: "교전형 딜러",
+  basic: "recommender.damageLabels.basic",
+  skill: "recommender.damageLabels.skill",
+  hybrid: "recommender.damageLabels.hybrid",
 };
 
 const roleJobs = {
-  frontline: "탱커로 앞라인을 세우고 먼저 맞아줄 수 있습니다",
-  bruiser: "브루저로 앞라인과 딜 압박을 동시에 맡을 수 있습니다",
-  ranged: "후방 핵심 딜러로 꾸준히 딜을 넣을 수 있습니다",
-  mage: "스킬 딜러로 포킹과 광역 압박을 만들 수 있습니다",
-  assassin: "암살자로 한 명을 빠르게 포커싱해 끊을 수 있습니다",
-  support: "서포터로 아군 보호와 교전 보조를 맡을 수 있습니다",
+  frontline: "recommender.roleJobs.frontline",
+  bruiser: "recommender.roleJobs.bruiser",
+  ranged: "recommender.roleJobs.ranged",
+  mage: "recommender.roleJobs.mage",
+  assassin: "recommender.roleJobs.assassin",
+  support: "recommender.roleJobs.support",
 };
 
 const tagLabels = {
-  initiate: "이니쉬",
-  engage: "이니쉬",
-  focus: "포커싱",
-  cc: "CC",
-  peel: "아군 보호",
-  sustained: "지속딜",
-  burst: "순간딜",
-  poke: "포킹",
-  durable: "버티기",
-  shield: "보호막",
-  healing: "회복",
-  utility: "유틸",
-  range: "사거리",
-  zone: "지역 장악",
-  dive: "진입",
-  mobility: "기동성",
-  objective: "오브젝트",
-  duel: "맞싸움",
-  pick: "잘라먹기",
-  sustain: "유지력",
-  short_range_dealer: "인파이팅 딜",
+  initiate: "recommender.tagLabels.initiate",
+  engage: "recommender.tagLabels.engage",
+  focus: "recommender.tagLabels.focus",
+  cc: "recommender.tagLabels.cc",
+  peel: "recommender.tagLabels.peel",
+  sustained: "recommender.tagLabels.sustained",
+  burst: "recommender.tagLabels.burst",
+  poke: "recommender.tagLabels.poke",
+  durable: "recommender.tagLabels.durable",
+  shield: "recommender.tagLabels.shield",
+  healing: "recommender.tagLabels.healing",
+  utility: "recommender.tagLabels.utility",
+  range: "recommender.tagLabels.range",
+  zone: "recommender.tagLabels.zone",
+  dive: "recommender.tagLabels.dive",
+  mobility: "recommender.tagLabels.mobility",
+  objective: "recommender.tagLabels.objective",
+  duel: "recommender.tagLabels.duel",
+  pick: "recommender.tagLabels.pick",
+  sustain: "recommender.tagLabels.sustain",
+  short_range_dealer: "recommender.tagLabels.short_range_dealer",
 };
 
 const counterEngageAnchorIds = new Set(["lenox"]);
@@ -72,76 +78,76 @@ const needsEngageHelpIds = new Set(["jackie", "daniel", "shoichi", "cathy"]);
 const meleeEngageHelperIds = new Set(["coreline"]);
 
 const signatureReasons = {
-  garnet: "가넷은 단단하게 버티면서 광역 CC로 진입각을 열 수 있어 앞라인이 필요한 조합에 잘 맞습니다.",
-  nadine: "나딘은 오브젝트와 긴 교전에서 누적 화력이 강해 앞라인이 시간을 벌어주는 조합에서 가치가 큽니다.",
-  nathapon: "나타폰은 카메라 기반 스킬 화력과 CC로 대치 중 상대를 묶어 아군 스킬 적중률을 높여줍니다.",
-  nia: "니아는 짧은 폭딜과 포커싱이 강해 CC가 걸린 대상을 빠르게 마무리하기 좋습니다.",
-  nicky: "니키는 반격과 진입으로 상대 핵심 딜러에게 압박을 줄 수 있어 박치기 조합의 선봉 역할에 어울립니다.",
-  daniel: "다니엘은 후방 딜러를 노리는 암살 압박이 강해 상대 원딜 중심 조합을 흔들기 좋습니다.",
-  darko: "다르코는 단단하게 들어가 광역 CC와 근접 압박을 동시에 만들 수 있어 교전 시작점이 됩니다.",
-  debi_marlene: "데비&마를렌은 진입 후 지속 교전 화력이 좋아 앞라인이 열린 뒤 따라 들어가는 구도에 강합니다.",
-  tia: "띠아는 광역 스킬과 CC로 좁은 지형 교전에서 상대 진형을 무너뜨리기 좋습니다.",
-  laura: "라우라는 기동성과 순간 진입으로 상대 원거리 딜러를 직접 압박하는 브루저 역할에 적합합니다.",
-  lenox: "레녹스는 지속적인 견제와 저지력이 좋아 상대 진입을 끊고 아군 딜러가 딜할 시간을 벌어줍니다.",
-  leni: "레니는 보호와 보조 CC를 통해 진입한 아군을 살리고 짧은 교전을 길게 이어가게 해줍니다.",
-  leon: "레온은 물 지형과 광역 진입으로 한 번에 교전을 열기 좋아 호응 가능한 딜러와 잘 맞습니다.",
-  rozzi: "로지는 권총 기동성과 짧은 교전 폭딜로 CC에 걸린 대상을 빠르게 추격해 마무리하기 좋습니다.",
-  luke: "루크는 1:1 압박과 진입 후 지속딜이 좋아 사이드 운영과 포커싱 교전에 힘을 보탭니다.",
-  lenore: "르노어는 대치 구도에서 포킹과 CC를 섞어 상대가 먼저 들어오기 어렵게 만듭니다.",
-  li_dailin: "리 다이린은 진입 후 난전 지속력이 좋아 앞라인이 흔든 전장에 따라 들어가기 좋습니다.",
-  rio: "리오는 긴 사거리의 평타 지속딜로 앞라인 뒤에서 안정적으로 핵심 화력을 담당합니다.",
-  martina: "마르티나는 카메라 기반 견제와 후반 화력이 있어 대치가 길어지는 조합에서 힘을 냅니다.",
-  mai: "마이는 보호와 세이브 능력이 좋아 아군 핵심 딜러를 살리는 받아치기 조합에 어울립니다.",
-  markus: "마커스는 단단한 진입과 데미지 기여를 함께 할 수 있어 1탱 1근 1원에서도 화력 공백을 줄여줍니다.",
-  magnus: "매그너스는 강한 진입과 근접 압박으로 상대 진형을 밀어내고 교전 시작점을 만들기 좋습니다.",
-  mirka: "미르카는 탱커 중에서도 데미지 기여와 광역 CC가 있어 앞라인과 화력 보충을 동시에 맡을 수 있습니다.",
-  vanya: "바냐는 보호막과 광역 견제로 상대 진입을 받아치며 긴 교전을 안정적으로 만듭니다.",
-  barbara: "바바라는 설치물 중심의 지역 장악으로 상대가 들어오는 길을 제한하고 지속 화력을 냅니다.",
-  bernice: "버니스는 덫과 저지력으로 상대 진입을 끊어 짧은 사거리 딜러의 약점을 보완합니다.",
-  blair: "블레어는 근접 브루저처럼 붙어서 화염 장판과 스킬 압박을 이어가며 난전에서 화력을 보탭니다.",
-  bianca: "비앙카는 순간 폭딜과 단일 CC로 한 대상을 빠르게 전장이탈시키는 데 강점이 있습니다.",
-  bihyung: "비형은 진입 후 순간 화력과 포커싱이 좋아 상대 핵심 딜러를 빠르게 압박합니다.",
-  celine: "셀린은 폭발물 기반 광역 압박으로 좁은 길목에서 상대 체력을 크게 깎아줍니다.",
-  sua: "수아는 단단함과 CC, 유지력을 함께 갖춰 앞에서 오래 버티며 교전을 이어갑니다.",
-  sissela: "시셀라는 원거리 견제와 생존력을 바탕으로 대치 중 체력을 깎고 받아치는 구도에 강합니다.",
-  silvia: "실비아는 기동성으로 교전 각을 빠르게 바꾸며 짧은 거리에서 딜과 진입을 함께 수행합니다.",
-  adela: "아델라는 스킬 배치와 CC로 상대 이동을 제한해 아군 스킬 딜러의 적중 각을 만들어줍니다.",
-  arda: "아르다는 CC와 보조 능력으로 박치기 조합의 진입 호응을 안정적으로 만들어줍니다.",
-  alonso: "알론소는 확정 CC와 넓은 광역 제어로 한 번에 교전을 열어 아군 포커싱 대상을 만들어줍니다.",
-  yan: "얀은 근접 난전에서 CC와 압박을 넣어 상대 딜러가 편하게 딜하지 못하게 만듭니다.",
-  estelle: "에스텔은 보호와 데미지 기여가 모두 가능해 탱커지만 화력 공백을 어느 정도 메울 수 있습니다.",
-  elena: "엘레나는 광역 진입과 데미지 기여가 있어 앞라인을 세우면서도 교전 화력을 보탭니다.",
-  yumin: "유민은 스킬 딜러로 중거리 포킹과 유틸을 섞어 앞라인 뒤에서 안정적으로 압박을 넣습니다.",
-  justina: "유스티나는 스킬 화력과 기동성을 살려 대치 중 빈틈을 찌르고 포커싱 대상을 빠르게 압박합니다.",
-  ian: "이안은 진입 후 폭딜과 포커싱이 강해 CC가 들어간 대상을 빠르게 녹이는 데 어울립니다.",
-  eleven: "일레븐은 도발로 상대 진입을 끊거나 한 명을 묶어 아군 딜러가 때릴 시간을 만듭니다.",
-  cathy: "캐시는 빠른 진입과 폭딜로 상대 후방을 직접 노리는 암살 압박을 제공합니다.",
-  kenneth: "케네스는 단단한 근접 지속딜로 앞라인과 함께 오래 싸우는 난전에 강합니다.",
-  theodore: "테오도르는 원거리 지원과 보호막을 통해 대치 구도에서 아군 딜러의 안정성을 높입니다.",
-  hart: "하트는 짧은 거리에서 꾸준한 평타 화력과 기동성을 살려 앞라인이 만든 교전 안에서 힘을 냅니다.",
-  tazia: "타지아는 짧은 거리 스킬 폭딜로 CC에 걸린 대상을 빠르게 마무리하는 데 강점이 있습니다.",
-  karla: "칼라는 스킬 딜러로 석궁 견제와 CC를 섞어 근거리로 붙는 상대를 제어하며 딜을 넣습니다.",
-  jenny: "제니는 기동성과 순간 스킬 화력으로 짧은 교전에서 포커싱 대상을 빠르게 압박합니다.",
-  tsubame: "츠바메는 짧은 사거리의 원거리 딜러지만 기동성과 순간 화력이 좋아 근접 난전에서 포커싱을 돕습니다.",
-  henry: "헨리는 짧은 사거리 스킬 딜러로 넓은 CC와 포킹을 섞어 상대 진입을 받아치는 데 힘을 보탭니다.",
+  garnet: "recommender.signatureReasons.garnet",
+  nadine: "recommender.signatureReasons.nadine",
+  nathapon: "recommender.signatureReasons.nathapon",
+  nia: "recommender.signatureReasons.nia",
+  nicky: "recommender.signatureReasons.nicky",
+  daniel: "recommender.signatureReasons.daniel",
+  darko: "recommender.signatureReasons.darko",
+  debi_marlene: "recommender.signatureReasons.debi_marlene",
+  tia: "recommender.signatureReasons.tia",
+  laura: "recommender.signatureReasons.laura",
+  lenox: "recommender.signatureReasons.lenox",
+  leni: "recommender.signatureReasons.leni",
+  leon: "recommender.signatureReasons.leon",
+  rozzi: "recommender.signatureReasons.rozzi",
+  luke: "recommender.signatureReasons.luke",
+  lenore: "recommender.signatureReasons.lenore",
+  li_dailin: "recommender.signatureReasons.li_dailin",
+  rio: "recommender.signatureReasons.rio",
+  martina: "recommender.signatureReasons.martina",
+  mai: "recommender.signatureReasons.mai",
+  markus: "recommender.signatureReasons.markus",
+  magnus: "recommender.signatureReasons.magnus",
+  mirka: "recommender.signatureReasons.mirka",
+  vanya: "recommender.signatureReasons.vanya",
+  barbara: "recommender.signatureReasons.barbara",
+  bernice: "recommender.signatureReasons.bernice",
+  blair: "recommender.signatureReasons.blair",
+  bianca: "recommender.signatureReasons.bianca",
+  bihyung: "recommender.signatureReasons.bihyung",
+  celine: "recommender.signatureReasons.celine",
+  sua: "recommender.signatureReasons.sua",
+  sissela: "recommender.signatureReasons.sissela",
+  silvia: "recommender.signatureReasons.silvia",
+  adela: "recommender.signatureReasons.adela",
+  arda: "recommender.signatureReasons.arda",
+  alonso: "recommender.signatureReasons.alonso",
+  yan: "recommender.signatureReasons.yan",
+  estelle: "recommender.signatureReasons.estelle",
+  elena: "recommender.signatureReasons.elena",
+  yumin: "recommender.signatureReasons.yumin",
+  justina: "recommender.signatureReasons.justina",
+  ian: "recommender.signatureReasons.ian",
+  eleven: "recommender.signatureReasons.eleven",
+  cathy: "recommender.signatureReasons.cathy",
+  kenneth: "recommender.signatureReasons.kenneth",
+  theodore: "recommender.signatureReasons.theodore",
+  hart: "recommender.signatureReasons.hart",
+  tazia: "recommender.signatureReasons.tazia",
+  karla: "recommender.signatureReasons.karla",
+  jenny: "recommender.signatureReasons.jenny",
+  tsubame: "recommender.signatureReasons.tsubame",
+  henry: "recommender.signatureReasons.henry",
 };
 
 const variantSignatureReasons = {
-  "nadine:bow": "활 나딘은 스킬 딜러로 긴 사거리 견제와 오브젝트 압박을 맡아 대치 구도에서 힘을 냅니다.",
-  "isol:pistol": "권총 아이솔은 스킬 딜러로 기동성과 함정 견제를 살려 상대 진입로를 제한하고 포킹을 넣습니다.",
-  "magnus:bat": "방망이 매그너스는 탱커보다는 브루저로 들어가 근접 압박과 딜 교환을 맡는 픽입니다.",
-  "magnus:hammer": "망치 매그너스는 탱커로 앞라인을 세우면서도 교전 중간중간 딜을 섞을 수 있습니다.",
-  "markus:axe": "도끼 마커스는 탱커 역할을 하면서도 근접 딜 교환이 가능해 화력 공백을 줄입니다.",
-  "markus:hammer": "망치 마커스는 단단한 진입과 광역 압박으로 앞라인 교전을 열기 좋습니다.",
-  "sho:dagger": "단검 쇼우는 탱커 역할을 하되 짧은 교전에서 더 빠르게 압박을 넣는 선택지입니다.",
-  "sho:spear": "창 쇼우는 앞라인에서 버티며 지속 교전과 진입각을 안정적으로 만들어줍니다.",
-  "aya:pistol": "권총 아야는 기동성이 좋은 스킬 딜러라 위치를 바꾸며 포킹과 마무리 딜을 넣기 좋습니다.",
-  "aya:sniper_rifle": "저격총 아야는 더 강한 스킬 화력과 긴 사거리로 대치 구도에서 상대 핵심 딜러를 압박합니다.",
-  "aya:assault_rifle": "돌격소총 아야는 평타 지속딜이 안정적이라 앞라인 뒤에서 꾸준히 화력을 넣을 수 있습니다.",
+  "nadine:bow": "recommender.variantSignatureReasons.nadine_bow",
+  "isol:pistol": "recommender.variantSignatureReasons.isol_pistol",
+  "magnus:bat": "recommender.variantSignatureReasons.magnus_bat",
+  "magnus:hammer": "recommender.variantSignatureReasons.magnus_hammer",
+  "markus:axe": "recommender.variantSignatureReasons.markus_axe",
+  "markus:hammer": "recommender.variantSignatureReasons.markus_hammer",
+  "sho:dagger": "recommender.variantSignatureReasons.sho_dagger",
+  "sho:spear": "recommender.variantSignatureReasons.sho_spear",
+  "aya:pistol": "recommender.variantSignatureReasons.aya_pistol",
+  "aya:sniper_rifle": "recommender.variantSignatureReasons.aya_sniper_rifle",
+  "aya:assault_rifle": "recommender.variantSignatureReasons.aya_assault_rifle",
 };
 
 function labelList(values) {
-  return [...new Set(values.map((value) => tagLabels[value] ?? value))].join(", ");
+  return [...new Set(values.map((value) => tagLabels[value] ? t(tagLabels[value]) : value))].join(", ");
 }
 
 function roleLabel(character) {
@@ -149,7 +155,7 @@ function roleLabel(character) {
 }
 
 function damageLabel(character) {
-  return damageLabels[character.damage] ?? character.damage;
+  return damageLabels[character.damage] ? t(damageLabels[character.damage]) : character.damage;
 }
 
 function hasFinalConsonant(text) {
@@ -175,7 +181,8 @@ function withName(character) {
 }
 
 function signatureReason(character) {
-  return variantSignatureReasons[character.variantId] ?? signatureReasons[character.characterId];
+  const key = variantSignatureReasons[character.variantId] ?? signatureReasons[character.characterId];
+  return key ? t(key) : undefined;
 }
 
 function ccPower(character) {
@@ -251,20 +258,72 @@ function isFrontRole(character) {
   return isTank(character) || character.role === "bruiser";
 }
 
+function realtimeStatsFor(character) {
+  return dakggRealtimeStatsByVariant[character.variantId];
+}
+
+let realtimeDamageReferenceCache;
+
+function realtimeDamageGroup(character) {
+  if (isFrontRole(character) || character.role === "assassin") return "front";
+  if (isBacklineDealer(character)) return "backline";
+  if (isSupport(character)) return "support";
+  return "all";
+}
+
+function buildRealtimeDamageReferences() {
+  const groups = {
+    all: [],
+    front: [],
+    backline: [],
+    support: [],
+  };
+
+  characterVariants.forEach((variant) => {
+    const stats = realtimeStatsFor(variant);
+    if (!stats?.damage) return;
+    groups.all.push(stats.damage);
+    groups[realtimeDamageGroup(variant)]?.push(stats.damage);
+  });
+
+  return Object.fromEntries(
+    Object.entries(groups).map(([group, values]) => [
+      group,
+      values.length
+        ? values.reduce((sum, value) => sum + value, 0) / values.length
+        : realtimeStatAverages.damage,
+    ]),
+  );
+}
+
+function realtimeDamageReference(character) {
+  realtimeDamageReferenceCache ??= buildRealtimeDamageReferences();
+  return realtimeDamageReferenceCache[realtimeDamageGroup(character)] ?? realtimeStatAverages.damage;
+}
+
+function realtimeDamageBucket(character) {
+  const stats = realtimeStatsFor(character);
+  if (!stats?.damage) return undefined;
+  const reference = realtimeDamageReference(character);
+  if (stats.damage >= reference * 1.08) return "high";
+  if (stats.damage <= reference * 0.86) return "low";
+  return "medium";
+}
+
 function isHighDamageFront(character) {
-  return isFrontRole(character) && character.frontDamage === "high";
+  return isFrontRole(character) && (character.frontDamage === "high" || realtimeDamageBucket(character) === "high");
 }
 
 function isLowDamageFront(character) {
-  return isFrontRole(character) && character.frontDamage === "low";
+  return isFrontRole(character) && (character.frontDamage === "low" || realtimeDamageBucket(character) === "low");
 }
 
 function isHighDamageBackline(character) {
-  return isBacklineDealer(character) && character.backlineDamage === "high";
+  return isBacklineDealer(character) && (character.backlineDamage === "high" || realtimeDamageBucket(character) === "high");
 }
 
 function isLowDamageBackline(character) {
-  return isBacklineDealer(character) && character.backlineDamage === "low";
+  return isBacklineDealer(character) && (character.backlineDamage === "low" || realtimeDamageBucket(character) === "low");
 }
 
 function isHighDamageContributor(character) {
@@ -522,8 +581,29 @@ function teamDamageBudgetScore(candidate, selected) {
 
   if (shape.highDamageContributors >= 2 && shape.lowDamageContributors <= 1) score += 0.6;
   if (shape.highDamageContributors >= 1 && shape.reliableDps >= 2 && shape.lowDamageContributors <= 1) score += 0.35;
+  score += teamRealtimeDamageScore(team);
 
-  return Math.max(-3.2, Math.min(1.0, score));
+  return clamp(score, -3.4, 1.25);
+}
+
+function teamRealtimeDamageScore(team) {
+  const measured = team
+    .map((character) => realtimeStatsFor(character)?.damage)
+    .filter((damage) => Number.isFinite(damage));
+  if (measured.length < 2) return 0;
+
+  const expected = team
+    .filter((character) => realtimeStatsFor(character)?.damage)
+    .reduce((sum, character) => sum + realtimeDamageReference(character), 0);
+  if (!expected) return 0;
+
+  const ratio = measured.reduce((sum, damage) => sum + damage, 0) / expected;
+  if (ratio >= 1.12) return 0.55;
+  if (ratio >= 1.05) return 0.25;
+  if (ratio <= 0.78) return -1.15;
+  if (ratio <= 0.88) return -0.65;
+  if (ratio <= 0.94) return -0.3;
+  return 0;
 }
 
 function metricBalanceScore(candidate, selected) {
@@ -784,6 +864,25 @@ function dakStatisticsScore(candidate, tier) {
 
   const confidence = Math.min(1, Math.log10((stats.games ?? 0) + 1) / 2.5);
   return Math.max(-1.25, Math.min(1.35, placementScore(stats) * confidence * 0.85));
+}
+
+function dakRealtimeScore(candidate) {
+  const stats = realtimeStatsFor(candidate);
+  if (!stats) return 0;
+
+  const sampleConfidence = clamp(Math.log10((stats.pickCount ?? 0) + 1) / 4, 0.35, 1);
+  const damageReference = realtimeDamageReference(candidate);
+  const damageScore = damageReference ? clamp((stats.damage / damageReference - 1) * 1.1, -0.55, 0.65) : 0;
+  const tierScore = ({ S: 0.42, A: 0.24, B: 0.03, C: -0.18, D: -0.38 })[stats.tier] ?? 0;
+  const raw =
+    (stats.winRate - realtimeStatAverages.winRate) * 0.08 +
+    (stats.top3Rate - realtimeStatAverages.top3Rate) * 0.045 +
+    (realtimeStatAverages.averageRank - stats.averageRank) * 0.55 +
+    (stats.averageTK - realtimeStatAverages.averageTK) * 0.2 +
+    damageScore +
+    tierScore;
+
+  return clamp(raw * sampleConfidence, -1.2, 1.35);
 }
 
 function feedbackSentiment(likes = 0, dislikes = 0) {
@@ -1069,6 +1168,14 @@ function explain(candidate, selected, scores) {
   if (scores.dakTier >= 0.8) reasons.push(`${candidate.name}의 최근 통계 티어가 높아 현재 메타 기준으로도 선택 가치가 있습니다.`);
   if (scores.dakStatistics >= 0.55) reasons.push(`${candidate.name}의 현재 승률과 TOP3 지표가 좋아 메타 보정 점수가 반영되었습니다.`);
   if (scores.dakStatistics <= -0.45) reasons.push(`${candidate.name}의 현재 승률과 TOP3 지표가 낮아 메타 보정에서 감점되었습니다.`);
+  if (scores.dakRealtime >= 0.65) {
+    const stats = realtimeStatsFor(candidate);
+    reasons.push(`${candidate.weaponLabel} ${candidate.name}의 DAK.GG 평균 지표가 좋습니다. 승률 ${stats.winRate.toFixed(1)}%, TOP3 ${stats.top3Rate.toFixed(1)}%, 평균 딜량 ${stats.damage.toLocaleString("ko-KR")}을 반영했습니다.`);
+  }
+  if (scores.dakRealtime <= -0.55) {
+    const stats = realtimeStatsFor(candidate);
+    reasons.push(`${candidate.weaponLabel} ${candidate.name}의 최근 평균 지표가 낮은 편입니다. 승률 ${stats.winRate.toFixed(1)}%, TOP3 ${stats.top3Rate.toFixed(1)}%, 평균 딜량 ${stats.damage.toLocaleString("ko-KR")} 기준으로 감점했습니다.`);
+  }
   if (scores.conflict <= -2) reasons.push(`${objectName(candidate)} 넣으면 역할이나 교전 방식이 겹쳐 조합 점수가 낮게 계산됩니다.`);
   if (selected.length === 0) reasons.push(`${identity} ${job} 첫 픽으로 조합 방향을 잡기 쉽습니다.`);
   if (reasons.length === 0 && candidate.tags.includes("cc")) reasons.push(`${subjectName(candidate)} CC로 교전 시작과 받아치기에 필요한 제어 능력을 더합니다.`);
@@ -1107,6 +1214,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     tournamentArchetype: tournamentArchetypeScore(candidate, selected),
     dakTier: dakTierScore(candidate, tier),
     dakStatistics: dakStatisticsScore(candidate, tier),
+    dakRealtime: dakRealtimeScore(candidate),
     relationship: relationshipScore(candidate, selected, tier, relationshipRows),
   };
   const total =
@@ -1127,6 +1235,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.tournamentArchetype * 1.1 +
     scores.dakTier +
     scores.dakStatistics +
+    scores.dakRealtime +
     scores.relationship -
     candidate.difficulty * 0.08 +
     getFeedbackScore(selectedIds, candidate.variantId, tier) +

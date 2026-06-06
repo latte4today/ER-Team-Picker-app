@@ -1,7 +1,14 @@
-const { app, BrowserWindow, Menu, desktopCapturer, session, shell } = require("electron");
+const { app, BrowserWindow, Menu, desktopCapturer, ipcMain, session, shell } = require("electron");
 const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
+
+let autoUpdater;
+try {
+  ({ autoUpdater } = require("electron-updater"));
+} catch (_error) {
+  autoUpdater = undefined;
+}
 
 const ROOT = path.resolve(__dirname, "..");
 const MIME_TYPES = {
@@ -14,6 +21,7 @@ const MIME_TYPES = {
 };
 
 let server;
+let mainWindow;
 
 function safePathFromUrl(url) {
   const parsed = new URL(url, "http://127.0.0.1");
@@ -48,8 +56,6 @@ function startStaticServer() {
     });
 
     server.on("error", reject);
-    // 포트 0 → 랜덤 포트이므로 origin이 매번 바뀌어 localStorage가 초기화됨.
-    // persist:er-team-picker 파티션을 사용하면 origin과 무관하게 userData에 저장됨.
     server.listen(0, "127.0.0.1", () => {
       const address = server.address();
       resolve(`http://127.0.0.1:${address.port}/index.html`);
@@ -57,10 +63,70 @@ function startStaticServer() {
   });
 }
 
+function sendUpdateStatus(payload) {
+  mainWindow?.webContents.send("auto-update:status", payload);
+}
+
+function setupAutoUpdater() {
+  if (!autoUpdater) return;
+
+  autoUpdater.autoDownload = true;
+  autoUpdater.autoInstallOnAppQuit = true;
+
+  autoUpdater.on("checking-for-update", () => {
+    sendUpdateStatus({ type: "checking" });
+  });
+
+  autoUpdater.on("update-available", (info) => {
+    sendUpdateStatus({ type: "available", version: info.version });
+  });
+
+  autoUpdater.on("update-not-available", (info) => {
+    sendUpdateStatus({ type: "not-available", version: info.version });
+  });
+
+  autoUpdater.on("download-progress", (progress) => {
+    sendUpdateStatus({
+      type: "progress",
+      percent: Math.round(progress.percent ?? 0),
+    });
+  });
+
+  autoUpdater.on("update-downloaded", (info) => {
+    sendUpdateStatus({ type: "downloaded", version: info.version });
+  });
+
+  autoUpdater.on("error", (error) => {
+    sendUpdateStatus({
+      type: "error",
+      message: error.message,
+    });
+  });
+}
+
+ipcMain.handle("auto-update:check", async () => {
+  if (!autoUpdater) {
+    sendUpdateStatus({ type: "unavailable", message: "자동 업데이트 모듈이 설치되어 있지 않습니다." });
+    return { ok: false };
+  }
+
+  if (!app.isPackaged) {
+    sendUpdateStatus({ type: "dev", message: "개발 실행에서는 자동 업데이트가 꺼져 있습니다." });
+    return { ok: false };
+  }
+
+  await autoUpdater.checkForUpdates();
+  return { ok: true };
+});
+
+ipcMain.handle("auto-update:install", () => {
+  if (!autoUpdater || !app.isPackaged) return { ok: false };
+  autoUpdater.quitAndInstall(false, true);
+  return { ok: true };
+});
+
 async function createWindow() {
   const url = await startStaticServer();
-
-  // persist: 접두어를 붙이면 앱 userData 경로에 영구 저장됨 (포트 변경 영향 없음)
   const appSession = session.fromPartition("persist:er-team-picker");
 
   appSession.setDisplayMediaRequestHandler(async (_request, callback) => {
@@ -71,7 +137,7 @@ async function createWindow() {
     callback({ video: sources[0], audio: null });
   });
 
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1280,
     height: 860,
     minWidth: 1040,
@@ -83,7 +149,8 @@ async function createWindow() {
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
-      session: appSession,  // 고정 파티션 → localStorage가 포트와 무관하게 유지됨
+      preload: path.join(__dirname, "preload.cjs"),
+      session: appSession,
     },
   });
 
@@ -92,10 +159,17 @@ async function createWindow() {
     shell.openExternal(targetUrl);
     return { action: "deny" };
   });
+  mainWindow.on("closed", () => {
+    mainWindow = undefined;
+  });
+
   await mainWindow.loadURL(url);
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  setupAutoUpdater();
+  createWindow();
+});
 
 app.on("window-all-closed", () => {
   if (server) server.close();

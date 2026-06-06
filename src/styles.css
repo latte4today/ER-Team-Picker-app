@@ -229,7 +229,8 @@ p {
   font-size: 12px;
 }
 
-.update-status a {
+.update-status a,
+.update-apply-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -240,6 +241,7 @@ p {
   background: rgba(64, 255, 202, 0.1);
   text-decoration: none;
   font-weight: 800;
+  cursor: pointer;
 }
 
 .side-footer .contact-button,
@@ -487,6 +489,7 @@ h2 {
 .summary-pill,
 .data-chip,
 .sync-chip,
+.feedback-total-chip,
 .tier-select,
 .theme-toggle {
   display: inline-flex;
@@ -502,7 +505,8 @@ h2 {
 
 .summary-pill,
 .data-chip,
-.sync-chip {
+.sync-chip,
+.feedback-total-chip {
   padding: 0 10px;
 }
 
@@ -555,6 +559,16 @@ h2 {
 .sync-chip[data-state="error"] {
   border-color: rgba(242, 91, 112, 0.65);
   color: var(--danger);
+}
+
+.feedback-total-chip {
+  border-color: rgba(215, 184, 92, 0.55);
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.feedback-total-chip[hidden] {
+  display: none;
 }
 
 .ghost-button,
@@ -855,6 +869,35 @@ h2 {
   color: var(--gold);
 }
 
+.playable-presets {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) minmax(150px, 1.2fr) repeat(3, auto);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.playable-presets input,
+.playable-presets select {
+  min-width: 0;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  outline: none;
+  background: var(--field);
+  color: var(--ink);
+  padding: 0 10px;
+  font-weight: 800;
+}
+
+.playable-presets input:focus,
+.playable-presets select:focus {
+  border-color: var(--accent);
+}
+
+.playable-presets .ghost-button {
+  white-space: nowrap;
+}
+
 .filter-button {
   min-height: 26px;
   padding: 0 9px;
@@ -880,7 +923,7 @@ h2 {
 
 .character-panel {
   display: grid;
-  grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto auto minmax(0, 1fr);
   min-height: 0;
   overflow: hidden;
 }
@@ -1048,6 +1091,28 @@ h2 {
 
 .setup-recommendation-empty strong {
   color: var(--ink);
+}
+
+.recommendation-stage-notice {
+  display: grid;
+  gap: 4px;
+  padding: 10px 11px;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--line));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent-soft) 54%, var(--surface));
+}
+
+.recommendation-stage-notice strong {
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.recommendation-stage-notice span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.45;
 }
 
 .recommendation-hub {
@@ -1691,6 +1756,28 @@ h2 {
   overflow: auto;
 }
 
+.result-image-button {
+  width: 100%;
+  min-height: 30px;
+  margin-top: 8px;
+  border: 1px solid rgba(67, 194, 223, 0.42);
+  border-radius: 4px;
+  background: rgba(67, 194, 223, 0.1);
+  color: var(--accent-strong);
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.result-image-button:hover {
+  border-color: rgba(105, 222, 243, 0.76);
+  background: rgba(67, 194, 223, 0.17);
+}
+
+.result-image-button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
 .chosen-score {
   font-size: 16px;
   min-width: 32px;
@@ -2087,6 +2174,15 @@ h2 {
   .union-player-grid,
   .union-combo-members {
     grid-template-columns: 1fr;
+  }
+
+  .playable-presets {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .playable-presets input,
+  .playable-presets select {
+    grid-column: span 3;
   }
 
   .chosen-pick {

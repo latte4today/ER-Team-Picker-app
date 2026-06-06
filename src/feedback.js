@@ -188,12 +188,39 @@ function scoreFromEntry(entry) {
   return sentiment * confidence * 1.5;
 }
 
+function parseFeedbackKeyParts(key) {
+  const match = key.match(/^([^:]+):(.+)->(.+)$/);
+  if (!match) return undefined;
+  return {
+    tier: match[1],
+    teamKey: match[2],
+    candidateId: match[3],
+  };
+}
+
+function candidateGlobalFeedbackScore(candidateId, tier = "all", feedback = loadFeedback()) {
+  const targetCandidateId = candidateId.split(":")[0];
+  const totals = Object.entries(feedback).reduce((state, [key, entry]) => {
+    const parsed = parseFeedbackKeyParts(key);
+    if (!parsed || parsed.candidateId !== targetCandidateId) return state;
+    if (tier !== "all" && parsed.tier !== tier && parsed.tier !== "all") return state;
+
+    const tierWeight = parsed.tier === tier ? 1 : 0.65;
+    state.likes += (entry.likes ?? 0) * tierWeight;
+    state.dislikes += (entry.dislikes ?? 0) * tierWeight;
+    return state;
+  }, { likes: 0, dislikes: 0 });
+
+  return scoreFromEntry(totals) * 0.35;
+}
+
 export function getFeedbackScore(selectedIds, candidateId, tier = "all", feedback = loadFeedback()) {
   const tierScore = scoreFromEntry(feedback[feedbackKey(selectedIds, candidateId, tier)]);
-  if (tier === "all") return tierScore;
+  const candidateScore = candidateGlobalFeedbackScore(candidateId, tier, feedback);
+  if (tier === "all") return tierScore + candidateScore;
 
   const globalScore = scoreFromEntry(feedback[feedbackKey(selectedIds, candidateId, "all")]);
-  return tierScore * 0.75 + globalScore * 0.25;
+  return tierScore * 0.75 + globalScore * 0.25 + candidateScore;
 }
 
 export function getFeedbackEntry(selectedIds, candidateId, tier = "all", feedback = loadFeedback()) {

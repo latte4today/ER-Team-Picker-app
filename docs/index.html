@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ER Team Picker</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080d14;
+      --panel: #111a27;
+      --panel-soft: #172233;
+      --line: rgba(126, 150, 180, 0.26);
+      --text: #f5f8ff;
+      --muted: #aebbd0;
+      --accent: #43c2df;
+      --gold: #d7b85c;
+      --ok: #36d296;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 18px;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(67, 194, 223, 0.18), transparent 34%),
+        radial-gradient(circle at 78% 18%, rgba(146, 97, 255, 0.18), transparent 30%),
+        linear-gradient(135deg, #080d14 0%, #101826 52%, #080d14 100%);
+      color: var(--text);
+      font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+
+    main {
+      width: min(980px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(17, 26, 39, 0.84);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: 56px clamp(24px, 6vw, 68px) 36px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 680px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2.3vw, 22px);
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      margin-top: 30px;
+      padding: 0 22px;
+      border: 1px solid rgba(67, 194, 223, 0.72);
+      border-radius: 8px;
+      background: linear-gradient(135deg, #43c2df, #36d296);
+      color: #061016;
+      font-weight: 900;
+      text-decoration: none;
+      box-shadow: 0 12px 34px rgba(67, 194, 223, 0.24);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      padding: 22px;
+      background: rgba(8, 13, 20, 0.42);
+    }
+
+    article {
+      min-height: 150px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel-soft);
+    }
+
+    article strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text);
+      font-size: 18px;
+    }
+
+    article p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    footer {
+      padding: 18px 24px;
+      border-top: 1px solid var(--line);
+      color: rgba(174, 187, 208, 0.78);
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      body {
+        padding: 18px 12px;
+      }
+
+      .hero {
+        padding: 38px 22px 28px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Eternal Return Squad Assistant</p>
+      <h1>ER Team Picker</h1>
+      <p class="lead">팀원 2명을 넣으면 내 픽을 추천해주는 이터널 리턴 조합 도우미</p>
+      <a class="download" href="https://github.com/latte4today/ER-Team-Picker-app/releases/latest">최신 버전 다운로드</a>
+    </section>
+
+    <section class="features" aria-label="주요 기능">
+      <article>
+        <strong>조합 기반 추천</strong>
+        <p>팀원이 고른 실험체를 입력하면 현재 조합에 어울리는 내 실험체와 무기 후보를 보여줍니다.</p>
+      </article>
+      <article>
+        <strong>가능 픽 프리셋</strong>
+        <p>내가 플레이할 수 있는 실험체 폭을 저장해두고, 그 안에서 현실적인 추천 후보를 받을 수 있습니다.</p>
+      </article>
+      <article>
+        <strong>평가 반영</strong>
+        <p>경기 후 좋았음 또는 별로였음 평가를 남기면 이후 추천 점수에 반영됩니다.</p>
+      </article>
+    </section>
+
+    <footer>ER Team Picker는 이터널 리턴 스쿼드 조합 선택을 돕는 개인 프로젝트입니다.</footer>
+  </main>
+</body>
+</html>

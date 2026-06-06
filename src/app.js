@@ -23,6 +23,7 @@ import {
   isPokeThenEngage,
   likesDiveFollow,
 } from "./combatProfiles.js";
+import { applyTranslations, hasStoredLanguage, setLanguage, t } from "./i18n/index.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
 import { appVersion, releaseConfig } from "./updateConfig.js";
 
@@ -47,6 +48,11 @@ const themeToggle = document.querySelector("#theme-toggle");
 const playableModeButton = document.querySelector("#playable-mode-button");
 const clearPlayableButton = document.querySelector("#clear-playable-button");
 const playableStatus = document.querySelector("#playable-status");
+const presetNameInput = document.querySelector("#playable-preset-name");
+const presetSelect = document.querySelector("#playable-preset-select");
+const savePresetButton = document.querySelector("#save-playable-preset-button");
+const loadPresetButton = document.querySelector("#load-playable-preset-button");
+const deletePresetButton = document.querySelector("#delete-playable-preset-button");
 const contactOpenButton = document.querySelector("#contact-open-button");
 const contactModal = document.querySelector("#contact-modal");
 const contactForm = document.querySelector("#contact-form");
@@ -66,6 +72,7 @@ const unionSearchInput = document.querySelector("#union-search-input");
 const unionResults = document.querySelector("#union-results");
 const unionSummary = document.querySelector("#union-summary");
 const unionClearButton = document.querySelector("#union-clear-button");
+const languageGate = document.querySelector("#language-gate");
 
 let activeSlot = null;
 let recentlyAssignedVariantId = null;
@@ -75,6 +82,7 @@ let isRefreshingRemote = false;
 let isRefreshingPopular = false;
 let isFlushingPendingFeedback = false;
 let popularFeedbackLoaded = false;
+let lastRemoteFeedbackKey = "";
 let lastPromptedUpdateVersion = null;
 let chosenPickId = null;
 const submittedFeedbackKeys = new Set();
@@ -82,6 +90,7 @@ const slotAssignments = [null, null, null];
 const savedTheme = localStorage.getItem("er-team-picker-theme");
 const legacyPlayableStorageKey = "er-team-picker-playable-characters";
 const playableStorageKey = "er-team-picker-playable-variants";
+const presetStorageKey = "er-team-picker-playable-presets";
 const unionStorageKey = "er-team-picker-union-rosters";
 const savedPlayableVariants = JSON.parse(localStorage.getItem(playableStorageKey) ?? "[]");
 const savedPlayableCharacters = JSON.parse(localStorage.getItem(legacyPlayableStorageKey) ?? "[]");
@@ -91,16 +100,32 @@ const playableVariantIds = new Set(savedPlayableVariants.length > 0
     .filter((character) => savedPlayableCharacters.includes(character.characterId))
     .map((character) => character.variantId));
 let playableEditMode = false;
+let playablePresets = JSON.parse(localStorage.getItem(presetStorageKey) ?? "[]");
 let activeView = appMain?.dataset.view ?? "setup";
 let activeUnionPlayer = 0;
 let activeUnionRole = "all";
-const unionPlayerNames = ["플레이어 1", "플레이어 2", "플레이어 3", "플레이어 4"];
+const unionPlayerNames = [1,2,3,4].map(n => t("player.name", { n }));
 const unionParticipatingPlayers = new Set([0, 1, 2]);
 const savedUnionRosters = JSON.parse(localStorage.getItem(unionStorageKey) ?? "[]");
 const unionRosters = Array.from({ length: 4 }, (_, index) => new Set(savedUnionRosters[index] ?? []));
 
+applyTranslations();
+if (!hasStoredLanguage()) {
+  languageGate.hidden = false;
+}
+
+languageGate?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-language-option]");
+  if (!button) return;
+  setLanguage(button.dataset.languageOption);
+  applyTranslations();
+  languageGate.hidden = true;
+  render();
+});
+
 function characterName(characterId) {
-  return characterVariants.find((character) => character.characterId === characterId)?.name ?? characterId;
+  const found = characterVariants.find((c) => c.characterId === characterId);
+  return found ? t(`char.${found.id}`) : characterId;
 }
 
 function characterById(characterId) {
@@ -117,15 +142,15 @@ function characterBrief(characterId) {
   const character = characterById(characterId);
   if (!character) return { name: characterId, image: "", role: "", weapon: "" };
   return {
-    name: character.name,
+    name: t(`char.${character.id}`),
     image: character.image,
-    role: roleNames[character.role] ?? character.role,
-    weapon: character.weaponLabel,
+    role: t(`role.${character.role}`),
+    weapon: t(`weapon.${character.weapon}`),
   };
 }
 
 function characterSubtitle(character) {
-  return [roleNames[character.role], character.weaponLabel, character.weaponStyle].filter(Boolean).join(" · ");
+  return [t(`role.${character.role}`), t(`weapon.${character.weapon}`), character.weaponStyle].filter(Boolean).join(" · ");
 }
 
 function compactReasonLabels(reasons = []) {
@@ -135,15 +160,15 @@ function compactReasonLabels(reasons = []) {
     if (!labels.includes(label)) labels.push(label);
   };
 
-  if (/앞라인|탱커|진입|받아치/.test(joined)) add("앞라인 보완");
-  if (/마무리|킬캐치|화력|데미지|딜러 자리/.test(joined)) add(/부족|모자|감점/.test(joined) ? "마무리 화력 부족" : "마무리 화력 보완");
-  if (/CC|이니시|교전 시작|진입각/.test(joined)) add("교전 시작 보완");
-  if (/보호|세이브|받아치|안정/.test(joined)) add("아군 보호 보완");
-  if (/사거리|포킹|대치/.test(joined)) add("대치 구도 보완");
-  if (/데미지 기여가 충분|화력을 보탤|화력을 채워/.test(joined)) add("데미지 충분");
-  if (/데미지 기여가 부족|화력 총량이 부족|화력이 부족/.test(joined)) add("데미지 부족 주의");
-  if (/평가 데이터|좋게 기록|랭커|전적/.test(joined)) add("데이터상 양호");
-  if (/감점|낮게 잡힐|위험/.test(joined)) add("주의 필요");
+  if (/앞라인|탱커|진입|받아치/.test(joined)) add(t("compact.frontlineNeeded"));
+  if (/마무리|킬캐치|화력|데미지|딜러 자리/.test(joined)) add(/부족|모자|감점/.test(joined) ? t("compact.damageLow") : t("compact.damageNeeded"));
+  if (/CC|이니시|교전 시작|진입각/.test(joined)) add(t("compact.initiateNeeded"));
+  if (/보호|세이브|받아치|안정/.test(joined)) add(t("compact.peelNeeded"));
+  if (/사거리|포킹|대치/.test(joined)) add(t("compact.pokeNeeded"));
+  if (/데미지 기여가 충분|화력을 보탤|화력을 채워/.test(joined)) add(t("compact.damageOk"));
+  if (/데미지 기여가 부족|화력 총량이 부족|화력이 부족/.test(joined)) add(t("compact.damageCaution"));
+  if (/평가 데이터|좋게 기록|랭커|전적/.test(joined)) add(t("compact.dataOk"));
+  if (/감점|낮게 잡힐|위험/.test(joined)) add(t("compact.caution"));
 
   return labels.slice(0, 3);
 }
@@ -151,14 +176,25 @@ function compactReasonLabels(reasons = []) {
 function compactReasonText(reasons = []) {
   const labels = compactReasonLabels(reasons);
   if (labels.length > 0) return labels.join(" · ");
-  return "현재 조합에서 부족한 부분을 보완합니다.";
+  return t("recommend.stageBody");
+}
+
+function recommendationStageNotice() {
+  if (selectedIds.size !== 1) return "";
+
+  return `
+    <div class="recommendation-stage-notice">
+      <strong>${t("recommend.stageTitle")}</strong>
+      <span>${t("recommend.stageBody")}</span>
+    </div>
+  `;
 }
 
 function setTheme(theme) {
   const nextTheme = theme === "light" ? "light" : "dark";
   document.documentElement.dataset.theme = nextTheme;
   localStorage.setItem("er-team-picker-theme", nextTheme);
-  themeToggle.textContent = nextTheme === "dark" ? "다크 모드" : "라이트 모드";
+  themeToggle.textContent = nextTheme === "dark" ? t("button.darkMode") : t("button.lightMode");
   themeToggle.setAttribute("aria-pressed", String(nextTheme === "dark"));
 }
 
@@ -203,9 +239,9 @@ function releaseInstallerUrl(release) {
 function renderUpdateAvailable(release, latestVersion) {
   const installerUrl = releaseInstallerUrl(release);
   updateStatus.innerHTML = `
-    <strong>새 버전 ${latestVersion}</strong>
-    <a href="${installerUrl}" target="_blank" rel="noreferrer">설치 파일 열기</a>
-    <small>설치 전 앱을 종료해주세요.</small>
+    <strong>${t("update.new", { version: latestVersion })}</strong>
+    <a href="${installerUrl}" target="_blank" rel="noreferrer">${t("update.install")}</a>
+    <small>${t("update.installNote")}</small>
   `;
   return installerUrl;
 }
@@ -213,25 +249,25 @@ function renderUpdateAvailable(release, latestVersion) {
 async function checkForUpdates({ prompt = false, silent = false } = {}) {
   if (!silent) {
     updateCheckButton.disabled = true;
-    updateStatus.innerHTML = "최신 버전 확인 중";
+    updateStatus.innerHTML = t("update.checking");
   }
   try {
     const release = await fetchLatestRelease();
     const latestVersion = release.tag_name ?? release.name ?? "";
     if (compareVersions(latestVersion, appVersion) <= 0) {
-      if (!silent) updateStatus.innerHTML = `현재 최신 버전입니다. <small>v${appVersion}</small>`;
+      if (!silent) updateStatus.innerHTML = `${t("update.latest")} <small>v${appVersion}</small>`;
       return false;
     }
 
     const installerUrl = renderUpdateAvailable(release, latestVersion);
     if (prompt && latestVersion !== lastPromptedUpdateVersion) {
       lastPromptedUpdateVersion = latestVersion;
-      const wantsUpdate = window.confirm(`새로운 업데이트가 있습니다.\n\n현재 버전: v${appVersion}\n최신 버전: ${latestVersion}\n\n업데이트를 받으시겠습니까?`);
+      const wantsUpdate = window.confirm(t("update.confirm", { current: appVersion, latest: latestVersion }));
       if (wantsUpdate) window.open(installerUrl, "_blank", "noopener,noreferrer");
     }
     return true;
   } catch (error) {
-    if (!silent) updateStatus.innerHTML = `업데이트 확인 실패 <small>${error.message ?? "네트워크를 확인해주세요."}</small>`;
+    if (!silent) updateStatus.innerHTML = `${t("update.failed")} <small>${error.message ?? t("update.failedNetwork")}</small>`;
     return false;
   } finally {
     updateCheckButton.disabled = false;
@@ -242,7 +278,7 @@ async function fetchLatestRelease() {
   const response = await fetch(`https://api.github.com/repos/${releaseConfig.owner}/${releaseConfig.repo}/releases/latest`, {
     headers: { Accept: "application/vnd.github+json" },
   });
-  if (!response.ok) throw new Error(`GitHub 응답 오류 ${response.status}`);
+  if (!response.ok) throw new Error(t("update.apiError", { status: response.status }));
   return response.json();
 }
 
@@ -260,18 +296,18 @@ function startPeriodicPendingFeedbackSync() {
   window.setInterval(() => {
     flushPendingRemoteFeedback().then((remaining) => {
       if (remaining > 0) {
-        syncStatus.textContent = `미전송 평가 ${remaining}개 보관 중`;
+        syncStatus.textContent = t("sync.pending", { count: remaining });
         syncStatus.dataset.state = "error";
       }
     });
   }, 10 * 60 * 1000);
 }
 function renderRoleFilters() {
-  const filters = [{ id: "all", label: "전체" }, ...roles];
+  const filters = [{ id: "all" }, ...roles];
   roleFilters.innerHTML = filters
     .map((role) => {
       const pressed = role.id === activeRole ? "true" : "false";
-      return `<button class="filter-button" type="button" data-role="${role.id}" aria-pressed="${pressed}">${role.label}</button>`;
+      return `<button class="filter-button" type="button" data-role="${role.id}" aria-pressed="${pressed}">${t(`role.${role.id}`)}</button>`;
     })
     .join("");
 }
@@ -281,7 +317,7 @@ function renderCharacters({ preserveScroll = true } = {}) {
   const query = searchInput.value.trim().toLowerCase();
   const filtered = characterVariants.filter((character) => {
     const matchesRole = activeRole === "all" || character.role === activeRole;
-    const matchesQuery = matchesKoreanSearch(character.name, query);
+    const matchesQuery = matchesKoreanSearch(character.name, query) || character.id.toLowerCase().includes(query) || t(`char.${character.id}`).toLowerCase().includes(query);
     return matchesRole && matchesQuery;
   });
 
@@ -294,13 +330,13 @@ function renderCharacters({ preserveScroll = true } = {}) {
         <button class="character-card${popClass}" type="button" data-id="${character.variantId}" data-playable="${playable}" aria-pressed="${selected}">
           <span class="avatar">
             <img src="${character.image}" alt="" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.hidden = false;">
-            <span hidden>${character.name.slice(0, 1)}</span>
+            <span hidden>${t(`char.${character.id}`).slice(0, 1)}</span>
           </span>
           <span class="character-info">
-            <strong>${character.name}</strong>
+            <strong>${t(`char.${character.id}`)}</strong>
             <small>${characterSubtitle(character)}</small>
           </span>
-          ${playable ? `<span class="playable-mark">가능</span>` : ""}
+          ${playable ? `<span class="playable-mark">${t("playable.mark")}</span>` : ""}
         </button>
       `;
     })
@@ -332,18 +368,18 @@ function toggleDetailsSummary(event) {
 }
 
 function renderUnionRoleFilters() {
-  const filters = [{ id: "all", label: "전체" }, ...roles];
+  const filters = [{ id: "all" }, ...roles];
   unionRoleFilters.innerHTML = filters
     .map((role) => {
       const pressed = role.id === activeUnionRole ? "true" : "false";
-      return `<button class="filter-button" type="button" data-union-role="${role.id}" aria-pressed="${pressed}">${role.label}</button>`;
+      return `<button class="filter-button" type="button" data-union-role="${role.id}" aria-pressed="${pressed}">${t(`role.${role.id}`)}</button>`;
     })
     .join("");
 }
 
 function unionRosterLabel(index) {
   const count = unionRosters[index].size;
-  return count > 0 ? `${count} / 15개 픽 등록` : "실험체 폭 없음";
+  return count > 0 ? t("union.rosterCount", { count }) : t("union.rosterEmpty");
 }
 
 function saveUnionRosters() {
@@ -396,10 +432,10 @@ function renderUnionPlayers() {
         ? `
           <label class="union-player-check">
             <input type="checkbox" data-union-participate="${index}" ${participating ? "checked" : ""}>
-            <span>출전</span>
+            <span>${t("union.participate")}</span>
           </label>
         `
-        : `<span class="union-player-fixed">${hasRoster ? "자동 참여" : "멤버 없음"}</span>`;
+        : `<span class="union-player-fixed">${hasRoster ? t("union.autoJoin") : t("union.noMember")}</span>`;
       return `
         <article class="union-player-card${active}${hasRoster ? "" : " empty"}${hasRoster && !participating ? " inactive" : ""}">
           ${participantControl}
@@ -419,7 +455,7 @@ function renderUnionCharacters({ preserveScroll = true } = {}) {
   const currentRoster = unionRosters[activeUnionPlayer];
   const filtered = characterVariants.filter((character) => {
     const matchesRole = activeUnionRole === "all" || character.role === activeUnionRole;
-    const matchesQuery = matchesKoreanSearch(character.name, query);
+    const matchesQuery = matchesKoreanSearch(character.name, query) || character.id.toLowerCase().includes(query) || t(`char.${character.id}`).toLowerCase().includes(query);
     return matchesRole && matchesQuery;
   });
 
@@ -430,10 +466,10 @@ function renderUnionCharacters({ preserveScroll = true } = {}) {
         <button class="character-card union-character-card" type="button" data-union-pick="${character.variantId}" aria-pressed="${selected}">
           <span class="avatar">
             <img src="${character.image}" alt="" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.hidden = false;">
-            <span hidden>${character.name.slice(0, 1)}</span>
+            <span hidden>${t(`char.${character.id}`).slice(0, 1)}</span>
           </span>
           <span class="character-info">
-            <strong>${character.name}</strong>
+            <strong>${t(`char.${character.id}`)}</strong>
             <small>${characterSubtitle(character)}</small>
           </span>
         </button>
@@ -476,24 +512,24 @@ function unionComboReason(combo, reasons) {
   const hasDamage = metricTags.includes("화력 충분");
 
   if (backlineCount === 3 && (hasCc || hasPeel) && hasDamage) {
-    return "세 명 모두 뒤에서 싸우지만, CC/보조와 화력이 있어 대치전 중심으로 운영할 수 있습니다.";
+    return t("union.reason.backlineCC");
   }
   if (meleeCount === 3 && hasInitiate && hasCc && hasDamage) {
-    return "근접 실험체가 많지만, 이니시와 CC가 있어 짧은 교전을 빠르게 열기 좋습니다.";
+    return t("union.reason.meleeInitiate");
   }
   if (rolesInCombo.has("frontline") && (rolesInCombo.has("ranged") || rolesInCombo.has("mage"))) {
-    return "앞라인과 후방 딜러가 함께 있어 교전 구조가 안정적입니다.";
+    return t("union.reason.frontlineRanged");
   }
   if ((rolesInCombo.has("bruiser") || rolesInCombo.has("assassin")) && tags.has("focus")) {
-    return "진입 후 한 대상을 빠르게 몰아치는 포커싱이 좋습니다.";
+    return t("union.reason.bruiserFocus");
   }
   if (hasInitiate && hasCc) {
-    return "이니시와 CC가 있어 먼저 싸움을 열기 좋습니다.";
+    return t("union.reason.initiateCC");
   }
   if (metricTags.length > 0) {
-    return `${metricTags.slice(0, 2).join(" · ")} 성향이 뚜렷한 조합입니다.`;
+    return t("union.reason.metricTags", { tags: metricTags.slice(0, 2).join(" · ") });
   }
-  return reasons[0] ?? "세 플레이어의 실험체 폭 안에서 점수가 높은 조합입니다.";
+  return reasons[0] ?? t("union.reason.default");
 }
 function unionComboPlan(combo) {
   const tags = new Set(combo.flatMap((character) => character.tags));
@@ -519,61 +555,61 @@ function unionComboPlan(combo) {
   const guardOnly = combo.filter(isGuardOnly);
 
   if (firstEngagers.length >= 1 && meleeCount >= 2) {
-    return `${firstEngagers[0].name}이 먼저 각을 열고, 나머지 둘은 같은 대상을 바로 점사하세요. 좁은 길이나 벽 근처에서 싸우면 진입 성공률이 높습니다.`;
+    return t("union.plan.meleeEngage", { first: t(`char.${firstEngagers[0].id}`) });
   }
   if (firstEngagers.length >= 1 && rangedHelpers.length >= 1) {
-    return `${firstEngagers[0].name}이 먼저 들어갈 때 ${rangedHelpers[0].name}이 CC와 견제로 진입 각을 도와주는 조합입니다. 한 명을 부르면 셋이 동시에 마무리하세요.`;
+    return t("union.plan.engageWithRanged", { first: t(`char.${firstEngagers[0].id}`), ranged: t(`char.${rangedHelpers[0].id}`) });
   }
   if (firstEngagers.length >= 1 && diveFollowers.length >= 1) {
-    return `${firstEngagers[0].name}이 먼저 시야를 열고 붙으면, 후방 딜러는 거리만 유지한 채 같은 대상을 녹이세요. 길게 대치하기보다 한 번에 템포를 맞추는 편이 좋습니다.`;
+    return t("union.plan.engageWithDive", { first: t(`char.${firstEngagers[0].id}`) });
   }
   if (guardOnly.length >= 1 && backlineCount >= 2) {
-    return `${guardOnly[0].name}이 진입을 막아주는 동안 두 딜러가 입구를 잡고 체력을 깎으세요. 먼저 박기보다 들어오는 한 명을 같이 받아치는 운영이 좋습니다.`;
+    return t("union.plan.guardBackline", { guard: t(`char.${guardOnly[0].id}`) });
   }
   if (counterOnly.length >= 2 || (counterOnly.length >= 1 && pokeThenEngage.length >= 1)) {
-    return "먼저 무리해서 들어가기보다 대치로 체력을 깎고, 상대가 들어오는 순간 CC와 화력을 모아 받아치는 조합입니다.";
+    return t("union.plan.counterOnly");
   }
 
   if (hasLenox && backlineCount >= 2) {
-    return "레녹스가 진입을 막아주는 동안 두 딜러가 입구를 잡고 체력을 깎으세요. 먼저 쫓기보다 들어오는 한 명을 역점사하는 운영이 좋습니다.";
+    return t("union.plan.lenoxGuard");
   }
   if (tankCount === 1 && meleeCount === 2 && backlineCount === 0) {
-    return "탱커가 먼저 열고 어그로를 받는 순간 두 근딜이 같은 대상을 물어야 합니다. 따로 들어가면 힘이 빠지니 콜을 하나로 맞추세요.";
+    return t("union.plan.tankMelee");
   }
   if (supportCount >= 1 && total.damage >= 10) {
-    return "서포터가 핵심 딜러를 살리는 동안 나머지 둘이 같은 대상을 마무리하세요. 먼저 무리해서 열기보다 보호 후 역점사가 안정적입니다.";
+    return t("union.plan.supportDamage");
   }
   if (hasCoreline && meleeCount >= 1) {
-    return "코렐라인이 진입 각을 도와줄 수 있으니 근딜이 먼저 혼자 깊게 들어가지 말고, 스킬이 깔린 타이밍에 같이 들어가세요.";
+    return t("union.plan.corelineAssist");
   }
   if (hasVanya) {
-    return "바냐는 늦게 붙는 쪽이 좋습니다. 먼저 몸을 던지기보다 앞에서 싸움이 열린 뒤 장판과 보호막으로 교전을 굳히세요.";
+    return t("union.plan.vanya");
   }
   if (meleeCount >= 2 && hasInitiate && hasFocus) {
-    return "시야를 먼저 잡고 한 명을 콜해서 같이 들어가세요. 좁은 길이나 벽 근처에서 싸우면 점사각이 더 잘 나옵니다.";
+    return t("union.plan.meleeInitiateCC");
   }
   if (meleeCount === 3 && hasDive) {
-    return "긴 대치전보다 먼저 붙는 싸움이 좋습니다. 한 명이 깊게 들어가면 나머지 둘도 바로 호응해서 짧게 끝내세요.";
+    return t("union.plan.meleeDive");
   }
   if (backlineCount === 3 && hasPeel) {
-    return "먼저 들어가기보다 좁은 입구를 잡고 받아치세요. 상대가 진입할 때 CC와 보호기로 끊고 같은 대상을 녹이는 식이 좋습니다.";
+    return t("union.plan.backlinePeel");
   }
   if (backlineCount >= 2 && hasZone) {
-    return "오브젝트와 좁은 길을 먼저 잡고 체력을 깎으세요. 무리하게 추격하기보다 상대 진입을 유도해서 받아치는 운영이 좋습니다.";
+    return t("union.plan.backlineZone");
   }
   if (hasObjective && hasZone) {
-    return "오브젝트를 먼저 치면서 상대를 끌어내세요. 진입로에 스킬을 깔고 들어오는 한 명을 같이 마무리하는 방식이 좋습니다.";
+    return t("union.plan.objectiveZone");
   }
   if (hasInitiate && total.crowdControl >= 8) {
-    return "먼저 CC를 맞힌 대상을 세 명이 같이 보세요. 스킬을 나눠 쓰기보다 한 명을 전장이탈시키는 운영이 강합니다.";
+    return t("union.plan.initiateCC");
   }
   if (hasPeel && total.damage >= 10) {
-    return "핵심 딜러 옆에서 싸우면서 상대 진입을 받아치세요. 먼저 무리해서 열기보다 보호 후 역점사가 안정적입니다.";
+    return t("union.plan.peelDamage");
   }
   if (average.mobility >= 3.6) {
-    return "빠르게 합류해서 수적 우위를 만드는 조합입니다. 사이드에서 한 명을 발견하면 바로 핑을 찍고 같이 덮치세요.";
+    return t("union.plan.mobility");
   }
-  return "첫 스킬을 맞힌 대상에게 콜을 맞추는 것이 중요합니다. 셋이 각자 때리기보다 한 명을 먼저 줄이는 운영이 좋습니다.";
+  return t("union.plan.default");
 }
 
 function buildUnionCombos() {
@@ -610,22 +646,22 @@ function renderUnionResults() {
   const rosterPlayers = unionRosterPlayers();
   const players = activeUnionPlayers();
   if (rosterPlayers.length < 3) {
-    unionSummary.textContent = `${rosterPlayers.length}명 등록`;
+    unionSummary.textContent = t("union.registered", { count: rosterPlayers.length });
     unionResults.innerHTML = `
       <div class="setup-recommendation-empty">
-        <strong>최소 3명의 실험체 폭을 등록해주세요.</strong>
-        <span>멤버가 없는 칸은 비워두면 계산에서 자동 제외됩니다.</span>
+        <strong>${t("union.minPlayers")}</strong>
+        <span>${t("union.minPlayersDesc")}</span>
       </div>
     `;
     return;
   }
 
   if (players.length !== 3) {
-    unionSummary.textContent = `${players.length}명 출전`;
+    unionSummary.textContent = t("union.players", { count: players.length });
     unionResults.innerHTML = `
       <div class="setup-recommendation-empty">
-        <strong>출전할 플레이어 3명을 선택해주세요.</strong>
-        <span>실험체 폭이 있는 멤버가 4명이면 그중 실제 출전할 3명을 체크해야 합니다.</span>
+        <strong>${t("union.selectPlayers")}</strong>
+        <span>${t("union.selectPlayersDesc")}</span>
       </div>
     `;
     return;
@@ -633,20 +669,20 @@ function renderUnionResults() {
 
   const emptyPlayer = players.find((player) => unionRosters[player].size === 0);
   if (emptyPlayer !== undefined) {
-    unionSummary.textContent = "대기 중";
+    unionSummary.textContent = t("union.waiting");
     unionResults.innerHTML = `
       <div class="setup-recommendation-empty">
-        <strong>${unionPlayerNames[emptyPlayer]}의 실험체 폭을 등록해주세요.</strong>
-        <span>각 플레이어 카드로 이동한 뒤 가능한 실험체를 여러 개 선택하면 됩니다.</span>
+        <strong>${t("union.emptyRoster", { name: unionPlayerNames[emptyPlayer] })}</strong>
+        <span>${t("union.emptyRosterDesc")}</span>
       </div>
     `;
     return;
   }
 
   const combos = buildUnionCombos();
-  unionSummary.textContent = `${combos.length}개 조합`;
+  unionSummary.textContent = t("union.comboCount", { count: combos.length });
   if (combos.length === 0) {
-    unionResults.innerHTML = `<p class="empty-state">중복 실험체를 제외하면 만들 수 있는 조합이 없습니다.</p>`;
+    unionResults.innerHTML = `<p class="empty-state">${t("union.noCombo")}</p>`;
     return;
   }
 
@@ -656,7 +692,7 @@ function renderUnionResults() {
       return `
         <article class="union-combo-card">
           <div class="combo-card-head">
-            <span class="recommendation-rank">조합 ${index + 1}</span>
+            <span class="recommendation-rank">${t("union.comboLabel", { index: index + 1 })}</span>
             <strong class="score${scoreTone}">${item.score}</strong>
           </div>
           <div class="union-combo-members">
@@ -665,8 +701,8 @@ function renderUnionResults() {
                 <span class="combo-face">
                   <img src="${character.image}" alt="">
                   <span>
-                    <strong>${character.name}</strong>
-                    <small>${character.weaponLabel}</small>
+                    <strong>${t(`char.${character.id}`)}</strong>
+                    <small>${t(`weapon.${character.weapon}`)}</small>
                   </span>
                 </span>
               `)
@@ -690,13 +726,85 @@ function savePlayableCharacters() {
   localStorage.setItem(playableStorageKey, JSON.stringify([...playableVariantIds]));
 }
 
+function savePresetsToStorage() {
+  localStorage.setItem(presetStorageKey, JSON.stringify(playablePresets));
+}
+
+function renderPresetSelect() {
+  const currentValue = presetSelect.value;
+  // 기존 동적 option만 제거 (value="" 인 기본 option 유지)
+  while (presetSelect.options.length > 1) {
+    presetSelect.remove(1);
+  }
+  playablePresets.forEach((preset, index) => {
+    const opt = document.createElement("option");
+    opt.value = String(index);
+    opt.textContent = preset.name;
+    presetSelect.appendChild(opt);
+  });
+  // 이전 선택 복원 시도
+  presetSelect.value = currentValue;
+  if (presetSelect.value !== currentValue) presetSelect.value = "";
+  loadPresetButton.disabled = presetSelect.value === "";
+  deletePresetButton.disabled = presetSelect.value === "";
+}
+
+function getAutoPresetName() {
+  let n = 1;
+  const existingNames = new Set(playablePresets.map((p) => p.name));
+  while (existingNames.has(t("preset.autoName", { n }))) n++;
+  return t("preset.autoName", { n });
+}
+
+function savePreset() {
+  const rawName = presetNameInput.value.trim();
+  const name = rawName || getAutoPresetName();
+  const variants = [...playableVariantIds];
+  // 동일 이름이 있으면 덮어쓰기
+  const existing = playablePresets.findIndex((p) => p.name === name);
+  if (existing >= 0) {
+    playablePresets[existing].variants = variants;
+  } else {
+    playablePresets.push({ name, variants });
+  }
+  savePresetsToStorage();
+  presetNameInput.value = "";
+  renderPresetSelect();
+  // 방금 저장한 프리셋 선택 상태로 설정
+  const savedIndex = playablePresets.findIndex((p) => p.name === name);
+  if (savedIndex >= 0) presetSelect.value = String(savedIndex);
+  loadPresetButton.disabled = presetSelect.value === "";
+  deletePresetButton.disabled = presetSelect.value === "";
+}
+
+function loadPreset() {
+  const index = Number(presetSelect.value);
+  const preset = playablePresets[index];
+  if (!preset) return;
+  playableVariantIds.clear();
+  preset.variants.forEach((id) => playableVariantIds.add(id));
+  savePlayableCharacters();
+  renderPlayableTools();
+  renderCharacters();
+  renderRecommendations();
+}
+
+function deletePreset() {
+  const index = Number(presetSelect.value);
+  if (!playablePresets[index]) return;
+  playablePresets.splice(index, 1);
+  savePresetsToStorage();
+  presetSelect.value = "";
+  renderPresetSelect();
+}
+
 function renderPlayableTools() {
   const count = playableVariantIds.size;
   playableModeButton.classList.toggle("active", playableEditMode);
-  playableModeButton.textContent = playableEditMode ? "설정 완료" : "가능 실험체 설정";
+  playableModeButton.textContent = playableEditMode ? t("playable.done") : t("button.playableMode");
   playableModeButton.setAttribute("aria-pressed", String(playableEditMode));
   clearPlayableButton.disabled = count === 0;
-  playableStatus.textContent = count > 0 ? `가능 픽 ${count}개 안에서 추천` : "전체 실험체 추천 중";
+  playableStatus.textContent = count > 0 ? t("playable.limited", { count }) : t("playable.status.all");
 }
 
 function togglePlayableCharacter(variantId) {
@@ -754,12 +862,12 @@ function renderSelectedTeam() {
   selectedCount.textContent = selected.length;
 
   if (selected.length === 0) {
-    selectedTeam.innerHTML = `<p class="empty-state">팀원이 고른 실험체를 선택하면 추천이 바로 갱신됩니다.</p>`;
+    selectedTeam.innerHTML = `<p class="empty-state">${t("team.emptyHint")}</p>`;
     return;
   }
 
   selectedTeam.innerHTML = selected
-    .map((character) => `<span class="team-chip">${character.name}<small>${[character.weaponLabel, character.weaponStyle].filter(Boolean).join(" · ")}</small></span>`)
+    .map((character) => `<span class="team-chip">${t(`char.${character.id}`)}<small>${[t(`weapon.${character.weapon}`), character.weaponStyle].filter(Boolean).join(" · ")}</small></span>`)
     .join("");
 }
 
@@ -784,18 +892,18 @@ function renderDetectedTeam(matches = [], status = "") {
     .filter((item) => item.variant);
 
   if (assigned.length === 0 && matches.length === 0) {
-    detectedTeam.innerHTML = `<p class="detected-status">카드를 클릭하면 팀원 1, 팀원 2, 나 순서로 자동 기록됩니다.</p>`;
+    detectedTeam.innerHTML = `<p class="detected-status">${t("team.autoHint")}</p>`;
     return;
   }
 
   const manualChips = assigned
     .map(({ slotIndex, variant }) => {
-      const slotText = slotIndex === 0 ? "나" : `팀원 ${slotIndex}`;
+      const slotText = slotIndex === 0 ? t("slot.self") : t(`slot.teammate${slotIndex}`);
       return `
         <span class="detected-chip">
           <img src="${variant.image}" alt="">
-          <strong>${variant.name}</strong>
-          <small>${slotText} · ${variant.weaponLabel}</small>
+          <strong>${t(`char.${variant.id}`)}</strong>
+          <small>${slotText} · ${t(`weapon.${variant.weapon}`)}</small>
         </span>
       `;
     })
@@ -805,12 +913,13 @@ function renderDetectedTeam(matches = [], status = "") {
     ? matches
         .map((match) => {
           const percent = Math.round(match.confidence * 100);
-          const weaponText = match.weapon ? ` · ${primaryVariantForCharacter(match.character.id, match.weapon)?.weaponLabel ?? match.weapon}` : "";
-          const slotText = match.isSelf ? "나" : "팀원";
+          const weaponLabel = match.weapon ? (primaryVariantForCharacter(match.character.id, match.weapon)?.weapon ?? match.weapon) : null;
+          const weaponText = weaponLabel ? ` · ${t(`weapon.${weaponLabel}`)}` : "";
+          const slotText = match.isSelf ? t("slot.self") : t("slot.detectedTeammate");
           return `
             <span class="detected-chip">
               <img src="${match.character.image}" alt="">
-              <strong>${match.character.name}</strong>
+              <strong>${t(`char.${match.character.id}`)}</strong>
               <small>${slotText}${weaponText} · ${percent}%</small>
             </span>
           `;
@@ -868,13 +977,13 @@ function rankerCharacterRows(role = "all") {
 }
 
 function renderRankRoleFilters() {
-  const filters = [{ id: "all", label: "전체" }, ...roles];
+  const filters = [{ id: "all" }, ...roles];
   return `
-    <div class="rank-filter-row" aria-label="실험체 랭킹 역할 필터">
+    <div class="rank-filter-row" aria-label="${t("rank.filterLabel")}">
       ${filters
         .map((role) => {
           const pressed = role.id === activeRankRole ? "true" : "false";
-          return `<button class="filter-button" type="button" data-rank-role="${role.id}" aria-pressed="${pressed}">${role.label}</button>`;
+          return `<button class="filter-button" type="button" data-rank-role="${role.id}" aria-pressed="${pressed}">${t(`role.${role.id}`)}</button>`;
         })
         .join("")}
     </div>
@@ -889,25 +998,25 @@ function compositionReason(row, isUserFeedback) {
   const ranges = new Set(characters.map((character) => character.weaponRange));
 
   if (roles.has("frontline") && (roles.has("ranged") || roles.has("mage"))) {
-    return "앞라인이 시야와 진입각을 만들고, 후방 딜러가 안정적으로 딜을 넣기 좋은 조합입니다.";
+    return t("comp.frontlineRanged");
   }
   if ((roles.has("bruiser") || roles.has("assassin")) && tags.has("focus")) {
-    return "한 대상을 빠르게 몰아칠 수 있어 교전 시작 후 킬 결정력이 높습니다.";
+    return t("comp.bruiserFocus");
   }
   if (tags.has("initiate") && tags.has("cc")) {
-    return "이니쉬와 CC가 함께 있어 먼저 싸움을 열고 흐름을 잡기 좋습니다.";
+    return t("comp.initiateCC");
   }
   if (tags.has("peel") && (roles.has("ranged") || roles.has("mage"))) {
-    return "아군 보호 능력과 원거리 딜이 함께 있어 받아치는 교전에 강점이 있습니다.";
+    return t("comp.peelRanged");
   }
   if (ranges.has("melee") && ranges.has("ranged")) {
-    return "근거리와 원거리 역할이 섞여 있어 교전 거리 선택지가 넓습니다.";
+    return t("comp.mixedRange");
   }
 
   const top3 = Math.round((row.top3Rate ?? 0) * 100);
-  if (isUserFeedback) return "사용자 평가에서 실제 경기 후 반응이 좋았던 조합입니다.";
-  if (top3 >= 70) return "랭커 전적에서 상위권으로 마무리한 비율이 높아 안정성이 확인된 조합입니다.";
-  return "랭커 전적에서 반복적으로 등장해 참고할 만한 조합입니다.";
+  if (isUserFeedback) return t("comp.userFeedback");
+  if (top3 >= 70) return t("comp.rankerTop");
+  return t("comp.rankerFrequent");
 }
 
 function renderCharacterFace(characterId) {
@@ -932,7 +1041,7 @@ function renderHomeDashboard() {
     return rows
     .map((row, index) => {
       const members = row.teamKey ? [...row.teamKey.split("+"), row.candidateId] : [...row.teammates, row.candidate];
-      const detail = row.teamKey ? `좋아요 ${row.likes} · 평가 ${row.total}` : `랭커 ${row.games}판 · TOP3 ${Math.round((row.top3Rate ?? 0) * 100)}%`;
+      const detail = row.teamKey ? t("rank.comboDetail", { likes: row.likes, total: row.total }) : t("rank.rankerDetail", { count: row.games, top3: Math.round((row.top3Rate ?? 0) * 100) });
       return `
         <article class="combo-card">
           <div class="combo-card-head">
@@ -947,8 +1056,8 @@ function renderHomeDashboard() {
     .join("");
   }
 
-  const overallItems = renderComboCards(overallComps.length > 0 ? overallComps : fallbackComps, "전체", overallComps.length > 0);
-  const recentItems = renderComboCards(recentComps.length > 0 ? recentComps : fallbackComps.slice(0, 14), "최근", recentComps.length > 0);
+  const overallItems = renderComboCards(overallComps.length > 0 ? overallComps : fallbackComps, t("rank.overallPrefix"), overallComps.length > 0);
+  const recentItems = renderComboCards(recentComps.length > 0 ? recentComps : fallbackComps.slice(0, 14), t("rank.recentPrefix"), recentComps.length > 0);
 
   const rankRows = rankerCharacterRows(activeRankRole);
   const rankItems = rankRows
@@ -960,39 +1069,39 @@ function renderHomeDashboard() {
           ${character.image ? `<img src="${character.image}" alt="">` : ""}
           <div>
             <strong>${character.name}</strong>
-            <small>${character.role} · ${row.games}판 · TOP3 ${Math.round(row.top3Rate * 100)}%</small>
+            <small>${t(`role.${character.role}`)} · ${t("rank.gamesCount", { count: row.games })} · TOP3 ${Math.round(row.top3Rate * 100)}%</small>
           </div>
         </article>
       `;
     })
     .join("");
-  const rankRoleLabel = activeRankRole === "all" ? "전체 실험체" : (roleNames[activeRankRole] ?? activeRankRole);
+  const rankRoleLabel = activeRankRole === "all" ? t("rank.allCharacters") : t(`role.${activeRankRole}`);
 
   recommendations.innerHTML = `
     <div class="recommendation-hub">
       <section class="combo-section">
         <div class="section-title-row">
-          <h3>추천 조합</h3>
-        <span>사용자 경기 후 평가 기준</span>
+          <h3>${t("rank.compositionTitle")}</h3>
+        <span>${t("rank.compositionBasis")}</span>
         </div>
         <div class="combo-split">
           <div>
-            <h4>전체 득표 상위</h4>
+            <h4>${t("rank.overallTop")}</h4>
             <div class="combo-grid">${overallItems}</div>
           </div>
           <div>
-            <h4>최근 득표 상위</h4>
+            <h4>${t("rank.recentTop")}</h4>
             <div class="combo-grid">${recentItems}</div>
           </div>
         </div>
       </section>
       <section class="rank-section">
         <div class="section-title-row">
-          <h3>실험체 랭킹</h3>
-          <span>DAK.GG 랭커 최근 스쿼드 전적 기준 · ${rankRoleLabel} ${rankRows.length}명</span>
+          <h3>${t("rank.characterTitle")}</h3>
+          <span>${t("rank.characterBasis", { label: rankRoleLabel, count: rankRows.length })}</span>
         </div>
         ${renderRankRoleFilters()}
-        <div class="rank-grid">${rankItems || `<p class="empty-state">해당 역할군의 랭킹 데이터가 없습니다.</p>`}</div>
+        <div class="rank-grid">${rankItems || `<p class="empty-state">${t("rank.noData")}</p>`}</div>
       </section>
     </div>
   `;
@@ -1007,8 +1116,8 @@ function renderRecommendations() {
   if (selectedIds.size === 0) {
     recommendations.innerHTML = `
       <div class="setup-recommendation-empty">
-        <strong>팀원을 선택하면 추천 후보가 표시됩니다.</strong>
-        <span>실험체 카드를 누르면 팀원 1, 팀원 2, 나 순서로 기록되며 추천이 바로 갱신됩니다.</span>
+        <strong>${t("recommend.emptyTitle")}</strong>
+        <span>${t("recommend.emptyBody")}</span>
       </div>
     `;
     return;
@@ -1017,10 +1126,10 @@ function renderRecommendations() {
   const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
   const results = recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, popularFeedback);
   if (results.length === 0) {
-    recommendations.innerHTML = `<p class="empty-state">현재 가능 실험체 목록 안에는 추천할 후보가 없습니다.</p>`;
+    recommendations.innerHTML = `<p class="empty-state">${t("recommend.noPlayable")}</p>`;
     return;
   }
-  recommendations.innerHTML = results
+  recommendations.innerHTML = recommendationStageNotice() + results
     .map((result, index) => {
       const reasonList = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
       const compactLabels = compactReasonLabels(result.reasons)
@@ -1032,22 +1141,22 @@ function renderRecommendations() {
         <article class="recommendation-card">
           <div class="recommendation-avatar">
             <img src="${result.character.image}" alt="" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.hidden = false;">
-            <span hidden>${result.character.name.slice(0, 1)}</span>
+            <span hidden>${t(`char.${result.character.id}`).slice(0, 1)}</span>
           </div>
           <div class="recommendation-main">
             <div class="recommendation-title">
-              <span class="recommendation-rank">추천 ${index + 1}</span>
-              <h3>${result.character.name}</h3>
+              <span class="recommendation-rank">${t("recommend.rank", { index: index + 1 })}</span>
+              <h3>${t(`char.${result.character.id}`)}</h3>
               <span>${characterSubtitle(result.character)}</span>
             </div>
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
             <details class="recommendation-details">
-              <summary>상세 설명</summary>
+              <summary>${t("recommend.details")}</summary>
               <ul>${reasonList}</ul>
             </details>
             <div class="feedback-row">
-              <button class="feedback-button" type="button" data-choose-pick="${result.character.variantId}">내 선택으로 기록</button>
+              <button class="feedback-button" type="button" data-choose-pick="${result.character.variantId}">${t("recommend.choosePick")}</button>
             </div>
           </div>
           <strong class="score${scoreTone}">${result.score}</strong>
@@ -1060,7 +1169,7 @@ function renderRecommendations() {
 function renderMatchFeedback() {
   const chosen = characterVariants.find((character) => character.variantId === chosenPickId);
   if (!chosen) {
-    matchFeedback.innerHTML = `<p class="empty-state">내 픽을 지정하면 경기 후 평가할 수 있습니다.</p>`;
+    matchFeedback.innerHTML = `<p class="empty-state">${t("feedback.emptyHint")}</p>`;
     return;
   }
 
@@ -1076,13 +1185,13 @@ function renderMatchFeedback() {
   const hasSubmittedFeedback =
     submittedFeedbackKeys.has(currentFeedbackKey) ||
     hasRecentFeedback([...selectedIds], chosen.variantId, tierSelect.value);
-  const doneText = "평가가 반영되었습니다.";
+  const doneText = t("feedback.done");
   const feedbackControls = hasSubmittedFeedback
     ? `
       <div class="chosen-feedback-done" aria-live="polite">
         <strong>${doneText}</strong>
       </div>
-      <button class="icon-button clear-pick-button" type="button" data-clear-pick aria-label="선택 해제" title="선택 해제">
+      <button class="icon-button clear-pick-button" type="button" data-clear-pick aria-label="${t('slot.clearAriaLabel')}" title="${t('slot.clearAriaLabel')}">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="m18 6-12 12"></path>
           <path d="m6 6 12 12"></path>
@@ -1090,20 +1199,20 @@ function renderMatchFeedback() {
       </button>
     `
     : `
-      <div class="chosen-actions" aria-label="경기 후 평가">
-        <button class="icon-button feedback-like" type="button" data-match-feedback="1" aria-label="좋았음" title="좋았음">
+      <div class="chosen-actions" aria-label="${t('feedback.ariaLabel')}">
+        <button class="icon-button feedback-like" type="button" data-match-feedback="1" aria-label="${t('feedback.likeLabel')}" title="${t('feedback.likeLabel')}">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3v11Z"></path>
             <path d="M7 11 11 2a3 3 0 0 1 3 3v4h5a3 3 0 0 1 3 3l-2 7a3 3 0 0 1-3 3H7V11Z"></path>
           </svg>
         </button>
-        <button class="icon-button feedback-dislike" type="button" data-match-feedback="-1" aria-label="별로였음" title="별로였음">
+        <button class="icon-button feedback-dislike" type="button" data-match-feedback="-1" aria-label="${t('feedback.dislikeLabel')}" title="${t('feedback.dislikeLabel')}">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M17 2h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3V2Z"></path>
             <path d="M17 13 13 22a3 3 0 0 1-3-3v-4H5a3 3 0 0 1-3-3l2-7a3 3 0 0 1 3-3h10v11Z"></path>
           </svg>
         </button>
-        <button class="icon-button clear-pick-button" type="button" data-clear-pick aria-label="선택 해제" title="선택 해제">
+        <button class="icon-button clear-pick-button" type="button" data-clear-pick aria-label="${t('slot.clearAriaLabel')}" title="${t('slot.clearAriaLabel')}">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="m18 6-12 12"></path>
             <path d="m6 6 12 12"></path>
@@ -1116,20 +1225,20 @@ function renderMatchFeedback() {
     <div class="chosen-pick">
       <img src="${chosen.image}" alt="">
       <div>
-        <strong>${chosen.name}</strong>
-        <small>${[chosen.weaponLabel, chosen.weaponStyle, feedbackLabel(chosen.variantId)].filter(Boolean).join(" · ")}</small>
+        <strong>${t(`char.${chosen.id}`)}</strong>
+        <small>${[t(`weapon.${chosen.weapon}`), chosen.weaponStyle, feedbackLabel(chosen.variantId)].filter(Boolean).join(" · ")}</small>
       </div>
       ${score}
       ${feedbackControls}
     </div>
     <div class="combo-evaluation">
       <div>
-        <strong>현재 조합 진단</strong>
+        <strong>${t("feedback.diagnosis")}</strong>
         <p>${compactText}</p>
       </div>
       <div class="recommendation-tags">${compactLabels}</div>
       <details class="recommendation-details">
-        <summary>상세 설명</summary>
+        <summary>${t("recommend.details")}</summary>
         <ul>${reasonList}</ul>
       </details>
     </div>
@@ -1139,24 +1248,41 @@ function renderMatchFeedback() {
 function feedbackLabel(candidateId) {
   const entry = getFeedbackEntry([...selectedIds], candidateId, tierSelect.value);
   const total = entry.likes + entry.dislikes;
-  if (total === 0) return "평가 없음";
-  return `좋음 ${entry.likes} · 싫음 ${entry.dislikes}`;
+  if (total === 0) return t("feedback.none");
+  return t("feedback.score", { likes: entry.likes, dislikes: entry.dislikes });
+}
+
+function remoteFeedbackKey() {
+  return [tierSelect.value, [...selectedIds].sort().join("|")].join("::");
+}
+
+function refreshRemoteFeedbackIfNeeded() {
+  if (selectedIds.size === 0) {
+    remoteFeedback = {};
+    lastRemoteFeedbackKey = "";
+    return;
+  }
+
+  const nextKey = remoteFeedbackKey();
+  if (nextKey === lastRemoteFeedbackKey) return;
+  lastRemoteFeedbackKey = nextKey;
+  refreshRemoteFeedback();
 }
 
 async function refreshRemoteFeedback() {
   if (isRefreshingRemote) return;
   isRefreshingRemote = true;
   try {
-    syncStatus.textContent = "?? ?? ?";
+    syncStatus.textContent = t("sync.checking");
     syncStatus.dataset.state = "loading";
     remoteFeedback = await loadRemoteFeedback([...selectedIds], tierSelect.value);
     const remaining = await flushPendingRemoteFeedback();
-    syncStatus.textContent = remaining > 0 ? `서버 연결됨 · 미전송 ${remaining}개` : "서버 연결됨";
+    syncStatus.textContent = remaining > 0 ? t("sync.connectedPending", { count: remaining }) : t("sync.connected");
     syncStatus.dataset.state = "ok";
   } catch {
     remoteFeedback = {};
     const pendingCount = loadPendingRemoteFeedback().length;
-    syncStatus.textContent = pendingCount > 0 ? `서버 연결 실패 · 미전송 ${pendingCount}개 보관 중` : "서버 연결 실패";
+    syncStatus.textContent = pendingCount > 0 ? t("sync.failedPending", { count: pendingCount }) : t("sync.failed");
     syncStatus.dataset.state = "error";
   } finally {
     isRefreshingRemote = false;
@@ -1205,7 +1331,8 @@ async function refreshPopularFeedback() {
 
 function render() {
   appMain.dataset.view = activeView;
-  recommendTitle.textContent = activeView === "recommendations" ? "랭킹" : "추천 후보";
+  applyTranslations();
+  recommendTitle.textContent = activeView === "recommendations" ? t("nav.recommendations") : t("section.recommendation.title");
   sideTabs.forEach((button) => {
     button.classList.toggle("active", button.dataset.view === activeView);
   });
@@ -1220,15 +1347,15 @@ function render() {
 
   if (activeView === "union") {
     topbarEyebrow.textContent = "Union Draft";
-    topbarTitle.textContent = "유니온 사전 팀 조합 추천";
+    topbarTitle.textContent = t("topbar.title.union");
     selectedCount.textContent = unionParticipatingPlayers.size;
-    selectedCount.nextElementSibling.textContent = " / 3명 참여";
+    selectedCount.nextElementSibling.textContent = t("topbar.unionSuffix");
   } else {
     topbarEyebrow.textContent = activeView === "recommendations" ? "Meta Dashboard" : "Squad Draft Assistant";
-    topbarTitle.textContent = activeView === "recommendations" ? "추천 조합과 실험체 랭킹" : "우리 팀에 맞는 실험체 추천";
-    selectedCount.nextElementSibling.textContent = " / 2명 선택됨";
+    topbarTitle.textContent = activeView === "recommendations" ? t("topbar.title.recommendations") : t("topbar.title.setup");
+    selectedCount.nextElementSibling.textContent = t("topbar.selectedSuffix");
   }
-  refreshRemoteFeedback();
+  refreshRemoteFeedbackIfNeeded();
   refreshPopularFeedback();
 }
 
@@ -1238,7 +1365,8 @@ function renderManualSlots() {
     const variant = characterVariants.find((character) => character.variantId === slotAssignments[slotIndex]);
     button.classList.toggle("active", activeSlot === slotIndex);
     button.classList.toggle("filled", Boolean(variant));
-    button.textContent = variant ? `${slotIndex === 0 ? "나" : `팀원 ${slotIndex}`} · ${variant.name}` : slotIndex === 0 ? "나" : `팀원 ${slotIndex}`;
+    const slotLabel = slotIndex === 0 ? t("slot.self") : t(`slot.teammate${slotIndex}`);
+    button.textContent = variant ? `${slotLabel} · ${t(`char.${variant.id}`)}` : slotLabel;
   });
 }
 
@@ -1308,29 +1436,29 @@ contactForm.addEventListener("submit", (event) => {
   const replyTo = contactReply.value.trim();
   const message = contactMessage.value.trim();
   if (!replyTo) {
-    contactStatus.textContent = "답장받을 이메일을 입력해주세요.";
+    contactStatus.textContent = t("contact.validationEmail");
     contactReply.focus();
     return;
   }
   if (!message) {
-    contactStatus.textContent = "문의 내용을 입력해주세요.";
+    contactStatus.textContent = t("contact.validationMessage");
     contactMessage.focus();
     return;
   }
 
-  contactStatus.textContent = "전송 중";
+  contactStatus.textContent = t("contact.sending");
   submitContactMessage({
     replyTo,
     message,
     appVersion: "desktop",
   })
     .then(() => {
-      contactStatus.textContent = "문의가 전송되었습니다.";
+      contactStatus.textContent = t("contact.sent");
       contactForm.reset();
       setTimeout(closeContactModal, 900);
     })
     .catch((error) => {
-      contactStatus.textContent = error.message ? `전송 실패: ${error.message}` : "전송 실패";
+      contactStatus.textContent = error.message ? t("contact.sendFailedReason", { reason: error.message }) : t("contact.sendFailed");
     });
 });
 
@@ -1347,9 +1475,18 @@ clearPlayableButton.addEventListener("click", () => {
   renderCharacters();
   renderRecommendations();
 });
+
+savePresetButton.addEventListener("click", savePreset);
+loadPresetButton.addEventListener("click", loadPreset);
+deletePresetButton.addEventListener("click", deletePreset);
+presetSelect.addEventListener("change", () => {
+  loadPresetButton.disabled = presetSelect.value === "";
+  deletePresetButton.disabled = presetSelect.value === "";
+});
+renderPresetSelect();
 tierSelect.addEventListener("change", () => {
   renderRecommendations();
-  refreshRemoteFeedback();
+  refreshRemoteFeedbackIfNeeded();
 });
 
 recommendations.addEventListener("click", (event) => {
@@ -1403,7 +1540,7 @@ matchFeedback.addEventListener("click", (event) => {
   const pendingItem = queueRemoteFeedback([...selectedIds], chosenPickId, feedbackValue, tierSelect.value, "new-feedback");
   recordFeedback([...selectedIds], chosenPickId, feedbackValue, tierSelect.value);
   markRecentFeedback([...selectedIds], chosenPickId, tierSelect.value);
-  syncStatus.textContent = "서버 저장 중";
+  syncStatus.textContent = t("sync.saving");
   syncStatus.dataset.state = "loading";
   recordRemoteFeedback([...selectedIds], chosenPickId, feedbackValue, tierSelect.value)
     .then(() => {
@@ -1419,7 +1556,7 @@ matchFeedback.addEventListener("click", (event) => {
         attempts: (pendingItem.attempts ?? 0) + 1,
         lastError: error.message ?? "server failed",
       });
-      syncStatus.textContent = "서버 저장 실패 · 나중에 자동 재시도";
+      syncStatus.textContent = t("sync.saveFailed");
       syncStatus.dataset.state = "error";
     });
   window.setTimeout(() => {
@@ -1432,26 +1569,26 @@ manualSlots.addEventListener("click", (event) => {
   const button = event.target.closest("[data-manual-slot]");
   if (!button) return;
   const slotIndex = Number(button.dataset.manualSlot);
-  const slotLabel = slotIndex === 0 ? "나" : `팀원 ${slotIndex}`;
+  const slotLabel = slotIndex === 0 ? t("slot.self") : t(`slot.teammate${slotIndex}`);
 
   if (slotAssignments[slotIndex]) {
     slotAssignments[slotIndex] = null;
     activeSlot = null;
     syncSelectedFromSlots();
-    renderDetectedTeam([], `${slotLabel} 선택을 해제했습니다.`);
+    renderDetectedTeam([], t("slot.deselect", { slot: slotLabel }));
     render();
     return;
   }
 
   if (activeSlot === slotIndex) {
     activeSlot = null;
-    renderDetectedTeam([], "슬롯 변경 모드를 취소했습니다.");
+    renderDetectedTeam([], t("slot.cancelEdit"));
     renderManualSlots();
     return;
   }
 
   activeSlot = slotIndex;
-  renderDetectedTeam([], `${slotLabel} 변경 모드입니다. 아래 실험체 카드 하나를 누르면 이 칸에 기록됩니다.`);
+  renderDetectedTeam([], t("slot.editMode", { slot: slotLabel }));
   renderManualSlots();
 });
 
@@ -1464,8 +1601,8 @@ unionPlayerGrid.addEventListener("click", (event) => {
         check.checked = false;
         unionResults.innerHTML = `
           <div class="setup-recommendation-empty">
-            <strong>출전 멤버는 3명까지만 선택할 수 있습니다.</strong>
-            <span>다른 플레이어의 출전 체크를 먼저 해제한 뒤 다시 선택해주세요.</span>
+            <strong>${t("union.maxPlayers")}</strong>
+            <span>${t("union.maxPlayersDesc")}</span>
           </div>
         `;
         return;
@@ -1534,7 +1671,7 @@ themeToggle.addEventListener("click", () => {
 
 const recoveredFeedbackCount = recoverLocalFeedbackToPendingQueue();
 if (recoveredFeedbackCount > 0) {
-  syncStatus.textContent = `로컬 평가 ${recoveredFeedbackCount}개 서버 전송 대기`;
+  syncStatus.textContent = t("sync.localPending", { count: recoveredFeedbackCount });
   syncStatus.dataset.state = "loading";
 }
 
