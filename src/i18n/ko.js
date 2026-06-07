@@ -277,6 +277,7 @@ export const ko = {
   "update.downloading": "업데이트 다운로드 중... {percent}%",
   "update.restartNow": "지금 재시작",
   "update.restartNote": "앱 종료 시 자동으로 설치됩니다.",
+  "web.downloadApp": "⬇ 앱 다운로드",
   "update.confirm": "새로운 업데이트가 있습니다.\n\n현재 버전: v{current}\n최신 버전: {latest}\n\n업데이트를 받으시겠습니까?",
   "sync.checking": "연결 확인 중",
   "sync.connected": "서버 연결됨",

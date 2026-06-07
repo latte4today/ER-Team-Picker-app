@@ -27,6 +27,8 @@ import { applyTranslations, getLanguage, hasStoredLanguage, setLanguage, t } fro
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
 import { appVersion, releaseConfig } from "./updateConfig.js";
 
+const isElectron = /electron/i.test(navigator.userAgent);
+
 const selectedIds = new Set();
 let activeRole = "all";
 let activeRankRole = "all";
@@ -121,6 +123,13 @@ const splashEl = document.getElementById("splash-screen");
 splashEl.classList.add("hidden");
 setTimeout(() => { splashEl.hidden = true; }, 380);
 document.getElementById("app-shell").style.opacity = "1";
+if (!isElectron) {
+  updateCheckButton.hidden = true;
+  updateStatus.innerHTML = `
+    <a class="web-download-btn" href="https://github.com/${releaseConfig.owner}/${releaseConfig.repo}/releases/latest" target="_blank" rel="noopener noreferrer">${t("web.downloadApp")}</a>
+    <small>v${appVersion} · web</small>
+  `;
+}
 if (!hasStoredLanguage()) {
   languageGate.hidden = false;
 }
@@ -2235,6 +2244,8 @@ if (recoveredFeedbackCount > 0) {
 
 setupErUpdater();
 render();
-setTimeout(checkForUpdatesOnStartup, 1200);
-startPeriodicUpdateChecks();
+if (isElectron) {
+  setTimeout(checkForUpdatesOnStartup, 1200);
+  startPeriodicUpdateChecks();
+}
 startPeriodicPendingFeedbackSync();
