@@ -56,7 +56,8 @@ function startStaticServer() {
     });
 
     server.on("error", reject);
-    server.listen(0, "127.0.0.1", () => {
+    const FIXED_PORT = 34579;
+    server.listen(FIXED_PORT, "127.0.0.1", () => {
       const address = server.address();
       resolve(`http://127.0.0.1:${address.port}/index.html`);
     });

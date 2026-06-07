@@ -1,12 +1,27 @@
 import { supabaseConfig } from "./supabaseConfig.js";
 
 const VOTE_WINDOW_HOURS = 4;
+const INVALID_FEEDBACK_IDS = new Set(["", "empty", "null", "undefined", "none"]);
+
+function normalizeFeedbackId(id) {
+  const normalized = String(id ?? "").trim().split(":")[0].trim();
+  return INVALID_FEEDBACK_IDS.has(normalized.toLowerCase()) ? "" : normalized;
+}
+
+function normalizeTeamIds(selectedIds) {
+  return selectedIds
+    .map(normalizeFeedbackId)
+    .filter(Boolean)
+    .sort();
+}
 
 function normalizeTeam(selectedIds) {
-  return selectedIds
-    .map((id) => id.split(":")[0])
-    .sort()
-    .join("+");
+  return normalizeTeamIds(selectedIds).join("+");
+}
+
+function isValidFeedbackRow(row) {
+  const teamIds = String(row?.team_key ?? "").split("+").map(normalizeFeedbackId).filter(Boolean);
+  return teamIds.length === 2 && Boolean(normalizeFeedbackId(row?.candidate_id));
 }
 
 function voteBucket(date = new Date()) {
@@ -44,6 +59,11 @@ async function getClient() {
 }
 
 export async function recordRemoteFeedback(selectedIds, candidateId, value, tier) {
+  const teamIds = normalizeTeamIds(selectedIds);
+  const teamKey = normalizeTeam(selectedIds);
+  const normalizedCandidateId = normalizeFeedbackId(candidateId);
+  if (teamIds.length !== 2 || !teamKey || !normalizedCandidateId) return false;
+
   const client = await getClient();
   if (!client) return undefined;
 
@@ -53,8 +73,8 @@ export async function recordRemoteFeedback(selectedIds, candidateId, value, tier
   const basePayload = {
     user_id: userData.user.id,
     tier,
-    team_key: normalizeTeam(selectedIds),
-    candidate_id: candidateId.split(":")[0],
+    team_key: teamKey,
+    candidate_id: normalizedCandidateId,
     value,
     vote_day: new Date().toISOString().slice(0, 10),
     updated_at: new Date().toISOString(),
@@ -89,7 +109,9 @@ export async function loadRemoteFeedback(selectedIds, tier) {
   const client = await getClient();
   if (!client) return {};
 
+  if (normalizeTeamIds(selectedIds).length !== 2) return {};
   const teamKey = normalizeTeam(selectedIds);
+  if (!teamKey) return {};
   const tiers = tier === "all" ? ["all"] : [tier, "all"];
   const { data, error } = await client
     .from("recommendation_feedback_summary")
@@ -100,7 +122,7 @@ export async function loadRemoteFeedback(selectedIds, tier) {
   if (error) throw error;
 
   return Object.fromEntries(
-    data.map((row) => [
+    data.filter(isValidFeedbackRow).map((row) => [
       `${row.tier}:${teamKey}->${row.candidate_id}`,
       { likes: row.likes, dislikes: row.dislikes },
     ]),
@@ -118,7 +140,7 @@ export async function loadPopularFeedback(limit = 500) {
     .limit(limit);
 
   if (error) throw error;
-  return data;
+  return data.filter(isValidFeedbackRow);
 }
 
 export async function submitContactMessage({ replyTo = "", message = "", appVersion = "" }) {

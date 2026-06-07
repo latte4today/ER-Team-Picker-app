@@ -7,6 +7,48 @@
     <link rel="icon" href="assets/app-icon.png" type="image/png">
     <link rel="stylesheet" href="src/styles.css">
     <style>
+      /* ── Splash screen ── */
+      #splash-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        background: #0e0e0e;
+        transition: opacity 350ms ease;
+      }
+      #splash-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .splash-icon {
+        width: 96px;
+        height: 96px;
+        border-radius: 22px;
+      }
+      .splash-app-name {
+        font-family: system-ui, sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+      }
+      .splash-spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255,255,255,0.12);
+        border-top-color: rgba(255,255,255,0.7);
+        border-radius: 50%;
+        animation: splashSpin 0.75s linear infinite;
+        margin-top: 4px;
+      }
+      @keyframes splashSpin {
+        to { transform: rotate(360deg); }
+      }
+
       .language-gate {
         position: fixed;
         inset: 0;
@@ -76,6 +118,12 @@
     </style>
   </head>
   <body>
+    <div id="splash-screen" aria-hidden="true">
+      <img class="splash-icon" src="assets/app-icon.png" alt="">
+      <p class="splash-app-name">ER Team Picker</p>
+      <div class="splash-spinner"></div>
+    </div>
+
     <div class="language-gate" id="language-gate" hidden>
       <section class="language-panel" aria-labelledby="language-title">
         <h1 id="language-title" data-i18n="language.title"></h1>
@@ -90,7 +138,7 @@
       </section>
     </div>
 
-    <main class="app-shell">
+    <main class="app-shell" id="app-shell" style="opacity:0;transition:opacity 180ms ease">
       <aside class="app-sidebar" data-i18n-label="app.sidebarLabel">
         <div class="brand-panel">
           <img src="assets/app-icon.png" alt="">
@@ -105,8 +153,7 @@
         <div class="side-footer">
           <button class="update-button" id="update-check-button" type="button" data-i18n="button.updateCheck"></button>
           <div class="update-status" id="update-status" role="status"></div>
-          <button class="contact-button" id="contact-open-button" type="button" data-i18n="button.contact"></button>
-          <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="true" data-i18n="button.darkMode"></button>
+          <button class="settings-button" id="settings-open-button" type="button" data-i18n="button.settings"></button>
         </div>
       </aside>
 
@@ -227,6 +274,7 @@
             </div>
             <p class="helper-text" data-i18n="section.union.helper"></p>
             <div class="union-player-grid" id="union-player-grid"></div>
+            <div class="union-preset-panel" id="union-preset-panel"></div>
             <label class="search-box union-search">
               <span data-i18n="search.label"></span>
               <input id="union-search-input" type="search" data-i18n-placeholder="union.search.placeholder">
@@ -241,7 +289,10 @@
                 <p class="section-kicker" data-i18n="section.recommendation.kicker"></p>
                 <h2 data-i18n="union.result.title"></h2>
               </div>
-              <span class="sync-chip" id="union-summary" data-i18n="union.summary.empty"></span>
+              <div class="union-result-actions">
+                <button class="primary-button union-confirm-button" id="union-confirm-button" type="button" data-i18n="button.unionConfirm"></button>
+                <span class="sync-chip" id="union-summary" data-i18n="union.summary.empty"></span>
+              </div>
             </div>
             <div class="union-results" id="union-results"></div>
           </section>
@@ -275,6 +326,36 @@
             <button class="primary-button contact-submit" type="submit" data-i18n="button.send"></button>
           </div>
         </form>
+      </section>
+    </div>
+
+    <div class="settings-modal" id="settings-modal" hidden>
+      <div class="settings-backdrop" data-settings-close></div>
+      <section class="settings-dialog" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+        <div class="panel-header">
+          <h2 id="settings-title" data-i18n="settings.title"></h2>
+          <button class="icon-button" type="button" data-settings-close data-i18n-label="contact.closeLabel">x</button>
+        </div>
+        <div class="settings-body">
+          <section class="settings-section">
+            <h3 class="settings-section-label" data-i18n="settings.languageSection"></h3>
+            <div class="settings-language-grid">
+              <button class="settings-language-card" type="button" data-language-option="ko" data-i18n="language.ko"></button>
+              <button class="settings-language-card" type="button" data-language-option="en" data-i18n="language.en"></button>
+              <button class="settings-language-card" type="button" data-language-option="ja" data-i18n="language.ja"></button>
+              <button class="settings-language-card" type="button" data-language-option="zhHans" data-i18n="language.zhHans"></button>
+              <button class="settings-language-card" type="button" data-language-option="zhHant" data-i18n="language.zhHant"></button>
+            </div>
+          </section>
+          <section class="settings-section">
+            <h3 class="settings-section-label" data-i18n="settings.themeSection"></h3>
+            <button class="settings-theme-toggle" id="settings-theme-toggle" type="button" aria-pressed="true"></button>
+          </section>
+          <section class="settings-section">
+            <h3 class="settings-section-label" data-i18n="settings.contactSection"></h3>
+            <button class="settings-contact-button" id="settings-contact-button" type="button" data-i18n="button.contact"></button>
+          </section>
+        </div>
       </section>
     </div>
 

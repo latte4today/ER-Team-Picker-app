@@ -16,6 +16,7 @@ const byCharacter = {
   nicky: "firstEngage",
   isaac: "firstEngage",
   tazia: "firstEngage",
+  bihyung: "firstEngage",
 
   debi_marlene: "delayedEngage",
   leon: "delayedEngage",
@@ -28,6 +29,9 @@ const byCharacter = {
   silvia: "delayedEngage",
   ian: "delayedEngage",
   irem: "delayedEngage",
+  fenrir: "delayedEngage",
+  blair: "delayedEngage",
+  emma: "delayedEngage",
 
   jackie: "cannotStart",
   shoichi: "cannotStart",
@@ -65,6 +69,7 @@ const byCharacter = {
   eva: "counterOnlyRanged",
 
   haze: "pokeThenEngage",
+  coreline: "pokeThenEngage",
 
   sho: "guardSometimesEngage",
   eleven: "guardSometimesEngage",

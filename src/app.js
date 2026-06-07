@@ -23,7 +23,7 @@ import {
   isPokeThenEngage,
   likesDiveFollow,
 } from "./combatProfiles.js";
-import { applyTranslations, hasStoredLanguage, setLanguage, t } from "./i18n/index.js";
+import { applyTranslations, getLanguage, hasStoredLanguage, setLanguage, t } from "./i18n/index.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
 import { appVersion, releaseConfig } from "./updateConfig.js";
 
@@ -44,7 +44,10 @@ const detectedTeam = document.querySelector("#detected-team");
 const tierSelect = document.querySelector("#tier-select");
 const syncStatus = document.querySelector("#sync-status");
 const manualSlots = document.querySelector("#manual-slots");
-const themeToggle = document.querySelector("#theme-toggle");
+const settingsOpenButton = document.querySelector("#settings-open-button");
+const settingsModal = document.querySelector("#settings-modal");
+const settingsThemeToggle = document.querySelector("#settings-theme-toggle");
+const settingsContactButton = document.querySelector("#settings-contact-button");
 const playableModeButton = document.querySelector("#playable-mode-button");
 const clearPlayableButton = document.querySelector("#clear-playable-button");
 const playableStatus = document.querySelector("#playable-status");
@@ -53,7 +56,6 @@ const presetSelect = document.querySelector("#playable-preset-select");
 const savePresetButton = document.querySelector("#save-playable-preset-button");
 const loadPresetButton = document.querySelector("#load-playable-preset-button");
 const deletePresetButton = document.querySelector("#delete-playable-preset-button");
-const contactOpenButton = document.querySelector("#contact-open-button");
 const contactModal = document.querySelector("#contact-modal");
 const contactForm = document.querySelector("#contact-form");
 const contactReply = document.querySelector("#contact-reply");
@@ -72,6 +74,8 @@ const unionSearchInput = document.querySelector("#union-search-input");
 const unionResults = document.querySelector("#union-results");
 const unionSummary = document.querySelector("#union-summary");
 const unionClearButton = document.querySelector("#union-clear-button");
+const unionConfirmButton = document.querySelector("#union-confirm-button");
+const unionPresetPanel = document.querySelector("#union-preset-panel");
 const languageGate = document.querySelector("#language-gate");
 
 let activeSlot = null;
@@ -92,6 +96,7 @@ const legacyPlayableStorageKey = "er-team-picker-playable-characters";
 const playableStorageKey = "er-team-picker-playable-variants";
 const presetStorageKey = "er-team-picker-playable-presets";
 const unionStorageKey = "er-team-picker-union-rosters";
+const unionPresetStorageKey = "er-team-picker-union-presets";
 const savedPlayableVariants = JSON.parse(localStorage.getItem(playableStorageKey) ?? "[]");
 const savedPlayableCharacters = JSON.parse(localStorage.getItem(legacyPlayableStorageKey) ?? "[]");
 const playableVariantIds = new Set(savedPlayableVariants.length > 0
@@ -101,15 +106,22 @@ const playableVariantIds = new Set(savedPlayableVariants.length > 0
     .map((character) => character.variantId));
 let playableEditMode = false;
 let playablePresets = JSON.parse(localStorage.getItem(presetStorageKey) ?? "[]");
+// unionPresets: Array<{ name: string, variants: string[] }>
+let unionPresets = normalizeUnionPresetStorage(JSON.parse(localStorage.getItem(unionPresetStorageKey) ?? "[]"));
 let activeView = appMain?.dataset.view ?? "setup";
 let activeUnionPlayer = 0;
 let activeUnionRole = "all";
+let isUnionCalculating = false;
 const unionPlayerNames = [1,2,3,4].map(n => t("player.name", { n }));
 const unionParticipatingPlayers = new Set([0, 1, 2]);
 const savedUnionRosters = JSON.parse(localStorage.getItem(unionStorageKey) ?? "[]");
 const unionRosters = Array.from({ length: 4 }, (_, index) => new Set(savedUnionRosters[index] ?? []));
 
 applyTranslations();
+const splashEl = document.getElementById("splash-screen");
+splashEl.classList.add("hidden");
+setTimeout(() => { splashEl.hidden = true; }, 380);
+document.getElementById("app-shell").style.opacity = "1";
 if (!hasStoredLanguage()) {
   languageGate.hidden = false;
 }
@@ -138,19 +150,43 @@ function characterRolesById(characterId) {
     .map((character) => character.role))];
 }
 
+function roleLabel(roleId) {
+  const normalized = {
+    tank: "frontline",
+    tanker: "frontline",
+    "탱커": "frontline",
+    "브루저": "bruiser",
+    dealer: "ranged",
+    ranged_dealer: "ranged",
+    "원거리 딜러": "ranged",
+    assassin: "assassin",
+    "암살자": "assassin",
+    skill_dealer: "mage",
+    skillDealer: "mage",
+    "skill dealer": "mage",
+    "스킬 딜러": "mage",
+    mage: "mage",
+    support: "support",
+    supporter: "support",
+    "서포터": "support",
+  }[roleId] ?? roleId;
+  const label = t(`role.${normalized}`);
+  return label === `role.${normalized}` ? String(roleId ?? "") : label;
+}
+
 function characterBrief(characterId) {
   const character = characterById(characterId);
   if (!character) return { name: characterId, image: "", role: "", weapon: "" };
   return {
     name: t(`char.${character.id}`),
     image: character.image,
-    role: t(`role.${character.role}`),
+    role: roleLabel(character.role),
     weapon: t(`weapon.${character.weapon}`),
   };
 }
 
 function characterSubtitle(character) {
-  return [t(`role.${character.role}`), t(`weapon.${character.weapon}`), character.weaponStyle].filter(Boolean).join(" · ");
+  return [roleLabel(character.role), t(`weapon.${character.weapon}`), character.weaponStyle].filter(Boolean).join(" · ");
 }
 
 function compactReasonLabels(reasons = []) {
@@ -194,8 +230,8 @@ function setTheme(theme) {
   const nextTheme = theme === "light" ? "light" : "dark";
   document.documentElement.dataset.theme = nextTheme;
   localStorage.setItem("er-team-picker-theme", nextTheme);
-  themeToggle.textContent = nextTheme === "dark" ? t("button.darkMode") : t("button.lightMode");
-  themeToggle.setAttribute("aria-pressed", String(nextTheme === "dark"));
+  settingsThemeToggle.textContent = nextTheme === "dark" ? t("button.darkMode") : t("button.lightMode");
+  settingsThemeToggle.setAttribute("aria-pressed", String(nextTheme === "dark"));
 }
 
 setTheme(savedTheme ?? "dark");
@@ -210,6 +246,23 @@ function openContactModal() {
 function closeContactModal() {
   contactModal.hidden = true;
   contactStatus.textContent = "";
+}
+
+function updateSettingsLanguageCards() {
+  const current = getLanguage();
+  settingsModal.querySelectorAll("[data-language-option]").forEach((btn) => {
+    btn.setAttribute("aria-pressed", String(btn.dataset.languageOption === current));
+  });
+}
+
+function openSettingsModal() {
+  settingsModal.hidden = false;
+  setTheme(document.documentElement.dataset.theme);
+  updateSettingsLanguageCards();
+}
+
+function closeSettingsModal() {
+  settingsModal.hidden = true;
 }
 
 function normalizeVersion(version) {
@@ -307,7 +360,7 @@ function renderRoleFilters() {
   roleFilters.innerHTML = filters
     .map((role) => {
       const pressed = role.id === activeRole ? "true" : "false";
-      return `<button class="filter-button" type="button" data-role="${role.id}" aria-pressed="${pressed}">${t(`role.${role.id}`)}</button>`;
+      return `<button class="filter-button" type="button" data-role="${role.id}" aria-pressed="${pressed}">${roleLabel(role.id)}</button>`;
     })
     .join("");
 }
@@ -354,17 +407,47 @@ function markRecentlyAssigned(id) {
   }, 260);
 }
 
-function toggleDetailsSummary(event) {
-  if (!(event.target instanceof Element)) return false;
-  const summary = event.target.closest(".recommendation-details summary");
-  if (!summary) return false;
+function isTextSelectionActive() {
+  const selection = window.getSelection?.();
+  return Boolean(selection && selection.type === "Range" && selection.toString().trim());
+}
 
-  const details = summary.closest("details");
-  if (!details) return false;
+function shouldIgnoreSelectionClick(event) {
+  if (!(event.target instanceof Element)) return false;
+  if (event.target.closest(".recommendation-details summary")) return false;
+
+  return isTextSelectionActive() &&
+    Boolean(event.target.closest(".recommendation-summary, .recommendation-details ul, .union-combo-card p, .helper-text, .guide-strip span, .empty-state, .setup-recommendation-empty, .recommendation-stage-notice"));
+}
+
+let detailsSummaryPointerStart = null;
+
+function trackDetailsSummaryPointer(event) {
+  if (!(event.target instanceof Element)) return;
+  if (!event.target.closest(".recommendation-details summary")) {
+    detailsSummaryPointerStart = null;
+    return;
+  }
+  detailsSummaryPointerStart = { x: event.clientX, y: event.clientY };
+}
+
+function handleDetailsSummaryClick(event) {
+  if (!(event.target instanceof Element)) return;
+  const summary = event.target.closest(".recommendation-details summary");
+  if (!summary) return;
+
+  const moved = detailsSummaryPointerStart &&
+    (Math.abs(event.clientX - detailsSummaryPointerStart.x) > 5 ||
+      Math.abs(event.clientY - detailsSummaryPointerStart.y) > 5);
+  detailsSummaryPointerStart = null;
+
   event.preventDefault();
   event.stopPropagation();
-  details.open = !details.open;
-  return true;
+
+  if (moved) return;
+
+  const details = summary.closest("details");
+  if (details) details.open = !details.open;
 }
 
 function renderUnionRoleFilters() {
@@ -372,7 +455,7 @@ function renderUnionRoleFilters() {
   unionRoleFilters.innerHTML = filters
     .map((role) => {
       const pressed = role.id === activeUnionRole ? "true" : "false";
-      return `<button class="filter-button" type="button" data-union-role="${role.id}" aria-pressed="${pressed}">${t(`role.${role.id}`)}</button>`;
+      return `<button class="filter-button" type="button" data-union-role="${role.id}" aria-pressed="${pressed}">${roleLabel(role.id)}</button>`;
     })
     .join("");
 }
@@ -612,13 +695,18 @@ function unionComboPlan(combo) {
   return t("union.plan.default");
 }
 
-function buildUnionCombos() {
-  normalizeUnionPlayers();
-  const players = activeUnionPlayers();
-  if (players.length !== 3) return [];
-  if (players.some((player) => unionRosters[player].size === 0)) return [];
+function yieldToUi() {
+  return new Promise((resolve) => setTimeout(resolve, 0));
+}
 
-  const rosters = players.map((player) => [...unionRosters[player]].map(variantById).filter(Boolean));
+function updateUnionCalculateButton() {
+  if (!unionConfirmButton) return;
+  unionConfirmButton.disabled = isUnionCalculating;
+  unionConfirmButton.setAttribute("aria-busy", String(isUnionCalculating));
+  unionConfirmButton.textContent = isUnionCalculating ? t("button.unionCalculating") : t("button.unionConfirm");
+}
+
+async function buildUnionCombos(players, rosters) {
   const combos = [];
   let checked = 0;
   const maxChecks = 16000;
@@ -628,6 +716,7 @@ function buildUnionCombos() {
       for (const third of rosters[2]) {
         checked += 1;
         if (checked > maxChecks) break;
+        if (checked % 350 === 0) await yieldToUi();
         const uniqueCharacters = new Set([first.characterId, second.characterId, third.characterId]);
         if (uniqueCharacters.size < 3) continue;
         const scoreInfo = unionComboScore([first, second, third]);
@@ -641,45 +730,8 @@ function buildUnionCombos() {
   return combos.sort((a, b) => b.score - a.score).slice(0, 24);
 }
 
-function renderUnionResults() {
-  normalizeUnionPlayers();
-  const rosterPlayers = unionRosterPlayers();
-  const players = activeUnionPlayers();
-  if (rosterPlayers.length < 3) {
-    unionSummary.textContent = t("union.registered", { count: rosterPlayers.length });
-    unionResults.innerHTML = `
-      <div class="setup-recommendation-empty">
-        <strong>${t("union.minPlayers")}</strong>
-        <span>${t("union.minPlayersDesc")}</span>
-      </div>
-    `;
-    return;
-  }
-
-  if (players.length !== 3) {
-    unionSummary.textContent = t("union.players", { count: players.length });
-    unionResults.innerHTML = `
-      <div class="setup-recommendation-empty">
-        <strong>${t("union.selectPlayers")}</strong>
-        <span>${t("union.selectPlayersDesc")}</span>
-      </div>
-    `;
-    return;
-  }
-
-  const emptyPlayer = players.find((player) => unionRosters[player].size === 0);
-  if (emptyPlayer !== undefined) {
-    unionSummary.textContent = t("union.waiting");
-    unionResults.innerHTML = `
-      <div class="setup-recommendation-empty">
-        <strong>${t("union.emptyRoster", { name: unionPlayerNames[emptyPlayer] })}</strong>
-        <span>${t("union.emptyRosterDesc")}</span>
-      </div>
-    `;
-    return;
-  }
-
-  const combos = buildUnionCombos();
+function renderUnionComboResults(combos) {
+  unionSummary.removeAttribute("data-state");
   unionSummary.textContent = t("union.comboCount", { count: combos.length });
   if (combos.length === 0) {
     unionResults.innerHTML = `<p class="empty-state">${t("union.noCombo")}</p>`;
@@ -715,11 +767,75 @@ function renderUnionResults() {
     .join("");
 }
 
+function renderUnionResultPrecheck() {
+  normalizeUnionPlayers();
+  const rosterPlayers = unionRosterPlayers();
+  const players = activeUnionPlayers();
+  unionSummary.removeAttribute("data-state");
+  if (rosterPlayers.length < 3) {
+    unionSummary.textContent = t("union.registered", { count: rosterPlayers.length });
+    unionResults.innerHTML = `
+      <div class="setup-recommendation-empty">
+        <strong>${t("union.minPlayers")}</strong>
+        <span>${t("union.minPlayersDesc")}</span>
+      </div>
+    `;
+    return false;
+  }
+
+  if (players.length !== 3) {
+    unionSummary.textContent = t("union.players", { count: players.length });
+    unionResults.innerHTML = `
+      <div class="setup-recommendation-empty">
+        <strong>${t("union.selectPlayers")}</strong>
+        <span>${t("union.selectPlayersDesc")}</span>
+      </div>
+    `;
+    return false;
+  }
+
+  const emptyPlayer = players.find((player) => unionRosters[player].size === 0);
+  if (emptyPlayer !== undefined) {
+    unionSummary.textContent = t("union.waiting");
+    unionResults.innerHTML = `
+      <div class="setup-recommendation-empty">
+        <strong>${t("union.emptyRoster", { name: unionPlayerNames[emptyPlayer] })}</strong>
+        <span>${t("union.emptyRosterDesc")}</span>
+      </div>
+    `;
+    return false;
+  }
+
+  return true;
+}
+
+async function renderUnionResults() {
+  if (isUnionCalculating) return;
+  if (!renderUnionResultPrecheck()) return;
+
+  const players = activeUnionPlayers();
+  const rosters = players.map((player) => [...unionRosters[player]].map(variantById).filter(Boolean));
+
+  isUnionCalculating = true;
+  updateUnionCalculateButton();
+  unionSummary.dataset.state = "loading";
+  unionSummary.textContent = t("union.calculating");
+  unionResults.innerHTML = `<div class="union-loading" role="status">${t("union.calculatingDesc")}</div>`;
+
+  try {
+    await yieldToUi();
+    const combos = await buildUnionCombos(players, rosters);
+    renderUnionComboResults(combos);
+  } finally {
+    isUnionCalculating = false;
+    updateUnionCalculateButton();
+  }
+}
+
 function renderUnion() {
   renderUnionPlayers();
   renderUnionRoleFilters();
   renderUnionCharacters();
-  renderUnionResults();
 }
 
 function savePlayableCharacters() {
@@ -728,6 +844,112 @@ function savePlayableCharacters() {
 
 function savePresetsToStorage() {
   localStorage.setItem(presetStorageKey, JSON.stringify(playablePresets));
+}
+
+// ── Union presets ──────────────────────────────────────────
+let _unionPresetSaveTimer = null;
+
+function normalizeUnionPresetStorage(value) {
+  const source = Array.isArray(value)
+    ? value
+    : Object.values(value ?? {}).flat();
+  const byName = new Map();
+  source.forEach((preset) => {
+    if (!preset?.name || !Array.isArray(preset.variants)) return;
+    const variants = [...new Set(preset.variants)];
+    const samePreset = [...byName.values()].some((saved) =>
+      saved.name === preset.name &&
+      saved.variants.length === variants.length &&
+      saved.variants.every((id, index) => id === variants[index])
+    );
+    if (samePreset) return;
+
+    let name = preset.name;
+    let suffix = 2;
+    while (byName.has(name)) {
+      name = `${preset.name} ${suffix}`;
+      suffix += 1;
+    }
+    byName.set(name, { name, variants });
+  });
+  return [...byName.values()];
+}
+
+function saveUnionPresetsToStorage() {
+  localStorage.setItem(unionPresetStorageKey, JSON.stringify(unionPresets));
+}
+
+function getUnionAutoPresetName() {
+  let n = 1;
+  const existingNames = new Set(unionPresets.map((p) => p.name));
+  while (existingNames.has(t("preset.autoName", { n }))) n++;
+  return t("preset.autoName", { n });
+}
+
+function buildUnionPresetDropdownHTML() {
+  const items = unionPresets.map((p, i) => `<button class="updd-item" type="button" data-preset-index="${i}">${p.name}</button>`).join("");
+  const isEmpty = unionPresets.length === 0;
+  const displayText = isEmpty ? t("preset.empty") : t("preset.selectPlaceholder");
+  return `
+    <div class="union-preset-dropdown${isEmpty ? " updd-empty" : ""}" data-selected-index="">
+      <button class="updd-trigger ghost-button" type="button" aria-expanded="false"${isEmpty ? " disabled" : ""}>
+        <span class="updd-value">${displayText}</span>
+        <span class="updd-arrow">v</span>
+      </button>
+      <div class="updd-list" hidden>${items}</div>
+    </div>
+  `;
+}
+
+function renderUnionPresetPanel() {
+  const playerRows = unionPlayerNames.map((playerName, playerIndex) => `
+    <div class="union-preset-row" data-preset-player="${playerIndex}">
+      <span class="union-preset-row-label">${playerName}</span>
+      ${buildUnionPresetDropdownHTML()}
+      <button class="ghost-button union-preset-load-btn" type="button" disabled>${t("button.load")}</button>
+    </div>
+  `).join("");
+
+  unionPresetPanel.innerHTML = `
+    <div class="union-preset-save-row">
+      <input id="union-preset-name-input" type="text" maxlength="18" placeholder="${t("preset.namePlaceholder")}">
+      <button class="ghost-button union-preset-save-btn" type="button">${t("button.save")}</button>
+      <span class="union-preset-saved-msg" id="union-preset-saved-msg" aria-live="polite"></span>
+    </div>
+    ${playerRows}
+  `;
+}
+
+function updateUnionPresetDropdowns() {
+  unionPresetPanel.querySelectorAll("[data-preset-player]").forEach((row) => {
+    const dropdown = row.querySelector(".union-preset-dropdown");
+    const loadBtn = row.querySelector(".union-preset-load-btn");
+    if (!dropdown) return;
+
+    const prevIndex = dropdown.dataset.selectedIndex;
+    const list = dropdown.querySelector(".updd-list");
+    list.innerHTML = unionPresets.map((p, i) => `<button class="updd-item" type="button" data-preset-index="${i}">${p.name}</button>`).join("");
+
+    const trigger = dropdown.querySelector(".updd-trigger");
+    const valueEl = dropdown.querySelector(".updd-value");
+    const validPrev = prevIndex !== "" && unionPresets[Number(prevIndex)];
+    if (validPrev) {
+      dropdown.dataset.selectedIndex = prevIndex;
+      valueEl.textContent = unionPresets[Number(prevIndex)].name;
+      list.querySelectorAll(".updd-item").forEach((btn) => {
+        btn.classList.toggle("selected", btn.dataset.presetIndex === prevIndex);
+      });
+    } else {
+      dropdown.dataset.selectedIndex = "";
+      valueEl.textContent = unionPresets.length === 0 ? t("preset.empty") : t("preset.selectPlaceholder");
+      list.querySelectorAll(".updd-item").forEach((btn) => btn.classList.remove("selected"));
+    }
+
+    const empty = unionPresets.length === 0;
+    dropdown.classList.toggle("updd-empty", empty);
+    trigger.disabled = empty;
+    if (loadBtn) loadBtn.disabled = empty || dropdown.dataset.selectedIndex === "";
+  });
 }
 
 function renderPresetSelect() {
@@ -983,7 +1205,7 @@ function renderRankRoleFilters() {
       ${filters
         .map((role) => {
           const pressed = role.id === activeRankRole ? "true" : "false";
-          return `<button class="filter-button" type="button" data-rank-role="${role.id}" aria-pressed="${pressed}">${t(`role.${role.id}`)}</button>`;
+          return `<button class="filter-button" type="button" data-rank-role="${role.id}" aria-pressed="${pressed}">${roleLabel(role.id)}</button>`;
         })
         .join("")}
     </div>
@@ -1069,13 +1291,13 @@ function renderHomeDashboard() {
           ${character.image ? `<img src="${character.image}" alt="">` : ""}
           <div>
             <strong>${character.name}</strong>
-            <small>${t(`role.${character.role}`)} · ${t("rank.gamesCount", { count: row.games })} · TOP3 ${Math.round(row.top3Rate * 100)}%</small>
+            <small>${roleLabel(character.role)} · ${t("rank.gamesCount", { count: row.games })} · TOP3 ${Math.round(row.top3Rate * 100)}%</small>
           </div>
         </article>
       `;
     })
     .join("");
-  const rankRoleLabel = activeRankRole === "all" ? t("rank.allCharacters") : t(`role.${activeRankRole}`);
+  const rankRoleLabel = activeRankRole === "all" ? t("rank.allCharacters") : roleLabel(activeRankRole);
 
   recommendations.innerHTML = `
     <div class="recommendation-hub">
@@ -1173,6 +1395,8 @@ function renderMatchFeedback() {
     return;
   }
 
+  const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
+  const canRateMatch = canSubmitMatchFeedback(feedbackTeamIds, chosen.variantId);
   const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, popularFeedback);
   const reasonList = evaluation?.reasons.map((reason) => `<li>${reason}</li>`).join("") ?? "";
   const compactLabels = compactReasonLabels(evaluation?.reasons ?? [])
@@ -1180,13 +1404,26 @@ function renderMatchFeedback() {
     .join("");
   const compactText = compactReasonText(evaluation?.reasons ?? []);
   const scoreTone = (evaluation?.score ?? 0) < 0 ? " negative-score" : "";
-  const score = selectedIds.size > 0 ? `<strong class="chosen-score${scoreTone}">${evaluation?.score ?? "-"}</strong>` : "";
-  const currentFeedbackKey = feedbackWindowKey([...selectedIds], chosen.variantId, tierSelect.value);
+  const score = canRateMatch ? `<strong class="chosen-score${scoreTone}">${evaluation?.score ?? "-"}</strong>` : "";
+  const currentFeedbackKey = canRateMatch ? feedbackWindowKey(feedbackTeamIds, chosen.variantId, tierSelect.value) : "";
   const hasSubmittedFeedback =
-    submittedFeedbackKeys.has(currentFeedbackKey) ||
-    hasRecentFeedback([...selectedIds], chosen.variantId, tierSelect.value);
+    canRateMatch &&
+    (submittedFeedbackKeys.has(currentFeedbackKey) ||
+      hasRecentFeedback(feedbackTeamIds, chosen.variantId, tierSelect.value));
   const doneText = t("feedback.done");
-  const feedbackControls = hasSubmittedFeedback
+  const feedbackControls = !canRateMatch
+    ? `
+      <div class="chosen-feedback-done" aria-live="polite">
+        <strong>팀원 2명과 내 픽까지 총 3명을 선택하면 평가할 수 있습니다.</strong>
+      </div>
+      <button class="icon-button clear-pick-button" type="button" data-clear-pick aria-label="${t('slot.clearAriaLabel')}" title="${t('slot.clearAriaLabel')}">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m18 6-12 12"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    `
+    : hasSubmittedFeedback
     ? `
       <div class="chosen-feedback-done" aria-live="polite">
         <strong>${doneText}</strong>
@@ -1254,6 +1491,16 @@ function feedbackLabel(candidateId) {
 
 function remoteFeedbackKey() {
   return [tierSelect.value, [...selectedIds].sort().join("|")].join("::");
+}
+
+function isKnownFeedbackId(id) {
+  const normalized = String(id ?? "").trim();
+  if (!normalized || ["empty", "null", "undefined", "none"].includes(normalized.toLowerCase())) return false;
+  return characterVariants.some((character) => character.variantId === normalized || character.id === normalized);
+}
+
+function canSubmitMatchFeedback(teamIds, candidateId) {
+  return teamIds.length === 2 && teamIds.every(isKnownFeedbackId) && isKnownFeedbackId(candidateId);
 }
 
 function refreshRemoteFeedbackIfNeeded() {
@@ -1343,7 +1590,9 @@ function render() {
   renderMatchFeedback();
   renderRecommendations();
   renderUnion();
+  renderUnionPresetPanel();
   renderManualSlots();
+  updateUnionCalculateButton();
 
   if (activeView === "union") {
     topbarEyebrow.textContent = "Union Draft";
@@ -1419,15 +1668,42 @@ sideTabs.forEach((button) => {
   });
 });
 
-contactOpenButton.addEventListener("click", openContactModal);
+settingsOpenButton.addEventListener("click", openSettingsModal);
 updateCheckButton.addEventListener("click", () => checkForUpdates());
+
+settingsModal.addEventListener("click", (event) => {
+  if (event.target.closest("[data-settings-close]")) closeSettingsModal();
+});
+
+settingsModal.addEventListener("click", (event) => {
+  const btn = event.target.closest("[data-language-option]");
+  if (!btn) return;
+  setLanguage(btn.dataset.languageOption);
+  applyTranslations();
+  setTheme(document.documentElement.dataset.theme);
+  updateSettingsLanguageCards();
+  render();
+});
+
+settingsThemeToggle.addEventListener("click", () => {
+  const current = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+  setTheme(current === "dark" ? "light" : "dark");
+});
+
+settingsContactButton.addEventListener("click", () => {
+  closeSettingsModal();
+  openContactModal();
+});
 
 contactModal.addEventListener("click", (event) => {
   if (event.target.closest("[data-contact-close]")) closeContactModal();
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !contactModal.hidden) closeContactModal();
+  if (event.key === "Escape") {
+    if (!contactModal.hidden) closeContactModal();
+    else if (!settingsModal.hidden) closeSettingsModal();
+  }
 });
 
 
@@ -1490,7 +1766,11 @@ tierSelect.addEventListener("change", () => {
 });
 
 recommendations.addEventListener("click", (event) => {
-  if (toggleDetailsSummary(event)) return;
+  if (shouldIgnoreSelectionClick(event)) {
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
 
   const rankRoleButton = event.target.closest("[data-rank-role]");
   if (rankRoleButton) {
@@ -1510,9 +1790,15 @@ recommendations.addEventListener("click", (event) => {
   renderDetectedTeam();
   render();
 });
+recommendations.addEventListener("pointerdown", trackDetailsSummaryPointer, true);
+recommendations.addEventListener("click", handleDetailsSummaryClick, true);
 
 matchFeedback.addEventListener("click", (event) => {
-  if (toggleDetailsSummary(event)) return;
+  if (shouldIgnoreSelectionClick(event)) {
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
 
   const clearPickButton = event.target.closest("[data-clear-pick]");
   if (clearPickButton) {
@@ -1526,8 +1812,15 @@ matchFeedback.addEventListener("click", (event) => {
   const button = event.target.closest("[data-match-feedback]");
   if (!button || !chosenPickId) return;
 
-  const currentFeedbackKey = feedbackWindowKey([...selectedIds], chosenPickId, tierSelect.value);
+  const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
+  if (!canSubmitMatchFeedback(feedbackTeamIds, chosenPickId)) return;
+
+  const currentFeedbackKey = feedbackWindowKey(feedbackTeamIds, chosenPickId, tierSelect.value);
   if (submittedFeedbackKeys.has(currentFeedbackKey)) return;
+
+  const feedbackValue = Number(button.dataset.matchFeedback);
+  const pendingItem = queueRemoteFeedback(feedbackTeamIds, chosenPickId, feedbackValue, tierSelect.value, "new-feedback");
+  if (!pendingItem) return;
 
   button.classList.add(Number(button.dataset.matchFeedback) > 0 ? "feedback-pop-like" : "feedback-pop-dislike");
   button.closest(".chosen-actions")?.querySelectorAll("[data-match-feedback]").forEach((item) => {
@@ -1536,13 +1829,11 @@ matchFeedback.addEventListener("click", (event) => {
 
 
   submittedFeedbackKeys.add(currentFeedbackKey);
-  const feedbackValue = Number(button.dataset.matchFeedback);
-  const pendingItem = queueRemoteFeedback([...selectedIds], chosenPickId, feedbackValue, tierSelect.value, "new-feedback");
-  recordFeedback([...selectedIds], chosenPickId, feedbackValue, tierSelect.value);
-  markRecentFeedback([...selectedIds], chosenPickId, tierSelect.value);
+  recordFeedback(feedbackTeamIds, chosenPickId, feedbackValue, tierSelect.value);
+  markRecentFeedback(feedbackTeamIds, chosenPickId, tierSelect.value);
   syncStatus.textContent = t("sync.saving");
   syncStatus.dataset.state = "loading";
-  recordRemoteFeedback([...selectedIds], chosenPickId, feedbackValue, tierSelect.value)
+  recordRemoteFeedback(feedbackTeamIds, chosenPickId, feedbackValue, tierSelect.value)
     .then(() => {
       removePendingRemoteFeedback(pendingItem.id);
       popularFeedbackLoaded = false;
@@ -1564,6 +1855,8 @@ matchFeedback.addEventListener("click", (event) => {
     renderRecommendations();
   }, 420);
 });
+matchFeedback.addEventListener("pointerdown", trackDetailsSummaryPointer, true);
+matchFeedback.addEventListener("click", handleDetailsSummaryClick, true);
 
 manualSlots.addEventListener("click", (event) => {
   const button = event.target.closest("[data-manual-slot]");
@@ -1621,6 +1914,9 @@ unionPlayerGrid.addEventListener("click", (event) => {
   activeUnionPlayer = Number(button.dataset.unionPlayer);
   unionCharacterGrid.scrollTop = 0;
   renderUnion();
+  // 저장 행 레이블만 업데이트 (패널 전체 재렌더 없음)
+  const saveLabel = unionPresetPanel.querySelector(".union-preset-save-label");
+  if (saveLabel) saveLabel.textContent = unionPlayerNames[activeUnionPlayer];
 });
 
 unionCharacterGrid.addEventListener("click", (event) => {
@@ -1630,16 +1926,148 @@ unionCharacterGrid.addEventListener("click", (event) => {
   const variantId = card.dataset.unionPick;
   if (roster.has(variantId)) {
     roster.delete(variantId);
+    card.setAttribute("aria-pressed", "false");
   } else {
     if (roster.size >= 15) {
       card.animate([{ transform: "translateX(-4px)" }, { transform: "translateX(4px)" }, { transform: "translateX(0)" }], { duration: 200 });
       return;
     }
     roster.add(variantId);
+    card.setAttribute("aria-pressed", "true");
   }
   saveUnionRosters();
   normalizeUnionPlayers();
-  renderUnion();
+  renderUnionPlayers();
+});
+
+unionConfirmButton.addEventListener("click", () => {
+  renderUnionResults();
+});
+
+// Custom dropdown: close all open dropdowns except the given one
+function closeUnionPresetDropdowns(except = null) {
+  unionPresetPanel.querySelectorAll(".union-preset-dropdown").forEach((dd) => {
+    if (dd === except) return;
+    const list = dd.querySelector(".updd-list");
+    const trigger = dd.querySelector(".updd-trigger");
+    if (list) list.hidden = true;
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
+    dd.classList.remove("updd-open");
+  });
+}
+
+function closeUnionPresetDropdown(dropdown) {
+  if (!dropdown) return;
+  const list = dropdown.querySelector(".updd-list");
+  const trigger = dropdown.querySelector(".updd-trigger");
+  if (list) list.hidden = true;
+  if (trigger) {
+    trigger.setAttribute("aria-expanded", "false");
+    trigger.blur();
+  }
+  dropdown.classList.remove("updd-open");
+}
+
+// Close dropdowns when clicking outside the panel
+document.addEventListener("click", (event) => {
+  if (!unionPresetPanel.contains(event.target)) {
+    closeUnionPresetDropdowns();
+  }
+});
+
+["pointerdown", "mousedown", "click"].forEach((eventName) => {
+  unionPresetPanel.addEventListener(eventName, (event) => {
+    const input = event.target.closest("#union-preset-name-input");
+    if (!input) return;
+    closeUnionPresetDropdowns();
+    event.stopImmediatePropagation();
+    if (eventName !== "click") {
+      window.setTimeout(() => input.focus(), 0);
+    }
+  });
+});
+
+unionPresetPanel.addEventListener("click", (event) => {
+  if (event.target.closest(".union-preset-save-btn")) {
+  // 저장 버튼 — 공유 입력란 사용, 현재 활성 플레이어에 저장
+    const nameInput = unionPresetPanel.querySelector("#union-preset-name-input");
+    const rawName = nameInput ? nameInput.value.trim() : "";
+    const name = rawName || getUnionAutoPresetName();
+    const variants = [...unionRosters[activeUnionPlayer]];
+    const idx = unionPresets.findIndex((p) => p.name === name);
+    if (idx >= 0) {
+      unionPresets[idx].variants = variants;
+    } else {
+      unionPresets.push({ name, variants });
+    }
+    saveUnionPresetsToStorage();
+    if (nameInput) nameInput.value = "";
+    updateUnionPresetDropdowns();
+    // 저장 완료 메시지
+    const msgEl = unionPresetPanel.querySelector("#union-preset-saved-msg");
+    if (msgEl) {
+      msgEl.textContent = t("union.presetSaved", { name });
+      clearTimeout(_unionPresetSaveTimer);
+      _unionPresetSaveTimer = setTimeout(() => { msgEl.textContent = ""; }, 2000);
+    }
+    return;
+  }
+
+  // 커스텀 드롭다운 트리거 클릭 → 열기/닫기
+  const triggerBtn = event.target.closest(".updd-trigger");
+  if (triggerBtn) {
+    const dropdown = triggerBtn.closest(".union-preset-dropdown");
+    const list = dropdown.querySelector(".updd-list");
+    const isOpen = !list.hidden;
+    closeUnionPresetDropdowns(dropdown);
+    list.hidden = isOpen;
+    dropdown.classList.toggle("updd-open", !isOpen);
+    triggerBtn.setAttribute("aria-expanded", String(!isOpen));
+    return;
+  }
+
+  // 커스텀 드롭다운 아이템 선택
+  const item = event.target.closest(".updd-item");
+  if (item) {
+    const dropdown = item.closest(".union-preset-dropdown");
+    const list = dropdown.querySelector(".updd-list");
+    const valueEl = dropdown.querySelector(".updd-value");
+    const row = dropdown.closest("[data-preset-player]");
+    const loadBtn = row ? row.querySelector(".union-preset-load-btn") : null;
+    const idx = item.dataset.presetIndex;
+    const playerIndex = Number(row?.dataset.presetPlayer ?? 0);
+    const presets = unionPresets;
+    dropdown.dataset.selectedIndex = idx;
+    valueEl.textContent = presets[Number(idx)]?.name ?? t("preset.empty");
+    list.querySelectorAll(".updd-item").forEach((btn) => {
+      btn.classList.toggle("selected", btn.dataset.presetIndex === idx);
+    });
+    closeUnionPresetDropdown(dropdown);
+    if (loadBtn) loadBtn.disabled = false;
+    return;
+  }
+
+  // 불러오기 버튼 — 해당 플레이어에만 적용, 패널 전체 재렌더 없음
+  const row = event.target.closest("[data-preset-player]");
+  if (!row) return;
+  if (event.target.closest(".union-preset-load-btn")) {
+    const playerIndex = Number(row.dataset.presetPlayer);
+    const dropdown = row.querySelector(".union-preset-dropdown");
+    const selectedIndex = dropdown?.dataset.selectedIndex;
+    if (selectedIndex === "" || selectedIndex === undefined) return;
+    const index = Number(selectedIndex);
+    const preset = unionPresets[index];
+    if (!preset) return;
+    unionRosters[playerIndex].clear();
+    preset.variants.forEach((id) => unionRosters[playerIndex].add(id));
+    saveUnionRosters();
+    // 활성 플레이어가 방금 로드한 플레이어일 때만 캐릭터 그리드 갱신
+    if (playerIndex === activeUnionPlayer) {
+      renderUnionCharacters();
+    }
+    renderUnionPlayers();
+    closeUnionPresetDropdown(dropdown);
+  }
 });
 
 unionRoleFilters.addEventListener("click", (event) => {
@@ -1662,11 +2090,6 @@ unionClearButton.addEventListener("click", () => {
   saveUnionRosters();
   normalizeUnionPlayers();
   renderUnion();
-});
-
-themeToggle.addEventListener("click", () => {
-  const current = document.documentElement.dataset.theme === "light" ? "light" : "dark";
-  setTheme(current === "dark" ? "light" : "dark");
 });
 
 const recoveredFeedbackCount = recoverLocalFeedbackToPendingQueue();

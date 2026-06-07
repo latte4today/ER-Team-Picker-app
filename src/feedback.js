@@ -3,17 +3,31 @@ const RECENT_VOTE_KEY = "er-team-picker-feedback-windows-v1";
 const PENDING_REMOTE_KEY = "er-team-picker-pending-remote-feedback-v1";
 const RECOVERY_MARKER_KEY = "er-team-picker-feedback-recovery-v1";
 const VOTE_WINDOW_HOURS = 4;
+const INVALID_FEEDBACK_IDS = new Set(["", "empty", "null", "undefined", "none"]);
+
+function normalizeFeedbackId(id) {
+  const normalized = String(id ?? "").trim().split(":")[0].trim();
+  return INVALID_FEEDBACK_IDS.has(normalized.toLowerCase()) ? "" : normalized;
+}
+
+function normalizeTeamIds(selectedIds) {
+  return selectedIds
+    .map(normalizeFeedbackId)
+    .filter(Boolean)
+    .sort();
+}
 
 function normalizeTeam(selectedIds) {
-  return selectedIds
-    .map((id) => id.split(":")[0])
-    .sort()
-    .join("+");
+  return normalizeTeamIds(selectedIds).join("+");
+}
+
+function hasValidFeedbackTarget(selectedIds, candidateId) {
+  return normalizeTeamIds(selectedIds).length === 2 && Boolean(normalizeFeedbackId(candidateId));
 }
 
 export function feedbackKey(selectedIds, candidateId, tier = "all") {
   const team = normalizeTeam(selectedIds);
-  return `${tier}:${team}->${candidateId.split(":")[0]}`;
+  return `${tier}:${team}->${normalizeFeedbackId(candidateId)}`;
 }
 
 export function voteBucket(date = new Date()) {
@@ -56,10 +70,12 @@ function saveRecentVotes(recentVotes) {
 }
 
 export function hasRecentFeedback(selectedIds, candidateId, tier = "all") {
+  if (!hasValidFeedbackTarget(selectedIds, candidateId)) return false;
   return Boolean(loadRecentVotes()[feedbackWindowKey(selectedIds, candidateId, tier)]);
 }
 
 export function markRecentFeedback(selectedIds, candidateId, tier = "all") {
+  if (!hasValidFeedbackTarget(selectedIds, candidateId)) return;
   const recentVotes = loadRecentVotes();
   const currentKey = feedbackWindowKey(selectedIds, candidateId, tier);
   const currentBucket = voteBucket();
@@ -73,6 +89,7 @@ export function markRecentFeedback(selectedIds, candidateId, tier = "all") {
 }
 
 export function recordFeedback(selectedIds, candidateId, value, tier = "all") {
+  if (!hasValidFeedbackTarget(selectedIds, candidateId)) return undefined;
   const feedback = loadFeedback();
   const key = feedbackKey(selectedIds, candidateId, tier);
   const current = feedback[key] ?? { likes: 0, dislikes: 0 };
@@ -102,6 +119,7 @@ function pendingFeedbackId(selectedIds, candidateId, value, tier = "all") {
 }
 
 export function queueRemoteFeedback(selectedIds, candidateId, value, tier = "all", reason = "server-failed") {
+  if (!hasValidFeedbackTarget(selectedIds, candidateId)) return undefined;
   const pending = loadPendingRemoteFeedback();
   const id = pendingFeedbackId(selectedIds, candidateId, value, tier);
   const existing = pending.find((item) => item.id === id);
@@ -114,8 +132,8 @@ export function queueRemoteFeedback(selectedIds, candidateId, value, tier = "all
 
   const item = {
     id,
-    selectedIds: selectedIds.map((id) => id.split(":")[0]),
-    candidateId: candidateId.split(":")[0],
+    selectedIds: normalizeTeamIds(selectedIds),
+    candidateId: normalizeFeedbackId(candidateId),
     value: value > 0 ? 1 : -1,
     tier,
     reason,
@@ -163,14 +181,14 @@ export function recoverLocalFeedbackToPendingQueue() {
     const dislikes = entry.dislikes ?? 0;
     if (likes === dislikes) return;
 
-    queueRemoteFeedback(
+    const queued = queueRemoteFeedback(
       parsed.selectedIds,
       parsed.candidateId,
       likes > dislikes ? 1 : -1,
       parsed.tier,
       "recovered-local-feedback",
     );
-    recovered += 1;
+    if (queued) recovered += 1;
   });
 
   localStorage.setItem(RECOVERY_MARKER_KEY, String(Date.now()));
@@ -199,10 +217,13 @@ function parseFeedbackKeyParts(key) {
 }
 
 function candidateGlobalFeedbackScore(candidateId, tier = "all", feedback = loadFeedback()) {
-  const targetCandidateId = candidateId.split(":")[0];
+  const targetCandidateId = normalizeFeedbackId(candidateId);
+  if (!targetCandidateId) return 0;
+
   const totals = Object.entries(feedback).reduce((state, [key, entry]) => {
     const parsed = parseFeedbackKeyParts(key);
     if (!parsed || parsed.candidateId !== targetCandidateId) return state;
+    if (parsed.teamKey.split("+").filter(Boolean).length !== 2) return state;
     if (tier !== "all" && parsed.tier !== tier && parsed.tier !== "all") return state;
 
     const tierWeight = parsed.tier === tier ? 1 : 0.65;
@@ -215,8 +236,10 @@ function candidateGlobalFeedbackScore(candidateId, tier = "all", feedback = load
 }
 
 export function getFeedbackScore(selectedIds, candidateId, tier = "all", feedback = loadFeedback()) {
-  const tierScore = scoreFromEntry(feedback[feedbackKey(selectedIds, candidateId, tier)]);
   const candidateScore = candidateGlobalFeedbackScore(candidateId, tier, feedback);
+  if (!hasValidFeedbackTarget(selectedIds, candidateId)) return candidateScore;
+
+  const tierScore = scoreFromEntry(feedback[feedbackKey(selectedIds, candidateId, tier)]);
   if (tier === "all") return tierScore + candidateScore;
 
   const globalScore = scoreFromEntry(feedback[feedbackKey(selectedIds, candidateId, "all")]);
@@ -224,5 +247,6 @@ export function getFeedbackScore(selectedIds, candidateId, tier = "all", feedbac
 }
 
 export function getFeedbackEntry(selectedIds, candidateId, tier = "all", feedback = loadFeedback()) {
+  if (!hasValidFeedbackTarget(selectedIds, candidateId)) return { likes: 0, dislikes: 0 };
   return feedback[feedbackKey(selectedIds, candidateId, tier)] ?? { likes: 0, dislikes: 0 };
 }

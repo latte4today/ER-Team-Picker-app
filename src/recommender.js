@@ -28,6 +28,29 @@ import {
 
 const requiredTags = ["initiate", "focus", "peel", "cc", "sustained", "poke", "burst"];
 
+// Pre-built indexes for O(1) lookup instead of O(n) filter on every evaluateCandidate call
+const _rankerCompositionByCandidate = new Map();
+for (const row of rankerCompositionStats) {
+  const key = row.candidate;
+  if (!_rankerCompositionByCandidate.has(key)) _rankerCompositionByCandidate.set(key, []);
+  _rankerCompositionByCandidate.get(key).push(row);
+}
+
+const _tournamentCompositionByCandidate = new Map();
+for (const row of tournamentCompositions) {
+  for (const memberId of row.members ?? []) {
+    if (!_tournamentCompositionByCandidate.has(memberId)) _tournamentCompositionByCandidate.set(memberId, []);
+    _tournamentCompositionByCandidate.get(memberId).push(row);
+  }
+}
+
+// Pre-resolved tournament row teams for tournamentArchetypeScore (avoids repeated .find calls)
+const _tournamentCompositionTeams = tournamentCompositions.map((row) => ({
+  row,
+  team: (row.members ?? []).map((id) => characterVariants.find((c) => c.characterId === id)).filter(Boolean),
+  memberSet: new Set(row.members ?? []),
+}));
+
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
@@ -72,9 +95,9 @@ const tagLabels = {
 };
 
 const counterEngageAnchorIds = new Set(["lenox"]);
-const lateButCanStartIds = new Set(["fenrir", "bihyung"]);
+const lateButCanStartIds = new Set(["fenrir"]);
 const lateEngageIds = new Set(["vanya"]);
-const needsEngageHelpIds = new Set(["jackie", "daniel", "shoichi", "cathy"]);
+const needsEngageHelpIds = new Set(["jackie", "shoichi"]);
 const meleeEngageHelperIds = new Set(["coreline"]);
 
 const signatureReasons = {
@@ -130,7 +153,41 @@ const signatureReasons = {
   jenny: "recommender.signatureReasons.jenny",
   tsubame: "recommender.signatureReasons.tsubame",
   henry: "recommender.signatureReasons.henry",
-};
+  abigail: "recommender.signatureReasons.abigail",
+  adina: "recommender.signatureReasons.adina",
+  adriana: "recommender.signatureReasons.adriana",
+  aiden: "recommender.signatureReasons.aiden",
+  alex: "recommender.signatureReasons.alex",
+  camilo: "recommender.signatureReasons.camilo",
+  charlotte: "recommender.signatureReasons.charlotte",
+  chiara: "recommender.signatureReasons.chiara",
+  chloe: "recommender.signatureReasons.chloe",
+  coreline: "recommender.signatureReasons.coreline",
+  echion: "recommender.signatureReasons.echion",
+  emma: "recommender.signatureReasons.emma",
+  eva: "recommender.signatureReasons.eva",
+  felix: "recommender.signatureReasons.felix",
+  fenrir: "recommender.signatureReasons.fenrir",
+  fiora: "recommender.signatureReasons.fiora",
+  haze: "recommender.signatureReasons.haze",
+  hisui: "recommender.signatureReasons.hisui",
+  hyejin: "recommender.signatureReasons.hyejin",
+  hyunwoo: "recommender.signatureReasons.hyunwoo",
+  irem: "recommender.signatureReasons.irem",
+  isaac: "recommender.signatureReasons.isaac",
+  isol: "recommender.signatureReasons.isol",
+  istvan: "recommender.signatureReasons.istvan",
+  jackie: "recommender.signatureReasons.jackie",
+  johann: "recommender.signatureReasons.johann",
+  katja: "recommender.signatureReasons.katja",
+  piolo: "recommender.signatureReasons.piolo",
+  priya: "recommender.signatureReasons.priya",
+  shirin: "recommender.signatureReasons.shirin",
+  shoichi: "recommender.signatureReasons.shoichi",
+  william: "recommender.signatureReasons.william",
+  yuki: "recommender.signatureReasons.yuki",
+  zahir: "recommender.signatureReasons.zahir",
+};;
 
 const variantSignatureReasons = {
   "nadine:bow": "recommender.variantSignatureReasons.nadine_bow",
@@ -747,8 +804,8 @@ function dakCompositionScore(candidate, selected) {
   if (selected.length === 0 || rankerCompositionStats.length === 0) return 0;
 
   const selectedCharacters = new Set(selected.map((character) => character.characterId));
-  const rows = rankerCompositionStats.filter((row) => row.candidate === candidate.characterId);
-  if (rows.length === 0) return 0;
+  const rows = _rankerCompositionByCandidate.get(candidate.characterId);
+  if (!rows || rows.length === 0) return 0;
 
   const aggregate = rows.reduce((state, row) => {
     const teammates = row.teammates ?? [];
@@ -782,8 +839,8 @@ function tournamentCompositionScore(candidate, selected) {
   const candidateId = candidate.characterId;
   const selectedIds = selected.map((character) => character.characterId);
   const selectedSet = new Set(selectedIds);
-  const rows = tournamentCompositions.filter((row) => row.members.includes(candidateId));
-  if (rows.length === 0) return 0;
+  const rows = _tournamentCompositionByCandidate.get(candidateId);
+  if (!rows || rows.length === 0) return 0;
 
   const aggregate = rows.reduce((state, row) => {
     const members = new Set(row.members);
@@ -825,12 +882,10 @@ function tournamentArchetypeScore(candidate, selected) {
   const team = [...selected, candidate];
   if (team.length < 3 || tournamentCompositions.length === 0) return 0;
 
-  const teamIds = new Set(team.map((character) => character.characterId));
-  const aggregate = tournamentCompositions.reduce((state, row) => {
-    const referenceTeam = row.members.map(characterByCharacterId).filter(Boolean);
+  const aggregate = _tournamentCompositionTeams.reduce((state, { row, team: referenceTeam, memberSet }) => {
     if (referenceTeam.length < 3) return state;
 
-    const overlap = row.members.filter((id) => teamIds.has(id)).length;
+    const overlap = team.reduce((n, c) => n + (memberSet.has(c.characterId) ? 1 : 0), 0);
     const similarity = metricSimilarityScore(team, referenceTeam);
     if (similarity < 0.72 && overlap === 0) return state;
 
