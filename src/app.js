@@ -973,17 +973,19 @@ function buildUnionPresetDropdownHTML() {
         <span class="updd-value">${displayText}</span>
         <span class="updd-arrow">v</span>
       </button>
-      <div class="updd-list" hidden>${items}</div>
+      <div class="updd-list">${items}</div>
     </div>
   `;
 }
 
 function renderUnionPresetPanel() {
+  const previousName = unionPresetPanel.querySelector("#union-preset-name-input")?.value ?? "";
   const playerRows = unionPlayerNames.map((playerName, playerIndex) => `
     <div class="union-preset-row" data-preset-player="${playerIndex}">
       <span class="union-preset-row-label">${playerName}</span>
       ${buildUnionPresetDropdownHTML()}
       <button class="ghost-button union-preset-load-btn" type="button" disabled>${t("button.load")}</button>
+      <button class="ghost-button union-preset-delete-btn" type="button" disabled>${t("button.delete")}</button>
     </div>
   `).join("");
 
@@ -995,12 +997,23 @@ function renderUnionPresetPanel() {
     </div>
     ${playerRows}
   `;
+  const nameInput = unionPresetPanel.querySelector("#union-preset-name-input");
+  if (nameInput) nameInput.value = previousName;
+}
+
+function ensureUnionPresetPanel() {
+  if (!unionPresetPanel.querySelector("#union-preset-name-input")) {
+    renderUnionPresetPanel();
+    return;
+  }
+  updateUnionPresetDropdowns();
 }
 
 function updateUnionPresetDropdowns() {
   unionPresetPanel.querySelectorAll("[data-preset-player]").forEach((row) => {
     const dropdown = row.querySelector(".union-preset-dropdown");
     const loadBtn = row.querySelector(".union-preset-load-btn");
+    const deleteBtn = row.querySelector(".union-preset-delete-btn");
     if (!dropdown) return;
 
     const prevIndex = dropdown.dataset.selectedIndex;
@@ -1026,6 +1039,7 @@ function updateUnionPresetDropdowns() {
     dropdown.classList.toggle("updd-empty", empty);
     trigger.disabled = empty;
     if (loadBtn) loadBtn.disabled = empty || dropdown.dataset.selectedIndex === "";
+    if (deleteBtn) deleteBtn.disabled = empty || dropdown.dataset.selectedIndex === "";
   });
 }
 
@@ -1667,7 +1681,7 @@ function render() {
   renderMatchFeedback();
   renderRecommendations();
   renderUnion();
-  renderUnionPresetPanel();
+  ensureUnionPresetPanel();
   renderManualSlots();
   updateUnionCalculateButton();
 
@@ -2027,7 +2041,7 @@ function closeUnionPresetDropdowns(except = null) {
     if (dd === except) return;
     const list = dd.querySelector(".updd-list");
     const trigger = dd.querySelector(".updd-trigger");
-    if (list) list.hidden = true;
+    if (list) list.classList.remove("is-open");
     if (trigger) trigger.setAttribute("aria-expanded", "false");
     dd.classList.remove("updd-open");
   });
@@ -2037,7 +2051,7 @@ function closeUnionPresetDropdown(dropdown) {
   if (!dropdown) return;
   const list = dropdown.querySelector(".updd-list");
   const trigger = dropdown.querySelector(".updd-trigger");
-  if (list) list.hidden = true;
+  if (list) list.classList.remove("is-open");
   if (trigger) {
     trigger.setAttribute("aria-expanded", "false");
     trigger.blur();
@@ -2071,6 +2085,15 @@ unionPresetPanel.addEventListener("click", (event) => {
     const rawName = nameInput ? nameInput.value.trim() : "";
     const name = rawName || getUnionAutoPresetName();
     const variants = [...unionRosters[activeUnionPlayer]];
+    if (variants.length === 0) {
+      const msgEl = unionPresetPanel.querySelector("#union-preset-saved-msg");
+      if (msgEl) {
+        msgEl.textContent = "저장할 실험체 폭이 없습니다.";
+        clearTimeout(_unionPresetSaveTimer);
+        _unionPresetSaveTimer = setTimeout(() => { msgEl.textContent = ""; }, 2000);
+      }
+      return;
+    }
     const idx = unionPresets.findIndex((p) => p.name === name);
     if (idx >= 0) {
       unionPresets[idx].variants = variants;
@@ -2095,9 +2118,9 @@ unionPresetPanel.addEventListener("click", (event) => {
   if (triggerBtn) {
     const dropdown = triggerBtn.closest(".union-preset-dropdown");
     const list = dropdown.querySelector(".updd-list");
-    const isOpen = !list.hidden;
+    const isOpen = list.classList.contains("is-open");
     closeUnionPresetDropdowns(dropdown);
-    list.hidden = isOpen;
+    list.classList.toggle("is-open", !isOpen);
     dropdown.classList.toggle("updd-open", !isOpen);
     triggerBtn.setAttribute("aria-expanded", String(!isOpen));
     return;
@@ -2111,6 +2134,7 @@ unionPresetPanel.addEventListener("click", (event) => {
     const valueEl = dropdown.querySelector(".updd-value");
     const row = dropdown.closest("[data-preset-player]");
     const loadBtn = row ? row.querySelector(".union-preset-load-btn") : null;
+    const deleteBtn = row ? row.querySelector(".union-preset-delete-btn") : null;
     const idx = item.dataset.presetIndex;
     const playerIndex = Number(row?.dataset.presetPlayer ?? 0);
     const presets = unionPresets;
@@ -2121,12 +2145,33 @@ unionPresetPanel.addEventListener("click", (event) => {
     });
     closeUnionPresetDropdown(dropdown);
     if (loadBtn) loadBtn.disabled = false;
+    if (deleteBtn) deleteBtn.disabled = false;
     return;
   }
 
   // 불러오기 버튼 — 해당 플레이어에만 적용, 패널 전체 재렌더 없음
   const row = event.target.closest("[data-preset-player]");
   if (!row) return;
+  if (event.target.closest(".union-preset-delete-btn")) {
+    const dropdown = row.querySelector(".union-preset-dropdown");
+    const selectedIndex = dropdown?.dataset.selectedIndex;
+    if (selectedIndex === "" || selectedIndex === undefined) return;
+    const index = Number(selectedIndex);
+    const preset = unionPresets[index];
+    if (!preset) return;
+    unionPresets.splice(index, 1);
+    saveUnionPresetsToStorage();
+    updateUnionPresetDropdowns();
+    closeUnionPresetDropdowns();
+    const msgEl = unionPresetPanel.querySelector("#union-preset-saved-msg");
+    if (msgEl) {
+      msgEl.textContent = `'${preset.name}' 삭제됨`;
+      clearTimeout(_unionPresetSaveTimer);
+      _unionPresetSaveTimer = setTimeout(() => { msgEl.textContent = ""; }, 2000);
+    }
+    return;
+  }
+
   if (event.target.closest(".union-preset-load-btn")) {
     const playerIndex = Number(row.dataset.presetPlayer);
     const dropdown = row.querySelector(".union-preset-dropdown");

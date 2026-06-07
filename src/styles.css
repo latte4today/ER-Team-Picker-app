@@ -1625,9 +1625,17 @@ h2 {
 
 .union-preset-row {
   display: grid;
-  grid-template-columns: 72px minmax(100px, 1fr) auto;
+  grid-template-columns: 72px minmax(120px, 1fr) auto auto;
   gap: 5px;
-  align-items: center;
+  align-items: start;
+}
+
+.union-preset-row .union-preset-row-label {
+  line-height: 30px;
+}
+
+.union-preset-row .union-preset-load-btn {
+  align-self: start;
 }
 
 .union-preset-row-label {
@@ -1709,24 +1717,25 @@ h2 {
 }
 
 .updd-list {
+  display: none;
   position: absolute;
-  top: calc(100% + 2px);
+  z-index: 30;
+  top: calc(100% + 4px);
   left: 0;
   right: 0;
-  z-index: 200;
+  min-width: 220px;
   background: var(--surface-2);
   border: 1px solid var(--line);
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  max-height: 160px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.32);
+  max-height: min(280px, 42vh);
   overflow-y: auto;
   padding: 2px;
-  display: flex;
   flex-direction: column;
 }
 
-.updd-list[hidden] {
-  display: none;
+.updd-list.is-open {
+  display: flex;
 }
 
 .updd-item {
