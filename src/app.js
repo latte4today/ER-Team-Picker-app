@@ -112,7 +112,6 @@ let activeView = appMain?.dataset.view ?? "setup";
 let activeUnionPlayer = 0;
 let activeUnionRole = "all";
 let isUnionCalculating = false;
-const unionPlayerNames = [1,2,3,4].map(n => t("player.name", { n }));
 const unionParticipatingPlayers = new Set([0, 1, 2]);
 const savedUnionRosters = JSON.parse(localStorage.getItem(unionStorageKey) ?? "[]");
 const unionRosters = Array.from({ length: 4 }, (_, index) => new Set(savedUnionRosters[index] ?? []));
@@ -172,6 +171,10 @@ function roleLabel(roleId) {
   }[roleId] ?? roleId;
   const label = t(`role.${normalized}`);
   return label === `role.${normalized}` ? String(roleId ?? "") : label;
+}
+
+function unionPlayerName(index) {
+  return t("player.name", { n: index + 1 });
 }
 
 function characterBrief(characterId) {
@@ -547,7 +550,7 @@ function saveUnionRosters() {
 }
 
 function unionRosterPlayers() {
-  return unionPlayerNames.map((_, index) => index).filter((index) => unionRosters[index].size > 0);
+  return Array.from({ length: 4 }, (_, index) => index).filter((index) => unionRosters[index].size > 0);
 }
 
 function activeUnionPlayers() {
@@ -582,9 +585,9 @@ function renderUnionPlayers() {
   const rosterPlayers = unionRosterPlayers();
   const needsSelection = rosterPlayers.length >= 4;
   unionPlayerGrid.dataset.memberCount = "4";
-  unionPlayerGrid.innerHTML = unionPlayerNames.map((_, index) => index)
+  unionPlayerGrid.innerHTML = Array.from({ length: 4 }, (_, index) => index)
     .map((index) => {
-      const name = unionPlayerNames[index];
+      const name = unionPlayerName(index);
       const active = activeUnionPlayer === index ? " active" : "";
       const participating = unionParticipatingPlayers.has(index);
       const hasRoster = unionRosters[index].size > 0;
@@ -876,7 +879,7 @@ function renderUnionResultPrecheck() {
     unionSummary.textContent = t("union.waiting");
     unionResults.innerHTML = `
       <div class="setup-recommendation-empty">
-        <strong>${t("union.emptyRoster", { name: unionPlayerNames[emptyPlayer] })}</strong>
+        <strong>${t("union.emptyRoster", { name: unionPlayerName(emptyPlayer) })}</strong>
         <span>${t("union.emptyRosterDesc")}</span>
       </div>
     `;
@@ -980,9 +983,9 @@ function buildUnionPresetDropdownHTML() {
 
 function renderUnionPresetPanel() {
   const previousName = unionPresetPanel.querySelector("#union-preset-name-input")?.value ?? "";
-  const playerRows = unionPlayerNames.map((playerName, playerIndex) => `
+  const playerRows = Array.from({ length: 4 }, (_, playerIndex) => `
     <div class="union-preset-row" data-preset-player="${playerIndex}">
-      <span class="union-preset-row-label">${playerName}</span>
+      <span class="union-preset-row-label">${unionPlayerName(playerIndex)}</span>
       ${buildUnionPresetDropdownHTML()}
       <button class="ghost-button union-preset-load-btn" type="button" disabled>${t("button.load")}</button>
       <button class="ghost-button union-preset-delete-btn" type="button" disabled>${t("button.delete")}</button>
@@ -1010,7 +1013,17 @@ function ensureUnionPresetPanel() {
 }
 
 function updateUnionPresetDropdowns() {
+  const nameInput = unionPresetPanel.querySelector("#union-preset-name-input");
+  if (nameInput) nameInput.placeholder = t("preset.namePlaceholder");
+  unionPresetPanel.querySelector(".union-preset-save-btn")?.replaceChildren(document.createTextNode(t("button.save")));
+
   unionPresetPanel.querySelectorAll("[data-preset-player]").forEach((row) => {
+    const playerIndex = Number(row.dataset.presetPlayer ?? 0);
+    const label = row.querySelector(".union-preset-row-label");
+    if (label) label.textContent = unionPlayerName(playerIndex);
+    row.querySelector(".union-preset-load-btn")?.replaceChildren(document.createTextNode(t("button.load")));
+    row.querySelector(".union-preset-delete-btn")?.replaceChildren(document.createTextNode(t("button.delete")));
+
     const dropdown = row.querySelector(".union-preset-dropdown");
     const loadBtn = row.querySelector(".union-preset-load-btn");
     const deleteBtn = row.querySelector(".union-preset-delete-btn");
@@ -1686,7 +1699,7 @@ function render() {
   updateUnionCalculateButton();
 
   if (activeView === "union") {
-    topbarEyebrow.textContent = "Union Draft";
+    topbarEyebrow.textContent = t("section.union.kicker");
     topbarTitle.textContent = t("topbar.title.union");
     selectedCount.textContent = unionParticipatingPlayers.size;
     selectedCount.nextElementSibling.textContent = t("topbar.unionSuffix");
@@ -2007,7 +2020,7 @@ unionPlayerGrid.addEventListener("click", (event) => {
   renderUnion();
   // 저장 행 레이블만 업데이트 (패널 전체 재렌더 없음)
   const saveLabel = unionPresetPanel.querySelector(".union-preset-save-label");
-  if (saveLabel) saveLabel.textContent = unionPlayerNames[activeUnionPlayer];
+  if (saveLabel) saveLabel.textContent = unionPlayerName(activeUnionPlayer);
 });
 
 unionCharacterGrid.addEventListener("click", (event) => {
@@ -2088,7 +2101,7 @@ unionPresetPanel.addEventListener("click", (event) => {
     if (variants.length === 0) {
       const msgEl = unionPresetPanel.querySelector("#union-preset-saved-msg");
       if (msgEl) {
-        msgEl.textContent = "저장할 실험체 폭이 없습니다.";
+        msgEl.textContent = t("union.presetEmpty");
         clearTimeout(_unionPresetSaveTimer);
         _unionPresetSaveTimer = setTimeout(() => { msgEl.textContent = ""; }, 2000);
       }
@@ -2165,7 +2178,7 @@ unionPresetPanel.addEventListener("click", (event) => {
     closeUnionPresetDropdowns();
     const msgEl = unionPresetPanel.querySelector("#union-preset-saved-msg");
     if (msgEl) {
-      msgEl.textContent = `'${preset.name}' 삭제됨`;
+      msgEl.textContent = t("union.presetDeleted", { name: preset.name });
       clearTimeout(_unionPresetSaveTimer);
       _unionPresetSaveTimer = setTimeout(() => { msgEl.textContent = ""; }, 2000);
     }

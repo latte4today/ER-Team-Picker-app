@@ -207,6 +207,8 @@ export const en = {
   "topbar.unionSuffix": " / 3 selected",
   "union.presetLabel": "{name} Presets",
   "union.presetSaved": "'{name}' saved",
+  "union.presetDeleted": "'{name}' deleted",
+  "union.presetEmpty": "No character pool to save.",
   "union.result.title": "Union Recommended Compositions",
   "union.search.placeholder": "Search character name",
   "union.summary.empty": "0 compositions",
