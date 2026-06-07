@@ -299,7 +299,85 @@ function renderUpdateAvailable(release, latestVersion) {
   return installerUrl;
 }
 
-async function checkForUpdates({ prompt = false, silent = false } = {}) {
+// ── electron-updater (packaged build) ──────────────────────
+let _manualUpdateCheck = false;
+
+function setupErUpdater() {
+  if (!window.erUpdater) return;
+  window.erUpdater.onStatus((payload) => {
+    const manual = _manualUpdateCheck;
+    switch (payload.type) {
+      case "checking":
+        if (manual) updateStatus.innerHTML = t("update.checking");
+        break;
+      case "not-available":
+        if (manual) updateStatus.innerHTML = `${t("update.latest")} <small>v${appVersion}</small>`;
+        _manualUpdateCheck = false;
+        updateCheckButton.disabled = false;
+        break;
+      case "available":
+        updateStatus.innerHTML = t("update.downloading", { percent: 0 });
+        break;
+      case "progress":
+        updateStatus.innerHTML = t("update.downloading", { percent: payload.percent });
+        break;
+      case "downloaded":
+        updateStatus.innerHTML = `
+          <strong>${t("update.new", { version: payload.version })}</strong>
+          <button class="ghost-button" type="button" id="update-restart-btn">${t("update.restartNow")}</button>
+          <small>${t("update.restartNote")}</small>
+        `;
+        _manualUpdateCheck = false;
+        updateCheckButton.disabled = false;
+        break;
+      case "error":
+        if (manual) updateStatus.innerHTML = `${t("update.failed")} <small>${payload.message ?? t("update.failedNetwork")}</small>`;
+        _manualUpdateCheck = false;
+        updateCheckButton.disabled = false;
+        break;
+      case "dev":
+      case "unavailable":
+        // dev 환경이거나 모듈 없음 → GitHub API fallback
+        if (manual) {
+          checkForUpdatesFallback({ silent: false }).finally(() => { _manualUpdateCheck = false; });
+        } else {
+          checkForUpdatesFallback({ silent: true });
+        }
+        break;
+    }
+  });
+}
+
+async function triggerErUpdate({ manual = false } = {}) {
+  if (!window.erUpdater) {
+    if (manual) checkForUpdatesFallback({ silent: false });
+    else checkForUpdatesFallback({ silent: true });
+    return;
+  }
+  _manualUpdateCheck = manual;
+  if (manual) {
+    updateCheckButton.disabled = true;
+    updateStatus.innerHTML = t("update.checking");
+  }
+  try {
+    await window.erUpdater.check();
+  } catch (_) {
+    if (manual) {
+      updateStatus.innerHTML = t("update.failed");
+      updateCheckButton.disabled = false;
+    }
+    _manualUpdateCheck = false;
+  }
+}
+
+updateStatus.addEventListener("click", (event) => {
+  if (event.target.closest("#update-restart-btn")) {
+    window.erUpdater?.install();
+  }
+});
+
+// ── GitHub API fallback (dev / no updater) ──────────────────
+async function checkForUpdatesFallback({ silent = false } = {}) {
   if (!silent) {
     updateCheckButton.disabled = true;
     updateStatus.innerHTML = t("update.checking");
@@ -311,9 +389,8 @@ async function checkForUpdates({ prompt = false, silent = false } = {}) {
       if (!silent) updateStatus.innerHTML = `${t("update.latest")} <small>v${appVersion}</small>`;
       return false;
     }
-
     const installerUrl = renderUpdateAvailable(release, latestVersion);
-    if (prompt && latestVersion !== lastPromptedUpdateVersion) {
+    if (!silent && latestVersion !== lastPromptedUpdateVersion) {
       lastPromptedUpdateVersion = latestVersion;
       const wantsUpdate = window.confirm(t("update.confirm", { current: appVersion, latest: latestVersion }));
       if (wantsUpdate) window.open(installerUrl, "_blank", "noopener,noreferrer");
@@ -323,7 +400,7 @@ async function checkForUpdates({ prompt = false, silent = false } = {}) {
     if (!silent) updateStatus.innerHTML = `${t("update.failed")} <small>${error.message ?? t("update.failedNetwork")}</small>`;
     return false;
   } finally {
-    updateCheckButton.disabled = false;
+    if (!silent) updateCheckButton.disabled = false;
   }
 }
 
@@ -336,12 +413,12 @@ async function fetchLatestRelease() {
 }
 
 async function checkForUpdatesOnStartup() {
-  await checkForUpdates({ prompt: true, silent: true });
+  await triggerErUpdate({ manual: false });
 }
 
 function startPeriodicUpdateChecks() {
   window.setInterval(() => {
-    checkForUpdates({ prompt: true, silent: true });
+    triggerErUpdate({ manual: false });
   }, 60 * 60 * 1000);
 }
 
@@ -1669,7 +1746,7 @@ sideTabs.forEach((button) => {
 });
 
 settingsOpenButton.addEventListener("click", openSettingsModal);
-updateCheckButton.addEventListener("click", () => checkForUpdates());
+updateCheckButton.addEventListener("click", () => triggerErUpdate({ manual: true }));
 
 settingsModal.addEventListener("click", (event) => {
   if (event.target.closest("[data-settings-close]")) closeSettingsModal();
@@ -2098,6 +2175,7 @@ if (recoveredFeedbackCount > 0) {
   syncStatus.dataset.state = "loading";
 }
 
+setupErUpdater();
 render();
 setTimeout(checkForUpdatesOnStartup, 1200);
 startPeriodicUpdateChecks();
