@@ -1,4 +1,5 @@
 import { wikiMetrics } from "./wikiMetrics.js";
+import { t } from "./i18n/index.js";
 
 function clamp(value) {
   return Math.max(1, Math.min(5, Math.round(value)));
@@ -80,20 +81,20 @@ export function teamMetricProfile(team) {
 export function teamMetricTags(team) {
   const { total, average } = teamMetricProfile(team);
   const tags = [];
-  if (total.damage >= 11) tags.push("화력 충분");
-  if (total.damage <= 9) tags.push("화력 부족 주의");
-  if (total.defense >= 9) tags.push("앞라인 안정");
-  if (total.defense <= 6) tags.push("방어 낮음");
-  if (total.crowdControl >= 9) tags.push("CC 강함");
-  if (total.crowdControl <= 5) tags.push("CC 부족");
-  if (average.mobility >= 3.6) tags.push("빠른 교전");
-  if (average.mobility <= 2.2) tags.push("기동력 낮음");
-  if (total.utility >= 8) tags.push("보조 능력 높음");
+  if (total.damage >= 11) tags.push(t("metric.tag.damageHigh"));
+  if (total.damage <= 9) tags.push(t("metric.tag.damageLow"));
+  if (total.defense >= 9) tags.push(t("metric.tag.defenseHigh"));
+  if (total.defense <= 6) tags.push(t("metric.tag.defenseLow"));
+  if (total.crowdControl >= 9) tags.push(t("metric.tag.ccHigh"));
+  if (total.crowdControl <= 5) tags.push(t("metric.tag.ccLow"));
+  if (average.mobility >= 3.6) tags.push(t("metric.tag.mobilityHigh"));
+  if (average.mobility <= 2.2) tags.push(t("metric.tag.mobilityLow"));
+  if (total.utility >= 8) tags.push(t("metric.tag.utilityHigh"));
   return tags;
 }
 
 export function metricCompositionReason(team) {
   const tags = teamMetricTags(team);
-  if (tags.length === 0) return "화력, 방어, CC, 기동, 보조 지표가 크게 치우치지 않는 조합입니다.";
-  return `${tags.slice(0, 3).join(" · ")} 성향의 조합입니다.`;
+  if (tags.length === 0) return t("metric.reason.balanced");
+  return t("metric.reason.tags", { tags: tags.slice(0, 3).join(" · ") });
 }

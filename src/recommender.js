@@ -208,7 +208,21 @@ function labelList(values) {
 }
 
 function roleLabel(character) {
-  return roleNames[character.role] ?? character.role;
+  const key = `recommender.roleNames.${character.role}`;
+  const label = t(key);
+  return label === key ? (roleNames[character.role] ?? character.role) : label;
+}
+
+function characterName(character) {
+  const key = `char.${character.characterId ?? character.id}`;
+  const label = t(key);
+  return label === key ? character.name : label;
+}
+
+function weaponLabel(character) {
+  const key = `weapon.${character.weapon}`;
+  const label = t(key);
+  return label === key ? character.weaponLabel : label;
 }
 
 function damageLabel(character) {
@@ -226,15 +240,15 @@ function josa(text, withFinal, withoutFinal) {
 }
 
 function subjectName(character) {
-  return josa(character.name, "은", "는");
+  return josa(characterName(character), "은", "는");
 }
 
 function objectName(character) {
-  return josa(character.name, "을", "를");
+  return josa(characterName(character), "을", "를");
 }
 
 function withName(character) {
-  return josa(character.name, "과", "와");
+  return josa(characterName(character), "과", "와");
 }
 
 function signatureReason(character) {
@@ -283,10 +297,10 @@ function ccSummary(character) {
   const total = (cc.targeted ?? 0) + (cc.nonTarget ?? 0);
   const areaTotal = (cc.wide ?? 0) + (cc.medium ?? 0);
 
-  if (cc.targeted) parts.push("확정 CC");
-  if (areaTotal) parts.push("광역 CC");
-  if (total > 0 && parts.length === 0) parts.push("CC기");
-  if (cc.conditional && parts.length > 0) parts.push("조건부 CC");
+  if (cc.targeted) parts.push(t("recommender.ccTypes.targeted"));
+  if (areaTotal) parts.push(t("recommender.ccTypes.area"));
+  if (total > 0 && parts.length === 0) parts.push(t("recommender.ccTypes.basic"));
+  if (cc.conditional && parts.length > 0) parts.push(t("recommender.ccTypes.conditional"));
 
   return parts.join(", ");
 }
@@ -477,21 +491,21 @@ function teamFeatureSummary(team, candidate) {
   const shape = teamShape(team);
   const { total, average } = teamMetricProfile(team);
   if (shape.backline === 3 && total.damage >= 11 && (total.crowdControl >= 8 || total.utility >= 7)) {
-    return `${objectName(candidate)} 넣으면 후방 화력이 세 명으로 늘고, CC/보조 지표가 받쳐줘 대치전 중심 운영이 가능합니다.`;
+    return t("recommender.reason.teamFeatureBackline", { nameObject: objectName(candidate), name: characterName(candidate) });
   }
   if (shape.backline === 0 && shape.melee + shape.tanks === 3 && total.damage >= 10 && total.crowdControl >= 8 && average.mobility >= 3.0) {
-    return `${objectName(candidate)} 넣으면 근접 압박이 강해지고, 이니시와 CC로 짧은 교전을 빠르게 열 수 있습니다.`;
+    return t("recommender.reason.teamFeatureMelee", { nameObject: objectName(candidate), name: characterName(candidate) });
   }
   if (shape.tanks >= 1 && shape.backline >= 1) {
-    return `${objectName(candidate)} 넣으면 앞에서 버티는 자리와 뒤에서 마무리하는 화력이 함께 생깁니다.`;
+    return t("recommender.reason.teamFeatureFrontBack", { nameObject: objectName(candidate), name: characterName(candidate) });
   }
   if (shape.melee >= 2 && shape.backline >= 1) {
-    return `${objectName(candidate)} 넣으면 진입 압박과 후방 마무리 화력이 함께 갖춰집니다.`;
+    return t("recommender.reason.teamFeatureDiveBackline", { nameObject: objectName(candidate), name: characterName(candidate) });
   }
   if (shape.supports >= 1 && shape.melee >= 2) {
-    return `${objectName(candidate)} 넣으면 근접 교전에 보조 능력이 더해져 한 번 들어간 싸움을 오래 이어갈 수 있습니다.`;
+    return t("recommender.reason.teamFeatureSupportMelee", { nameObject: objectName(candidate), name: characterName(candidate) });
   }
-  return `${objectName(candidate)} 넣으면 화력, CC, 기동 지표가 현재 팀원과 비교적 잘 맞습니다.`;
+  return t("recommender.reason.teamFeatureDefault", { nameObject: objectName(candidate), name: characterName(candidate) });
 }
 
 function teamShapeScore(candidate, selected) {
@@ -1063,37 +1077,40 @@ function candidateSpecificPenaltyReasons(candidate, selected, scores) {
 
   if (scores.compositionGuide <= -0.75) {
     if (isGuardOnly(candidate) && selectedShape.melee >= 1) {
-      reasons.push(`${subjectName(candidate)} 먼저 열기보다 받아치는 쪽에 가까워서, 현재 근접 진입 조합에 넣으면 교전 방향이 갈릴 수 있습니다.`);
+      reasons.push(t("recommender.reason.counterEngagerInMeleeTeam", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
     } else if (cannotStartEngage(candidate) && !selectedHasFirstEngage) {
-      reasons.push(`${subjectName(candidate)} 들어가면 강하지만 먼저 교전을 열기 어렵습니다. 현재 팀에 먼저 박아줄 실험체가 없어 진입 각이 잘 나오지 않습니다.`);
+      reasons.push(t("recommender.reason.engagerNoInitiator", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
     } else if (isCounterOnlyRanged(candidate) && selectedHasDiveDirection && !selected.some(helpsMeleeEngage)) {
-      reasons.push(`${subjectName(candidate)} 받아치기와 대치에 강한 픽이라, 팀원이 먼저 들어가는 조합에서는 호흡이 늦어질 수 있습니다.`);
+      reasons.push(t("recommender.reason.counterOnlyInEngageTeam", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
     } else if (isPokeThenEngage(candidate) && selectedShape.melee >= 2) {
-      reasons.push(`${subjectName(candidate)} 대치로 체력을 깎은 뒤 들어가는 쪽이 좋아서, 바로 박는 근접 조합과는 템포가 어긋날 수 있습니다.`);
+      reasons.push(t("recommender.reason.pokeThenEngageMismatch", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
     } else if (isSupport(candidate) && teamMetricProfile(team).total.damage <= 8) {
-      reasons.push(`${subjectName(candidate)} 보호와 보조 성향이 강합니다. 현재 조합은 마무리 화력이 부족해서 서포터를 더하면 상대를 잡기 어려워질 수 있습니다.`);
+      reasons.push(t("recommender.reason.supporterLowDamage", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
     }
   }
 
   if (scores.frontDamage <= -0.6 && isLowDamageFront(candidate)) {
-    const damageText = candidate.frontAverageDamage ? ` 평균 딜량 ${candidate.frontAverageDamage.toLocaleString("ko-KR")} 기준으로` : "";
-    reasons.push(`${subjectName(candidate)} DAK.GG 탱커 지표${damageText} 데미지 기여가 낮은 편입니다. 현재 팀처럼 화력이 필요한 상황에서는 앞라인은 서도 킬 압박을 보태기 어렵습니다.`);
+    if (candidate.frontAverageDamage) {
+      reasons.push(t("recommender.reason.tankLowDamageWithAvg", { nameSubject: subjectName(candidate), name: characterName(candidate), avgDamage: candidate.frontAverageDamage.toLocaleString() }));
+    } else {
+      reasons.push(t("recommender.reason.tankLowDamage", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+    }
   }
 
   if (scores.backlineDamage <= -0.65 && isLowDamageBackline(candidate)) {
-    reasons.push(`${subjectName(candidate)} 딜보다 견제/유틸 성향이 강한 편입니다. 현재 팀이 마무리 화력이 필요한 상태라면 우선순위가 낮아집니다.`);
+    reasons.push(t("recommender.reason.utilityOverDamage", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   }
 
   if (scores.teamDamageBudget <= -1.4 && isLowDamageContributor(candidate)) {
-    reasons.push(`${objectName(candidate)} 넣으면 팀 전체 화력이 더 부족해질 수 있습니다. 이미 딜 기여가 낮은 픽이 있어, 이 후보는 부족한 데미지를 해결하지 못합니다.`);
+    reasons.push(t("recommender.reason.aggravatesDamageLack", { nameObject: objectName(candidate), name: characterName(candidate) }));
   }
 
   if (scores.weaponBalance <= -0.5 && candidate.tags.includes("short_range_dealer") && !selected.some(isPrimaryEngage)) {
-    reasons.push(`${subjectName(candidate)} 짧은 거리에서 강한 픽이라 앞에서 각을 만들어줄 팀원이 필요합니다. 현재 조합에서는 딜을 넣기 전에 물릴 위험이 큽니다.`);
+    reasons.push(t("recommender.reason.shortRangeNoSupport", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   }
 
   if (nextShape.guardOnly >= 1 && nextShape.melee >= 1 && candidate.characterId !== "lenox") {
-    reasons.push(`${subjectName(candidate)} 레녹스의 받아치기 구도와 달리 앞으로 들어가야 힘이 납니다. 레녹스 조합에서는 원거리 딜러 쪽이 더 안정적입니다.`);
+    reasons.push(t("recommender.reason.engagerInLenoxTeam", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   }
 
   return reasons;
@@ -1105,9 +1122,9 @@ function explain(candidate, selected, scores) {
   const selectedDamage = selected.map((character) => character.damage);
   const currentTags = new Set(selected.flatMap((character) => character.tags));
   const addedTags = candidate.tags.filter((tag) => requiredTags.includes(tag) && !currentTags.has(tag));
-  const job = roleJobs[candidate.role] ?? `${roleLabel(candidate)} 역할을 맡을 수 있습니다`;
+  const job = roleJobs[candidate.role] ? t(roleJobs[candidate.role]) : t("recommender.roleJobs.fallback", { role: roleLabel(candidate) });
   const identityDetail = isBacklineDealer(candidate) ? ` / ${damageLabel(candidate)}` : "";
-  const identity = `${subjectName(candidate)} ${candidate.weaponLabel} 무기를 쓰는 ${roleLabel(candidate)}${identityDetail} 실험체입니다.`;
+  const identity = t("recommender.reason.identity", { nameSubject: subjectName(candidate), name: characterName(candidate), weapon: weaponLabel(candidate), role: roleLabel(candidate), detail: identityDetail });
   const signature = signatureReason(candidate);
   reasons.push(...candidateSpecificPenaltyReasons(candidate, selected, scores));
 
@@ -1115,57 +1132,57 @@ function explain(candidate, selected, scores) {
     const team = [...selected, candidate];
     const shape = teamShape(team);
     if (shape.tanks >= 1 && shape.supports >= 1) {
-      reasons.push(`탱커와 서포터가 함께 들어가면 딜 자리가 부족해지기 쉬워 조합 점수가 크게 낮아집니다.`);
+      reasons.push(t("recommender.reason.tankSupportNoDamage"));
     } else if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1) {
       const tank = team.find(isTank);
       if (isDamageLeaningTank(tank)) {
-        reasons.push(`1탱 1근 1원 구조지만, ${subjectName(tank)} 데미지 기여가 가능한 탱커라 부족한 화력을 보완할 수 있습니다.`);
+        reasons.push(t("recommender.reason.tankMeleeRangedDamageTank", { nameSubject: subjectName(tank), name: characterName(tank) }));
       } else {
-        reasons.push(`1탱 1근 1원 구조는 근딜이 먼저 점사당하기 쉽고 탱커의 데미지 기여도 부족해 감점되었습니다.`);
+        reasons.push(t("recommender.reason.tankMeleeRangedLowDamage"));
       }
     } else if (shape.reliableDps < 2) {
-      reasons.push(`현재 형태는 딜러 자리가 부족해 상대를 마무리할 화력이 모자랄 수 있습니다.`);
+      reasons.push(t("recommender.reason.notEnoughDamageDealer"));
     }
   }
 
   if (scores.teamDamageBudget <= -1.4) {
     const shape = teamShape([...selected, candidate]);
     if (shape.highDamageContributors === 0) {
-      reasons.push(`세 명 모두 데미지 기여가 부족한 편이라, 교전에서 상대를 마무리할 화력이 모자랄 수 있습니다.`);
+      reasons.push(t("recommender.reason.allLowDamage"));
     } else {
-      reasons.push(`데미지 기여가 부족한 픽이 많이 겹쳐 현재 조합은 킬캐치와 화력 총량이 부족해질 위험이 있습니다.`);
+      reasons.push(t("recommender.reason.tooManyLowDamage"));
     }
   }
 
   if (scores.metricBalance >= 0.65) {
-    reasons.push(`지표상 ${metricCompositionReason([...selected, candidate])}`);
+    reasons.push(t("recommender.reason.metricPositive", { reason: metricCompositionReason([...selected, candidate]) }));
   }
 
   if (scores.metricBalance <= -0.75) {
-    reasons.push(`지표상 ${metricCompositionReason([...selected, candidate])} 현재 조합에서는 이 약점이 감점으로 반영됩니다.`);
+    reasons.push(t("recommender.reason.metricNegative", { reason: metricCompositionReason([...selected, candidate]) }));
   }
 
   if (scores.compositionGuide >= 0.75) {
     const team = [...selected, candidate];
     if (team.some((character) => counterEngageAnchorIds.has(character.characterId)) && teamShape(team).backline >= 2) {
-      reasons.push("레녹스처럼 받아치는 앞라인이 있을 때는 2원거리 딜러로 대치와 역점사를 보는 구도가 좋습니다.");
+      reasons.push(t("recommender.reason.lenoxDoubleRanged"));
     } else if (teamShape(team).tanks === 1 && teamShape(team).melee === 2 && teamShape(team).backline === 0) {
-      reasons.push("탱커가 먼저 열고 어그로를 받아줄 수 있어 2근딜이 한 대상을 같이 물기 좋습니다.");
+      reasons.push(t("recommender.reason.tankDoubleMelee"));
     } else {
-      reasons.push("표 기준 운영상 현재 팀원과 교전 템포가 잘 맞는 조합입니다.");
+      reasons.push(t("recommender.reason.tempoMatch"));
     }
   }
 
   if (scores.compositionGuide <= -0.75) {
     const team = [...selected, candidate];
     if (team.some((character) => counterEngageAnchorIds.has(character.characterId)) && teamShape(team).melee >= 1) {
-      reasons.push("레녹스 조합에 근딜이 섞이면 들어갈 사람과 받아칠 사람이 갈라져 교전 방향이 애매해질 수 있습니다.");
+      reasons.push(t("recommender.reason.lenoxMeleeConflict"));
     } else if (team.some(isSupport) && teamMetricProfile(team).total.damage <= 8) {
-      reasons.push("서포터가 있는 조합인데 나머지 화력이 부족해 상대를 마무리하기 어려운 구도입니다.");
+      reasons.push(t("recommender.reason.supporterLowTeamDamage"));
     } else if (!team.some(isPrimaryEngage) && team.some((character) => needsEngageHelpIds.has(character.characterId))) {
-      reasons.push("먼저 박아줄 사람이 없어서 선진입이 어려운 픽이 쉬는 시간이 길어질 수 있습니다.");
+      reasons.push(t("recommender.reason.noInitiatorForLateEngage"));
     } else if (teamCcPower(team) < 1.2) {
-      reasons.push("팀 전체 CC가 거의 없어 상대 진입을 막거나 한 명을 묶어두기 어렵습니다.");
+      reasons.push(t("recommender.reason.noTeamCC"));
     }
   }
 
@@ -1174,107 +1191,107 @@ function explain(candidate, selected, scores) {
     const shape = teamShape(team);
     const tank = team.find(isTank);
     if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1 && isDamageLeaningTank(tank)) {
-      reasons.push(`1탱 1근 1원 구조라 기본 효율은 낮지만, ${subjectName(tank)} 데미지 기여가 가능한 탱커라 부족한 화력을 보완할 수 있습니다.`);
+      reasons.push(t("recommender.reason.tankMeleeRangedDamageTankBonus", { nameSubject: subjectName(tank), name: characterName(tank) }));
     }
   }
   if (scores.teamShape >= 1.4 && scores.teamDamageBudget > -1.0) {
     reasons.push(teamFeatureSummary([...selected, candidate], candidate));
   }
   if (scores.frontDamage >= 0.6 && isHighDamageFront(candidate)) {
-    reasons.push(`${subjectName(candidate)} 데미지 기여가 충분한 ${roleLabel(candidate)}라서 앞라인을 세우면서도 부족한 화력을 보탤 수 있습니다.`);
+    reasons.push(t("recommender.reason.tankWithDamage", { nameSubject: subjectName(candidate), name: characterName(candidate), role: roleLabel(candidate) }));
   }
 
   if (scores.frontDamage <= -0.6 && isLowDamageFront(candidate)) {
-    reasons.push(`${subjectName(candidate)} 데미지 기여가 부족한 편이라 현재 조합처럼 딜러 자리가 부족할 때는 감점했습니다.`);
+    reasons.push(t("recommender.reason.tankLowDamagePenalty", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   }
 
   if (scores.backlineDamage >= 0.65 && isHighDamageBackline(candidate)) {
-    reasons.push(`${subjectName(candidate)} 데미지 기여가 충분한 ${damageLabel(candidate)}라서 현재 조합에 부족한 마무리 화력을 채워줍니다.`);
+    reasons.push(t("recommender.reason.dealerFillsDamage", { nameSubject: subjectName(candidate), name: characterName(candidate), role: damageLabel(candidate) }));
   }
 
   if (scores.backlineDamage <= -0.65 && isLowDamageBackline(candidate)) {
-    reasons.push(`${subjectName(candidate)} 유틸 성향이 강하고 데미지 기여는 부족한 편이라, 딜러 자리가 부족한 조합에서는 감점했습니다.`);
+    reasons.push(t("recommender.reason.utilityLowDamagePenalty", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   }
 
   if (signature) reasons.push(signature);
 
   if (scores.roleBalance >= 1.5 && reasons.length < 1) {
     if (["frontline", "bruiser"].includes(candidate.role) && !selectedRoles.includes("frontline")) {
-      reasons.push(`${identity} ${job}. 팀의 핵심 딜러가 뒤에서 딜할 시간을 벌어줍니다.`);
+      reasons.push(t("recommender.reason.roleMainDamage", { identity, job }));
     } else if (["ranged", "mage"].includes(candidate.role) && !selectedRoles.includes("ranged") && !selectedRoles.includes("mage")) {
-      reasons.push(`${identity} 부족한 핵심 딜 자리를 채워 교전에서 마무리 딜을 담당합니다.`);
+      reasons.push(t("recommender.reason.roleFillsDamage", { identity }));
     } else if (candidate.role === "support") {
-      reasons.push(`${identity} 아군을 살리고 받아치는 구도를 만들어 안정성을 올립니다.`);
+      reasons.push(t("recommender.reason.roleSupportStability", { identity }));
     } else {
-      reasons.push(`${identity} 현재 팀에 비어 있는 역할을 채워 조합의 형태를 잡아줍니다.`);
+      reasons.push(t("recommender.reason.roleFillsVacancy", { identity }));
     }
   }
 
   if (scores.coverage >= 1.8 && addedTags.length > 0) {
-    reasons.push(`${subjectName(candidate)} ${labelList(addedTags)} 역할을 더해 현재 조합에 부족한 교전 기능을 보완합니다.`);
+    reasons.push(t("recommender.reason.addsFunctionTags", { nameSubject: subjectName(candidate), name: characterName(candidate), tags: labelList(addedTags) }));
   }
 
   const ccScore = ccCoverageScore(candidate, selected);
   const ccText = ccSummary(candidate);
   if (ccScore >= 0.45 && ccText) {
-    reasons.push(`현재 조합에 CC가 부족한 편이라, ${subjectName(candidate)} ${ccText}를 보태 교전 시작과 받아치기를 더 안정적으로 만듭니다.`);
+    reasons.push(t("recommender.reason.addsCC", { nameSubject: subjectName(candidate), name: characterName(candidate), cc: ccText }));
   }
 
-  if (scores.relationship >= 0.7) reasons.push(`누적 평가 데이터에서 ${withName(candidate)} 현재 팀원의 실제 궁합이 좋게 기록되어 가산점이 반영되었습니다.`);
-  if (scores.relationship <= -0.7) reasons.push(`누적 평가 데이터에서 ${withName(candidate)} 현재 팀원의 궁합 평가가 낮아 감점이 반영되었습니다.`);
+  if (scores.relationship >= 0.7) reasons.push(t("recommender.reason.feedbackPositive", { nameWith: withName(candidate), name: characterName(candidate) }));
+  if (scores.relationship <= -0.7) reasons.push(t("recommender.reason.feedbackNegative", { nameWith: withName(candidate), name: characterName(candidate) }));
 
   if (scores.killPressure > 0 && isBacklineDealer(candidate)) {
     if (candidate.damage === "basic") {
-      reasons.push(`평타 딜러라 스킬이 빗나간 뒤에도 확정적으로 킬캐치를 이어갈 수 있습니다.`);
+      reasons.push(t("recommender.reason.normalAttackDealer"));
     } else if (candidate.damage === "skill") {
-      reasons.push(`스킬 딜러라 유틸, 사거리, 순간 화력을 보태 교전 각을 더 다양하게 만듭니다.`);
+      reasons.push(t("recommender.reason.skillDealer"));
     }
   }
 
   if (scores.weaponBalance > 0.5) {
-    const rangeText = candidate.tags.includes("short_range_dealer")
-      ? "앞라인 뒤에서 짧은 거리의 교전을 받아먹는 자리"
+    const weaponRangeKey = candidate.tags.includes("short_range_dealer")
+      ? "recommender.reason.weaponRangeShort"
       : candidate.weaponRange === "ranged"
-        ? "후방에서 안정적으로 딜하는 자리"
-        : "앞에서 시야와 진입각을 잡는 자리";
-    reasons.push(`${candidate.weaponLabel} 특성상 ${rangeText}를 맡아 팀의 교전 거리 배분을 맞춥니다.`);
+        ? "recommender.reason.weaponRangeRanged"
+        : "recommender.reason.weaponRangeMelee";
+    reasons.push(t(weaponRangeKey, { weapon: weaponLabel(candidate) }));
   }
 
   if (candidate.tags.includes("short_range_dealer")) {
     const hasFrontline = selectedRoles.some((role) => role === "frontline" || role === "bruiser");
     const hasControl = currentTags.has("cc") || currentTags.has("initiate") || teamCcPower(selected) >= 2.0;
     if (hasFrontline && hasControl) {
-      reasons.push(`${subjectName(candidate)} 팔이 짧은 인파이팅 딜러라, 앞라인과 CC가 만든 짧은 교전 안에서 화력을 집중하기 좋습니다.`);
+      reasons.push(t("recommender.reason.infighterInGoodTeam", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
     } else if (selected.length >= 2) {
-      reasons.push(`${subjectName(candidate)} 짧은 거리에서 강한 딜러지만, 현재 조합은 진입각이나 보호 수단이 부족해 점수가 낮게 잡힐 수 있습니다.`);
+      reasons.push(t("recommender.reason.infighterNoSupport", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
     }
   }
 
-  if (scores.synergy >= 1.4) reasons.push(`${subjectName(candidate)} 현재 팀원과의 샘플 상성 점수가 높아 함께 쓸 때 기대값이 좋습니다.`);
-  if (scores.tournamentComposition >= 0.8) reasons.push(`대회 데이터에서 현재 팀원과 함께 완성 조합으로 쓰인 기록이 있어 조합 보정이 반영되었습니다.`);
-  if (scores.tournamentComposition >= 0.25 && scores.tournamentComposition < 0.8) reasons.push(`대회 데이터에서 현재 팀원과 함께 쓰인 페어 기록이 있어 소폭 가산했습니다.`);
-  if (scores.tournamentComposition <= -0.45) reasons.push(`대회 데이터에서 비슷한 조합이 낮은 결과를 낸 기록이 있어 조합 보정에서 감점되었습니다.`);
-  if (scores.tournamentArchetype >= 0.45) reasons.push(`선수들이 사용한 상위권 조합과 화력, 방어, CC, 기동 지표 구성이 비슷해 대회 조합 분석 보정이 반영되었습니다.`);
-  if (scores.tournamentArchetype <= -0.35) reasons.push(`선수들이 사용한 하위권 조합과 지표 구성이 비슷해 대회 조합 분석에서 감점되었습니다.`);
-  if (scores.dakComposition >= 1.1) reasons.push(`랭커 전적에서 ${subjectName(candidate)} 비슷한 팀 조합과 함께 좋은 결과를 낸 기록이 있습니다.`);
-  if (scores.dakComposition <= -0.8) reasons.push(`랭커 전적 기준으로 ${subjectName(candidate)} 비슷한 조합에서 하위권을 기록한 사례가 있어 감점되었습니다.`);
-  if (scores.dakTier >= 0.8) reasons.push(`${candidate.name}의 최근 통계 티어가 높아 현재 메타 기준으로도 선택 가치가 있습니다.`);
-  if (scores.dakStatistics >= 0.55) reasons.push(`${candidate.name}의 현재 승률과 TOP3 지표가 좋아 메타 보정 점수가 반영되었습니다.`);
-  if (scores.dakStatistics <= -0.45) reasons.push(`${candidate.name}의 현재 승률과 TOP3 지표가 낮아 메타 보정에서 감점되었습니다.`);
+  if (scores.synergy >= 1.4) reasons.push(t("recommender.reason.synergyHigh", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  if (scores.tournamentComposition >= 0.8) reasons.push(t("recommender.reason.tournamentComboFull"));
+  if (scores.tournamentComposition >= 0.25 && scores.tournamentComposition < 0.8) reasons.push(t("recommender.reason.tournamentComboPair"));
+  if (scores.tournamentComposition <= -0.45) reasons.push(t("recommender.reason.tournamentComboNegative"));
+  if (scores.tournamentArchetype >= 0.45) reasons.push(t("recommender.reason.tournamentArchetypePositive"));
+  if (scores.tournamentArchetype <= -0.35) reasons.push(t("recommender.reason.tournamentArchetypeNegative"));
+  if (scores.dakComposition >= 1.1) reasons.push(t("recommender.reason.dakCompositionPositive", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  if (scores.dakComposition <= -0.8) reasons.push(t("recommender.reason.dakCompositionNegative", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  if (scores.dakTier >= 0.8) reasons.push(t("recommender.reason.dakTierHigh", { name: characterName(candidate) }));
+  if (scores.dakStatistics >= 0.55) reasons.push(t("recommender.reason.dakStatsPositive", { name: characterName(candidate) }));
+  if (scores.dakStatistics <= -0.45) reasons.push(t("recommender.reason.dakStatsNegative", { name: characterName(candidate) }));
   if (scores.dakRealtime >= 0.65) {
     const stats = realtimeStatsFor(candidate);
-    reasons.push(`${candidate.weaponLabel} ${candidate.name}의 DAK.GG 평균 지표가 좋습니다. 승률 ${stats.winRate.toFixed(1)}%, TOP3 ${stats.top3Rate.toFixed(1)}%, 평균 딜량 ${stats.damage.toLocaleString("ko-KR")}을 반영했습니다.`);
+    reasons.push(t("recommender.reason.realtimeStatsPositive", { weapon: weaponLabel(candidate), name: characterName(candidate), winRate: stats.winRate.toFixed(1), top3Rate: stats.top3Rate.toFixed(1), damage: stats.damage.toLocaleString() }));
   }
   if (scores.dakRealtime <= -0.55) {
     const stats = realtimeStatsFor(candidate);
-    reasons.push(`${candidate.weaponLabel} ${candidate.name}의 최근 평균 지표가 낮은 편입니다. 승률 ${stats.winRate.toFixed(1)}%, TOP3 ${stats.top3Rate.toFixed(1)}%, 평균 딜량 ${stats.damage.toLocaleString("ko-KR")} 기준으로 감점했습니다.`);
+    reasons.push(t("recommender.reason.realtimeStatsNegative", { weapon: weaponLabel(candidate), name: characterName(candidate), winRate: stats.winRate.toFixed(1), top3Rate: stats.top3Rate.toFixed(1), damage: stats.damage.toLocaleString() }));
   }
-  if (scores.conflict <= -2) reasons.push(`${objectName(candidate)} 넣으면 역할이나 교전 방식이 겹쳐 조합 점수가 낮게 계산됩니다.`);
-  if (selected.length === 0) reasons.push(`${identity} ${job} 첫 픽으로 조합 방향을 잡기 쉽습니다.`);
-  if (reasons.length === 0 && candidate.tags.includes("cc")) reasons.push(`${subjectName(candidate)} CC로 교전 시작과 받아치기에 필요한 제어 능력을 더합니다.`);
-  if (reasons.length === 0 && candidate.tags.includes("sustained")) reasons.push(`${subjectName(candidate)} ${damageLabel(candidate)} 기반으로 긴 교전에서 꾸준히 피해를 누적합니다.`);
-  if (reasons.length === 0 && candidate.tags.includes("poke")) reasons.push(`${subjectName(candidate)} 교전 전에 체력을 깎아 팀이 들어가기 좋은 각을 만듭니다.`);
-  if (reasons.length === 0) reasons.push(`${identity} 현재 선택된 팀원과 역할이 크게 충돌하지 않는 후보입니다.`);
+  if (scores.conflict <= -2) reasons.push(t("recommender.reason.roleConflict", { nameObject: objectName(candidate), name: characterName(candidate) }));
+  if (selected.length === 0) reasons.push(t("recommender.reason.firstPickFlexible", { identity, job }));
+  if (reasons.length === 0 && candidate.tags.includes("cc")) reasons.push(t("recommender.reason.ccFallback", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  if (reasons.length === 0 && candidate.tags.includes("sustained")) reasons.push(t("recommender.reason.sustainedFallback", { nameSubject: subjectName(candidate), name: characterName(candidate), role: damageLabel(candidate) }));
+  if (reasons.length === 0 && candidate.tags.includes("poke")) reasons.push(t("recommender.reason.pokeFallback", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  if (reasons.length === 0) reasons.push(t("recommender.reason.genericFallback", { identity }));
   return reasons.slice(0, 3);
 }
 
@@ -1354,34 +1371,4 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
     .map((candidate) => evaluateCandidate(selectedIds, candidate.variantId, tier, remoteFeedback, relationshipRows))
     .sort((a, b) => b.score - a.score)
     .slice(0, 18);
-}
-
-// Given a single anchor character (나), returns top complete 3-man compositions.
-// Each entry: { teammate1, teammate2, combinedScore }
-export function recommendFullTeam(anchorId, tier = "all", remoteFeedback = {}, candidateCharacterIds = undefined, relationshipRows = []) {
-  const slot1Results = recommend([anchorId], tier, remoteFeedback, candidateCharacterIds, relationshipRows).slice(0, 8);
-
-  const compositions = [];
-  const seen = new Set();
-
-  for (const r1 of slot1Results) {
-    const slot2Results = recommend(
-      [anchorId, r1.character.variantId],
-      tier, remoteFeedback, candidateCharacterIds, relationshipRows
-    ).slice(0, 3);
-
-    for (const r2 of slot2Results) {
-      const pairKey = [r1.character.characterId, r2.character.characterId].sort().join("+");
-      if (seen.has(pairKey)) continue;
-      seen.add(pairKey);
-
-      compositions.push({
-        teammate1: r1,
-        teammate2: r2,
-        combinedScore: parseFloat((r1.score + r2.score).toFixed(1)),
-      });
-    }
-  }
-
-  return compositions.sort((a, b) => b.combinedScore - a.combinedScore).slice(0, 7);
 }

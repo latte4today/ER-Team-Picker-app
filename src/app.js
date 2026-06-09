@@ -1715,7 +1715,7 @@ function renderMatchFeedback() {
   const feedbackControls = !canRateMatch
     ? `
       <div class="chosen-feedback-done" aria-live="polite">
-        <strong>팀원 2명과 내 픽까지 총 3명을 선택하면 평가할 수 있습니다.</strong>
+        <strong>${t("feedback.needFullTeam")}</strong>
       </div>
       <button class="icon-button clear-pick-button" type="button" data-clear-pick aria-label="${t('slot.clearAriaLabel')}" title="${t('slot.clearAriaLabel')}">
         <svg viewBox="0 0 24 24" aria-hidden="true">

@@ -31,7 +31,8 @@ export function setLanguage(language) {
 
 export function t(key, params = {}) {
   const language = getLanguage();
-  const template = dictionaries[language]?.[key] ?? ko[key] ?? key;
+  const fallback = language === "ko" ? ko[key] : en[key] ?? ko[key];
+  const template = dictionaries[language]?.[key] ?? fallback ?? key;
   return String(template).replace(/\{(\w+)\}/g, (_, paramKey) => params[paramKey] ?? "");
 }
 
