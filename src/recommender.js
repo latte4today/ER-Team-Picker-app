@@ -541,6 +541,44 @@ function teamShapeScore(candidate, selected) {
   if (shape.longRangeCarries >= 2 && !hasPeel && teamCcPower(team) < 2.0) score -= 0.7;
   if (shape.sustainedCarries >= 2 && teamCcPower(team) < 1.6) score -= 0.6;
 
+  // ── speedBoost 서포터: 팀 평균 사거리 점수가 낮을수록 이동속도 이득이 커짐 ──
+  if (candidate.tags.includes("speedBoost") && isSupport(candidate) && selected.length >= 1) {
+    const avgRange = selected.reduce((s, c) => s + (c.roleProfile?.range ?? 1), 0) / selected.length;
+    const hasFront = selected.some((c) => c.role === "frontline" || c.role === "bruiser");
+    if (hasFront) {
+      if (avgRange < 2.0) score += 1.3;       // 전원 근접: 최대 이득
+      else if (avgRange < 2.8) score += 0.7;  // 주로 근접
+      else if (avgRange < 3.5) score += 0.2;  // 혼합
+    }
+  }
+
+  // ── hyperCarry 암살자: 팀 이니시 강도 + CC 수치에 따라 가치가 선형 변동 ──
+  if (candidate.tags.includes("hyperCarry") && selected.length >= 1) {
+    const selectedCC = teamCcPower(selected);
+    const teamInitiate = selected.reduce((s, c) => s + (c.roleProfile?.initiate ?? 0), 0);
+    const setupScore = teamInitiate + selectedCC * 0.5;
+    const hasFront = selected.some((c) => c.role === "frontline" || c.role === "bruiser");
+    if (hasFront) {
+      if (setupScore >= 5.0) score += 1.4;
+      else if (setupScore >= 3.0) score += 0.8;
+      else if (setupScore >= 1.5) score += 0.1;
+      else score -= 0.8;
+    } else {
+      score -= 1.1;
+    }
+  }
+
+  // ── 낮은 이니시 암살자 (initiateStrength ≤ 1): 팀 셋업 없을 때 경미한 패널티 ──
+  if (candidate.role === "assassin" && !candidate.tags.includes("hyperCarry") && selected.length >= 1) {
+    const selfInitiate = candidate.roleProfile?.initiate ?? 0;
+    if (selfInitiate <= 1) {
+      const teamInitiate = selected.reduce((s, c) => s + (c.roleProfile?.initiate ?? 0), 0);
+      const setupScore = teamInitiate + teamCcPower(selected) * 0.5;
+      if (setupScore < 1.5) score -= 0.7;
+      else if (setupScore >= 4.0) score += 0.5;
+    }
+  }
+
   return Math.max(-5.4, Math.min(3.0, score));
 }
 
@@ -1316,4 +1354,34 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
     .map((candidate) => evaluateCandidate(selectedIds, candidate.variantId, tier, remoteFeedback, relationshipRows))
     .sort((a, b) => b.score - a.score)
     .slice(0, 18);
+}
+
+// Given a single anchor character (나), returns top complete 3-man compositions.
+// Each entry: { teammate1, teammate2, combinedScore }
+export function recommendFullTeam(anchorId, tier = "all", remoteFeedback = {}, candidateCharacterIds = undefined, relationshipRows = []) {
+  const slot1Results = recommend([anchorId], tier, remoteFeedback, candidateCharacterIds, relationshipRows).slice(0, 8);
+
+  const compositions = [];
+  const seen = new Set();
+
+  for (const r1 of slot1Results) {
+    const slot2Results = recommend(
+      [anchorId, r1.character.variantId],
+      tier, remoteFeedback, candidateCharacterIds, relationshipRows
+    ).slice(0, 3);
+
+    for (const r2 of slot2Results) {
+      const pairKey = [r1.character.characterId, r2.character.characterId].sort().join("+");
+      if (seen.has(pairKey)) continue;
+      seen.add(pairKey);
+
+      compositions.push({
+        teammate1: r1,
+        teammate2: r2,
+        combinedScore: parseFloat((r1.score + r2.score).toFixed(1)),
+      });
+    }
+  }
+
+  return compositions.sort((a, b) => b.combinedScore - a.combinedScore).slice(0, 7);
 }

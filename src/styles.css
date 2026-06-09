@@ -192,6 +192,18 @@ p {
   gap: 8px;
 }
 
+.side-footer .settings-contact-button {
+  border-color: rgba(67, 194, 223, 0.42);
+  background: rgba(67, 194, 223, 0.1);
+  color: #dbe6f4;
+}
+
+.side-footer .settings-contact-button:hover {
+  border-color: rgba(105, 222, 243, 0.78);
+  background: rgba(67, 194, 223, 0.18);
+  color: #ffffff;
+}
+
 .contact-button,
 .update-button {
   min-height: 34px;
@@ -1476,13 +1488,30 @@ h2 {
 }
 
 .recommendation-details summary {
-  display: list-item;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
   width: max-content;
   color: var(--muted);
   font-size: 11px;
   font-weight: 800;
   cursor: pointer;
   user-select: text;
+}
+
+.recommendation-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.recommendation-details summary::before {
+  content: "▶";
+  font-size: 9px;
+  transition: transform 150ms ease;
+}
+
+.recommendation-details[open] summary::before {
+  transform: rotate(90deg);
 }
 
 .recommendation-details summary:hover {
@@ -2574,4 +2603,402 @@ h2 {
   .score {
     justify-self: start;
   }
+}
+
+/* ── Full Team Composition Cards ──────────────────────────────── */
+.full-team-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 4px;
+}
+
+.full-team-section-header h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0;
+}
+
+.full-team-section-header span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.full-team-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-2);
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.full-team-card:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 56%, var(--line));
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+}
+
+.full-team-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.full-team-score {
+  font-size: 16px;
+  font-weight: 800;
+  color: #f5c518;
+}
+
+.full-team-members {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.full-team-member {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 9px;
+  align-items: start;
+}
+
+.full-team-member .recommendation-avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.full-team-member-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.full-team-member-info strong {
+  font-size: 13px;
+  color: var(--text-strong);
+  line-height: 1.2;
+}
+
+.full-team-member-info small {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.full-team-details {
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+
+.full-team-details summary {
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.full-team-details summary::before {
+  content: "▶";
+  font-size: 9px;
+  transition: transform 150ms ease;
+}
+
+.full-team-details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.full-team-detail-body {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.full-team-detail-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-strong);
+  margin: 6px 0 2px;
+}
+
+.full-team-detail-name:first-child {
+  margin-top: 0;
+}
+
+.full-team-detail-body ul {
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.full-team-detail-body li {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+.full-team-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 2px;
+}
+
+/* ── Show More Button ─────────────────────────────────────────── */
+.show-more-button {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px 0;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.show-more-button:hover {
+  background: var(--surface-2);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+/* ── Show More Loading State ──────────────────────────────────── */
+.show-more-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.show-more-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Feedback CTA Banner (2번) ────────────────────────────────── */
+.feedback-cta-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface-2));
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 120ms ease, border-color 120ms ease;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.feedback-cta-banner:hover {
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface-2));
+  border-color: var(--accent);
+}
+
+.feedback-cta-banner span {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.feedback-cta-banner strong {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-strong);
+  white-space: nowrap;
+}
+
+/* ── Feedback Needs-Rating Highlight (4번) ───────────────────── */
+/* B: 버튼 배경 채우기 */
+#match-feedback[data-needs-rating="true"] .feedback-like {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 48%, transparent);
+}
+
+#match-feedback[data-needs-rating="true"] .feedback-dislike {
+  background: color-mix(in srgb, var(--danger) 16%, transparent);
+  border-color: color-mix(in srgb, var(--danger) 48%, transparent);
+}
+
+/* A: 알림 dot 뱃지 */
+#match-feedback[data-needs-rating="true"] .feedback-like,
+#match-feedback[data-needs-rating="true"] .feedback-dislike {
+  position: relative;
+  overflow: visible;
+}
+
+#match-feedback[data-needs-rating="true"] .feedback-like::after,
+#match-feedback[data-needs-rating="true"] .feedback-dislike::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  background: #f59e0b;
+  border-radius: 50%;
+  border: 1.5px solid var(--surface);
+  pointer-events: none;
+}
+
+/* CTA 배너 클릭 후 일회성 스케일 플래시 */
+#match-feedback.feedback-highlight-pulse .feedback-like,
+#match-feedback.feedback-highlight-pulse .feedback-dislike {
+  animation: btn-flash 0.5s cubic-bezier(0.2, 1.4, 0.35, 1) forwards;
+}
+
+@keyframes btn-flash {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.22); }
+  100% { transform: scale(1); }
+}
+
+/* ── 5초 딜레이 어텐션 (버튼 무한 바운스) ─────────────────────── */
+#match-feedback.feedback-attention .feedback-like {
+  animation: btn-attention-bounce 1.8s ease-in-out infinite;
+}
+
+#match-feedback.feedback-attention .feedback-dislike {
+  animation: btn-attention-bounce 1.8s ease-in-out 0.3s infinite;
+}
+
+@keyframes btn-attention-bounce {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  30%       { transform: scale(1.18) rotate(-6deg); }
+  60%       { transform: scale(1.12) rotate(4deg); }
+  80%       { transform: scale(1.05) rotate(-2deg); }
+}
+
+/* ── Post-Clear Feedback Toast (1번) ─────────────────────────── */
+.feedback-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--sidebar);
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent);
+  max-width: 440px;
+  width: calc(100vw - 48px);
+  animation: toast-in 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes toast-in {
+  from {
+    transform: translateX(-50%) translateY(calc(100% + 28px));
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+.feedback-toast-out {
+  animation: toast-out 0.3s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+}
+
+@keyframes toast-out {
+  from {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-50%) translateY(calc(100% + 28px));
+    opacity: 0;
+  }
+}
+
+.feedback-toast-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+}
+
+.feedback-toast-text {
+  flex: 1;
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.feedback-toast-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.feedback-toast .feedback-like {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 48%, transparent);
+  color: var(--accent-strong);
+  position: relative;
+  overflow: visible;
+}
+
+.feedback-toast .feedback-dislike {
+  background: color-mix(in srgb, var(--danger) 16%, transparent);
+  border-color: color-mix(in srgb, var(--danger) 48%, transparent);
+  color: var(--danger);
+  position: relative;
+  overflow: visible;
+}
+
+.feedback-toast .feedback-like::after,
+.feedback-toast .feedback-dislike::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  background: #f59e0b;
+  border-radius: 50%;
+  border: 1.5px solid var(--sidebar);
+  pointer-events: none;
+}
+
+.feedback-toast-close {
+  color: var(--muted);
 }

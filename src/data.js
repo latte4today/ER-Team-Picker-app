@@ -47,13 +47,13 @@ export const characters = [
   c("nathapon", "나타폰", "mage", ["poke", "zone", "cc"], "skill", 4),
   c("nia", "니아", "mage", ["poke", "burst", "focus"], "skill", 3),
   c("nicky", "니키", "frontline", ["initiate", "cc", "durable"], "hybrid", 3),
-  c("daniel", "다니엘", "assassin", ["burst", "dive", "focus"], "skill", 4),
+  c("daniel", "다니엘", "assassin", ["burst", "dive", "focus", "pick"], "skill", 4),
   c("darko", "다르코", "frontline", ["initiate", "cc", "durable"], "hybrid", 3),
   c("debi_marlene", "데비&마를렌", "bruiser", ["dive", "sustained", "mobility"], "basic", 4),
   c("tia", "띠아", "mage", ["poke", "zone", "cc"], "skill", 4),
   c("laura", "라우라", "bruiser", ["dive", "burst", "focus"], "skill", 4),
   c("lenox", "레녹스", "frontline", ["initiate", "peel", "cc", "durable"], "skill", 2),
-  c("leni", "레니", "support", ["peel", "healing", "utility"], "skill", 3),
+  c("leni", "레니", "support", ["peel", "cc", "utility", "speedBoost"], "skill", 3),
   c("leon", "레온", "bruiser", ["dive", "cc", "durable"], "hybrid", 2),
   c("rozzi", "로지", "ranged", ["sustained", "mobility", "burst"], "basic", 4),
   c("luke", "루크", "bruiser", ["dive", "sustained", "duel"], "basic", 2),
@@ -74,7 +74,7 @@ export const characters = [
   c("charlotte", "샬럿", "support", ["healing", "shield", "peel"], "skill", 2),
   c("celine", "셀린", "mage", ["burst", "zone", "poke"], "skill", 5),
   c("sho", "쇼우", "frontline", ["durable", "peel", "sustained"], "hybrid", 3),
-  c("shoichi", "쇼이치", "assassin", ["burst", "dive", "mobility"], "skill", 5),
+  c("shoichi", "쇼이치", "assassin", ["burst", "dive", "mobility", "hyperCarry"], "skill", 5),
   c("sua", "수아", "bruiser", ["cc", "durable", "sustained"], "skill", 3),
   c("shirin", "슈린", "bruiser", ["sustain", "peel", "utility"], "skill", 3),
   c("sissela", "시셀라", "mage", ["poke", "burst", "zone", "cc"], "skill", 4),
@@ -95,7 +95,7 @@ export const characters = [
   c("echion", "에키온", "bruiser", ["dive", "sustained", "durable"], "skill", 4),
   c("elena", "엘레나", "frontline", ["initiate", "cc", "durable"], "skill", 3),
   c("emma", "엠마", "mage", ["poke", "cc", "utility"], "skill", 4),
-  c("johann", "요한", "support", ["healing", "shield", "peel"], "skill", 2),
+  c("johann", "요한", "support", ["healing", "shield", "peel", "utility", "speedBoost"], "skill", 2),
   c("william", "윌리엄", "ranged", ["sustained", "poke", "objective"], "basic", 4),
   c("yumin", "유민", "mage", ["utility", "poke", "focus"], "skill", 3),
   c("justina", "유스티나", "mage", ["range", "burst", "mobility"], "skill", 3),
@@ -121,7 +121,7 @@ export const characters = [
   c("theodore", "테오도르", "ranged", ["poke", "shield", "range", "utility"], "skill", 3),
   c("fenrir", "펜리르", "bruiser", ["dive", "sustained", "durable"], "hybrid", 3),
   c("felix", "펠릭스", "bruiser", ["dive", "sustained", "mobility"], "basic", 4),
-  c("priya", "프리야", "support", ["healing", "cc", "utility"], "skill", 3),
+  c("priya", "프리야", "support", ["shield", "healing", "cc", "utility"], "skill", 3),
   c("fiora", "피오라", "bruiser", ["dive", "duel", "sustained"], "basic", 3),
   c("piolo", "피올로", "bruiser", ["dive", "cc", "mobility"], "hybrid", 4),
   c("hart", "하트", "ranged", ["sustained", "poke", "mobility"], "basic", 3),
@@ -313,42 +313,22 @@ export const ccProfiles = {
   hisui: cc({ nonTarget: 1, single: 1 }),
 };
 
-const initiatorCharacterIds = new Set([
-  "garnet",
-  "nathapon",
-  "nia",
-  "nicky",
-  "darko",
-  "debi_marlene",
-  "tia",
-  "laura",
-  "lenox",
-  "leni",
-  "leon",
-  "martina",
-  "mai",
-  "markus",
-  "magnus",
-  "mirka",
-  "barbara",
-  "bernice",
-  "bianca",
-  "bihyung",
-  "sua",
-  "sissela",
-  "adela",
-  "arda",
-  "alex",
-  "alonso",
-  "yan",
-  "estelle",
-  "elena",
-  "ian",
-  "eleven",
-  "cathy",
-  "kenneth",
-  "theodore",
-]);
+// 이니시에이터 강도 (0–5): 높을수록 먼저 교전을 열 수 있는 능력이 강함
+// 2 이상이면 "initiate" 태그가 자동으로 추가됨
+const initiateStrengths = {
+  lenox: 5,
+  garnet: 4, alonso: 4, elena: 4,
+  nicky: 3, darko: 3, markus: 3, magnus: 3, mirka: 3, eleven: 3, laura: 3, hyunwoo: 3,
+  debi_marlene: 2, tia: 2, nathapon: 2, nia: 2, barbara: 2, bernice: 2, bianca: 2,
+  bihyung: 2, sua: 2, sissela: 2, adela: 2, arda: 2, alex: 2, yan: 2, estelle: 2,
+  ian: 2, cathy: 2, kenneth: 2, theodore: 2, mai: 2, martina: 2, leni: 2, leon: 2,
+  daniel: 2, jackie: 1,
+};
+
+// 탈출 강도 (0–5): 교전 진입 후 빠져나오는 능력
+const escapeStrengths = {
+  daniel: 4, shoichi: 3, jackie: 2, cathy: 2,
+};
 
 const shortRangeDealerIds = new Set([
   "rozzi",
@@ -362,6 +342,18 @@ const shortRangeDealerIds = new Set([
   "tsubame",
   "jenny",
 ]);
+
+// 사거리 점수 도출 (역할 + 무기 기반, 1–5)
+function deriveRangeScore(role, weapon, characterId) {
+  if (role === "ranged") {
+    if (shortRangeDealerIds.has(characterId)) return 2;
+    if (weapon === "sniper_rifle") return 5;
+    return 4;
+  }
+  if (role === "mage") return 3;
+  if (role === "support") return 2;
+  return 1; // frontline, bruiser, assassin
+}
 
 const tankVariantIds = new Set([
   "estelle:axe",
@@ -491,8 +483,10 @@ export const variantOverrides = {
   "aya:pistol": { role: "mage", damage: "skill", tags: ["poke", "mobility", "focus"] },
   "aya:sniper_rifle": { role: "mage", damage: "skill", tags: ["range", "burst", "poke"] },
   "aya:assault_rifle": { role: "ranged", damage: "basic", tags: ["sustained", "range", "objective"] },
-  "jackie:dagger": { role: "assassin", tags: ["burst", "dive", "focus"] },
+  "jackie:dagger": { role: "assassin", tags: ["burst", "dive", "focus", "pick"] },
   "magnus:bat": { tags: ["dive", "cc", "durable"] },
+  "cathy:dagger": { tags: ["burst", "cc", "initiate", "pick"], initiateStrength: 3 },
+  "cathy:dual_swords": { tags: ["burst", "cc", "dive", "pick"], initiateStrength: 1 },
 };
 
 characters.forEach((character) => {
@@ -527,9 +521,13 @@ export const characterVariants = characters.flatMap((character) =>
             ? "low"
             : "medium"
         : undefined;
+    const initiateStrength = override.initiateStrength ?? initiateStrengths[character.id] ?? 0;
+    const escapeStrength = override.escapeStrength ?? escapeStrengths[character.id] ?? 0;
+    const rangeScore = override.rangeScore ?? deriveRangeScore(role, weapon, character.id);
+    const baseTags = override.tags ?? character.tags;
     const tags = [
-      ...(override.tags ?? character.tags),
-      ...(initiatorCharacterIds.has(character.id) ? ["initiate"] : []),
+      ...baseTags,
+      ...(!baseTags.includes("initiate") && initiateStrength >= 2 ? ["initiate"] : []),
       ...(shortRangeDealerIds.has(character.id) ? ["short_range_dealer"] : []),
     ];
     return {
@@ -546,6 +544,7 @@ export const characterVariants = characters.flatMap((character) =>
       frontDamage,
       backlineDamage,
       ccProfile: ccProfiles[character.id] ?? emptyCcProfile,
+      roleProfile: { initiate: initiateStrength, escape: escapeStrength, range: rangeScore },
       tags: [...new Set(tags)],
     };
   }),

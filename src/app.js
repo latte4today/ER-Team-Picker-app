@@ -114,6 +114,13 @@ let activeView = appMain?.dataset.view ?? "setup";
 let activeUnionPlayer = 0;
 let activeUnionRole = "all";
 let isUnionCalculating = false;
+let recommendLimit = 5;
+let fullTeamLimit = 5;
+let unionComboLimit = 5;
+
+// Lazy computation caches
+let _fullTeamState = { status: "idle", compositions: [], anchorId: null };
+let _unionComboCache = [];
 const unionParticipatingPlayers = new Set([0, 1, 2]);
 const savedUnionRosters = JSON.parse(localStorage.getItem(unionStorageKey) ?? "[]");
 const unionRosters = Array.from({ length: 4 }, (_, index) => new Set(savedUnionRosters[index] ?? []));
@@ -225,6 +232,23 @@ function compactReasonText(reasons = []) {
   const labels = compactReasonLabels(reasons);
   if (labels.length > 0) return labels.join(" · ");
   return t("recommend.stageBody");
+}
+
+function feedbackCTABanner() {
+  if (!chosenPickId) return "";
+  const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
+  if (!canSubmitMatchFeedback(feedbackTeamIds, chosenPickId)) return "";
+  const key = feedbackWindowKey(feedbackTeamIds, chosenPickId, tierSelect.value);
+  const alreadyDone =
+    submittedFeedbackKeys.has(key) ||
+    hasRecentFeedback(feedbackTeamIds, chosenPickId, tierSelect.value);
+  if (alreadyDone) return "";
+  return `
+    <button class="feedback-cta-banner" type="button" data-feedback-cta-goto>
+      <span>${t("feedback.ctaBanner")}</span>
+      <strong>${t("feedback.ctaGoTo")} →</strong>
+    </button>
+  `;
 }
 
 function recommendationStageNotice() {
@@ -796,38 +820,50 @@ function updateUnionCalculateButton() {
 }
 
 async function buildUnionCombos(players, rosters) {
+  // Pre-rank each player's roster by individual score (solo evaluate), keep top 12
+  const tier = tierSelect.value;
+  const ranked = rosters.map((roster) => {
+    if (roster.length <= 12) return roster;
+    const scored = roster.map((character) => {
+      const ev = evaluateCandidate([], character.variantId, tier, remoteFeedback, popularFeedback);
+      return { character, score: ev?.score ?? 0 };
+    });
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, 12).map((x) => x.character);
+  });
+
   const combos = [];
   let checked = 0;
-  const maxChecks = 16000;
 
-  for (const first of rosters[0]) {
-    for (const second of rosters[1]) {
-      for (const third of rosters[2]) {
+  for (const first of ranked[0]) {
+    for (const second of ranked[1]) {
+      for (const third of ranked[2]) {
         checked += 1;
-        if (checked > maxChecks) break;
-        if (checked % 350 === 0) await yieldToUi();
+        if (checked % 200 === 0) await yieldToUi();
         const uniqueCharacters = new Set([first.characterId, second.characterId, third.characterId]);
         if (uniqueCharacters.size < 3) continue;
         const scoreInfo = unionComboScore([first, second, third]);
         combos.push({ players, combo: [first, second, third], ...scoreInfo });
       }
-      if (checked > maxChecks) break;
     }
-    if (checked > maxChecks) break;
   }
 
   return combos.sort((a, b) => b.score - a.score).slice(0, 24);
 }
 
-function renderUnionComboResults(combos) {
+function renderUnionComboResults() {
+  const combos = _unionComboCache;
   unionSummary.removeAttribute("data-state");
-  unionSummary.textContent = t("union.comboCount", { count: combos.length });
+  unionSummary.textContent = "";
   if (combos.length === 0) {
     unionResults.innerHTML = `<p class="empty-state">${t("union.noCombo")}</p>`;
     return;
   }
 
-  unionResults.innerHTML = combos
+  const visible = combos.slice(0, unionComboLimit);
+  const hasMore = combos.length > unionComboLimit;
+
+  const cards = visible
     .map((item, index) => {
       const scoreTone = item.score < 0 ? " negative-score" : "";
       return `
@@ -838,7 +874,7 @@ function renderUnionComboResults(combos) {
           </div>
           <div class="union-combo-members">
             ${item.combo
-              .map((character, memberIndex) => `
+              .map((character) => `
                 <span class="combo-face">
                   <img src="${character.image}" alt="">
                   <span>
@@ -854,6 +890,12 @@ function renderUnionComboResults(combos) {
       `;
     })
     .join("");
+
+  const showMoreBtn = hasMore
+    ? `<button class="show-more-button" type="button" data-show-more-union>${t("recommend.showMore", { remaining: combos.length - unionComboLimit })}</button>`
+    : "";
+
+  unionResults.innerHTML = cards + showMoreBtn;
 }
 
 function renderUnionResultPrecheck() {
@@ -906,6 +948,8 @@ async function renderUnionResults() {
   const rosters = players.map((player) => [...unionRosters[player]].map(variantById).filter(Boolean));
 
   isUnionCalculating = true;
+  unionComboLimit = 5;
+  _unionComboCache = [];
   updateUnionCalculateButton();
   unionSummary.dataset.state = "loading";
   unionSummary.textContent = t("union.calculating");
@@ -913,8 +957,8 @@ async function renderUnionResults() {
 
   try {
     await yieldToUi();
-    const combos = await buildUnionCombos(players, rosters);
-    renderUnionComboResults(combos);
+    _unionComboCache = await buildUnionCombos(players, rosters);
+    renderUnionComboResults();
   } finally {
     isUnionCalculating = false;
     updateUnionCalculateButton();
@@ -1164,6 +1208,9 @@ function syncSelectedFromSlots() {
     if (variantId) selectedIds.add(variantId);
   });
   chosenPickId = slotAssignments[0];
+  recommendLimit = 5;
+  fullTeamLimit = 5;
+  _fullTeamState = { status: "idle", compositions: [], anchorId: null };
 }
 
 function assignSlot(slotIndex, id) {
@@ -1442,6 +1489,136 @@ function renderHomeDashboard() {
   `;
 }
 
+async function renderFullTeamRecommendations() {
+  const anchorId = chosenPickId;
+
+  // Re-use cache: same anchor already computing or done — just re-render
+  if (_fullTeamState.anchorId === anchorId && _fullTeamState.status !== "idle") {
+    _renderFullTeamCards();
+    return;
+  }
+
+  // Fresh computation
+  _fullTeamState = { status: "computing", compositions: [], anchorId };
+  _renderFullTeamCards();
+  await yieldToUi();
+
+  const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
+  const tier = tierSelect.value;
+  const slot1Results = recommend([anchorId], tier, remoteFeedback, playablePool, popularFeedback).slice(0, 8);
+  const seen = new Set();
+
+  for (const r1 of slot1Results) {
+    await yieldToUi();
+    if (_fullTeamState.anchorId !== anchorId) return; // anchor changed — abort
+
+    const slot2Results = recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, popularFeedback).slice(0, 3);
+    for (const r2 of slot2Results) {
+      const pairKey = [r1.character.characterId, r2.character.characterId].sort().join("+");
+      if (seen.has(pairKey)) continue;
+      seen.add(pairKey);
+      _fullTeamState.compositions.push({
+        teammate1: r1,
+        teammate2: r2,
+        combinedScore: parseFloat((r1.score + r2.score).toFixed(1)),
+      });
+    }
+    _fullTeamState.compositions.sort((a, b) => b.combinedScore - a.combinedScore);
+    _renderFullTeamCards(); // stream results as they arrive
+  }
+
+  _fullTeamState.status = "done";
+  _renderFullTeamCards();
+}
+
+function _renderFullTeamCards() {
+  const { compositions, status } = _fullTeamState;
+  const header = `
+    <div class="full-team-section-header">
+      <h3>${t("fullTeam.title")}</h3>
+      <span>${t("fullTeam.subtitle")}</span>
+    </div>
+  `;
+
+  if (compositions.length === 0) {
+    recommendations.innerHTML = header + (
+      status === "computing"
+        ? `<div class="show-more-loading"><span class="show-more-spinner"></span>${t("fullTeam.calculating")}</div>`
+        : `<p class="empty-state">${t("recommend.noPlayable")}</p>`
+    );
+    return;
+  }
+
+  const all = compositions; // already sorted, no hard cap — "더 보기" pages through them
+  const visible = all.slice(0, fullTeamLimit);
+  const moreReady = all.length > fullTeamLimit;
+
+  const cards = visible.map(({ teammate1, teammate2, combinedScore }, index) => {
+    const c1 = teammate1.character;
+    const c2 = teammate2.character;
+    const reasons1 = compactReasonLabels(teammate1.reasons).slice(0, 2).map((l) => `<span>${l}</span>`).join("");
+    const reasons2 = compactReasonLabels(teammate2.reasons).slice(0, 2).map((l) => `<span>${l}</span>`).join("");
+    const detailList1 = teammate1.reasons.map((r) => `<li>${r}</li>`).join("");
+    const detailList2 = teammate2.reasons.map((r) => `<li>${r}</li>`).join("");
+    return `
+      <article class="full-team-card">
+        <div class="full-team-header">
+          <span class="recommendation-rank">${t("fullTeam.rank", { index: index + 1 })}</span>
+          <span class="full-team-score">${combinedScore}</span>
+        </div>
+        <div class="full-team-members">
+          <div class="full-team-member">
+            <div class="recommendation-avatar">
+              <img src="${c1.image}" alt="" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.hidden = false;">
+              <span hidden>${t(`char.${c1.id}`).slice(0, 1)}</span>
+            </div>
+            <div class="full-team-member-info">
+              <strong>${t(`char.${c1.id}`)}</strong>
+              <small>${characterSubtitle(c1)}</small>
+              <div class="recommendation-tags">${reasons1}</div>
+            </div>
+          </div>
+          <div class="full-team-member">
+            <div class="recommendation-avatar">
+              <img src="${c2.image}" alt="" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.hidden = false;">
+              <span hidden>${t(`char.${c2.id}`).slice(0, 1)}</span>
+            </div>
+            <div class="full-team-member-info">
+              <strong>${t(`char.${c2.id}`)}</strong>
+              <small>${characterSubtitle(c2)}</small>
+              <div class="recommendation-tags">${reasons2}</div>
+            </div>
+          </div>
+        </div>
+        <details class="recommendation-details full-team-details">
+          <summary>${t("recommend.details")}</summary>
+          <div class="full-team-detail-body">
+            <p class="full-team-detail-name">${t(`char.${c1.id}`)}</p>
+            <ul>${detailList1}</ul>
+            <p class="full-team-detail-name">${t(`char.${c2.id}`)}</p>
+            <ul>${detailList2}</ul>
+          </div>
+        </details>
+        <div class="full-team-actions">
+          <button class="feedback-button" type="button"
+            data-apply-combo="${teammate1.character.variantId}|${teammate2.character.variantId}">
+            ${t("fullTeam.applyCombo")}
+          </button>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  let footer = "";
+  if (moreReady) {
+    footer = `<button class="show-more-button" type="button" data-show-more-full-team>${t("recommend.showMore", { remaining: all.length - fullTeamLimit })}</button>`;
+  } else if (status === "computing") {
+    footer = `<div class="show-more-loading"><span class="show-more-spinner"></span>${t("fullTeam.calculating")}</div>`;
+  }
+
+  recommendations.innerHTML = feedbackCTABanner() + header + cards + footer;
+}
+
 function renderRecommendations() {
   if (activeView === "recommendations") {
     renderHomeDashboard();
@@ -1449,6 +1626,10 @@ function renderRecommendations() {
   }
 
   if (selectedIds.size === 0) {
+    if (chosenPickId) {
+      renderFullTeamRecommendations();
+      return;
+    }
     recommendations.innerHTML = `
       <div class="setup-recommendation-empty">
         <strong>${t("recommend.emptyTitle")}</strong>
@@ -1464,7 +1645,9 @@ function renderRecommendations() {
     recommendations.innerHTML = `<p class="empty-state">${t("recommend.noPlayable")}</p>`;
     return;
   }
-  recommendations.innerHTML = recommendationStageNotice() + results
+  const visible = results.slice(0, recommendLimit);
+  const hasMore = results.length > recommendLimit;
+  const cards = visible
     .map((result, index) => {
       const reasonList = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
       const compactLabels = compactReasonLabels(result.reasons)
@@ -1499,11 +1682,16 @@ function renderRecommendations() {
       `;
     })
     .join("");
+  const showMoreBtn = hasMore
+    ? `<button class="show-more-button" type="button" data-show-more-recommendations>${t("recommend.showMore", { remaining: results.length - recommendLimit })}</button>`
+    : "";
+  recommendations.innerHTML = feedbackCTABanner() + recommendationStageNotice() + cards + showMoreBtn;
 }
 
 function renderMatchFeedback() {
   const chosen = characterVariants.find((character) => character.variantId === chosenPickId);
   if (!chosen) {
+    matchFeedback.dataset.needsRating = "false";
     matchFeedback.innerHTML = `<p class="empty-state">${t("feedback.emptyHint")}</p>`;
     return;
   }
@@ -1570,6 +1758,19 @@ function renderMatchFeedback() {
         </button>
       </div>
     `;
+
+  // 4번: 팀 완성 + 미평가 시 하이라이트 (탭 전환/앱 재진입 포함)
+  const needsRating = canRateMatch && !hasSubmittedFeedback;
+  matchFeedback.dataset.needsRating = String(needsRating);
+
+  // 5초 후 버튼 무한 바운스 시작
+  clearTimeout(_feedbackAttentionTimer);
+  matchFeedback.classList.remove("feedback-attention");
+  if (needsRating) {
+    _feedbackAttentionTimer = setTimeout(() => {
+      matchFeedback.classList.add("feedback-attention");
+    }, 5000);
+  }
 
   matchFeedback.innerHTML = `
     <div class="chosen-pick">
@@ -1702,8 +1903,10 @@ function render() {
   renderSelectedTeam();
   renderMatchFeedback();
   renderRecommendations();
-  renderUnion();
-  ensureUnionPresetPanel();
+  if (activeView === "union") {
+    renderUnion();
+    ensureUnionPresetPanel();
+  }
   renderManualSlots();
   updateUnionCalculateButton();
 
@@ -1765,13 +1968,120 @@ roleFilters.addEventListener("click", (event) => {
   render();
 });
 
+// ── Post-clear feedback toast ──────────────────────────────────
+let _feedbackToastEl = null;
+let _feedbackToastTimer = null;
+let _feedbackAttentionTimer = null;
+
+function dismissFeedbackToast(animate = true) {
+  clearTimeout(_feedbackToastTimer);
+  if (!_feedbackToastEl) return;
+  if (animate) {
+    _feedbackToastEl.classList.add("feedback-toast-out");
+    setTimeout(() => { _feedbackToastEl?.remove(); _feedbackToastEl = null; }, 300);
+  } else {
+    _feedbackToastEl.remove();
+    _feedbackToastEl = null;
+  }
+}
+
+function showPostClearFeedbackToast({ teamIds, candidateId, tier, feedbackKey, character }) {
+  dismissFeedbackToast(false);
+
+  const el = document.createElement("div");
+  el.className = "feedback-toast";
+  el.setAttribute("role", "status");
+  el.innerHTML = `
+    <img src="${character.image}" alt="" class="feedback-toast-avatar" onerror="this.hidden=true">
+    <span class="feedback-toast-text">${t("feedback.ctaBanner")}</span>
+    <div class="feedback-toast-actions">
+      <button class="icon-button feedback-like" type="button" data-toast-fb="1" aria-label="${t("feedback.likeLabel")}" title="${t("feedback.likeLabel")}">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3v11Z"></path>
+          <path d="M7 11 11 2a3 3 0 0 1 3 3v4h5a3 3 0 0 1 3 3l-2 7a3 3 0 0 1-3 3H7V11Z"></path>
+        </svg>
+      </button>
+      <button class="icon-button feedback-dislike" type="button" data-toast-fb="-1" aria-label="${t("feedback.dislikeLabel")}" title="${t("feedback.dislikeLabel")}">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M17 2h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3V2Z"></path>
+          <path d="M17 13 13 22a3 3 0 0 1-3-3v-4H5a3 3 0 0 1-3-3l2-7a3 3 0 0 1 3-3h10v11Z"></path>
+        </svg>
+      </button>
+      <button class="icon-button feedback-toast-close" type="button" data-toast-dismiss aria-label="${t("button.cancel")}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 6-12 12"></path><path d="m6 6 12 12"></path></svg>
+      </button>
+    </div>
+  `;
+
+  el.addEventListener("click", (event) => {
+    if (event.target.closest("[data-toast-dismiss]")) {
+      dismissFeedbackToast();
+      return;
+    }
+    const fbBtn = event.target.closest("[data-toast-fb]");
+    if (!fbBtn) return;
+    const value = Number(fbBtn.dataset.toastFb);
+    const pendingItem = queueRemoteFeedback(teamIds, candidateId, value, tier, "new-feedback");
+    if (pendingItem) {
+      submittedFeedbackKeys.add(feedbackKey);
+      recordFeedback(teamIds, candidateId, value, tier);
+      markRecentFeedback(teamIds, candidateId, tier);
+      syncStatus.textContent = t("sync.saving");
+      syncStatus.dataset.state = "loading";
+      recordRemoteFeedback(teamIds, candidateId, value, tier)
+        .then(() => {
+          removePendingRemoteFeedback(pendingItem.id);
+          popularFeedbackLoaded = false;
+          return refreshPopularFeedback();
+        })
+        .catch((error) => {
+          updatePendingRemoteFeedback(pendingItem.id, {
+            attempts: (pendingItem.attempts ?? 0) + 1,
+            lastError: error.message ?? "server failed",
+          });
+          syncStatus.textContent = t("sync.saveFailed");
+          syncStatus.dataset.state = "error";
+        });
+    }
+    dismissFeedbackToast();
+  });
+
+  // 마우스 올리면 타이머 일시정지, 내리면 재시작
+  el.addEventListener("mouseenter", () => clearTimeout(_feedbackToastTimer));
+  el.addEventListener("mouseleave", () => {
+    _feedbackToastTimer = setTimeout(() => dismissFeedbackToast(), 4000);
+  });
+
+  document.body.appendChild(el);
+  _feedbackToastEl = el;
+  _feedbackToastTimer = setTimeout(() => dismissFeedbackToast(), 8000);
+}
+
 clearButton.addEventListener("click", () => {
+  // Save context before clearing
+  const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
+  const pendingCandidateId = chosenPickId;
+  const pendingTier = tierSelect.value;
+  const hasPending = pendingCandidateId && canSubmitMatchFeedback(feedbackTeamIds, pendingCandidateId);
+  const feedbackKey = hasPending ? feedbackWindowKey(feedbackTeamIds, pendingCandidateId, pendingTier) : null;
+  const alreadyDone = feedbackKey && (
+    submittedFeedbackKeys.has(feedbackKey) ||
+    hasRecentFeedback(feedbackTeamIds, pendingCandidateId, pendingTier)
+  );
+
   selectedIds.clear();
   slotAssignments.fill(null);
   activeSlot = null;
   chosenPickId = null;
   renderDetectedTeam();
   render();
+
+  if (hasPending && !alreadyDone) {
+    const character = characterVariants.find((c) => c.variantId === pendingCandidateId);
+    if (character) {
+      showPostClearFeedbackToast({ teamIds: feedbackTeamIds, candidateId: pendingCandidateId, tier: pendingTier, feedbackKey, character });
+    }
+  }
 });
 
 sideTabs.forEach((button) => {
@@ -1885,6 +2195,14 @@ recommendations.addEventListener("click", (event) => {
     return;
   }
 
+  const ctaButton = event.target.closest("[data-feedback-cta-goto]");
+  if (ctaButton) {
+    matchFeedback.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    matchFeedback.classList.add("feedback-highlight-pulse");
+    setTimeout(() => matchFeedback.classList.remove("feedback-highlight-pulse"), 1400);
+    return;
+  }
+
   const rankRoleButton = event.target.closest("[data-rank-role]");
   if (rankRoleButton) {
     activeRankRole = rankRoleButton.dataset.rankRole;
@@ -1892,8 +2210,32 @@ recommendations.addEventListener("click", (event) => {
     return;
   }
 
+  const showMoreButton = event.target.closest("[data-show-more-recommendations]");
+  if (showMoreButton) {
+    recommendLimit += 5;
+    renderRecommendations();
+    return;
+  }
+
+  const showMoreFullTeam = event.target.closest("[data-show-more-full-team]");
+  if (showMoreFullTeam) {
+    fullTeamLimit += 5;
+    _renderFullTeamCards();
+    return;
+  }
+
   // 랭킹 탭에서는 추천 픽 선택 로직을 실행하지 않음 (빈 영역 클릭 시 스크롤 초기화 방지)
   if (activeView === "recommendations") return;
+
+  const applyComboButton = event.target.closest("[data-apply-combo]");
+  if (applyComboButton) {
+    const [v1, v2] = applyComboButton.dataset.applyCombo.split("|");
+    assignSlot(1, v1);
+    assignSlot(2, v2);
+    renderDetectedTeam();
+    render();
+    return;
+  }
 
   const button = event.target.closest("[data-choose-pick]");
   if (!button) return;
@@ -2025,8 +2367,16 @@ unionPlayerGrid.addEventListener("click", (event) => {
   const button = event.target.closest("[data-union-player]");
   if (!button) return;
   activeUnionPlayer = Number(button.dataset.unionPlayer);
+  // Update active class on player cards without full rebuild
+  unionPlayerGrid.querySelectorAll(".union-player-card").forEach((card, i) => {
+    card.classList.toggle("active", i === activeUnionPlayer);
+  });
+  unionPlayerGrid.querySelectorAll("[data-union-player]").forEach((btn) => {
+    const idx = Number(btn.dataset.unionPlayer);
+    btn.closest(".union-player-card")?.classList.toggle("active", idx === activeUnionPlayer);
+  });
   unionCharacterGrid.scrollTop = 0;
-  renderUnion();
+  renderUnionCharacters({ preserveScroll: false });
   // 저장 행 레이블만 업데이트 (패널 전체 재렌더 없음)
   const saveLabel = unionPresetPanel.querySelector(".union-preset-save-label");
   if (saveLabel) saveLabel.textContent = unionPlayerName(activeUnionPlayer);
@@ -2055,6 +2405,29 @@ unionCharacterGrid.addEventListener("click", (event) => {
 
 unionConfirmButton.addEventListener("click", () => {
   renderUnionResults();
+});
+
+unionResults.addEventListener("click", (event) => {
+  if (event.target.closest("[data-show-more-union]")) {
+    unionComboLimit += 5;
+    renderUnionComboResults();
+  }
+});
+
+unionRoleFilters.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-union-role]");
+  if (!button) return;
+  activeUnionRole = button.dataset.unionRole;
+  // Update aria-pressed without full rebuild
+  unionRoleFilters.querySelectorAll("[data-union-role]").forEach((btn) => {
+    btn.setAttribute("aria-pressed", btn === button ? "true" : "false");
+  });
+  unionCharacterGrid.scrollTop = 0;
+  renderUnionCharacters({ preserveScroll: false });
+});
+
+unionSearchInput.addEventListener("input", () => {
+  renderUnionCharacters({ preserveScroll: false });
 });
 
 // Custom dropdown: close all open dropdowns except the given one
