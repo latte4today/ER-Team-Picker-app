@@ -107,7 +107,7 @@ export const characters = [
   c("eleven", "일레븐", "frontline", ["initiate", "cc", "durable"], "skill", 2),
   c("zahir", "자히르", "mage", ["poke", "cc", "range"], "skill", 4),
   c("jackie", "재키", "bruiser", ["dive", "sustained", "mobility"], "basic", 2),
-  c("jenny", "제니", "mage", ["poke", "burst", "mobility"], "skill", 3),
+  c("jenny", "제니", "ranged", ["poke", "burst", "mobility"], "skill", 3),
   c("tsubame", "츠바메", "ranged", ["burst", "mobility", "focus"], "skill", 5),
   c("camilo", "카밀로", "bruiser", ["dive", "sustained", "mobility"], "basic", 4),
   c("katja", "카티야", "ranged", ["range", "burst", "pick"], "basic", 3),

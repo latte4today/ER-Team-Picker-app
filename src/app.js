@@ -215,15 +215,15 @@ function compactReasonLabels(reasons = []) {
     if (!labels.includes(label)) labels.push(label);
   };
 
-  if (/앞라인|탱커|진입|받아치/.test(joined)) add(t("compact.frontlineNeeded"));
-  if (/마무리|킬캐치|화력|데미지|딜러 자리/.test(joined)) add(/부족|모자|감점/.test(joined) ? t("compact.damageLow") : t("compact.damageNeeded"));
-  if (/CC|이니시|교전 시작|진입각/.test(joined)) add(t("compact.initiateNeeded"));
-  if (/보호|세이브|받아치|안정/.test(joined)) add(t("compact.peelNeeded"));
-  if (/사거리|포킹|대치/.test(joined)) add(t("compact.pokeNeeded"));
-  if (/데미지 기여가 충분|화력을 보탤|화력을 채워/.test(joined)) add(t("compact.damageOk"));
-  if (/데미지 기여가 부족|화력 총량이 부족|화력이 부족/.test(joined)) add(t("compact.damageCaution"));
-  if (/평가 데이터|좋게 기록|랭커|전적/.test(joined)) add(t("compact.dataOk"));
-  if (/감점|낮게 잡힐|위험/.test(joined)) add(t("compact.caution"));
+  if (/앞라인|탱커|진입|받아치|front.?line|\btank\b|initiat|counter.fight/i.test(joined)) add(t("compact.frontlineNeeded"));
+  if (/마무리|킬캐치|화력|데미지|딜러 자리|damage|firepower|dealer/.test(joined)) add(/부족|모자|감점|low.damage|firepower.*short|penalty|below.average/.test(joined) ? t("compact.damageLow") : t("compact.damageNeeded"));
+  if (/CC|이니시|교전 시작|진입각|initiat|engage/.test(joined)) add(t("compact.initiateNeeded"));
+  if (/보호|세이브|받아치|안정|protect|peel|alive|stable|counter.fight/.test(joined)) add(t("compact.peelNeeded"));
+  if (/사거리|포킹|대치|poke|standoff|range/.test(joined)) add(t("compact.pokeNeeded"));
+  if (/데미지 기여가 충분|화력을 보탤|화력을 채워|high.damage|fills.*firepower|fills.*damage/.test(joined)) add(t("compact.damageOk"));
+  if (/데미지 기여가 부족|화력 총량이 부족|화력이 부족|low.damage|lacks.*damage|firepower.*shortage/.test(joined)) add(t("compact.damageCaution"));
+  if (/평가 데이터|좋게 기록|랭커|전적|feedback.*data|ranker|tournament|good synergy/.test(joined)) add(t("compact.dataOk"));
+  if (/감점|낮게 잡힐|위험|penalty|drag.*score|lower.*score/.test(joined)) add(t("compact.caution"));
 
   return labels.slice(0, 3);
 }
@@ -703,9 +703,9 @@ function unionComboReason(combo, reasons) {
   const backlineCount = combo.filter((character) => character.role === "ranged" || character.role === "mage").length;
   const meleeCount = combo.filter((character) => character.role === "bruiser" || character.role === "assassin" || character.role === "frontline").length;
   const hasInitiate = tags.has("initiate");
-  const hasCc = tags.has("cc") || metricTags.includes("CC 강함");
-  const hasPeel = tags.has("peel") || tags.has("shield") || tags.has("healing") || metricTags.includes("보조 능력 높음");
-  const hasDamage = metricTags.includes("화력 충분");
+  const hasCc = tags.has("cc") || metricTags.includes(t("metric.tag.ccHigh"));
+  const hasPeel = tags.has("peel") || tags.has("shield") || tags.has("healing") || metricTags.includes(t("metric.tag.utilityHigh"));
+  const hasDamage = metricTags.includes(t("metric.tag.damageHigh"));
 
   if (backlineCount === 3 && (hasCc || hasPeel) && hasDamage) {
     return t("union.reason.backlineCC");

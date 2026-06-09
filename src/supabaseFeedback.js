@@ -145,7 +145,7 @@ export async function loadPopularFeedback(limit = 500) {
 
 export async function submitContactMessage({ replyTo = "", message = "", appVersion = "" }) {
   const client = await getClient();
-  if (!client) throw new Error("Supabase 연결이 필요합니다.");
+  if (!client) throw new Error("Supabase connection required.");
 
   const { data: userData, error: userError } = await client.auth.getUser();
   if (userError) throw userError;
