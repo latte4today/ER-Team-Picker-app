@@ -25,7 +25,7 @@ import {
 } from "./combatProfiles.js";
 import { applyTranslations, getLanguage, hasStoredLanguage, setLanguage, t } from "./i18n/index.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
-import { appVersion, releaseConfig } from "./updateConfig.js";
+import { appVersion, releaseConfig } from "./updateConfig.js?v=0.1.10";
 
 const isElectron = /electron/i.test(navigator.userAgent);
 
