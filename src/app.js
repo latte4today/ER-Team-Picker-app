@@ -666,7 +666,7 @@ function renderUnionCharacters({ preserveScroll = true } = {}) {
           </span>
           <span class="character-info">
             <strong>${t(`char.${character.id}`)}</strong>
-            <small class="char-role">${roleLabel(character.role)}</small><small class="char-weapon">${[t(`weapon.${character.weapon}`), character.weaponStyle].filter(Boolean).join(" · ")}</small>
+            <small class="char-role">${roleLabel(character.role)}</small><small class="char-weapon">${[t("weapon." + character.weapon), character.weaponStyle].filter(Boolean).join(" · ")}</small>
           </span>
         </button>
       `;
