@@ -3150,8 +3150,9 @@ h2 {
     border-radius: 4px;
   }
 
-  /* Name only, no role/subtitle */
-  .character-info small { display: none; }
+  /* Hide role, keep weapon */
+  .character-info .char-role { display: none; }
+  .character-info .char-weapon { font-size: 10px; opacity: 0.7; display: block; }
   .character-info strong { font-size: 12px; font-weight: 600; }
 
   /* Playable mark: tiny */

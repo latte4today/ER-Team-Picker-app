@@ -500,7 +500,7 @@ function renderCharacters({ preserveScroll = true } = {}) {
           </span>
           <span class="character-info">
             <strong>${t(`char.${character.id}`)}</strong>
-            <small>${characterSubtitle(character)}</small>
+            <small class="char-role">${roleLabel(character.role)}</small><small class="char-weapon">${[t(`weapon.${character.weapon}`), character.weaponStyle].filter(Boolean).join(" · ")}</small>
           </span>
           ${playable ? `<span class="playable-mark">${t("playable.mark")}</span>` : ""}
         </button>
@@ -666,7 +666,7 @@ function renderUnionCharacters({ preserveScroll = true } = {}) {
           </span>
           <span class="character-info">
             <strong>${t(`char.${character.id}`)}</strong>
-            <small>${characterSubtitle(character)}</small>
+            <small class="char-role">${roleLabel(character.role)}</small><small class="char-weapon">${[t(`weapon.${character.weapon}`), character.weaponStyle].filter(Boolean).join(" · ")}</small>
           </span>
         </button>
       `;
@@ -2622,3 +2622,4 @@ if (isElectron) {
   startPeriodicUpdateChecks();
 }
 startPeriodicPendingFeedbackSync();
+ 
