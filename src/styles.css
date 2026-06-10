@@ -3086,7 +3086,7 @@ h2 {
     font-size: 15px;
   }
 
-  /* ── All workspace/stack layouts → flex column (fixes minmax grid height=0 bug) ── */
+  /* ── Workspace: single flex column ── */
   .workspace,
   .app-main[data-view="setup"] .workspace,
   .app-main[data-view="recommendations"] .workspace {
@@ -3099,12 +3099,7 @@ h2 {
 
   .content-stack,
   .result-column {
-    display: flex;
-    flex-direction: column;
-    overflow: visible;
-    height: auto;
-    min-height: 0;
-    gap: 8px;
+    display: contents; /* dissolve into parent flex — children become direct flex items */
   }
 
   .app-main[data-view="union"] .union-view {
@@ -3115,12 +3110,12 @@ h2 {
     gap: 8px;
   }
 
-  .character-panel {
-    display: flex;
-    flex-direction: column;
-    overflow: visible;
-    height: auto;
-  }
+  /* ── Mobile order: character grid → recommendations → team slots ── */
+  .character-panel   { order: 1; display: flex; flex-direction: column; overflow: visible; }
+  .result-panel      { order: 2; }
+  .roster-panel      { order: 3; }
+  .feedback-panel    { display: none !important; }
+  .guide-strip       { display: none !important; }
 
   /* ── Character grid: compact 2-col cards ── */
   .character-grid {
@@ -3189,26 +3184,42 @@ h2 {
     margin-bottom: 8px;
   }
 
-  /* ── Team slots: shorter ── */
+  /* ── Team slots: compact horizontal row ── */
+  .manual-slots {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+  }
+
   .manual-slot {
-    padding: 8px 12px;
-    min-height: 36px;
-    font-size: 13px;
+    flex: 1;
+    padding: 6px 4px;
+    min-height: 34px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .roster-panel .panel-header {
+    margin-bottom: 6px;
+    padding-bottom: 6px;
   }
 
   .selected-team {
     gap: 4px;
+    margin-top: 6px;
   }
 
-  /* ── Recommendations: compact, show less ── */
+  /* ── Recommendations: compact ── */
   .recommendations {
-    max-height: 28vh;
+    max-height: 22vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* ── Character grid: force visible height in flex layout ── */
+  /* ── Character grid: force visible, large scroll area ── */
   .character-grid {
-    min-height: 200px;
-    max-height: 40vh;
+    min-height: 240px;
+    max-height: 48vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
