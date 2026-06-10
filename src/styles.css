@@ -3086,34 +3086,40 @@ h2 {
     font-size: 15px;
   }
 
-  /* ── All workspace views → single column ── */
+  /* ── All workspace/stack layouts → flex column (fixes minmax grid height=0 bug) ── */
   .workspace,
   .app-main[data-view="setup"] .workspace,
   .app-main[data-view="recommendations"] .workspace {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    height: auto;
     min-height: 0;
+    gap: 8px;
+  }
+
+  .content-stack,
+  .result-column {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    height: auto;
+    min-height: 0;
+    gap: 8px;
   }
 
   .app-main[data-view="union"] .union-view {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    height: auto;
     min-height: 0;
-  }
-
-  /* ── Panel stacks: let height grow naturally ── */
-  .content-stack {
-    overflow: visible;
-    /* Fix: minmax(0,1fr) resolves to 0 in unconstrained mobile layout */
-    grid-template-rows: auto auto;
-  }
-
-  .result-column {
-    grid-template-rows: auto auto;
+    gap: 8px;
   }
 
   .character-panel {
+    display: flex;
+    flex-direction: column;
     overflow: visible;
-    grid-template-rows: auto auto auto auto auto auto;
+    height: auto;
   }
 
   /* ── Character grid: compact 2-col cards, bounded scroll ── */
