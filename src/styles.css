@@ -3122,12 +3122,9 @@ h2 {
     height: auto;
   }
 
-  /* ── Character grid: compact 2-col cards, bounded scroll ── */
+  /* ── Character grid: compact 2-col cards ── */
   .character-grid {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    max-height: 38vh;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
   }
 
   /* ── Recommendations: bounded scroll ── */
@@ -3208,9 +3205,12 @@ h2 {
     max-height: 28vh;
   }
 
-  /* ── Character grid: slightly more height now that other panels shrank ── */
+  /* ── Character grid: force visible height in flex layout ── */
   .character-grid {
-    max-height: 42vh;
+    min-height: 200px;
+    max-height: 40vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* ── Topbar: hide in setup view to save space ── */
