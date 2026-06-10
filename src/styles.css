@@ -3103,6 +3103,7 @@ h2 {
   /* ── Panel stacks: let height grow naturally ── */
   .content-stack {
     overflow: visible;
+    /* Fix: minmax(0,1fr) resolves to 0 in unconstrained mobile layout */
     grid-template-rows: auto auto;
   }
 
@@ -3162,6 +3163,15 @@ h2 {
   }
 
   .feedback-panel {
+    display: none;
+  }
+
+  /* ── Hide preset features on mobile ── */
+  .playable-tools {
+    display: none;
+  }
+
+  .playable-presets {
     display: none;
   }
 
