@@ -1,6 +1,6 @@
 {
   "name": "eternal-return-team-picker",
-  "version": "0.1.10",
+  "version": "0.2.1",
   "private": true,
   "description": "Desktop app for Eternal Return team composition recommendations.",
   "main": "electron/main.cjs",

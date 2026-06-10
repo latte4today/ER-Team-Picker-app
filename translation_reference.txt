@@ -1,0 +1,380 @@
+# 번역 필요 키 목록 (ja.js / zhHans.js / zhHant.js 공통)
+# 총 94개 키가 누락됨
+# 참고: EN 값과 KO 값을 함께 제공합니다.
+
+KEY: "feedback.needFullTeam"
+  EN: "Select 2 teammates and your pick, 3 characters total, to rate the match."
+  KO: "팀원 2명과 내 픽까지 총 3명을 선택하면 평가할 수 있습니다."
+
+KEY: "metric.reason.balanced"
+  EN: "Damage, defense, CC, mobility, and utility are reasonably balanced."
+  KO: "화력, 방어, CC, 기동, 보조 지표가 크게 치우치지 않는 조합입니다."
+
+KEY: "metric.reason.tags"
+  EN: "This composition leans toward {tags}."
+  KO: "{tags} 성향의 조합입니다."
+
+KEY: "metric.tag.ccHigh"
+  EN: "Strong CC"
+  KO: "CC 강함"
+
+KEY: "metric.tag.ccLow"
+  EN: "Low CC"
+  KO: "CC 부족"
+
+KEY: "metric.tag.damageHigh"
+  EN: "Damage sufficient"
+  KO: "화력 충분"
+
+KEY: "metric.tag.damageLow"
+  EN: "Damage caution"
+  KO: "화력 부족 주의"
+
+KEY: "metric.tag.defenseHigh"
+  EN: "Stable frontline"
+  KO: "앞라인 안정"
+
+KEY: "metric.tag.defenseLow"
+  EN: "Low defense"
+  KO: "방어 낮음"
+
+KEY: "metric.tag.mobilityHigh"
+  EN: "Fast fights"
+  KO: "빠른 교전"
+
+KEY: "metric.tag.mobilityLow"
+  EN: "Low mobility"
+  KO: "기동력 낮음"
+
+KEY: "metric.tag.utilityHigh"
+  EN: "High utility"
+  KO: "보조 능력 높음"
+
+KEY: "recommender.ccTypes.area"
+  EN: "AoE CC"
+  KO: "광역 CC"
+
+KEY: "recommender.ccTypes.basic"
+  EN: "CC"
+  KO: "CC기"
+
+KEY: "recommender.ccTypes.conditional"
+  EN: "conditional CC"
+  KO: "조건부 CC"
+
+KEY: "recommender.ccTypes.targeted"
+  EN: "targeted CC"
+  KO: "확정 CC"
+
+KEY: "recommender.reason.addsCC"
+  EN: "This team is short on CC. {name} adds {cc} to make initiating and counter-fighting more reliable."
+  KO: "현재 조합에 CC가 부족한 편이라, {nameSubject} {cc}를 보태 교전 시작과 받아치기를 더 안정적으로 만듭니다."
+
+KEY: "recommender.reason.addsFunctionTags"
+  EN: "{name} adds {tags} to the team, covering combat functions this composition is missing."
+  KO: "{nameSubject} {tags} 역할을 더해 현재 조합에 부족한 교전 기능을 보완합니다."
+
+KEY: "recommender.reason.aggravatesDamageLack"
+  EN: "Adding {name} may worsen the team's overall damage. With already low-damage picks present, this candidate doesn't address the firepower shortage."
+  KO: "{nameObject} 넣으면 팀 전체 화력이 더 부족해질 수 있습니다. 이미 딜 기여가 낮은 픽이 있어, 이 후보는 부족한 데미지를 해결하지 못합니다."
+
+KEY: "recommender.reason.allLowDamage"
+  EN: "All three members have low damage contribution, leaving the team without enough firepower to close out fights."
+  KO: "세 명 모두 데미지 기여가 부족한 편이라, 교전에서 상대를 마무리할 화력이 모자랄 수 있습니다."
+
+KEY: "recommender.reason.ccFallback"
+  EN: "{name} adds the CC needed to initiate fights and counter-engage reliably."
+  KO: "{nameSubject} CC로 교전 시작과 받아치기에 필요한 제어 능력을 더합니다."
+
+KEY: "recommender.reason.counterEngagerInMeleeTeam"
+  EN: "{name} favors counter-fighting over initiating, which can split engagement direction in a melee-heavy team."
+  KO: "{nameSubject} 먼저 열기보다 받아치는 쪽에 가까워서, 현재 근접 진입 조합에 넣으면 교전 방향이 갈릴 수 있습니다."
+
+KEY: "recommender.reason.counterOnlyInEngageTeam"
+  EN: "{name} excels at counter-fighting and standoffs, but may fall out of sync when teammates initiate first."
+  KO: "{nameSubject} 받아치기와 대치에 강한 픽이라, 팀원이 먼저 들어가는 조합에서는 호흡이 늦어질 수 있습니다."
+
+KEY: "recommender.reason.dakCompositionNegative"
+  EN: "Ranker match data shows {name} placing low in similar compositions — a penalty was applied."
+  KO: "랭커 전적 기준으로 {nameSubject} 비슷한 조합에서 하위권을 기록한 사례가 있어 감점되었습니다."
+
+KEY: "recommender.reason.dakCompositionPositive"
+  EN: "Ranker match records show {name} performing well in similar team compositions."
+  KO: "랭커 전적에서 {nameSubject} 비슷한 팀 조합과 함께 좋은 결과를 낸 기록이 있습니다."
+
+KEY: "recommender.reason.dakStatsNegative"
+  EN: "{name}'s current win rate and TOP3 rate are low — a meta penalty was applied."
+  KO: "{name}의 현재 승률과 TOP3 지표가 낮아 메타 보정에서 감점되었습니다."
+
+KEY: "recommender.reason.dakStatsPositive"
+  EN: "{name}'s current win rate and TOP3 rate are strong — a meta bonus was applied."
+  KO: "{name}의 현재 승률과 TOP3 지표가 좋아 메타 보정 점수가 반영되었습니다."
+
+KEY: "recommender.reason.dakTierHigh"
+  EN: "{name}'s recent stat tier is high, confirming their value in the current meta."
+  KO: "{name}의 최근 통계 티어가 높아 현재 메타 기준으로도 선택 가치가 있습니다."
+
+KEY: "recommender.reason.dealerFillsDamage"
+  EN: "{name} is a high-damage {role} who fills the finishing firepower this team is missing."
+  KO: "{nameSubject} 데미지 기여가 충분한 {role}라서 현재 조합에 부족한 마무리 화력을 채워줍니다."
+
+KEY: "recommender.reason.engagerInLenoxTeam"
+  EN: "{name} needs to go in first to be effective, unlike Lenox's counter-fight style. A ranged dealer fits better in a Lenox comp."
+  KO: "{nameSubject} 레녹스의 받아치기 구도와 달리 앞으로 들어가야 힘이 납니다. 레녹스 조합에서는 원거리 딜러 쪽이 더 안정적입니다."
+
+KEY: "recommender.reason.engagerNoInitiator"
+  EN: "{name} is strong in fights but struggles to open them. Without an initiator, finding an entry angle is difficult."
+  KO: "{nameSubject} 들어가면 강하지만 먼저 교전을 열기 어렵습니다. 현재 팀에 먼저 박아줄 실험체가 없어 진입 각이 잘 나오지 않습니다."
+
+KEY: "recommender.reason.feedbackNegative"
+  EN: "Accumulated feedback data shows {name} has been rated poorly with the current teammates — a penalty was applied."
+  KO: "누적 평가 데이터에서 {nameWith} 현재 팀원의 궁합 평가가 낮아 감점이 반영되었습니다."
+
+KEY: "recommender.reason.feedbackPositive"
+  EN: "Accumulated feedback data shows {name} has good synergy with the current teammates — a bonus was applied."
+  KO: "누적 평가 데이터에서 {nameWith} 현재 팀원의 실제 궁합이 좋게 기록되어 가산점이 반영되었습니다."
+
+KEY: "recommender.reason.firstPickFlexible"
+  EN: "{identity} {job} A solid first pick for setting the team's direction."
+  KO: "{identity} {job} 첫 픽으로 조합 방향을 잡기 쉽습니다."
+
+KEY: "recommender.reason.genericFallback"
+  EN: "{identity} A candidate whose role doesn't significantly conflict with the current teammates."
+  KO: "{identity} 현재 선택된 팀원과 역할이 크게 충돌하지 않는 후보입니다."
+
+KEY: "recommender.reason.identity"
+  EN: "{name} is a {weapon} {role}{detail}."
+  KO: "{nameSubject} {weapon} 무기를 쓰는 {role}{detail} 실험체입니다."
+
+KEY: "recommender.reason.infighterInGoodTeam"
+  EN: "{name} is a close-range infighter who thrives in the tight engagements created by a front-liner and CC."
+  KO: "{nameSubject} 팔이 짧은 인파이팅 딜러라, 앞라인과 CC가 만든 짧은 교전 안에서 화력을 집중하기 좋습니다."
+
+KEY: "recommender.reason.infighterNoSupport"
+  EN: "{name} is strong up close, but this team lacks the angles and protection to get them in safely — dragging the score down."
+  KO: "{nameSubject} 짧은 거리에서 강한 딜러지만, 현재 조합은 진입각이나 보호 수단이 부족해 점수가 낮게 잡힐 수 있습니다."
+
+KEY: "recommender.reason.lenoxDoubleRanged"
+  EN: "With a counter-fight anchor up front, running two ranged dealers is ideal for standoffs and punishing enemy focus."
+  KO: "레녹스처럼 받아치는 앞라인이 있을 때는 2원거리 딜러로 대치와 역점사를 보는 구도가 좋습니다."
+
+KEY: "recommender.reason.lenoxMeleeConflict"
+  EN: "Mixing a melee dealer into a counter-fight comp splits responsibility — the initiator and the counter-fighter pull in different directions."
+  KO: "레녹스 조합에 근딜이 섞이면 들어갈 사람과 받아칠 사람이 갈라져 교전 방향이 애매해질 수 있습니다."
+
+KEY: "recommender.reason.metricNegative"
+  EN: "Stat-wise, {reason} This weakness resulted in a penalty for the current composition."
+  KO: "지표상 {reason} 현재 조합에서는 이 약점이 감점으로 반영됩니다."
+
+KEY: "recommender.reason.metricPositive"
+  EN: "Stat-wise, {reason}"
+  KO: "지표상 {reason}"
+
+KEY: "recommender.reason.noInitiatorForLateEngage"
+  EN: "Without someone to initiate, picks that rely on follow-up will spend a lot of time waiting for an angle that never comes."
+  KO: "먼저 박아줄 사람이 없어서 선진입이 어려운 픽이 쉬는 시간이 길어질 수 있습니다."
+
+KEY: "recommender.reason.noTeamCC"
+  EN: "The team has almost no CC, making it hard to lock someone down or stop enemy dives."
+  KO: "팀 전체 CC가 거의 없어 상대 진입을 막거나 한 명을 묶어두기 어렵습니다."
+
+KEY: "recommender.reason.normalAttackDealer"
+  EN: "As a basic-attack dealer, they can reliably follow up for kills even after missing skills."
+  KO: "평타 딜러라 스킬이 빗나간 뒤에도 확정적으로 킬캐치를 이어갈 수 있습니다."
+
+KEY: "recommender.reason.notEnoughDamageDealer"
+  EN: "This composition lacks enough damage slots and may not have the firepower to finish off enemies."
+  KO: "현재 형태는 딜러 자리가 부족해 상대를 마무리할 화력이 모자랄 수 있습니다."
+
+KEY: "recommender.reason.pokeFallback"
+  EN: "{name} whittles down enemy health before the fight, creating better angles for the team to engage."
+  KO: "{nameSubject} 교전 전에 체력을 깎아 팀이 들어가기 좋은 각을 만듭니다."
+
+KEY: "recommender.reason.pokeThenEngageMismatch"
+  EN: "{name} prefers to poke enemies down before committing, which clashes with the team's all-in melee tempo."
+  KO: "{nameSubject} 대치로 체력을 깎은 뒤 들어가는 쪽이 좋아서, 바로 박는 근접 조합과는 템포가 어긋날 수 있습니다."
+
+KEY: "recommender.reason.realtimeStatsNegative"
+  EN: "{weapon} {name}'s recent average stats are below average. Win rate {winRate}%, TOP3 {top3Rate}%, avg. damage {damage} led to a penalty."
+  KO: "{weapon} {name}의 최근 평균 지표가 낮은 편입니다. 승률 {winRate}%, TOP3 {top3Rate}%, 평균 딜량 {damage} 기준으로 감점했습니다."
+
+KEY: "recommender.reason.realtimeStatsPositive"
+  EN: "{weapon} {name}'s DAK.GG average stats are strong. Win rate {winRate}%, TOP3 {top3Rate}%, avg. damage {damage} were factored in."
+  KO: "{weapon} {name}의 DAK.GG 평균 지표가 좋습니다. 승률 {winRate}%, TOP3 {top3Rate}%, 평균 딜량 {damage}을 반영했습니다."
+
+KEY: "recommender.reason.roleConflict"
+  EN: "Adding {name} creates role or engagement style overlap, reducing the composition score."
+  KO: "{nameObject} 넣으면 역할이나 교전 방식이 겹쳐 조합 점수가 낮게 계산됩니다."
+
+KEY: "recommender.reason.roleFillsDamage"
+  EN: "{identity} Fills the missing core damage slot and handles finishing fights."
+  KO: "{identity} 부족한 핵심 딜 자리를 채워 교전에서 마무리 딜을 담당합니다."
+
+KEY: "recommender.reason.roleFillsVacancy"
+  EN: "{identity} Fills the empty role slot and gives the composition a clearer shape."
+  KO: "{identity} 현재 팀에 비어 있는 역할을 채워 조합의 형태를 잡아줍니다."
+
+KEY: "recommender.reason.roleMainDamage"
+  EN: "{identity} {job}. Buys time for the team's core dealers to safely deal damage from the backline."
+  KO: "{identity} {job}. 팀의 핵심 딜러가 뒤에서 딜할 시간을 벌어줍니다."
+
+KEY: "recommender.reason.roleSupportStability"
+  EN: "{identity} Keeps teammates alive and creates counter-fight opportunities, improving overall stability."
+  KO: "{identity} 아군을 살리고 받아치는 구도를 만들어 안정성을 올립니다."
+
+KEY: "recommender.reason.shortRangeNoSupport"
+  EN: "{name} is strong at close range but needs teammates to create angles. In this team, there's a high risk of getting caught before dealing damage."
+  KO: "{nameSubject} 짧은 거리에서 강한 픽이라 앞에서 각을 만들어줄 팀원이 필요합니다. 현재 조합에서는 딜을 넣기 전에 물릴 위험이 큽니다."
+
+KEY: "recommender.reason.skillDealer"
+  EN: "As a skill-based dealer, they add utility, range, and burst to create more varied engagement options."
+  KO: "스킬 딜러라 유틸, 사거리, 순간 화력을 보태 교전 각을 더 다양하게 만듭니다."
+
+KEY: "recommender.reason.supporterLowDamage"
+  EN: "{name} is oriented toward protection and utility. Adding a support to an already low-damage team makes it harder to finish enemies."
+  KO: "{nameSubject} 보호와 보조 성향이 강합니다. 현재 조합은 마무리 화력이 부족해서 서포터를 더하면 상대를 잡기 어려워질 수 있습니다."
+
+KEY: "recommender.reason.supporterLowTeamDamage"
+  EN: "This team has a support, but the remaining firepower isn't enough to finish fights reliably."
+  KO: "서포터가 있는 조합인데 나머지 화력이 부족해 상대를 마무리하기 어려운 구도입니다."
+
+KEY: "recommender.reason.sustainedFallback"
+  EN: "{name} is a {role} who steadily accumulates damage in extended fights."
+  KO: "{nameSubject} {role} 기반으로 긴 교전에서 꾸준히 피해를 누적합니다."
+
+KEY: "recommender.reason.synergyHigh"
+  EN: "{name}'s synergy score with the current teammates is high, suggesting strong expected value when played together."
+  KO: "{nameSubject} 현재 팀원과의 샘플 상성 점수가 높아 함께 쓸 때 기대값이 좋습니다."
+
+KEY: "recommender.reason.tankDoubleMelee"
+  EN: "A tank to open and hold aggro makes it easy for two melee dealers to pile onto the same target."
+  KO: "탱커가 먼저 열고 어그로를 받아줄 수 있어 2근딜이 한 대상을 같이 물기 좋습니다."
+
+KEY: "recommender.reason.tankLowDamage"
+  EN: "{name}'s DAK.GG tank metrics show low damage contribution. In a team that needs more firepower, this front-liner can't add enough kill pressure."
+  KO: "{nameSubject} DAK.GG 탱커 지표 기준 데미지 기여가 낮은 편입니다. 현재 팀처럼 화력이 필요한 상황에서는 앞라인은 서도 킬 압박을 보태기 어렵습니다."
+
+KEY: "recommender.reason.tankLowDamagePenalty"
+  EN: "{name} has below-average damage contribution, resulting in a penalty given the team already lacks enough damage dealers."
+  KO: "{nameSubject} 데미지 기여가 부족한 편이라 현재 조합처럼 딜러 자리가 부족할 때는 감점했습니다."
+
+KEY: "recommender.reason.tankLowDamageWithAvg"
+  EN: "{name}'s DAK.GG tank metrics (avg. damage: {avgDamage}) show low damage contribution. In a team that needs more firepower, this front-liner can't add enough kill pressure."
+  KO: "{nameSubject} DAK.GG 탱커 지표 평균 딜량 {avgDamage} 기준으로 데미지 기여가 낮은 편입니다. 현재 팀처럼 화력이 필요한 상황에서는 앞라인은 서도 킬 압박을 보태기 어렵습니다."
+
+KEY: "recommender.reason.tankMeleeRangedDamageTank"
+  EN: "1 tank / 1 melee / 1 ranged, but {name} is a damage-capable tank that compensates for the firepower gap."
+  KO: "1탱 1근 1원 구조지만, {nameSubject} 데미지 기여가 가능한 탱커라 부족한 화력을 보완할 수 있습니다."
+
+KEY: "recommender.reason.tankMeleeRangedDamageTankBonus"
+  EN: "1 tank / 1 melee / 1 ranged has below-average base efficiency, but {name} is a damage-capable tank that helps cover the firepower gap."
+  KO: "1탱 1근 1원 구조라 기본 효율은 낮지만, {nameSubject} 데미지 기여가 가능한 탱커라 부족한 화력을 보완할 수 있습니다."
+
+KEY: "recommender.reason.tankMeleeRangedLowDamage"
+  EN: "1 tank / 1 melee / 1 ranged: the melee dealer is easy to focus down first, and the tank lacks damage output — both led to a penalty."
+  KO: "1탱 1근 1원 구조는 근딜이 먼저 점사당하기 쉽고 탱커의 데미지 기여도 부족해 감점되었습니다."
+
+KEY: "recommender.reason.tankSupportNoDamage"
+  EN: "A tank and support together tend to leave too few damage slots, significantly lowering the composition score."
+  KO: "탱커와 서포터가 함께 들어가면 딜 자리가 부족해지기 쉬워 조합 점수가 크게 낮아집니다."
+
+KEY: "recommender.reason.tankWithDamage"
+  EN: "{name} is a {role} with enough damage contribution to front-line while still adding the firepower the team needs."
+  KO: "{nameSubject} 데미지 기여가 충분한 {role}라서 앞라인을 세우면서도 부족한 화력을 보탤 수 있습니다."
+
+KEY: "recommender.reason.teamFeatureBackline"
+  EN: "Adding {name} gives the team three backline damage sources, with enough CC/utility to play around standoffs."
+  KO: "{nameObject} 넣으면 후방 화력이 세 명으로 늘고, CC/보조 지표가 받쳐줘 대치전 중심 운영이 가능합니다."
+
+KEY: "recommender.reason.teamFeatureDefault"
+  EN: "Adding {name} gives the team a reasonable fit across damage, CC, and mobility metrics."
+  KO: "{nameObject} 넣으면 화력, CC, 기동 지표가 현재 팀원과 비교적 잘 맞습니다."
+
+KEY: "recommender.reason.teamFeatureDiveBackline"
+  EN: "Adding {name} gives the team both dive pressure and backline finishing damage."
+  KO: "{nameObject} 넣으면 진입 압박과 후방 마무리 화력이 함께 갖춰집니다."
+
+KEY: "recommender.reason.teamFeatureFrontBack"
+  EN: "Adding {name} gives the team both a stable frontline and backline finishing damage."
+  KO: "{nameObject} 넣으면 앞에서 버티는 자리와 뒤에서 마무리하는 화력이 함께 생깁니다."
+
+KEY: "recommender.reason.teamFeatureMelee"
+  EN: "Adding {name} strengthens melee pressure and lets the team open short fights quickly with engage and CC."
+  KO: "{nameObject} 넣으면 근접 압박이 강해지고, 이니시와 CC로 짧은 교전을 빠르게 열 수 있습니다."
+
+KEY: "recommender.reason.teamFeatureSupportMelee"
+  EN: "Adding {name} adds utility to melee fights, helping the team extend committed engages."
+  KO: "{nameObject} 넣으면 근접 교전에 보조 능력이 더해져 한 번 들어간 싸움을 오래 이어갈 수 있습니다."
+
+KEY: "recommender.reason.tempoMatch"
+  EN: "Based on composition analysis, this team's engagement tempo aligns well with the current teammates."
+  KO: "표 기준 운영상 현재 팀원과 교전 템포가 잘 맞는 조합입니다."
+
+KEY: "recommender.reason.tooManyLowDamage"
+  EN: "Too many low-damage picks overlap here. This composition risks falling short on kill potential and total firepower."
+  KO: "데미지 기여가 부족한 픽이 많이 겹쳐 현재 조합은 킬캐치와 화력 총량이 부족해질 위험이 있습니다."
+
+KEY: "recommender.reason.tournamentArchetypeNegative"
+  EN: "The composition profile resembles low-performing tournament compositions — a penalty was applied."
+  KO: "선수들이 사용한 하위권 조합과 지표 구성이 비슷해 대회 조합 분석에서 감점되었습니다."
+
+KEY: "recommender.reason.tournamentArchetypePositive"
+  EN: "The damage, defense, CC, and mobility profile resembles high-performing tournament compositions — a bonus was applied."
+  KO: "선수들이 사용한 상위권 조합과 화력, 방어, CC, 기동 지표 구성이 비슷해 대회 조합 분석 보정이 반영되었습니다."
+
+KEY: "recommender.reason.tournamentComboFull"
+  EN: "Tournament data shows this combination has been used as a complete composition — a bonus was applied."
+  KO: "대회 데이터에서 현재 팀원과 함께 완성 조합으로 쓰인 기록이 있어 조합 보정이 반영되었습니다."
+
+KEY: "recommender.reason.tournamentComboNegative"
+  EN: "Tournament data shows similar compositions have performed poorly — a penalty was applied."
+  KO: "대회 데이터에서 비슷한 조합이 낮은 결과를 낸 기록이 있어 조합 보정에서 감점되었습니다."
+
+KEY: "recommender.reason.tournamentComboPair"
+  EN: "Tournament data includes records of this pair being run together, adding a small bonus."
+  KO: "대회 데이터에서 현재 팀원과 함께 쓰인 페어 기록이 있어 소폭 가산했습니다."
+
+KEY: "recommender.reason.utilityLowDamagePenalty"
+  EN: "{name} leans heavily toward utility with below-average damage, earning a penalty in a composition already short on dealers."
+  KO: "{nameSubject} 유틸 성향이 강하고 데미지 기여는 부족한 편이라, 딜러 자리가 부족한 조합에서는 감점했습니다."
+
+KEY: "recommender.reason.utilityOverDamage"
+  EN: "{name} leans toward harassment and utility over damage. When the team needs finishing power, this pick's priority drops."
+  KO: "{nameSubject} 딜보다 견제/유틸 성향이 강한 편입니다. 현재 팀이 마무리 화력이 필요한 상태라면 우선순위가 낮아집니다."
+
+KEY: "recommender.reason.weaponRangeMelee"
+  EN: "The {weapon} excels at frontline vision and finding engagement angles, complementing the team's combat range."
+  KO: "{weapon} 특성상 앞에서 시야와 진입각을 잡는 자리를 맡아 팀의 교전 거리 배분을 맞춥니다."
+
+KEY: "recommender.reason.weaponRangeRanged"
+  EN: "The {weapon} is ideal for safe backline damage, rounding out the team's combat range."
+  KO: "{weapon} 특성상 후방에서 안정적으로 딜하는 자리를 맡아 팀의 교전 거리 배분을 맞춥니다."
+
+KEY: "recommender.reason.weaponRangeShort"
+  EN: "The {weapon} is well-suited for close-range combat behind the front line, balancing the team's engagement range."
+  KO: "{weapon} 특성상 앞라인 뒤에서 짧은 거리의 교전을 받아먹는 자리를 맡아 팀의 교전 거리 배분을 맞춥니다."
+
+KEY: "recommender.roleNames.assassin"
+  EN: "Assassin"
+  KO: "암살자"
+
+KEY: "recommender.roleNames.bruiser"
+  EN: "Bruiser"
+  KO: "브루저"
+
+KEY: "recommender.roleNames.frontline"
+  EN: "Tank"
+  KO: "탱커"
+
+KEY: "recommender.roleNames.mage"
+  EN: "Mage"
+  KO: "마법사"
+
+KEY: "recommender.roleNames.ranged"
+  EN: "Ranged Dealer"
+  KO: "후방 딜러"
+
+KEY: "recommender.roleNames.support"
+  EN: "Support"
+  KO: "서포터"
+

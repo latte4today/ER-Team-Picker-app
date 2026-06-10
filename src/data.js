@@ -334,7 +334,7 @@ const shortRangeDealerIds = new Set([
   "rozzi",
   "bernice",
   "barbara",
-  "silvia",
+  // silvia는 bruiser — ranged 원딜이 아니므로 제외 (weaponBalance 과도 보너스 방지)
   "henry",
   "hart",
   "tazia",

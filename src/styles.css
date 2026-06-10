@@ -2538,7 +2538,8 @@ h2 {
     padding-top: 0;
   }
 
-  .workspace {
+  .workspace,
+  .app-main[data-view="setup"] .workspace {
     grid-template-columns: 1fr;
   }
 
@@ -3001,4 +3002,149 @@ h2 {
 
 .feedback-toast-close {
   color: var(--muted);
+}
+
+/* ══ Mobile layout ≤ 599px ══════════════════════════════════════ */
+@media (max-width: 599px) {
+  /* ── Shell: flex column so sidebar can sit at the bottom ── */
+  .app-shell {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    background: var(--bg);
+  }
+
+  /* ── Sidebar → bottom tab bar ── */
+  .app-sidebar {
+    order: 2;
+    position: static;
+    flex-direction: row;
+    align-items: stretch;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    border-right: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--sidebar);
+  }
+
+  .brand-panel {
+    display: none;
+  }
+
+  .side-nav {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    border: none;
+    gap: 0;
+  }
+
+  .side-tab {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 4px;
+    min-height: 52px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    border-radius: 0;
+    font-size: 12px;
+  }
+
+  .side-footer {
+    display: none;
+  }
+
+  /* ── Main: fills remaining height, scrollable ── */
+  .app-main {
+    order: 1;
+    flex: 1;
+    min-height: 0;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ── Topbar ── */
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 19px;
+    margin-top: 2px;
+  }
+
+  h2 {
+    font-size: 15px;
+  }
+
+  /* ── All workspace views → single column ── */
+  .workspace,
+  .app-main[data-view="setup"] .workspace,
+  .app-main[data-view="recommendations"] .workspace {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .app-main[data-view="union"] .union-view {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  /* ── Panel stacks: let height grow naturally ── */
+  .content-stack {
+    overflow: visible;
+    grid-template-rows: auto auto;
+  }
+
+  .result-column {
+    grid-template-rows: auto auto;
+  }
+
+  .character-panel {
+    overflow: visible;
+    grid-template-rows: auto auto auto auto auto auto;
+  }
+
+  /* ── Character grid: compact 2-col cards, bounded scroll ── */
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    max-height: 38vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ── Recommendations: bounded scroll ── */
+  .recommendations {
+    max-height: 45vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* In the dedicated recommendations view, use all available space */
+  .app-main[data-view="recommendations"] .recommendations {
+    max-height: none;
+  }
+
+  /* ── Character card: tighter on small screens ── */
+  .character-card {
+    min-height: 52px;
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .character-avatar {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
 }

@@ -1,0 +1,586 @@
+{
+  "changes_count": 64,
+  "validation": [
+    {
+      "lang": "ko",
+      "key_count": 570,
+      "missing": 0,
+      "extra": 0,
+      "placeholder_mismatch": 0,
+      "mismatch_keys": []
+    },
+    {
+      "lang": "en",
+      "key_count": 570,
+      "missing": 0,
+      "extra": 0,
+      "placeholder_mismatch": 0,
+      "mismatch_keys": []
+    },
+    {
+      "lang": "ja",
+      "key_count": 570,
+      "missing": 0,
+      "extra": 0,
+      "placeholder_mismatch": 0,
+      "mismatch_keys": []
+    },
+    {
+      "lang": "zhHans",
+      "key_count": 570,
+      "missing": 0,
+      "extra": 0,
+      "placeholder_mismatch": 0,
+      "mismatch_keys": []
+    },
+    {
+      "lang": "zhHant",
+      "key_count": 570,
+      "missing": 0,
+      "extra": 0,
+      "placeholder_mismatch": 0,
+      "mismatch_keys": []
+    }
+  ],
+  "node_check": [
+    {
+      "file": "ko_official_checked.js",
+      "ok": true,
+      "stderr": ""
+    },
+    {
+      "file": "en_official_checked.js",
+      "ok": true,
+      "stderr": ""
+    },
+    {
+      "file": "ja_official_checked.js",
+      "ok": true,
+      "stderr": ""
+    },
+    {
+      "file": "zhHans_official_checked.js",
+      "ok": true,
+      "stderr": ""
+    },
+    {
+      "file": "zhHant_official_checked.js",
+      "ok": true,
+      "stderr": ""
+    }
+  ],
+  "changes": [
+    {
+      "lang": "en",
+      "key": "justina",
+      "before_prefix": "Justina",
+      "official_name": "Justyna",
+      "old_text": "Justina exploits openings with skill damage and mobility, quickly pressuring focused targets.",
+      "new_text": "Justyna exploits openings with skill damage and mobility, quickly pressuring focused targets."
+    },
+    {
+      "lang": "en",
+      "key": "nia",
+      "before_prefix": "Nia",
+      "official_name": "NiaH",
+      "old_text": "Nia's burst damage and focusing excel at quickly finishing CC'd targets.",
+      "new_text": "NiaH's burst damage and focusing excel at quickly finishing CC'd targets."
+    },
+    {
+      "lang": "en",
+      "key": "coreline",
+      "before_prefix": "Coreline",
+      "official_name": "Coraline",
+      "old_text": "Coreline creates entry angles for melee dives with zone utility and structures, setting up favorable openings.",
+      "new_text": "Coraline creates entry angles for melee dives with zone utility and structures, setting up favorable openings."
+    },
+    {
+      "lang": "ja",
+      "key": "bernice",
+      "before_prefix": "バーニス",
+      "official_name": "バニス",
+      "old_text": "バーニスはトラップと妨害力で敵の進入を遮断し、近距離ディーラーの弱点を補います。",
+      "new_text": "バニスはトラップと妨害力で敵の進入を遮断し、近距離ディーラーの弱点を補います。"
+    },
+    {
+      "lang": "ja",
+      "key": "blair",
+      "before_prefix": "ブレアー",
+      "official_name": "ブレア",
+      "old_text": "ブレアーは近距離でブルーザーのように戦い、火炎フィールドとスキルで乱戦時に火力を補います。",
+      "new_text": "ブレアは近距離でブルーザーのように戦い、火炎フィールドとスキルで乱戦時に火力を補います。"
+    },
+    {
+      "lang": "ja",
+      "key": "debi_marlene",
+      "before_prefix": "デビ&マールレーン",
+      "official_name": "デビー&マーリン",
+      "old_text": "デビ&マールレーンは乱戦での継続火力が強く、前線が開いた後に続いて入る構成に向きます。",
+      "new_text": "デビー&マーリンは乱戦での継続火力が強く、前線が開いた後に続いて入る構成に向きます。"
+    },
+    {
+      "lang": "ja",
+      "key": "lenore",
+      "before_prefix": "ルノア",
+      "official_name": "レノア",
+      "old_text": "ルノアは対峙でポーキングとCCを混ぜて敵が先に入りにくくします。",
+      "new_text": "レノアは対峙でポーキングとCCを混ぜて敵が先に入りにくくします。"
+    },
+    {
+      "lang": "ja",
+      "key": "luke",
+      "before_prefix": "ルーク",
+      "official_name": "ルク",
+      "old_text": "ルークは1:1圧力とダイブ後継続火力でサイド運用とフォーカス交戦に力を発揮します。",
+      "new_text": "ルクは1:1圧力とダイブ後継続火力でサイド運用とフォーカス交戦に力を発揮します。"
+    },
+    {
+      "lang": "ja",
+      "key": "rio",
+      "before_prefix": "リオ",
+      "official_name": "莉央",
+      "old_text": "リオは長射程の通常攻撃の継続火力で前線の後ろから安定してコア火力を担います。",
+      "new_text": "莉央は長射程の通常攻撃の継続火力で前線の後ろから安定してコア火力を担います。"
+    },
+    {
+      "lang": "ja",
+      "key": "rozzi",
+      "before_prefix": "ロジー",
+      "official_name": "ロッジ",
+      "old_text": "ロジーはピストルの機動性と短い交戦バーストでCCに掛かった対象を素早く追跡して仕留めます。",
+      "new_text": "ロッジはピストルの機動性と短い交戦バーストでCCに掛かった対象を素早く追跡して仕留めます。"
+    },
+    {
+      "lang": "ja",
+      "key": "silvia",
+      "before_prefix": "シルビア",
+      "official_name": "シルヴィア",
+      "old_text": "シルビアは機動性で交戦角を素早く変えながら短い距離でダメージと進入を同時にこなします。",
+      "new_text": "シルヴィアは機動性で交戦角を素早く変えながら短い距離でダメージと進入を同時にこなします。"
+    },
+    {
+      "lang": "ja",
+      "key": "tsubame",
+      "before_prefix": "ツバメ",
+      "official_name": "つばめ",
+      "old_text": "ツバメは短射程の遠距離ディーラーですが機動性と瞬間火力で近距離乱戦でのフォーカスを助けます。",
+      "new_text": "つばめは短射程の遠距離ディーラーですが機動性と瞬間火力で近距離乱戦でのフォーカスを助けます。"
+    },
+    {
+      "lang": "ja",
+      "key": "coreline",
+      "before_prefix": "コアライン",
+      "official_name": "コラライン",
+      "old_text": "コアラインは広域ユーティリティと設置物で近接突入の角度を作り、味方が有利に入れる状況を整えます。",
+      "new_text": "コララインは広域ユーティリティと設置物で近接突入の角度を作り、味方が有利に入れる状況を整えます。"
+    },
+    {
+      "lang": "ja",
+      "key": "istvan",
+      "before_prefix": "イシュトヴァン",
+      "official_name": "イシュトヴァーン",
+      "old_text": "イシュトヴァンは耐久力を活かして味方の突入に続き、長く粘って交戦を続けるブルーザーです。",
+      "new_text": "イシュトヴァーンは耐久力を活かして味方の突入に続き、長く粘って交戦を続けるブルーザーです。"
+    },
+    {
+      "lang": "ja",
+      "key": "shoichi",
+      "before_prefix": "ショウイチ",
+      "official_name": "彰一",
+      "old_text": "ショウイチは自分から局面を開けませんが、味方が角を作ると凄まじい機動力とバーストで後衛を消します。",
+      "new_text": "彰一は自分から局面を開けませんが、味方が角を作ると凄まじい機動力とバーストで後衛を消します。"
+    },
+    {
+      "lang": "ja",
+      "key": "yuki",
+      "before_prefix": "ユキ",
+      "official_name": "雪",
+      "old_text": "ユキは武器により先行か後追いかが変わりますが、CCとバーストで交戦を主導します。",
+      "new_text": "雪は武器により先行か後追いかが変わりますが、CCとバーストで交戦を主導します。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "bernice",
+      "before_prefix": "贝尔妮丝",
+      "official_name": "伯尼斯",
+      "old_text": "贝尔妮丝以陷阱和压制阻断敌方突进，弥补近距离输出者的弱点。",
+      "new_text": "伯尼斯以陷阱和压制阻断敌方突进，弥补近距离输出者的弱点。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "bihyung",
+      "before_prefix": "比亨",
+      "official_name": "鼻荆",
+      "old_text": "比亨进入后瞬间火力和聚焦能力强，能快速压迫敌方核心输出。",
+      "new_text": "鼻荆进入后瞬间火力和聚焦能力强，能快速压迫敌方核心输出。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "celine",
+      "before_prefix": "塞琳",
+      "official_name": "席琳",
+      "old_text": "塞琳以爆炸物制造大范围压力，在狭窄通道大幅削减敌方血量。",
+      "new_text": "席琳以爆炸物制造大范围压力，在狭窄通道大幅削减敌方血量。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "debi_marlene",
+      "before_prefix": "黛比&玛琳",
+      "official_name": "黛比&玛莲",
+      "old_text": "黛比&玛琳在混战中持续输出能力强，擅长在前线打开后跟进。",
+      "new_text": "黛比&玛莲在混战中持续输出能力强，擅长在前线打开后跟进。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "estelle",
+      "before_prefix": "艾斯特",
+      "official_name": "艾丝蒂尔",
+      "old_text": "艾斯特是可以同时保护和输出的坦克，一定程度弥补火力空缺。",
+      "new_text": "艾丝蒂尔是可以同时保护和输出的坦克，一定程度弥补火力空缺。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "garnet",
+      "before_prefix": "加内特",
+      "official_name": "盖瑞特",
+      "old_text": "加内特坚实抵挡同时以AOE控制开辟进攻角度，适合需要前排的阵容。",
+      "new_text": "盖瑞特坚实抵挡同时以AOE控制开辟进攻角度，适合需要前排的阵容。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "justina",
+      "before_prefix": "贾斯蒂娜",
+      "official_name": "尤斯蒂娜",
+      "old_text": "贾斯蒂娜以技能伤害和机动性抓住破绽，快速压迫聚焦目标。",
+      "new_text": "尤斯蒂娜以技能伤害和机动性抓住破绽，快速压迫聚焦目标。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "laura",
+      "before_prefix": "劳拉",
+      "official_name": "萝拉",
+      "old_text": "劳拉的机动性和快速突进使她适合作为战士直接压迫敌方远程输出。",
+      "new_text": "萝拉的机动性和快速突进使她适合作为战士直接压迫敌方远程输出。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "lenox",
+      "before_prefix": "勒诺克斯持续骚扰和压制",
+      "official_name": "伦诺克斯",
+      "old_text": "勒诺克斯持续骚扰和压制能力强，阻断敌方突进并为队友输出争取时间。",
+      "new_text": "伦诺克斯能力强，阻断敌方突进并为队友输出争取时间。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "nadine",
+      "before_prefix": "娜丁",
+      "official_name": "娜町",
+      "old_text": "娜丁在目标和长期交战中累积伤害强，在前线争取时间的阵容中价值高。",
+      "new_text": "娜町在目标和长期交战中累积伤害强，在前线争取时间的阵容中价值高。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "silvia",
+      "before_prefix": "西尔维亚快速变换交战角度，",
+      "official_name": "西尔维娅",
+      "old_text": "西尔维亚快速变换交战角度，在近距离同时完成输出和突进。",
+      "new_text": "西尔维娅在近距离同时完成输出和突进。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "sissela",
+      "before_prefix": "西塞拉",
+      "official_name": "希瑟拉",
+      "old_text": "西塞拉以远程骚扰和生存力在对峙中削减血量并反击。",
+      "new_text": "希瑟拉以远程骚扰和生存力在对峙中削减血量并反击。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "sua",
+      "before_prefix": "苏阿",
+      "official_name": "秀雅",
+      "old_text": "苏阿兼具坚实、控制和持续力，在前方长久抵挡并延续交战。",
+      "new_text": "秀雅兼具坚实、控制和持续力，在前方长久抵挡并延续交战。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "theodore",
+      "before_prefix": "提奥多尔",
+      "official_name": "西奥多",
+      "old_text": "提奥多尔通过远程支援和护盾在对峙阵容中提高队友输出的稳定性。",
+      "new_text": "西奥多通过远程支援和护盾在对峙阵容中提高队友输出的稳定性。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "tsubame",
+      "before_prefix": "燕子",
+      "official_name": "燕翼",
+      "old_text": "燕子是近距离远程输出，机动性和瞬间火力在近战混战中协助聚焦。",
+      "new_text": "燕翼是近距离远程输出，机动性和瞬间火力在近战混战中协助聚焦。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "vanya",
+      "before_prefix": "万雅",
+      "official_name": "万尼亚",
+      "old_text": "万雅以护盾和AOE骚扰反制敌方突进，稳定长期交战。",
+      "new_text": "万尼亚以护盾和AOE骚扰反制敌方突进，稳定长期交战。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "yumin",
+      "before_prefix": "柔敏",
+      "official_name": "俞岷",
+      "old_text": "柔敏是技能输出，以中距离骚扰和功能性从前线后方稳定施压。",
+      "new_text": "俞岷是技能输出，以中距离骚扰和功能性从前线后方稳定施压。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "adriana",
+      "before_prefix": "阿德里安娜",
+      "official_name": "阿德瑞娜",
+      "old_text": "阿德里安娜以宽广的范围技能掌控特定区域，对闯入之敌造成大量伤害。",
+      "new_text": "阿德瑞娜以宽广的范围技能掌控特定区域，对闯入之敌造成大量伤害。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "chiara",
+      "before_prefix": "基亚拉",
+      "official_name": "奇娅拉",
+      "old_text": "基亚拉率先突入，凭借耐久力承受伤害，为队友跟进争取时间。",
+      "new_text": "奇娅拉率先突入，凭借耐久力承受伤害，为队友跟进争取时间。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "coreline",
+      "before_prefix": "科雷莱恩",
+      "official_name": "卡洛琳",
+      "old_text": "科雷莱恩通过区域工具和设置物为近战突进创造角度，营造有利的进入时机。",
+      "new_text": "卡洛琳通过区域工具和设置物为近战突进创造角度，营造有利的进入时机。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "felix",
+      "before_prefix": "菲利克斯",
+      "official_name": "费利克斯",
+      "old_text": "菲利克斯在队友开团后跟进，凭借高机动性和持续压力死缠烂打。",
+      "new_text": "费利克斯在队友开团后跟进，凭借高机动性和持续压力死缠烂打。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "haze",
+      "before_prefix": "黑兹",
+      "official_name": "海因茨",
+      "old_text": "黑兹以远程骚扰消耗敌方血量，待时机成熟突进以爆发伤害终结战斗。",
+      "new_text": "海因茨以远程骚扰消耗敌方血量，待时机成熟突进以爆发伤害终结战斗。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "hyunwoo",
+      "before_prefix": "玄宇",
+      "official_name": "玄佑",
+      "old_text": "玄宇以强力开团控制发起战斗，为队友创造集中攻击目标的发起者。",
+      "new_text": "玄佑以强力开团控制发起战斗，为队友创造集中攻击目标的发起者。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "irem",
+      "before_prefix": "伊蕾姆",
+      "official_name": "爱琳",
+      "old_text": "伊蕾姆凭借高机动性在战斗中寻找有利角度，以骚扰和辅助支援队伍。",
+      "new_text": "爱琳凭借高机动性在战斗中寻找有利角度，以骚扰和辅助支援队伍。"
+    },
+    {
+      "lang": "zhHans",
+      "key": "isol",
+      "before_prefix": "伊索尔",
+      "official_name": "埃索",
+      "old_text": "伊索尔根据武器在近战突进支援和骚扰输出之间灵活切换。",
+      "new_text": "埃索根据武器在近战突进支援和骚扰输出之间灵活切换。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "bernice",
+      "before_prefix": "貝爾妮絲",
+      "official_name": "伯尼斯",
+      "old_text": "貝爾妮絲以陷阱和壓制阻斷敵方突進，彌補近距離輸出者的弱點。",
+      "new_text": "伯尼斯以陷阱和壓制阻斷敵方突進，彌補近距離輸出者的弱點。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "bihyung",
+      "before_prefix": "比亨",
+      "official_name": "鼻荊",
+      "old_text": "比亨進入後瞬間火力和聚焦能力強，能快速壓迫敵方核心輸出。",
+      "new_text": "鼻荊進入後瞬間火力和聚焦能力強，能快速壓迫敵方核心輸出。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "celine",
+      "before_prefix": "塞琳",
+      "official_name": "席琳",
+      "old_text": "塞琳以爆炸物製造大範圍壓力，在狹窄通道大幅削減敵方血量。",
+      "new_text": "席琳以爆炸物製造大範圍壓力，在狹窄通道大幅削減敵方血量。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "debi_marlene",
+      "before_prefix": "黛比&瑪琳",
+      "official_name": "黛比&瑪蓮",
+      "old_text": "黛比&瑪琳在混戰中持續輸出能力強，擅長在前線打開後跟進。",
+      "new_text": "黛比&瑪蓮在混戰中持續輸出能力強，擅長在前線打開後跟進。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "estelle",
+      "before_prefix": "艾斯特",
+      "official_name": "艾絲黛爾",
+      "old_text": "艾斯特是可以同時保護和輸出的坦克，一定程度彌補火力空缺。",
+      "new_text": "艾絲黛爾是可以同時保護和輸出的坦克，一定程度彌補火力空缺。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "garnet",
+      "before_prefix": "加內特",
+      "official_name": "蓋瑞特",
+      "old_text": "加內特堅實抵擋同時以AOE控制開闢進攻角度，適合需要前排的陣容。",
+      "new_text": "蓋瑞特堅實抵擋同時以AOE控制開闢進攻角度，適合需要前排的陣容。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "justina",
+      "before_prefix": "賈斯蒂娜",
+      "official_name": "尤斯蒂娜",
+      "old_text": "賈斯蒂娜以技能傷害和機動性抓住破綻，快速壓迫聚焦目標。",
+      "new_text": "尤斯蒂娜以技能傷害和機動性抓住破綻，快速壓迫聚焦目標。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "laura",
+      "before_prefix": "勞拉",
+      "official_name": "蘿拉",
+      "old_text": "勞拉的機動性和快速突進使她適合作為戰士直接壓迫敵方遠程輸出。",
+      "new_text": "蘿拉的機動性和快速突進使她適合作為戰士直接壓迫敵方遠程輸出。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "lenox",
+      "before_prefix": "勒諾克斯持續騷擾和壓制",
+      "official_name": "倫諾克斯",
+      "old_text": "勒諾克斯持續騷擾和壓制能力強，阻斷敵方突進並為隊友輸出爭取時間。",
+      "new_text": "倫諾克斯能力強，阻斷敵方突進並為隊友輸出爭取時間。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "silvia",
+      "before_prefix": "西爾維亞快速變換交戰角度，",
+      "official_name": "希爾維婭",
+      "old_text": "西爾維亞快速變換交戰角度，在近距離同時完成輸出和突進。",
+      "new_text": "希爾維婭在近距離同時完成輸出和突進。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "sissela",
+      "before_prefix": "西塞拉",
+      "official_name": "希瑟拉",
+      "old_text": "西塞拉以遠程騷擾和生存力在對峙中削減血量並反擊。",
+      "new_text": "希瑟拉以遠程騷擾和生存力在對峙中削減血量並反擊。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "sua",
+      "before_prefix": "蘇阿",
+      "official_name": "秀雅",
+      "old_text": "蘇阿兼具堅實、控制和持續力，在前方長久抵擋並延續交戰。",
+      "new_text": "秀雅兼具堅實、控制和持續力，在前方長久抵擋並延續交戰。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "theodore",
+      "before_prefix": "提奧多爾",
+      "official_name": "西奧多",
+      "old_text": "提奧多爾透過遠程支援和護盾在對峙陣容中提高隊友輸出的穩定性。",
+      "new_text": "西奧多透過遠程支援和護盾在對峙陣容中提高隊友輸出的穩定性。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "tsubame",
+      "before_prefix": "燕子",
+      "official_name": "青燕",
+      "old_text": "燕子是近距離遠程輸出，機動性和瞬間火力在近戰混戰中協助聚焦。",
+      "new_text": "青燕是近距離遠程輸出，機動性和瞬間火力在近戰混戰中協助聚焦。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "vanya",
+      "before_prefix": "萬雅",
+      "official_name": "萬尼亞",
+      "old_text": "萬雅以護盾和AOE騷擾反制敵方突進，穩定長期交戰。",
+      "new_text": "萬尼亞以護盾和AOE騷擾反制敵方突進，穩定長期交戰。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "yumin",
+      "before_prefix": "柔敏",
+      "official_name": "俞岷",
+      "old_text": "柔敏是技能輸出，以中距離騷擾和功能性從前線後方穩定施壓。",
+      "new_text": "俞岷是技能輸出，以中距離騷擾和功能性從前線後方穩定施壓。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "adriana",
+      "before_prefix": "阿德里安娜",
+      "official_name": "亞莉安娜",
+      "old_text": "阿德里安娜以寬廣的範圍技能掌控特定區域，對闖入之敵造成大量傷害。",
+      "new_text": "亞莉安娜以寬廣的範圍技能掌控特定區域，對闖入之敵造成大量傷害。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "chiara",
+      "before_prefix": "基亞拉",
+      "official_name": "琪婭拉",
+      "old_text": "基亞拉率先突入，憑藉耐久力承受傷害，為隊友跟進爭取時間。",
+      "new_text": "琪婭拉率先突入，憑藉耐久力承受傷害，為隊友跟進爭取時間。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "coreline",
+      "before_prefix": "科雷萊恩通過區域工具和設置物為近戰突進創造角度，營造有利",
+      "official_name": "卡洛琳",
+      "old_text": "科雷萊恩通過區域工具和設置物為近戰突進創造角度，營造有利的進入時機。",
+      "new_text": "卡洛琳的進入時機。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "haze",
+      "before_prefix": "黑茲",
+      "official_name": "海因茨",
+      "old_text": "黑茲以遠程騷擾消耗敵方血量，待時機成熟突進以爆發傷害終結戰鬥。",
+      "new_text": "海因茨以遠程騷擾消耗敵方血量，待時機成熟突進以爆發傷害終結戰鬥。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "hyunwoo",
+      "before_prefix": "玄宇",
+      "official_name": "玹雨",
+      "old_text": "玄宇以強力開團控制發起戰鬥，為隊友創造集中攻擊目標的發起者。",
+      "new_text": "玹雨以強力開團控制發起戰鬥，為隊友創造集中攻擊目標的發起者。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "irem",
+      "before_prefix": "伊蕾姆",
+      "official_name": "愛琳",
+      "old_text": "伊蕾姆憑藉高機動性在戰鬥中尋找有利角度，以騷擾和輔助支援隊伍。",
+      "new_text": "愛琳憑藉高機動性在戰鬥中尋找有利角度，以騷擾和輔助支援隊伍。"
+    },
+    {
+      "lang": "zhHant",
+      "key": "zahir",
+      "before_prefix": "扎希爾",
+      "official_name": "查希爾",
+      "old_text": "扎希爾是一名反制法師，以遠程控制和騷擾封堵敵方突進，創造反擊角度。",
+      "new_text": "查希爾是一名反制法師，以遠程控制和騷擾封堵敵方突進，創造反擊角度。"
+    }
+  ]
+}

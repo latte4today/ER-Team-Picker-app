@@ -532,7 +532,18 @@ function teamShapeScore(candidate, selected) {
 
   if (shape.tanks === 1 && shape.backline === 2 && shape.supports === 0) {
     const tank = team.find(isTank);
-    score += isLowDamageFront(tank) ? 1.2 : 1.45;
+    // 보호형 탱커(필/실드/힐 or 가드 스타일)와 돌격형 탱커(firstEngage only) 구분
+    // 매그너스·엘레나 등 다이브형 탱커는 원거리 딜러를 지킬 수 없어 보너스 감소
+    const isProtectiveTank = tank && (
+      tank.tags.includes("peel") ||
+      tank.tags.includes("shield") ||
+      tank.tags.includes("healing") ||
+      isGuardSometimesEngage(tank) ||
+      isGuardOnly(tank)
+    );
+    if (isLowDamageFront(tank)) score += 1.2;
+    else if (isProtectiveTank) score += 1.45;
+    else score += 0.75; // 돌격형 탱커 (매그너스, 엘레나 등) — 데미지는 높지만 보호 불가
   }
   if (shape.tanks === 0 && shape.melee === 2 && shape.backline === 1) score += 1.25;
   if (shape.tanks === 0 && shape.melee === 2 && shape.supports === 1) score += 1.1;
@@ -821,6 +832,21 @@ function compositionGuideScore(candidate, selected) {
     if (shape.melee >= 1) score -= 1.85;
   }
 
+  // 돌격형 탱커(firstEngage, 필·실드 없음)가 백라인 2명과 근접 없는 구성
+  // → 탱커가 적진으로 달려들어 자기 팀 원딜을 보호 못 함 (매그너스 등)
+  if (shape.tanks === 1 && shape.backline === 2 && shape.melee === 0) {
+    const tank = team.find(isTank);
+    if (
+      tank &&
+      isFirstEngageStyle(tank) &&
+      !tank.tags.includes("peel") &&
+      !tank.tags.includes("shield") &&
+      !isGuardSometimesEngage(tank)
+    ) {
+      score -= 0.75;
+    }
+  }
+
   if (shape.guardOnly >= 1 && shape.melee >= 1) score -= 1.15;
   if (shape.guardOnly >= 1 && shape.backline >= 2 && shape.counterOnlyRanged + shape.pokeThenEngage + shape.rangedEngageHelpers >= 1) score += 0.55;
 
@@ -849,6 +875,12 @@ function compositionGuideScore(candidate, selected) {
   if (shape.backline >= 3 && shape.firstEngagers === 0 && shape.counterOnlyRanged + shape.pokeThenEngage + shape.rangedEngageHelpers >= 2 && teamCcPower(team) >= 2.0) score += 0.55;
   if (lateEngageIds.has(candidate.characterId) && hasDiveTeam && !hasSupport) score -= 0.45;
 
+  // 라우라: 전원 근접(백라인 0) + 기존 팀에 이미 다이브 캐릭터가 있을 때 중복 패널티
+  // 팀에 원거리 딜러가 없으면 라우라의 다이브 가치가 희석됨
+  if (candidate.characterId === "laura" && shape.backline === 0 && shape.supports === 0 && shape.melee + shape.tanks >= 3) {
+    score -= 0.6;
+  }
+
   return Math.max(-4.0, Math.min(2.2, score));
 }
 
@@ -866,7 +898,7 @@ function dakCompositionScore(candidate, selected) {
 
     const exactMatch = matchedCount === selectedCharacters.size;
     const matchWeight = exactMatch ? 1.45 : 0.48;
-    const sampleWeight = Math.min(1.25, Math.log2((row.games ?? 0) + 1) / 3);
+    const sampleWeight = Math.min(1.25, Math.log2((row.games ?? 0) + 1) / 4.5);
     const craftWeight = oneTrickWeight(row.oneTrickRatio);
     const weight = matchedCount * matchWeight * sampleWeight * craftWeight;
     state.score += placementScore(row) * weight;
@@ -901,21 +933,21 @@ function tournamentCompositionScore(candidate, selected) {
 
     const completesExactTeam = selected.length >= 2 && selectedIds.every((id) => members.has(id));
     const pairOnly = selected.length === 1 && members.has(selectedIds[0]);
-    const repeatWeight = Math.min(1.35, Math.log2((row.appearances ?? 1) + 1));
-    const matchWeight = completesExactTeam ? 2.75 : pairOnly ? 0.72 : 0.9;
+    const repeatWeight = Math.min(1.1, Math.log2((row.appearances ?? 1) + 1));
+    const matchWeight = completesExactTeam ? 1.2 : pairOnly ? 0.45 : 0.5;
     const score = tournamentResultScore(row) * matchWeight * repeatWeight;
 
     state.score += score;
     state.weight += matchWeight;
     state.exact += completesExactTeam ? 1 : 0;
-    state.exactScore += completesExactTeam ? Math.max(0.2, tournamentResultScore(row)) : 0;
+    state.exactScore += completesExactTeam ? Math.max(0.1, tournamentResultScore(row)) : 0;
     return state;
   }, { score: 0, weight: 0, exact: 0, exactScore: 0 });
 
   if (aggregate.weight === 0) return 0;
-  const cap = aggregate.exact > 0 ? 2.6 : 0.85;
-  const exactCompletionBonus = aggregate.exact > 0 ? Math.min(10, aggregate.exact * 5 + aggregate.exactScore * 3) : 0;
-  return Math.max(-1.0, Math.min(cap + exactCompletionBonus, aggregate.score / aggregate.weight + exactCompletionBonus));
+  const cap = aggregate.exact > 0 ? 1.1 : 0.55;
+  const exactCompletionBonus = aggregate.exact > 0 ? Math.min(1.5, aggregate.exact * 0.6 + aggregate.exactScore * 0.4) : 0;
+  return Math.max(-0.5, Math.min(cap + exactCompletionBonus, aggregate.score / aggregate.weight + exactCompletionBonus));
 }
 
 function characterByCharacterId(characterId) {
@@ -960,7 +992,9 @@ function dakTierScore(candidate, tier) {
   const tierLabel = experimentTiers[bucket]?.[candidate.characterId] ?? experimentTiers.all?.[candidate.characterId];
   const tierScore = tierScoreWeights[tierLabel] ?? 0;
   const broadRanker = rankerCandidateStats[candidate.characterId];
-  const broadRankerScore = broadRanker ? placementScore(broadRanker) * oneTrickWeight(broadRanker.oneTrickRatio) * 0.35 : 0;
+  if (!broadRanker) return tierScore;
+  const rankerConfidence = Math.min(1, Math.log10((broadRanker.games ?? 0) + 1) / 2.5);
+  const broadRankerScore = placementScore(broadRanker) * oneTrickWeight(broadRanker.oneTrickRatio) * rankerConfidence * 0.35;
   return tierScore + broadRankerScore;
 }
 
@@ -1341,8 +1375,8 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.conflict +
     scores.compositionGuide +
     scores.dakComposition +
-    scores.tournamentComposition * 1.25 +
-    scores.tournamentArchetype * 1.1 +
+    scores.tournamentComposition * 0.5 +
+    scores.tournamentArchetype * 0.4 +
     scores.dakTier +
     scores.dakStatistics +
     scores.dakRealtime +
