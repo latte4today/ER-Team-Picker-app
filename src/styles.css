@@ -3147,42 +3147,39 @@ h2 {
     min-width: 36px;
   }
 
-  /* ── Compact: hide non-essential text and sections ── */
-  .section-kicker {
-    display: none;
-  }
+  /* ── Strip all non-title content from panels ── */
+  .section-kicker        { display: none; }
+  .helper-text           { display: none; }
+  .guide-strip           { display: none !important; }
+  .feedback-panel        { display: none !important; }
+  .playable-tools        { display: none; }
+  .playable-presets      { display: none; }
+  .sync-chip             { display: none; }
+  .status-group          { display: none; }
+  .topbar                { display: none; }
 
-  .helper-text {
-    display: none;
-  }
+  /* Search: hide label, keep input */
+  .search-box > span     { display: none; }
 
-  .guide-strip {
-    display: none;
-  }
+  /* Recommendation empty-state: hide long description */
+  .empty-state p,
+  .empty-state span      { display: none; }
 
-  .feedback-panel {
-    display: none;
-  }
-
-  /* ── Hide preset features on mobile ── */
-  .playable-tools {
-    display: none;
-  }
-
-  .playable-presets {
-    display: none;
-  }
+  /* Roster panel: hide "초기화" button text to save header space */
+  .roster-panel .panel-header .ghost-button { font-size: 11px; padding: 4px 8px; }
 
   /* ── Compact panel headers ── */
   .panel-header {
-    padding-bottom: 8px;
-    margin-bottom: 8px;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
   }
 
   .panel {
-    padding: 10px 12px;
-    margin-bottom: 8px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
   }
+
+  h2 { font-size: 14px; margin: 0; }
 
   /* ── Team slots: compact horizontal row ── */
   .manual-slots {
