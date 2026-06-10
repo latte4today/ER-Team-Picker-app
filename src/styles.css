@@ -3212,10 +3212,9 @@ h2 {
     padding-bottom: 6px;
   }
 
-  .selected-team {
-    gap: 4px;
-    margin-top: 6px;
-  }
+  /* Hide duplicate character displays — only keep manual slots */
+  .selected-team  { display: none !important; }
+  .detected-team  { display: none !important; }
 
   /* ── Recommendations: compact ── */
   .recommendations {

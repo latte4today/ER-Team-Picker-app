@@ -1377,9 +1377,9 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.dakComposition +
     scores.tournamentComposition * 0.5 +
     scores.tournamentArchetype * 0.4 +
-    scores.dakTier * 0.6 +
-    scores.dakStatistics * 0.6 +
-    scores.dakRealtime * 0.5 +
+    scores.dakTier +
+    scores.dakStatistics +
+    scores.dakRealtime +
     scores.relationship -
     candidate.difficulty * 0.08 +
     getFeedbackScore(selectedIds, candidate.variantId, tier) +
@@ -1399,18 +1399,10 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   const candidatePool = candidateCharacterIds?.length ? new Set(candidateCharacterIds) : undefined;
   const candidateUsesVariants = candidateCharacterIds?.some((id) => String(id).includes(":")) ?? false;
 
-  const scored = characterVariants
+  return characterVariants
     .filter((candidate) => !selectedCharacters.has(candidate.characterId))
     .filter((candidate) => !candidatePool || candidatePool.has(candidateUsesVariants ? candidate.variantId : candidate.characterId))
     .map((candidate) => evaluateCandidate(selectedIds, candidate.variantId, tier, remoteFeedback, relationshipRows))
-    .sort((a, b) => b.score - a.score);
-
-  // Deduplicate by characterId — keep only the highest-scoring variant per character
-  const seen = new Set();
-  return scored.filter((r) => {
-    const cid = r.character.characterId;
-    if (seen.has(cid)) return false;
-    seen.add(cid);
-    return true;
-  }).slice(0, 18);
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 18);
 }
