@@ -3117,9 +3117,10 @@ h2 {
   .feedback-panel    { display: none !important; }
   .guide-strip       { display: none !important; }
 
-  /* ── Character grid: compact 2-col cards ── */
+  /* ── Character grid: compact 3-col cards ── */
   .character-grid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 4px;
   }
 
   /* ── Recommendations: bounded scroll ── */
@@ -3134,18 +3135,27 @@ h2 {
     max-height: none;
   }
 
-  /* ── Character card: tighter on small screens ── */
+  /* ── Character card: minimal on mobile ── */
   .character-card {
-    min-height: 52px;
-    padding: 6px;
-    gap: 6px;
+    min-height: 40px;
+    padding: 4px 6px;
+    gap: 5px;
   }
 
-  .character-avatar {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
+  /* Avatar: smaller */
+  .avatar {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    border-radius: 4px;
   }
+
+  /* Name only, no role/subtitle */
+  .character-info small { display: none; }
+  .character-info strong { font-size: 12px; font-weight: 600; }
+
+  /* Playable mark: tiny */
+  .playable-mark { font-size: 10px; padding: 1px 4px; }
 
   /* ── Strip all non-title content from panels ── */
   .section-kicker        { display: none; }
