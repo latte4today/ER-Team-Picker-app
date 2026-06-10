@@ -2622,4 +2622,3 @@ if (isElectron) {
   startPeriodicUpdateChecks();
 }
 startPeriodicPendingFeedbackSync();
- 
