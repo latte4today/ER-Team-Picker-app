@@ -3147,4 +3147,58 @@ h2 {
     height: 36px;
     min-width: 36px;
   }
+
+  /* ── Compact: hide non-essential text and sections ── */
+  .section-kicker {
+    display: none;
+  }
+
+  .helper-text {
+    display: none;
+  }
+
+  .guide-strip {
+    display: none;
+  }
+
+  .feedback-panel {
+    display: none;
+  }
+
+  /* ── Compact panel headers ── */
+  .panel-header {
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+  }
+
+  .panel {
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+
+  /* ── Team slots: shorter ── */
+  .manual-slot {
+    padding: 8px 12px;
+    min-height: 36px;
+    font-size: 13px;
+  }
+
+  .selected-team {
+    gap: 4px;
+  }
+
+  /* ── Recommendations: compact, show less ── */
+  .recommendations {
+    max-height: 28vh;
+  }
+
+  /* ── Character grid: slightly more height now that other panels shrank ── */
+  .character-grid {
+    max-height: 42vh;
+  }
+
+  /* ── Topbar: hide in setup view to save space ── */
+  .app-main[data-view="setup"] .topbar {
+    display: none;
+  }
 }
