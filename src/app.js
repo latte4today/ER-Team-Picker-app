@@ -500,7 +500,7 @@ function renderCharacters({ preserveScroll = true } = {}) {
           </span>
           <span class="character-info">
             <strong>${t(`char.${character.id}`)}</strong>
-            <small class="char-role">${roleLabel(character.role)}</small><small class="char-weapon">${[t(`weapon.${character.weapon}`), character.weaponStyle].filter(Boolean).join(" · ")}</small>
+            <small class="char-role">${roleLabel(character.role)}</small><small class="char-weapon">${[t("weapon." + character.weapon), character.weaponStyle].filter(Boolean).join(" · ")}</small>
           </span>
           ${playable ? `<span class="playable-mark">${t("playable.mark")}</span>` : ""}
         </button>
