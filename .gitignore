@@ -13,6 +13,8 @@ out/
 
 # Collector/cache output
 data/dak-cache/
+data/official-cache/
+data/official-match-input*.json
 data/namu-debug.html
 
 # Local environment and secrets
@@ -36,3 +38,9 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+*.bak
+src/i18n/*official_checked*
+src/i18n/i18n_official_name_check_*
+
+# Tier seed files (contain nicknames)
+data/official-tier-seeds.json

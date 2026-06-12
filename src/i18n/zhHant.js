@@ -132,6 +132,8 @@ export const zhHant = {
   "recommender.reason.tournamentArchetypeNegative": "與選手使用的低排名陣容指標構成相似，因此在赛事陣容分析中被扣分。",
   "recommender.reason.dakCompositionPositive": "排位高手戰绩中，{nameSubject}與相似隊伍陣容一起取得好結果的記錄。",
   "recommender.reason.dakCompositionNegative": "根據排位高手戰绩，{nameSubject}在相似陣容中有低排名案例，因此被扣分。",
+  "recommender.reason.officialMatchPositive": "官方對局資料中，{nameSubject}與相似隊友陣容取得過較好結果。",
+  "recommender.reason.officialMatchNegative": "官方對局資料中，{nameSubject}與相似隊友陣容的表現偏低。",
   "recommender.reason.dakTierHigh": "{name}最近的統計檔位較高，在當前環境下也有選擇價值。",
   "recommender.reason.dakStatsPositive": "{name}當前勝率和TOP3指標較好，因此反映了環境修正分數。",
   "recommender.reason.dakStatsNegative": "{name}當前勝率和TOP3指標較低，因此在環境修正中被扣分。",

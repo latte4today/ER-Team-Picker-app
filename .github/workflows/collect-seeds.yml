@@ -1,0 +1,66 @@
+name: Collect Tier Seeds
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # 매일 UTC 03:00 (한국 낮 12시)
+  workflow_dispatch:       # GitHub UI에서 수동 실행 가능
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300   # 최대 5시간
+
+    permissions:
+      contents: write      # 결과 파일 commit 권한
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Restore game cache
+        uses: actions/cache@v4
+        with:
+          path: data/official-cache
+          key: official-cache-${{ github.run_id }}
+          restore-keys: official-cache-
+
+      - name: Write secrets to disk
+        run: |
+          echo "ER_API_KEY=${{ secrets.ER_API_KEY }}" > .env
+          mkdir -p data
+          echo '${{ secrets.TIER_SEEDS }}' > data/official-tier-seeds.json
+
+      - name: Collect seed-tier match data
+        run: |
+          node tools/official_seed_collector.mjs \
+            --games-per-user 10 \
+            --depth 2 \
+            --max-users-per-tier 80 \
+            --delay-ms 2500 \
+            --retry-429-ms 60000
+
+      - name: Build combined stats
+        run: |
+          if [ -f data/official-match-input.json ]; then
+            node tools/build_official_stats.mjs \
+              --in data/official-match-input.json \
+              --in data/official-match-input-seeded.json
+          else
+            node tools/build_official_stats.mjs \
+              --in data/official-match-input-seeded.json
+          fi
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/official-match-input-seeded.json
+          git add src/officialMatchStats.js 2>/dev/null || true
+          git add data/dakStats.json 2>/dev/null || true
+          git diff --staged --quiet && echo "No changes to commit" || \
+            git commit -m "chore: update tier match data [skip ci]" && git push

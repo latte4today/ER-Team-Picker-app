@@ -132,6 +132,8 @@ export const en = {
   "recommender.reason.tournamentArchetypeNegative": "The composition profile resembles low-performing tournament compositions — a penalty was applied.",
   "recommender.reason.dakCompositionPositive": "Ranker match records show {nameSubject} performing well in similar team compositions.",
   "recommender.reason.dakCompositionNegative": "Ranker match data shows {nameSubject} placing low in similar compositions — a penalty was applied.",
+  "recommender.reason.officialMatchPositive": "Official match data shows {nameSubject} performing well with similar teammates.",
+  "recommender.reason.officialMatchNegative": "Official match data shows {nameSubject} has been less reliable with similar teammates.",
   "recommender.reason.dakTierHigh": "{name}'s recent stat tier is high, confirming their value in the current meta.",
   "recommender.reason.dakStatsPositive": "{name}'s current win rate and TOP3 rate are strong — a meta bonus was applied.",
   "recommender.reason.dakStatsNegative": "{name}'s current win rate and TOP3 rate are low — a meta penalty was applied.",

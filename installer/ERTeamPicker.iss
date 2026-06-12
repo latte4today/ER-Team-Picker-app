@@ -1,5 +1,5 @@
 #define MyAppName "ER Team Picker"
-#define MyAppVersion "0.1.10"
+#define MyAppVersion "0.2.1"
 #define MyAppPublisher "ER Team Picker"
 #define MyAppExeName "ER Team Picker.exe"
 #define SourceDir "..\dist\win-unpacked"
@@ -25,10 +25,10 @@ CloseApplications=yes
 RestartApplications=no
 
 [Languages]
-Name: "korean"; MessagesFile: "compiler:Languages\Korean.isl"
+Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "바탕화면 바로가기 만들기"; GroupDescription: "바로가기"
+Name: "desktopicon"; Description: "Create a desktop shortcut"; GroupDescription: "Shortcuts"
 
 [Files]
 Source: "{#SourceDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -51,4 +51,4 @@ Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{#MyAppName} 실행"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; Description: "Launch {#MyAppName}"; Flags: nowait postinstall skipifsilent

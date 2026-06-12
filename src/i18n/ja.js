@@ -132,6 +132,8 @@ export const ja = {
   "recommender.reason.tournamentArchetypeNegative": "選手が使用した下位構成と指標構成が似ているため、大会構成分析で減点されました。",
   "recommender.reason.dakCompositionPositive": "ランカー戦績で{nameSubject}似たチーム構成と一緒に良い結果を出した記録があります。",
   "recommender.reason.dakCompositionNegative": "ランカー戦績基準で{nameSubject}似た構成で下位を記録した事例があり、減点されました。",
+  "recommender.reason.officialMatchPositive": "公式戦績データで{nameSubject}似た味方構成と良い結果を出しています。",
+  "recommender.reason.officialMatchNegative": "公式戦績データでは{nameSubject}似た味方構成でやや安定しにくい結果です。",
   "recommender.reason.dakTierHigh": "{name}の最近の統計ティアが高く、現在のメタ基準でも選択価値があります。",
   "recommender.reason.dakStatsPositive": "{name}の現在の勝率とTOP3指標が良く、メタ補正スコアが反映されました。",
   "recommender.reason.dakStatsNegative": "{name}の現在の勝率とTOP3指標が低く、メタ補正で減点されました。",

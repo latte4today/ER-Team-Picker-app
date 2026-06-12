@@ -1,0 +1,19 @@
+{
+  "season": 39,
+  "teamMode": 3,
+  "matchingMode": 3,
+  "tiers": {
+    "iron_gold": [
+      "닉네임1",
+      "닉네임2"
+    ],
+    "platinum_diamond": [
+      "닉네임3",
+      "닉네임4"
+    ],
+    "meteor_mithril": [
+      "닉네임5",
+      "닉네임6"
+    ]
+  }
+}
