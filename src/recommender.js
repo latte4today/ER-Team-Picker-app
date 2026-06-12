@@ -18,7 +18,6 @@ import {
   officialCompositionStatsByTier as _bundledCompositionStats,
   officialPairStatsByTier as _bundledPairStats,
   officialCombatStatsByTier as _bundledCombatStats,
-  officialStatsBucketForTier,
   OFFICIAL_V2_WEIGHTS as _bundledWeights,
   BAYESIAN_ALPHA as _bundledAlpha,
 } from "./officialMatchStats.js";
@@ -30,6 +29,39 @@ let officialPairStatsByTier       = _bundledPairStats;
 let officialCombatStatsByTier     = _bundledCombatStats;
 let OFFICIAL_V2_WEIGHTS           = _bundledWeights;
 let BAYESIAN_ALPHA                = _bundledAlpha;
+let _officialCompositionByTierCandidate = buildOfficialCompositionIndex(officialCompositionStatsByTier);
+
+function buildOfficialCompositionIndex(statsByTier = {}) {
+  const index = new Map();
+  for (const [bucket, rows] of Object.entries(statsByTier ?? {})) {
+    const bucketMap = new Map();
+    for (const row of rows ?? []) {
+      const key = row.candidate;
+      if (!bucketMap.has(key)) bucketMap.set(key, []);
+      bucketMap.get(key).push(row);
+    }
+    index.set(bucket, bucketMap);
+  }
+  return index;
+}
+
+function officialStatsBucketForTier(tier = "all") {
+  const bucketMap = {
+    all: "all",
+    iron_bronze: "bronze",
+    silver_gold: "gold",
+    platinum_diamond: "platinum_diamond",
+    meteor_mithril: "meteor_mithril",
+    demigod_eternity: "demigod_eternity",
+  };
+  const preferred = bucketMap[tier] ?? tier ?? "all";
+  const hasPreferred =
+    officialCandidateStatsByTier?.[preferred] ||
+    officialCompositionStatsByTier?.[preferred] ||
+    officialPairStatsByTier?.[preferred] ||
+    officialCombatStatsByTier?.[preferred];
+  return hasPreferred ? preferred : "all";
+}
 
 /**
  * Override bundled stats with data fetched from remote (officialMatchStats.json).
@@ -43,6 +75,7 @@ export function updateOfficialStats(remote) {
   if (remote.officialCombatStatsByTier)     officialCombatStatsByTier     = remote.officialCombatStatsByTier;
   if (remote.weights)                       OFFICIAL_V2_WEIGHTS           = remote.weights;
   if (remote.alpha)                         BAYESIAN_ALPHA                = remote.alpha;
+  _officialCompositionByTierCandidate = buildOfficialCompositionIndex(officialCompositionStatsByTier);
 }
 import { tournamentCompositions } from "./tournamentMeta.js";
 import {
@@ -65,17 +98,6 @@ for (const row of rankerCompositionStats) {
   const key = row.candidate;
   if (!_rankerCompositionByCandidate.has(key)) _rankerCompositionByCandidate.set(key, []);
   _rankerCompositionByCandidate.get(key).push(row);
-}
-
-const _officialCompositionByTierCandidate = new Map();
-for (const [bucket, rows] of Object.entries(officialCompositionStatsByTier ?? {})) {
-  const bucketMap = new Map();
-  for (const row of rows ?? []) {
-    const key = row.candidate;
-    if (!bucketMap.has(key)) bucketMap.set(key, []);
-    bucketMap.get(key).push(row);
-  }
-  _officialCompositionByTierCandidate.set(bucket, bucketMap);
 }
 
 const _tournamentCompositionByCandidate = new Map();
