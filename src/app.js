@@ -13,7 +13,7 @@ import {
 } from "./feedback.js";
 import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
-import { evaluateCandidate, recommend } from "./recommender.js";
+import { evaluateCandidate, recommend, updateOfficialStats } from "./recommender.js";
 import { teamMetricProfile, teamMetricTags } from "./characterMetrics.js";
 import {
   helpsMeleeEngage,
@@ -2614,6 +2614,23 @@ if (recoveredFeedbackCount > 0) {
   syncStatus.textContent = t("sync.localPending", { count: recoveredFeedbackCount });
   syncStatus.dataset.state = "loading";
 }
+
+// ── Remote stats auto-update ─────────────────────────────────────────────────
+(async () => {
+  const STATS_URL =
+    "https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/officialMatchStats.json";
+  try {
+    const res = await fetch(STATS_URL, { cache: "no-store" });
+    if (res.ok) {
+      const data = await res.json();
+      updateOfficialStats(data);
+      console.log("[stats] remote stats loaded:", data.source?.generatedAt ?? "ok");
+      render(); // re-render with fresh data
+    }
+  } catch (e) {
+    console.log("[stats] using bundled stats (fetch failed):", e.message);
+  }
+})();
 
 setupErUpdater();
 render();

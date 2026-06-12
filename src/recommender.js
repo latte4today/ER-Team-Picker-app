@@ -14,14 +14,36 @@ import { metricCompositionReason, teamMetricProfile } from "./characterMetrics.j
 import { dakggRealtimeStatsByVariant, realtimeStatAverages } from "./dakggRealtimeStats.js";
 import { t } from "./i18n/index.js";
 import {
-  officialCandidateStatsByTier,
-  officialCompositionStatsByTier,
-  officialPairStatsByTier,
-  officialCombatStatsByTier,
+  officialCandidateStatsByTier as _bundledCandidateStats,
+  officialCompositionStatsByTier as _bundledCompositionStats,
+  officialPairStatsByTier as _bundledPairStats,
+  officialCombatStatsByTier as _bundledCombatStats,
   officialStatsBucketForTier,
-  OFFICIAL_V2_WEIGHTS,
-  BAYESIAN_ALPHA,
+  OFFICIAL_V2_WEIGHTS as _bundledWeights,
+  BAYESIAN_ALPHA as _bundledAlpha,
 } from "./officialMatchStats.js";
+
+// Mutable references — can be overridden at runtime via updateOfficialStats()
+let officialCandidateStatsByTier  = _bundledCandidateStats;
+let officialCompositionStatsByTier = _bundledCompositionStats;
+let officialPairStatsByTier       = _bundledPairStats;
+let officialCombatStatsByTier     = _bundledCombatStats;
+let OFFICIAL_V2_WEIGHTS           = _bundledWeights;
+let BAYESIAN_ALPHA                = _bundledAlpha;
+
+/**
+ * Override bundled stats with data fetched from remote (officialMatchStats.json).
+ * Call this once on app startup after a successful fetch.
+ */
+export function updateOfficialStats(remote) {
+  if (!remote) return;
+  if (remote.officialCandidateStatsByTier)  officialCandidateStatsByTier  = remote.officialCandidateStatsByTier;
+  if (remote.officialCompositionStatsByTier) officialCompositionStatsByTier = remote.officialCompositionStatsByTier;
+  if (remote.officialPairStatsByTier)       officialPairStatsByTier       = remote.officialPairStatsByTier;
+  if (remote.officialCombatStatsByTier)     officialCombatStatsByTier     = remote.officialCombatStatsByTier;
+  if (remote.weights)                       OFFICIAL_V2_WEIGHTS           = remote.weights;
+  if (remote.alpha)                         BAYESIAN_ALPHA                = remote.alpha;
+}
 import { tournamentCompositions } from "./tournamentMeta.js";
 import {
   cannotStartEngage,
