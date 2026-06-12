@@ -16,7 +16,11 @@ import { t } from "./i18n/index.js";
 import {
   officialCandidateStatsByTier,
   officialCompositionStatsByTier,
+  officialPairStatsByTier,
+  officialCombatStatsByTier,
   officialStatsBucketForTier,
+  OFFICIAL_V2_WEIGHTS,
+  BAYESIAN_ALPHA,
 } from "./officialMatchStats.js";
 import { tournamentCompositions } from "./tournamentMeta.js";
 import {
@@ -931,6 +935,26 @@ function officialBucketRows(bucket, candidateId) {
   return bucketMap?.get(candidateId) ?? [];
 }
 
+
+// ── Bayesian smoothing helpers ────────────────────────────────────────────────
+
+function bayesianRate(wins, games, alpha, globalRate) {
+  if (!games && !alpha) return globalRate ?? 0;
+  return (wins + alpha * (globalRate ?? 0.5)) / (games + alpha);
+}
+
+function globalWinRate(tier) {
+  const bucket = officialStatsBucketForTier(tier);
+  const stats = officialCandidateStatsByTier?.[bucket] ?? officialCandidateStatsByTier?.all ?? {};
+  const entries = Object.values(stats);
+  if (!entries.length) return 0.5;
+  const totalGames = entries.reduce((s, e) => s + (e.games ?? 0), 0);
+  const totalWins  = entries.reduce((s, e) => s + (e.games ?? 0) * (e.winRate ?? 0), 0);
+  return totalGames > 0 ? totalWins / totalGames : 0.5;
+}
+
+// ── Official v2 scoring ───────────────────────────────────────────────────────
+
 function officialCandidateStats(candidate, tier) {
   const bucket = officialStatsBucketForTier(tier);
   return officialCandidateStatsByTier?.[bucket]?.[candidate.characterId] ??
@@ -973,6 +997,79 @@ function officialCandidateScore(candidate, tier) {
   const confidence = Math.min(1, Math.log10((stats.games ?? 0) + 1) / 2.2);
   const damageSignal = stats.avgDamageToPlayer ? clamp((stats.avgDamageToPlayer - 18000) / 22000, -0.35, 0.45) : 0;
   return clamp((placementScore(stats) * 0.75 + damageSignal * 0.35) * confidence, -0.95, 1.05);
+}
+
+
+function officialCharacterPowerScore(candidate, tier) {
+  const stats = officialCandidateStats(candidate, tier);
+  if (!stats || !stats.games) return 0;
+  const alpha = BAYESIAN_ALPHA?.character ?? 100;
+  const global = globalWinRate(tier);
+  const adjWr = bayesianRate(stats.wins ?? stats.winRate * stats.games, stats.games, alpha, global);
+  const confidence = Math.min(1, Math.log10(stats.games + 1) / 2.5);
+  return clamp((adjWr - global) * 4 * confidence, -1.0, 1.2);
+}
+
+function officialPairSynergyScore(candidate, selected, tier) {
+  if (!selected.length) return 0;
+  const bucket = officialStatsBucketForTier(tier);
+  const pairStats = officialPairStatsByTier?.[bucket] ?? officialPairStatsByTier?.all;
+  if (!pairStats) return 0;
+
+  const alpha = BAYESIAN_ALPHA?.pair ?? 80;
+  const global = globalWinRate(tier);
+  let totalSynergy = 0;
+  let count = 0;
+
+  for (const teammate of selected) {
+    const key = [candidate.characterId, teammate.characterId].sort().join("|");
+    const pair = pairStats[key];
+    const pairGames = pair?.games ?? 0;
+    const pairWins  = pairGames * (pair?.winRate ?? 0);
+
+    // individual adjusted rates
+    const csA = officialCandidateStats(candidate, tier);
+    const csB = officialCandidateStats(teammate, tier);
+    const wrA = csA?.games ? bayesianRate(csA.winRate * csA.games, csA.games, alpha, global) : global;
+    const wrB = csB?.games ? bayesianRate(csB.winRate * csB.games, csB.games, alpha, global) : global;
+    const expected = 0.5 * (wrA + wrB);
+
+    const adjPairWr = bayesianRate(pairWins, pairGames, alpha, expected);
+    totalSynergy += adjPairWr - expected;
+    count++;
+  }
+
+  if (!count) return 0;
+  return clamp((totalSynergy / count) * 5, -1.0, 1.2);
+}
+
+function officialCombatSignalScore(candidate, tier) {
+  const bucket = officialStatsBucketForTier(tier);
+  const combatStats = officialCombatStatsByTier?.[bucket] ?? officialCombatStatsByTier?.all;
+  const cs = combatStats?.[candidate.characterId];
+  if (!cs || !cs.games) return 0;
+
+  const alpha = BAYESIAN_ALPHA?.combat ?? 80;
+  // normalize combat score: kills+assists per game vs typical value
+  const kda = (cs.avgKills ?? 0) + (cs.avgAssists ?? 0) * 0.5 + (cs.avgTeamKills ?? 0) * 0.3;
+  const dmgNorm = clamp(((cs.avgDamage ?? 0) - 15000) / 20000, -0.5, 0.6);
+  const rawScore = clamp(kda / 6, -0.5, 0.7) + dmgNorm * 0.4;
+  const confidence = Math.min(1, Math.log10(cs.games + 1) / 2.5);
+  return clamp(rawScore * confidence, -0.8, 1.0);
+}
+
+function officialV2Score(candidate, selected, tier) {
+  const W = OFFICIAL_V2_WEIGHTS ?? { characterPower: 0.30, pairSynergy: 0.35, combatScore: 0.15, roleBalance: 0.20 };
+  const charPower  = officialCharacterPowerScore(candidate, tier);
+  const pairSyn    = officialPairSynergyScore(candidate, selected, tier);
+  const combat     = officialCombatSignalScore(candidate, tier);
+  // roleBalance is computed externally; pass 0 here and combine in evaluateCandidate
+  return clamp(
+    W.characterPower * charPower +
+    W.pairSynergy    * pairSyn   +
+    W.combatScore    * combat,
+    -1.5, 1.8
+  );
 }
 
 function officialMatchScore(candidate, selected, tier) {
@@ -1433,6 +1530,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     dakStatistics: dakStatisticsScore(candidate, tier),
     dakRealtime: dakRealtimeScore(candidate),
     officialMatch: officialMatchScore(candidate, selected, tier),
+    officialV2:    officialV2Score(candidate, selected, tier),
     relationship: relationshipScore(candidate, selected, tier, relationshipRows),
   };
   const total =
@@ -1454,7 +1552,8 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.dakTier * 0.6 +
     scores.dakStatistics * 0.6 +
     scores.dakRealtime * 0.5 +
-    scores.officialMatch * 0.55 +
+    scores.officialMatch * 0.30 +
+    scores.officialV2 * 0.55 +
     scores.relationship -
     candidate.difficulty * 0.08 +
     getFeedbackScore(selectedIds, candidate.variantId, tier) +
@@ -1463,6 +1562,8 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
   return {
     character: candidate,
     score: Number(total.toFixed(1)),
+    total: Number(total.toFixed(3)),
+    scores,
     reasons: explain(candidate, selected, scores),
   };
 }

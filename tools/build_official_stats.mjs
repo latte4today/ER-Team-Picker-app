@@ -102,7 +102,7 @@ const FALLBACK_CHARACTER_CODE_TO_ID = {
 };
 
 function parseArgs() {
-  const args = { in: [DEFAULT_IN], out: DEFAULT_OUT, minGames: 2, fetchCharacterData: true };
+  const args = { in: [DEFAULT_IN], out: DEFAULT_OUT, minGames: 2, fetchCharacterData: true, patch: process.env.CURRENT_PATCH || 'current', jsonOut: DEFAULT_OUT.replace(/\.js$/, '.json') };
   for (let index = 2; index < process.argv.length; index += 1) {
     const key = process.argv[index];
     if (!key.startsWith("--")) continue;
@@ -357,6 +357,73 @@ function finalizeCompositionStats(source, minGames) {
     .sort((a, b) => b.games - a.games || a.candidate.localeCompare(b.candidate));
 }
 
+
+// ── Recency decay ─────────────────────────────────────────────────────────────
+// Weight older games lower within a patch. lambda=0.02 → 50% weight at ~35 days.
+function recencyWeight(collectedAt, lambda = 0.02) {
+  if (!collectedAt) return 1;
+  const daysAgo = (Date.now() - new Date(collectedAt).getTime()) / 86400000;
+  return Math.exp(-lambda * Math.max(0, daysAgo));
+}
+
+// ── Pair stats ────────────────────────────────────────────────────────────────
+function addPairStat(bucketStats, idA, idB, team, weight) {
+  const key = [idA, idB].sort().join("|");
+  if (!bucketStats[key]) {
+    bucketStats[key] = { a: idA < idB ? idA : idB, b: idA < idB ? idB : idA, games: 0, wins: 0, top3: 0 };
+  }
+  const stat = bucketStats[key];
+  const result = teamResult(team);
+  stat.games += weight;
+  if (result.win)  stat.wins  += weight;
+  if (result.top3) stat.top3  += weight;
+}
+
+function finalizePairStats(source, minGames) {
+  const output = {};
+  for (const [key, stat] of Object.entries(source)) {
+    if (stat.games < minGames) continue;
+    output[key] = {
+      a: stat.a, b: stat.b,
+      games:   round(stat.games, 2),
+      winRate: round(stat.wins / stat.games, 3),
+      top3Rate: round(stat.top3 / stat.games, 3),
+    };
+  }
+  return output;
+}
+
+// ── Combat stats ──────────────────────────────────────────────────────────────
+function addCombatStat(bucketStats, characterId, player, weight) {
+  if (!bucketStats[characterId]) {
+    bucketStats[characterId] = { games: 0, kills: 0, assists: 0, teamKills: 0, damage: 0, ccTime: 0 };
+  }
+  const s = bucketStats[characterId];
+  const ps = player.stats ?? {};
+  s.games     += weight;
+  s.kills     += numeric(ps.kills)         * weight;
+  s.assists   += numeric(ps.assists)       * weight;
+  s.teamKills += numeric(ps.teamKills)     * weight;
+  s.damage    += numeric(ps.damageToPlayer) * weight;
+  s.ccTime    += numeric(ps.ccTime)        * weight;
+}
+
+function finalizeCombatStats(source, minGames) {
+  const output = {};
+  for (const [characterId, s] of Object.entries(source)) {
+    if (s.games < minGames) continue;
+    output[characterId] = {
+      games:           round(s.games, 2),
+      avgKills:        round(s.kills    / s.games, 2),
+      avgAssists:      round(s.assists  / s.games, 2),
+      avgTeamKills:    round(s.teamKills / s.games, 2),
+      avgDamage:       Math.round(s.damage / s.games),
+      avgCcTime:       round(s.ccTime   / s.games, 2),
+    };
+  }
+  return output;
+}
+
 function round(value, digits) {
   const multiplier = 10 ** digits;
   return Math.round(value * multiplier) / multiplier;
@@ -389,11 +456,14 @@ async function build() {
   const codeMap = await buildCharacterCodeMap(args.fetchCharacterData);
   const candidateByTier = {};
   const compositionByTier = {};
+  const pairByTier = {};
+  const combatByTier = {};
   const mappedCodes = new Set();
   const unmappedCodes = new Set();
   let mappedTeams = 0;
 
   for (const team of allTeams) {
+    const rw = recencyWeight(team.collectedAt ?? args.collectedAt);
     const players = (team.players ?? [])
       .map((player) => {
         const id = codeMap.get(String(player.character));
@@ -414,6 +484,13 @@ async function build() {
       for (const player of players) {
         addCandidateStat(candidateBucket, player.characterId, team, player);
         addCompositionStat(compositionBucket, player.characterId, memberIds, team);
+        addCombatStat(ensureBucket(combatByTier, bucket), player.characterId, player, rw);
+      }
+      // Pair stats: all C(n,2) pairs in the team
+      for (let pi = 0; pi < players.length; pi++) {
+        for (let pj = pi + 1; pj < players.length; pj++) {
+          addPairStat(ensureBucket(pairByTier, bucket), players[pi].characterId, players[pj].characterId, team, rw);
+        }
       }
     }
   }
@@ -421,56 +498,59 @@ async function build() {
   const officialCandidateStatsByTier = {};
   const officialTraitStatsByTier = {};
   const officialCompositionStatsByTier = {};
-  for (const bucket of Object.keys(candidateByTier).sort()) {
-    officialCandidateStatsByTier[bucket] = finalizeCandidateStats(candidateByTier[bucket], args.minGames);
-    officialTraitStatsByTier[bucket] = finalizeTraitStats(candidateByTier[bucket], args.minGames);
+  const officialPairStatsByTier = {};
+  const officialCombatStatsByTier = {};
+  const allBuckets = new Set([...Object.keys(candidateByTier), ...Object.keys(pairByTier)]);
+  for (const bucket of [...allBuckets].sort()) {
+    officialCandidateStatsByTier[bucket] = finalizeCandidateStats(candidateByTier[bucket] ?? {}, args.minGames);
+    officialTraitStatsByTier[bucket]     = finalizeTraitStats(candidateByTier[bucket] ?? {}, args.minGames);
     officialCompositionStatsByTier[bucket] = finalizeCompositionStats(compositionByTier[bucket] ?? {}, args.minGames);
+    officialPairStatsByTier[bucket]      = finalizePairStats(pairByTier[bucket] ?? {}, args.minGames);
+    officialCombatStatsByTier[bucket]    = finalizeCombatStats(combatByTier[bucket] ?? {}, args.minGames);
   }
 
   const source = {
-    source: input.source ?? "official-api",
+    source: "official-api-merged",
     generatedAt: new Date().toISOString(),
-    inputGeneratedAt: input.generatedAt,
-    season: input.options?.season,
-    teamMode: input.options?.teamMode,
-    rankers: input.options?.rankers,
-    gamesPerUser: input.options?.gamesPerUser,
-    teams: (input.teams ?? []).length,
+    patch: args.patch,
+    totalTeams: allTeams.length,
     mappedTeams,
     mappedCharacters: mappedCodes.size,
     unmappedCharacterCodes: [...unmappedCodes].sort((a, b) => Number(a) - Number(b)),
     minGames: args.minGames,
-    privacy: input.privacy,
   };
 
-  const contents = `export const OFFICIAL_MATCH_SOURCE = ${stableJson(source)};
+  // Write JS file in chunks via stream to avoid string-size truncation on large data
+  {
+    const { createWriteStream } = await import("node:fs");
+    const ws = createWriteStream(args.out, { encoding: "utf8" });
+    const w = (s) => new Promise((res, rej) => ws.write(s, (e) => e ? rej(e) : res()));
+    await w(`export const OFFICIAL_MATCH_SOURCE = ${stableJson(source)};\n\n`);
+    await w(`export const officialCandidateStatsByTier = ${stableJson(officialCandidateStatsByTier)};\n\n`);
+    await w(`export const officialCompositionStatsByTier = ${stableJson(officialCompositionStatsByTier)};\n\n`);
+    await w(`export const officialTraitStatsByTier = ${stableJson(officialTraitStatsByTier)};\n\n`);
+    await w(`export const officialPairStatsByTier = ${stableJson(officialPairStatsByTier)};\n\n`);
+    await w(`export const officialCombatStatsByTier = ${stableJson(officialCombatStatsByTier)};\n\n`);
+    await w(`export const OFFICIAL_V2_WEIGHTS = {\n  characterPower: 0.30,\n  pairSynergy:    0.35,\n  combatScore:    0.15,\n  roleBalance:    0.20,\n};\n\n`);
+    await w(`export const BAYESIAN_ALPHA = {\n  character: 100,\n  pair:       80,\n  combat:     80,\n};\n\n`);
+    await w(`export function officialStatsBucketForTier(tier = "all") {\n  const bucketMap = {\n    all: "all",\n    iron_gold: "iron_gold",\n    platinum_diamond: "platinum_diamond",\n    meteor_mithril: "meteor_mithril",\n    demigod_eternity: "demigod_eternity",\n    iron_bronze: "iron_gold",\n    silver_gold: "iron_gold",\n    diamond: "platinum_diamond",\n    mithril_plus: "meteor_mithril",\n  };\n  const preferred = bucketMap[tier] ?? tier ?? "all";\n  if (officialCandidateStatsByTier[preferred] || officialCompositionStatsByTier[preferred]) return preferred;\n  return "all";\n}\n`);
+    await new Promise((res, rej) => ws.end((e) => e ? rej(e) : res()));
+  }
 
-export const officialCandidateStatsByTier = ${stableJson(officialCandidateStatsByTier)};
-
-export const officialCompositionStatsByTier = ${stableJson(officialCompositionStatsByTier)};
-
-export const officialTraitStatsByTier = ${stableJson(officialTraitStatsByTier)};
-
-export function officialStatsBucketForTier(tier = "all") {
-  const bucketMap = {
-    all: "all",
-    iron_bronze: "bronze",
-    silver_gold: "gold",
-    platinum_diamond: "diamond",
-    meteor_mithril: "mithril_plus",
-    demigod_eternity: "mithril_plus",
+  // Also write JSON for remote fetch
+  const jsonPayload = {
+    source, officialCandidateStatsByTier, officialCompositionStatsByTier,
+    officialPairStatsByTier, officialCombatStatsByTier,
+    weights: { characterPower: 0.30, pairSynergy: 0.35, combatScore: 0.15, roleBalance: 0.20 },
+    alpha:   { character: 100, pair: 80, combat: 80 },
   };
-  const preferred = bucketMap[tier] ?? tier ?? "all";
-  if (officialCandidateStatsByTier[preferred] || officialCompositionStatsByTier[preferred]) return preferred;
-  return "all";
-}
-`;
+  await fs.writeFile(args.jsonOut, JSON.stringify(jsonPayload), "utf8");
 
-  await fs.writeFile(args.out, contents, "utf8");
-  console.log(`saved: ${path.relative(ROOT, args.out)}`);
-  console.log(`teams: ${source.teams}, mapped teams: ${source.mappedTeams}, mapped characters: ${source.mappedCharacters}`);
+  console.log(`saved JS: ${path.relative(ROOT, args.out)}`);
+  console.log(`saved JSON: ${path.relative(ROOT, args.jsonOut)}`);
+  console.log(`teams: ${allTeams.length}, mapped: ${source.mappedTeams}, chars: ${source.mappedCharacters}`);
   if (source.unmappedCharacterCodes.length) {
-    console.log(`unmapped character codes: ${source.unmappedCharacterCodes.join(", ")}`);
+    console.log(`unmapped codes: ${source.unmappedCharacterCodes.join(", ")}`);
   }
 }
 
