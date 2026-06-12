@@ -2,18 +2,23 @@
  * official_seed_collector.mjs
  *
  * Tier-seeded match collector for the Eternal Return Official API.
- * Reads per-tier nickname seeds from a JSON file and collects game
- * compositions for each tier independently.
  *
- * Usage:
- *   npm run collect-official-seeds
- *   npm run collect-official-seeds -- --seeds data/official-tier-seeds.json \
- *       --games-per-user 8 --depth 1 --delay-ms 2500 --retry-429-ms 30000
+ * Seed sources (in priority order):
+ *   1. data/official-next-seeds.json  - userIds sampled from previous run (auto-rotated)
+ *   2. data/official-tier-seeds.json  - initial nicknames provided by user
+ *
+ * Depth behaviour:
+ *   depth 0 - seeds only
+ *   depth 1 - seeds + participants from seed games
+ *   depth 2 - depth 1 + participants from depth-1 games
+ *
+ * After collection, N random userIds per tier are written to
+ * data/official-next-seeds.json for the next run (no nicknames stored).
  *
  * Privacy:
- *   - Nicknames and userIds are NEVER written to the output file.
+ *   - Nicknames and userIds are NEVER written to the match-output file.
+ *   - official-next-seeds.json stores only internal userIds (not public nicknames).
  *   - Game-detail cache is keyed by gameId only (safe).
- *   - Nickname / userId lookups are never cached.
  */
 
 import fs from "node:fs/promises";
@@ -22,11 +27,8 @@ import { fileURLToPath } from "node:url";
 import { requireEnv } from "./env.mjs";
 import {
   makeClient,
-  sleep,
   gameRows,
   gameIdOf,
-  rankRows,
-  nicknameOf,
   lookupUserId,
   lookupRankInfo,
   compactTierBucket,
@@ -35,21 +37,23 @@ import {
 } from "./official_collect_utils.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT       = path.resolve(__dirname, "..");
-const BASE_URL   = process.env.ER_API_BASE_URL?.trim() || "https://open-api.bser.io";
+const ROOT     = path.resolve(__dirname, "..");
+const BASE_URL = process.env.ER_API_BASE_URL?.trim() || "https://open-api.bser.io";
 
 const DEFAULTS = {
-  seeds:          path.join(ROOT, "data", "official-tier-seeds.json"),
-  out:            path.join(ROOT, "data", "official-match-input-seeded.json"),
-  season:         undefined,   // read from seeds file if not provided
-  teamMode:       undefined,
-  matchingMode:   undefined,
-  gamesPerUser:   8,
-  depth:          1,
-  maxUsersPerTier: 60,
-  delayMs:        2500,
-  retry429Ms:     30000,
-  strictTier:     false,
+  seeds:           path.join(ROOT, "data", "official-tier-seeds.json"),
+  nextSeeds:       path.join(ROOT, "data", "official-next-seeds.json"),
+  out:             path.join(ROOT, "data", "official-match-input-seeded.json"),
+  season:          undefined,
+  teamMode:        undefined,
+  matchingMode:    undefined,
+  gamesPerUser:    10,
+  depth:           2,
+  maxUsersPerTier: 200,
+  nextSeedCount:   15,
+  delayMs:         1000,
+  retry429Ms:      60000,
+  strictTier:      false,
 };
 
 function parseArgs() {
@@ -60,33 +64,42 @@ function parseArgs() {
     if (!key.startsWith("--")) continue;
     i += 1;
     switch (key) {
-      case "--seeds":            args.seeds           = path.resolve(ROOT, value); break;
-      case "--out":              args.out             = path.resolve(ROOT, value); break;
-      case "--season":           args.season          = Number(value); break;
-      case "--team-mode":        args.teamMode        = Number(value); break;
-      case "--matching-mode":    args.matchingMode    = Number(value); break;
-      case "--games-per-user":   args.gamesPerUser    = Number(value); break;
-      case "--depth":            args.depth           = Number(value); break;
+      case "--seeds":              args.seeds           = path.resolve(ROOT, value); break;
+      case "--next-seeds":         args.nextSeeds       = path.resolve(ROOT, value); break;
+      case "--out":                args.out             = path.resolve(ROOT, value); break;
+      case "--season":             args.season          = Number(value); break;
+      case "--team-mode":          args.teamMode        = Number(value); break;
+      case "--matching-mode":      args.matchingMode    = Number(value); break;
+      case "--games-per-user":     args.gamesPerUser    = Number(value); break;
+      case "--depth":              args.depth           = Number(value); break;
       case "--max-users-per-tier": args.maxUsersPerTier = Number(value); break;
-      case "--delay-ms":         args.delayMs         = Number(value); break;
-      case "--retry-429-ms":     args.retry429Ms      = Number(value); break;
-      case "--strict-tier":      args.strictTier      = value !== "false"; break;
+      case "--next-seed-count":    args.nextSeedCount   = Number(value); break;
+      case "--delay-ms":           args.delayMs         = Number(value); break;
+      case "--retry-429-ms":       args.retry429Ms      = Number(value); break;
+      case "--strict-tier":        args.strictTier      = value !== "false"; break;
     }
   }
   return args;
 }
 
-// ── Per-user game collection ─────────────────────────────────────────────────
+function shuffleSample(arr, n) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy.slice(0, n);
+}
 
 async function collectGamesForUser(client, userId, options, knownTierBucket, gameIds, gameRankInfo) {
-  const rankInfo = await lookupRankInfo(client, userId, options.season, options.teamMode);
+  const rankInfo     = await lookupRankInfo(client, userId, options.season, options.teamMode);
   const actualBucket = rankInfo.tierBucket;
 
   if (options.strictTier && actualBucket !== knownTierBucket && actualBucket !== "unknown") {
     return { skipped: true, reason: "tier_mismatch", actual: actualBucket };
   }
 
-  const effectiveBucket = actualBucket !== "unknown" ? actualBucket : knownTierBucket;
+  const effectiveBucket   = actualBucket !== "unknown" ? actualBucket : knownTierBucket;
   const effectiveRankInfo = { ...rankInfo, tierBucket: effectiveBucket };
 
   const gamesPayload = await client.getJson(
@@ -105,93 +118,117 @@ async function collectGamesForUser(client, userId, options, knownTierBucket, gam
   return { added, total: ids.length, tierBucket: effectiveBucket, mmr: rankInfo.mmr };
 }
 
-// ── Seed user expansion ──────────────────────────────────────────────────────
+async function expandFromGames(
+  client, sourceGameIds, tierBucket, options,
+  gameIds, gameRankInfo, processedUsers, label
+) {
+  let expanded = 0;
+  for (const gameId of sourceGameIds) {
+    if (processedUsers.size >= options.maxUsersPerTier) break;
 
-async function expandTier(client, tierBucket, nicknames, options, gameIds, gameRankInfo) {
-  const maxUsers = options.maxUsersPerTier;
-  const processedUsers = new Set();
-  let userCount = 0;
-
-  // Phase 1: seed nicknames
-  for (const [i, nickname] of nicknames.entries()) {
-    if (userCount >= maxUsers) break;
-    process.stdout.write(`  [${tierBucket}] seed ${i + 1}/${nicknames.length} "${nickname}" ... `);
-
-    const userId = await lookupUserId(client, nickname);
-    if (!userId) { console.log("lookup failed, skipping"); continue; }
-    if (processedUsers.has(userId)) { console.log("already seen"); continue; }
-    processedUsers.add(userId);
-
+    let gamePayload;
     try {
-      const result = await collectGamesForUser(client, userId, options, tierBucket, gameIds, gameRankInfo);
-      if (result.skipped) {
-        console.log(`skipped (actual tier: ${result.actual})`);
-      } else {
-        userCount++;
-        console.log(`+${result.added} new gameIds (tier: ${result.tierBucket}, mmr: ${result.mmr ?? "?"}) — total unique: ${gameIds.size}`);
-      }
-    } catch (err) {
-      console.log(`error: ${err.message}`);
-    }
-  }
+      gamePayload = await client.getJson(`/v1/games/${gameId}`, { cacheKey: `game:${gameId}` });
+    } catch { continue; }
 
-  // Phase 2: depth-1 expansion via game participants
-  if (options.depth >= 1) {
-    const seedGameIds = [...gameIds]; // snapshot before expansion
-    let expanded = 0;
+    for (const { type, value } of extractPlayerIds(gamePayload)) {
+      if (processedUsers.size >= options.maxUsersPerTier) break;
 
-    for (const gameId of seedGameIds) {
-      if (userCount >= maxUsers) break;
-      let gamePayload;
+      let userId;
       try {
-        gamePayload = await client.getJson(`/v1/games/${gameId}`, { cacheKey: `game:${gameId}` });
+        userId = type === "userId" ? value : await lookupUserId(client, value);
       } catch { continue; }
 
-      const playerIds = extractPlayerIds(gamePayload);
-      for (const { type, value } of playerIds) {
-        if (userCount >= maxUsers) break;
+      if (!userId || processedUsers.has(String(userId))) continue;
+      processedUsers.add(String(userId));
 
-        let userId;
-        try {
-          if (type === "userId") {
-            userId = value;
-          } else {
-            userId = await lookupUserId(client, value);
+      try {
+        const result = await collectGamesForUser(
+          client, userId, options, tierBucket, gameIds, gameRankInfo
+        );
+        if (!result.skipped) {
+          expanded++;
+          if (expanded % 10 === 0) {
+            process.stdout.write(`  [${tierBucket}] ${label}: ${expanded} users, ${gameIds.size} games\r`);
           }
-        } catch { continue; }
-
-        if (!userId || processedUsers.has(userId)) continue;
-        processedUsers.add(userId);
-
-        try {
-          const result = await collectGamesForUser(client, userId, options, tierBucket, gameIds, gameRankInfo);
-          if (!result.skipped) {
-            userCount++;
-            expanded++;
-            if (expanded % 5 === 0) {
-              console.log(`  [${tierBucket}] depth-1: ${expanded} users expanded, unique games: ${gameIds.size}`);
-            }
-          }
-        } catch { /* skip */ }
-      }
+        }
+      } catch { /* skip */ }
     }
-    if (expanded > 0) console.log(`  [${tierBucket}] depth-1 expansion: ${expanded} additional users, ${gameIds.size} unique games`);
   }
+  if (expanded > 0) {
+    console.log(`  [${tierBucket}] ${label}: done - ${expanded} users, ${gameIds.size} total games`);
+  }
+  return expanded;
 }
 
-// ── Fetch + normalise all collected games ────────────────────────────────────
+async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankInfo) {
+  const processedUsers = new Set();
+
+  // Phase 0a: userId seeds from previous run
+  for (const userId of (seeds.userIds ?? [])) {
+    if (processedUsers.size >= options.maxUsersPerTier) break;
+    const uid = String(userId);
+    if (processedUsers.has(uid)) continue;
+    processedUsers.add(uid);
+    process.stdout.write(`  [${tierBucket}] userId-seed ...${uid.slice(-6)} `);
+    try {
+      const r = await collectGamesForUser(client, uid, options, tierBucket, gameIds, gameRankInfo);
+      console.log(r.skipped ? `skipped (${r.actual})` : `+${r.added} games (${r.tierBucket}, mmr:${r.mmr ?? "?"})`);
+    } catch (err) { console.log(`error: ${err.message}`); }
+  }
+
+  // Phase 0b: nickname seeds
+  for (const [i, nickname] of (seeds.nicknames ?? []).entries()) {
+    if (processedUsers.size >= options.maxUsersPerTier) break;
+    process.stdout.write(`  [${tierBucket}] seed ${i + 1}/${seeds.nicknames.length} "${nickname}" ... `);
+    const userId = await lookupUserId(client, nickname);
+    if (!userId) { console.log("lookup failed"); continue; }
+    if (processedUsers.has(String(userId))) { console.log("already seen"); continue; }
+    processedUsers.add(String(userId));
+    try {
+      const r = await collectGamesForUser(client, userId, options, tierBucket, gameIds, gameRankInfo);
+      console.log(r.skipped ? `skipped (${r.actual})` : `+${r.added} games (${r.tierBucket}, mmr:${r.mmr ?? "?"}) - total: ${gameIds.size}`);
+    } catch (err) { console.log(`error: ${err.message}`); }
+  }
+
+  const afterDepth0 = new Set(gameIds);
+  console.log(`  [${tierBucket}] depth-0: ${processedUsers.size} users, ${afterDepth0.size} games`);
+
+  // Phase 1: depth-1 expansion
+  if (options.depth >= 1) {
+    await expandFromGames(
+      client, [...afterDepth0], tierBucket, options,
+      gameIds, gameRankInfo, processedUsers, "depth-1"
+    );
+  }
+
+  // Phase 2: depth-2 expansion
+  if (options.depth >= 2) {
+    const newDepth1Games = [...gameIds].filter(id => !afterDepth0.has(id));
+    if (newDepth1Games.length > 0) {
+      console.log(`  [${tierBucket}] depth-2: expanding from ${newDepth1Games.length} new games...`);
+      await expandFromGames(
+        client, newDepth1Games, tierBucket, options,
+        gameIds, gameRankInfo, processedUsers, "depth-2"
+      );
+    }
+  }
+
+  console.log(`  [${tierBucket}] complete: ${processedUsers.size} users, ${gameIds.size} total games`);
+  return { processedUserIds: [...processedUsers] };
+}
 
 async function fetchAndNormalize(client, gameIds, gameRankInfo) {
-  const teams = [];
+  const teams     = [];
   const dedupKeys = new Set();
-  const allIds = [...gameIds];
+  const allIds    = [...gameIds];
 
   for (const [i, gameId] of allIds.entries()) {
     let payload;
     try {
       payload = await client.getJson(`/v1/games/${gameId}`, { cacheKey: `game:${gameId}` });
     } catch (err) {
-      console.log(`  game ${i + 1}/${allIds.length} ${gameId}: fetch error — ${err.message}`);
+      console.log(`  game ${i + 1}/${allIds.length} ${gameId}: fetch error - ${err.message}`);
       continue;
     }
 
@@ -203,84 +240,111 @@ async function fetchAndNormalize(client, gameIds, gameRankInfo) {
       teams.push(team);
     }
 
-    if ((i + 1) % 20 === 0 || i + 1 === allIds.length) {
-      console.log(`  game ${i + 1}/${allIds.length}: ${teams.length} teams`);
+    if ((i + 1) % 50 === 0 || i + 1 === allIds.length) {
+      console.log(`  game ${i + 1}/${allIds.length}: ${teams.length} teams so far`);
     }
   }
   return teams;
 }
-
-// ── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
   const options = parseArgs();
   const apiKey  = requireEnv("ER_API_KEY");
   const client  = makeClient(apiKey, BASE_URL, options.delayMs, options.retry429Ms);
 
-  // Load seeds file
+  // Load nickname seeds
   let seedsConfig;
   try {
     seedsConfig = JSON.parse(await fs.readFile(options.seeds, "utf8"));
   } catch {
     console.error(`Seeds file not found: ${options.seeds}`);
-    console.error(`Copy data/official-tier-seeds.example.json to ${path.basename(options.seeds)} and fill in nicknames.`);
     process.exit(1);
   }
 
-  // Merge season/teamMode from seeds file if not overridden via CLI
-  if (!options.season)      options.season      = seedsConfig.season      ?? 39;
-  if (!options.teamMode)    options.teamMode    = seedsConfig.teamMode    ?? 3;
+  if (!options.season)       options.season       = seedsConfig.season       ?? 39;
+  if (!options.teamMode)     options.teamMode     = seedsConfig.teamMode     ?? 3;
   if (!options.matchingMode) options.matchingMode = seedsConfig.matchingMode ?? 3;
 
-  const tiers = seedsConfig.tiers ?? {};
-  const seedBuckets = Object.keys(tiers);
-  if (seedBuckets.length === 0) {
-    console.error("No tiers found in seeds file."); process.exit(1);
+  const nicknameTiers = seedsConfig.tiers ?? {};
+
+  // Load next-seeds (userId rotation from previous run)
+  let nextSeedsConfig = {};
+  try {
+    nextSeedsConfig = JSON.parse(await fs.readFile(options.nextSeeds, "utf8"));
+    console.log(`Loaded next-seeds from: ${path.relative(ROOT, options.nextSeeds)}`);
+  } catch {
+    console.log(`No next-seeds file - starting fresh from nickname seeds.`);
+  }
+  const userIdTiers = nextSeedsConfig.tiers ?? {};
+
+  const allTierBuckets = [...new Set([...Object.keys(nicknameTiers), ...Object.keys(userIdTiers)])];
+  if (allTierBuckets.length === 0) {
+    console.error("No tiers found."); process.exit(1);
   }
 
-  console.log(`Season: ${options.season}  teamMode: ${options.teamMode}  depth: ${options.depth}`);
-  console.log(`Tiers: ${seedBuckets.join(", ")}\n`);
+  console.log(`\nSeason: ${options.season}  teamMode: ${options.teamMode}  depth: ${options.depth}  maxUsers/tier: ${options.maxUsersPerTier}`);
+  console.log(`Tiers: ${allTierBuckets.join(", ")}\n`);
 
-  const gameIds     = new Set();
+  const gameIds      = new Set();
   const gameRankInfo = new Map();
+  const tierUserIds  = {};
 
-  // Expand each tier
-  for (const [tierBucket, nicknames] of Object.entries(tiers)) {
+  for (const tierBucket of allTierBuckets) {
     const compacted = compactTierBucket(tierBucket) || tierBucket;
-    console.log(`\n═══ ${tierBucket} (${nicknames.length} seeds, max ${options.maxUsersPerTier} users, depth ${options.depth}) ═══`);
-    await expandTier(client, compacted, nicknames, options, gameIds, gameRankInfo);
+    const seeds = {
+      userIds:   (userIdTiers[tierBucket]?.userIds ?? []).map(String),
+      nicknames: nicknameTiers[tierBucket] ?? [],
+    };
+    console.log(`\n[${tierBucket}] ${seeds.userIds.length} userId-seeds + ${seeds.nicknames.length} nickname-seeds`);
+
+    const { processedUserIds } = await expandTier(
+      client, compacted, seeds, options, gameIds, gameRankInfo
+    );
+    tierUserIds[compacted] = processedUserIds;
   }
 
-  // Fetch and normalize
-  console.log(`\n═══ Fetching ${gameIds.size} unique games ═══`);
+  console.log(`\n[normalise] ${gameIds.size} unique games`);
   const teams = await fetchAndNormalize(client, gameIds, gameRankInfo);
 
-  // Summary
   const byTier = {};
   for (const t of teams) byTier[t.tierBucket] = (byTier[t.tierBucket] ?? 0) + 1;
-  console.log("\n[summary] teams by tier:", byTier);
+  console.log("[summary] teams by tier:", byTier);
 
-  const output = {
-    generatedAt:  new Date().toISOString(),
-    source:       "official-api-seeded",
-    seedBuckets,
+  // Write match output
+  await fs.mkdir(path.dirname(options.out), { recursive: true });
+  await fs.writeFile(options.out, JSON.stringify({
+    generatedAt: new Date().toISOString(),
+    source:      "official-api-seeded",
     collection: {
-      season:           options.season,
-      teamMode:         options.teamMode,
-      depth:            options.depth,
-      gamesPerUser:     options.gamesPerUser,
-      maxUsersPerTier:  options.maxUsersPerTier,
-      strictTier:       options.strictTier,
-      storesNicknames:  false,
-      storesUserIds:    false,
+      season:          options.season,
+      teamMode:        options.teamMode,
+      depth:           options.depth,
+      gamesPerUser:    options.gamesPerUser,
+      maxUsersPerTier: options.maxUsersPerTier,
+      strictTier:      options.strictTier,
+      storesNicknames: false,
+      storesUserIds:   false,
     },
     tierBreakdown: byTier,
     teams,
-  };
-
-  await fs.mkdir(path.dirname(options.out), { recursive: true });
-  await fs.writeFile(options.out, JSON.stringify(output, null, 2), "utf8");
+  }, null, 2), "utf8");
   console.log(`\nSaved: ${path.relative(ROOT, options.out)} (${teams.length} teams)`);
+
+  // Seed rotation
+  const nextSeeds = {
+    _note:       "Auto-generated. Contains internal userIds only (no nicknames).",
+    generatedAt: new Date().toISOString(),
+    season:      options.season,
+    teamMode:    options.teamMode,
+    tiers:       {},
+  };
+  for (const [tier, userIds] of Object.entries(tierUserIds)) {
+    const sampled = shuffleSample(userIds, options.nextSeedCount);
+    nextSeeds.tiers[tier] = { userIds: sampled };
+    console.log(`  [${tier}] next-seeds: ${sampled.length}/${userIds.length} userIds sampled`);
+  }
+  await fs.writeFile(options.nextSeeds, JSON.stringify(nextSeeds, null, 2), "utf8");
+  console.log(`Saved next-seeds: ${path.relative(ROOT, options.nextSeeds)}`);
 }
 
 main().catch((err) => { console.error(err.message); process.exit(1); });

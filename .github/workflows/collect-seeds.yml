@@ -40,8 +40,9 @@ jobs:
           node tools/official_seed_collector.mjs \
             --games-per-user 10 \
             --depth 2 \
-            --max-users-per-tier 80 \
-            --delay-ms 2500 \
+            --max-users-per-tier 200 \
+            --next-seed-count 15 \
+            --delay-ms 1000 \
             --retry-429-ms 60000
 
       - name: Build combined stats
@@ -60,6 +61,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/official-match-input-seeded.json
+          git add data/official-next-seeds.json 2>/dev/null || true
           git add src/officialMatchStats.js 2>/dev/null || true
           git add data/dakStats.json 2>/dev/null || true
           git diff --staged --quiet && echo "No changes to commit" || \
