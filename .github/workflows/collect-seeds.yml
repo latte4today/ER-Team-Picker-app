@@ -2,7 +2,7 @@ name: Collect Tier Seeds
 
 on:
   schedule:
-    - cron: '0 3 * * *'   # 매일 UTC 03:00 (한국 낮 12시)
+    - cron: '0 */6 * * *' # 6시간마다 실행 (KST 09:00, 15:00, 21:00, 03:00)
   workflow_dispatch:       # GitHub UI에서 수동 실행 가능
 
 concurrency:
