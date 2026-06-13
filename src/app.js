@@ -1351,7 +1351,8 @@ function popularFeedbackRows(sortMode = "overall") {
   const rows = new Map();
   popularFeedback.forEach((row) => {
     if (!row.team_key || !row.candidate_id) return;
-    const key = `${row.team_key}->${row.candidate_id}`;
+    const key = compositionCanonicalKey(row);
+    if (!key) return;
     const previous = rows.get(key) ?? { teamKey: row.team_key, candidateId: row.candidate_id, likes: 0, dislikes: 0, total: 0, updatedAt: "" };
     previous.likes += row.likes ?? 0;
     previous.dislikes += row.dislikes ?? 0;
@@ -1408,6 +1409,18 @@ function userFeedbackBonus(likes = 0, dislikes = 0, totalOverride = undefined) {
   const sentiment = (likes - dislikes) / Math.max(1, total);
   const confidence = Math.min(1, Math.log2(total + 1) / 5);
   return sentiment * confidence * 42;
+}
+
+function compositionMembers(row) {
+  if (!row) return [];
+  if (row.teamKey && row.candidateId) return [...row.teamKey.split("+"), row.candidateId].filter(Boolean);
+  if (row.team_key && row.candidate_id) return [...String(row.team_key).split("+"), row.candidate_id].filter(Boolean);
+  if (row.teammates?.length && row.candidate) return [...row.teammates, row.candidate].filter(Boolean);
+  return [];
+}
+
+function compositionCanonicalKey(row) {
+  return [...new Set(compositionMembers(row))].sort().join("+");
 }
 
 function characterFeedbackRows() {
@@ -1534,7 +1547,15 @@ function rankTierForScore(score) {
 }
 
 function rankerCompositionRows() {
-  return [...rankerCompositionStats]
+  const rows = new Map();
+  for (const row of rankerCompositionStats) {
+    const key = compositionCanonicalKey(row);
+    if (!key) continue;
+    const previous = rows.get(key);
+    if (!previous || (row.games ?? 0) > (previous.games ?? 0)) rows.set(key, row);
+  }
+
+  return [...rows.values()]
     .map((row) => {
       const score = (row.top3Rate ?? 0) * 4 + (row.winRate ?? 0) * 5 + Math.min(1.5, (row.games ?? 0) / 8) - (row.avgPlacement ?? 5) * 0.18;
       return { ...row, score: score * 20 };
@@ -1556,7 +1577,8 @@ function officialCompositionRows() {
   sourceRows.forEach((row) => {
     if (!row?.candidate || !row?.teammates?.length) return;
     const teamKey = [...row.teammates].sort().join("+");
-    const key = `${teamKey}->${row.candidate}`;
+    const key = compositionCanonicalKey({ teamKey, candidateId: row.candidate });
+    if (!key) return;
     const previous = rows.get(key);
     if (!previous || (row.games ?? 0) > (previous.games ?? 0)) {
       rows.set(key, {
@@ -1589,9 +1611,10 @@ function combinedCompositionRows(sortMode = "overall") {
   }));
 
   const rows = new Map();
-  officialRows.forEach((row) => rows.set(`${row.teamKey}->${row.candidateId}`, row));
+  officialRows.forEach((row) => rows.set(compositionCanonicalKey(row), row));
   feedbackRows.forEach((row) => {
-    const key = `${row.teamKey}->${row.candidateId}`;
+    const key = compositionCanonicalKey(row);
+    if (!key) return;
     const previous = rows.get(key);
     rows.set(key, previous
       ? {
@@ -1677,7 +1700,7 @@ function renderRankRoleFilters() {
 }
 
 function compositionReason(row, isUserFeedback) {
-  const members = row.teamKey ? [...row.teamKey.split("+"), row.candidateId] : [...row.teammates, row.candidate];
+  const members = compositionMembers(row);
   const characters = members.map(characterById).filter(Boolean);
   const roles = new Set(characters.map((character) => character.role));
   const tags = new Set(characters.flatMap((character) => character.tags));
@@ -1726,7 +1749,7 @@ function renderHomeDashboard() {
   function renderComboCards(rows, titlePrefix, isUserFeedback) {
     return rows
     .map((row, index) => {
-      const members = row.teamKey ? [...row.teamKey.split("+"), row.candidateId] : [...row.teammates, row.candidate];
+      const members = compositionMembers(row);
       const top3Text = Number.isFinite(row.top3Rate) ? Math.round(row.top3Rate * 100) : "-";
       const detail = t("rank.comboDetail", { score: Math.max(0, Math.round(row.score ?? 0)), top3: top3Text });
       return `
@@ -1750,16 +1773,28 @@ function renderHomeDashboard() {
   const rankItems = rankRows
     .map((row, index) => {
       const character = characterBrief(row.characterId);
+      const top3 = Math.round(row.top3Rate * 100);
+      const win = Math.round(row.winRate * 100);
+      const damage = row.avgDamageToPlayer ? Math.round(row.avgDamageToPlayer).toLocaleString() : "-";
       return `
-        <article class="rank-card">
-          <span class="rank-number">${index + 1}</span>
-          <span class="rank-tier rank-tier-${row.tierLabel.toLowerCase()}">${row.tierLabel}</span>
-          ${character.image ? `<img src="${character.image}" alt="">` : ""}
-          <div>
-            <strong>${[character.name, character.weapon].filter(Boolean).join(" · ")}</strong>
-            <small>${t("rank.scoreDetail", { tier: row.tierLabel, count: row.games, top3: Math.round(row.top3Rate * 100) })}</small>
-          </div>
-        </article>
+        <details class="rank-card">
+          <summary>
+            <span class="rank-number">${index + 1}</span>
+            <span class="rank-tier rank-tier-${row.tierLabel.toLowerCase()}">${row.tierLabel}</span>
+            ${character.image ? `<img src="${character.image}" alt="">` : ""}
+            <span class="rank-card-main">
+              <strong>${[character.name, character.weapon].filter(Boolean).join(" · ")}</strong>
+              <small>${t("rank.scoreDetail", { count: row.games, top3 })}</small>
+            </span>
+          </summary>
+          <dl class="rank-detail-stats">
+            <div><dt>${t("rank.detailGames")}</dt><dd>${row.games}</dd></div>
+            <div><dt>${t("rank.detailTop3")}</dt><dd>${top3}%</dd></div>
+            <div><dt>${t("rank.detailWin")}</dt><dd>${win}%</dd></div>
+            <div><dt>${t("rank.detailDamage")}</dt><dd>${damage}</dd></div>
+            <div><dt>${t("rank.detailVotes")}</dt><dd>${row.votes}</dd></div>
+          </dl>
+        </details>
       `;
     })
     .join("");

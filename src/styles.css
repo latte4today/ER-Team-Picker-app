@@ -1265,7 +1265,7 @@ h2 {
 }
 
 .combo-face span,
-.rank-card div {
+.rank-card-main {
   display: grid;
   gap: 2px;
   min-width: 0;
@@ -1334,13 +1334,60 @@ h2 {
 
 .rank-card {
   display: grid;
-  grid-template-columns: 24px 30px 36px minmax(0, 1fr);
   gap: 8px;
-  align-items: center;
   padding: 8px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: var(--surface-2);
+}
+
+.rank-card summary {
+  display: grid;
+  grid-template-columns: 24px 30px 36px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.rank-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.rank-card[open] {
+  border-color: rgba(34, 211, 238, 0.45);
+}
+
+.rank-detail-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.rank-detail-stats div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rank-detail-stats dt {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.rank-detail-stats dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .rank-number {
