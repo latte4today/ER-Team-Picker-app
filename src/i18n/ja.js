@@ -365,7 +365,7 @@ export const ja = {
   "rank.gamesCount": "{count}試合",
   "rank.comboDetail": "メタスコア {score} · TOP3 {top3}%",
   "rank.rankerDetail": "ランカー{count}試合 · TOP3 {top3}%",
-  "rank.scoreDetail": "{tier}ティア · メタスコア {score} · {count}試合 · TOP3 {top3}%",
+  "rank.scoreDetail": "{tier}ティア · {count}試合 · TOP3 {top3}%",
   "recommend.emptyTitle": "チームメイトを選ぶと推薦候補が表示されます。",
   "recommend.emptyBody": "キャラカードを押すとチームメイト1、2、自分の順に記録され推薦が更新されます。",
   "recommend.noPlayable": "現在の使用可能リストには推薦候補がいません。",

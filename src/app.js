@@ -1745,7 +1745,7 @@ function renderHomeDashboard() {
           ${character.image ? `<img src="${character.image}" alt="">` : ""}
           <div>
             <strong>${character.name}</strong>
-            <small>${roleLabel(character.role)} · ${t("rank.scoreDetail", { tier: row.tierLabel, score: Math.max(0, Math.round(row.score ?? 0)), count: row.games, top3: Math.round(row.top3Rate * 100) })}</small>
+            <small>${t("rank.scoreDetail", { tier: row.tierLabel, count: row.games, top3: Math.round(row.top3Rate * 100) })}</small>
           </div>
         </article>
       `;

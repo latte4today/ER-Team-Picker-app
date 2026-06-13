@@ -365,7 +365,7 @@ export const zhHans = {
   "rank.gamesCount": "{count}场",
   "rank.comboDetail": "Meta 分数 {score} · TOP3 {top3}%",
   "rank.rankerDetail": "高手{count}场 · TOP3 {top3}%",
-  "rank.scoreDetail": "{tier}级 · Meta 分数 {score} · {count}场 · TOP3 {top3}%",
+  "rank.scoreDetail": "{tier}级 · {count}场 · TOP3 {top3}%",
   "recommend.emptyTitle": "选择队友后将显示推荐候选。",
   "recommend.emptyBody": "点击角色卡片将按队友1、2、自己的顺序记录并立即更新推荐。",
   "recommend.noPlayable": "当前可用角色列表中没有推荐候选。",

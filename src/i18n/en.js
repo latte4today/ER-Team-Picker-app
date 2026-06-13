@@ -365,7 +365,7 @@ export const en = {
   "rank.gamesCount": "{count} games",
   "rank.comboDetail": "Meta score {score} · TOP3 {top3}%",
   "rank.rankerDetail": "{count} games · TOP3 {top3}%",
-  "rank.scoreDetail": "{tier} tier · Meta score {score} · {count} games · TOP3 {top3}%",
+  "rank.scoreDetail": "{tier} tier · {count} games · TOP3 {top3}%",
   "recommend.emptyTitle": "Select teammates to see recommended picks.",
   "recommend.emptyBody": "Click a character card to record Teammate 1, Teammate 2, and Self — recommendations update instantly.",
   "recommend.noPlayable": "No candidates available within the current playable pool.",

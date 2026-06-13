@@ -365,7 +365,7 @@ export const zhHant = {
   "rank.gamesCount": "{count}場",
   "rank.comboDetail": "Meta 分數 {score} · TOP3 {top3}%",
   "rank.rankerDetail": "高手{count}場 · TOP3 {top3}%",
-  "rank.scoreDetail": "{tier}級 · Meta 分數 {score} · {count}場 · TOP3 {top3}%",
+  "rank.scoreDetail": "{tier}級 · {count}場 · TOP3 {top3}%",
   "recommend.emptyTitle": "選擇隊友後將顯示推薦候選。",
   "recommend.emptyBody": "點擊角色卡片將按隊友1、2、自己的順序記錄並立即更新推薦。",
   "recommend.noPlayable": "當前可用角色列表中沒有推薦候選。",
