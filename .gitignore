@@ -45,3 +45,4 @@ src/i18n/i18n_official_name_check_*
 
 # Tier seed files (contain nicknames)
 data/official-tier-seeds.json
+data/tier_seeds.json
