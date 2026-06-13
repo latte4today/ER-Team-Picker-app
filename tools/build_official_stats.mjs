@@ -180,6 +180,16 @@ function flattenRows(value) {
   return Object.values(value).flatMap(flattenRows);
 }
 
+function flattenCodeRows(value) {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.flatMap(flattenCodeRows);
+  if (typeof value !== "object") return [];
+  if (Array.isArray(value.data)) return value.data.flatMap(flattenCodeRows);
+  const hasCode = firstValue(value, ["code", "traitCode", "characterCode", "characterNum", "id", "key"]) !== undefined;
+  if (hasCode) return [value];
+  return Object.values(value).flatMap(flattenCodeRows);
+}
+
 function localNameIndex() {
   const aliases = new Map([
     ["쇼우", "sho"],
@@ -216,22 +226,70 @@ async function buildCharacterCodeMap(fetchCharacterData) {
   return codeMap;
 }
 
+const CURRENT_TRAIT_NAMES_BY_GROUP = {
+  Havoc: {
+    core: ["취약", "흡혈마", "아드레날린", "액셀러레이터"],
+    sub1: ["열세극복", "광분", "약자 멸시", "상흔"],
+    sub2: ["곰 탈", "멧돼지 탈", "늑대 탈", "들개 탈"],
+  },
+  Chaos: {
+    core: ["스텔라 차지", "도깨비불", "벽력", "와류"],
+    sub1: ["서큘러 시스템", "상처 악화", "철갑탄", "속사"],
+    sub2: ["힘의 축적", "오버워치", "R_echarger", "천상의 수집품"],
+  },
+  Resistance: {
+    core: ["금강", "불괴", "빛의 수호", "응징"],
+    sub1: ["대담", "진통제", "불굴", "경계심"],
+    sub2: ["견고", "먹보", "특공대", "담금질"],
+  },
+  Fortification: {
+    core: ["금강", "불괴", "빛의 수호", "응징"],
+    sub1: ["대담", "진통제", "불굴", "경계심"],
+    sub2: ["견고", "먹보", "특공대", "담금질"],
+  },
+  Support: {
+    core: ["초재생", "증폭 드론", "치유 드론", "헌신"],
+    sub1: ["사냥의 전율", "가시 덤불", "위압감", "폭발 선인장"],
+    sub2: ["후방 보급", "코인 토스", "할인 쿠폰", "캠핑 가이드"],
+  },
+};
+
+function currentTraitNameFromSort(row) {
+  const group = String(firstValue(row, ["traitGroup", "group"]) ?? "");
+  const sortOrder = Number(firstValue(row, ["traitSortOrder", "sortOrder", "order"]));
+  if (!group || !Number.isFinite(sortOrder)) return undefined;
+
+  const names = CURRENT_TRAIT_NAMES_BY_GROUP[group];
+  if (!names) return undefined;
+
+  const rowType = String(firstValue(row, ["traitType", "type"]) ?? "").toLowerCase();
+  const localOrder = sortOrder % 100;
+  const index = (localOrder % 10) - 1;
+  let category;
+  if (rowType.includes("core") || (localOrder >= 1 && localOrder <= 4)) category = "core";
+  else if (rowType.includes("sub1") || (localOrder >= 11 && localOrder <= 14)) category = "sub1";
+  else if (rowType.includes("sub2") || (localOrder >= 21 && localOrder <= 24)) category = "sub2";
+  if (!category || index < 0) return undefined;
+
+  return names[category]?.[index];
+}
+
 async function buildTraitNameMap(fetchData) {
   const map = new Map();
   if (!fetchData) return map;
-  try {
-    for (const table of ["Trait", "TraitCombat", "TraitSupport"]) {
-      const payload = await fetchJson(`/v1/data/${table}`, `data:${table}`);
-      for (const row of flattenRows(payload)) {
+  for (const [version, table] of [["v2", "Trait"], ["v1", "Trait"], ["v1", "TraitCombat"], ["v1", "TraitSupport"]]) {
+    try {
+      const payload = await fetchJson(`/${version}/data/${table}`, `data:${version}:${table}`);
+      for (const row of flattenCodeRows(payload)) {
         const code = firstValue(row, ["code", "traitCode", "id", "key"]);
-        const name = firstValue(row, ["name", "nameKr", "nameKo", "traitName", "korName"]);
+        const name = firstValue(row, ["name", "nameKr", "nameKo", "traitName", "korName"]) ?? currentTraitNameFromSort(row);
         if (code !== undefined && name) map.set(String(code), String(name));
       }
+    } catch (error) {
+      console.warn(`Trait name fetch skipped for ${version}/${table}: ${error.message}`);
     }
-    console.log(`Trait name map: ${map.size} entries`);
-  } catch (error) {
-    console.warn(`Trait name fetch skipped: ${error.message}`);
   }
+  console.log(`Trait name map: ${map.size} entries`);
   return map;
 }
 
