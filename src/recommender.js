@@ -1239,9 +1239,10 @@ function officialV2Score(candidate, selected, tier) {
 }
 
 function officialMatchScore(candidate, selected, tier) {
-  const composition = officialCompositionScore(candidate, selected, tier);
+  // depth-3 (exact 3-person composition) stats disabled until data volume is sufficient
+  // const composition = officialCompositionScore(candidate, selected, tier);
   const candidateScore = officialCandidateScore(candidate, tier);
-  return clamp(composition + candidateScore * 0.45, -1.5, 1.65);
+  return clamp(candidateScore * 0.45, -1.5, 1.65);
 }
 
 function tournamentResultScore(row) {

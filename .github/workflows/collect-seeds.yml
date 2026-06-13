@@ -42,29 +42,31 @@ jobs:
           node tools/official_seed_collector.mjs \
             --games-per-user 10 \
             --depth 2 \
-            --max-users-per-tier 200 \
+            --max-users-per-tier 350 \
+            --target-teams 12000 \
             --next-seed-count 15 \
             --delay-ms 1000 \
             --retry-429-ms 60000
 
+      - name: Accumulate match data
+        run: |
+          node tools/merge_match_input.mjs \
+            --accumulated data/official-match-input-accumulated.json \
+            --new data/official-match-input-seeded.json
+
       - name: Build combined stats
         run: |
-          if [ -f data/official-match-input.json ]; then
-            node tools/build_official_stats.mjs \
-              --in data/official-match-input.json \
-              --in data/official-match-input-seeded.json
-          else
-            node tools/build_official_stats.mjs \
-              --in data/official-match-input-seeded.json
-          fi
+          node tools/build_official_stats.mjs \
+            --in data/official-match-input-accumulated.json
 
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/official-match-input-accumulated.json 2>/dev/null || true
           git add -f data/official-match-input-seeded.json 2>/dev/null || true
           git add src/officialMatchStats.js 2>/dev/null || true
           git add src/officialMatchStats.json 2>/dev/null || true
-          git add data/dakStats.json 2>/dev/null || true
+          git add data/official-next-seeds.json 2>/dev/null || true
           git diff --staged --quiet && echo "No changes to commit" || \
             git commit -m "chore: update tier match data [skip ci]" && git push

@@ -74,6 +74,7 @@ const FALLBACK_CHARACTER_CODE_TO_ID = {
   60: "tazia",
   61: "irem",
   62: "theodore",
+  63: "nia",
   64: "vanya",
   65: "debi_marlene",
   66: "arda",
@@ -508,10 +509,14 @@ async function build() {
   const mappedCodes = new Set();
   const unmappedCodes = new Set();
   let mappedTeams = 0;
+  let validTeams = 0;
+  let droppedByUnknownChar = 0;
+  let droppedByInvalidSize = 0;
 
   for (const team of allTeams) {
     const rw = recencyWeight(team.collectedAt ?? args.collectedAt);
-    const players = (team.players ?? [])
+    const rawPlayers = team.players ?? [];
+    const players = rawPlayers
       .map((player) => {
         const id = codeMap.get(String(player.character));
         if (id) mappedCodes.add(String(player.character));
@@ -520,10 +525,12 @@ async function build() {
       })
       .filter(Boolean)
       .map((player) => ({ ...player, statId: statIdForPlayer(player, weaponCodeToId) }));
+    if (players.length < rawPlayers.length) droppedByUnknownChar += 1;
 
     const memberIds = [...new Set(players.map((player) => player.statId))].sort();
-    if (memberIds.length < 2) continue;
     mappedTeams += 1;
+    if (memberIds.length !== 3) { droppedByInvalidSize += 1; continue; }
+    validTeams += 1;
 
     const buckets = ["all", team.tierBucket || "unknown"];
     for (const bucket of buckets) {
@@ -597,13 +604,14 @@ async function build() {
 
   console.log(`saved JS: ${path.relative(ROOT, args.out)}`);
   console.log(`saved JSON: ${path.relative(ROOT, args.jsonOut)}`);
-  console.log(`teams: ${allTeams.length}, mapped: ${source.mappedTeams}, chars: ${source.mappedCharacters}`);
-  if (source.unmappedCharacterCodes.length) {
-    console.log(`unmapped codes: ${source.unmappedCharacterCodes.join(", ")}`);
-  }
+  const droppedTeams = allTeams.length - validTeams;
+  console.log(JSON.stringify({
+    rawTeams: allTeams.length,
+    mappedTeams,
+    validTeams,
+    droppedTeams,
+    dropReasons: { unknownChar: droppedByUnknownChar, invalidSize: droppedByInvalidSize },
+    unknownCharacterCodes: source.unmappedCharacterCodes,
+  }, null, 2));
 }
-
-build().catch((error) => {
-  console.error(error.message);
-  process.exit(1);
-});
+build().catch(console.error);

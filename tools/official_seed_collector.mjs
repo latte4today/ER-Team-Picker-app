@@ -54,6 +54,7 @@ const DEFAULTS = {
   delayMs:         1000,
   retry429Ms:      60000,
   strictTier:      false,
+  targetTeams:     0,        // 0 = no limit
 };
 
 function parseArgs() {
@@ -77,6 +78,7 @@ function parseArgs() {
       case "--delay-ms":           args.delayMs         = Number(value); break;
       case "--retry-429-ms":       args.retry429Ms      = Number(value); break;
       case "--strict-tier":        args.strictTier      = value !== "false"; break;
+      case "--target-teams":       args.targetTeams     = Number(value); break;
     }
   }
   return args;
@@ -282,7 +284,8 @@ async function main() {
     console.error("No tiers found."); process.exit(1);
   }
 
-  console.log(`\nSeason: ${options.season}  teamMode: ${options.teamMode}  depth: ${options.depth}  maxUsers/tier: ${options.maxUsersPerTier}`);
+  const targetLabel = options.targetTeams > 0 ? `  targetTeams: ${options.targetTeams}` : '';
+console.log(`\nSeason: ${options.season}  teamMode: ${options.teamMode}  depth: ${options.depth}  maxUsers/tier: ${options.maxUsersPerTier}${targetLabel}`);
   console.log(`Tiers: ${allTierBuckets.join(", ")}\n`);
 
   const gameIds      = new Set();
@@ -301,6 +304,15 @@ async function main() {
       client, compacted, seeds, options, gameIds, gameRankInfo
     );
     tierUserIds[compacted] = processedUserIds;
+
+    // --target-teams: stop early if we have enough games (~3 teams/game in squad)
+    if (options.targetTeams > 0) {
+      const approxTeams = gameIds.size * 3;
+      if (approxTeams >= options.targetTeams) {
+        console.log(`\n[target] ~${approxTeams} estimated teams >= target ${options.targetTeams} - stopping tier expansion early`);
+        break;
+      }
+    }
   }
 
   console.log(`\n[normalise] ${gameIds.size} unique games`);
