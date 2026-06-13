@@ -2062,6 +2062,16 @@ function renderRecommendations() {
   recommendations.innerHTML = feedbackCTABanner() + recommendationStageNotice() + cards + showMoreBtn;
 }
 
+function renderRecommendationsPreservingRankScroll() {
+  const rankGrid = recommendations.querySelector(".rank-grid");
+  const scrollTop = rankGrid?.scrollTop ?? 0;
+  renderRecommendations();
+  requestAnimationFrame(() => {
+    const nextRankGrid = recommendations.querySelector(".rank-grid");
+    if (nextRankGrid) nextRankGrid.scrollTop = scrollTop;
+  });
+}
+
 function renderMatchFeedback() {
   const chosen = characterVariants.find((character) => character.variantId === chosenPickId);
   if (!chosen) {
@@ -2597,7 +2607,7 @@ recommendations.addEventListener("click", (event) => {
     activeRankDetailId = activeRankDetailId === rankCard.dataset.rankDetailId
       ? null
       : rankCard.dataset.rankDetailId;
-    renderRecommendations();
+    renderRecommendationsPreservingRankScroll();
     return;
   }
 
@@ -2644,7 +2654,7 @@ recommendations.addEventListener("keydown", (event) => {
   activeRankDetailId = activeRankDetailId === rankCard.dataset.rankDetailId
     ? null
     : rankCard.dataset.rankDetailId;
-  renderRecommendations();
+  renderRecommendationsPreservingRankScroll();
 });
 recommendations.addEventListener("pointerdown", trackDetailsSummaryPointer, true);
 recommendations.addEventListener("click", handleDetailsSummaryClick, true);
