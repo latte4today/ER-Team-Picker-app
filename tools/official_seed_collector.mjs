@@ -54,7 +54,7 @@ const DEFAULTS = {
   delayMs:         1000,
   retry429Ms:      60000,
   strictTier:      false,
-  targetTeams:     0,        // 0 = no limit
+  targetTeams:     0,        // 0 = no limit; otherwise split evenly across tiers
 };
 
 function parseArgs() {
@@ -93,6 +93,15 @@ function shuffleSample(arr, n) {
   return copy.slice(0, n);
 }
 
+function estimatedTeamsFromGames(gameIds) {
+  return gameIds.size * 3;
+}
+
+function reachedTierTarget(gameIds, options) {
+  return options.targetTeamsPerTier > 0 &&
+    estimatedTeamsFromGames(gameIds) >= options.targetTeamsPerTier;
+}
+
 async function collectGamesForUser(client, userId, options, knownTierBucket, gameIds, gameRankInfo) {
   const rankInfo     = await lookupRankInfo(client, userId, options.season, options.teamMode);
   const actualBucket = rankInfo.tierBucket;
@@ -127,6 +136,7 @@ async function expandFromGames(
   let expanded = 0;
   for (const gameId of sourceGameIds) {
     if (processedUsers.size >= options.maxUsersPerTier) break;
+    if (reachedTierTarget(gameIds, options)) break;
 
     let gamePayload;
     try {
@@ -135,6 +145,7 @@ async function expandFromGames(
 
     for (const { type, value } of extractPlayerIds(gamePayload)) {
       if (processedUsers.size >= options.maxUsersPerTier) break;
+      if (reachedTierTarget(gameIds, options)) break;
 
       let userId;
       try {
@@ -169,6 +180,7 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
   // Phase 0a: userId seeds from previous run
   for (const userId of (seeds.userIds ?? [])) {
     if (processedUsers.size >= options.maxUsersPerTier) break;
+    if (reachedTierTarget(gameIds, options)) break;
     const uid = String(userId);
     if (processedUsers.has(uid)) continue;
     processedUsers.add(uid);
@@ -182,6 +194,7 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
   // Phase 0b: nickname seeds
   for (const [i, nickname] of (seeds.nicknames ?? []).entries()) {
     if (processedUsers.size >= options.maxUsersPerTier) break;
+    if (reachedTierTarget(gameIds, options)) break;
     process.stdout.write(`  [${tierBucket}] seed ${i + 1}/${seeds.nicknames.length} "${nickname}" ... `);
     const userId = await lookupUserId(client, nickname);
     if (!userId) { console.log("lookup failed"); continue; }
@@ -195,9 +208,12 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
 
   const afterDepth0 = new Set(gameIds);
   console.log(`  [${tierBucket}] depth-0: ${processedUsers.size} users, ${afterDepth0.size} games`);
+  if (reachedTierTarget(gameIds, options)) {
+    console.log(`  [${tierBucket}] target reached at depth-0: ~${estimatedTeamsFromGames(gameIds)} teams`);
+  }
 
   // Phase 1: depth-1 expansion
-  if (options.depth >= 1) {
+  if (options.depth >= 1 && !reachedTierTarget(gameIds, options)) {
     await expandFromGames(
       client, [...afterDepth0], tierBucket, options,
       gameIds, gameRankInfo, processedUsers, "depth-1"
@@ -205,7 +221,7 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
   }
 
   // Phase 2: depth-2 expansion
-  if (options.depth >= 2) {
+  if (options.depth >= 2 && !reachedTierTarget(gameIds, options)) {
     const newDepth1Games = [...gameIds].filter(id => !afterDepth0.has(id));
     if (newDepth1Games.length > 0) {
       console.log(`  [${tierBucket}] depth-2: expanding from ${newDepth1Games.length} new games...`);
@@ -284,8 +300,13 @@ async function main() {
     console.error("No tiers found."); process.exit(1);
   }
 
-  const targetLabel = options.targetTeams > 0 ? `  targetTeams: ${options.targetTeams}` : '';
-console.log(`\nSeason: ${options.season}  teamMode: ${options.teamMode}  depth: ${options.depth}  maxUsers/tier: ${options.maxUsersPerTier}${targetLabel}`);
+  const targetTeamsPerTier = options.targetTeams > 0
+    ? Math.ceil(options.targetTeams / allTierBuckets.length)
+    : 0;
+  const targetLabel = options.targetTeams > 0
+    ? `  targetTeams: ${options.targetTeams} (~${targetTeamsPerTier}/tier)`
+    : '';
+  console.log(`\nSeason: ${options.season}  teamMode: ${options.teamMode}  depth: ${options.depth}  maxUsers/tier: ${options.maxUsersPerTier}${targetLabel}`);
   console.log(`Tiers: ${allTierBuckets.join(", ")}\n`);
 
   // Each tier expands independently to avoid cross-tier gameId saturation
@@ -301,12 +322,13 @@ console.log(`\nSeason: ${options.season}  teamMode: ${options.teamMode}  depth: 
       nicknames: nicknameTiers[tierBucket] ?? [],
     };
     console.log(`\n[${tierBucket}] ${seeds.userIds.length} userId-seeds + ${seeds.nicknames.length} nickname-seeds`);
+    const tierOptions = { ...options, targetTeamsPerTier };
 
     // Use tier-local sets so expansion isn't blocked by other tiers' games
     const tierGameIds      = new Set();
     const tierGameRankInfo = new Map();
     const { processedUserIds } = await expandTier(
-      client, compacted, seeds, options, tierGameIds, tierGameRankInfo
+      client, compacted, seeds, tierOptions, tierGameIds, tierGameRankInfo
     );
     tierUserIds[compacted] = processedUserIds;
 
@@ -315,12 +337,6 @@ console.log(`\nSeason: ${options.season}  teamMode: ${options.teamMode}  depth: 
     for (const [k, v] of tierGameRankInfo.entries()) allGameRankInfo.set(k, v);
     totalApproxTeams += tierGameIds.size * 3;
     console.log(`  [${tierBucket}] contributed ${tierGameIds.size} games (~${tierGameIds.size * 3} teams); running total ~${totalApproxTeams}`);
-
-    // --target-teams: stop early if we have enough games (~3 teams/game in squad)
-    if (options.targetTeams > 0 && totalApproxTeams >= options.targetTeams) {
-      console.log(`\n[target] ~${totalApproxTeams} estimated teams >= target ${options.targetTeams} - stopping tier expansion early`);
-      break;
-    }
   }
   const gameIds      = allGameIds;
   const gameRankInfo = allGameRankInfo;
@@ -343,6 +359,8 @@ console.log(`\nSeason: ${options.season}  teamMode: ${options.teamMode}  depth: 
       depth:           options.depth,
       gamesPerUser:    options.gamesPerUser,
       maxUsersPerTier: options.maxUsersPerTier,
+      targetTeams:     options.targetTeams,
+      targetTeamsPerTier,
       strictTier:      options.strictTier,
       storesNicknames: false,
       storesUserIds:   false,

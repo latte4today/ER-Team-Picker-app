@@ -570,6 +570,12 @@ async function build() {
     patch: args.patch,
     totalTeams: allTeams.length,
     mappedTeams,
+    validTeams,
+    droppedTeams: allTeams.length - validTeams,
+    dropReasons: {
+      unknownChar: droppedByUnknownChar,
+      invalidSize: droppedByInvalidSize,
+    },
     mappedCharacters: mappedCodes.size,
     mappedWeaponCodes: weaponCodeToId.size,
     unmappedCharacterCodes: [...unmappedCodes].sort((a, b) => Number(a) - Number(b)),
@@ -614,4 +620,7 @@ async function build() {
     unknownCharacterCodes: source.unmappedCharacterCodes,
   }, null, 2));
 }
-build().catch(console.error);
+build().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
