@@ -12,6 +12,7 @@
     "collect-official": "node tools/official_collector.mjs",
     "collect-official-seeds": "node tools/official_seed_collector.mjs",
     "build-official-stats": "node tools/build_official_stats.mjs",
+    "export-ml-training-data": "node tools/export_ml_training_data.mjs",
     "check-api-key": "node tools/check_api_key.mjs",
     "test-official-api": "node tools/test_api.mjs",
     "wiki-template": "\"C:\\Program Files\\nodejs\\node.exe\" tools/make_wiki_metrics_template.mjs",

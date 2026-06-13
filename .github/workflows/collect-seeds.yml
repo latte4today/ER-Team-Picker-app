@@ -17,6 +17,9 @@ jobs:
     permissions:
       contents: write      # 결과 파일 commit 권한
 
+    env:
+      CURRENT_PATCH: ${{ vars.CURRENT_PATCH || secrets.CURRENT_PATCH || 'current' }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -64,14 +67,24 @@ jobs:
           node tools/build_official_stats.mjs \
             --in data/official-match-input-accumulated.json
 
+      - name: Export ML training artifact
+        run: |
+          node tools/export_ml_training_data.mjs \
+            --in data/official-match-input-accumulated.json \
+            --out-dir data/ml-training \
+            --patch "$CURRENT_PATCH"
+
       - name: Upload collected data artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: collected-official-data
+          retention-days: 90
           path: |
             data/official-match-input-seeded.json
             data/official-match-input-accumulated.json
+            data/ml-training/*.jsonl
+            data/ml-training/*.manifest.json
             src/officialMatchStats.js
             src/officialMatchStats.json
             data/official-next-seeds.json
