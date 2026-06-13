@@ -138,6 +138,31 @@
       </section>
     </div>
 
+    <div class="tutorial-modal tier-guide-modal" id="tier-guide-modal" hidden>
+      <div class="tutorial-backdrop" data-tier-guide-close></div>
+      <section class="tutorial-dialog tier-guide-dialog" role="dialog" aria-modal="true" aria-labelledby="tier-guide-title">
+        <p class="section-kicker" data-i18n="tierGuide.kicker"></p>
+        <h2 id="tier-guide-title" data-i18n="tierGuide.title"></h2>
+        <p data-i18n="tierGuide.body"></p>
+        <label class="tier-guide-field">
+          <span data-i18n="tierGuide.field"></span>
+          <select id="tier-guide-select">
+            <option value="all" data-i18n="tier.all"></option>
+            <option value="iron_bronze" data-i18n="tier.ironBronze"></option>
+            <option value="silver_gold" data-i18n="tier.silverGold"></option>
+            <option value="platinum_diamond" data-i18n="tier.platinumDiamond"></option>
+            <option value="meteor_mithril" data-i18n="tier.meteorMithril"></option>
+            <option value="demigod_eternity" data-i18n="tier.demigodEternity"></option>
+          </select>
+        </label>
+        <p class="tutorial-note" data-i18n="tierGuide.changeAnytime"></p>
+        <div class="tutorial-actions">
+          <button class="ghost-button" type="button" data-tier-guide-close data-i18n="tierGuide.skip"></button>
+          <button class="primary-button tutorial-start-button" type="button" id="tier-guide-apply" data-i18n="tierGuide.apply"></button>
+        </div>
+      </section>
+    </div>
+
     <main class="app-shell" id="app-shell" style="opacity:0;transition:opacity 180ms ease">
       <aside class="app-sidebar" data-i18n-label="app.sidebarLabel">
         <div class="brand-panel">

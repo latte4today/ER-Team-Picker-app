@@ -79,6 +79,9 @@ const unionClearButton = document.querySelector("#union-clear-button");
 const unionConfirmButton = document.querySelector("#union-confirm-button");
 const unionPresetPanel = document.querySelector("#union-preset-panel");
 const languageGate = document.querySelector("#language-gate");
+const tierGuideModal = document.querySelector("#tier-guide-modal");
+const tierGuideSelect = document.querySelector("#tier-guide-select");
+const tierGuideApply = document.querySelector("#tier-guide-apply");
 
 let activeSlot = null;
 let recentlyAssignedVariantId = null;
@@ -94,6 +97,7 @@ let chosenPickId = null;
 const submittedFeedbackKeys = new Set();
 const slotAssignments = [null, null, null];
 const savedTheme = localStorage.getItem("er-team-picker-theme");
+const tierGuideStorageKey = "er-team-picker-tier-guide-seen";
 const legacyPlayableStorageKey = "er-team-picker-playable-characters";
 const playableStorageKey = "er-team-picker-playable-variants";
 const presetStorageKey = "er-team-picker-playable-presets";
@@ -141,6 +145,27 @@ if (!hasStoredLanguage()) {
   languageGate.hidden = false;
 }
 
+function openTierGuideModal() {
+  if (!tierGuideModal || localStorage.getItem(tierGuideStorageKey) === "true") return;
+  tierGuideSelect.value = tierSelect.value;
+  tierGuideModal.hidden = false;
+  window.setTimeout(() => tierGuideSelect.focus(), 40);
+}
+
+function closeTierGuideModal({ remember = true } = {}) {
+  if (!tierGuideModal) return;
+  tierGuideModal.hidden = true;
+  if (remember) localStorage.setItem(tierGuideStorageKey, "true");
+}
+
+function applyTierGuideSelection() {
+  if (!tierGuideSelect) return;
+  tierSelect.value = tierGuideSelect.value;
+  closeTierGuideModal();
+  renderRecommendations();
+  refreshRemoteFeedbackIfNeeded();
+}
+
 languageGate?.addEventListener("click", (event) => {
   const button = event.target.closest("[data-language-option]");
   if (!button) return;
@@ -148,6 +173,7 @@ languageGate?.addEventListener("click", (event) => {
   applyTranslations();
   languageGate.hidden = true;
   render();
+  openTierGuideModal();
 });
 
 function characterName(characterId) {
@@ -2094,6 +2120,12 @@ sideTabs.forEach((button) => {
 settingsOpenButton.addEventListener("click", openSettingsModal);
 updateCheckButton.addEventListener("click", () => triggerErUpdate({ manual: true }));
 
+tierGuideModal?.addEventListener("click", (event) => {
+  if (event.target.closest("[data-tier-guide-close]")) closeTierGuideModal();
+});
+
+tierGuideApply?.addEventListener("click", applyTierGuideSelection);
+
 settingsModal.addEventListener("click", (event) => {
   if (event.target.closest("[data-settings-close]")) closeSettingsModal();
 });
@@ -2124,7 +2156,8 @@ contactModal.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
-    if (!contactModal.hidden) closeContactModal();
+    if (tierGuideModal && !tierGuideModal.hidden) closeTierGuideModal();
+    else if (!contactModal.hidden) closeContactModal();
     else if (!settingsModal.hidden) closeSettingsModal();
   }
 });
@@ -2634,6 +2667,9 @@ if (recoveredFeedbackCount > 0) {
 
 setupErUpdater();
 render();
+if (hasStoredLanguage()) {
+  window.setTimeout(openTierGuideModal, 500);
+}
 if (isElectron) {
   setTimeout(checkForUpdatesOnStartup, 1200);
   startPeriodicUpdateChecks();
