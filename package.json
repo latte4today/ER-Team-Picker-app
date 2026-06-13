@@ -33,6 +33,7 @@
   "build": {
     "appId": "com.er.team-picker",
     "productName": "ER Team Picker",
+    "artifactName": "ER-Team-Picker-Setup-${version}.${ext}",
     "files": [
       "index.html",
       "src/**/*",
