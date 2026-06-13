@@ -288,9 +288,11 @@ async function main() {
 console.log(`\nSeason: ${options.season}  teamMode: ${options.teamMode}  depth: ${options.depth}  maxUsers/tier: ${options.maxUsersPerTier}${targetLabel}`);
   console.log(`Tiers: ${allTierBuckets.join(", ")}\n`);
 
-  const gameIds      = new Set();
-  const gameRankInfo = new Map();
-  const tierUserIds  = {};
+  // Each tier expands independently to avoid cross-tier gameId saturation
+  const allGameIds      = new Set();
+  const allGameRankInfo = new Map();
+  const tierUserIds     = {};
+  let totalApproxTeams  = 0;
 
   for (const tierBucket of allTierBuckets) {
     const compacted = compactTierBucket(tierBucket) || tierBucket;
@@ -300,20 +302,28 @@ console.log(`\nSeason: ${options.season}  teamMode: ${options.teamMode}  depth: 
     };
     console.log(`\n[${tierBucket}] ${seeds.userIds.length} userId-seeds + ${seeds.nicknames.length} nickname-seeds`);
 
+    // Use tier-local sets so expansion isn't blocked by other tiers' games
+    const tierGameIds      = new Set();
+    const tierGameRankInfo = new Map();
     const { processedUserIds } = await expandTier(
-      client, compacted, seeds, options, gameIds, gameRankInfo
+      client, compacted, seeds, options, tierGameIds, tierGameRankInfo
     );
     tierUserIds[compacted] = processedUserIds;
 
+    // Merge tier results into global sets
+    for (const id of tierGameIds)                   allGameIds.add(id);
+    for (const [k, v] of tierGameRankInfo.entries()) allGameRankInfo.set(k, v);
+    totalApproxTeams += tierGameIds.size * 3;
+    console.log(`  [${tierBucket}] contributed ${tierGameIds.size} games (~${tierGameIds.size * 3} teams); running total ~${totalApproxTeams}`);
+
     // --target-teams: stop early if we have enough games (~3 teams/game in squad)
-    if (options.targetTeams > 0) {
-      const approxTeams = gameIds.size * 3;
-      if (approxTeams >= options.targetTeams) {
-        console.log(`\n[target] ~${approxTeams} estimated teams >= target ${options.targetTeams} - stopping tier expansion early`);
-        break;
-      }
+    if (options.targetTeams > 0 && totalApproxTeams >= options.targetTeams) {
+      console.log(`\n[target] ~${totalApproxTeams} estimated teams >= target ${options.targetTeams} - stopping tier expansion early`);
+      break;
     }
   }
+  const gameIds      = allGameIds;
+  const gameRankInfo = allGameRankInfo;
 
   console.log(`\n[normalise] ${gameIds.size} unique games`);
   const teams = await fetchAndNormalize(client, gameIds, gameRankInfo);
