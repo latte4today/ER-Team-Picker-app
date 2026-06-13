@@ -32,6 +32,7 @@ jobs:
           path: |
             data/official-cache
             data/official-next-seeds.json
+            data/official-match-input-accumulated.json
           key: official-cache-${{ github.run_id }}
           restore-keys: official-cache-
 
@@ -80,11 +81,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f data/official-match-input-accumulated.json 2>/dev/null || true
-          git add -f data/official-match-input-seeded.json 2>/dev/null || true
           git add src/officialMatchStats.js 2>/dev/null || true
           git add src/officialMatchStats.json 2>/dev/null || true
-          git add data/official-next-seeds.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
