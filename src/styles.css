@@ -1334,7 +1334,7 @@ h2 {
 
 .rank-card {
   display: grid;
-  grid-template-columns: 24px 36px minmax(0, 1fr);
+  grid-template-columns: 24px 30px 36px minmax(0, 1fr);
   gap: 8px;
   align-items: center;
   padding: 8px;
@@ -1353,6 +1353,48 @@ h2 {
   color: var(--accent-strong);
   font-size: 12px;
   font-weight: 900;
+}
+
+.rank-tier {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 22px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface-1);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.rank-tier-s {
+  border-color: rgba(250, 204, 21, 0.62);
+  background: rgba(250, 204, 21, 0.14);
+  color: #facc15;
+}
+
+.rank-tier-a {
+  border-color: rgba(34, 211, 238, 0.55);
+  background: rgba(34, 211, 238, 0.13);
+  color: var(--accent-strong);
+}
+
+.rank-tier-b {
+  border-color: rgba(74, 222, 128, 0.45);
+  background: rgba(74, 222, 128, 0.10);
+  color: #86efac;
+}
+
+.rank-tier-c {
+  border-color: rgba(148, 163, 184, 0.45);
+  color: var(--muted);
+}
+
+.rank-tier-d {
+  border-color: rgba(248, 113, 113, 0.42);
+  background: rgba(248, 113, 113, 0.10);
+  color: #fca5a5;
 }
 
 .result-panel {

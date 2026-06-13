@@ -30,6 +30,7 @@ let officialCombatStatsByTier     = _bundledCombatStats;
 let OFFICIAL_V2_WEIGHTS           = _bundledWeights;
 let BAYESIAN_ALPHA                = _bundledAlpha;
 let _officialCompositionByTierCandidate = buildOfficialCompositionIndex(officialCompositionStatsByTier);
+let _officialTierAverageCache = new Map();
 
 function buildOfficialCompositionIndex(statsByTier = {}) {
   const index = new Map();
@@ -48,11 +49,14 @@ function buildOfficialCompositionIndex(statsByTier = {}) {
 function officialStatsBucketForTier(tier = "all") {
   const bucketMap = {
     all: "all",
-    iron_bronze: "bronze",
-    silver_gold: "gold",
+    iron_gold: "iron_gold",
+    iron_bronze: "iron_gold",
+    silver_gold: "iron_gold",
     platinum_diamond: "platinum_diamond",
     meteor_mithril: "meteor_mithril",
     demigod_eternity: "demigod_eternity",
+    diamond: "platinum_diamond",
+    mithril_plus: "meteor_mithril",
   };
   const preferred = bucketMap[tier] ?? tier ?? "all";
   const hasPreferred =
@@ -76,6 +80,7 @@ export function updateOfficialStats(remote) {
   if (remote.weights)                       OFFICIAL_V2_WEIGHTS           = remote.weights;
   if (remote.alpha)                         BAYESIAN_ALPHA                = remote.alpha;
   _officialCompositionByTierCandidate = buildOfficialCompositionIndex(officialCompositionStatsByTier);
+  _officialTierAverageCache = new Map();
 }
 import { tournamentCompositions } from "./tournamentMeta.js";
 import {
@@ -1005,6 +1010,98 @@ function officialCandidateStats(candidate, tier) {
     officialCandidateStatsByTier?.all?.[candidate.characterId];
 }
 
+function officialMetaDamageGroup(character) {
+  if (isSupport(character)) return "support";
+  if (isFrontRole(character) || character.role === "assassin") return "front";
+  if (character.role === "ranged" || character.role === "mage") return "backline";
+  return "all";
+}
+
+function officialStatConfidence(stats, fullConfidenceGames = 260) {
+  const games = stats?.games ?? 0;
+  if (games <= 0) return 0;
+  return clamp(Math.log10(games + 1) / Math.log10(fullConfidenceGames + 1), 0, 1);
+}
+
+function officialTierAverages(tier, damageGroup = "all") {
+  const bucket = officialStatsBucketForTier(tier);
+  const cacheKey = `${bucket}:${damageGroup}`;
+  const cached = _officialTierAverageCache.get(cacheKey);
+  if (cached) return cached;
+
+  const statsByCharacter = officialCandidateStatsByTier?.[bucket] ?? officialCandidateStatsByTier?.all ?? {};
+  const rows = Object.entries(statsByCharacter)
+    .map(([characterId, stats]) => ({
+      character: characterVariants.find((item) => item.characterId === characterId),
+      stats,
+    }))
+    .filter(({ character, stats }) => character && stats?.games > 0);
+
+  const groupedRows = damageGroup === "all"
+    ? rows
+    : rows.filter(({ character }) => officialMetaDamageGroup(character) === damageGroup);
+  const sourceRows = groupedRows.length >= 8 ? groupedRows : rows;
+
+  const totals = sourceRows.reduce((state, { stats }) => {
+    const games = stats.games ?? 0;
+    state.games += games;
+    state.winRate += (stats.winRate ?? 0) * games;
+    state.top3Rate += (stats.top3Rate ?? 0) * games;
+    state.avgPlacement += (stats.avgPlacement ?? 4.5) * games;
+    state.avgDamageToPlayer += (stats.avgDamageToPlayer ?? 0) * games;
+    state.avgDamageFromPlayer += (stats.avgDamageFromPlayer ?? 0) * games;
+    return state;
+  }, {
+    games: 0,
+    winRate: 0,
+    top3Rate: 0,
+    avgPlacement: 0,
+    avgDamageToPlayer: 0,
+    avgDamageFromPlayer: 0,
+  });
+
+  const averages = totals.games > 0 ? {
+    games: totals.games,
+    winRate: totals.winRate / totals.games,
+    top3Rate: totals.top3Rate / totals.games,
+    avgPlacement: totals.avgPlacement / totals.games,
+    avgDamageToPlayer: totals.avgDamageToPlayer / totals.games,
+    avgDamageFromPlayer: totals.avgDamageFromPlayer / totals.games,
+  } : {
+    games: 0,
+    winRate: 0.14,
+    top3Rate: 0.42,
+    avgPlacement: 4.5,
+    avgDamageToPlayer: 14000,
+    avgDamageFromPlayer: 14000,
+  };
+
+  _officialTierAverageCache.set(cacheKey, averages);
+  return averages;
+}
+
+function officialMetaScore(candidate, tier) {
+  const stats = officialCandidateStats(candidate, tier);
+  if (!stats || (stats.games ?? 0) < 10) return 0;
+
+  const averages = officialTierAverages(tier, officialMetaDamageGroup(candidate));
+  const confidence = officialStatConfidence(stats);
+  const resultScore =
+    ((stats.winRate ?? averages.winRate) - averages.winRate) * 2.2 +
+    ((stats.top3Rate ?? averages.top3Rate) - averages.top3Rate) * 1.35 +
+    ((averages.avgPlacement ?? 4.5) - (stats.avgPlacement ?? averages.avgPlacement)) * 0.36;
+  const damageBase = averages.avgDamageToPlayer > 0 ? averages.avgDamageToPlayer : 14000;
+  const damageScore = stats.avgDamageToPlayer
+    ? clamp((stats.avgDamageToPlayer / damageBase - 1) * 0.62, -0.32, 0.42)
+    : 0;
+  const durabilityBase = averages.avgDamageFromPlayer > 0 ? averages.avgDamageFromPlayer : 14000;
+  const durabilityScore = isFrontRole(candidate) && stats.avgDamageFromPlayer
+    ? clamp((stats.avgDamageFromPlayer / durabilityBase - 1) * 0.28, -0.12, 0.22)
+    : 0;
+
+  return clamp((resultScore + damageScore + durabilityScore) * confidence, -1.05, 1.15);
+}
+
 function officialCompositionScore(candidate, selected, tier) {
   if (selected.length === 0) return 0;
 
@@ -1236,6 +1333,24 @@ function dakRealtimeScore(candidate) {
     tierScore;
 
   return clamp(raw * sampleConfidence, -1.2, 1.35);
+}
+
+function legacyDakMetaScore(candidate, tier) {
+  const legacyScore =
+    dakTierScore(candidate, tier) * 0.35 +
+    dakStatisticsScore(candidate, tier) * 0.35 +
+    dakRealtimeScore(candidate) * 0.30;
+  return clamp(legacyScore, -0.95, 1.05);
+}
+
+function combinedMetaScore(candidate, tier) {
+  const officialScore = officialMetaScore(candidate, tier);
+  const legacyScore = legacyDakMetaScore(candidate, tier);
+  const officialConfidence = officialStatConfidence(officialCandidateStats(candidate, tier), 420);
+
+  const officialWeight = clamp(officialConfidence, 0, 0.78);
+  const legacyWeight = 0.58 - officialWeight * 0.42;
+  return clamp(officialScore * officialWeight + legacyScore * legacyWeight, -1.1, 1.25);
 }
 
 function feedbackSentiment(likes = 0, dislikes = 0) {
@@ -1519,18 +1634,18 @@ function explain(candidate, selected, scores) {
   if (scores.tournamentComposition <= -0.45) reasons.push(t("recommender.reason.tournamentComboNegative"));
   if (scores.tournamentArchetype >= 0.45) reasons.push(t("recommender.reason.tournamentArchetypePositive"));
   if (scores.tournamentArchetype <= -0.35) reasons.push(t("recommender.reason.tournamentArchetypeNegative"));
-  if (scores.dakComposition >= 1.1) reasons.push(t("recommender.reason.dakCompositionPositive", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
-  if (scores.dakComposition <= -0.8) reasons.push(t("recommender.reason.dakCompositionNegative", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  if (scores.dakComposition >= 1.8) reasons.push(t("recommender.reason.dakCompositionPositive", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  if (scores.dakComposition <= -1.1) reasons.push(t("recommender.reason.dakCompositionNegative", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   if (scores.officialMatch >= 0.75) reasons.push(t("recommender.reason.officialMatchPositive", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   if (scores.officialMatch <= -0.65) reasons.push(t("recommender.reason.officialMatchNegative", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
-  if (scores.dakTier >= 0.8) reasons.push(t("recommender.reason.dakTierHigh", { name: characterName(candidate) }));
-  if (scores.dakStatistics >= 0.55) reasons.push(t("recommender.reason.dakStatsPositive", { name: characterName(candidate) }));
-  if (scores.dakStatistics <= -0.45) reasons.push(t("recommender.reason.dakStatsNegative", { name: characterName(candidate) }));
-  if (scores.dakRealtime >= 0.65) {
+  if (scores.dakTier >= 1.1) reasons.push(t("recommender.reason.dakTierHigh", { name: characterName(candidate) }));
+  if (scores.dakStatistics >= 0.8) reasons.push(t("recommender.reason.dakStatsPositive", { name: characterName(candidate) }));
+  if (scores.dakStatistics <= -0.75) reasons.push(t("recommender.reason.dakStatsNegative", { name: characterName(candidate) }));
+  if (scores.dakRealtime >= 0.9) {
     const stats = realtimeStatsFor(candidate);
     reasons.push(t("recommender.reason.realtimeStatsPositive", { weapon: weaponLabel(candidate), name: characterName(candidate), winRate: stats.winRate.toFixed(1), top3Rate: stats.top3Rate.toFixed(1), damage: stats.damage.toLocaleString() }));
   }
-  if (scores.dakRealtime <= -0.55) {
+  if (scores.dakRealtime <= -0.85) {
     const stats = realtimeStatsFor(candidate);
     reasons.push(t("recommender.reason.realtimeStatsNegative", { weapon: weaponLabel(candidate), name: characterName(candidate), winRate: stats.winRate.toFixed(1), top3Rate: stats.top3Rate.toFixed(1), damage: stats.damage.toLocaleString() }));
   }
@@ -1573,6 +1688,9 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     dakTier: dakTierScore(candidate, tier),
     dakStatistics: dakStatisticsScore(candidate, tier),
     dakRealtime: dakRealtimeScore(candidate),
+    officialMeta: officialMetaScore(candidate, tier),
+    legacyMeta: legacyDakMetaScore(candidate, tier),
+    meta: combinedMetaScore(candidate, tier),
     officialMatch: officialMatchScore(candidate, selected, tier),
     officialV2:    officialV2Score(candidate, selected, tier),
     relationship: relationshipScore(candidate, selected, tier, relationshipRows),
@@ -1590,14 +1708,12 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.teamShape +
     scores.conflict +
     scores.compositionGuide +
-    scores.dakComposition +
+    scores.dakComposition * 0.35 +
     scores.tournamentComposition * 0.5 +
     scores.tournamentArchetype * 0.4 +
-    scores.dakTier * 0.6 +
-    scores.dakStatistics * 0.6 +
-    scores.dakRealtime * 0.5 +
-    scores.officialMatch * 0.30 +
-    scores.officialV2 * 0.55 +
+    scores.meta +
+    scores.officialMatch * 0.35 +
+    scores.officialV2 * 0.35 +
     scores.relationship -
     candidate.difficulty * 0.08 +
     getFeedbackScore(selectedIds, candidate.variantId, tier) +

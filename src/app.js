@@ -14,6 +14,10 @@ import {
 import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend, updateOfficialStats } from "./recommender.js";
+import {
+  officialCandidateStatsByTier as bundledOfficialCandidateStatsByTier,
+  officialCompositionStatsByTier as bundledOfficialCompositionStatsByTier,
+} from "./officialMatchStats.js";
 import { teamMetricProfile, teamMetricTags } from "./characterMetrics.js";
 import {
   helpsMeleeEngage,
@@ -32,6 +36,8 @@ const isElectron = /electron/i.test(navigator.userAgent);
 const selectedIds = new Set();
 let activeRole = "all";
 let activeRankRole = "all";
+let officialCandidateStatsByTier = bundledOfficialCandidateStatsByTier;
+let officialCompositionStatsByTier = bundledOfficialCompositionStatsByTier;
 
 const characterGrid = document.querySelector("#character-grid");
 const selectedTeam = document.querySelector("#selected-team");
@@ -1362,25 +1368,285 @@ function popularFeedbackRows(sortMode = "overall") {
     .slice(0, 14);
 }
 
+function officialBucketForTier(tier = "all") {
+  const bucketMap = {
+    all: "all",
+    iron_gold: "iron_gold",
+    iron_bronze: "iron_gold",
+    silver_gold: "iron_gold",
+    platinum_diamond: "platinum_diamond",
+    meteor_mithril: "meteor_mithril",
+    demigod_eternity: "demigod_eternity",
+    diamond: "platinum_diamond",
+    mithril_plus: "meteor_mithril",
+  };
+  const preferred = bucketMap[tier] ?? tier ?? "all";
+  return officialCandidateStatsByTier?.[preferred] || officialCompositionStatsByTier?.[preferred]
+    ? preferred
+    : "all";
+}
+
+function rankingConfidence(games = 0, fullConfidenceGames = 260) {
+  if (games <= 0) return 0;
+  return Math.max(0, Math.min(1, Math.log10(games + 1) / Math.log10(fullConfidenceGames + 1)));
+}
+
+function placementRankingScore(row) {
+  return (
+    (row.winRate ?? 0) * 240 +
+    (row.top3Rate ?? 0) * 150 +
+    (4.5 - (row.avgPlacement ?? 4.5)) * 16
+  );
+}
+
+function userFeedbackBonus(likes = 0, dislikes = 0, totalOverride = undefined) {
+  const total = totalOverride ?? likes + dislikes;
+  if (total <= 0) return 0;
+  const sentiment = (likes - dislikes) / Math.max(1, total);
+  const confidence = Math.min(1, Math.log2(total + 1) / 5);
+  return sentiment * confidence * 42;
+}
+
+function characterFeedbackRows() {
+  const rows = new Map();
+  popularFeedback.forEach((row) => {
+    if (!row.candidate_id) return;
+    const character = characterVariants.find((item) => item.variantId === row.candidate_id || item.characterId === row.candidate_id);
+    const characterId = character?.characterId ?? row.candidate_id.split(":")[0];
+    const previous = rows.get(characterId) ?? { likes: 0, dislikes: 0, total: 0 };
+    previous.likes += row.likes ?? 0;
+    previous.dislikes += row.dislikes ?? 0;
+    previous.total += row.total ?? 0;
+    rows.set(characterId, previous);
+  });
+  return rows;
+}
+
+function characterRankGroup(character) {
+  if (!character) return "all";
+  if (character.role === "support") return "support";
+  if (character.role === "frontline" || character.role === "bruiser") return "front";
+  if (character.role === "ranged" || character.role === "mage") return "backline";
+  if (character.role === "assassin") return "assassin";
+  return "all";
+}
+
+function relativeScore(value, baseline, scale = 1) {
+  if (!Number.isFinite(value) || !Number.isFinite(baseline) || baseline <= 0) return 0;
+  return Math.max(-1.2, Math.min(1.2, ((value - baseline) / baseline) * scale));
+}
+
+function placementDeltaScore(value, baseline) {
+  if (!Number.isFinite(value) || !Number.isFinite(baseline)) return 0;
+  return Math.max(-1.2, Math.min(1.2, (baseline - value) / 1.35));
+}
+
+function officialCharacterRankAverages(officialRows, group) {
+  const rows = Object.entries(officialRows)
+    .map(([characterId, stat]) => ({ character: characterById(characterId), stat }))
+    .filter(({ character, stat }) => character && stat?.games > 0);
+  const groupedRows = rows.filter(({ character }) => characterRankGroup(character) === group);
+  const sourceRows = groupedRows.length >= 6 ? groupedRows : rows;
+
+  const totals = sourceRows.reduce((state, { stat }) => {
+    const games = stat.games ?? 0;
+    state.games += games;
+    state.winRate += (stat.winRate ?? 0) * games;
+    state.top3Rate += (stat.top3Rate ?? 0) * games;
+    state.avgPlacement += (stat.avgPlacement ?? 4.5) * games;
+    state.avgDamageToPlayer += (stat.avgDamageToPlayer ?? 0) * games;
+    state.avgDamageFromPlayer += (stat.avgDamageFromPlayer ?? 0) * games;
+    state.avgCcTime += (stat.avgCcTime ?? 0) * games;
+    return state;
+  }, {
+    games: 0,
+    winRate: 0,
+    top3Rate: 0,
+    avgPlacement: 0,
+    avgDamageToPlayer: 0,
+    avgDamageFromPlayer: 0,
+    avgCcTime: 0,
+  });
+
+  if (totals.games <= 0) {
+    return {
+      winRate: 0.14,
+      top3Rate: 0.42,
+      avgPlacement: 4.5,
+      avgDamageToPlayer: 14000,
+      avgDamageFromPlayer: 14000,
+      avgCcTime: 40,
+    };
+  }
+
+  return {
+    winRate: totals.winRate / totals.games,
+    top3Rate: totals.top3Rate / totals.games,
+    avgPlacement: totals.avgPlacement / totals.games,
+    avgDamageToPlayer: totals.avgDamageToPlayer / totals.games,
+    avgDamageFromPlayer: totals.avgDamageFromPlayer / totals.games,
+    avgCcTime: totals.avgCcTime / totals.games,
+  };
+}
+
+function characterRankingWeights(group) {
+  if (group === "support") {
+    return { win: 0.24, top3: 0.34, placement: 0.24, damage: 0.04, durability: 0.04, cc: 0.10 };
+  }
+  if (group === "front") {
+    return { win: 0.24, top3: 0.26, placement: 0.20, damage: 0.12, durability: 0.10, cc: 0.08 };
+  }
+  if (group === "backline") {
+    return { win: 0.22, top3: 0.24, placement: 0.16, damage: 0.30, durability: 0.02, cc: 0.06 };
+  }
+  if (group === "assassin") {
+    return { win: 0.24, top3: 0.22, placement: 0.18, damage: 0.28, durability: 0.02, cc: 0.06 };
+  }
+  return { win: 0.24, top3: 0.26, placement: 0.20, damage: 0.18, durability: 0.04, cc: 0.08 };
+}
+
+function officialCharacterRankingScore(character, stat, officialRows) {
+  if (!stat?.games) return 0;
+  const group = characterRankGroup(character);
+  const avg = officialCharacterRankAverages(officialRows, group);
+  const w = characterRankingWeights(group);
+  const raw =
+    relativeScore(stat.winRate ?? avg.winRate, avg.winRate, 1.15) * w.win +
+    relativeScore(stat.top3Rate ?? avg.top3Rate, avg.top3Rate, 1.05) * w.top3 +
+    placementDeltaScore(stat.avgPlacement ?? avg.avgPlacement, avg.avgPlacement) * w.placement +
+    relativeScore(stat.avgDamageToPlayer ?? avg.avgDamageToPlayer, avg.avgDamageToPlayer, 0.9) * w.damage +
+    relativeScore(stat.avgDamageFromPlayer ?? avg.avgDamageFromPlayer, avg.avgDamageFromPlayer, 0.65) * w.durability +
+    relativeScore(stat.avgCcTime ?? avg.avgCcTime, avg.avgCcTime, 0.7) * w.cc;
+  return 58 + raw * 46 * rankingConfidence(stat.games ?? 0, 260);
+}
+
+function rankTierForScore(score) {
+  if (score >= 76) return "S";
+  if (score >= 66) return "A";
+  if (score >= 55) return "B";
+  if (score >= 44) return "C";
+  return "D";
+}
+
 function rankerCompositionRows() {
   return [...rankerCompositionStats]
+    .map((row) => {
+      const score = (row.top3Rate ?? 0) * 4 + (row.winRate ?? 0) * 5 + Math.min(1.5, (row.games ?? 0) / 8) - (row.avgPlacement ?? 5) * 0.18;
+      return { ...row, score: score * 20 };
+    })
     .sort((a, b) => {
-      const aScore = (a.top3Rate ?? 0) * 4 + (a.winRate ?? 0) * 5 + Math.min(1.5, (a.games ?? 0) / 8) - (a.avgPlacement ?? 5) * 0.18;
-      const bScore = (b.top3Rate ?? 0) * 4 + (b.winRate ?? 0) * 5 + Math.min(1.5, (b.games ?? 0) / 8) - (b.avgPlacement ?? 5) * 0.18;
-      return bScore - aScore;
+      return b.score - a.score;
     })
     .slice(0, 16);
 }
 
+function officialCompositionRows() {
+  const bucket = officialBucketForTier(tierSelect.value);
+  const sourceRows = [
+    ...(officialCompositionStatsByTier?.[bucket] ?? []),
+    ...(bucket === "all" ? [] : officialCompositionStatsByTier?.all ?? []),
+  ];
+
+  const rows = new Map();
+  sourceRows.forEach((row) => {
+    if (!row?.candidate || !row?.teammates?.length) return;
+    const teamKey = [...row.teammates].sort().join("+");
+    const key = `${teamKey}->${row.candidate}`;
+    const previous = rows.get(key);
+    if (!previous || (row.games ?? 0) > (previous.games ?? 0)) {
+      rows.set(key, {
+        ...row,
+        teamKey,
+        candidateId: row.candidate,
+        source: "official",
+      });
+    }
+  });
+
+  return [...rows.values()]
+    .map((row) => {
+      const confidence = rankingConfidence(row.games ?? 0, 80);
+      return {
+        ...row,
+        score: placementRankingScore(row) * confidence + Math.min(14, (row.games ?? 0) * 0.35),
+      };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 16);
+}
+
+function combinedCompositionRows(sortMode = "overall") {
+  const officialRows = officialCompositionRows();
+  const feedbackRows = popularFeedbackRows(sortMode).map((row) => ({
+    ...row,
+    source: "feedback",
+    score: userFeedbackBonus(row.likes, row.dislikes, row.total) + (sortMode === "recent" ? 18 : 12),
+  }));
+
+  const rows = new Map();
+  officialRows.forEach((row) => rows.set(`${row.teamKey}->${row.candidateId}`, row));
+  feedbackRows.forEach((row) => {
+    const key = `${row.teamKey}->${row.candidateId}`;
+    const previous = rows.get(key);
+    rows.set(key, previous
+      ? {
+          ...previous,
+          likes: row.likes,
+          dislikes: row.dislikes,
+          total: row.total,
+          updatedAt: row.updatedAt,
+          score: previous.score + row.score,
+          source: "mixed",
+        }
+      : row);
+  });
+
+  return [...rows.values()]
+    .sort((a, b) => {
+      if (sortMode === "recent") {
+        return (b.updatedAt ?? "").localeCompare(a.updatedAt ?? "") || b.score - a.score;
+      }
+      return b.score - a.score;
+    })
+    .slice(0, 14);
+}
+
 function rankerCharacterRows(role = "all") {
-  return Object.entries(rankerCandidateStats)
-    .filter(([characterId]) => role === "all" || characterRolesById(characterId).includes(role))
-    .map(([characterId, stat]) => ({
-      characterId,
-      score: (stat.top3Rate ?? 0) * 100 + (stat.winRate ?? 0) * 120 + Math.min(30, stat.games ?? 0) - (stat.avgPlacement ?? 5) * 4,
-      games: stat.games ?? 0,
-      top3Rate: stat.top3Rate ?? 0,
-    }))
+  const bucket = officialBucketForTier(tierSelect.value);
+  const officialRows = officialCandidateStatsByTier?.[bucket] ?? officialCandidateStatsByTier?.all ?? {};
+  const feedbackByCharacter = characterFeedbackRows();
+  const ids = new Set([
+    ...Object.keys(rankerCandidateStats),
+    ...Object.keys(officialRows),
+  ]);
+
+  return [...ids]
+    .filter((characterId) => role === "all" || characterRolesById(characterId).includes(role))
+    .map((characterId) => {
+      const character = characterById(characterId);
+      const official = officialRows[characterId];
+      const ranker = rankerCandidateStats[characterId];
+      const feedback = feedbackByCharacter.get(characterId) ?? { likes: 0, dislikes: 0, total: 0 };
+      const officialScore = official && character
+        ? officialCharacterRankingScore(character, official, officialRows)
+        : 0;
+      const fallbackScore = ranker
+        ? ((ranker.top3Rate ?? 0) * 30 + (ranker.winRate ?? 0) * 34 + Math.min(8, ranker.games ?? 0) - Math.max(0, (ranker.avgPlacement ?? 4.5) - 4.5) * 4) * 0.18
+        : 0;
+      const voteScore = userFeedbackBonus(feedback.likes, feedback.dislikes, feedback.total) * 1.35;
+      const score = (official ? officialScore : 48) + fallbackScore + voteScore;
+      const stat = official ?? ranker ?? {};
+      return {
+        characterId,
+        score,
+        tierLabel: rankTierForScore(score),
+        games: stat.games ?? 0,
+        top3Rate: stat.top3Rate ?? 0,
+        winRate: stat.winRate ?? 0,
+        avgDamageToPlayer: stat.avgDamageToPlayer,
+        votes: feedback.total,
+      };
+    })
     .sort((a, b) => b.score - a.score);
 }
 
@@ -1441,15 +1707,16 @@ function renderCharacterFace(characterId) {
 }
 
 function renderHomeDashboard() {
-  const overallComps = popularFeedbackRows("overall");
-  const recentComps = popularFeedbackRows("recent");
+  const overallComps = combinedCompositionRows("overall");
+  const recentComps = combinedCompositionRows("recent");
   const fallbackComps = rankerCompositionRows();
 
   function renderComboCards(rows, titlePrefix, isUserFeedback) {
     return rows
     .map((row, index) => {
       const members = row.teamKey ? [...row.teamKey.split("+"), row.candidateId] : [...row.teammates, row.candidate];
-      const detail = row.teamKey ? t("rank.comboDetail", { likes: row.likes, total: row.total }) : t("rank.rankerDetail", { count: row.games, top3: Math.round((row.top3Rate ?? 0) * 100) });
+      const top3Text = Number.isFinite(row.top3Rate) ? Math.round(row.top3Rate * 100) : "-";
+      const detail = t("rank.comboDetail", { score: Math.max(0, Math.round(row.score ?? 0)), top3: top3Text });
       return `
         <article class="combo-card">
           <div class="combo-card-head">
@@ -1464,8 +1731,8 @@ function renderHomeDashboard() {
     .join("");
   }
 
-  const overallItems = renderComboCards(overallComps.length > 0 ? overallComps : fallbackComps, t("rank.overallPrefix"), overallComps.length > 0);
-  const recentItems = renderComboCards(recentComps.length > 0 ? recentComps : fallbackComps.slice(0, 14), t("rank.recentPrefix"), recentComps.length > 0);
+  const overallItems = renderComboCards(overallComps.length > 0 ? overallComps : fallbackComps, t("rank.overallPrefix"), true);
+  const recentItems = renderComboCards(recentComps.length > 0 ? recentComps : fallbackComps.slice(0, 14), t("rank.recentPrefix"), true);
 
   const rankRows = rankerCharacterRows(activeRankRole);
   const rankItems = rankRows
@@ -1474,10 +1741,11 @@ function renderHomeDashboard() {
       return `
         <article class="rank-card">
           <span class="rank-number">${index + 1}</span>
+          <span class="rank-tier rank-tier-${row.tierLabel.toLowerCase()}">${row.tierLabel}</span>
           ${character.image ? `<img src="${character.image}" alt="">` : ""}
           <div>
             <strong>${character.name}</strong>
-            <small>${roleLabel(character.role)} · ${t("rank.gamesCount", { count: row.games })} · TOP3 ${Math.round(row.top3Rate * 100)}%</small>
+            <small>${roleLabel(character.role)} · ${t("rank.scoreDetail", { tier: row.tierLabel, score: Math.max(0, Math.round(row.score ?? 0)), count: row.games, top3: Math.round(row.top3Rate * 100) })}</small>
           </div>
         </article>
       `;
@@ -2657,6 +2925,8 @@ if (recoveredFeedbackCount > 0) {
     if (res.ok) {
       const data = await res.json();
       updateOfficialStats(data);
+      if (data.officialCandidateStatsByTier) officialCandidateStatsByTier = data.officialCandidateStatsByTier;
+      if (data.officialCompositionStatsByTier) officialCompositionStatsByTier = data.officialCompositionStatsByTier;
       console.log("[stats] remote stats loaded:", data.source?.generatedAt ?? "ok");
       render(); // re-render with fresh data
     }
