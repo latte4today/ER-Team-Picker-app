@@ -1728,6 +1728,27 @@ function compositionReason(row, isUserFeedback) {
   return t("comp.rankerFrequent");
 }
 
+function compositionDetailText(row) {
+  const top3 = Number.isFinite(row.top3Rate) ? Math.round(row.top3Rate * 100) : null;
+  const games = Math.max(0, Math.round(row.games ?? 0));
+  const ratings = Math.max(0, Math.round(row.total ?? 0));
+
+  if (row.source === "mixed") {
+    return t("rank.comboMixedDetail", {
+      games,
+      ratings,
+      top3: top3 ?? "-",
+    });
+  }
+  if (row.source === "feedback") {
+    return t("rank.comboFeedbackDetail", { count: ratings });
+  }
+  return t("rank.comboOfficialDetail", {
+    count: games,
+    top3: top3 ?? "-",
+  });
+}
+
 function renderCharacterFace(characterId) {
   const character = characterBrief(characterId);
   return `
@@ -1750,8 +1771,7 @@ function renderHomeDashboard() {
     return rows
     .map((row, index) => {
       const members = compositionMembers(row);
-      const top3Text = Number.isFinite(row.top3Rate) ? Math.round(row.top3Rate * 100) : "-";
-      const detail = t("rank.comboDetail", { score: Math.max(0, Math.round(row.score ?? 0)), top3: top3Text });
+      const detail = compositionDetailText(row);
       return `
         <article class="combo-card">
           <div class="combo-card-head">
