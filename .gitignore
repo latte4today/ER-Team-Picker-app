@@ -15,6 +15,7 @@ out/
 data/dak-cache/
 data/official-cache/
 data/official-match-input*.json
+data/official-next-seeds.json
 data/namu-debug.html
 
 # Local environment and secrets
