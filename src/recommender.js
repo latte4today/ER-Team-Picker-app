@@ -1006,8 +1006,34 @@ function globalWinRate(tier) {
 
 function officialCandidateStats(candidate, tier) {
   const bucket = officialStatsBucketForTier(tier);
-  return officialCandidateStatsByTier?.[bucket]?.[candidate.characterId] ??
-    officialCandidateStatsByTier?.all?.[candidate.characterId];
+  return officialStatByIds(officialCandidateStatsByTier?.[bucket], candidate) ??
+    officialStatByIds(officialCandidateStatsByTier?.all, candidate);
+}
+
+function officialStatIds(character) {
+  return [character.variantId, character.characterId].filter(Boolean);
+}
+
+function officialStatByIds(stats, character) {
+  for (const id of officialStatIds(character)) {
+    if (stats?.[id]) return stats[id];
+  }
+  return undefined;
+}
+
+function officialPairStat(pairStats, a, b) {
+  for (const idA of officialStatIds(a)) {
+    for (const idB of officialStatIds(b)) {
+      const key = [idA, idB].sort().join("|");
+      if (pairStats?.[key]) return pairStats[key];
+    }
+  }
+  return undefined;
+}
+
+function officialCharacterForStatId(statId) {
+  return characterVariants.find((item) => item.variantId === statId) ??
+    characterVariants.find((item) => item.characterId === statId);
 }
 
 function officialMetaDamageGroup(character) {
@@ -1031,8 +1057,8 @@ function officialTierAverages(tier, damageGroup = "all") {
 
   const statsByCharacter = officialCandidateStatsByTier?.[bucket] ?? officialCandidateStatsByTier?.all ?? {};
   const rows = Object.entries(statsByCharacter)
-    .map(([characterId, stats]) => ({
-      character: characterVariants.find((item) => item.characterId === characterId),
+    .map(([statId, stats]) => ({
+      character: officialCharacterForStatId(statId),
       stats,
     }))
     .filter(({ character, stats }) => character && stats?.games > 0);
@@ -1106,10 +1132,10 @@ function officialCompositionScore(candidate, selected, tier) {
   if (selected.length === 0) return 0;
 
   const bucket = officialStatsBucketForTier(tier);
-  const selectedCharacters = new Set(selected.map((character) => character.characterId));
+  const selectedCharacters = new Set(selected.flatMap(officialStatIds));
   const rows = [
-    ...officialBucketRows(bucket, candidate.characterId),
-    ...(bucket === "all" ? [] : officialBucketRows("all", candidate.characterId)),
+    ...officialStatIds(candidate).flatMap((id) => officialBucketRows(bucket, id)),
+    ...(bucket === "all" ? [] : officialStatIds(candidate).flatMap((id) => officialBucketRows("all", id))),
   ];
   if (rows.length === 0) return 0;
 
@@ -1163,8 +1189,7 @@ function officialPairSynergyScore(candidate, selected, tier) {
   let count = 0;
 
   for (const teammate of selected) {
-    const key = [candidate.characterId, teammate.characterId].sort().join("|");
-    const pair = pairStats[key];
+    const pair = officialPairStat(pairStats, candidate, teammate);
     const pairGames = pair?.games ?? 0;
     const pairWins  = pairGames * (pair?.winRate ?? 0);
 
@@ -1187,7 +1212,7 @@ function officialPairSynergyScore(candidate, selected, tier) {
 function officialCombatSignalScore(candidate, tier) {
   const bucket = officialStatsBucketForTier(tier);
   const combatStats = officialCombatStatsByTier?.[bucket] ?? officialCombatStatsByTier?.all;
-  const cs = combatStats?.[candidate.characterId];
+  const cs = officialStatByIds(combatStats, candidate);
   if (!cs || !cs.games) return 0;
 
   const alpha = BAYESIAN_ALPHA?.combat ?? 80;

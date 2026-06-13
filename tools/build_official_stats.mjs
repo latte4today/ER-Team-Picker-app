@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { characters } from "../src/data.js";
+import { characters, characterVariants } from "../src/data.js";
 import { requireEnv } from "./env.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -106,6 +106,10 @@ function parseArgs() {
   for (let index = 2; index < process.argv.length; index += 1) {
     const key = process.argv[index];
     if (!key.startsWith("--")) continue;
+    if (key === "--no-fetch-character-data") {
+      args.fetchCharacterData = false;
+      continue;
+    }
     const value = process.argv[index + 1];
     index += 1;
     if (key === "--in") {
@@ -115,8 +119,8 @@ function parseArgs() {
       else { args.in = [resolved]; args._inExplicit = true; }
     }
     if (key === "--out") args.out = path.resolve(ROOT, value);
+    if (key === "--json-out") args.jsonOut = path.resolve(ROOT, value);
     if (key === "--min-games") args.minGames = Number(value);
-    if (key === "--no-fetch-character-data") args.fetchCharacterData = false;
   }
   return args;
 }
@@ -238,6 +242,48 @@ function bumpCounter(target, key) {
   }
   const text = String(key);
   target[text] = (target[text] ?? 0) + 1;
+}
+
+const variantsByCharacter = characterVariants.reduce((map, variant) => {
+  if (!map.has(variant.characterId)) map.set(variant.characterId, []);
+  map.get(variant.characterId).push(variant);
+  return map;
+}, new Map());
+
+function inferOfficialWeaponMap(teams, codeMap) {
+  const counts = new Map();
+  for (const team of teams) {
+    for (const player of team.players ?? []) {
+      const characterId = codeMap.get(String(player.character));
+      const weaponCode = player.weapon;
+      if (!characterId || weaponCode === undefined || weaponCode === null || weaponCode === "") continue;
+      const variants = variantsByCharacter.get(characterId) ?? [];
+      const weapon = variants.length === 1 ? variants[0].weapon : undefined;
+      if (!weapon) continue;
+      const key = String(weaponCode);
+      if (!counts.has(key)) counts.set(key, new Map());
+      const weaponCounts = counts.get(key);
+      weaponCounts.set(weapon, (weaponCounts.get(weapon) ?? 0) + 1);
+    }
+  }
+
+  const output = new Map();
+  for (const [code, weaponCounts] of counts) {
+    const [weapon] = [...weaponCounts.entries()].sort((a, b) => b[1] - a[1])[0] ?? [];
+    if (weapon) output.set(code, weapon);
+  }
+  return output;
+}
+
+function statIdForPlayer(player, weaponCodeToId) {
+  const variants = variantsByCharacter.get(player.characterId) ?? [];
+  if (variants.length === 1) return variants[0].variantId;
+
+  const weapon = weaponCodeToId.get(String(player.weapon));
+  const variant = weapon
+    ? variants.find((item) => item.weapon === weapon)
+    : undefined;
+  return variant?.variantId ?? player.characterId;
 }
 
 function addCandidateStat(bucketStats, characterId, team, player) {
@@ -454,6 +500,7 @@ async function build() {
   }
 
   const codeMap = await buildCharacterCodeMap(args.fetchCharacterData);
+  const weaponCodeToId = inferOfficialWeaponMap(allTeams, codeMap);
   const candidateByTier = {};
   const compositionByTier = {};
   const pairByTier = {};
@@ -471,9 +518,10 @@ async function build() {
         else unmappedCodes.add(String(player.character));
         return id ? { ...player, characterId: id } : undefined;
       })
-      .filter(Boolean);
+      .filter(Boolean)
+      .map((player) => ({ ...player, statId: statIdForPlayer(player, weaponCodeToId) }));
 
-    const memberIds = [...new Set(players.map((player) => player.characterId))].sort();
+    const memberIds = [...new Set(players.map((player) => player.statId))].sort();
     if (memberIds.length < 2) continue;
     mappedTeams += 1;
 
@@ -482,14 +530,14 @@ async function build() {
       const candidateBucket = ensureBucket(candidateByTier, bucket);
       const compositionBucket = ensureBucket(compositionByTier, bucket);
       for (const player of players) {
-        addCandidateStat(candidateBucket, player.characterId, team, player);
-        addCompositionStat(compositionBucket, player.characterId, memberIds, team);
-        addCombatStat(ensureBucket(combatByTier, bucket), player.characterId, player, rw);
+        addCandidateStat(candidateBucket, player.statId, team, player);
+        addCompositionStat(compositionBucket, player.statId, memberIds, team);
+        addCombatStat(ensureBucket(combatByTier, bucket), player.statId, player, rw);
       }
       // Pair stats: all C(n,2) pairs in the team
       for (let pi = 0; pi < players.length; pi++) {
         for (let pj = pi + 1; pj < players.length; pj++) {
-          addPairStat(ensureBucket(pairByTier, bucket), players[pi].characterId, players[pj].characterId, team, rw);
+          addPairStat(ensureBucket(pairByTier, bucket), players[pi].statId, players[pj].statId, team, rw);
         }
       }
     }
@@ -516,6 +564,7 @@ async function build() {
     totalTeams: allTeams.length,
     mappedTeams,
     mappedCharacters: mappedCodes.size,
+    mappedWeaponCodes: weaponCodeToId.size,
     unmappedCharacterCodes: [...unmappedCodes].sort((a, b) => Number(a) - Number(b)),
     minGames: args.minGames,
   };

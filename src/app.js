@@ -182,18 +182,21 @@ languageGate?.addEventListener("click", (event) => {
   openTierGuideModal();
 });
 
-function characterName(characterId) {
-  const found = characterVariants.find((c) => c.characterId === characterId);
-  return found ? t(`char.${found.id}`) : characterId;
+function characterName(characterIdOrVariantId) {
+  const found = characterById(characterIdOrVariantId);
+  return found ? t(`char.${found.id}`) : characterIdOrVariantId;
 }
 
-function characterById(characterId) {
-  return characterVariants.find((character) => character.characterId === characterId);
+function characterById(characterIdOrVariantId) {
+  return characterVariants.find((character) => character.variantId === characterIdOrVariantId) ??
+    characterVariants.find((character) => character.characterId === characterIdOrVariantId);
 }
 
-function characterRolesById(characterId) {
+function characterRolesById(characterIdOrVariantId) {
+  const variant = characterVariants.find((character) => character.variantId === characterIdOrVariantId);
+  if (variant) return [variant.role];
   return [...new Set(characterVariants
-    .filter((character) => character.characterId === characterId)
+    .filter((character) => character.characterId === characterIdOrVariantId)
     .map((character) => character.role))];
 }
 
@@ -1412,12 +1415,14 @@ function characterFeedbackRows() {
   popularFeedback.forEach((row) => {
     if (!row.candidate_id) return;
     const character = characterVariants.find((item) => item.variantId === row.candidate_id || item.characterId === row.candidate_id);
-    const characterId = character?.characterId ?? row.candidate_id.split(":")[0];
-    const previous = rows.get(characterId) ?? { likes: 0, dislikes: 0, total: 0 };
+    const statId = row.candidate_id.includes(":")
+      ? character?.variantId ?? row.candidate_id
+      : character?.characterId ?? row.candidate_id;
+    const previous = rows.get(statId) ?? { likes: 0, dislikes: 0, total: 0 };
     previous.likes += row.likes ?? 0;
     previous.dislikes += row.dislikes ?? 0;
     previous.total += row.total ?? 0;
-    rows.set(characterId, previous);
+    rows.set(statId, previous);
   });
   return rows;
 }
@@ -1615,18 +1620,25 @@ function rankerCharacterRows(role = "all") {
   const bucket = officialBucketForTier(tierSelect.value);
   const officialRows = officialCandidateStatsByTier?.[bucket] ?? officialCandidateStatsByTier?.all ?? {};
   const feedbackByCharacter = characterFeedbackRows();
+  const officialIds = Object.keys(officialRows);
+  const officialCharactersWithVariants = new Set(
+    officialIds
+      .filter((id) => id.includes(":"))
+      .map((id) => id.split(":")[0])
+  );
   const ids = new Set([
-    ...Object.keys(rankerCandidateStats),
-    ...Object.keys(officialRows),
+    ...Object.keys(rankerCandidateStats).filter((id) => !officialRows[id] && !officialCharactersWithVariants.has(id)),
+    ...officialIds,
   ]);
 
   return [...ids]
-    .filter((characterId) => role === "all" || characterRolesById(characterId).includes(role))
-    .map((characterId) => {
-      const character = characterById(characterId);
-      const official = officialRows[characterId];
-      const ranker = rankerCandidateStats[characterId];
-      const feedback = feedbackByCharacter.get(characterId) ?? { likes: 0, dislikes: 0, total: 0 };
+    .filter((statId) => role === "all" || characterRolesById(statId).includes(role))
+    .map((statId) => {
+      const character = characterById(statId);
+      const characterId = character?.characterId ?? statId.split(":")[0];
+      const official = officialRows[statId];
+      const ranker = rankerCandidateStats[statId] ?? rankerCandidateStats[characterId];
+      const feedback = feedbackByCharacter.get(statId) ?? feedbackByCharacter.get(characterId) ?? { likes: 0, dislikes: 0, total: 0 };
       const officialScore = official && character
         ? officialCharacterRankingScore(character, official, officialRows)
         : 0;
@@ -1637,7 +1649,7 @@ function rankerCharacterRows(role = "all") {
       const score = (official ? officialScore : 48) + fallbackScore + voteScore;
       const stat = official ?? ranker ?? {};
       return {
-        characterId,
+        characterId: statId,
         score,
         tierLabel: rankTierForScore(score),
         games: stat.games ?? 0,
@@ -1744,7 +1756,7 @@ function renderHomeDashboard() {
           <span class="rank-tier rank-tier-${row.tierLabel.toLowerCase()}">${row.tierLabel}</span>
           ${character.image ? `<img src="${character.image}" alt="">` : ""}
           <div>
-            <strong>${character.name}</strong>
+            <strong>${[character.name, character.weapon].filter(Boolean).join(" · ")}</strong>
             <small>${t("rank.scoreDetail", { tier: row.tierLabel, count: row.games, top3: Math.round(row.top3Rate * 100) })}</small>
           </div>
         </article>
