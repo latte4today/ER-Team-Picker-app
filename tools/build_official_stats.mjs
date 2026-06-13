@@ -216,6 +216,31 @@ async function buildCharacterCodeMap(fetchCharacterData) {
   return codeMap;
 }
 
+async function buildTraitNameMap(fetchData) {
+  const map = new Map();
+  if (!fetchData) return map;
+  try {
+    for (const table of ["Trait", "TraitCombat", "TraitSupport"]) {
+      const payload = await fetchJson(`/v1/data/${table}`, `data:${table}`);
+      for (const row of flattenRows(payload)) {
+        const code = firstValue(row, ["code", "traitCode", "id", "key"]);
+        const name = firstValue(row, ["name", "nameKr", "nameKo", "traitName", "korName"]);
+        if (code !== undefined && name) map.set(String(code), String(name));
+      }
+    }
+    console.log(`Trait name map: ${map.size} entries`);
+  } catch (error) {
+    console.warn(`Trait name fetch skipped: ${error.message}`);
+  }
+  return map;
+}
+
+function traitCoreCode(player) {
+  const core = player?.traits?.core;
+  if (core === undefined || core === null || core === "") return undefined;
+  return String(core);
+}
+
 function numeric(value, fallback = 0) {
   const number = Number(value);
   return Number.isFinite(number) ? number : fallback;
@@ -296,7 +321,14 @@ function addCandidateStat(bucketStats, characterId, team, player) {
       wins: 0,
       top3: 0,
       damageToPlayer: 0,
+      damageToPlayerBasic: 0,
+      damageToPlayerSkill: 0,
+      damageToPlayerItemSkill: 0,
+      damageToPlayerDirect: 0,
+      damageToPlayerUniqueSkill: 0,
       damageFromPlayer: 0,
+      damageFromPlayerBasic: 0,
+      damageFromPlayerSkill: 0,
       ccTime: 0,
       ccCount: 0,
       traitCores: {},
@@ -314,10 +346,72 @@ function addCandidateStat(bucketStats, characterId, team, player) {
   if (result.win) stat.wins += 1;
   if (result.top3) stat.top3 += 1;
   stat.damageToPlayer += numeric(playerStats.damageToPlayer);
+  stat.damageToPlayerBasic += numeric(playerStats.damageToPlayerBasic);
+  stat.damageToPlayerSkill += numeric(playerStats.damageToPlayerSkill);
+  stat.damageToPlayerItemSkill += numeric(playerStats.damageToPlayerItemSkill);
+  stat.damageToPlayerDirect += numeric(playerStats.damageToPlayerDirect);
+  stat.damageToPlayerUniqueSkill += numeric(playerStats.damageToPlayerUniqueSkill);
   stat.damageFromPlayer += numeric(playerStats.damageFromPlayer);
+  stat.damageFromPlayerBasic += numeric(playerStats.damageFromPlayerBasic);
+  stat.damageFromPlayerSkill += numeric(playerStats.damageFromPlayerSkill);
   stat.ccTime += numeric(playerStats.ccTime);
   stat.ccCount += numeric(playerStats.ccCount);
   bumpCounter(stat.traitCores, player.traits?.core);
+  bumpCounter(stat.tacticalSkills, player.traits?.tacticalSkill);
+}
+
+function addTraitBuildStat(bucketStats, statId, team, player) {
+  const core = traitCoreCode(player);
+  if (!core) return;
+
+  if (!bucketStats[statId]) bucketStats[statId] = {};
+  if (!bucketStats[statId][core]) {
+    bucketStats[statId][core] = {
+      games: 0,
+      placementSum: 0,
+      placementGames: 0,
+      wins: 0,
+      top3: 0,
+      damageToPlayer: 0,
+      damageToPlayerBasic: 0,
+      damageToPlayerSkill: 0,
+      damageToPlayerItemSkill: 0,
+      damageToPlayerDirect: 0,
+      damageToPlayerUniqueSkill: 0,
+      damageFromPlayer: 0,
+      damageFromPlayerBasic: 0,
+      damageFromPlayerSkill: 0,
+      ccTime: 0,
+      ccCount: 0,
+      firstSubTraits: {},
+      secondSubTraits: {},
+      tacticalSkills: {},
+    };
+  }
+
+  const stat = bucketStats[statId][core];
+  const result = teamResult(team);
+  const playerStats = player.stats ?? {};
+  stat.games += 1;
+  if (result.placement !== undefined) {
+    stat.placementSum += result.placement;
+    stat.placementGames += 1;
+  }
+  if (result.win) stat.wins += 1;
+  if (result.top3) stat.top3 += 1;
+  stat.damageToPlayer += numeric(playerStats.damageToPlayer);
+  stat.damageToPlayerBasic += numeric(playerStats.damageToPlayerBasic);
+  stat.damageToPlayerSkill += numeric(playerStats.damageToPlayerSkill);
+  stat.damageToPlayerItemSkill += numeric(playerStats.damageToPlayerItemSkill);
+  stat.damageToPlayerDirect += numeric(playerStats.damageToPlayerDirect);
+  stat.damageToPlayerUniqueSkill += numeric(playerStats.damageToPlayerUniqueSkill);
+  stat.damageFromPlayer += numeric(playerStats.damageFromPlayer);
+  stat.damageFromPlayerBasic += numeric(playerStats.damageFromPlayerBasic);
+  stat.damageFromPlayerSkill += numeric(playerStats.damageFromPlayerSkill);
+  stat.ccTime += numeric(playerStats.ccTime);
+  stat.ccCount += numeric(playerStats.ccCount);
+  bumpCounter(stat.firstSubTraits, player.traits?.firstSub);
+  bumpCounter(stat.secondSubTraits, player.traits?.secondSub);
   bumpCounter(stat.tacticalSkills, player.traits?.tacticalSkill);
 }
 
@@ -355,13 +449,24 @@ function finalizeCandidateStats(source, minGames) {
   const output = {};
   for (const [characterId, stat] of Object.entries(source).sort(([a], [b]) => a.localeCompare(b))) {
     if (stat.games < minGames) continue;
+    const damageToPlayer = stat.damageToPlayer || 0;
     output[characterId] = {
       games: stat.games,
       avgPlacement: stat.placementGames ? round(stat.placementSum / stat.placementGames, 2) : undefined,
       winRate: round(stat.wins / stat.games, 3),
       top3Rate: round(stat.top3 / stat.games, 3),
       avgDamageToPlayer: Math.round(stat.damageToPlayer / stat.games),
+      avgDamageToPlayerBasic: Math.round(stat.damageToPlayerBasic / stat.games),
+      avgDamageToPlayerSkill: Math.round(stat.damageToPlayerSkill / stat.games),
+      avgDamageToPlayerItemSkill: Math.round(stat.damageToPlayerItemSkill / stat.games),
+      avgDamageToPlayerDirect: Math.round(stat.damageToPlayerDirect / stat.games),
+      avgDamageToPlayerUniqueSkill: Math.round(stat.damageToPlayerUniqueSkill / stat.games),
+      basicDamageShare: damageToPlayer ? round(stat.damageToPlayerBasic / damageToPlayer, 3) : undefined,
+      skillDamageShare: damageToPlayer ? round(stat.damageToPlayerSkill / damageToPlayer, 3) : undefined,
+      uniqueSkillDamageShare: damageToPlayer ? round(stat.damageToPlayerUniqueSkill / damageToPlayer, 3) : undefined,
       avgDamageFromPlayer: Math.round(stat.damageFromPlayer / stat.games),
+      avgDamageFromPlayerBasic: Math.round(stat.damageFromPlayerBasic / stat.games),
+      avgDamageFromPlayerSkill: Math.round(stat.damageFromPlayerSkill / stat.games),
       avgCcTime: round(stat.ccTime / stat.games, 2),
       avgCcCount: round(stat.ccCount / stat.games, 2),
     };
@@ -377,15 +482,72 @@ function topCounters(source, limit = 5) {
   );
 }
 
-function finalizeTraitStats(source, minGames) {
+function finalizeTraitStats(source, minGames, traitNameMap = new Map()) {
   const output = {};
   for (const [characterId, stat] of Object.entries(source).sort(([a], [b]) => a.localeCompare(b))) {
     if (stat.games < minGames) continue;
-    output[characterId] = {
-      games: stat.games,
-      traitCores: topCounters(stat.traitCores),
-      tacticalSkills: topCounters(stat.tacticalSkills),
-    };
+    // Convert trait codes to { code, name, count } entries
+    const traitCores = Object.entries(topCounters(stat.traitCores)).map(([code, count]) => ({
+      code,
+      name: traitNameMap.get(code) ?? null,
+      count,
+    }));
+    const tacticalSkills = Object.entries(topCounters(stat.tacticalSkills)).map(([code, count]) => ({
+      code,
+      name: traitNameMap.get(code) ?? null,
+      count,
+    }));
+    output[characterId] = { games: stat.games, traitCores, tacticalSkills };
+  }
+  return output;
+}
+
+function finalizeTraitBuildStats(source, minGames, traitNameMap = new Map()) {
+  const output = {};
+  for (const [statId, traits] of Object.entries(source).sort(([a], [b]) => a.localeCompare(b))) {
+    const rows = [];
+    for (const [core, stat] of Object.entries(traits).sort(([a], [b]) => a.localeCompare(b))) {
+      if (stat.games < minGames) continue;
+      const damageToPlayer = stat.damageToPlayer || 0;
+      rows.push({
+        core,
+        name: traitNameMap.get(core) ?? null,
+        games: stat.games,
+        avgPlacement: stat.placementGames ? round(stat.placementSum / stat.placementGames, 2) : undefined,
+        winRate: round(stat.wins / stat.games, 3),
+        top3Rate: round(stat.top3 / stat.games, 3),
+        avgDamageToPlayer: Math.round(stat.damageToPlayer / stat.games),
+        avgDamageToPlayerBasic: Math.round(stat.damageToPlayerBasic / stat.games),
+        avgDamageToPlayerSkill: Math.round(stat.damageToPlayerSkill / stat.games),
+        avgDamageToPlayerItemSkill: Math.round(stat.damageToPlayerItemSkill / stat.games),
+        avgDamageToPlayerDirect: Math.round(stat.damageToPlayerDirect / stat.games),
+        avgDamageToPlayerUniqueSkill: Math.round(stat.damageToPlayerUniqueSkill / stat.games),
+        basicDamageShare: damageToPlayer ? round(stat.damageToPlayerBasic / damageToPlayer, 3) : undefined,
+        skillDamageShare: damageToPlayer ? round(stat.damageToPlayerSkill / damageToPlayer, 3) : undefined,
+        uniqueSkillDamageShare: damageToPlayer ? round(stat.damageToPlayerUniqueSkill / damageToPlayer, 3) : undefined,
+        avgDamageFromPlayer: Math.round(stat.damageFromPlayer / stat.games),
+        avgDamageFromPlayerBasic: Math.round(stat.damageFromPlayerBasic / stat.games),
+        avgDamageFromPlayerSkill: Math.round(stat.damageFromPlayerSkill / stat.games),
+        avgCcTime: round(stat.ccTime / stat.games, 2),
+        avgCcCount: round(stat.ccCount / stat.games, 2),
+        firstSubTraits: Object.entries(topCounters(stat.firstSubTraits)).map(([code, count]) => ({
+          code,
+          name: traitNameMap.get(code) ?? null,
+          count,
+        })),
+        secondSubTraits: Object.entries(topCounters(stat.secondSubTraits)).map(([code, count]) => ({
+          code,
+          name: traitNameMap.get(code) ?? null,
+          count,
+        })),
+        tacticalSkills: Object.entries(topCounters(stat.tacticalSkills)).map(([code, count]) => ({
+          code,
+          name: traitNameMap.get(code) ?? null,
+          count,
+        })),
+      });
+    }
+    if (rows.length) output[statId] = rows.sort((a, b) => b.games - a.games);
   }
   return output;
 }
@@ -501,8 +663,10 @@ async function build() {
   }
 
   const codeMap = await buildCharacterCodeMap(args.fetchCharacterData);
+  const traitNameMap = await buildTraitNameMap(args.fetchCharacterData);
   const weaponCodeToId = inferOfficialWeaponMap(allTeams, codeMap);
   const candidateByTier = {};
+  const traitBuildByTier = {};
   const compositionByTier = {};
   const pairByTier = {};
   const combatByTier = {};
@@ -535,9 +699,11 @@ async function build() {
     const buckets = ["all", team.tierBucket || "unknown"];
     for (const bucket of buckets) {
       const candidateBucket = ensureBucket(candidateByTier, bucket);
+      const traitBuildBucket = ensureBucket(traitBuildByTier, bucket);
       const compositionBucket = ensureBucket(compositionByTier, bucket);
       for (const player of players) {
         addCandidateStat(candidateBucket, player.statId, team, player);
+        addTraitBuildStat(traitBuildBucket, player.statId, team, player);
         addCompositionStat(compositionBucket, player.statId, memberIds, team);
         addCombatStat(ensureBucket(combatByTier, bucket), player.statId, player, rw);
       }
@@ -552,13 +718,15 @@ async function build() {
 
   const officialCandidateStatsByTier = {};
   const officialTraitStatsByTier = {};
+  const officialTraitBuildStatsByTier = {};
   const officialCompositionStatsByTier = {};
   const officialPairStatsByTier = {};
   const officialCombatStatsByTier = {};
-  const allBuckets = new Set([...Object.keys(candidateByTier), ...Object.keys(pairByTier)]);
+  const allBuckets = new Set([...Object.keys(candidateByTier), ...Object.keys(traitBuildByTier), ...Object.keys(pairByTier)]);
   for (const bucket of [...allBuckets].sort()) {
     officialCandidateStatsByTier[bucket] = finalizeCandidateStats(candidateByTier[bucket] ?? {}, args.minGames);
-    officialTraitStatsByTier[bucket]     = finalizeTraitStats(candidateByTier[bucket] ?? {}, args.minGames);
+    officialTraitStatsByTier[bucket]     = finalizeTraitStats(candidateByTier[bucket] ?? {}, args.minGames, traitNameMap);
+    officialTraitBuildStatsByTier[bucket] = finalizeTraitBuildStats(traitBuildByTier[bucket] ?? {}, args.minGames, traitNameMap);
     officialCompositionStatsByTier[bucket] = finalizeCompositionStats(compositionByTier[bucket] ?? {}, args.minGames);
     officialPairStatsByTier[bucket]      = finalizePairStats(pairByTier[bucket] ?? {}, args.minGames);
     officialCombatStatsByTier[bucket]    = finalizeCombatStats(combatByTier[bucket] ?? {}, args.minGames);
@@ -591,17 +759,19 @@ async function build() {
     await w(`export const officialCandidateStatsByTier = ${stableJson(officialCandidateStatsByTier)};\n\n`);
     await w(`export const officialCompositionStatsByTier = ${stableJson(officialCompositionStatsByTier)};\n\n`);
     await w(`export const officialTraitStatsByTier = ${stableJson(officialTraitStatsByTier)};\n\n`);
+    await w(`export const officialTraitBuildStatsByTier = ${stableJson(officialTraitBuildStatsByTier)};\n\n`);
     await w(`export const officialPairStatsByTier = ${stableJson(officialPairStatsByTier)};\n\n`);
     await w(`export const officialCombatStatsByTier = ${stableJson(officialCombatStatsByTier)};\n\n`);
     await w(`export const OFFICIAL_V2_WEIGHTS = {\n  characterPower: 0.30,\n  pairSynergy:    0.35,\n  combatScore:    0.15,\n  roleBalance:    0.20,\n};\n\n`);
     await w(`export const BAYESIAN_ALPHA = {\n  character: 100,\n  pair:       80,\n  combat:     80,\n};\n\n`);
-    await w(`export function officialStatsBucketForTier(tier = "all") {\n  const bucketMap = {\n    all: "all",\n    iron_gold: "iron_gold",\n    platinum_diamond: "platinum_diamond",\n    meteor_mithril: "meteor_mithril",\n    demigod_eternity: "demigod_eternity",\n    iron_bronze: "iron_gold",\n    silver_gold: "iron_gold",\n    diamond: "platinum_diamond",\n    mithril_plus: "meteor_mithril",\n  };\n  const preferred = bucketMap[tier] ?? tier ?? "all";\n  if (officialCandidateStatsByTier[preferred] || officialCompositionStatsByTier[preferred]) return preferred;\n  return "all";\n}\n`);
+    await w(`export function officialStatsBucketForTier(tier = "all") {\n  const bucketMap = {\n    all: "all",\n    iron_gold: "iron_gold",\n    platinum_diamond: "platinum_diamond",\n    meteor_mithril: "meteor_mithril",\n    demigod_eternity: "demigod_eternity",\n    iron_bronze: "iron_gold",\n    silver_gold: "iron_gold",\n    diamond: "platinum_diamond",\n    mithril_plus: "meteor_mithril",\n  };\n  const preferred = bucketMap[tier] ?? tier ?? "all";\n  if (officialCandidateStatsByTier[preferred] || officialCompositionStatsByTier[preferred] || officialTraitBuildStatsByTier[preferred]) return preferred;\n  return "all";\n}\n`);
     await new Promise((res, rej) => ws.end((e) => e ? rej(e) : res()));
   }
 
   // Also write JSON for remote fetch
   const jsonPayload = {
     source, officialCandidateStatsByTier, officialCompositionStatsByTier,
+    officialTraitStatsByTier, officialTraitBuildStatsByTier,
     officialPairStatsByTier, officialCombatStatsByTier,
     weights: { characterPower: 0.30, pairSynergy: 0.35, combatScore: 0.15, roleBalance: 0.20 },
     alpha:   { character: 100, pair: 80, combat: 80 },

@@ -14,6 +14,7 @@ out/
 # Collector/cache output
 data/dak-cache/
 data/official-cache/
+data/official-data-discovery/
 data/official-match-input*.json
 data/official-next-seeds.json
 data/ml-training/
