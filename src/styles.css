@@ -1341,27 +1341,23 @@ h2 {
   background: var(--surface-2);
 }
 
-.rank-card summary {
+.rank-card-summary {
   display: grid;
   grid-template-columns: 24px 30px 36px minmax(0, 1fr);
   gap: 8px;
   align-items: center;
   min-width: 0;
   cursor: pointer;
-  list-style: none;
 }
 
-.rank-card summary::-webkit-details-marker {
-  display: none;
-}
-
-.rank-card[open] {
+.rank-card-open,
+.rank-card:focus-visible {
   border-color: rgba(34, 211, 238, 0.45);
 }
 
 .rank-detail-stats {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(58px, 1fr));
   gap: 6px;
   margin: 8px 0 0;
   padding-top: 8px;

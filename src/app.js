@@ -36,6 +36,7 @@ const isElectron = /electron/i.test(navigator.userAgent);
 const selectedIds = new Set();
 let activeRole = "all";
 let activeRankRole = "all";
+let activeRankDetailId = null;
 let officialCandidateStatsByTier = bundledOfficialCandidateStatsByTier;
 let officialCompositionStatsByTier = bundledOfficialCompositionStatsByTier;
 
@@ -1676,9 +1677,12 @@ function rankerCharacterRows(role = "all") {
         score,
         tierLabel: rankTierForScore(score),
         games: stat.games ?? 0,
+        avgPlacement: stat.avgPlacement,
         top3Rate: stat.top3Rate ?? 0,
         winRate: stat.winRate ?? 0,
         avgDamageToPlayer: stat.avgDamageToPlayer,
+        avgDamageFromPlayer: stat.avgDamageFromPlayer,
+        avgCcTime: stat.avgCcTime,
         votes: feedback.total,
       };
     })
@@ -1796,9 +1800,13 @@ function renderHomeDashboard() {
       const top3 = Math.round(row.top3Rate * 100);
       const win = Math.round(row.winRate * 100);
       const damage = row.avgDamageToPlayer ? Math.round(row.avgDamageToPlayer).toLocaleString() : "-";
+      const damageTaken = row.avgDamageFromPlayer ? Math.round(row.avgDamageFromPlayer).toLocaleString() : "-";
+      const placement = Number.isFinite(row.avgPlacement) ? row.avgPlacement.toFixed(2) : "-";
+      const ccTime = Number.isFinite(row.avgCcTime) ? `${Math.round(row.avgCcTime)}s` : "-";
+      const expanded = activeRankDetailId === row.characterId;
       return `
-        <details class="rank-card">
-          <summary>
+        <article class="rank-card ${expanded ? "rank-card-open" : ""}" data-rank-detail-id="${row.characterId}" role="button" tabindex="0" aria-expanded="${expanded}">
+          <div class="rank-card-summary">
             <span class="rank-number">${index + 1}</span>
             <span class="rank-tier rank-tier-${row.tierLabel.toLowerCase()}">${row.tierLabel}</span>
             ${character.image ? `<img src="${character.image}" alt="">` : ""}
@@ -1806,15 +1814,20 @@ function renderHomeDashboard() {
               <strong>${[character.name, character.weapon].filter(Boolean).join(" · ")}</strong>
               <small>${t("rank.scoreDetail", { count: row.games, top3 })}</small>
             </span>
-          </summary>
-          <dl class="rank-detail-stats">
-            <div><dt>${t("rank.detailGames")}</dt><dd>${row.games}</dd></div>
-            <div><dt>${t("rank.detailTop3")}</dt><dd>${top3}%</dd></div>
-            <div><dt>${t("rank.detailWin")}</dt><dd>${win}%</dd></div>
-            <div><dt>${t("rank.detailDamage")}</dt><dd>${damage}</dd></div>
-            <div><dt>${t("rank.detailVotes")}</dt><dd>${row.votes}</dd></div>
-          </dl>
-        </details>
+          </div>
+          ${expanded ? `
+            <dl class="rank-detail-stats">
+              <div><dt>${t("rank.detailGames")}</dt><dd>${row.games}</dd></div>
+              <div><dt>${t("rank.detailTop3")}</dt><dd>${top3}%</dd></div>
+              <div><dt>${t("rank.detailWin")}</dt><dd>${win}%</dd></div>
+              <div><dt>${t("rank.detailPlacement")}</dt><dd>${placement}</dd></div>
+              <div><dt>${t("rank.detailDamage")}</dt><dd>${damage}</dd></div>
+              <div><dt>${t("rank.detailDamageTaken")}</dt><dd>${damageTaken}</dd></div>
+              <div><dt>${t("rank.detailCc")}</dt><dd>${ccTime}</dd></div>
+              <div><dt>${t("rank.detailVotes")}</dt><dd>${row.votes}</dd></div>
+            </dl>
+          ` : ""}
+        </article>
       `;
     })
     .join("");
@@ -2574,6 +2587,16 @@ recommendations.addEventListener("click", (event) => {
   const rankRoleButton = event.target.closest("[data-rank-role]");
   if (rankRoleButton) {
     activeRankRole = rankRoleButton.dataset.rankRole;
+    activeRankDetailId = null;
+    renderRecommendations();
+    return;
+  }
+
+  const rankCard = event.target.closest("[data-rank-detail-id]");
+  if (rankCard) {
+    activeRankDetailId = activeRankDetailId === rankCard.dataset.rankDetailId
+      ? null
+      : rankCard.dataset.rankDetailId;
     renderRecommendations();
     return;
   }
@@ -2612,6 +2635,16 @@ recommendations.addEventListener("click", (event) => {
   slotAssignments[0] = chosenPickId;
   renderDetectedTeam();
   render();
+});
+recommendations.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const rankCard = event.target.closest("[data-rank-detail-id]");
+  if (!rankCard) return;
+  event.preventDefault();
+  activeRankDetailId = activeRankDetailId === rankCard.dataset.rankDetailId
+    ? null
+    : rankCard.dataset.rankDetailId;
+  renderRecommendations();
 });
 recommendations.addEventListener("pointerdown", trackDetailsSummaryPointer, true);
 recommendations.addEventListener("click", handleDetailsSummaryClick, true);
