@@ -1,6 +1,6 @@
 import { supabaseConfig } from "./supabaseConfig.js";
 
-const VOTE_WINDOW_HOURS = 4;
+const VOTE_WINDOW_HOURS = 1;
 const INVALID_FEEDBACK_IDS = new Set(["", "empty", "null", "undefined", "none"]);
 
 function normalizeFeedbackId(id) {
@@ -85,6 +85,23 @@ export async function recordRemoteFeedback(selectedIds, candidateId, value, tier
     vote_bucket: voteBucket(),
   };
 
+  // Detect whether this attempt collapses into an existing bucket row (a "duplicate"),
+  // before the upsert turns it into an UPDATE. Best-effort only — never blocks voting.
+  let wasDuplicate = false;
+  try {
+    const { count } = await client
+      .from("recommendation_votes")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", userData.user.id)
+      .eq("tier", tier)
+      .eq("team_key", teamKey)
+      .eq("candidate_id", normalizedCandidateId)
+      .eq("vote_bucket", payload.vote_bucket);
+    wasDuplicate = (count ?? 0) > 0;
+  } catch {
+    // ignore: duplicate flag is diagnostic only
+  }
+
   const { error } = await client
     .from("recommendation_votes")
     .upsert(payload, {
@@ -102,7 +119,27 @@ export async function recordRemoteFeedback(selectedIds, candidateId, value, tier
   }
 
   if (error) throw error;
+
+  // Fire-and-forget: record every attempt in the append-only diagnostic log.
+  logVoteEvent(client, {
+    user_id: userData.user.id,
+    tier,
+    team_key: teamKey,
+    candidate_id: normalizedCandidateId,
+    value,
+    vote_bucket: payload.vote_bucket,
+    was_duplicate: wasDuplicate,
+  });
+
   return true;
+}
+
+async function logVoteEvent(client, eventPayload) {
+  try {
+    await client.from("recommendation_vote_events").insert(eventPayload);
+  } catch {
+    // diagnostic log only; a failure here must never affect the vote flow
+  }
 }
 
 export async function loadRemoteFeedback(selectedIds, tier) {

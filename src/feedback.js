@@ -2,7 +2,7 @@ const STORAGE_KEY = "er-team-picker-feedback-v1";
 const RECENT_VOTE_KEY = "er-team-picker-feedback-windows-v1";
 const PENDING_REMOTE_KEY = "er-team-picker-pending-remote-feedback-v1";
 const RECOVERY_MARKER_KEY = "er-team-picker-feedback-recovery-v1";
-const VOTE_WINDOW_HOURS = 4;
+const VOTE_WINDOW_HOURS = 1;
 const INVALID_FEEDBACK_IDS = new Set(["", "empty", "null", "undefined", "none"]);
 
 function normalizeFeedbackId(id) {

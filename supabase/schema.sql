@@ -91,4 +91,66 @@ create policy "Users can create contact messages"
 
 grant insert on public.contact_messages to authenticated;
 
+-- ── Diagnostic vote event log ─────────────────────────────────────────────────
+-- Append-only: every vote attempt is stored here, including ones that the
+-- recommendation_votes unique index collapses into an UPDATE (was_duplicate=true).
+-- Lets us verify that id gaps in recommendation_votes are normal dedup behaviour.
+-- Purged after 30 days (see pg_cron block below) to bound storage.
+create table if not exists public.recommendation_vote_events (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  tier text not null,
+  team_key text not null,
+  candidate_id text not null,
+  value smallint not null check (value in (-1, 1)),
+  vote_bucket text not null,
+  was_duplicate boolean not null default false,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists recommendation_vote_events_created_at_idx
+  on public.recommendation_vote_events (created_at desc);
+
+create index if not exists recommendation_vote_events_dedup_idx
+  on public.recommendation_vote_events (user_id, tier, team_key, candidate_id, vote_bucket);
+
+alter table public.recommendation_vote_events enable row level security;
+
+drop policy if exists "Users can insert their own vote events" on public.recommendation_vote_events;
+create policy "Users can insert their own vote events"
+  on public.recommendation_vote_events
+  for insert
+  to authenticated
+  with check ((select auth.uid()) = user_id);
+
+drop policy if exists "Users can read their own vote events" on public.recommendation_vote_events;
+create policy "Users can read their own vote events"
+  on public.recommendation_vote_events
+  for select
+  to authenticated
+  using ((select auth.uid()) = user_id);
+
+grant select, insert on public.recommendation_vote_events to authenticated;
+
+-- ── 30-day TTL purge for the diagnostic event log ─────────────────────────────
+-- Requires the pg_cron extension. Enable it once in Supabase:
+--   Dashboard → Database → Extensions → pg_cron (toggle on).
+-- If pg_cron is not enabled the table still works; it just won't auto-purge.
+-- Manual purge equivalent:
+--   delete from public.recommendation_vote_events where created_at < now() - interval '30 days';
+do $$
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron') then
+    if exists (select 1 from cron.job where jobname = 'purge-recommendation-vote-events') then
+      perform cron.unschedule('purge-recommendation-vote-events');
+    end if;
+    perform cron.schedule(
+      'purge-recommendation-vote-events',
+      '0 18 * * *',  -- daily at 18:00 UTC = 03:00 KST
+      $purge$delete from public.recommendation_vote_events where created_at < now() - interval '30 days'$purge$
+    );
+  end if;
+end
+$$;
+
 notify pgrst, 'reload schema';
