@@ -34,6 +34,9 @@ import {
   compactTierBucket,
   normalizeGame,
   extractPlayerIds,
+  rankRows,
+  nicknameOf,
+  firstValue,
 } from "./official_collect_utils.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -51,6 +54,9 @@ const DEFAULTS = {
   depth:           2,
   maxUsersPerTier: 200,
   nextSeedCount:   15,
+  seedPoolSize:    50,
+  topRankers:      0,                 // >0 = also seed the top tier from the rank leaderboard
+  topTier:         "demigod_eternity",
   delayMs:         1000,
   retry429Ms:      60000,
   strictTier:      false,
@@ -75,6 +81,9 @@ function parseArgs() {
       case "--depth":              args.depth           = Number(value); break;
       case "--max-users-per-tier": args.maxUsersPerTier = Number(value); break;
       case "--next-seed-count":    args.nextSeedCount   = Number(value); break;
+      case "--seed-pool-size":     args.seedPoolSize    = Number(value); break;
+      case "--top-rankers":        args.topRankers      = Number(value); break;
+      case "--top-tier":           args.topTier         = value; break;
       case "--delay-ms":           args.delayMs         = Number(value); break;
       case "--retry-429-ms":       args.retry429Ms      = Number(value); break;
       case "--strict-tier":        args.strictTier      = value !== "false"; break;
@@ -268,6 +277,29 @@ async function fetchAndNormalize(client, gameIds, gameRankInfo) {
   return teams;
 }
 
+function rankUserIdOf(row) {
+  return firstValue(row, ["userNum", "userId", "user_id", "uid"]);
+}
+
+/** Fetch top-ranked userIds from the leaderboard (authoritative source for the top tier). */
+async function fetchTopRankerUserIds(client, season, teamMode, limit) {
+  const ids = [];
+  try {
+    const payload = await client.getJson(`/v1/rank/top/${season}/${teamMode}`, { cache: false });
+    for (const row of rankRows(payload).slice(0, limit)) {
+      let uid = rankUserIdOf(row);
+      if (!uid) {
+        const nick = nicknameOf(row);
+        if (nick) { try { uid = await lookupUserId(client, nick); } catch { /* skip */ } }
+      }
+      if (uid) ids.push(String(uid));
+    }
+  } catch (err) {
+    console.log(`[top-rankers] leaderboard fetch failed: ${err.message}`);
+  }
+  return [...new Set(ids)];
+}
+
 async function main() {
   const options = parseArgs();
   const apiKey  = requireEnv("ER_API_KEY");
@@ -298,6 +330,19 @@ async function main() {
   }
   const userIdTiers = nextSeedsConfig.tiers ?? {};
 
+  // Seed the sparse top tier directly from the rank leaderboard each run. The leaderboard is
+  // the authoritative source of top players; injected userIds self-sort to their real tier via
+  // the measured-tier rotation, so this feeds demigod_eternity (and the top of meteor_mithril).
+  if (options.topRankers > 0) {
+    const topIds = await fetchTopRankerUserIds(client, options.season, options.teamMode, options.topRankers);
+    if (topIds.length) {
+      const bucket = options.topTier;
+      const existing = (userIdTiers[bucket]?.userIds ?? []).map(String);
+      userIdTiers[bucket] = { userIds: [...new Set([...topIds, ...existing])] };
+      console.log(`[top-rankers] injected ${topIds.length} leaderboard userIds into ${bucket}`);
+    }
+  }
+
   const allTierBuckets = [...new Set([...Object.keys(nicknameTiers), ...Object.keys(userIdTiers)])];
   if (allTierBuckets.length === 0) {
     console.error("No tiers found."); process.exit(1);
@@ -321,7 +366,9 @@ async function main() {
 
   for (const tierBucket of allTierBuckets) {
     const compacted = compactTierBucket(tierBucket) || tierBucket;
-    const rotatingUserIds = (userIdTiers[tierBucket]?.userIds ?? []).map(String);
+    // Sample nextSeedCount seeds from the stored pool so each run expands from a
+    // different subset (prevents seeds being identical run-to-run).
+    const rotatingUserIds = shuffleSample((userIdTiers[tierBucket]?.userIds ?? []).map(String), options.nextSeedCount);
     const fallbackNicknames = rotatingUserIds.length > 0 ? [] : (nicknameTiers[tierBucket] ?? []);
     const seeds = {
       userIds:   rotatingUserIds,
@@ -384,21 +431,29 @@ async function main() {
     teamMode:    options.teamMode,
     tiers:       {},
   };
-  // File each processed user under their ACTUAL measured tier (not the expansion bucket),
-  // so higher-tier players pulled in via cross-tier matchmaking don't drift the seed pools upward.
-  const rotationByTier = {};
-  for (const ids of Object.values(tierUserIds)) {
-    for (const uid of ids) {
-      const tier = userActualTier.get(String(uid));
-      if (!tier) continue; // unmeasured tier -> skip to avoid mis-filing
-      (rotationByTier[tier] ??= []).push(String(uid));
-    }
+  // Rolling seed accumulation by ACTUAL measured tier. Keep up to seedPoolSize userIds
+  // per tier (merging this run's finds with the previous pool) so sparse low tiers don't
+  // dry up. Each run samples nextSeedCount from this pool to actually expand from.
+  const measuredThisRun = new Map();   // tier -> [userIds measured this run]
+  const userMovedTier   = new Map();   // userId -> tier measured this run (self-cleaning)
+  for (const [uid, tier] of userActualTier.entries()) {
+    if (!tier || tier === "unknown") continue;
+    if (!measuredThisRun.has(tier)) measuredThisRun.set(tier, []);
+    measuredThisRun.get(tier).push(String(uid));
+    userMovedTier.set(String(uid), tier);
   }
-  for (const [tier, ids] of Object.entries(rotationByTier)) {
-    const unique  = [...new Set(ids)];
-    const sampled = shuffleSample(unique, options.nextSeedCount);
-    nextSeeds.tiers[tier] = { userIds: sampled };
-    console.log(`  [${tier}] next-seeds: ${sampled.length}/${unique.length} userIds sampled (by actual tier)`);
+  const priorTiers   = nextSeedsConfig.tiers ?? {};
+  const rotationTiers = new Set([...Object.keys(priorTiers), ...measuredThisRun.keys()]);
+  for (const tier of rotationTiers) {
+    const fresh = measuredThisRun.get(tier) ?? [];
+    const prior = (priorTiers[tier]?.userIds ?? [])
+      .map(String)
+      .filter((uid) => (userMovedTier.get(uid) ?? tier) === tier); // drop users who moved tier
+    const pool = [...new Set([...fresh, ...prior])].slice(0, options.seedPoolSize);
+    if (pool.length === 0) continue;
+    nextSeeds.tiers[tier] = { userIds: pool };
+    const carried = pool.length - pool.filter((uid) => fresh.includes(uid)).length;
+    console.log(`  [${tier}] seed pool: ${pool.length}/${options.seedPoolSize} (fresh ${fresh.length}, carried ${carried})`);
   }
   await fs.writeFile(options.nextSeeds, JSON.stringify(nextSeeds, null, 2), "utf8");
   console.log(`Saved next-seeds: ${path.relative(ROOT, options.nextSeeds)}`);

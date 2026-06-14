@@ -51,8 +51,11 @@ jobs:
             --games-per-user 10 \
             --depth 2 \
             --max-users-per-tier 350 \
-            --target-teams 12000 \
+            --target-teams 16000 \
             --next-seed-count 15 \
+            --seed-pool-size 50 \
+            --top-rankers 100 \
+            --top-tier demigod_eternity \
             --delay-ms 1000 \
             --retry-429-ms 60000
 
