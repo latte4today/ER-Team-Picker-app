@@ -151,14 +151,25 @@ export function extractRankInfo(payload) {
   for (const row of rankInfoRows(payload)) {
     const tierText = firstValue(row, ["tier", "tierName", "tierType", "rankTier"]);
     const mmr      = firstValue(row, ["mmr", "rankMmr"]);
-    const fine = tierBucketFromText(tierText) ?? tierBucketFromMmr(mmr);
+    const rank     = firstValue(row, ["rank", "ranking", "rankNumber"]);
+    let fine = tierBucketFromText(tierText) ?? tierBucketFromMmr(mmr);
+    // Eternity/Demigod are RANK titles among Mithril+ players, NOT MMR thresholds:
+    //   top 300 = eternity, top 1000 = demigod (regardless of score).
+    // The MMR floor is only a sanity guard against bad rank data; real top-1000 are Mithril+.
+    const r = Number(rank);
+    const m = Number(mmr);
+    const eligible = !Number.isFinite(m) || m >= 6000;
+    if (Number.isFinite(r) && r > 0 && eligible) {
+      if (r <= 300) fine = "eternity";
+      else if (r <= 1000) fine = "demigod";
+    }
     if (tierText !== undefined || mmr !== undefined || fine) {
       return {
         tier:           tierText,
         fineBucket:     fine ?? "unknown",
         tierBucket:     compactTierBucket(fine),
         mmr:            Number.isFinite(Number(mmr)) ? Number(mmr) : undefined,
-        rank:           firstValue(row, ["rank", "ranking", "rankNumber"]),
+        rank:           rank,
       };
     }
   }
