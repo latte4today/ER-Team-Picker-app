@@ -102,7 +102,7 @@ function reachedTierTarget(gameIds, options) {
     estimatedTeamsFromGames(gameIds) >= options.targetTeamsPerTier;
 }
 
-async function collectGamesForUser(client, userId, options, knownTierBucket, gameIds, gameRankInfo) {
+async function collectGamesForUser(client, userId, options, knownTierBucket, gameIds, gameRankInfo, userTier) {
   const rankInfo     = await lookupRankInfo(client, userId, options.season, options.teamMode);
   const actualBucket = rankInfo.tierBucket;
 
@@ -112,6 +112,9 @@ async function collectGamesForUser(client, userId, options, knownTierBucket, gam
 
   const effectiveBucket   = actualBucket !== "unknown" ? actualBucket : knownTierBucket;
   const effectiveRankInfo = { ...rankInfo, tierBucket: effectiveBucket };
+  // Record this user's MEASURED tier so seed rotation files them by real tier (not the
+  // expansion bucket), preventing cross-tier seed drift. Unmeasured users are left out.
+  if (userTier && actualBucket !== "unknown") userTier.set(String(userId), effectiveBucket);
 
   const gamesPayload = await client.getJson(
     `/v1/user/games/uid/${encodeURIComponent(userId)}`,
@@ -131,7 +134,7 @@ async function collectGamesForUser(client, userId, options, knownTierBucket, gam
 
 async function expandFromGames(
   client, sourceGameIds, tierBucket, options,
-  gameIds, gameRankInfo, processedUsers, label
+  gameIds, gameRankInfo, processedUsers, label, userTier
 ) {
   let expanded = 0;
   for (const gameId of sourceGameIds) {
@@ -157,7 +160,7 @@ async function expandFromGames(
 
       try {
         const result = await collectGamesForUser(
-          client, userId, options, tierBucket, gameIds, gameRankInfo
+          client, userId, options, tierBucket, gameIds, gameRankInfo, userTier
         );
         if (!result.skipped) {
           expanded++;
@@ -174,7 +177,7 @@ async function expandFromGames(
   return expanded;
 }
 
-async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankInfo) {
+async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankInfo, userTier) {
   const processedUsers = new Set();
 
   // Phase 0a: userId seeds from previous run
@@ -186,7 +189,7 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
     processedUsers.add(uid);
     process.stdout.write(`  [${tierBucket}] userId-seed ...${uid.slice(-6)} `);
     try {
-      const r = await collectGamesForUser(client, uid, options, tierBucket, gameIds, gameRankInfo);
+      const r = await collectGamesForUser(client, uid, options, tierBucket, gameIds, gameRankInfo, userTier);
       console.log(r.skipped ? `skipped (${r.actual})` : `+${r.added} games (${r.tierBucket}, mmr:${r.mmr ?? "?"})`);
     } catch (err) { console.log(`error: ${err.message}`); }
   }
@@ -201,7 +204,7 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
     if (processedUsers.has(String(userId))) { console.log("already seen"); continue; }
     processedUsers.add(String(userId));
     try {
-      const r = await collectGamesForUser(client, userId, options, tierBucket, gameIds, gameRankInfo);
+      const r = await collectGamesForUser(client, userId, options, tierBucket, gameIds, gameRankInfo, userTier);
       console.log(r.skipped ? `skipped (${r.actual})` : `+${r.added} games (${r.tierBucket}, mmr:${r.mmr ?? "?"}) - total: ${gameIds.size}`);
     } catch (err) { console.log(`error: ${err.message}`); }
   }
@@ -216,7 +219,7 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
   if (options.depth >= 1 && !reachedTierTarget(gameIds, options)) {
     await expandFromGames(
       client, [...afterDepth0], tierBucket, options,
-      gameIds, gameRankInfo, processedUsers, "depth-1"
+      gameIds, gameRankInfo, processedUsers, "depth-1", userTier
     );
   }
 
@@ -227,7 +230,7 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
       console.log(`  [${tierBucket}] depth-2: expanding from ${newDepth1Games.length} new games...`);
       await expandFromGames(
         client, newDepth1Games, tierBucket, options,
-        gameIds, gameRankInfo, processedUsers, "depth-2"
+        gameIds, gameRankInfo, processedUsers, "depth-2", userTier
       );
     }
   }
@@ -313,22 +316,25 @@ async function main() {
   const allGameIds      = new Set();
   const allGameRankInfo = new Map();
   const tierUserIds     = {};
+  const userActualTier  = new Map();  // userId -> measured compact tier (drift-free seed rotation)
   let totalApproxTeams  = 0;
 
   for (const tierBucket of allTierBuckets) {
     const compacted = compactTierBucket(tierBucket) || tierBucket;
+    const rotatingUserIds = (userIdTiers[tierBucket]?.userIds ?? []).map(String);
+    const fallbackNicknames = rotatingUserIds.length > 0 ? [] : (nicknameTiers[tierBucket] ?? []);
     const seeds = {
-      userIds:   (userIdTiers[tierBucket]?.userIds ?? []).map(String),
-      nicknames: nicknameTiers[tierBucket] ?? [],
+      userIds:   rotatingUserIds,
+      nicknames: fallbackNicknames,
     };
-    console.log(`\n[${tierBucket}] ${seeds.userIds.length} userId-seeds + ${seeds.nicknames.length} nickname-seeds`);
+    console.log(`\n[${tierBucket}] ${seeds.userIds.length} userId-seeds + ${seeds.nicknames.length} nickname-seeds${rotatingUserIds.length > 0 ? " (nickname fallback disabled)" : ""}`);
     const tierOptions = { ...options, targetTeamsPerTier };
 
     // Use tier-local sets so expansion isn't blocked by other tiers' games
     const tierGameIds      = new Set();
     const tierGameRankInfo = new Map();
     const { processedUserIds } = await expandTier(
-      client, compacted, seeds, tierOptions, tierGameIds, tierGameRankInfo
+      client, compacted, seeds, tierOptions, tierGameIds, tierGameRankInfo, userActualTier
     );
     tierUserIds[compacted] = processedUserIds;
 
@@ -378,10 +384,21 @@ async function main() {
     teamMode:    options.teamMode,
     tiers:       {},
   };
-  for (const [tier, userIds] of Object.entries(tierUserIds)) {
-    const sampled = shuffleSample(userIds, options.nextSeedCount);
+  // File each processed user under their ACTUAL measured tier (not the expansion bucket),
+  // so higher-tier players pulled in via cross-tier matchmaking don't drift the seed pools upward.
+  const rotationByTier = {};
+  for (const ids of Object.values(tierUserIds)) {
+    for (const uid of ids) {
+      const tier = userActualTier.get(String(uid));
+      if (!tier) continue; // unmeasured tier -> skip to avoid mis-filing
+      (rotationByTier[tier] ??= []).push(String(uid));
+    }
+  }
+  for (const [tier, ids] of Object.entries(rotationByTier)) {
+    const unique  = [...new Set(ids)];
+    const sampled = shuffleSample(unique, options.nextSeedCount);
     nextSeeds.tiers[tier] = { userIds: sampled };
-    console.log(`  [${tier}] next-seeds: ${sampled.length}/${userIds.length} userIds sampled`);
+    console.log(`  [${tier}] next-seeds: ${sampled.length}/${unique.length} userIds sampled (by actual tier)`);
   }
   await fs.writeFile(options.nextSeeds, JSON.stringify(nextSeeds, null, 2), "utf8");
   console.log(`Saved next-seeds: ${path.relative(ROOT, options.nextSeeds)}`);
