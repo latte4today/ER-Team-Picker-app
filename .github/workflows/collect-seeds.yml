@@ -103,6 +103,15 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore: update tier match data [skip ci]"
-            git pull --rebase origin main
-            git push origin main
+            # Generated stats are owned by this workflow. On conflict, keep our freshly
+            # regenerated version (-X theirs). Retry to survive concurrent pushes to main.
+            pushed=0
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase -X theirs origin/main || { git rebase --abort 2>/dev/null || true; }
+              if git push origin main; then pushed=1; break; fi
+              echo "push attempt $attempt failed; retrying..."
+              sleep 5
+            done
+            [ "$pushed" -eq 1 ] || { echo "could not push after retries" >&2; exit 1; }
           fi
