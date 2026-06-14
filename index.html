@@ -177,6 +177,7 @@
         </nav>
         <div class="side-footer">
           <button class="settings-contact-button" id="settings-contact-button" type="button" data-i18n="button.contact"></button>
+          <button class="settings-contact-button support-button" id="support-button" type="button" data-i18n="button.support"></button>
           <button class="update-button" id="update-check-button" type="button" data-i18n="button.updateCheck"></button>
           <div class="update-status" id="update-status" role="status"></div>
           <button class="settings-button" id="settings-open-button" type="button" data-i18n="button.settings"></button>
@@ -355,6 +356,36 @@
       </section>
     </div>
 
+    <div class="contact-modal support-modal" id="support-modal" hidden>
+      <div class="contact-backdrop" data-support-close></div>
+      <section class="contact-dialog support-dialog" role="dialog" aria-modal="true" aria-labelledby="support-title">
+        <div class="panel-header">
+          <div>
+            <p class="section-kicker" data-i18n="support.kicker"></p>
+            <h2 id="support-title" data-i18n="support.title"></h2>
+          </div>
+          <button class="icon-button" type="button" data-support-close data-i18n-label="contact.closeLabel">x</button>
+        </div>
+        <p class="contact-note" data-i18n="support.intro"></p>
+        <div class="support-options">
+          <button class="support-banner support-banner-naver" type="button" id="support-naver">
+            <span class="support-banner-label" data-i18n="support.naverLabel"></span>
+            <span class="support-option-desc" data-i18n="support.scan"></span>
+          </button>
+
+          <button class="support-banner support-banner-toss" type="button" id="support-toss">
+            <span class="support-banner-label" data-i18n="support.tossLabel"></span>
+            <span class="support-option-desc" data-i18n="support.scan"></span>
+          </button>
+
+          <button class="support-banner support-banner-kofi" type="button" id="support-kofi">
+            <span class="support-banner-label">Ko-fi</span>
+            <span class="support-option-desc" data-i18n="support.kofi.desc"></span>
+          </button>
+        </div>
+      </section>
+    </div>
+
     <div class="settings-modal" id="settings-modal" hidden>
       <div class="settings-backdrop" data-settings-close></div>
       <section class="settings-dialog" role="dialog" aria-modal="true" aria-labelledby="settings-title">
@@ -381,7 +412,7 @@
       </section>
     </div>
 
-    <script type="module" src="src/app.js?v=0.3.1"></script>
+    <script type="module" src="src/app.js?v=0.3.2"></script>
     <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>

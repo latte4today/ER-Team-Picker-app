@@ -29,7 +29,7 @@ import {
 } from "./combatProfiles.js";
 import { applyTranslations, getLanguage, hasStoredLanguage, setLanguage, t } from "./i18n/index.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
-import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.1";
+import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.2";
 
 const isElectron = /electron/i.test(navigator.userAgent);
 
@@ -66,6 +66,7 @@ const savePresetButton = document.querySelector("#save-playable-preset-button");
 const loadPresetButton = document.querySelector("#load-playable-preset-button");
 const deletePresetButton = document.querySelector("#delete-playable-preset-button");
 const contactModal = document.querySelector("#contact-modal");
+const supportModal = document.querySelector("#support-modal");
 const contactForm = document.querySelector("#contact-form");
 const contactReply = document.querySelector("#contact-reply");
 const contactMessage = document.querySelector("#contact-message");
@@ -318,6 +319,15 @@ function openContactModal() {
 function closeContactModal() {
   contactModal.hidden = true;
   contactStatus.textContent = "";
+}
+
+function openSupportModal() {
+  if (!supportModal) return;
+  supportModal.hidden = false;
+}
+
+function closeSupportModal() {
+  if (supportModal) supportModal.hidden = true;
 }
 
 function updateSettingsLanguageCards() {
@@ -2508,6 +2518,23 @@ settingsContactButton.addEventListener("click", () => {
   openContactModal();
 });
 
+const SUPPORT_KOFI_URL = "https://ko-fi.com/U1P821E45U";
+
+function openSupportAsset(path) {
+  window.open(path, "_blank", "noopener,noreferrer");
+}
+
+document.querySelector("#support-button")?.addEventListener("click", openSupportModal);
+document.querySelector("#support-naver")?.addEventListener("click", () => openSupportAsset("assets/support-qr-naver.png"));
+document.querySelector("#support-toss")?.addEventListener("click", () => openSupportAsset("assets/support-qr-toss.png"));
+document.querySelector("#support-kofi")?.addEventListener("click", () => {
+  window.open(SUPPORT_KOFI_URL, "_blank", "noopener,noreferrer");
+  closeSupportModal();
+});
+supportModal?.addEventListener("click", (event) => {
+  if (event.target.closest("[data-support-close]")) closeSupportModal();
+});
+
 contactModal.addEventListener("click", (event) => {
   if (event.target.closest("[data-contact-close]")) closeContactModal();
 });
@@ -2515,6 +2542,7 @@ contactModal.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     if (tierGuideModal && !tierGuideModal.hidden) closeTierGuideModal();
+    else if (supportModal && !supportModal.hidden) closeSupportModal();
     else if (!contactModal.hidden) closeContactModal();
     else if (!settingsModal.hidden) closeSettingsModal();
   }

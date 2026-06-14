@@ -204,6 +204,76 @@ p {
   color: #ffffff;
 }
 
+.side-footer .support-button {
+  border-color: rgba(245, 179, 56, 0.45);
+  background: rgba(245, 179, 56, 0.1);
+  color: #ffe6b0;
+}
+
+.side-footer .support-button:hover {
+  border-color: rgba(245, 179, 56, 0.8);
+  background: rgba(245, 179, 56, 0.18);
+  color: #ffffff;
+}
+
+.support-options {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.support-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  text-align: center;
+}
+
+.support-banner:hover {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.support-banner-label {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.support-option-desc {
+  font-size: 12px;
+  opacity: 0.72;
+}
+
+.support-banner-naver {
+  border-color: rgba(3, 199, 90, 0.5);
+  background: rgba(3, 199, 90, 0.12);
+}
+.support-banner-naver:hover { background: rgba(3, 199, 90, 0.2); }
+.support-banner-naver .support-banner-label { color: #5fe39a; }
+
+.support-banner-toss {
+  border-color: rgba(0, 100, 255, 0.5);
+  background: rgba(0, 100, 255, 0.12);
+}
+.support-banner-toss:hover { background: rgba(0, 100, 255, 0.2); }
+.support-banner-toss .support-banner-label { color: #8fb6ff; }
+
+.support-banner-kofi {
+  border-color: rgba(255, 95, 136, 0.5);
+  background: rgba(255, 95, 136, 0.12);
+}
+
+.support-banner-kofi:hover { background: rgba(255, 95, 136, 0.2); }
+.support-banner-kofi .support-banner-label { color: #ff9ab8; }
+
 .contact-button,
 .update-button {
   min-height: 34px;
