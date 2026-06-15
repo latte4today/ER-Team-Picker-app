@@ -18,10 +18,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 
 function parseArgs() {
-  const args = { accumulated: null, newFiles: [] };
+  const args = { accumulated: null, newFiles: [], maxTeams: 200000 };
   for (let i = 2; i < process.argv.length; i++) {
     if (process.argv[i] === "--accumulated") args.accumulated = path.resolve(ROOT, process.argv[++i]);
     else if (process.argv[i] === "--new")         args.newFiles.push(path.resolve(ROOT, process.argv[++i]));
+    else if (process.argv[i] === "--max-teams")   args.maxTeams = Number(process.argv[++i]);
   }
   return args;
 }
@@ -64,18 +65,28 @@ async function main() {
   for (const t of existing)  { const k = `${t.gameId}:${t.teamKey}`; if (!seen.has(k)) seen.set(k, t); }
   for (const t of newTeams)  { const k = `${t.gameId}:${t.teamKey}`; if (!seen.has(k)) seen.set(k, t); }
 
-  const merged = [...seen.values()];
+  let merged = [...seen.values()];
   console.log(`Merged: ${merged.length} teams (added ${merged.length - existing.length} new)`);
 
-  // Write
+  // Cap to the most recent maxTeams. JSON.stringify/parse of one giant string fails past
+  // ~512MB ("Invalid string length"), so we bound the accumulated file. Newest teams are at
+  // the end (existing first, new appended), so keep the tail. Full history stays in the
+  // per-run ML-training JSONL artifacts.
+  if (args.maxTeams > 0 && merged.length > args.maxTeams) {
+    const dropped = merged.length - args.maxTeams;
+    merged = merged.slice(-args.maxTeams);
+    console.log(`Capped to newest ${args.maxTeams} teams (dropped ${dropped} oldest)`);
+  }
+
+  // Write compact (no pretty-print) to roughly halve size and stay under the string limit.
   await fs.mkdir(path.dirname(args.accumulated), { recursive: true });
   await fs.writeFile(args.accumulated, JSON.stringify({
     ...meta,
     generatedAt: new Date().toISOString(),
     totalTeams: merged.length,
     teams: merged,
-  }, null, 2), "utf8");
-  console.log(`Saved: ${path.relative(ROOT, args.accumulated)}`);
+  }), "utf8");
+  console.log(`Saved: ${path.relative(ROOT, args.accumulated)} (${merged.length} teams)`);
 }
 
 main().catch((err) => { console.error(err.message); process.exit(1); });

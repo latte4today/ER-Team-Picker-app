@@ -36,6 +36,7 @@ jobs:
             data/official-cache
             data/official-next-seeds.json
             data/official-match-input-accumulated.json
+            data/ml-training/corpus.jsonl
           key: official-cache-${{ github.run_id }}
           restore-keys: official-cache-
 
@@ -64,6 +65,12 @@ jobs:
           node tools/merge_match_input.mjs \
             --accumulated data/official-match-input-accumulated.json \
             --new data/official-match-input-seeded.json
+
+      - name: Append to ML corpus (unbounded JSONL)
+        run: |
+          node tools/append_ml_corpus.mjs \
+            --corpus data/ml-training/corpus.jsonl \
+            --new data/official-match-input-accumulated.json
 
       - name: Build combined stats
         run: |
