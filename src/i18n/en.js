@@ -18,6 +18,7 @@ export const en = {
   "button.unionCalculating": "Calculating",
   "button.updateCheck": "Check for Updates",
   "button.support": "Support",
+  "button.more": "More",
   "support.kicker": "Support",
   "support.title": "Support the project",
   "support.intro": "Pick whichever is easiest. Tips help cover server and development costs and keep the tool free.",

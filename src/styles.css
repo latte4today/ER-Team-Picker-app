@@ -252,6 +252,23 @@ p {
   opacity: 0.72;
 }
 
+/* Mobile-only elements: hidden on desktop, shown in the small-screen media query */
+.mobile-more-button,
+.mobile-more-menu,
+.settings-tier-section {
+  display: none;
+}
+
+.settings-tier-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
 .support-banner-naver {
   border-color: rgba(3, 199, 90, 0.5);
   background: rgba(3, 199, 90, 0.12);
@@ -3269,30 +3286,69 @@ h2 {
     width: auto;
   }
 
+  /* Bottom bar shows only the main tabs + a single "More" button */
   .side-footer .settings-contact-button,
-  .side-footer .settings-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    min-height: 52px;
-    padding: 10px 8px;
-    padding-bottom: max(10px, env(safe-area-inset-bottom));
-    font-size: 11px;
-    border-radius: 0;
-    border: none;
-    border-left: 1px solid rgba(255,255,255,0.07);
-    background: transparent;
-    color: var(--text-muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 52px;
-  }
-
+  .side-footer .settings-button,
   .side-footer .update-button,
   .side-footer .update-status {
     display: none;
+  }
+
+  .side-footer .mobile-more-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 56px;
+    min-height: 52px;
+    padding: 10px 8px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    font-size: 12px;
+    border-radius: 0;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.07);
+    background: transparent;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* "More" popup sheet floating above the bottom bar */
+  .mobile-more-menu:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 8px;
+    bottom: calc(52px + env(safe-area-inset-bottom) + 8px);
+    z-index: 60;
+    min-width: 160px;
+    padding: 6px;
+    gap: 2px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: var(--sidebar);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  }
+
+  .mobile-more-item {
+    text-align: left;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  .mobile-more-item:active {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Tier selection moves into Settings on mobile */
+  .topbar .tier-select {
+    display: none;
+  }
+
+  .settings-tier-section {
+    display: block;
   }
 
   /* ── Main: fills remaining height, scrollable ── */

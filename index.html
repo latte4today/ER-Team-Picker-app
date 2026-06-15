@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ER Team Picker</title>
     <link rel="icon" href="assets/app-icon.png" type="image/png">
-    <link rel="stylesheet" href="src/styles.css">
+    <link rel="stylesheet" href="src/styles.css?v=0.3.3">
     <style>
       /* ── Splash screen ── */
       #splash-screen {
@@ -181,6 +181,12 @@
           <button class="update-button" id="update-check-button" type="button" data-i18n="button.updateCheck"></button>
           <div class="update-status" id="update-status" role="status"></div>
           <button class="settings-button" id="settings-open-button" type="button" data-i18n="button.settings"></button>
+          <button class="mobile-more-button" id="mobile-more-button" type="button" aria-haspopup="true" aria-expanded="false" data-i18n="button.more"></button>
+        </div>
+        <div class="mobile-more-menu" id="mobile-more-menu" hidden>
+          <button class="mobile-more-item" type="button" id="more-settings" data-i18n="button.settings"></button>
+          <button class="mobile-more-item" type="button" id="more-support" data-i18n="button.support"></button>
+          <button class="mobile-more-item" type="button" id="more-contact" data-i18n="button.contact"></button>
         </div>
       </aside>
 
@@ -408,11 +414,22 @@
             <h3 class="settings-section-label" data-i18n="settings.themeSection"></h3>
             <button class="settings-theme-toggle" id="settings-theme-toggle" type="button" aria-pressed="true"></button>
           </section>
+          <section class="settings-section settings-tier-section">
+            <h3 class="settings-section-label" data-i18n="tier.label"></h3>
+            <select id="settings-tier-select" class="settings-tier-select">
+              <option value="all" data-i18n="tier.all"></option>
+              <option value="iron_bronze" data-i18n="tier.ironBronze"></option>
+              <option value="silver_gold" data-i18n="tier.silverGold"></option>
+              <option value="platinum_diamond" data-i18n="tier.platinumDiamond"></option>
+              <option value="meteor_mithril" data-i18n="tier.meteorMithril"></option>
+              <option value="demigod_eternity" data-i18n="tier.demigodEternity"></option>
+            </select>
+          </section>
         </div>
       </section>
     </div>
 
-    <script type="module" src="src/app.js?v=0.3.2"></script>
+    <script type="module" src="src/app.js?v=0.3.3"></script>
     <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>

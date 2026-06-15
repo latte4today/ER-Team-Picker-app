@@ -18,6 +18,7 @@ export const zhHant = {
   "button.unionCalculating": "計算中",
   "button.updateCheck": "檢查更新",
   "button.support": "贊助",
+  "button.more": "更多",
   "support.kicker": "支持",
   "support.title": "支持本專案",
   "support.intro": "請選擇方便的方式。贊助用於伺服器與開發成本，幫助維持工具免費。",

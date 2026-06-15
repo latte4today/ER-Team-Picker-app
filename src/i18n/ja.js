@@ -18,6 +18,7 @@ export const ja = {
   "button.unionCalculating": "計算中",
   "button.updateCheck": "アップデート確認",
   "button.support": "支援する",
+  "button.more": "メニュー",
   "support.kicker": "支援",
   "support.title": "プロジェクトを支援",
   "support.intro": "お好きな方法を選んでください。支援はサーバー・開発費に充てられ、ツールを無料で維持するのに役立ちます。",

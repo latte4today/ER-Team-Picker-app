@@ -18,6 +18,7 @@ export const ko = {
   "button.unionCalculating": "계산 중",
   "button.updateCheck": "업데이트 확인",
   "button.support": "후원하기",
+  "button.more": "더보기",
   "support.kicker": "후원",
   "support.title": "후원하기",
   "support.intro": "편한 방법을 선택해 주세요. 후원은 서버·개발 비용에 쓰여 툴을 무료로 유지하는 데 도움이 됩니다.",

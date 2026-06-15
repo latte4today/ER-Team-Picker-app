@@ -341,6 +341,8 @@ function openSettingsModal() {
   settingsModal.hidden = false;
   setTheme(document.documentElement.dataset.theme);
   updateSettingsLanguageCards();
+  const st = document.querySelector("#settings-tier-select");
+  if (st) st.value = tierSelect.value;
 }
 
 function closeSettingsModal() {
@@ -2533,6 +2535,36 @@ document.querySelector("#support-kofi")?.addEventListener("click", () => {
 });
 supportModal?.addEventListener("click", (event) => {
   if (event.target.closest("[data-support-close]")) closeSupportModal();
+});
+
+// Settings tier select (mobile) mirrors the topbar tier select
+document.querySelector("#settings-tier-select")?.addEventListener("change", (event) => {
+  tierSelect.value = event.target.value;
+  tierSelect.dispatchEvent(new Event("change"));
+});
+
+// Mobile "More" menu (collapses footer actions on small screens)
+const mobileMoreButton = document.querySelector("#mobile-more-button");
+const mobileMoreMenu = document.querySelector("#mobile-more-menu");
+function closeMobileMore() {
+  if (mobileMoreMenu) mobileMoreMenu.hidden = true;
+  mobileMoreButton?.setAttribute("aria-expanded", "false");
+}
+mobileMoreButton?.addEventListener("click", (event) => {
+  event.stopPropagation();
+  if (!mobileMoreMenu) return;
+  const willOpen = mobileMoreMenu.hidden;
+  mobileMoreMenu.hidden = !willOpen;
+  mobileMoreButton.setAttribute("aria-expanded", String(willOpen));
+});
+document.querySelector("#more-settings")?.addEventListener("click", () => { closeMobileMore(); openSettingsModal(); });
+document.querySelector("#more-support")?.addEventListener("click", () => { closeMobileMore(); openSupportModal(); });
+document.querySelector("#more-contact")?.addEventListener("click", () => { closeMobileMore(); openContactModal(); });
+document.addEventListener("click", (event) => {
+  if (mobileMoreMenu && !mobileMoreMenu.hidden &&
+      !mobileMoreMenu.contains(event.target) && event.target !== mobileMoreButton) {
+    closeMobileMore();
+  }
 });
 
 contactModal.addEventListener("click", (event) => {

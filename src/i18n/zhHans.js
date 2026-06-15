@@ -18,6 +18,7 @@ export const zhHans = {
   "button.unionCalculating": "计算中",
   "button.updateCheck": "检查更新",
   "button.support": "赞助",
+  "button.more": "更多",
   "support.kicker": "支持",
   "support.title": "支持本项目",
   "support.intro": "请选择方便的方式。赞助用于服务器和开发成本，帮助保持工具免费。",
