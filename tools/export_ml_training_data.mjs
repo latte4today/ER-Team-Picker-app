@@ -80,7 +80,7 @@ const CHARACTER_CODE_TO_ID = {
   60: "tazia",
   61: "irem",
   62: "theodore",
-  63: "nia",
+  63: "ian",
   64: "vanya",
   65: "debi_marlene",
   66: "arda",
@@ -94,18 +94,18 @@ const CHARACTER_CODE_TO_ID = {
   74: "darko",
   75: "lenore",
   76: "garnet",
-  77: "hisui",
-  78: "yumin",
+  77: "yumin",
+  78: "hisui",
   79: "justina",
-  80: "ian",
-  81: "istvan",
-  82: "blair",
-  83: "bihyung",
-  84: "coreline",
-  85: "fenrir",
-  86: "shirin",
-  87: "henry",
-  88: "mirka",
+  80: "istvan",
+  81: "nia",
+  82: "shirin",
+  83: "henry",
+  84: "blair",
+  85: "mirka",
+  86: "fenrir",
+  87: "coreline",
+  88: "bihyung",
 };
 
 const characterById = new Map(characters.map((character) => [character.id, character]));
@@ -355,3 +355,4 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
+

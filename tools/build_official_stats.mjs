@@ -76,7 +76,7 @@ const FALLBACK_CHARACTER_CODE_TO_ID = {
   60: "tazia",
   61: "irem",
   62: "theodore",
-  63: "nia",
+  63: "ian",
   64: "vanya",
   65: "debi_marlene",
   66: "arda",
@@ -90,18 +90,18 @@ const FALLBACK_CHARACTER_CODE_TO_ID = {
   74: "darko",
   75: "lenore",
   76: "garnet",
-  77: "hisui",
-  78: "yumin",
+  77: "yumin",
+  78: "hisui",
   79: "justina",
-  80: "ian",
-  81: "istvan",
-  82: "blair",
-  83: "bihyung",
-  84: "coreline",
-  85: "fenrir",
-  86: "shirin",
-  87: "henry",
-  88: "mirka",
+  80: "istvan",
+  81: "nia",
+  82: "shirin",
+  83: "henry",
+  84: "blair",
+  85: "mirka",
+  86: "fenrir",
+  87: "coreline",
+  88: "bihyung",
 };
 
 function parseArgs() {
@@ -161,7 +161,7 @@ function normalizeName(value) {
   return String(value ?? "")
     .normalize("NFKC")
     .toLowerCase()
-    .replace(/[&·.\-_\s'’]/g, "");
+    .replace(/[&.\-_\s']/g, "");
 }
 
 function firstValue(row, keys) {
@@ -194,12 +194,13 @@ function flattenCodeRows(value) {
 
 function localNameIndex() {
   const aliases = new Map([
-    ["쇼우", "sho"],
-    ["리다이린", "li_dailin"],
-    ["데비마를렌", "debi_marlene"],
-    ["데비&마를렌", "debi_marlene"],
-    ["코렐라인", "coreline"],
-    ["유민", "yumin"],
+    ["xiukai", "sho"],
+    ["jan", "yan"],
+    ["justyna", "justina"],
+    ["niah", "nia"],
+    ["lyanh", "ian"],
+    ["xuelin", "shirin"],
+    ["coraline", "coreline"],
   ]);
   for (const character of characters) {
     aliases.set(normalizeName(character.name), character.id);
@@ -207,90 +208,136 @@ function localNameIndex() {
   }
   return aliases;
 }
-
 async function buildCharacterCodeMap(fetchCharacterData) {
   const codeMap = new Map(Object.entries(FALLBACK_CHARACTER_CODE_TO_ID).map(([code, id]) => [String(code), id]));
   if (!fetchCharacterData) return codeMap;
 
-  try {
-    const payload = await fetchJson("/v1/data/Character", "data:Character");
-    const index = localNameIndex();
-    for (const row of flattenRows(payload)) {
-      const code = firstValue(row, ["code", "characterCode", "characterNum", "id", "key"]);
-      const name = firstValue(row, ["name", "nameKr", "nameKo", "nameKor", "characterName", "korName"]);
-      const localId = index.get(normalizeName(name));
-      if (code !== undefined && localId) codeMap.set(String(code), localId);
+  const index = localNameIndex();
+  let officialRows = 0;
+  let officialMapped = 0;
+
+  for (const version of ["v2", "v1"]) {
+    try {
+      const payload = await fetchJson(`/${version}/data/Character`, `data:${version}:Character`);
+      const rows = flattenRows(payload);
+      officialRows += rows.length;
+
+      let mappedInVersion = 0;
+      let unmappedInVersion = 0;
+      const unmappedNames = [];
+
+      for (const row of rows) {
+        const code = firstValue(row, ["code", "characterCode", "characterNum", "id", "key"]);
+        const name = firstValue(row, ["name", "nameKr", "nameKo", "nameKor", "characterName", "korName"]);
+        const localId = index.get(normalizeName(name));
+        if (code !== undefined && localId) {
+          codeMap.set(String(code), localId);
+          mappedInVersion += 1;
+        } else if (code !== undefined || name) {
+          if (code !== undefined) codeMap.delete(String(code));
+          unmappedInVersion += 1;
+          if (unmappedNames.length < 8) unmappedNames.push(`${code ?? "?"}:${name ?? "?"}`);
+        }
+      }
+
+      officialMapped += mappedInVersion;
+      const note = unmappedNames.length ? `; unmapped ${unmappedInVersion}: ${unmappedNames.join(", ")}` : "";
+      console.log(`Character map ${version}: ${mappedInVersion}/${rows.length} rows mapped${note}`);
+    } catch (error) {
+      console.warn(`official character data fetch skipped for ${version}/Character: ${error.message}`);
     }
-  } catch (error) {
-    console.warn(`official character data fetch skipped: ${error.message}`);
+  }
+
+  if (officialRows === 0) {
+    console.warn("official character data unavailable; using fallback character code map only");
+  } else if (officialMapped < 80) {
+    console.warn(`official character map covered only ${officialMapped} rows; newer character codes may still rely on fallback`);
   }
 
   return codeMap;
 }
 
-const CURRENT_TRAIT_NAMES_BY_GROUP = {
-  Havoc: {
-    core: ["취약", "흡혈마", "아드레날린", "액셀러레이터"],
-    sub1: ["열세극복", "광분", "약자 멸시", "상흔"],
-    sub2: ["곰 탈", "멧돼지 탈", "늑대 탈", "들개 탈"],
-  },
-  Chaos: {
-    core: ["스텔라 차지", "도깨비불", "벽력", "와류"],
-    sub1: ["서큘러 시스템", "상처 악화", "철갑탄", "속사"],
-    sub2: ["힘의 축적", "오버워치", "R_echarger", "천상의 수집품"],
-  },
-  Resistance: {
-    core: ["금강", "불괴", "빛의 수호", "응징"],
-    sub1: ["대담", "진통제", "불굴", "경계심"],
-    sub2: ["견고", "먹보", "특공대", "담금질"],
-  },
-  Fortification: {
-    core: ["금강", "불괴", "빛의 수호", "응징"],
-    sub1: ["대담", "진통제", "불굴", "경계심"],
-    sub2: ["견고", "먹보", "특공대", "담금질"],
-  },
-  Support: {
-    core: ["초재생", "증폭 드론", "치유 드론", "헌신"],
-    sub1: ["사냥의 전율", "가시 덤불", "위압감", "폭발 선인장"],
-    sub2: ["후방 보급", "코인 토스", "할인 쿠폰", "캠핑 가이드"],
-  },
-};
+// Verified trait code -> Korean name map.
+// Source: user ground truth + l10n discovery (2026-06).
+// The /v1/data/Trait API often lacks name fields, so l10n is preferred and
+// this map is kept as a safe fallback when the l10n fetch fails.
+const KNOWN_TRAIT_CODE_NAMES = new Map([
+  ["7000201", "취약"],
+  ["7000401", "흡혈마"],
+  ["7000501", "벽력"],
+  ["7000601", "아드레날린"],
+  ["7000701", "액셀러레이터"],
+  ["7100101", "금강"],
+  ["7100201", "불괴"],
+  ["7100401", "빛의 수호"],
+  ["7100501", "응징"],
+  ["7200101", "초재생"],
+  ["7200201", "증폭 드론"],
+  ["7200301", "치유 드론"],
+  ["7200501", "헌신"],
+  ["7300101", "스텔라 차지"],
+  ["7300201", "도깨비불"],
+  ["7300301", "와류"],
+])
 
-function currentTraitNameFromSort(row) {
-  const group = String(firstValue(row, ["traitGroup", "group"]) ?? "");
-  const sortOrder = Number(firstValue(row, ["traitSortOrder", "sortOrder", "order"]));
-  if (!group || !Number.isFinite(sortOrder)) return undefined;
-
-  const names = CURRENT_TRAIT_NAMES_BY_GROUP[group];
-  if (!names) return undefined;
-
-  const rowType = String(firstValue(row, ["traitType", "type"]) ?? "").toLowerCase();
-  const localOrder = sortOrder % 100;
-  const index = (localOrder % 10) - 1;
-  let category;
-  if (rowType.includes("core") || (localOrder >= 1 && localOrder <= 4)) category = "core";
-  else if (rowType.includes("sub1") || (localOrder >= 11 && localOrder <= 14)) category = "sub1";
-  else if (rowType.includes("sub2") || (localOrder >= 21 && localOrder <= 24)) category = "sub2";
-  if (!category || index < 0) return undefined;
-
-  return names[category]?.[index];
+/** Parse trait code/name rows from an ER l10n file.
+ *  Format: key + U+2503 BOX DRAWINGS HEAVY VERTICAL + value.
+ *  Name lines: Trait/Name/<code> + separator + localized name.
+ */
+function parseTraitNamesFromL10n(text) {
+  const SEP = "\u2503"; // U+2503
+  const result = new Map();
+  for (const line of text.split(/\r?\n/)) {
+    if (!line.startsWith("Trait/Name/")) continue;
+    const sepIdx = line.indexOf(SEP);
+    if (sepIdx === -1) continue;
+    const key  = line.slice(0, sepIdx);          // e.g. "Trait/Name/7300301"
+    const name = line.slice(sepIdx + 1).trim();  // e.g. "??"
+    if (!name) continue;
+    // Key is exactly "Trait/Name/<7-digit-code>"
+    const m = key.match(/^Trait\/Name\/(7[0-3]\d{5})$/);
+    if (m && !result.has(m[1])) result.set(m[1], name);
+  }
+  return result;
 }
 
 async function buildTraitNameMap(fetchData) {
-  const map = new Map();
+  // Start with the verified hardcoded map so the build is always correct
+  // even when the API is unavailable or returns unexpected data.
+  const map = new Map(KNOWN_TRAIT_CODE_NAMES);
   if (!fetchData) return map;
-  for (const [version, table] of [["v2", "Trait"], ["v1", "Trait"], ["v1", "TraitCombat"], ["v1", "TraitSupport"]]) {
+
+  // 1) Try l10n file (authoritative Korean names, overrides hardcoded if found)
+  try {
+    const l10nMeta = await fetchJson("/v1/l10n/Korean", "l10n:Korean");
+    // ER API envelope: fetchJson already unwraps .data, so l10nMeta = { l10Path: "https://..." }
+    // but guard against double-unwrap by also checking .data.l10Path
+    const l10nInner = l10nMeta?.l10Path ? l10nMeta : (l10nMeta?.data ?? l10nMeta);
+    const l10nUrl = l10nInner?.l10Path ?? l10nInner?.url ?? (typeof l10nInner === "string" ? l10nInner : undefined);
+    if (l10nUrl) {
+      const l10nText = await (await fetch(l10nUrl)).text();
+      const l10nMap = parseTraitNamesFromL10n(l10nText);
+      for (const [code, name] of l10nMap) map.set(code, name);
+      console.log(`L10n trait names: ${l10nMap.size} loaded`);
+    }
+  } catch (err) {
+    console.warn("L10n trait name fetch failed (using hardcoded fallback):", err.message);
+  }
+
+  // 2) Try data API in case a future API version adds name fields.
+  for (const [version, table] of [["v2", "Trait"], ["v1", "Trait"]]) {
     try {
       const payload = await fetchJson(`/${version}/data/${table}`, `data:${version}:${table}`);
       for (const row of flattenCodeRows(payload)) {
         const code = firstValue(row, ["code", "traitCode", "id", "key"]);
-        const name = firstValue(row, ["name", "nameKr", "nameKo", "traitName", "korName"]) ?? currentTraitNameFromSort(row);
-        if (code !== undefined && name) map.set(String(code), String(name));
+        const name = firstValue(row, ["name", "nameKr", "nameKo", "traitName", "korName"]);
+        if (code !== undefined && name && !map.has(String(code))) map.set(String(code), String(name));
       }
     } catch (error) {
       console.warn(`Trait name fetch skipped for ${version}/${table}: ${error.message}`);
     }
   }
+
   console.log(`Trait name map: ${map.size} entries`);
   return map;
 }
@@ -336,6 +383,13 @@ const variantsByCharacter = characterVariants.reduce((map, variant) => {
   return map;
 }, new Map());
 
+const CHARACTER_WEAPON_CODE_OVERRIDES = {
+  sho: {
+    15: "dagger",
+    19: "spear",
+  },
+};
+
 function inferOfficialWeaponMap(teams, codeMap) {
   const counts = new Map();
   for (const team of teams) {
@@ -365,7 +419,9 @@ function statIdForPlayer(player, weaponCodeToId) {
   const variants = variantsByCharacter.get(player.characterId) ?? [];
   if (variants.length === 1) return variants[0].variantId;
 
-  const weapon = weaponCodeToId.get(String(player.weapon));
+  const weapon =
+    CHARACTER_WEAPON_CODE_OVERRIDES[player.characterId]?.[String(player.weapon)] ??
+    weaponCodeToId.get(String(player.weapon));
   const variant = weapon
     ? variants.find((item) => item.weapon === weapon)
     : undefined;
@@ -627,15 +683,15 @@ function finalizeCompositionStats(source, minGames) {
 }
 
 
-// ── Recency decay ─────────────────────────────────────────────────────────────
-// Weight older games lower within a patch. lambda=0.02 → 50% weight at ~35 days.
+// Recency decay. Weight older games lower within a patch.
+// lambda=0.02 means roughly 50% weight at 35 days.
 function recencyWeight(collectedAt, lambda = 0.02) {
   if (!collectedAt) return 1;
   const daysAgo = (Date.now() - new Date(collectedAt).getTime()) / 86400000;
   return Math.exp(-lambda * Math.max(0, daysAgo));
 }
 
-// ── Pair stats ────────────────────────────────────────────────────────────────
+// Pair stats.
 function addPairStat(bucketStats, idA, idB, team, weight) {
   const key = [idA, idB].sort().join("|");
   if (!bucketStats[key]) {
@@ -662,7 +718,7 @@ function finalizePairStats(source, minGames) {
   return output;
 }
 
-// ── Combat stats ──────────────────────────────────────────────────────────────
+// Combat stats.
 function addCombatStat(bucketStats, characterId, player, weight) {
   if (!bucketStats[characterId]) {
     bucketStats[characterId] = { games: 0, kills: 0, assists: 0, teamKills: 0, damage: 0, ccTime: 0 };

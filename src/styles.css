@@ -833,6 +833,82 @@ h2 {
   font-weight: 900;
 }
 
+.chip-core {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(245, 179, 56, 0.16);
+  color: #ffd98a;
+  border: 1px solid rgba(245, 179, 56, 0.4);
+  white-space: nowrap;
+}
+
+.chip-core-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chip-core-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  width: 26px;
+  min-width: 26px;
+  padding: 2px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  opacity: 0.5;
+  font-size: 10px;
+  color: var(--text);
+  line-height: 1;
+  overflow: hidden;
+}
+
+.chip-core-icon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.chip-core-icon.active {
+  opacity: 1;
+  border-color: rgba(245, 179, 56, 0.85);
+  background: rgba(245, 179, 56, 0.18);
+}
+
+.chip-core-icon:hover {
+  opacity: 0.85;
+}
+
+.rec-core {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  margin: 2px 0;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(245, 179, 56, 0.14);
+  border: 1px solid rgba(245, 179, 56, 0.35);
+  color: #ffd98a;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.rec-core img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
 .team-chip small,
 .detected-chip small,
 .character-info small,
