@@ -75,7 +75,7 @@ jobs:
       - name: Build combined stats
         run: |
           node tools/build_official_stats.mjs \
-            --in data/official-match-input-accumulated.json
+            --in data/ml-training/corpus.jsonl
 
       - name: Export ML training artifact
         run: |

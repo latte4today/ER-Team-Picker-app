@@ -1,4 +1,6 @@
 import fs from "node:fs/promises";
+import { createReadStream } from "node:fs";
+import readline from "node:readline";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { characters, characterVariants } from "../src/data.js";
@@ -703,19 +705,32 @@ function stableJson(value) {
 async function build() {
   const args = parseArgs();
 
-  // Merge teams from all input files (dedup by gameId:teamKey)
+  // Merge teams from all input files (dedup by gameId:teamKey). Supports JSONL (.jsonl,
+  // streamed line-by-line so an unbounded corpus avoids the ~512MB string limit) and the
+  // legacy wrapped-JSON format ({ teams: [...] }).
   const dedupKeys = new Set();
   const allTeams = [];
+  const pushTeam = (team) => {
+    const key = `${team.gameId}:${team.teamKey}`;
+    if (dedupKeys.has(key)) return;
+    dedupKeys.add(key);
+    allTeams.push(team);
+  };
   for (const inPath of args.in) {
-    let data;
-    try { data = JSON.parse(await fs.readFile(inPath, "utf8")); }
-    catch { console.warn(`WARNING: could not read ${inPath}, skipping`); continue; }
     const before = allTeams.length;
-    for (const team of data.teams ?? []) {
-      const key = `${team.gameId}:${team.teamKey}`;
-      if (dedupKeys.has(key)) continue;
-      dedupKeys.add(key);
-      allTeams.push(team);
+    if (inPath.endsWith(".jsonl")) {
+      try {
+        const rl = readline.createInterface({ input: createReadStream(inPath, { encoding: "utf8" }), crlfDelay: Infinity });
+        for await (const line of rl) {
+          if (!line.trim()) continue;
+          try { pushTeam(JSON.parse(line)); } catch { /* skip malformed line */ }
+        }
+      } catch { console.warn(`WARNING: could not read ${inPath}, skipping`); continue; }
+    } else {
+      let data;
+      try { data = JSON.parse(await fs.readFile(inPath, "utf8")); }
+      catch { console.warn(`WARNING: could not read ${inPath}, skipping`); continue; }
+      for (const team of data.teams ?? []) pushTeam(team);
     }
     console.log(`Loaded ${path.relative(ROOT, inPath)}: ${allTeams.length - before} teams (total: ${allTeams.length})`);
   }
