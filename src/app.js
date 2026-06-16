@@ -17,7 +17,9 @@ import { evaluateCandidate, recommend, updateOfficialStats } from "./recommender
 import {
   officialCandidateStatsByTier as bundledOfficialCandidateStatsByTier,
   officialCompositionStatsByTier as bundledOfficialCompositionStatsByTier,
+  officialTraitBuildStatsByTier as bundledOfficialTraitBuildStatsByTier,
 } from "./officialMatchStats.js";
+import { coreIconPath, topCoreRowsForVariant } from "./traitMeta.js";
 import { teamMetricProfile, teamMetricTags } from "./characterMetrics.js";
 import {
   helpsMeleeEngage,
@@ -39,6 +41,80 @@ let activeRankRole = "all";
 let activeRankDetailId = null;
 let officialCandidateStatsByTier = bundledOfficialCandidateStatsByTier;
 let officialCompositionStatsByTier = bundledOfficialCompositionStatsByTier;
+let officialTraitBuildStatsByTier = bundledOfficialTraitBuildStatsByTier;
+
+// ── Trait (core) helpers ──────────────────────────────────────────────────────
+// Each character realistically runs only 1–3 cores; derive them from collected
+// trait-build stats so the picker can default to the meta core and offer choices.
+const CORE_MAX_CHOICES = 3;
+const CORE_MIN_GAMES = 30;
+
+function traitBuildRowsForVariant(variantId, tier) {
+  const bucket = officialBucketForTier(tier);
+  const byBucket = officialTraitBuildStatsByTier?.[bucket] ?? {};
+  const all = officialTraitBuildStatsByTier?.all ?? {};
+  const characterId = String(variantId).split(":")[0];
+  const rows = byBucket[variantId] ?? all[variantId] ?? byBucket[characterId] ?? all[characterId];
+  return Array.isArray(rows) ? rows : [];
+}
+
+function topCoresForVariant(variantId, tier, { limit = CORE_MAX_CHOICES, minGames = CORE_MIN_GAMES } = {}) {
+  const rows = traitBuildRowsForVariant(variantId, tier);
+  return topCoreRowsForVariant(variantId, rows, { limit, minGames })
+    .map((row) => ({
+      core: row.core,
+      name: row.name,
+      games: row.games,
+      winRate: row.winRate,
+      top3Rate: row.top3Rate,
+      basicShare: row.basicDamageShare,
+      skillShare: row.skillDamageShare,
+      avgCcTime: row.avgCcTime,
+      avgDmgFrom: row.avgDamageFromPlayer,
+    }));
+}
+
+function defaultCoreForVariant(variantId, tier) {
+  return topCoresForVariant(variantId, tier, { limit: 1 })[0] ?? null;
+}
+
+// Korean core-trait name -> icon slug in assets/traits/ (run tools/import_trait_images.mjs once)
+const TRAIT_IMAGE = {
+  "취약": "frailty-infliction", "흡혈마": "vampiric-bloodline", "아드레날린": "adrenaline", "액셀러레이터": "accelerator",
+  "스텔라 차지": "stellar-charge", "도깨비불": "ghost-light", "벽력": "red-sprite", "와류": "siphon-maelstrom",
+  "금강": "diamond-shard", "불괴": "ironclad", "빛의 수호": "heavy-kneepads", "응징": "bitter-retribution",
+  "초재생": "healing-factor", "증폭 드론": "amplification-drone", "치유 드론": "healing-drone", "헌신": "sentinel",
+};
+
+function traitImage(name) {
+  return coreIconPath(name);
+}
+
+// Small "recommended core" chip (icon + name) for recommendation cards.
+function traitChip(variantId, tier) {
+  const core = defaultCoreForVariant(variantId, tier);
+  if (!core?.name) return "";
+  const img = traitImage(core.name);
+  const icon = img ? `<img src="${img}" alt="">` : "";
+  return `<span class="rec-core">${icon}<span>${core.name}</span></span>`;
+}
+
+function coreButtonsForSlot(slotIndex, variant, tier, extraClass = "") {
+  if (!variant) return "";
+  const cores = topCoresForVariant(variant.variantId, tier);
+  if (cores.length === 0) return "";
+  const selectedCore = slotCores[slotIndex] ?? cores[0]?.core ?? null;
+  const className = ["chip-core-row", extraClass].filter(Boolean).join(" ");
+  return `<span class="${className}">${cores
+    .map((core) => {
+      const img = traitImage(core.name);
+      const active = core.core === selectedCore ? " active" : "";
+      const title = core.name ?? "";
+      const inner = img ? `<img src="${img}" alt="${title}">` : title;
+      return `<button type="button" class="chip-core-icon${active}" data-core-slot="${slotIndex}" data-core="${core.core}" title="${title}">${inner}</button>`;
+    })
+    .join("")}</span>`;
+}
 
 const characterGrid = document.querySelector("#character-grid");
 const selectedTeam = document.querySelector("#selected-team");
@@ -104,6 +180,33 @@ let lastPromptedUpdateVersion = null;
 let chosenPickId = null;
 const submittedFeedbackKeys = new Set();
 const slotAssignments = [null, null, null];
+const slotCores = [null, null, null]; // per-slot chosen core code; null = use the meta default
+
+function selectSlotCoreButton(button) {
+  const slotIndex = Number(button.dataset.coreSlot);
+  if (!Number.isInteger(slotIndex) || slotIndex < 0 || slotIndex >= slotCores.length) return;
+  slotCores[slotIndex] = button.dataset.core;
+  renderDetectedTeam();
+  renderMatchFeedback();
+  renderRecommendations();
+}
+
+detectedTeam.addEventListener("click", (event) => {
+  const btn = event.target.closest(".chip-core-icon");
+  if (!btn) return;
+  event.preventDefault();
+  event.stopPropagation();
+  selectSlotCoreButton(btn);
+});
+
+// Map of assigned variantId -> chosen core code (only user-overridden cores)
+function selectedCoresMap() {
+  const map = {};
+  slotAssignments.forEach((variantId, i) => {
+    if (variantId && slotCores[i]) map[variantId] = slotCores[i];
+  });
+  return map;
+}
 const savedTheme = localStorage.getItem("er-team-picker-theme");
 const tierGuideStorageKey = "er-team-picker-tier-guide-seen";
 const legacyPlayableStorageKey = "er-team-picker-playable-characters";
@@ -1267,10 +1370,12 @@ function assignSlot(slotIndex, id) {
     if (index === slotIndex) continue;
     if (slotAssignments[index]?.split(":")[0] === characterId) {
       slotAssignments[index] = null;
+      slotCores[index] = null;
     }
   }
 
   slotAssignments[slotIndex] = id;
+  slotCores[slotIndex] = null;
   syncSelectedFromSlots();
 }
 
@@ -1279,6 +1384,7 @@ function assignNextPick(id) {
   const existingSlot = slotAssignments.findIndex((variantId) => variantId?.split(":")[0] === characterId);
   if (existingSlot >= 0) {
     slotAssignments[existingSlot] = null;
+    slotCores[existingSlot] = null;
     syncSelectedFromSlots();
     return;
   }
@@ -1326,14 +1432,21 @@ function renderDetectedTeam(matches = [], status = "") {
     return;
   }
 
-  const manualChips = assigned
+  // When teammates are chosen (recommending my pick), show only teammates at the
+  // bottom to save space; the self pick is hidden. With only the self pick, show it.
+  const hasTeammates = Boolean(slotAssignments[1] || slotAssignments[2]);
+  const shown = hasTeammates ? assigned.filter((item) => item.slotIndex !== 0) : assigned;
+
+  const manualChips = shown
     .map(({ slotIndex, variant }) => {
       const slotText = slotIndex === 0 ? t("slot.self") : t(`slot.teammate${slotIndex}`);
+      const coreEl = coreButtonsForSlot(slotIndex, variant, tierSelect.value);
       return `
         <span class="detected-chip">
           <img src="${variant.image}" alt="">
           <strong>${t(`char.${variant.id}`)}</strong>
           <small>${slotText} · ${t(`weapon.${variant.weapon}`)}</small>
+          ${coreEl}
         </span>
       `;
     })
@@ -1891,14 +2004,14 @@ async function renderFullTeamRecommendations() {
 
   const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
   const tier = tierSelect.value;
-  const slot1Results = recommend([anchorId], tier, remoteFeedback, playablePool, popularFeedback).slice(0, 8);
+  const slot1Results = recommend([anchorId], tier, remoteFeedback, playablePool, popularFeedback, selectedCoresMap()).slice(0, 8);
   const seen = new Set();
 
   for (const r1 of slot1Results) {
     await yieldToUi();
     if (_fullTeamState.anchorId !== anchorId) return; // anchor changed — abort
 
-    const slot2Results = recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, popularFeedback).slice(0, 3);
+    const slot2Results = recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, popularFeedback, selectedCoresMap()).slice(0, 3);
     for (const r2 of slot2Results) {
       const pairKey = [r1.character.characterId, r2.character.characterId].sort().join("+");
       if (seen.has(pairKey)) continue;
@@ -1961,6 +2074,7 @@ function _renderFullTeamCards() {
             <div class="full-team-member-info">
               <strong>${t(`char.${c1.id}`)}</strong>
               <small>${characterSubtitle(c1)}</small>
+              ${traitChip(c1.variantId, tierSelect.value)}
               <div class="recommendation-tags">${reasons1}</div>
             </div>
           </div>
@@ -1972,6 +2086,7 @@ function _renderFullTeamCards() {
             <div class="full-team-member-info">
               <strong>${t(`char.${c2.id}`)}</strong>
               <small>${characterSubtitle(c2)}</small>
+              ${traitChip(c2.variantId, tierSelect.value)}
               <div class="recommendation-tags">${reasons2}</div>
             </div>
           </div>
@@ -2026,7 +2141,7 @@ function renderRecommendations() {
   }
 
   const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
-  const results = recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, popularFeedback);
+  const results = recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, popularFeedback, selectedCoresMap());
   if (results.length === 0) {
     recommendations.innerHTML = `<p class="empty-state">${t("recommend.noPlayable")}</p>`;
     return;
@@ -2053,6 +2168,7 @@ function renderRecommendations() {
               <h3>${t(`char.${result.character.id}`)}</h3>
               <span>${characterSubtitle(result.character)}</span>
             </div>
+            ${traitChip(result.character.variantId, tierSelect.value)}
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
             <details class="recommendation-details">
@@ -2094,7 +2210,7 @@ function renderMatchFeedback() {
 
   const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
   const canRateMatch = canSubmitMatchFeedback(feedbackTeamIds, chosen.variantId);
-  const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, popularFeedback);
+  const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, popularFeedback, selectedCoresMap());
   const reasonList = evaluation?.reasons.map((reason) => `<li>${reason}</li>`).join("") ?? "";
   const compactLabels = compactReasonLabels(evaluation?.reasons ?? [])
     .map((label) => `<span>${label}</span>`)
@@ -3097,6 +3213,7 @@ if (recoveredFeedbackCount > 0) {
       updateOfficialStats(data);
       if (data.officialCandidateStatsByTier) officialCandidateStatsByTier = data.officialCandidateStatsByTier;
       if (data.officialCompositionStatsByTier) officialCompositionStatsByTier = data.officialCompositionStatsByTier;
+      if (data.officialTraitBuildStatsByTier) officialTraitBuildStatsByTier = data.officialTraitBuildStatsByTier;
       console.log("[stats] remote stats loaded:", data.source?.generatedAt ?? "ok");
       render(); // re-render with fresh data
     }

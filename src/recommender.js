@@ -18,15 +18,18 @@ import {
   officialCompositionStatsByTier as _bundledCompositionStats,
   officialPairStatsByTier as _bundledPairStats,
   officialCombatStatsByTier as _bundledCombatStats,
+  officialTraitBuildStatsByTier as _bundledTraitBuildStats,
   OFFICIAL_V2_WEIGHTS as _bundledWeights,
   BAYESIAN_ALPHA as _bundledAlpha,
 } from "./officialMatchStats.js";
+import { coreRowForVariant, normalizeCoreName, normalizeTraitBuildRows } from "./traitMeta.js";
 
 // Mutable references — can be overridden at runtime via updateOfficialStats()
 let officialCandidateStatsByTier  = _bundledCandidateStats;
 let officialCompositionStatsByTier = _bundledCompositionStats;
 let officialPairStatsByTier       = _bundledPairStats;
 let officialCombatStatsByTier     = _bundledCombatStats;
+let officialTraitBuildStatsByTier = _bundledTraitBuildStats;
 let OFFICIAL_V2_WEIGHTS           = _bundledWeights;
 let BAYESIAN_ALPHA                = _bundledAlpha;
 let _officialCompositionByTierCandidate = buildOfficialCompositionIndex(officialCompositionStatsByTier);
@@ -77,10 +80,12 @@ export function updateOfficialStats(remote) {
   if (remote.officialCompositionStatsByTier) officialCompositionStatsByTier = remote.officialCompositionStatsByTier;
   if (remote.officialPairStatsByTier)       officialPairStatsByTier       = remote.officialPairStatsByTier;
   if (remote.officialCombatStatsByTier)     officialCombatStatsByTier     = remote.officialCombatStatsByTier;
+  if (remote.officialTraitBuildStatsByTier) officialTraitBuildStatsByTier = remote.officialTraitBuildStatsByTier;
   if (remote.weights)                       OFFICIAL_V2_WEIGHTS           = remote.weights;
   if (remote.alpha)                         BAYESIAN_ALPHA                = remote.alpha;
   _officialCompositionByTierCandidate = buildOfficialCompositionIndex(officialCompositionStatsByTier);
   _officialTierAverageCache = new Map();
+  _coreMetricAverageCache = new Map();
 }
 import { tournamentCompositions } from "./tournamentMeta.js";
 import {
@@ -1664,6 +1669,9 @@ function explain(candidate, selected, scores) {
   if (scores.dakComposition <= -1.1) reasons.push(t("recommender.reason.dakCompositionNegative", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   if (scores.officialMatch >= 0.75) reasons.push(t("recommender.reason.officialMatchPositive", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   if (scores.officialMatch <= -0.65) reasons.push(t("recommender.reason.officialMatchNegative", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  if (scores.officialCoreRoleShift >= 0.45) reasons.push(t("recommender.reason.coreRolePositive", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  if (scores.officialCoreFit >= 0.35) reasons.push(t("recommender.reason.coreFitPositive", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  if (scores.officialCoreRoleShift <= -0.45 || scores.officialCoreFit <= -0.35) reasons.push(t("recommender.reason.coreFitNegative", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   if (scores.dakTier >= 1.1) reasons.push(t("recommender.reason.dakTierHigh", { name: characterName(candidate) }));
   if (scores.dakStatistics >= 0.8) reasons.push(t("recommender.reason.dakStatsPositive", { name: characterName(candidate) }));
   if (scores.dakStatistics <= -0.75) reasons.push(t("recommender.reason.dakStatsNegative", { name: characterName(candidate) }));
@@ -1690,7 +1698,240 @@ function selectedCharactersFromIds(selectedIds) {
     .filter(Boolean);
 }
 
-export function evaluateCandidate(selectedIds, candidateId, tier = "all", remoteFeedback = {}, relationshipRows = []) {
+// ── Per-core (trait) scoring ───────────────────────────────────────────────────
+function traitBuildRowsFor(variantId, tier) {
+  const bucket = officialStatsBucketForTier(tier);
+  const rows = officialTraitBuildStatsByTier?.[bucket]?.[variantId]
+    ?? officialTraitBuildStatsByTier?.all?.[variantId]
+    ?? [];
+  return normalizeTraitBuildRows(variantId, rows);
+}
+
+function coreRowFor(variantId, core, tier) {
+  const rows = traitBuildRowsFor(variantId, tier);
+  return coreRowForVariant(variantId, rows, core);
+}
+
+let _coreMetricAverageCache = new Map();
+
+function coreMetricAverages(tier) {
+  const bucket = officialStatsBucketForTier(tier);
+  const cached = _coreMetricAverageCache.get(bucket);
+  if (cached) return cached;
+
+  const byVariant = officialTraitBuildStatsByTier?.[bucket] ?? officialTraitBuildStatsByTier?.all ?? {};
+  const totals = {
+    games: 0,
+    damage: 0,
+    taken: 0,
+    cc: 0,
+  };
+
+  for (const rows of Object.values(byVariant)) {
+    if (!Array.isArray(rows)) continue;
+    for (const row of rows) {
+      const games = row.games ?? 0;
+      if (games <= 0) continue;
+      totals.games += games;
+      totals.damage += (row.avgDamageToPlayer ?? 0) * games;
+      totals.taken += (row.avgDamageFromPlayer ?? 0) * games;
+      totals.cc += (row.avgCcTime ?? 0) * games;
+    }
+  }
+
+  const averages = totals.games > 0
+    ? {
+        damage: totals.damage / totals.games,
+        taken: totals.taken / totals.games,
+        cc: totals.cc / totals.games,
+      }
+    : { damage: 14000, taken: 18000, cc: 45 };
+  _coreMetricAverageCache.set(bucket, averages);
+  return averages;
+}
+
+// Point 1: build strength of the chosen/meta core as a candidate signal.
+function officialCoreScore(candidate, tier, cores = {}) {
+  const row = coreRowFor(candidate.variantId, cores[candidate.variantId], tier);
+  if (!row || !row.games) return 0;
+  const global = globalWinRate(tier);
+  const alpha = BAYESIAN_ALPHA?.character ?? 100;
+  const adjWr = bayesianRate((row.winRate ?? 0) * row.games, row.games, alpha, global);
+  const conf = Math.min(1, Math.log10(row.games + 1) / 2.5);
+  return clamp((adjWr - global) * 4.2 * conf, -1.0, 1.25);
+}
+
+function corePlaystyle(row, tier) {
+  if (!row) return { damage: 0, durability: 0, support: 0, cc: 0, tempo: 0 };
+
+  const avg = coreMetricAverages(tier);
+  const name = normalizeCoreName(row) ?? row.name ?? "";
+  const profile = { damage: 0, durability: 0, support: 0, cc: 0, tempo: 0 };
+  const add = (values) => {
+    for (const [key, value] of Object.entries(values)) profile[key] += value;
+  };
+
+  if (["취약", "벽력", "아드레날린", "액셀러레이터"].includes(name)) add({ damage: 0.70, tempo: 0.35 });
+  if (["흡혈마", "와류"].includes(name)) add({ damage: 0.42, durability: 0.35, tempo: 0.20 });
+  if (["도깨비불", "스텔라 차지"].includes(name)) add({ damage: 0.45, cc: 0.20, tempo: 0.38 });
+  if (["응징"].includes(name)) add({ damage: 0.36, durability: 0.36, cc: 0.24, tempo: 0.20 });
+  if (["금강", "불괴"].includes(name)) add({ durability: 0.78, cc: 0.12 });
+  if (["빛의 수호"].includes(name)) add({ durability: 0.45, support: 0.42, cc: 0.12 });
+  if (["초재생"].includes(name)) add({ durability: 0.52, support: 0.32 });
+  if (["증폭 드론"].includes(name)) add({ support: 0.50, damage: 0.28, tempo: 0.18 });
+  if (["치유 드론", "헌신"].includes(name)) add({ support: 0.72, durability: 0.28 });
+
+  if ((row.avgDamageToPlayer ?? 0) > 0 && avg.damage > 0) {
+    profile.damage += clamp(((row.avgDamageToPlayer / avg.damage) - 1) * 0.75, -0.25, 0.45);
+  }
+  if ((row.avgDamageFromPlayer ?? 0) > 0 && avg.taken > 0) {
+    profile.durability += clamp(((row.avgDamageFromPlayer / avg.taken) - 1) * 0.55, -0.20, 0.40);
+  }
+  if ((row.avgCcTime ?? 0) > 0 && avg.cc > 0) {
+    profile.cc += clamp(((row.avgCcTime / avg.cc) - 1) * 0.45, -0.15, 0.35);
+  }
+  if ((row.basicDamageShare ?? 0) >= 0.55) profile.tempo += 0.10;
+  if ((row.skillDamageShare ?? 0) >= 0.70) profile.damage += 0.08;
+
+  return {
+    damage: clamp(profile.damage, -0.35, 1.25),
+    durability: clamp(profile.durability, -0.25, 1.20),
+    support: clamp(profile.support, 0, 1.20),
+    cc: clamp(profile.cc, -0.20, 1.00),
+    tempo: clamp(profile.tempo, 0, 1.00),
+  };
+}
+
+function officialCoreFitScore(candidate, selected, tier, cores = {}) {
+  const team = [...selected, candidate];
+  if (team.length < 2) return 0;
+
+  const rows = team
+    .map((character) => coreRowFor(character.variantId, cores[character.variantId], tier))
+    .filter((row) => row && row.games > 0);
+  if (rows.length < 2) return 0;
+
+  const avg = coreMetricAverages(tier);
+  const total = rows.reduce((state, row) => {
+    const conf = Math.min(1, Math.log10((row.games ?? 0) + 1) / 2.5);
+    state.conf += conf;
+    state.damage += ((row.avgDamageToPlayer ?? avg.damage) / avg.damage - 1) * conf;
+    state.taken += ((row.avgDamageFromPlayer ?? avg.taken) / avg.taken - 1) * conf;
+    state.cc += ((row.avgCcTime ?? avg.cc) / avg.cc - 1) * conf;
+    return state;
+  }, { conf: 0, damage: 0, taken: 0, cc: 0 });
+  if (total.conf <= 0) return 0;
+
+  const damage = total.damage / total.conf;
+  const taken = total.taken / total.conf;
+  const cc = total.cc / total.conf;
+  let score = 0;
+
+  if (damage < -0.08 && (isHighDamageBackline(candidate) || isHighDamageFront(candidate))) score += 0.35;
+  if (damage > 0.10 && (isSupport(candidate) || isLowDamageContributor(candidate))) score += 0.18;
+  if (taken > 0.10 && (isSupport(candidate) || isTank(candidate))) score += 0.22;
+  if (cc < -0.12 && ccPower(candidate) >= 1.4) score += 0.22;
+  if (team.length >= 3 && damage < -0.14) score -= 0.30;
+
+  return clamp(score, -0.55, 0.75);
+}
+
+function officialCoreRoleShiftScore(candidate, selected, tier, cores = {}) {
+  const row = coreRowFor(candidate.variantId, cores[candidate.variantId], tier);
+  if (!row || !row.games) return 0;
+
+  const profile = corePlaystyle(row, tier);
+  const selectedCoreProfile = selected.reduce((state, character) => {
+    const selectedRow = coreRowFor(character.variantId, cores[character.variantId], tier);
+    const selectedProfile = corePlaystyle(selectedRow, tier);
+    const conf = selectedRow?.games ? Math.min(1, Math.log10(selectedRow.games + 1) / 2.7) : 0;
+    state.damage += selectedProfile.damage * conf;
+    state.durability += selectedProfile.durability * conf;
+    state.support += selectedProfile.support * conf;
+    state.cc += selectedProfile.cc * conf;
+    state.tempo += selectedProfile.tempo * conf;
+    state.conf += conf;
+    return state;
+  }, { damage: 0, durability: 0, support: 0, cc: 0, tempo: 0, conf: 0 });
+  if (selectedCoreProfile.conf > 0) {
+    selectedCoreProfile.damage /= selectedCoreProfile.conf;
+    selectedCoreProfile.durability /= selectedCoreProfile.conf;
+    selectedCoreProfile.support /= selectedCoreProfile.conf;
+    selectedCoreProfile.cc /= selectedCoreProfile.conf;
+    selectedCoreProfile.tempo /= selectedCoreProfile.conf;
+  }
+
+  const selectedShape = teamShape(selected);
+  const selectedDamage = selected.reduce((sum, character) => sum + (isLowDamageContributor(character) ? -0.35 : isHighDamageContributor(character) ? 0.7 : isReliableDps(character) ? 0.45 : 0), 0)
+    + selectedCoreProfile.damage * 0.55
+    - selectedCoreProfile.support * 0.18;
+  const selectedCc = teamCcPower(selected) + selectedCoreProfile.cc * 0.85;
+  const selectedHasFront = selected.some((character) => isFrontRole(character) || isTank(character));
+  const selectedHasBackline = selected.some(isBacklineDealer);
+  const selectedHasSupport = selected.some(isSupport) || selectedCoreProfile.support >= 0.62;
+  const candidateIsPrimaryDps = isMeleeDealer(candidate) || isBacklineDealer(candidate);
+  const candidateCanFront = isFrontRole(candidate) || isTank(candidate);
+
+  let score = 0;
+  const conf = Math.min(1, Math.log10(row.games + 1) / 2.7);
+
+  if (selected.length === 0) {
+    score += profile.damage * 0.22 + profile.durability * 0.12 + profile.support * 0.08 + profile.cc * 0.10;
+    return clamp(score * conf, -0.45, 0.65);
+  }
+
+  const needsDamage = selectedShape.reliableDps < 1 || selectedDamage < 0.35;
+  const needsFront = !selectedHasFront && selected.length >= 1;
+  const needsPeel = selectedHasBackline && !selectedHasSupport && selectedCc < 2.1;
+  const needsCc = selectedCc < 1.6;
+
+  if (needsDamage) {
+    score += profile.damage * 0.85;
+    if (candidateCanFront && profile.damage >= 0.55) score += 0.28;
+    if (isSupport(candidate) && profile.support >= 0.65 && profile.damage < 0.35) score -= 0.42;
+  } else if (profile.damage >= 0.70) {
+    score += 0.22;
+  }
+
+  if (needsFront) {
+    score += profile.durability * 0.58;
+    if (candidateCanFront) score += 0.18;
+    if (!candidateCanFront && profile.durability < 0.35) score -= 0.18;
+  }
+
+  if (needsPeel) {
+    score += profile.support * 0.55 + profile.cc * 0.25;
+    if (isSupport(candidate)) score += 0.20;
+  }
+
+  if (needsCc) {
+    score += profile.cc * 0.45;
+    if (ccPower(candidate) >= 1.4) score += 0.18;
+  }
+
+  if (candidateIsPrimaryDps && profile.support >= 0.65 && profile.damage < 0.30 && needsDamage) score -= 0.48;
+  if (isTank(candidate) && profile.damage >= 0.60 && selectedShape.reliableDps < 2) score += 0.32;
+  if (isSupport(candidate) && profile.damage >= 0.45 && selectedShape.reliableDps < 2) score += 0.30;
+  if (profile.tempo >= 0.55 && selected.some((character) => character.tags.includes("dive") || character.tags.includes("initiate"))) score += 0.18;
+  if (selectedCoreProfile.damage >= 0.65 && (profile.support >= 0.45 || profile.cc >= 0.45 || profile.durability >= 0.55)) score += 0.20;
+  if (selectedCoreProfile.support >= 0.60 && profile.damage >= 0.55) score += 0.22;
+  if (selectedCoreProfile.durability >= 0.60 && profile.damage >= 0.55 && !needsDamage) score += 0.14;
+  if (selectedCoreProfile.tempo >= 0.55 && profile.tempo >= 0.45) score += 0.12;
+
+  // Continuous interaction: selected teammate cores can change what kind of
+  // third pick is valuable, even when the base character role is unchanged.
+  const selectedOffense = selectedCoreProfile.damage + selectedCoreProfile.tempo * 0.35;
+  const selectedStability = selectedCoreProfile.durability + selectedCoreProfile.support * 0.45 + selectedCoreProfile.cc * 0.25;
+  score += (selectedOffense - 0.55) * (profile.support * 0.30 + profile.durability * 0.24 + profile.cc * 0.18 - profile.damage * 0.14);
+  score += (selectedCoreProfile.support - 0.28) * profile.damage * 0.35;
+  score += (selectedCoreProfile.durability - 0.38) * profile.damage * 0.22;
+  score += (selectedCoreProfile.cc - 0.24) * (profile.tempo * 0.18 + profile.damage * 0.10);
+  score += (selectedStability - 0.65) * profile.damage * 0.18;
+
+  return clamp(score * conf, -0.95, 1.25);
+}
+
+export function evaluateCandidate(selectedIds, candidateId, tier = "all", remoteFeedback = {}, relationshipRows = [], cores = {}) {
   const selected = selectedCharactersFromIds(selectedIds);
   const candidate = characterVariants.find((character) => character.variantId === candidateId);
   if (!candidate) return undefined;
@@ -1719,6 +1960,9 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     meta: combinedMetaScore(candidate, tier),
     officialMatch: officialMatchScore(candidate, selected, tier),
     officialV2:    officialV2Score(candidate, selected, tier),
+    officialCore:  officialCoreScore(candidate, tier, cores),
+    officialCoreFit: officialCoreFitScore(candidate, selected, tier, cores),
+    officialCoreRoleShift: officialCoreRoleShiftScore(candidate, selected, tier, cores),
     relationship: relationshipScore(candidate, selected, tier, relationshipRows),
   };
   const total =
@@ -1740,6 +1984,9 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.meta +
     scores.officialMatch * 0.35 +
     scores.officialV2 * 0.35 +
+    scores.officialCore * 0.45 +
+    scores.officialCoreFit +
+    scores.officialCoreRoleShift +
     scores.relationship -
     candidate.difficulty * 0.08 +
     getFeedbackScore(selectedIds, candidate.variantId, tier) +
@@ -1754,7 +2001,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
   };
 }
 
-export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candidateCharacterIds = undefined, relationshipRows = []) {
+export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candidateCharacterIds = undefined, relationshipRows = [], cores = {}) {
   const selected = selectedCharactersFromIds(selectedIds);
 
   const selectedCharacters = new Set(selected.map((character) => character.characterId));
@@ -1764,7 +2011,7 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   const scored = characterVariants
     .filter((candidate) => !selectedCharacters.has(candidate.characterId))
     .filter((candidate) => !candidatePool || candidatePool.has(candidateUsesVariants ? candidate.variantId : candidate.characterId))
-    .map((candidate) => evaluateCandidate(selectedIds, candidate.variantId, tier, remoteFeedback, relationshipRows))
+    .map((candidate) => evaluateCandidate(selectedIds, candidate.variantId, tier, remoteFeedback, relationshipRows, cores))
     .sort((a, b) => b.score - a.score);
 
   // Deduplicate by characterId — keep only the highest-scoring variant per character
