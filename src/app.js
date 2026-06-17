@@ -91,19 +91,19 @@ function traitImage(name) {
 }
 
 // Small "recommended core" chip (icon + name) for recommendation cards.
-function traitChip(variantId, tier) {
-  const core = defaultCoreForVariant(variantId, tier);
+function traitChip(variantId, tier, preferredCore = null) {
+  const core = preferredCore?.name ? preferredCore : defaultCoreForVariant(variantId, tier);
   if (!core?.name) return "";
   const img = traitImage(core.name);
   const icon = img ? `<img src="${img}" alt="">` : "";
   return `<span class="rec-core">${icon}<span>${core.name}</span></span>`;
 }
 
-function coreButtonsForSlot(slotIndex, variant, tier, extraClass = "") {
+function coreButtonsForSlot(slotIndex, variant, tier, extraClass = "", selectedCoreOverride = undefined) {
   if (!variant) return "";
   const cores = topCoresForVariant(variant.variantId, tier);
   if (cores.length === 0) return "";
-  const selectedCore = slotCores[slotIndex] ?? cores[0]?.core ?? null;
+  const selectedCore = selectedCoreOverride ?? slotCores[slotIndex] ?? cores[0]?.core ?? null;
   const className = ["chip-core-row", extraClass].filter(Boolean).join(" ");
   return `<span class="${className}">${cores
     .map((core) => {
@@ -178,6 +178,7 @@ let popularFeedbackLoaded = false;
 let lastRemoteFeedbackKey = "";
 let lastPromptedUpdateVersion = null;
 let chosenPickId = null;
+let matchFeedbackCore = null; // rating-only core; does not affect recommendation sorting
 const submittedFeedbackKeys = new Set();
 const slotAssignments = [null, null, null];
 const slotCores = [null, null, null]; // per-slot chosen core code; null = use the meta default
@@ -186,9 +187,15 @@ function selectSlotCoreButton(button) {
   const slotIndex = Number(button.dataset.coreSlot);
   if (!Number.isInteger(slotIndex) || slotIndex < 0 || slotIndex >= slotCores.length) return;
   slotCores[slotIndex] = button.dataset.core;
+  if (slotIndex === 0) matchFeedbackCore = null;
   renderDetectedTeam();
   renderMatchFeedback();
   renderRecommendations();
+}
+
+function selectMatchFeedbackCore(button) {
+  matchFeedbackCore = button.dataset.core || null;
+  renderMatchFeedback();
 }
 
 detectedTeam.addEventListener("click", (event) => {
@@ -206,6 +213,50 @@ function selectedCoresMap() {
     if (variantId && slotCores[i]) map[variantId] = slotCores[i];
   });
   return map;
+}
+
+function coreInfoForSlot(slotIndex) {
+  const variantId = slotAssignments[slotIndex];
+  if (!variantId) return null;
+  const tier = tierSelect?.value ?? "all";
+  const core = slotCores[slotIndex] ?? defaultCoreForVariant(variantId, tier)?.core ?? null;
+  if (!core) return null;
+  return topCoresForVariant(variantId, tier, { limit: 6, minGames: 0 })
+    .find((row) => String(row.core) === String(core)) ?? { core, name: String(core) };
+}
+
+function feedbackCandidateIdForSlot(slotIndex) {
+  const variantId = slotAssignments[slotIndex];
+  const core = slotCores[slotIndex] ?? coreInfoForSlot(slotIndex)?.core ?? null;
+  return variantId && core ? `${variantId}#${core}` : variantId;
+}
+
+function coreInfoForMatchFeedback() {
+  const variantId = slotAssignments[0];
+  if (!variantId) return null;
+  const tier = tierSelect?.value ?? "all";
+  const core = matchFeedbackCore ?? slotCores[0] ?? defaultCoreForVariant(variantId, tier)?.core ?? null;
+  if (!core) return null;
+  return topCoresForVariant(variantId, tier, { limit: 6, minGames: 0 })
+    .find((row) => String(row.core) === String(core)) ?? { core, name: String(core) };
+}
+
+function feedbackCandidateIdForMatchFeedback() {
+  const variantId = slotAssignments[0];
+  const core = coreInfoForMatchFeedback()?.core ?? null;
+  return variantId && core ? `${variantId}#${core}` : variantId;
+}
+
+function matchFeedbackCoresMap() {
+  const map = selectedCoresMap();
+  if (slotAssignments[0] && coreInfoForMatchFeedback()?.core) {
+    map[slotAssignments[0]] = coreInfoForMatchFeedback().core;
+  }
+  return map;
+}
+
+function baseFeedbackVariantId(id) {
+  return String(id ?? "").trim().split("#")[0];
 }
 const savedTheme = localStorage.getItem("er-team-picker-theme");
 const tierGuideStorageKey = "er-team-picker-tier-guide-seen";
@@ -377,11 +428,12 @@ function compactReasonText(reasons = []) {
 function feedbackCTABanner() {
   if (!chosenPickId) return "";
   const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
-  if (!canSubmitMatchFeedback(feedbackTeamIds, chosenPickId)) return "";
-  const key = feedbackWindowKey(feedbackTeamIds, chosenPickId, tierSelect.value);
+  const candidateFeedbackId = feedbackCandidateIdForMatchFeedback();
+  if (!canSubmitMatchFeedback(feedbackTeamIds, candidateFeedbackId)) return "";
+  const key = feedbackWindowKey(feedbackTeamIds, candidateFeedbackId, tierSelect.value);
   const alreadyDone =
     submittedFeedbackKeys.has(key) ||
-    hasRecentFeedback(feedbackTeamIds, chosenPickId, tierSelect.value);
+    hasRecentFeedback(feedbackTeamIds, candidateFeedbackId, tierSelect.value);
   if (alreadyDone) return "";
   return `
     <button class="feedback-cta-banner" type="button" data-feedback-cta-goto>
@@ -1371,11 +1423,13 @@ function assignSlot(slotIndex, id) {
     if (slotAssignments[index]?.split(":")[0] === characterId) {
       slotAssignments[index] = null;
       slotCores[index] = null;
+      if (index === 0) matchFeedbackCore = null;
     }
   }
 
   slotAssignments[slotIndex] = id;
   slotCores[slotIndex] = null;
+  if (slotIndex === 0) matchFeedbackCore = null;
   syncSelectedFromSlots();
 }
 
@@ -1385,6 +1439,7 @@ function assignNextPick(id) {
   if (existingSlot >= 0) {
     slotAssignments[existingSlot] = null;
     slotCores[existingSlot] = null;
+    if (existingSlot === 0) matchFeedbackCore = null;
     syncSelectedFromSlots();
     return;
   }
@@ -2168,7 +2223,7 @@ function renderRecommendations() {
               <h3>${t(`char.${result.character.id}`)}</h3>
               <span>${characterSubtitle(result.character)}</span>
             </div>
-            ${traitChip(result.character.variantId, tierSelect.value)}
+            ${traitChip(result.character.variantId, tierSelect.value, result.recommendedCore)}
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
             <details class="recommendation-details">
@@ -2176,7 +2231,7 @@ function renderRecommendations() {
               <ul>${reasonList}</ul>
             </details>
             <div class="feedback-row">
-              <button class="feedback-button" type="button" data-choose-pick="${result.character.variantId}">${t("recommend.choosePick")}</button>
+              <button class="feedback-button" type="button" data-choose-pick="${result.character.variantId}" data-choose-core="${result.recommendedCore?.core ?? ""}">${t("recommend.choosePick")}</button>
             </div>
           </div>
           <strong class="score${scoreTone}">${result.score}</strong>
@@ -2209,8 +2264,10 @@ function renderMatchFeedback() {
   }
 
   const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
-  const canRateMatch = canSubmitMatchFeedback(feedbackTeamIds, chosen.variantId);
-  const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, popularFeedback, selectedCoresMap());
+  const chosenFeedbackId = feedbackCandidateIdForMatchFeedback();
+  const chosenCore = coreInfoForMatchFeedback();
+  const canRateMatch = canSubmitMatchFeedback(feedbackTeamIds, chosenFeedbackId);
+  const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, popularFeedback, matchFeedbackCoresMap());
   const reasonList = evaluation?.reasons.map((reason) => `<li>${reason}</li>`).join("") ?? "";
   const compactLabels = compactReasonLabels(evaluation?.reasons ?? [])
     .map((label) => `<span>${label}</span>`)
@@ -2218,11 +2275,11 @@ function renderMatchFeedback() {
   const compactText = compactReasonText(evaluation?.reasons ?? []);
   const scoreTone = (evaluation?.score ?? 0) < 0 ? " negative-score" : "";
   const score = canRateMatch ? `<strong class="chosen-score${scoreTone}">${evaluation?.score ?? "-"}</strong>` : "";
-  const currentFeedbackKey = canRateMatch ? feedbackWindowKey(feedbackTeamIds, chosen.variantId, tierSelect.value) : "";
+  const currentFeedbackKey = canRateMatch ? feedbackWindowKey(feedbackTeamIds, chosenFeedbackId, tierSelect.value) : "";
   const hasSubmittedFeedback =
     canRateMatch &&
     (submittedFeedbackKeys.has(currentFeedbackKey) ||
-      hasRecentFeedback(feedbackTeamIds, chosen.variantId, tierSelect.value));
+      hasRecentFeedback(feedbackTeamIds, chosenFeedbackId, tierSelect.value));
   const doneText = t("feedback.done");
   const feedbackControls = !canRateMatch
     ? `
@@ -2283,17 +2340,24 @@ function renderMatchFeedback() {
       matchFeedback.classList.add("feedback-attention");
     }, 5000);
   }
+  const coreSelector = coreButtonsForSlot(0, chosen, tierSelect.value, "chosen-core-row", chosenCore?.core);
 
   matchFeedback.innerHTML = `
     <div class="chosen-pick">
       <img src="${chosen.image}" alt="">
       <div>
         <strong>${t(`char.${chosen.id}`)}</strong>
-        <small>${[t(`weapon.${chosen.weapon}`), chosen.weaponStyle, feedbackLabel(chosen.variantId)].filter(Boolean).join(" · ")}</small>
+        <small>${[t(`weapon.${chosen.weapon}`), chosen.weaponStyle, chosenCore?.name, feedbackLabel(feedbackTeamIds, chosenFeedbackId)].filter(Boolean).join(" · ")}</small>
       </div>
       ${score}
       ${feedbackControls}
     </div>
+    ${coreSelector ? `
+      <div class="chosen-core-select">
+        <span>${t("feedback.traitSelect")}</span>
+        ${coreSelector}
+      </div>
+    ` : ""}
     <div class="combo-evaluation">
       <div>
         <strong>${t("feedback.diagnosis")}</strong>
@@ -2308,8 +2372,8 @@ function renderMatchFeedback() {
   `;
 }
 
-function feedbackLabel(candidateId) {
-  const entry = getFeedbackEntry([...selectedIds], candidateId, tierSelect.value);
+function feedbackLabel(teamIds, candidateId) {
+  const entry = getFeedbackEntry(teamIds, candidateId, tierSelect.value);
   const total = entry.likes + entry.dislikes;
   if (total === 0) return t("feedback.none");
   return t("feedback.score", { likes: entry.likes, dislikes: entry.dislikes });
@@ -2320,7 +2384,7 @@ function remoteFeedbackKey() {
 }
 
 function isKnownFeedbackId(id) {
-  const normalized = String(id ?? "").trim();
+  const normalized = baseFeedbackVariantId(id);
   if (!normalized || ["empty", "null", "undefined", "none"].includes(normalized.toLowerCase())) return false;
   return characterVariants.some((character) => character.variantId === normalized || character.id === normalized);
 }
@@ -2572,7 +2636,8 @@ function showPostClearFeedbackToast({ teamIds, candidateId, tier, feedbackKey, c
 clearButton.addEventListener("click", () => {
   // Save context before clearing
   const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
-  const pendingCandidateId = chosenPickId;
+  const pendingVariantId = chosenPickId;
+  const pendingCandidateId = feedbackCandidateIdForMatchFeedback();
   const pendingTier = tierSelect.value;
   const hasPending = pendingCandidateId && canSubmitMatchFeedback(feedbackTeamIds, pendingCandidateId);
   const feedbackKey = hasPending ? feedbackWindowKey(feedbackTeamIds, pendingCandidateId, pendingTier) : null;
@@ -2583,13 +2648,15 @@ clearButton.addEventListener("click", () => {
 
   selectedIds.clear();
   slotAssignments.fill(null);
+  slotCores.fill(null);
+  matchFeedbackCore = null;
   activeSlot = null;
   chosenPickId = null;
   renderDetectedTeam();
   render();
 
   if (hasPending && !alreadyDone) {
-    const character = characterVariants.find((c) => c.variantId === pendingCandidateId);
+    const character = characterVariants.find((c) => c.variantId === pendingVariantId);
     if (character) {
       showPostClearFeedbackToast({ teamIds: feedbackTeamIds, candidateId: pendingCandidateId, tier: pendingTier, feedbackKey, character });
     }
@@ -2819,6 +2886,8 @@ recommendations.addEventListener("click", (event) => {
 
   chosenPickId = button.dataset.choosePick;
   slotAssignments[0] = chosenPickId;
+  slotCores[0] = button.dataset.chooseCore || null;
+  matchFeedbackCore = null;
   renderDetectedTeam();
   render();
 });
@@ -2842,10 +2911,20 @@ matchFeedback.addEventListener("click", (event) => {
     return;
   }
 
+  const coreButton = event.target.closest(".chip-core-icon");
+  if (coreButton) {
+    event.preventDefault();
+    event.stopPropagation();
+    selectMatchFeedbackCore(coreButton);
+    return;
+  }
+
   const clearPickButton = event.target.closest("[data-clear-pick]");
   if (clearPickButton) {
     chosenPickId = null;
     slotAssignments[0] = null;
+    slotCores[0] = null;
+    matchFeedbackCore = null;
     renderDetectedTeam();
     render();
     return;
@@ -2855,13 +2934,14 @@ matchFeedback.addEventListener("click", (event) => {
   if (!button || !chosenPickId) return;
 
   const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
-  if (!canSubmitMatchFeedback(feedbackTeamIds, chosenPickId)) return;
+  const chosenFeedbackId = feedbackCandidateIdForMatchFeedback();
+  if (!canSubmitMatchFeedback(feedbackTeamIds, chosenFeedbackId)) return;
 
-  const currentFeedbackKey = feedbackWindowKey(feedbackTeamIds, chosenPickId, tierSelect.value);
+  const currentFeedbackKey = feedbackWindowKey(feedbackTeamIds, chosenFeedbackId, tierSelect.value);
   if (submittedFeedbackKeys.has(currentFeedbackKey)) return;
 
   const feedbackValue = Number(button.dataset.matchFeedback);
-  const pendingItem = queueRemoteFeedback(feedbackTeamIds, chosenPickId, feedbackValue, tierSelect.value, "new-feedback");
+  const pendingItem = queueRemoteFeedback(feedbackTeamIds, chosenFeedbackId, feedbackValue, tierSelect.value, "new-feedback");
   if (!pendingItem) return;
 
   button.classList.add(Number(button.dataset.matchFeedback) > 0 ? "feedback-pop-like" : "feedback-pop-dislike");
@@ -2871,11 +2951,11 @@ matchFeedback.addEventListener("click", (event) => {
 
 
   submittedFeedbackKeys.add(currentFeedbackKey);
-  recordFeedback(feedbackTeamIds, chosenPickId, feedbackValue, tierSelect.value);
-  markRecentFeedback(feedbackTeamIds, chosenPickId, tierSelect.value);
+  recordFeedback(feedbackTeamIds, chosenFeedbackId, feedbackValue, tierSelect.value);
+  markRecentFeedback(feedbackTeamIds, chosenFeedbackId, tierSelect.value);
   syncStatus.textContent = t("sync.saving");
   syncStatus.dataset.state = "loading";
-  recordRemoteFeedback(feedbackTeamIds, chosenPickId, feedbackValue, tierSelect.value)
+  recordRemoteFeedback(feedbackTeamIds, chosenFeedbackId, feedbackValue, tierSelect.value)
     .then(() => {
       removePendingRemoteFeedback(pendingItem.id);
       popularFeedbackLoaded = false;
@@ -2908,6 +2988,8 @@ manualSlots.addEventListener("click", (event) => {
 
   if (slotAssignments[slotIndex]) {
     slotAssignments[slotIndex] = null;
+    slotCores[slotIndex] = null;
+    if (slotIndex === 0) matchFeedbackCore = null;
     activeSlot = null;
     syncSelectedFromSlots();
     renderDetectedTeam([], t("slot.deselect", { slot: slotLabel }));

@@ -86,6 +86,8 @@ export function updateOfficialStats(remote) {
   _officialCompositionByTierCandidate = buildOfficialCompositionIndex(officialCompositionStatsByTier);
   _officialTierAverageCache = new Map();
   _coreMetricAverageCache = new Map();
+  _effectiveCoreProfileCache = new Map();
+  _variantCoreBaselineCache = new Map();
 }
 import { tournamentCompositions } from "./tournamentMeta.js";
 import {
@@ -1501,7 +1503,15 @@ function candidateSpecificPenaltyReasons(candidate, selected, scores) {
     reasons.push(t("recommender.reason.shortRangeNoSupport", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   }
 
-  if (nextShape.guardOnly >= 1 && nextShape.melee >= 1 && candidate.characterId !== "lenox") {
+  // This penalty is about adding an *engager* to Lenox's counter-attack comp, so gate it on the
+  // candidate actually being an engager/melee dealer — not merely on the team's melee count
+  // (which a teammate's core-role flip could inflate). Counter/ranged picks never trigger it.
+  if (
+    nextShape.guardOnly >= 1 &&
+    candidate.characterId !== "lenox" &&
+    (isFirstEngageStyle(candidate) || isMeleeDealer(candidate)) &&
+    !isCounterOnlyRanged(candidate)
+  ) {
     reasons.push(t("recommender.reason.engagerInLenoxTeam", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   }
 
@@ -1712,6 +1722,286 @@ function coreRowFor(variantId, core, tier) {
   return coreRowForVariant(variantId, rows, core);
 }
 
+function candidateCoreOptions(variantId, tier, cores = {}) {
+  if (cores[variantId]) return [cores[variantId]];
+
+  const rows = traitBuildRowsFor(variantId, tier);
+  if (!rows.length) return [null];
+
+  const topGames = rows[0]?.games ?? 0;
+  const threshold = Math.max(40, topGames * 0.12);
+  const options = rows
+    .filter((row, index) => index === 0 || (row.games ?? 0) >= threshold)
+    .slice(0, 3)
+    .map((row) => row.core)
+    .filter(Boolean);
+
+  return options.length ? options : [null];
+}
+
+let _effectiveCoreProfileCache = new Map();
+let _variantCoreBaselineCache = new Map();
+
+function coreCode(rowOrCore) {
+  if (!rowOrCore) return "";
+  if (typeof rowOrCore === "object") return String(rowOrCore.core ?? "");
+  return String(rowOrCore);
+}
+
+function mergeTags(baseTags = [], addTags = [], removeTags = []) {
+  const removed = new Set(removeTags);
+  const merged = new Set(baseTags.filter((tag) => !removed.has(tag)));
+  addTags.forEach((tag) => merged.add(tag));
+  return [...merged];
+}
+
+function variantCoreBaseline(variantId, tier) {
+  const bucket = officialStatsBucketForTier(tier);
+  const key = `${bucket}|${variantId}`;
+  const cached = _variantCoreBaselineCache.get(key);
+  if (cached) return cached;
+
+  const rows = traitBuildRowsFor(variantId, tier).filter((row) => (row.games ?? 0) > 0);
+  const totals = rows.reduce((state, row) => {
+    const games = row.games ?? 0;
+    state.games += games;
+    state.damage += (row.avgDamageToPlayer ?? 0) * games;
+    state.taken += (row.avgDamageFromPlayer ?? 0) * games;
+    state.cc += (row.avgCcTime ?? 0) * games;
+    state.basic += (row.basicDamageShare ?? 0) * games;
+    state.skill += (row.skillDamageShare ?? 0) * games;
+    return state;
+  }, { games: 0, damage: 0, taken: 0, cc: 0, basic: 0, skill: 0 });
+
+  const fallback = coreMetricAverages(tier);
+  const baseline = totals.games > 0
+    ? {
+        games: totals.games,
+        damage: totals.damage / totals.games,
+        taken: totals.taken / totals.games,
+        cc: totals.cc / totals.games,
+        basic: totals.basic / totals.games,
+        skill: totals.skill / totals.games,
+        coreCount: rows.length,
+      }
+    : {
+        games: 0,
+        damage: fallback.damage,
+        taken: fallback.taken,
+        cc: fallback.cc,
+        basic: 0,
+        skill: 0,
+        coreCount: 0,
+      };
+
+  _variantCoreBaselineCache.set(key, baseline);
+  return baseline;
+}
+
+function ratio(value, baseline, fallback = 1) {
+  return Number.isFinite(value) && Number.isFinite(baseline) && baseline > 0 ? value / baseline : fallback;
+}
+
+function inferredCoreRoleOverride(character, row, profile, tier) {
+  if (!row || !row.games) return {};
+
+  const games = row.games ?? 0;
+  const baseline = variantCoreBaseline(character.variantId, tier);
+  if (games < 25 || baseline.coreCount < 2) return {};
+
+  const global = coreMetricAverages(tier);
+  const damageVsSelf = ratio(row.avgDamageToPlayer, baseline.damage);
+  const takenVsSelf = ratio(row.avgDamageFromPlayer, baseline.taken);
+  const ccVsSelf = ratio(row.avgCcTime, baseline.cc);
+  const damageVsField = ratio(row.avgDamageToPlayer, global.damage);
+  const takenVsField = ratio(row.avgDamageFromPlayer, global.taken);
+  const basicShare = row.basicDamageShare ?? baseline.basic ?? 0;
+  const skillShare = row.skillDamageShare ?? baseline.skill ?? 0;
+  const canBecomeFront = isFrontRole(character) || character.role === "assassin";
+  const isBackline = isBacklineDealer(character);
+  const baseIsTank = isTank(character);
+  const baseIsDamageFront = character.role === "bruiser" || character.role === "assassin";
+  const defensiveLean =
+    takenVsSelf >= 1.10 ||
+    (takenVsField >= 1.06 && damageVsSelf <= 1.02) ||
+    (ccVsSelf >= 1.16 && damageVsSelf <= 0.98);
+  const damageLean =
+    damageVsSelf >= 1.12 ||
+    (damageVsField >= 0.98 && damageVsSelf >= 1.05) ||
+    (character.frontDamage === "high" && damageVsSelf >= 1.04 && damageVsField >= 0.86) ||
+    (basicShare >= 0.58 && damageVsSelf >= 1.03);
+  const lowDamageLean = damageVsSelf <= 0.90 || damageVsField <= 0.82;
+
+  // A role *reclassification* (tank<->bruiser) is the strongest structural lever, so it
+  // must be corroborated by the core's own intrinsic playstyle and a solid sample — not a
+  // single noisy damage ratio. This prevents, e.g., a support/heal core (high profile.support)
+  // from being read as a damage bruiser just because its damage row edged above the character's
+  // own average. Characters whose combat identity is fixed (guard-only anchors, counter-only
+  // ranged, cannot-start-engage) never reclassify; their core only tunes damage/utility tags.
+  const identityFixed = isGuardOnly(character) || isCounterOnlyRanged(character) || cannotStartEngage(character);
+  // Compare the core's offensive vs defensive mass RELATIVE to itself rather than against an
+  // absolute cut. Cores like 응징 sit near-neutral (offense ≈ defense), so they force neither
+  // direction — the character's own match stats (strong*Evidence below) decide. Only clearly
+  // offensive cores (취약/벽력...) or clearly defensive cores (치유드론/금강...) lean hard.
+  const coreOffenseMass = profile.damage + profile.tempo * 0.3;
+  const coreDefenseMass = profile.durability + profile.support;
+  const coreLeansOffense = coreOffenseMass - coreDefenseMass >= 0.12 && profile.support < 0.45;
+  const coreLeansDefense = coreDefenseMass - coreOffenseMass >= 0.12;
+  const strongDamageEvidence = games >= 60 && (damageVsSelf >= 1.18 || (damageVsSelf >= 1.10 && damageVsField >= 0.97));
+  const strongDefenseEvidence = games >= 60 && (takenVsSelf >= 1.16 || (takenVsField >= 1.06 && damageVsSelf <= 1.00));
+
+  if (isBackline) {
+    const survivalLean =
+      takenVsSelf >= 1.12 ||
+      (takenVsField >= 0.78 && damageVsSelf >= 1.04) ||
+      (profile.durability >= 0.35 && damageVsSelf >= 1.03);
+    const utilityLean = ccVsSelf >= 1.14 || profile.support >= 0.45 || profile.cc >= 0.45;
+
+    if (survivalLean || damageLean || utilityLean) {
+      return {
+        role: character.role,
+        damage: basicShare >= 0.58 ? "basic" : skillShare >= 0.70 ? "skill" : character.damage,
+        backlineDamage: damageVsSelf >= 1.08 || damageVsField >= 0.95 ? "high" : character.backlineDamage,
+        addTags: [
+          ...(damageLean ? ["focus"] : []),
+          ...(basicShare >= 0.58 ? ["sustained"] : []),
+          ...(survivalLean ? ["durable", "sustain"] : []),
+          ...(utilityLean ? ["utility"] : []),
+          ...(ccVsSelf >= 1.14 ? ["cc"] : []),
+        ],
+        removeTags: [],
+      };
+    }
+
+    return {};
+  }
+
+  if (!canBecomeFront) return {};
+
+  // Already an offensive front (bruiser/assassin): no role change, just fine-tune the
+  // damage emphasis. Safe because the base role already matches the lean.
+  if (baseIsDamageFront && damageLean) {
+    const heavyDamageLean = damageVsSelf >= 1.08 || damageVsField >= 0.95;
+    return {
+      role: character.role,
+      damage: basicShare >= 0.58 ? "basic" : skillShare >= 0.70 ? "skill" : character.damage,
+      frontDamage: heavyDamageLean ? "high" : character.frontDamage,
+      addTags: [
+        "focus",
+        ...(basicShare >= 0.58 || damageVsSelf >= 1.12 ? ["sustained"] : []),
+        ...(profile.tempo >= 0.45 ? ["mobility"] : []),
+        ...(takenVsSelf >= 1.10 ? ["durable"] : []),
+      ],
+      removeTags: [],
+    };
+  }
+
+  // Tank -> bruiser is a genuine reclassification: require strong, corroborated evidence
+  // AND an offensive core. Support/heal/heavy-tank cores can never trigger this.
+  if (baseIsTank && !identityFixed && damageLean && coreLeansOffense && strongDamageEvidence) {
+    const heavyDamageLean = damageVsSelf >= 1.18 || damageVsField >= 0.97;
+    return {
+      role: "bruiser",
+      damage: basicShare >= 0.58 ? "basic" : skillShare >= 0.70 ? "skill" : character.damage,
+      frontDamage: heavyDamageLean ? "high" : "medium",
+      addTags: [
+        "focus",
+        ...(basicShare >= 0.58 || damageVsSelf >= 1.12 ? ["sustained"] : []),
+        ...(profile.tempo >= 0.45 ? ["mobility"] : []),
+        ...(takenVsSelf >= 1.10 ? ["durable"] : []),
+      ],
+      removeTags: heavyDamageLean ? ["peel", "healing"] : [],
+    };
+  }
+
+  // Defensive read. The tank vs. "tanky bruiser" boundary is genuinely fuzzy in this game
+  // (items and tactical skills also shift it), so a base tank just reinforces durability here.
+  if (defensiveLean && coreLeansDefense && baseIsTank) {
+    return {
+      role: character.role,
+      damage: lowDamageLean && character.damage === "basic" ? "hybrid" : character.damage,
+      frontDamage: lowDamageLean ? "low" : "medium",
+      addTags: [
+        "durable",
+        ...(ccVsSelf >= 1.12 ? ["cc"] : []),
+        ...(profile.support >= 0.48 || takenVsSelf >= 1.16 ? ["peel"] : []),
+        ...(profile.support >= 0.60 ? ["healing", "sustain"] : []),
+      ],
+      removeTags: lowDamageLean ? ["burst", "focus"] : [],
+    };
+  }
+
+  // Base offensive front (bruiser/assassin) turning defensive. Only a build that has clearly
+  // traded away its damage (lowDamageLean) becomes a PURE frontline tank. A build that is
+  // sturdier but still dealing damage stays a bruiser — a "tanky bruiser" — and merely gains
+  // durability emphasis, so it keeps counting as a melee dealer rather than a tank.
+  if (defensiveLean && coreLeansDefense && baseIsDamageFront && !identityFixed && strongDefenseEvidence) {
+    if (lowDamageLean) {
+      return {
+        role: "frontline",
+        damage: character.damage === "basic" ? "hybrid" : character.damage,
+        frontDamage: "low",
+        addTags: [
+          "durable",
+          ...(ccVsSelf >= 1.12 ? ["cc"] : []),
+          ...(profile.support >= 0.48 || takenVsSelf >= 1.16 ? ["peel"] : []),
+          ...(profile.support >= 0.60 ? ["healing", "sustain"] : []),
+        ],
+        removeTags: ["burst", "focus"],
+      };
+    }
+    return {
+      role: character.role,
+      damage: character.damage,
+      frontDamage: "medium",
+      addTags: [
+        "durable",
+        ...(ccVsSelf >= 1.12 ? ["cc"] : []),
+        ...(profile.support >= 0.48 || takenVsSelf >= 1.16 ? ["peel"] : []),
+      ],
+      removeTags: [],
+    };
+  }
+
+  return {};
+}
+
+function applyCoreRoleProfile(character, core, tier) {
+  if (!character) return character;
+  const row = coreRowFor(character.variantId, core, tier);
+  const code = coreCode(row ?? core);
+  if (!code) return character;
+
+  const bucket = officialStatsBucketForTier(tier);
+  const key = `${bucket}|${character.variantId}|${code}`;
+  const cached = _effectiveCoreProfileCache.get(key);
+  if (cached) return cached;
+
+  const profile = corePlaystyle(row, tier);
+  const override = inferredCoreRoleOverride(character, row, profile, tier);
+  const effective = {
+    ...character,
+    role: override.role ?? character.role,
+    tags: mergeTags(character.tags, override.addTags, override.removeTags),
+    damage: override.damage ?? character.damage,
+    frontDamage: override.frontDamage ?? character.frontDamage,
+    backlineDamage: override.backlineDamage ?? character.backlineDamage,
+    effectiveCore: {
+      core: code,
+      name: normalizeCoreName(row) ?? row?.name ?? null,
+      roleOverride: Boolean(override.role || override.frontDamage || override.backlineDamage || override.damage),
+      profile,
+    },
+  };
+
+  _effectiveCoreProfileCache.set(key, effective);
+  return effective;
+}
+
+function effectiveTeamFor(selected, cores, tier) {
+  return selected.map((character) => applyCoreRoleProfile(character, cores[character.variantId], tier));
+}
+
 let _coreMetricAverageCache = new Map();
 
 function coreMetricAverages(tier) {
@@ -1765,21 +2055,21 @@ function corePlaystyle(row, tier) {
   if (!row) return { damage: 0, durability: 0, support: 0, cc: 0, tempo: 0 };
 
   const avg = coreMetricAverages(tier);
-  const name = normalizeCoreName(row) ?? row.name ?? "";
+  const code = coreCode(row);
   const profile = { damage: 0, durability: 0, support: 0, cc: 0, tempo: 0 };
   const add = (values) => {
     for (const [key, value] of Object.entries(values)) profile[key] += value;
   };
 
-  if (["취약", "벽력", "아드레날린", "액셀러레이터"].includes(name)) add({ damage: 0.70, tempo: 0.35 });
-  if (["흡혈마", "와류"].includes(name)) add({ damage: 0.42, durability: 0.35, tempo: 0.20 });
-  if (["도깨비불", "스텔라 차지"].includes(name)) add({ damage: 0.45, cc: 0.20, tempo: 0.38 });
-  if (["응징"].includes(name)) add({ damage: 0.36, durability: 0.36, cc: 0.24, tempo: 0.20 });
-  if (["금강", "불괴"].includes(name)) add({ durability: 0.78, cc: 0.12 });
-  if (["빛의 수호"].includes(name)) add({ durability: 0.45, support: 0.42, cc: 0.12 });
-  if (["초재생"].includes(name)) add({ durability: 0.52, support: 0.32 });
-  if (["증폭 드론"].includes(name)) add({ support: 0.50, damage: 0.28, tempo: 0.18 });
-  if (["치유 드론", "헌신"].includes(name)) add({ support: 0.72, durability: 0.28 });
+  if (["7000201", "7000501", "7000601", "7000701"].includes(code)) add({ damage: 0.70, tempo: 0.35 });
+  if (["7000401", "7300301"].includes(code)) add({ damage: 0.42, durability: 0.35, tempo: 0.20 });
+  if (["7300101", "7300201"].includes(code)) add({ damage: 0.45, cc: 0.20, tempo: 0.38 });
+  if (code === "7100501") add({ damage: 0.36, durability: 0.36, cc: 0.24, tempo: 0.20 });
+  if (["7100101", "7100201"].includes(code)) add({ durability: 0.78, cc: 0.12 });
+  if (code === "7100401") add({ durability: 0.45, support: 0.42, cc: 0.12 });
+  if (code === "7200101") add({ durability: 0.52, support: 0.32 });
+  if (code === "7200201") add({ support: 0.50, damage: 0.28, tempo: 0.18 });
+  if (["7200301", "7200501"].includes(code)) add({ support: 0.72, durability: 0.28 });
 
   if ((row.avgDamageToPlayer ?? 0) > 0 && avg.damage > 0) {
     profile.damage += clamp(((row.avgDamageToPlayer / avg.damage) - 1) * 0.75, -0.25, 0.45);
@@ -1931,39 +2221,62 @@ function officialCoreRoleShiftScore(candidate, selected, tier, cores = {}) {
   return clamp(score * conf, -0.95, 1.25);
 }
 
-export function evaluateCandidate(selectedIds, candidateId, tier = "all", remoteFeedback = {}, relationshipRows = [], cores = {}) {
-  const selected = selectedCharactersFromIds(selectedIds);
-  const candidate = characterVariants.find((character) => character.variantId === candidateId);
+function feedbackCandidateId(candidate, coreRow = null) {
+  return coreRow?.core ? `${candidate.variantId}#${coreRow.core}` : candidate.variantId;
+}
+
+function buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows) {
+  return {
+    selected,
+    candidate,
+    scores: {
+      synergy: pairScore(candidate, selected),
+      dakComposition: dakCompositionScore(candidate, selected),
+      tournamentComposition: tournamentCompositionScore(candidate, selected),
+      tournamentArchetype: tournamentArchetypeScore(candidate, selected),
+      dakTier: dakTierScore(candidate, tier),
+      dakStatistics: dakStatisticsScore(candidate, tier),
+      dakRealtime: dakRealtimeScore(candidate),
+      officialMeta: officialMetaScore(candidate, tier),
+      legacyMeta: legacyDakMetaScore(candidate, tier),
+      meta: combinedMetaScore(candidate, tier),
+      officialMatch: officialMatchScore(candidate, selected, tier),
+      officialV2: officialV2Score(candidate, selected, tier),
+      relationship: relationshipScore(candidate, selected, tier, relationshipRows),
+    },
+  };
+}
+
+export function evaluateCandidate(selectedIds, candidateId, tier = "all", remoteFeedback = {}, relationshipRows = [], cores = {}, invariantContext = null) {
+  const selected = invariantContext?.selected ?? selectedCharactersFromIds(selectedIds);
+  const candidate = invariantContext?.candidate ?? characterVariants.find((character) => character.variantId === candidateId);
   if (!candidate) return undefined;
+  const candidateCoreRow = coreRowFor(candidate.variantId, cores[candidate.variantId], tier);
+  const effectiveSelected = effectiveTeamFor(selected, cores, tier);
+  const effectiveCandidate = applyCoreRoleProfile(candidate, cores[candidate.variantId], tier);
+  const invariantScores = invariantContext?.scores ?? buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows).scores;
+  const candidateFeedbackId = feedbackCandidateId(candidate, candidateCoreRow);
+  const feedbackScore = (
+    getFeedbackScore(selectedIds, candidateFeedbackId, tier) +
+    getFeedbackScore(selectedIds, candidateFeedbackId, tier, remoteFeedback) * 0.7
+  );
 
   const scores = {
-    synergy: pairScore(candidate, selected),
-    coverage: coverageScore(candidate, selected),
-    roleBalance: roleBalanceScore(candidate, selected),
-    frontDamage: frontDamageScore(candidate, selected),
-    backlineDamage: backlineDamageScore(candidate, selected),
-    teamDamageBudget: teamDamageBudgetScore(candidate, selected),
-    metricBalance: metricBalanceScore(candidate, selected),
-    killPressure: killPressureScore(candidate, selected),
-    weaponBalance: weaponBalanceScore(candidate, selected),
-    teamShape: teamShapeScore(candidate, selected),
-    conflict: conflictScore(candidate, selected),
-    compositionGuide: compositionGuideScore(candidate, selected),
-    dakComposition: dakCompositionScore(candidate, selected),
-    tournamentComposition: tournamentCompositionScore(candidate, selected),
-    tournamentArchetype: tournamentArchetypeScore(candidate, selected),
-    dakTier: dakTierScore(candidate, tier),
-    dakStatistics: dakStatisticsScore(candidate, tier),
-    dakRealtime: dakRealtimeScore(candidate),
-    officialMeta: officialMetaScore(candidate, tier),
-    legacyMeta: legacyDakMetaScore(candidate, tier),
-    meta: combinedMetaScore(candidate, tier),
-    officialMatch: officialMatchScore(candidate, selected, tier),
-    officialV2:    officialV2Score(candidate, selected, tier),
+    ...invariantScores,
+    coverage: coverageScore(effectiveCandidate, effectiveSelected),
+    roleBalance: roleBalanceScore(effectiveCandidate, effectiveSelected),
+    frontDamage: frontDamageScore(effectiveCandidate, effectiveSelected),
+    backlineDamage: backlineDamageScore(effectiveCandidate, effectiveSelected),
+    teamDamageBudget: teamDamageBudgetScore(effectiveCandidate, effectiveSelected),
+    metricBalance: metricBalanceScore(effectiveCandidate, effectiveSelected),
+    killPressure: killPressureScore(effectiveCandidate, effectiveSelected),
+    weaponBalance: weaponBalanceScore(effectiveCandidate, effectiveSelected),
+    teamShape: teamShapeScore(effectiveCandidate, effectiveSelected),
+    conflict: conflictScore(effectiveCandidate, effectiveSelected),
+    compositionGuide: compositionGuideScore(effectiveCandidate, effectiveSelected),
     officialCore:  officialCoreScore(candidate, tier, cores),
-    officialCoreFit: officialCoreFitScore(candidate, selected, tier, cores),
-    officialCoreRoleShift: officialCoreRoleShiftScore(candidate, selected, tier, cores),
-    relationship: relationshipScore(candidate, selected, tier, relationshipRows),
+    officialCoreFit: officialCoreFitScore(effectiveCandidate, effectiveSelected, tier, cores),
+    officialCoreRoleShift: officialCoreRoleShiftScore(effectiveCandidate, effectiveSelected, tier, cores),
   };
   const total =
     scores.synergy * 1.6 +
@@ -1984,21 +2297,80 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.meta +
     scores.officialMatch * 0.35 +
     scores.officialV2 * 0.35 +
-    scores.officialCore * 0.45 +
-    scores.officialCoreFit +
-    scores.officialCoreRoleShift +
+    scores.officialCore * 0.35 +
+    scores.officialCoreFit * 0.2 +
+    scores.officialCoreRoleShift * 0.2 +
     scores.relationship -
     candidate.difficulty * 0.08 +
-    getFeedbackScore(selectedIds, candidate.variantId, tier) +
-    getFeedbackScore(selectedIds, candidate.variantId, tier, remoteFeedback) * 0.7;
+    feedbackScore;
 
   return {
     character: candidate,
     score: Number(total.toFixed(1)),
     total: Number(total.toFixed(3)),
     scores,
-    reasons: explain(candidate, selected, scores),
+    feedbackCandidateId: candidateFeedbackId,
+    recommendedCore: candidateCoreRow
+      ? {
+          core: candidateCoreRow.core,
+          name: normalizeCoreName(candidateCoreRow) ?? candidateCoreRow.name ?? null,
+          games: candidateCoreRow.games ?? 0,
+        }
+      : null,
+    reasons: explain(effectiveCandidate, effectiveSelected, scores),
   };
+}
+
+export function debugCoreRoleProfile(selectedIds = [], cores = {}, tier = "all") {
+  const selected = selectedCharactersFromIds(selectedIds);
+  const effective = effectiveTeamFor(selected, cores, tier);
+  return {
+    tier,
+    characters: effective.map((character) => ({
+      variantId: character.variantId,
+      role: character.role,
+      damage: character.damage,
+      frontDamage: character.frontDamage,
+      backlineDamage: character.backlineDamage,
+      tags: character.tags,
+      effectiveCore: character.effectiveCore ?? null,
+    })),
+    shape: teamShape(effective),
+  };
+}
+
+// Audit harness: sweep every variant × its plausible cores and report every case where the
+// core inference changes the character's role, damage bucket, or tags. Run locally to review
+// the full surface of role flips (not just one character) before/after tuning the thresholds.
+export function auditCoreRoleFlips(tier = "all", { roleChangesOnly = false } = {}) {
+  const flips = [];
+  for (const character of characterVariants) {
+    const options = candidateCoreOptions(character.variantId, tier, {});
+    for (const core of options) {
+      if (!core) continue;
+      const effective = applyCoreRoleProfile(character, core, tier);
+      const roleChanged = effective.role !== character.role;
+      const frontChanged = effective.frontDamage !== character.frontDamage;
+      const backChanged = effective.backlineDamage !== character.backlineDamage;
+      const added = effective.tags.filter((tag) => !character.tags.includes(tag));
+      const removed = character.tags.filter((tag) => !effective.tags.includes(tag));
+      const tagChanged = added.length > 0 || removed.length > 0;
+      if (!roleChanged && !frontChanged && !backChanged && !tagChanged) continue;
+      if (roleChangesOnly && !roleChanged) continue;
+      flips.push({
+        variantId: character.variantId,
+        coreName: effective.effectiveCore?.name ?? core,
+        baseRole: character.role,
+        role: effective.role,
+        roleChanged,
+        frontDamage: frontChanged ? `${character.frontDamage}->${effective.frontDamage}` : effective.frontDamage,
+        backlineDamage: backChanged ? `${character.backlineDamage}->${effective.backlineDamage}` : effective.backlineDamage,
+        addedTags: added,
+        removedTags: removed,
+      });
+    }
+  }
+  return flips.sort((a, b) => Number(b.roleChanged) - Number(a.roleChanged));
 }
 
 export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candidateCharacterIds = undefined, relationshipRows = [], cores = {}) {
@@ -2011,15 +2383,29 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   const scored = characterVariants
     .filter((candidate) => !selectedCharacters.has(candidate.characterId))
     .filter((candidate) => !candidatePool || candidatePool.has(candidateUsesVariants ? candidate.variantId : candidate.characterId))
-    .map((candidate) => evaluateCandidate(selectedIds, candidate.variantId, tier, remoteFeedback, relationshipRows, cores))
-    .sort((a, b) => b.score - a.score);
+    .flatMap((candidate) => {
+      const options = candidateCoreOptions(candidate.variantId, tier, cores);
+      const invariantContext = buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows);
+      return options
+        .map((core) => evaluateCandidate(
+          selectedIds,
+          candidate.variantId,
+          tier,
+          remoteFeedback,
+          relationshipRows,
+          core ? { ...cores, [candidate.variantId]: core } : cores,
+          invariantContext,
+        ))
+        .filter(Boolean);
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.total - a.total);
 
-  // Deduplicate by characterId — keep only the highest-scoring variant per character
   const seen = new Set();
   return scored.filter((r) => {
-    const cid = r.character.characterId;
-    if (seen.has(cid)) return false;
-    seen.add(cid);
+    const buildId = `${r.character.variantId}:${r.recommendedCore?.core ?? "default"}`;
+    if (seen.has(buildId)) return false;
+    seen.add(buildId);
     return true;
   }).slice(0, 18);
 }
