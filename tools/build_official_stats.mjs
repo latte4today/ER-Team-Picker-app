@@ -447,6 +447,11 @@ function addCandidateStat(bucketStats, characterId, team, player) {
       damageFromPlayerSkill: 0,
       ccTime: 0,
       ccCount: 0,
+      healAmount: 0,
+      protectAbsorb: 0,
+      kills: 0,
+      assists: 0,
+      teamKills: 0,
       traitCores: {},
       tacticalSkills: {},
     };
@@ -472,6 +477,11 @@ function addCandidateStat(bucketStats, characterId, team, player) {
   stat.damageFromPlayerSkill += numeric(playerStats.damageFromPlayerSkill);
   stat.ccTime += numeric(playerStats.ccTime);
   stat.ccCount += numeric(playerStats.ccCount);
+  stat.healAmount += numeric(playerStats.healAmount);
+  stat.protectAbsorb += numeric(playerStats.protectAbsorb);
+  stat.kills += numeric(playerStats.kills);
+  stat.assists += numeric(playerStats.assists);
+  stat.teamKills += numeric(playerStats.teamKills);
   bumpCounter(stat.traitCores, player.traits?.core);
   bumpCounter(stat.tacticalSkills, player.traits?.tacticalSkill);
 }
@@ -499,6 +509,11 @@ function addTraitBuildStat(bucketStats, statId, team, player) {
       damageFromPlayerSkill: 0,
       ccTime: 0,
       ccCount: 0,
+      healAmount: 0,
+      protectAbsorb: 0,
+      kills: 0,
+      assists: 0,
+      teamKills: 0,
       firstSubTraits: {},
       secondSubTraits: {},
       tacticalSkills: {},
@@ -526,6 +541,11 @@ function addTraitBuildStat(bucketStats, statId, team, player) {
   stat.damageFromPlayerSkill += numeric(playerStats.damageFromPlayerSkill);
   stat.ccTime += numeric(playerStats.ccTime);
   stat.ccCount += numeric(playerStats.ccCount);
+  stat.healAmount += numeric(playerStats.healAmount);
+  stat.protectAbsorb += numeric(playerStats.protectAbsorb);
+  stat.kills += numeric(playerStats.kills);
+  stat.assists += numeric(playerStats.assists);
+  stat.teamKills += numeric(playerStats.teamKills);
   bumpCounter(stat.firstSubTraits, player.traits?.firstSub);
   bumpCounter(stat.secondSubTraits, player.traits?.secondSub);
   bumpCounter(stat.tacticalSkills, player.traits?.tacticalSkill);
@@ -585,6 +605,12 @@ function finalizeCandidateStats(source, minGames) {
       avgDamageFromPlayerSkill: Math.round(stat.damageFromPlayerSkill / stat.games),
       avgCcTime: round(stat.ccTime / stat.games, 2),
       avgCcCount: round(stat.ccCount / stat.games, 2),
+      avgHealAmount: Math.round(stat.healAmount / stat.games),
+      avgProtectAbsorb: Math.round(stat.protectAbsorb / stat.games),
+      avgKills: round(stat.kills / stat.games, 2),
+      avgAssists: round(stat.assists / stat.games, 2),
+      avgTeamKills: round(stat.teamKills / stat.games, 2),
+      killParticipation: round((stat.kills + stat.assists) / Math.max(1, stat.teamKills), 3),
     };
   }
   return output;
@@ -646,6 +672,12 @@ function finalizeTraitBuildStats(source, minGames, traitNameMap = new Map()) {
         avgDamageFromPlayerSkill: Math.round(stat.damageFromPlayerSkill / stat.games),
         avgCcTime: round(stat.ccTime / stat.games, 2),
         avgCcCount: round(stat.ccCount / stat.games, 2),
+        avgHealAmount: Math.round(stat.healAmount / stat.games),
+        avgProtectAbsorb: Math.round(stat.protectAbsorb / stat.games),
+        avgKills: round(stat.kills / stat.games, 2),
+        avgAssists: round(stat.assists / stat.games, 2),
+        avgTeamKills: round(stat.teamKills / stat.games, 2),
+        killParticipation: round((stat.kills + stat.assists) / Math.max(1, stat.teamKills), 3),
         firstSubTraits: Object.entries(topCounters(stat.firstSubTraits)).map(([code, count]) => ({
           code,
           name: traitNameMap.get(code) ?? null,
@@ -664,6 +696,123 @@ function finalizeTraitBuildStats(source, minGames, traitNameMap = new Map()) {
       });
     }
     if (rows.length) output[statId] = rows.sort((a, b) => b.games - a.games);
+  }
+  return output;
+}
+
+function clamp01(value, max = 1.3) {
+  return Math.max(0, Math.min(max, Number(value) || 0));
+}
+
+function div(a, b, fallback = 0) {
+  return b ? a / b : fallback;
+}
+
+function globalAverageFromCandidateSource(source = {}) {
+  const totals = Object.values(source).reduce((state, stat) => {
+    const games = stat.games ?? 0;
+    state.games += games;
+    state.avgPlacement += stat.placementSum;
+    state.placementGames += stat.placementGames;
+    state.top3 += stat.top3;
+    state.damageToPlayer += stat.damageToPlayer;
+    state.damageFromPlayer += stat.damageFromPlayer;
+    state.ccTime += stat.ccTime;
+    state.healAmount += stat.healAmount;
+    state.protectAbsorb += stat.protectAbsorb;
+    state.kills += stat.kills;
+    state.assists += stat.assists;
+    state.teamKills += stat.teamKills;
+    return state;
+  }, {
+    games: 0,
+    avgPlacement: 0,
+    placementGames: 0,
+    top3: 0,
+    damageToPlayer: 0,
+    damageFromPlayer: 0,
+    ccTime: 0,
+    healAmount: 0,
+    protectAbsorb: 0,
+    kills: 0,
+    assists: 0,
+    teamKills: 0,
+  });
+
+  return {
+    games: totals.games,
+    top3Rate: div(totals.top3, totals.games),
+    avgPlacement: div(totals.avgPlacement, totals.placementGames, 4.3),
+    avgDamageToPlayer: div(totals.damageToPlayer, totals.games, 1),
+    avgDamageFromPlayer: div(totals.damageFromPlayer, totals.games, 1),
+    avgCcTime: div(totals.ccTime, totals.games, 1),
+    avgHealAmount: div(totals.healAmount, totals.games, 1),
+    avgProtectAbsorb: div(totals.protectAbsorb, totals.games, 1),
+    avgKills: div(totals.kills, totals.games, 1),
+    killParticipation: div(totals.kills + totals.assists, Math.max(1, totals.teamKills), 1),
+  };
+}
+
+function empiricalVectorFromRow(row, globalAvg, variant) {
+  const damageRatio = div(row.avgDamageToPlayer, globalAvg.avgDamageToPlayer, 1);
+  const takenRatio = div(row.avgDamageFromPlayer, globalAvg.avgDamageFromPlayer, 1);
+  const ccRatio = div(row.avgCcTime, globalAvg.avgCcTime, 1);
+  const healRatio = div(row.avgHealAmount, globalAvg.avgHealAmount, 1);
+  const protectRatio = div(row.avgProtectAbsorb, globalAvg.avgProtectAbsorb, 1);
+  const tempoRatio = div(row.killParticipation, globalAvg.killParticipation, 1);
+  const placement = row.avgPlacement ?? globalAvg.avgPlacement;
+  const stabilityRatio = (div(row.top3Rate, globalAvg.top3Rate, 1) + div(globalAvg.avgPlacement, placement, 1)) / 2;
+  const melee = variant?.weaponRange === "melee" ? 0.12 : 0;
+  const frontRole = ["frontline", "bruiser"].includes(variant?.role) ? 0.12 : 0;
+  const tags = new Set(variant?.tags ?? []);
+  const supportPrior =
+    (variant?.role === "support" ? 0.34 : 0) +
+    (tags.has("healing") ? 0.16 : 0) +
+    (tags.has("shield") ? 0.14 : 0) +
+    (tags.has("peel") ? 0.10 : 0) +
+    (tags.has("utility") ? 0.08 : 0);
+  const supportStatMass = variant?.role === "support"
+    ? protectRatio * 0.30 + healRatio * 0.16
+    : protectRatio * 0.08 + healRatio * 0.02;
+
+  return {
+    frontline: round(clamp01(takenRatio * 0.68 + melee + frontRole), 3),
+    damage: round(clamp01(damageRatio * 0.82 + tempoRatio * 0.18), 3),
+    durability: round(clamp01(takenRatio * 0.58 + stabilityRatio * 0.24 + healRatio * 0.10 + protectRatio * 0.08), 3),
+    cc: round(clamp01(ccRatio), 3),
+    support: round(clamp01(supportStatMass + supportPrior + ccRatio * 0.03), 3),
+    sustain: round(clamp01(healRatio * 0.40 + protectRatio * 0.12 + takenRatio * 0.22 + stabilityRatio * 0.18 + tempoRatio * 0.08), 3),
+    tempo: round(clamp01(tempoRatio * 0.75 + div(row.avgKills, globalAvg.avgKills, 1) * 0.25), 3),
+    stability: round(clamp01(stabilityRatio), 3),
+  };
+}
+
+function finalizeEmpiricalVectorStats(candidateStatsByTier, traitBuildStatsByTier, sourceByTier) {
+  const output = {};
+  for (const bucket of Object.keys(candidateStatsByTier).sort()) {
+    const globalAvg = globalAverageFromCandidateSource(sourceByTier[bucket] ?? {});
+    const rows = {};
+    for (const [variantId, row] of Object.entries(candidateStatsByTier[bucket] ?? {})) {
+      const variant = characterVariants.find((item) => item.variantId === variantId);
+      if (!variant) continue;
+      rows[variantId] = {
+        games: row.games,
+        vector: empiricalVectorFromRow(row, globalAvg, variant),
+      };
+    }
+    for (const [variantId, builds] of Object.entries(traitBuildStatsByTier[bucket] ?? {})) {
+      const variant = characterVariants.find((item) => item.variantId === variantId);
+      if (!variant) continue;
+      for (const row of builds ?? []) {
+        if (!row.core) continue;
+        rows[`${variantId}#${row.core}`] = {
+          games: row.games,
+          core: row.core,
+          vector: empiricalVectorFromRow(row, globalAvg, variant),
+        };
+      }
+    }
+    output[bucket] = rows;
   }
   return output;
 }
@@ -851,6 +1000,7 @@ async function build() {
   const officialCompositionStatsByTier = {};
   const officialPairStatsByTier = {};
   const officialCombatStatsByTier = {};
+  let officialEmpiricalVectorStatsByTier = {};
   const allBuckets = new Set([...Object.keys(candidateByTier), ...Object.keys(traitBuildByTier), ...Object.keys(pairByTier)]);
   for (const bucket of [...allBuckets].sort()) {
     officialCandidateStatsByTier[bucket] = finalizeCandidateStats(candidateByTier[bucket] ?? {}, args.minGames);
@@ -860,6 +1010,11 @@ async function build() {
     officialPairStatsByTier[bucket]      = finalizePairStats(pairByTier[bucket] ?? {}, args.minGames);
     officialCombatStatsByTier[bucket]    = finalizeCombatStats(combatByTier[bucket] ?? {}, args.minGames);
   }
+  officialEmpiricalVectorStatsByTier = finalizeEmpiricalVectorStats(
+    officialCandidateStatsByTier,
+    officialTraitBuildStatsByTier,
+    candidateByTier,
+  );
 
   const source = {
     source: "official-api-merged",
@@ -891,6 +1046,7 @@ async function build() {
     await w(`export const officialTraitBuildStatsByTier = ${stableJson(officialTraitBuildStatsByTier)};\n\n`);
     await w(`export const officialPairStatsByTier = ${stableJson(officialPairStatsByTier)};\n\n`);
     await w(`export const officialCombatStatsByTier = ${stableJson(officialCombatStatsByTier)};\n\n`);
+    await w(`export const officialEmpiricalVectorStatsByTier = ${stableJson(officialEmpiricalVectorStatsByTier)};\n\n`);
     await w(`export const OFFICIAL_V2_WEIGHTS = {\n  characterPower: 0.30,\n  pairSynergy:    0.35,\n  combatScore:    0.15,\n  roleBalance:    0.20,\n};\n\n`);
     await w(`export const BAYESIAN_ALPHA = {\n  character: 100,\n  pair:       80,\n  combat:     80,\n};\n\n`);
     await w(`export function officialStatsBucketForTier(tier = "all") {\n  const bucketMap = {\n    all: "all",\n    iron_gold: "iron_gold",\n    platinum_diamond: "platinum_diamond",\n    meteor_mithril: "meteor_mithril",\n    demigod_eternity: "demigod_eternity",\n    iron_bronze: "iron_gold",\n    silver_gold: "iron_gold",\n    diamond: "platinum_diamond",\n    mithril_plus: "meteor_mithril",\n  };\n  const preferred = bucketMap[tier] ?? tier ?? "all";\n  if (officialCandidateStatsByTier[preferred] || officialCompositionStatsByTier[preferred] || officialTraitBuildStatsByTier[preferred]) return preferred;\n  return "all";\n}\n`);
@@ -902,6 +1058,7 @@ async function build() {
     source, officialCandidateStatsByTier, officialCompositionStatsByTier,
     officialTraitStatsByTier, officialTraitBuildStatsByTier,
     officialPairStatsByTier, officialCombatStatsByTier,
+    officialEmpiricalVectorStatsByTier,
     weights: { characterPower: 0.30, pairSynergy: 0.35, combatScore: 0.15, roleBalance: 0.20 },
     alpha:   { character: 100, pair: 80, combat: 80 },
   };

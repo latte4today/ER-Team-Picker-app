@@ -1,0 +1,557 @@
+{
+  "generatedAt": "2026-06-17T11:53:33.020Z",
+  "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
+  "cases": [
+    {
+      "name": "empty-team/all/no-cores",
+      "tier": "all",
+      "selected": [],
+      "cores": {},
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "tia:bat",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 6.703
+        },
+        {
+          "rank": 2,
+          "variantId": "leon:tonfa",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 6.492
+        },
+        {
+          "rank": 3,
+          "variantId": "arda:arcana",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 6.255
+        },
+        {
+          "rank": 4,
+          "variantId": "estelle:axe",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 5.863
+        },
+        {
+          "rank": 5,
+          "variantId": "estelle:axe",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 5.861
+        },
+        {
+          "rank": 6,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 5.805
+        },
+        {
+          "rank": 7,
+          "variantId": "arda:arcana",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 6.243
+        },
+        {
+          "rank": 8,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 5.799
+        },
+        {
+          "rank": 9,
+          "variantId": "magnus:bat",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 5.761
+        },
+        {
+          "rank": 10,
+          "variantId": "sua:bat",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 5.706
+        }
+      ]
+    },
+    {
+      "name": "one-front/all/no-cores",
+      "tier": "all",
+      "selected": [
+        "luke:bat"
+      ],
+      "cores": {},
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "nathapon:camera",
+          "core": "7000201",
+          "coreName": "취약",
+          "total": 9.49
+        },
+        {
+          "rank": 2,
+          "variantId": "nathapon:camera",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 9.367
+        },
+        {
+          "rank": 3,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 9.076
+        },
+        {
+          "rank": 4,
+          "variantId": "celine:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 7.515
+        },
+        {
+          "rank": 5,
+          "variantId": "hyejin:bow",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 9.004
+        },
+        {
+          "rank": 6,
+          "variantId": "sissela:shuriken",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 8.912
+        },
+        {
+          "rank": 7,
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 7.339
+        },
+        {
+          "rank": 8,
+          "variantId": "emma:arcana",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 8.81
+        },
+        {
+          "rank": 9,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 7.247
+        },
+        {
+          "rank": 10,
+          "variantId": "emma:arcana",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 8.699
+        }
+      ]
+    },
+    {
+      "name": "two-picks/all/no-cores",
+      "tier": "all",
+      "selected": [
+        "alonso:glove",
+        "nia:pistol"
+      ],
+      "cores": {},
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "aya:assault_rifle",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 8.935
+        },
+        {
+          "rank": 2,
+          "variantId": "nadine:crossbow",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 8.897
+        },
+        {
+          "rank": 3,
+          "variantId": "rozzi:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 8.426
+        },
+        {
+          "rank": 4,
+          "variantId": "isol:assault_rifle",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 7.528
+        },
+        {
+          "rank": 5,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 6.595
+        },
+        {
+          "rank": 6,
+          "variantId": "fiora:spear",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 6.551
+        },
+        {
+          "rank": 7,
+          "variantId": "rio:bow",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 7.843
+        },
+        {
+          "rank": 8,
+          "variantId": "william:throw",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 6.809
+        },
+        {
+          "rank": 9,
+          "variantId": "sissela:shuriken",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 6.438
+        },
+        {
+          "rank": 10,
+          "variantId": "barbara:pistol",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 6.41
+        }
+      ]
+    },
+    {
+      "name": "empty-team/iron_gold/no-cores",
+      "tier": "iron_gold",
+      "selected": [],
+      "cores": {},
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "tia:bat",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 6.891
+        },
+        {
+          "rank": 2,
+          "variantId": "leon:tonfa",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 6.543
+        },
+        {
+          "rank": 3,
+          "variantId": "arda:arcana",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 6.483
+        },
+        {
+          "rank": 4,
+          "variantId": "yuki:dual_swords",
+          "core": "7000701",
+          "coreName": "액셀러레이터",
+          "total": 6.141
+        },
+        {
+          "rank": 5,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 6.139
+        },
+        {
+          "rank": 6,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 6.108
+        },
+        {
+          "rank": 7,
+          "variantId": "arda:arcana",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 6.457
+        },
+        {
+          "rank": 8,
+          "variantId": "estelle:axe",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 6.004
+        },
+        {
+          "rank": 9,
+          "variantId": "magnus:bat",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 5.985
+        },
+        {
+          "rank": 10,
+          "variantId": "estelle:axe",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 5.983
+        }
+      ]
+    },
+    {
+      "name": "empty-team/platinum_diamond/no-cores",
+      "tier": "platinum_diamond",
+      "selected": [],
+      "cores": {},
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "tia:bat",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 6.67
+        },
+        {
+          "rank": 2,
+          "variantId": "leon:tonfa",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 6.503
+        },
+        {
+          "rank": 3,
+          "variantId": "nathapon:camera",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 6.262
+        },
+        {
+          "rank": 4,
+          "variantId": "estelle:axe",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 5.785
+        },
+        {
+          "rank": 5,
+          "variantId": "estelle:axe",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 5.783
+        },
+        {
+          "rank": 6,
+          "variantId": "magnus:bat",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 5.727
+        },
+        {
+          "rank": 7,
+          "variantId": "nathapon:camera",
+          "core": "7000201",
+          "coreName": "취약",
+          "total": 6.219
+        },
+        {
+          "rank": 8,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 5.649
+        },
+        {
+          "rank": 9,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 5.641
+        },
+        {
+          "rank": 10,
+          "variantId": "mirka:hammer",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 5.607
+        }
+      ]
+    },
+    {
+      "name": "empty-team/meteor_mithril/no-cores",
+      "tier": "meteor_mithril",
+      "selected": [],
+      "cores": {},
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "tia:bat",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 6.558
+        },
+        {
+          "rank": 2,
+          "variantId": "darko:bat",
+          "core": "7100101",
+          "coreName": "금강",
+          "total": 6.453
+        },
+        {
+          "rank": 3,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 6.176
+        },
+        {
+          "rank": 4,
+          "variantId": "mirka:hammer",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 5.794
+        },
+        {
+          "rank": 5,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 5.782
+        },
+        {
+          "rank": 6,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 5.755
+        },
+        {
+          "rank": 7,
+          "variantId": "arda:arcana",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 6.085
+        },
+        {
+          "rank": 8,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7000201",
+          "coreName": "취약",
+          "total": 5.755
+        },
+        {
+          "rank": 9,
+          "variantId": "estelle:axe",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 5.752
+        },
+        {
+          "rank": 10,
+          "variantId": "estelle:axe",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 5.713
+        }
+      ]
+    },
+    {
+      "name": "empty-team/demigod_eternity/no-cores",
+      "tier": "demigod_eternity",
+      "selected": [],
+      "cores": {},
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 6.382
+        },
+        {
+          "rank": 2,
+          "variantId": "darko:bat",
+          "core": "7100101",
+          "coreName": "금강",
+          "total": 6.289
+        },
+        {
+          "rank": 3,
+          "variantId": "arda:arcana",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 6.224
+        },
+        {
+          "rank": 4,
+          "variantId": "emma:arcana",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 6.221
+        },
+        {
+          "rank": 5,
+          "variantId": "estelle:axe",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 5.863
+        },
+        {
+          "rank": 6,
+          "variantId": "estelle:axe",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 5.84
+        },
+        {
+          "rank": 7,
+          "variantId": "arda:arcana",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 6.212
+        },
+        {
+          "rank": 8,
+          "variantId": "garnet:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 5.582
+        },
+        {
+          "rank": 9,
+          "variantId": "ian:dagger",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 5.531
+        },
+        {
+          "rank": 10,
+          "variantId": "ian:dagger",
+          "core": "7100501",
+          "coreName": "응징",
+          "total": 5.523
+        }
+      ]
+    }
+  ]
+}

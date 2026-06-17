@@ -32,9 +32,10 @@ top10.forEach((r, i) => {
   const v2     = (scores.officialV2 ?? 0).toFixed(3);
   const match  = (scores.officialMatch ?? 0).toFixed(3);
   const total  = (r.total ?? 0).toFixed(3);
+  const core    = r.recommendedCore?.name ? ` core=${r.recommendedCore.name}` : "";
   console.log(
     `  ${String(i + 1).padStart(2)}. ${r.character.variantId.padEnd(22)} ` +
-    `total=${total}  officialV2=${v2}  officialMatch=${match}  tier=${r.character.tierBucket ?? "-"}`
+    `total=${total}  officialV2=${v2}  officialMatch=${match}${core}  tier=${r.character.tierBucket ?? "-"}`
   );
 });
 

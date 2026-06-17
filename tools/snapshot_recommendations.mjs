@@ -29,13 +29,24 @@ const TOP = 12;
 
 // 역할군이 골고루 섞이도록 대표 앵커를 선정 (탱/브루저/원딜/메이지/2픽)
 const SCENARIOS = [
+  // 0~1픽 (zero-diff sanity: teamShape/metric/composition은 팀<3에서 0)
   [],
   ["lenox:whip"],
   ["luke:bat"],
   ["nia:pistol"],
   ["rio:bow"],
   ["lenox:whip", "rio:bow"],
+  // 확장 2픽 (역할군 다양) — full vector 실험 관찰용
+  ["lenox:whip", "haze:assault_rifle"],
+  ["bianca:arcana", "adriana:throw"],
   ["luke:bat", "nia:pistol"],
+  ["kenneth:axe", "hyunwoo:glove"],
+  ["markus:axe", "hyunwoo:glove"],
+  ["celine:throw", "rio:bow"],
+  ["leni:pistol", "markus:axe"],
+  ["estelle:axe", "haze:assault_rifle"],
+  ["alonso:glove", "adriana:throw"],
+  ["laura:whip", "silvia:pistol"],
 ];
 
 function capture() {

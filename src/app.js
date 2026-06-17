@@ -31,7 +31,7 @@ import {
 } from "./combatProfiles.js";
 import { applyTranslations, getLanguage, hasStoredLanguage, setLanguage, t } from "./i18n/index.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
-import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.2";
+import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.3";
 
 const isElectron = /electron/i.test(navigator.userAgent);
 
@@ -905,11 +905,15 @@ function unionComboReason(combo, reasons) {
   const metricTags = teamMetricTags(combo);
   const backlineCount = combo.filter((character) => character.role === "ranged" || character.role === "mage").length;
   const meleeCount = combo.filter((character) => character.role === "bruiser" || character.role === "assassin" || character.role === "frontline").length;
+  const hasLeni = combo.some((character) => character.characterId === "leni");
   const hasInitiate = tags.has("initiate");
   const hasCc = tags.has("cc") || metricTags.includes(t("metric.tag.ccHigh"));
   const hasPeel = tags.has("peel") || tags.has("shield") || tags.has("healing") || metricTags.includes(t("metric.tag.utilityHigh"));
   const hasDamage = metricTags.includes(t("metric.tag.damageHigh"));
 
+  if (hasLeni && meleeCount >= 2 && (hasInitiate || hasCc || hasPeel)) {
+    return t("union.reason.leniSustain");
+  }
   if (backlineCount === 3 && (hasCc || hasPeel) && hasDamage) {
     return t("union.reason.backlineCC");
   }
@@ -937,6 +941,7 @@ function unionComboPlan(combo) {
   const meleeCount = combo.filter((character) => character.role === "bruiser" || character.role === "assassin" || character.role === "frontline").length;
   const tankCount = combo.filter((character) => character.role === "frontline").length;
   const supportCount = combo.filter((character) => character.role === "support").length;
+  const hasLeni = combo.some((character) => character.characterId === "leni");
   const hasLenox = combo.some((character) => character.characterId === "lenox");
   const hasCoreline = combo.some((character) => character.characterId === "coreline");
   const hasVanya = combo.some((character) => character.characterId === "vanya");
@@ -953,6 +958,9 @@ function unionComboPlan(combo) {
   const pokeThenEngage = combo.filter(isPokeThenEngage);
   const guardOnly = combo.filter(isGuardOnly);
 
+  if (hasLeni && meleeCount >= 2 && (hasInitiate || hasPeel || total.crowdControl >= 6)) {
+    return t("union.plan.leniFrontball");
+  }
   if (firstEngagers.length >= 1 && meleeCount >= 2) {
     return t("union.plan.meleeEngage", { first: t(`char.${firstEngagers[0].id}`) });
   }
