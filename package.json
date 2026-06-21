@@ -1,6 +1,6 @@
 {
   "name": "eternal-return-team-picker",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "private": true,
   "type": "module",
   "description": "Desktop app for Eternal Return team composition recommendations.",
@@ -13,6 +13,7 @@
     "collect-official-seeds": "node tools/official_seed_collector.mjs",
     "build-official-stats": "node tools/build_official_stats.mjs",
     "build-empirical-spectrum": "node tools/build_empirical_spectrum_report.mjs",
+    "build-pair-synergy-lift": "node tools/pair_synergy_lift.mjs --out src/pairSynergyLift.js",
     "export-ml-training-data": "node tools/export_ml_training_data.mjs",
     "discover-official-data": "node tools/discover_official_data_tables.mjs",
     "inspect-trait-mapping": "node tools/inspect_trait_mapping.mjs",

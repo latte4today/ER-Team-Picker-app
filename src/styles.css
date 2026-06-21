@@ -1490,7 +1490,8 @@ h2 {
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 8px;
   align-content: start;
-  align-items: start;
+  align-items: stretch;
+  grid-auto-rows: minmax(70px, auto);
   min-height: 0;
   overflow: auto;
   padding-right: 4px;
@@ -1499,6 +1500,7 @@ h2 {
 .rank-card {
   display: grid;
   gap: 8px;
+  min-height: 70px;
   padding: 8px;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -1510,8 +1512,22 @@ h2 {
   grid-template-columns: 24px 30px 36px minmax(0, 1fr);
   gap: 8px;
   align-items: center;
+  min-height: 52px;
   min-width: 0;
   cursor: pointer;
+}
+
+.rank-card-main {
+  align-self: center;
+  min-height: 40px;
+  align-content: center;
+}
+
+.rank-card small {
+  min-height: 28px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .rank-card-open,
@@ -2628,6 +2644,90 @@ h2 {
 .tutorial-start-button {
   width: auto;
   margin-top: 0;
+}
+
+.walkthrough-overlay[hidden] {
+  display: none;
+}
+
+.walkthrough-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 7000;
+  pointer-events: none;
+}
+
+.walkthrough-dim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: transparent;
+}
+
+.walkthrough-spotlight {
+  position: fixed;
+  z-index: 1;
+  border: 1px solid rgba(67, 194, 223, 0.96);
+  border-radius: 8px;
+  background: transparent;
+  box-shadow:
+    0 0 0 4px rgba(67, 194, 223, 0.22),
+    0 0 28px rgba(67, 194, 223, 0.42);
+  transition: left 80ms ease, top 80ms ease, width 80ms ease, height 80ms ease;
+}
+
+.walkthrough-spotlight[hidden] {
+  display: none;
+}
+
+.walkthrough-card {
+  position: fixed;
+  z-index: 2;
+  width: min(340px, calc(100vw - 28px));
+  padding: 16px;
+  border: 1px solid rgba(67, 194, 223, 0.48);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+  pointer-events: auto;
+}
+
+.walkthrough-card h2 {
+  margin: 4px 0 8px;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.walkthrough-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.walkthrough-actions {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.walkthrough-actions #walkthrough-skip {
+  justify-self: start;
+}
+
+.walkthrough-highlight {
+  position: relative;
+  border-color: rgba(67, 194, 223, 0.96) !important;
+}
+
+.side-tab.walkthrough-highlight,
+.settings-contact-button.walkthrough-highlight,
+.ghost-button.walkthrough-highlight,
+.manual-slot.walkthrough-highlight {
+  color: #f8fdff !important;
 }
 
 .contact-form {

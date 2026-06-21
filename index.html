@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ER Team Picker</title>
     <link rel="icon" href="assets/app-icon.png" type="image/png">
-    <link rel="stylesheet" href="src/styles.css?v=0.3.3">
+    <link rel="stylesheet" href="src/styles.css?v=0.3.4">
     <style>
       /* ── Splash screen ── */
       #splash-screen {
@@ -184,6 +184,7 @@
           <button class="mobile-more-button" id="mobile-more-button" type="button" aria-haspopup="true" aria-expanded="false" data-i18n="button.more"></button>
         </div>
         <div class="mobile-more-menu" id="mobile-more-menu" hidden>
+          <button class="mobile-more-item" type="button" id="more-tutorial" data-open-tutorial data-i18n="button.tutorial"></button>
           <button class="mobile-more-item" type="button" id="more-settings" data-i18n="button.settings"></button>
           <button class="mobile-more-item" type="button" id="more-support" data-i18n="button.support"></button>
           <button class="mobile-more-item" type="button" id="more-contact" data-i18n="button.contact"></button>
@@ -197,6 +198,7 @@
             <h1 data-i18n="topbar.title.setup"></h1>
           </div>
           <div class="topbar-actions">
+            <button class="ghost-button tutorial-topbar-button" type="button" data-open-tutorial data-i18n="button.tutorial"></button>
             <div class="summary-pill">
               <span id="selected-count">0</span>
               <span data-i18n="topbar.selectedSuffix"></span>
@@ -425,11 +427,30 @@
               <option value="demigod_eternity" data-i18n="tier.demigodEternity"></option>
             </select>
           </section>
+          <section class="settings-section">
+            <h3 class="settings-section-label" data-i18n="settings.tutorialSection"></h3>
+            <button class="settings-contact-button" type="button" data-open-tutorial data-i18n="button.tutorialReplay"></button>
+          </section>
         </div>
       </section>
     </div>
 
-    <script type="module" src="src/app.js?v=0.3.3"></script>
+    <div class="walkthrough-overlay" id="walkthrough-overlay" hidden>
+      <div class="walkthrough-dim" aria-hidden="true"></div>
+      <div class="walkthrough-spotlight" id="walkthrough-spotlight" aria-hidden="true"></div>
+      <section class="walkthrough-card" id="walkthrough-card" role="dialog" aria-modal="false" aria-labelledby="walkthrough-title">
+        <p class="section-kicker" id="walkthrough-step"></p>
+        <h2 id="walkthrough-title"></h2>
+        <p id="walkthrough-body"></p>
+        <div class="walkthrough-actions">
+          <button class="ghost-button" type="button" id="walkthrough-prev"></button>
+          <button class="ghost-button" type="button" id="walkthrough-skip"></button>
+          <button class="primary-button" type="button" id="walkthrough-next"></button>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="src/app.js?v=0.3.4"></script>
     <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>

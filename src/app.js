@@ -31,7 +31,7 @@ import {
 } from "./combatProfiles.js";
 import { applyTranslations, getLanguage, hasStoredLanguage, setLanguage, t } from "./i18n/index.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
-import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.3";
+import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.4";
 
 const isElectron = /electron/i.test(navigator.userAgent);
 
@@ -166,6 +166,15 @@ const languageGate = document.querySelector("#language-gate");
 const tierGuideModal = document.querySelector("#tier-guide-modal");
 const tierGuideSelect = document.querySelector("#tier-guide-select");
 const tierGuideApply = document.querySelector("#tier-guide-apply");
+const walkthroughOverlay = document.querySelector("#walkthrough-overlay");
+const walkthroughSpotlight = document.querySelector("#walkthrough-spotlight");
+const walkthroughCard = document.querySelector("#walkthrough-card");
+const walkthroughStep = document.querySelector("#walkthrough-step");
+const walkthroughTitle = document.querySelector("#walkthrough-title");
+const walkthroughBody = document.querySelector("#walkthrough-body");
+const walkthroughPrev = document.querySelector("#walkthrough-prev");
+const walkthroughSkip = document.querySelector("#walkthrough-skip");
+const walkthroughNext = document.querySelector("#walkthrough-next");
 
 let activeSlot = null;
 let recentlyAssignedVariantId = null;
@@ -188,6 +197,7 @@ function selectSlotCoreButton(button) {
   if (!Number.isInteger(slotIndex) || slotIndex < 0 || slotIndex >= slotCores.length) return;
   slotCores[slotIndex] = button.dataset.core;
   if (slotIndex === 0) matchFeedbackCore = null;
+  completeWalkthroughAction("trait");
   renderDetectedTeam();
   renderMatchFeedback();
   renderRecommendations();
@@ -195,6 +205,7 @@ function selectSlotCoreButton(button) {
 
 function selectMatchFeedbackCore(button) {
   matchFeedbackCore = button.dataset.core || null;
+  completeWalkthroughAction("trait");
   renderMatchFeedback();
 }
 
@@ -260,6 +271,7 @@ function baseFeedbackVariantId(id) {
 }
 const savedTheme = localStorage.getItem("er-team-picker-theme");
 const tierGuideStorageKey = "er-team-picker-tier-guide-seen";
+const walkthroughStorageKey = "er-team-picker-walkthrough-seen";
 const legacyPlayableStorageKey = "er-team-picker-playable-characters";
 const playableStorageKey = "er-team-picker-playable-variants";
 const presetStorageKey = "er-team-picker-playable-presets";
@@ -290,6 +302,86 @@ let _unionComboCache = [];
 const unionParticipatingPlayers = new Set([0, 1, 2]);
 const savedUnionRosters = JSON.parse(localStorage.getItem(unionStorageKey) ?? "[]");
 const unionRosters = Array.from({ length: 4 }, (_, index) => new Set(savedUnionRosters[index] ?? []));
+const walkthroughSteps = [
+  {
+    view: "setup",
+    selector: "#character-grid",
+    completeSelector: "#recommendations",
+    avoidSelector: "#character-grid",
+    completeAvoidSelector: "#recommendations",
+    title: "tutorial.step1.title",
+    body: "tutorial.step1.body",
+    isComplete: () => Boolean(slotAssignments[1] && slotAssignments[2]),
+  },
+  {
+    view: "setup",
+    selector: ".manual-slot.self-slot",
+    completeSelector: "#recommendations",
+    avoidSelector: ".manual-slot.self-slot",
+    completeAvoidSelector: "#recommendations",
+    title: "tutorial.step2.title",
+    body: "tutorial.step2.body",
+    isComplete: () => Boolean(slotAssignments[0]),
+  },
+  {
+    view: "setup",
+    selector: ".chosen-core-select, .detected-chip .chip-core-row",
+    avoidSelector: ".chosen-core-select, .detected-chip .chip-core-row",
+    placement: "top",
+    title: "tutorial.step3.title",
+    body: "tutorial.step3.body",
+    isComplete: () => !document.querySelector(".chosen-core-select, .detected-chip .chip-core-row") || walkthroughCompletedActions.has("trait"),
+  },
+  {
+    view: "setup",
+    selector: "#feedback-section",
+    avoidSelector: "#match-feedback [data-match-feedback]",
+    title: "tutorial.step4.title",
+    body: "tutorial.step4.body",
+    isComplete: () => !document.querySelector("#match-feedback [data-match-feedback]") || walkthroughCompletedActions.has("feedback"),
+  },
+  {
+    view: "setup",
+    selector: "#playable-mode-button",
+    avoidSelector: "#playable-mode-button",
+    title: "tutorial.step5.title",
+    body: "tutorial.step5.body",
+    isComplete: () => playableEditMode || walkthroughCompletedActions.has("playable"),
+  },
+  {
+    view: "setup",
+    selector: ".playable-presets",
+    avoidSelector: "#save-playable-preset-button",
+    title: "tutorial.step6.title",
+    body: "tutorial.step6.body",
+    isComplete: () => walkthroughCompletedActions.has("preset"),
+  },
+  {
+    view: "setup",
+    selector: "[data-view='recommendations']",
+    avoidSelector: "[data-view='recommendations']",
+    title: "tutorial.step7.title",
+    body: "tutorial.step7.body",
+    isComplete: () => activeView === "recommendations",
+  },
+  {
+    view: "recommendations",
+    selector: "[data-view='union']",
+    avoidSelector: "[data-view='union']",
+    title: "tutorial.step8.title",
+    body: "tutorial.step8.body",
+    isComplete: () => activeView === "union",
+  },
+];
+let walkthroughActive = false;
+let walkthroughIndex = 0;
+let walkthroughTarget = null;
+let walkthroughAvoidTarget = null;
+let walkthroughRefreshFrame = 0;
+const walkthroughCompletedActions = new Set();
+let characterRenderKey = "";
+let setupRecommendationRenderKey = "";
+let matchFeedbackRenderKey = "";
 
 applyTranslations();
 const splashEl = document.getElementById("splash-screen");
@@ -318,6 +410,7 @@ function closeTierGuideModal({ remember = true } = {}) {
   if (!tierGuideModal) return;
   tierGuideModal.hidden = true;
   if (remember) localStorage.setItem(tierGuideStorageKey, "true");
+  requestInitialWalkthrough();
 }
 
 function applyTierGuideSelection() {
@@ -328,6 +421,309 @@ function applyTierGuideSelection() {
   refreshRemoteFeedbackIfNeeded();
 }
 
+function clearWalkthroughHighlight() {
+  walkthroughTarget?.classList.remove("walkthrough-highlight");
+  walkthroughTarget = null;
+  walkthroughAvoidTarget = null;
+  if (walkthroughSpotlight) walkthroughSpotlight.hidden = true;
+}
+
+function positionWalkthroughSpotlight(target) {
+  if (!walkthroughSpotlight || !target) return;
+  const rect = target.getBoundingClientRect();
+  const pad = 3;
+  walkthroughSpotlight.hidden = false;
+  walkthroughSpotlight.style.left = `${Math.max(8, rect.left - pad)}px`;
+  walkthroughSpotlight.style.top = `${Math.max(8, rect.top - pad)}px`;
+  walkthroughSpotlight.style.width = `${Math.max(24, rect.width + pad * 2)}px`;
+  walkthroughSpotlight.style.height = `${Math.max(24, rect.height + pad * 2)}px`;
+}
+
+function positionWalkthroughCard(target, avoidTarget = target, placement = "auto") {
+  if (!walkthroughCard || !target) return;
+  positionWalkthroughSpotlight(target);
+  const rect = avoidTarget.getBoundingClientRect();
+  const margin = 14;
+  const cardWidth = Math.min(360, window.innerWidth - margin * 2);
+  walkthroughCard.style.width = `${cardWidth}px`;
+  const cardHeight = walkthroughCard.offsetHeight || 220;
+
+  const autoCandidates = [
+    { left: rect.right + margin, top: rect.top },
+    { left: rect.left - cardWidth - margin, top: rect.top },
+    { left: rect.left, top: rect.bottom + margin },
+    { left: rect.left, top: rect.top - cardHeight - margin },
+    { left: window.innerWidth - cardWidth - margin, top: Math.max(margin, window.innerHeight * 0.16) },
+    { left: margin, top: Math.max(margin, window.innerHeight * 0.16) },
+    { left: window.innerWidth - cardWidth - margin, top: margin },
+    { left: window.innerWidth - cardWidth - margin, top: window.innerHeight - cardHeight - margin },
+    { left: margin, top: margin },
+  ];
+  const topCandidates = [
+    { left: rect.left, top: rect.top - cardHeight - margin },
+    { left: rect.right - cardWidth, top: rect.top - cardHeight - margin },
+    { left: window.innerWidth - cardWidth - margin, top: margin },
+    { left: margin, top: margin },
+    { left: rect.right + margin, top: rect.top },
+    { left: rect.left - cardWidth - margin, top: rect.top },
+  ];
+  const candidates = (placement === "top" ? topCandidates : autoCandidates).map((candidate) => ({
+    left: Math.max(margin, Math.min(window.innerWidth - cardWidth - margin, candidate.left)),
+    top: Math.max(margin, Math.min(window.innerHeight - cardHeight - margin, candidate.top)),
+  }));
+
+  const overlapsTarget = (candidate) => (
+    candidate.left < rect.right &&
+    candidate.left + cardWidth > rect.left &&
+    candidate.top < rect.bottom &&
+    candidate.top + cardHeight > rect.top
+  );
+  const chosen = candidates.find((candidate) => !overlapsTarget(candidate)) ?? candidates[0];
+
+  walkthroughCard.style.left = `${chosen.left}px`;
+  walkthroughCard.style.top = `${chosen.top}px`;
+}
+
+function walkthroughTargetInfo(step) {
+  const completed = isWalkthroughStepComplete(step);
+  const selector = completed && step.completeSelector ? step.completeSelector : step.selector;
+  const avoidSelector = completed && step.completeAvoidSelector
+    ? step.completeAvoidSelector
+    : step.avoidSelector;
+  const target = document.querySelector(selector);
+  const avoidTarget = avoidSelector ? document.querySelector(avoidSelector) ?? target : target;
+  return { target, avoidTarget };
+}
+
+function positionWalkthroughCardFallback() {
+  if (!walkthroughCard) return;
+  const margin = 14;
+  const cardWidth = Math.min(360, window.innerWidth - margin * 2);
+  walkthroughCard.style.width = `${cardWidth}px`;
+  walkthroughCard.style.left = `${Math.max(margin, (window.innerWidth - cardWidth) / 2)}px`;
+  walkthroughCard.style.top = `${Math.max(margin, (window.innerHeight - (walkthroughCard.offsetHeight || 220)) / 2)}px`;
+}
+
+function isWalkthroughStepComplete(step = walkthroughSteps[walkthroughIndex]) {
+  return step?.isComplete ? Boolean(step.isComplete()) : true;
+}
+
+function updateWalkthroughControls() {
+  if (!walkthroughActive || !walkthroughNext || !walkthroughPrev) return;
+  walkthroughPrev.disabled = walkthroughIndex === 0;
+  walkthroughNext.disabled = !isWalkthroughStepComplete();
+}
+
+function completeWalkthroughAction(action) {
+  if (!walkthroughActive) return;
+  walkthroughCompletedActions.add(action);
+  updateWalkthroughControls();
+}
+
+function tutorialVariantWithCores() {
+  return characterVariants.find((variant) => topCoresForVariant(variant.variantId, tierSelect.value).length > 1)
+    ?? characterVariants.find((variant) => topCoresForVariant(variant.variantId, tierSelect.value).length > 0)
+    ?? characterVariants[0];
+}
+
+function tutorialDistinctVariants(count = 3) {
+  const chosen = [];
+  const seenCharacters = new Set();
+  characterVariants.forEach((variant) => {
+    if (chosen.length >= count || seenCharacters.has(variant.characterId)) return;
+    chosen.push(variant);
+    seenCharacters.add(variant.characterId);
+  });
+  return chosen;
+}
+
+function resetWalkthroughTeamState() {
+  selectedIds.clear();
+  slotAssignments.fill(null);
+  slotCores.fill(null);
+  chosenPickId = null;
+  matchFeedbackCore = null;
+  activeSlot = null;
+}
+
+function prepareWalkthroughStep(index) {
+  if (!walkthroughActive) return false;
+  if ([0, 1, 4, 5, 6].includes(index)) {
+    resetWalkthroughTeamState();
+  }
+
+  if (index === 0) {
+    playableEditMode = false;
+  }
+
+  if (index === 1) {
+    playableEditMode = false;
+    activeSlot = 0;
+  }
+
+  if (index === 2) {
+    const variant = characterById(slotAssignments[0]) ?? tutorialVariantWithCores();
+    resetWalkthroughTeamState();
+    slotAssignments[0] = variant?.variantId ?? null;
+    chosenPickId = variant?.variantId ?? null;
+    activeSlot = null;
+  }
+
+  if (index === 3) {
+    const variants = tutorialDistinctVariants(3);
+    resetWalkthroughTeamState();
+    slotAssignments[0] = variants[0]?.variantId ?? null;
+    slotAssignments[1] = variants[1]?.variantId ?? null;
+    slotAssignments[2] = variants[2]?.variantId ?? null;
+    chosenPickId = slotAssignments[0];
+    activeSlot = null;
+  }
+
+  if (index === 4) {
+    playableEditMode = false;
+  }
+
+  if (index === 5) {
+    playableEditMode = false;
+    if (presetNameInput && !presetNameInput.value.trim()) {
+      presetNameInput.value = t("preset.autoName", { n: playablePresets.length + 1 });
+    }
+  }
+
+  return true;
+}
+
+function refreshWalkthroughStep() {
+  walkthroughRefreshFrame = 0;
+  if (!walkthroughActive || !walkthroughOverlay) return;
+  const step = walkthroughSteps[walkthroughIndex];
+  clearWalkthroughHighlight();
+
+  walkthroughStep.textContent = t("tutorial.progress", {
+    current: walkthroughIndex + 1,
+    total: walkthroughSteps.length,
+  });
+  walkthroughTitle.textContent = t(step.title);
+  walkthroughBody.textContent = t(step.body);
+  walkthroughPrev.textContent = t("tutorial.prev");
+  walkthroughSkip.textContent = t("tutorial.skip");
+  walkthroughNext.textContent = walkthroughIndex === walkthroughSteps.length - 1
+    ? t("tutorial.finish")
+    : t("tutorial.next");
+  updateWalkthroughControls();
+
+  requestAnimationFrame(() => {
+    const { target, avoidTarget } = walkthroughTargetInfo(step);
+    if (!target) {
+      positionWalkthroughCardFallback();
+      updateWalkthroughControls();
+      return;
+    }
+    walkthroughTarget = target;
+    walkthroughAvoidTarget = avoidTarget;
+    target.classList.add("walkthrough-highlight");
+    const rect = target.getBoundingClientRect();
+    const outOfView = rect.top < 24 || rect.bottom > window.innerHeight - 24 || rect.left < 24 || rect.right > window.innerWidth - 24;
+    if (outOfView) {
+      target.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
+    }
+    requestAnimationFrame(() => {
+      positionWalkthroughCard(target, walkthroughAvoidTarget, step.placement);
+      updateWalkthroughControls();
+    });
+  });
+}
+
+function scheduleWalkthroughRefresh() {
+  if (!walkthroughActive || walkthroughRefreshFrame) return;
+  walkthroughRefreshFrame = requestAnimationFrame(refreshWalkthroughStep);
+}
+
+function showWalkthroughStep(index, { prepare = true } = {}) {
+  walkthroughIndex = Math.max(0, Math.min(walkthroughSteps.length - 1, index));
+  if (prepare) {
+    prepareWalkthroughStep(walkthroughIndex);
+  }
+  const step = walkthroughSteps[walkthroughIndex];
+  if (activeView !== step.view) {
+    setupRecommendationRenderKey = "";
+    matchFeedbackRenderKey = "";
+    activeView = step.view;
+    render();
+    return;
+  }
+  if (activeView === "setup") {
+    renderDetectedTeam();
+    renderManualSlots();
+    renderPlayableTools();
+    renderCharacters();
+    renderRecommendations();
+    renderMatchFeedback();
+  } else if (activeView === "recommendations") {
+    renderRecommendations();
+  } else if (activeView === "union") {
+    renderUnion();
+    ensureUnionPresetPanel();
+  }
+  scheduleWalkthroughRefresh();
+}
+
+function shouldShowInitialWalkthrough() {
+  return localStorage.getItem(walkthroughStorageKey) !== "true";
+}
+
+function requestInitialWalkthrough() {
+  if (!shouldShowInitialWalkthrough() || walkthroughActive) return;
+  if (languageGate && !languageGate.hidden) return;
+  if (tierGuideModal && !tierGuideModal.hidden) {
+    return;
+  }
+  window.setTimeout(() => {
+    if (!shouldShowInitialWalkthrough() || walkthroughActive) return;
+    if (languageGate && !languageGate.hidden) return;
+    if (tierGuideModal && !tierGuideModal.hidden) return;
+    openWalkthrough({ initial: true });
+  }, 300);
+}
+
+function openWalkthrough({ initial = false } = {}) {
+  if (!walkthroughOverlay) return;
+  walkthroughCompletedActions.clear();
+  closeMobileMore();
+  closeSettingsModal();
+  closeContactModal();
+  closeSupportModal();
+  closeTierGuideModal({ remember: false });
+  if (initial) localStorage.setItem(walkthroughStorageKey, "true");
+  walkthroughActive = true;
+  walkthroughOverlay.hidden = false;
+  showWalkthroughStep(0);
+}
+
+function closeWalkthrough() {
+  walkthroughActive = false;
+  localStorage.setItem(walkthroughStorageKey, "true");
+  clearWalkthroughHighlight();
+  if (walkthroughOverlay) walkthroughOverlay.hidden = true;
+}
+
+function nextWalkthroughStep({ force = false } = {}) {
+  if (!force && !isWalkthroughStepComplete()) return;
+  if (walkthroughIndex >= walkthroughSteps.length - 1) {
+    closeWalkthrough();
+    return;
+  }
+  showWalkthroughStep(walkthroughIndex + 1);
+}
+
+function previousWalkthroughStep() {
+  showWalkthroughStep(walkthroughIndex - 1);
+}
+
+function skipWalkthroughStep() {
+  nextWalkthroughStep({ force: true });
+}
+
 languageGate?.addEventListener("click", (event) => {
   const button = event.target.closest("[data-language-option]");
   if (!button) return;
@@ -336,6 +732,7 @@ languageGate?.addEventListener("click", (event) => {
   languageGate.hidden = true;
   render();
   openTierGuideModal();
+  requestInitialWalkthrough();
 });
 
 function characterName(characterIdOrVariantId) {
@@ -684,6 +1081,21 @@ function renderRoleFilters() {
 function renderCharacters({ preserveScroll = true } = {}) {
   const previousScrollTop = characterGrid.scrollTop;
   const query = searchInput.value.trim().toLowerCase();
+  const nextRenderKey = JSON.stringify({
+    language: getLanguage(),
+    role: activeRole,
+    query,
+    selected: [...selectedIds].sort(),
+    chosen: chosenPickId,
+    playableEditMode,
+    playable: [...playableVariantIds].sort(),
+    recent: recentlyAssignedVariantId,
+  });
+  if (nextRenderKey === characterRenderKey) {
+    if (!preserveScroll) characterGrid.scrollTop = 0;
+    return;
+  }
+  characterRenderKey = nextRenderKey;
   const filtered = characterVariants.filter((character) => {
     const matchesRole = activeRole === "all" || character.role === activeRole;
     const matchesQuery = matchesKoreanSearch(character.name, query) || character.id.toLowerCase().includes(query) || t(`char.${character.id}`).toLowerCase().includes(query);
@@ -1365,6 +1777,7 @@ function savePreset() {
   if (savedIndex >= 0) presetSelect.value = String(savedIndex);
   loadPresetButton.disabled = presetSelect.value === "";
   deletePresetButton.disabled = presetSelect.value === "";
+  completeWalkthroughAction("preset");
 }
 
 function loadPreset() {
@@ -1422,6 +1835,8 @@ function syncSelectedFromSlots() {
   recommendLimit = 5;
   fullTeamLimit = 5;
   _fullTeamState = { status: "idle", compositions: [], anchorId: null };
+  setupRecommendationRenderKey = "";
+  matchFeedbackRenderKey = "";
 }
 
 function assignSlot(slotIndex, id) {
@@ -2056,6 +2471,8 @@ async function renderFullTeamRecommendations() {
 
   // Re-use cache: same anchor already computing or done — just re-render
   if (_fullTeamState.anchorId === anchorId && _fullTeamState.status !== "idle") {
+    if (_fullTeamState.status === "done" && recommendations.querySelector(".full-team-section-header")) return;
+    if (_fullTeamState.status === "computing") return;
     _renderFullTeamCards();
     return;
   }
@@ -2086,7 +2503,6 @@ async function renderFullTeamRecommendations() {
       });
     }
     _fullTeamState.compositions.sort((a, b) => b.combinedScore - a.combinedScore);
-    _renderFullTeamCards(); // stream results as they arrive
   }
 
   _fullTeamState.status = "done";
@@ -2185,9 +2601,25 @@ function _renderFullTeamCards() {
 
 function renderRecommendations() {
   if (activeView === "recommendations") {
+    setupRecommendationRenderKey = "";
     renderHomeDashboard();
     return;
   }
+
+  const recommendationKey = JSON.stringify({
+    language: getLanguage(),
+    selected: [...selectedIds].sort(),
+    chosen: chosenPickId,
+    tier: tierSelect.value,
+    playable: [...playableVariantIds].sort(),
+    cores: selectedCoresMap(),
+    matchCore: matchFeedbackCore,
+    limit: recommendLimit,
+    feedbackBuckets: Object.keys(remoteFeedback ?? {}).length,
+    popularCount: popularFeedback.length,
+  });
+  if (recommendationKey === setupRecommendationRenderKey && recommendations.childElementCount > 0) return;
+  setupRecommendationRenderKey = recommendationKey;
 
   if (selectedIds.size === 0) {
     if (chosenPickId) {
@@ -2264,6 +2696,21 @@ function renderRecommendationsPreservingRankScroll() {
 }
 
 function renderMatchFeedback() {
+  const feedbackRenderKey = JSON.stringify({
+    language: getLanguage(),
+    chosen: chosenPickId,
+    selected: [...selectedIds].sort(),
+    slotAssignments,
+    slotCores,
+    matchFeedbackCore,
+    tier: tierSelect.value,
+    submitted: submittedFeedbackKeys.size,
+    feedbackBuckets: Object.keys(remoteFeedback ?? {}).length,
+    popularCount: popularFeedback.length,
+  });
+  if (feedbackRenderKey === matchFeedbackRenderKey && matchFeedback.childElementCount > 0) return;
+  matchFeedbackRenderKey = feedbackRenderKey;
+
   const chosen = characterVariants.find((character) => character.variantId === chosenPickId);
   if (!chosen) {
     matchFeedback.dataset.needsRating = "false";
@@ -2432,6 +2879,8 @@ async function refreshRemoteFeedback() {
   } finally {
     isRefreshingRemote = false;
   }
+  setupRecommendationRenderKey = "";
+  matchFeedbackRenderKey = "";
   if (activeView !== "recommendations") {
     renderRecommendations();
   }
@@ -2471,6 +2920,8 @@ async function refreshPopularFeedback() {
     isRefreshingPopular = false;
     popularFeedbackLoaded = true;
   }
+  setupRecommendationRenderKey = "";
+  matchFeedbackRenderKey = "";
   if (selectedIds.size === 0) renderRecommendations();
 }
 
@@ -2506,6 +2957,7 @@ function render() {
   }
   refreshRemoteFeedbackIfNeeded();
   refreshPopularFeedback();
+  scheduleWalkthroughRefresh();
 }
 
 function renderManualSlots() {
@@ -2673,6 +3125,10 @@ clearButton.addEventListener("click", () => {
 
 sideTabs.forEach((button) => {
   button.addEventListener("click", () => {
+    if (activeView !== button.dataset.view) {
+      setupRecommendationRenderKey = "";
+      matchFeedbackRenderKey = "";
+    }
     activeView = button.dataset.view;
     render();
   });
@@ -2680,6 +3136,17 @@ sideTabs.forEach((button) => {
 
 settingsOpenButton.addEventListener("click", openSettingsModal);
 updateCheckButton.addEventListener("click", () => triggerErUpdate({ manual: true }));
+document.querySelectorAll("[data-open-tutorial]").forEach((button) => {
+  button.addEventListener("click", openWalkthrough);
+});
+walkthroughPrev?.addEventListener("click", previousWalkthroughStep);
+walkthroughSkip?.addEventListener("click", skipWalkthroughStep);
+walkthroughNext?.addEventListener("click", nextWalkthroughStep);
+window.addEventListener("resize", () => {
+  if (walkthroughActive && walkthroughTarget) {
+    positionWalkthroughCard(walkthroughTarget, walkthroughAvoidTarget ?? walkthroughTarget, walkthroughSteps[walkthroughIndex]?.placement);
+  }
+});
 
 tierGuideModal?.addEventListener("click", (event) => {
   if (event.target.closest("[data-tier-guide-close]")) closeTierGuideModal();
@@ -2764,7 +3231,8 @@ contactModal.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
-    if (tierGuideModal && !tierGuideModal.hidden) closeTierGuideModal();
+    if (walkthroughActive) closeWalkthrough();
+    else if (tierGuideModal && !tierGuideModal.hidden) closeTierGuideModal();
     else if (supportModal && !supportModal.hidden) closeSupportModal();
     else if (!contactModal.hidden) closeContactModal();
     else if (!settingsModal.hidden) closeSettingsModal();
@@ -2806,6 +3274,7 @@ contactForm.addEventListener("submit", (event) => {
 searchInput.addEventListener("input", () => renderCharacters({ preserveScroll: false }));
 playableModeButton.addEventListener("click", () => {
   playableEditMode = !playableEditMode;
+  if (playableEditMode) completeWalkthroughAction("playable");
   renderPlayableTools();
   renderCharacters();
 });
@@ -2940,6 +3409,18 @@ matchFeedback.addEventListener("click", (event) => {
 
   const button = event.target.closest("[data-match-feedback]");
   if (!button || !chosenPickId) return;
+
+  if (walkthroughActive) {
+    event.preventDefault();
+    event.stopPropagation();
+    walkthroughCompletedActions.add("feedback");
+    button.classList.add(Number(button.dataset.matchFeedback) > 0 ? "feedback-pop-like" : "feedback-pop-dislike");
+    updateWalkthroughControls();
+    window.setTimeout(() => {
+      button.classList.remove("feedback-pop-like", "feedback-pop-dislike");
+    }, 420);
+    return;
+  }
 
   const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
   const chosenFeedbackId = feedbackCandidateIdForMatchFeedback();
@@ -3315,7 +3796,10 @@ if (recoveredFeedbackCount > 0) {
 setupErUpdater();
 render();
 if (hasStoredLanguage()) {
-  window.setTimeout(openTierGuideModal, 500);
+  window.setTimeout(() => {
+    openTierGuideModal();
+    requestInitialWalkthrough();
+  }, 500);
 }
 if (isElectron) {
   setTimeout(checkForUpdatesOnStartup, 1200);

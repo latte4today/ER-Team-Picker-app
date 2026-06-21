@@ -14,13 +14,19 @@ const _store = {};
 globalThis.localStorage = { getItem:(k)=>_store[k]??null, setItem:(k,v)=>{_store[k]=String(v);}, removeItem:(k)=>{delete _store[k];} };
 globalThis.document = { documentElement: { lang: "ko" } };
 
-import { recommend, recommendationArchetype, DIVERSITY_CONFIG } from "../src/recommender.js";
+import { recommend, recommendationArchetype, DIVERSITY_CONFIG, VECTOR_SCORING_FLAGS } from "../src/recommender.js";
 import { characterVariants } from "../src/data.js";
 
 const argv = process.argv.slice(2);
 const opt = (n, d) => { const i = argv.indexOf(n); return i >= 0 ? argv[i + 1] : d; };
 const TIER = opt("--tier", "all");
 const TOP = Number(opt("--top", 12));
+const LEAN = argv.includes("--lean");
+
+if (LEAN) {
+  VECTOR_SCORING_FLAGS.useLeanScoring = true;
+  VECTOR_SCORING_FLAGS.usePairSynergyLift = true;
+}
 
 const SCENARIOS = [
   ["kenneth:axe", "hyunwoo:glove"],

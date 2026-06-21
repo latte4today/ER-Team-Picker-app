@@ -22,10 +22,16 @@ globalThis.document = { documentElement: { lang: "ko" } };
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { recommend } from "../src/recommender.js";
+import { recommend, VECTOR_SCORING_FLAGS } from "../src/recommender.js";
 
 const TIER = "all";
 const TOP = 12;
+const LEAN = process.argv.includes("--lean");
+
+if (LEAN) {
+  VECTOR_SCORING_FLAGS.useLeanScoring = true;
+  VECTOR_SCORING_FLAGS.usePairSynergyLift = true;
+}
 
 // 역할군이 골고루 섞이도록 대표 앵커를 선정 (탱/브루저/원딜/메이지/2픽)
 const SCENARIOS = [

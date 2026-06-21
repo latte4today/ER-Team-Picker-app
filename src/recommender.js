@@ -1,5 +1,6 @@
 import { characterVariants, roleNames, synergyPairs } from "./data.js";
 import { getFeedbackScore, loadFeedback } from "./feedback.js";
+import { officialPairSynergyLift } from "./pairSynergyLift.js";
 import {
   experimentTiers,
   oneTrickWeight,
@@ -91,6 +92,7 @@ export function updateOfficialStats(remote) {
   _coreMetricAverageCache = new Map();
   _effectiveCoreProfileCache = new Map();
   _variantCoreBaselineCache = new Map();
+  _teamShapeCache = new Map();
 }
 import { tournamentCompositions } from "./tournamentMeta.js";
 import {
@@ -106,6 +108,29 @@ import {
 } from "./combatProfiles.js";
 
 const requiredTags = ["initiate", "focus", "peel", "cc", "sustained", "poke", "burst"];
+
+// Character lookup maps (O(1)) — replaces repeated characterVariants.find() in hot paths.
+const _variantById = new Map();
+const _firstByCharacterId = new Map();
+for (const _c of characterVariants) {
+  if (!_variantById.has(_c.variantId)) _variantById.set(_c.variantId, _c);
+  if (!_firstByCharacterId.has(_c.characterId)) _firstByCharacterId.set(_c.characterId, _c);
+}
+
+// Stable per-object ids for memo keys. Objects from data.js and the effective-core cache are
+// reused references, so identity is stable within a recommend() pass.
+let _objIdSeq = 0;
+const _objIdMap = new WeakMap();
+function _objId(o) {
+  if (o === null || typeof o !== "object") return "p" + String(o);
+  let id = _objIdMap.get(o);
+  if (id === undefined) { id = ++_objIdSeq; _objIdMap.set(o, id); }
+  return id;
+}
+
+// teamShape memo — same (effective) team is scored by ~13 functions per candidate.
+// Cleared in updateOfficialStats (effective objects change); capped to bound memory.
+let _teamShapeCache = new Map();
 
 // Pre-built indexes for O(1) lookup instead of O(n) filter on every evaluateCandidate call
 const _rankerCompositionByCandidate = new Map();
@@ -126,7 +151,7 @@ for (const row of tournamentCompositions) {
 // Pre-resolved tournament row teams for tournamentArchetypeScore (avoids repeated .find calls)
 const _tournamentCompositionTeams = tournamentCompositions.map((row) => ({
   row,
-  team: (row.members ?? []).map((id) => characterVariants.find((c) => c.characterId === id)).filter(Boolean),
+  team: (row.members ?? []).map((id) => _firstByCharacterId.get(id)).filter(Boolean),
   memberSet: new Set(row.members ?? []),
 }));
 
@@ -175,6 +200,7 @@ const tagLabels = {
 
 const counterEngageAnchorIds = new Set(["lenox"]);
 const lateButCanStartIds = new Set(["fenrir"]);
+const fixedBruiserIdentityIds = new Set(["yuki"]);
 const lateEngageIds = new Set(["vanya"]);
 const needsEngageHelpIds = new Set(["jackie", "shoichi"]);
 const meleeEngageHelperIds = new Set(["coreline"]);
@@ -570,6 +596,16 @@ function isLongPokeCharacter(character) {
 }
 
 function teamShape(team) {
+  const key = team.map(_objId).sort().join(",");
+  const cached = _teamShapeCache.get(key);
+  if (cached) return cached;
+  const shape = _computeTeamShape(team);
+  if (_teamShapeCache.size > 20000) _teamShapeCache = new Map();
+  _teamShapeCache.set(key, shape);
+  return shape;
+}
+
+function _computeTeamShape(team) {
   return {
     tanks: team.filter(isTank).length,
     melee: team.filter(isMeleeDealer).length,
@@ -660,10 +696,20 @@ const VECTOR_SCORING_FLAGS = {
   useVectorCompositionGuideScore: true,
   useEmpiricalVectorBlend: true,
   empiricalVectorBlend: 0.70,
+  usePairSynergyLift: true,
+  useLeanScoring: true,
   replaceBooleanPredicates: false,
 };
 
 const VECTOR_AXES = ["frontline", "damage", "durability", "cc", "support", "tempo"];
+const LEAN_SCORING_CONFIG = {
+  strengthWeight: 1.22,
+  pairWeight: 0.30,
+  heuristicWeight: 0.10,
+  heuristicCap: 0.38,
+  fitCap: 0.65,
+  difficultyWeight: 0.03,
+};
 const VECTOR_CORE_BLEND = 0.30; // corePlaystyle 혼합 가중치 (역할 시드를 압도하지 않게)
 
 // 역할 시드 벡터 (각 축 0..~1). 튜닝 대상.
@@ -955,12 +1001,33 @@ function pairKey(a, b) {
   return [a, b].sort().join(":");
 }
 
+function pairLiftKey(a, b) {
+  return [a, b].sort().join("|");
+}
+
+function evidencePairScore(a, b) {
+  const row = officialPairSynergyLift[pairLiftKey(a, b)];
+  if (!row) return 0;
+  const sampleConfidence = clamp(Math.log10((row.n ?? 0) + 1) / Math.log10(260 + 1), 0.55, 1);
+  const zConfidence = clamp((Math.abs(row.z ?? 0) - 2.8) / 1.8, 0.45, 1);
+  return clamp((row.lift ?? 0) * 1.15 * sampleConfidence * zConfidence, -0.9, 1.0);
+}
+
+function manualPairFallbackScore(a, b) {
+  const raw = (synergyPairs[pairKey(a, b)] ?? 6.2) - 6.2;
+  return clamp(raw * 0.25, -0.25, 0.65);
+}
+
 function pairScore(candidate, selected) {
   if (selected.length === 0) return 0;
   const total = selected.reduce((sum, teammate) => {
-    return sum + (synergyPairs[pairKey(candidate.characterId, teammate.characterId)] ?? 6.2);
+    const evidence = VECTOR_SCORING_FLAGS.usePairSynergyLift
+      ? evidencePairScore(candidate.characterId, teammate.characterId)
+      : 0;
+    const fallback = manualPairFallbackScore(candidate.characterId, teammate.characterId);
+    return sum + (evidence || fallback);
   }, 0);
-  return total / selected.length - 6.2;
+  return total / selected.length;
 }
 
 function coverageScore(candidate, selected) {
@@ -1445,8 +1512,7 @@ function officialPairStat(pairStats, a, b) {
 }
 
 function officialCharacterForStatId(statId) {
-  return characterVariants.find((item) => item.variantId === statId) ??
-    characterVariants.find((item) => item.characterId === statId);
+  return _variantById.get(statId) ?? _firstByCharacterId.get(statId);
 }
 
 function officialMetaDamageGroup(character) {
@@ -1699,7 +1765,7 @@ function tournamentCompositionScore(candidate, selected) {
 }
 
 function characterByCharacterId(characterId) {
-  return characterVariants.find((character) => character.characterId === characterId);
+  return _firstByCharacterId.get(characterId);
 }
 
 function metricSimilarityScore(team, referenceTeam) {
@@ -1790,6 +1856,76 @@ function combinedMetaScore(candidate, tier) {
   const officialWeight = clamp(officialConfidence, 0, 0.78);
   const legacyWeight = 0.58 - officialWeight * 0.42;
   return clamp(officialScore * officialWeight + legacyScore * legacyWeight, -1.1, 1.25);
+}
+
+function leanStrengthScore(candidate, tier) {
+  const stats = officialCandidateStats(candidate, tier);
+  const averages = officialTierAverages(tier, "all");
+  const officialConfidence = officialStatConfidence(stats, 260);
+  const official = stats ? (
+    ((stats.top3Rate ?? averages.top3Rate) - averages.top3Rate) * 7.2 +
+    ((stats.winRate ?? averages.winRate) - averages.winRate) * 4.8 +
+    ((averages.avgPlacement ?? 4.5) - (stats.avgPlacement ?? averages.avgPlacement)) * 0.82
+  ) * officialConfidence : 0;
+
+  const legacy = legacyDakMetaScore(candidate, tier) * (1 - officialConfidence) * 0.55;
+  return clamp(official + legacy, -2.8, 3.2);
+}
+
+function leanPairSynergyTerm(candidate, selected) {
+  if (selected.length === 0) return 0;
+  const total = selected.reduce((sum, teammate) => {
+    return sum + evidencePairScore(candidate.characterId, teammate.characterId);
+  }, 0);
+  return total / selected.length;
+}
+
+function leanHeuristicSum(scores) {
+  return (
+    scores.metricBalance +
+    scores.killPressure +
+    scores.weaponBalance +
+    scores.teamShape +
+    scores.conflict +
+    scores.compositionGuide +
+    scores.officialCoreFit * 0.5 +
+    scores.officialCoreRoleShift * 0.5
+  );
+}
+
+function leanFitTerm(scores) {
+  return clamp(
+    scores.roleBalance * 0.24 +
+    scores.coverage * 0.18 +
+    scores.frontDamage * 0.14 +
+    scores.backlineDamage * 0.14 +
+    scores.teamDamageBudget * 0.16 +
+    scores.conflict * 0.12 +
+    scores.compositionGuide * 0.08,
+    -LEAN_SCORING_CONFIG.fitCap,
+    LEAN_SCORING_CONFIG.fitCap,
+  );
+}
+
+function leanCandidateTotal(candidate, selected, tier, scores, feedbackScore) {
+  const config = LEAN_SCORING_CONFIG;
+  const strengthScore = leanStrengthScore(candidate, tier);
+  const pairTerm = leanPairSynergyTerm(candidate, selected);
+  const fitTerm = selected.length > 0 ? leanFitTerm(scores) : 0;
+  const heuristicTerm = clamp(
+    leanHeuristicSum(scores) * config.heuristicWeight,
+    -config.heuristicCap,
+    config.heuristicCap,
+  );
+  return (
+    strengthScore * config.strengthWeight +
+    pairTerm * config.pairWeight +
+    fitTerm +
+    heuristicTerm +
+    scores.relationship +
+    feedbackScore -
+    candidate.difficulty * config.difficultyWeight
+  );
 }
 
 function feedbackSentiment(likes = 0, dislikes = 0) {
@@ -1924,8 +2060,9 @@ function candidateSpecificPenaltyReasons(candidate, selected, scores) {
   return reasons;
 }
 
-function explain(candidate, selected, scores) {
+function explain(candidate, selected, scores, explainTier = "all") {
   const reasons = [];
+  const penaltyReasons = candidateSpecificPenaltyReasons(candidate, selected, scores);
   const selectedRoles = selected.map((character) => character.role);
   const selectedDamage = selected.map((character) => character.damage);
   const currentTags = new Set(selected.flatMap((character) => character.tags));
@@ -1934,7 +2071,35 @@ function explain(candidate, selected, scores) {
   const identityDetail = isBacklineDealer(candidate) ? ` / ${damageLabel(candidate)}` : "";
   const identity = t("recommender.reason.identity", { nameSubject: subjectName(candidate), name: characterName(candidate), weapon: weaponLabel(candidate), role: roleLabel(candidate), detail: identityDetail });
   const signature = signatureReason(candidate);
-  reasons.push(...candidateSpecificPenaltyReasons(candidate, selected, scores));
+
+  // Lean 모드: 검증된 캐릭터 강함과 증거 기반 페어 시너지/안티시너지가 순위를 지배하므로,
+  // 그 근거(실제 수치·팀원 지목)를 먼저 노출해 "왜 추천됐는가"가 실제 순위 근거와 일치하게 한다.
+  if (VECTOR_SCORING_FLAGS.useLeanScoring) {
+    const ocs = officialCandidateStats(candidate, explainTier);
+    if (ocs && (scores.dakStatistics >= 0.6 || scores.officialMatch >= 0.5 || scores.meta >= 0.65)) {
+      reasons.push(t("recommender.reason.officialStrongStats", {
+        name: characterName(candidate),
+        winRate: ((ocs.winRate ?? 0) * 100).toFixed(1),
+        top3Rate: ((ocs.top3Rate ?? 0) * 100).toFixed(1),
+      }));
+    }
+    if (selected.length > 0) {
+      let best = null, worst = null;
+      for (const mate of selected) {
+        const v = evidencePairScore(candidate.characterId, mate.characterId);
+        if (v === 0) continue;
+        if (!best || v > best.v) best = { mate, v };
+        if (!worst || v < worst.v) worst = { mate, v };
+      }
+      if (best && best.v >= 0.15) {
+        const raw = officialPairSynergyLift[pairLiftKey(candidate.characterId, best.mate.characterId)]?.lift ?? 0;
+        reasons.push(t("recommender.reason.evidenceSynergy", { name: characterName(candidate), mate: characterName(best.mate), lift: Math.abs(raw).toFixed(2) }));
+      }
+      if (worst && worst.v <= -0.15) {
+        reasons.push(t("recommender.reason.antiSynergyPair", { name: characterName(candidate), mate: characterName(worst.mate) }));
+      }
+    }
+  }
 
   if (scores.teamShape <= -2.2) {
     const team = [...selected, candidate];
@@ -1953,7 +2118,7 @@ function explain(candidate, selected, scores) {
     }
   }
 
-  if (scores.teamDamageBudget <= -1.4) {
+  if (scores.teamDamageBudget <= -1.4 && isLowDamageContributor(candidate)) {
     const shape = teamShape([...selected, candidate]);
     if (shape.highDamageContributors === 0) {
       reasons.push(t("recommender.reason.allLowDamage"));
@@ -2022,6 +2187,7 @@ function explain(candidate, selected, scores) {
   }
 
   if (signature) reasons.push(signature);
+  reasons.push(...penaltyReasons);
 
   if (scores.roleBalance >= 1.5 && reasons.length < 1) {
     if (["frontline", "bruiser"].includes(candidate.role) && !selectedRoles.includes("frontline")) {
@@ -2105,12 +2271,12 @@ function explain(candidate, selected, scores) {
   if (reasons.length === 0 && candidate.tags.includes("sustained")) reasons.push(t("recommender.reason.sustainedFallback", { nameSubject: subjectName(candidate), name: characterName(candidate), role: damageLabel(candidate) }));
   if (reasons.length === 0 && candidate.tags.includes("poke")) reasons.push(t("recommender.reason.pokeFallback", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   if (reasons.length === 0) reasons.push(t("recommender.reason.genericFallback", { identity }));
-  return reasons.slice(0, 3);
+  return [...new Set(reasons)].slice(0, 3); // 중복 근거 제거 후 상위 3개
 }
 
 function selectedCharactersFromIds(selectedIds) {
   return selectedIds
-    .map((id) => characterVariants.find((character) => character.variantId === id))
+    .map((id) => _variantById.get(id))
     .filter(Boolean);
 }
 
@@ -2244,7 +2410,11 @@ function inferredCoreRoleOverride(character, row, profile, tier) {
   // from being read as a damage bruiser just because its damage row edged above the character's
   // own average. Characters whose combat identity is fixed (guard-only anchors, counter-only
   // ranged, cannot-start-engage) never reclassify; their core only tunes damage/utility tags.
-  const identityFixed = isGuardOnly(character) || isCounterOnlyRanged(character) || cannotStartEngage(character);
+  const identityFixed =
+    fixedBruiserIdentityIds.has(character.characterId) ||
+    isGuardOnly(character) ||
+    isCounterOnlyRanged(character) ||
+    cannotStartEngage(character);
   // Compare the core's offensive vs defensive mass RELATIVE to itself rather than against an
   // absolute cut. Cores like 응징 sit near-neutral (offense ≈ defense), so they force neither
   // direction — the character's own match stats (strong*Evidence below) decide. Only clearly
@@ -2656,10 +2826,10 @@ function buildCandidateInvariantContext(selectedIds, selected, candidate, tier, 
 
 export function evaluateCandidate(selectedIds, candidateId, tier = "all", remoteFeedback = {}, relationshipRows = [], cores = {}, invariantContext = null) {
   const selected = invariantContext?.selected ?? selectedCharactersFromIds(selectedIds);
-  const candidate = invariantContext?.candidate ?? characterVariants.find((character) => character.variantId === candidateId);
+  const candidate = invariantContext?.candidate ?? _variantById.get(candidateId);
   if (!candidate) return undefined;
   const candidateCoreRow = coreRowFor(candidate.variantId, cores[candidate.variantId], tier);
-  const effectiveSelected = effectiveTeamFor(selected, cores, tier);
+  const effectiveSelected = invariantContext?.effectiveSelected ?? effectiveTeamFor(selected, cores, tier);
   const effectiveCandidate = applyCoreRoleProfile(candidate, cores[candidate.variantId], tier);
   const invariantScores = invariantContext?.scores ?? buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows).scores;
   const candidateFeedbackId = feedbackCandidateId(candidate, candidateCoreRow);
@@ -2685,7 +2855,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     officialCoreFit: officialCoreFitScore(effectiveCandidate, effectiveSelected, tier, cores),
     officialCoreRoleShift: officialCoreRoleShiftScore(effectiveCandidate, effectiveSelected, tier, cores),
   };
-  const total =
+  const legacyTotal =
     scores.synergy * 1.6 +
     scores.coverage +
     scores.roleBalance +
@@ -2710,6 +2880,9 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.relationship -
     candidate.difficulty * 0.08 +
     feedbackScore;
+  const total = VECTOR_SCORING_FLAGS.useLeanScoring
+    ? leanCandidateTotal(effectiveCandidate, effectiveSelected, tier, scores, feedbackScore)
+    : legacyTotal;
 
   return {
     character: candidate,
@@ -2724,7 +2897,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
           games: candidateCoreRow.games ?? 0,
         }
       : null,
-    reasons: explain(effectiveCandidate, effectiveSelected, scores),
+    reasons: explain(effectiveCandidate, effectiveSelected, scores, tier),
   };
 }
 
@@ -2830,6 +3003,7 @@ const DIVERSITY_CONFIG = {
   enabled: true,
   top6PerArchetype: 2,          // Top6 내 동일 archetype 최대 2
   top12PerArchetype: 3,         // Top12 내 동일 archetype 최대 3
+  top12PerVariant: 1,           // Top12 내 동일 variant는 우선 1개만 노출
   maxScoreDropToPromote: 1.5,   // 다양성으로 승급 시 허용하는 최대 점수차(밀려나는 후보 대비)
 };
 
@@ -2866,31 +3040,36 @@ function recommendationArchetype(character) {
 // 적합한 승급 후보가 없으면(=다 너무 낮으면) 원래 후보를 그대로 둠(억지 승급 금지).
 function diversifyRecommendations(sortedResults, config = DIVERSITY_CONFIG) {
   if (!config?.enabled || sortedResults.length <= 2) return sortedResults;
-  const { top6PerArchetype, top12PerArchetype, maxScoreDropToPromote } = config;
+  const { top6PerArchetype, top12PerArchetype, top12PerVariant, maxScoreDropToPromote } = config;
   const capAt = (pos) => (pos < 6 ? top6PerArchetype : pos < 12 ? top12PerArchetype : Infinity);
+  const variantCapAt = (pos) => (pos < 12 ? top12PerVariant : Infinity);
   const arche = (r) => recommendationArchetype(r.character);
+  const variant = (r) => r.character.variantId;
 
   const pool = [...sortedResults];
   const result = [];
   const counts = {};
+  const variantCounts = {};
 
   while (pool.length) {
     const pos = result.length;
     const cap = capAt(pos);
+    const variantCap = variantCapAt(pos);
     const head = pool[0];
     let pickIdx = 0;
 
-    if ((counts[arche(head)] ?? 0) >= cap) {
-      // head 의 archetype 이 cap 초과 → 점수차 한도 내에서 다른 archetype 후보 탐색
+    if ((counts[arche(head)] ?? 0) >= cap || (variantCounts[variant(head)] ?? 0) >= variantCap) {
+      // head 의 archetype/variant 가 cap 초과 → 점수차 한도 내에서 다른 후보 탐색
       for (let i = 1; i < pool.length; i++) {
         if (head.total - pool[i].total > maxScoreDropToPromote) break; // 더 내려가도 다 너무 낮음
-        if ((counts[arche(pool[i])] ?? 0) < cap) { pickIdx = i; break; }
+        if ((counts[arche(pool[i])] ?? 0) < cap && (variantCounts[variant(pool[i])] ?? 0) < variantCap) { pickIdx = i; break; }
       }
       // 적합한 대안 없으면 pickIdx 0 유지(원래 후보 채택 — 억지로 끌어올리지 않음)
     }
 
     const [picked] = pool.splice(pickIdx, 1);
     counts[arche(picked)] = (counts[arche(picked)] ?? 0) + 1;
+    variantCounts[variant(picked)] = (variantCounts[variant(picked)] ?? 0) + 1;
     result.push(picked);
   }
   return result;
@@ -2905,12 +3084,17 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   const candidatePool = candidateCharacterIds?.length ? new Set(candidateCharacterIds) : undefined;
   const candidateUsesVariants = candidateCharacterIds?.some((id) => String(id).includes(":")) ?? false;
 
+  // Selected team's effective state is invariant across all candidates/cores in this pass.
+  // Compute once and reuse instead of recomputing inside every evaluateCandidate call.
+  const effectiveSelected = effectiveTeamFor(selected, cores, tier);
+
   const scored = characterVariants
     .filter((candidate) => !selectedCharacters.has(candidate.characterId))
     .filter((candidate) => !candidatePool || candidatePool.has(candidateUsesVariants ? candidate.variantId : candidate.characterId))
     .flatMap((candidate) => {
       const options = candidateCoreOptions(candidate.variantId, tier, cores);
       const invariantContext = buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows);
+      invariantContext.effectiveSelected = effectiveSelected;
       return options
         .map((core) => evaluateCandidate(
           selectedIds,
