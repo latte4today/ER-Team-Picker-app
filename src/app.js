@@ -267,7 +267,7 @@ function matchFeedbackCoresMap() {
 }
 
 function baseFeedbackVariantId(id) {
-  return String(id ?? "").trim().split("#")[0];
+  return String(id ?? "").trim().split("#")[0].split("@")[0];
 }
 const savedTheme = localStorage.getItem("er-team-picker-theme");
 const tierGuideStorageKey = "er-team-picker-tier-guide-seen";
@@ -741,8 +741,9 @@ function characterName(characterIdOrVariantId) {
 }
 
 function characterById(characterIdOrVariantId) {
-  return characterVariants.find((character) => character.variantId === characterIdOrVariantId) ??
-    characterVariants.find((character) => character.characterId === characterIdOrVariantId);
+  const normalized = baseFeedbackVariantId(characterIdOrVariantId);
+  return characterVariants.find((character) => character.variantId === normalized) ??
+    characterVariants.find((character) => character.characterId === normalized);
 }
 
 function characterRolesById(characterIdOrVariantId) {
@@ -2017,9 +2018,9 @@ function userFeedbackBonus(likes = 0, dislikes = 0, totalOverride = undefined) {
 
 function compositionMembers(row) {
   if (!row) return [];
-  if (row.teamKey && row.candidateId) return [...row.teamKey.split("+"), row.candidateId].filter(Boolean);
-  if (row.team_key && row.candidate_id) return [...String(row.team_key).split("+"), row.candidate_id].filter(Boolean);
-  if (row.teammates?.length && row.candidate) return [...row.teammates, row.candidate].filter(Boolean);
+  if (row.teamKey && row.candidateId) return [...row.teamKey.split("+"), row.candidateId].map(baseFeedbackVariantId).filter(Boolean);
+  if (row.team_key && row.candidate_id) return [...String(row.team_key).split("+"), row.candidate_id].map(baseFeedbackVariantId).filter(Boolean);
+  if (row.teammates?.length && row.candidate) return [...row.teammates, row.candidate].map(baseFeedbackVariantId).filter(Boolean);
   return [];
 }
 
@@ -2031,10 +2032,11 @@ function characterFeedbackRows() {
   const rows = new Map();
   popularFeedback.forEach((row) => {
     if (!row.candidate_id) return;
-    const character = characterVariants.find((item) => item.variantId === row.candidate_id || item.characterId === row.candidate_id);
-    const statId = row.candidate_id.includes(":")
-      ? character?.variantId ?? row.candidate_id
-      : character?.characterId ?? row.candidate_id;
+    const candidateId = baseFeedbackVariantId(row.candidate_id);
+    const character = characterById(candidateId);
+    const statId = candidateId.includes(":")
+      ? character?.variantId ?? candidateId
+      : character?.characterId ?? candidateId;
     const previous = rows.get(statId) ?? { likes: 0, dislikes: 0, total: 0 };
     previous.likes += row.likes ?? 0;
     previous.dislikes += row.dislikes ?? 0;
