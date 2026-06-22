@@ -37,12 +37,20 @@ globalThis.document = { documentElement: { lang: "ko" } };
 
 import fs from "node:fs";
 import readline from "node:readline";
-import { recommend, evaluateCandidate, VECTOR_SCORING_FLAGS, DIVERSITY_CONFIG } from "../src/recommender.js";
+import { recommend, evaluateCandidate, updateOfficialStats, VECTOR_SCORING_FLAGS, DIVERSITY_CONFIG } from "../src/recommender.js";
+import * as OFFICIAL_FULL from "../src/officialMatchStats.js";
 
 // ---------- args ----------
 const argv = process.argv.slice(2);
 const opt = (n, d) => { const i = argv.indexOf(n); return i >= 0 ? argv[i + 1] : d; };
 const DATA = opt("--data", null);
+// A2: 추천기가 쓸 통계 번들을 교체/트림해서 영향 측정.
+//   --stats <path>           : compact 번들 JSON 파일을 로드(updateOfficialStats)
+//   --stats-min-games <N>     : 인메모리로 저표본 엔트리(games<N) 드롭 후 적용
+//   --stats-trim <keys>       : 트림 대상 *StatsByTier (기본 composition). 쉼표구분: composition,pair,traitBuild
+const STATS_FILE = opt("--stats", null);
+const STATS_MIN_GAMES = Number(opt("--stats-min-games", 0));
+const STATS_TRIM = opt("--stats-trim", "composition").split(",").map((s) => s.trim()).filter(Boolean);
 const SAMPLE = Number(opt("--sample", 500));
 const SCAN = Number(opt("--scan", 80000));
 const TIER = opt("--tier", "all");
@@ -307,6 +315,52 @@ function runConcordance({ games, vtop3, scanned, eligibleGames, totalGames }) {
   }
   console.log("읽기: control(캐릭터 강함)이 0.5보다 뚜렷이 높으면 = 하니스/데이터가 신호를 잡는다는 양성대조(통과).");
   console.log("핵심: legacy→vector→empirical 가 오르면 조합로직 기여. 모두 ~0.50이고 control보다 낮으면, 조합은 로비순위도 거의 예측 못함.");
+}
+
+// ---------- A2: 통계 번들 교체/트림 (composition 드롭 영향 측정용) ----------
+function trimByGames(byTier, minGames) {
+  if (!byTier || typeof byTier !== "object" || !(minGames > 0)) return byTier;
+  const drop = (e) => e && typeof e === "object" && Number.isFinite(e.games) && e.games < minGames;
+  const out = {};
+  for (const [tier, coll] of Object.entries(byTier)) {
+    if (Array.isArray(coll)) out[tier] = coll.filter((e) => !drop(e));
+    else if (coll && typeof coll === "object") {
+      const m = {};
+      for (const [k, v] of Object.entries(coll)) {
+        if (drop(v)) continue;
+        m[k] = Array.isArray(v) ? v.filter((e) => !drop(e)) : v;
+      }
+      out[tier] = m;
+    } else out[tier] = coll;
+  }
+  return out;
+}
+
+if (STATS_FILE || STATS_MIN_GAMES > 0) {
+  let bundle;
+  if (STATS_FILE) {
+    bundle = JSON.parse(fs.readFileSync(STATS_FILE, "utf8"));
+  } else {
+    bundle = {
+      officialCandidateStatsByTier: OFFICIAL_FULL.officialCandidateStatsByTier,
+      officialCompositionStatsByTier: OFFICIAL_FULL.officialCompositionStatsByTier,
+      officialPairStatsByTier: OFFICIAL_FULL.officialPairStatsByTier,
+      officialCombatStatsByTier: OFFICIAL_FULL.officialCombatStatsByTier,
+      officialTraitBuildStatsByTier: OFFICIAL_FULL.officialTraitBuildStatsByTier,
+      officialEmpiricalVectorStatsByTier: OFFICIAL_FULL.officialEmpiricalVectorStatsByTier,
+      weights: OFFICIAL_FULL.OFFICIAL_V2_WEIGHTS,
+      alpha: OFFICIAL_FULL.BAYESIAN_ALPHA,
+    };
+  }
+  if (STATS_MIN_GAMES > 0) {
+    const fieldOf = { composition: "officialCompositionStatsByTier", pair: "officialPairStatsByTier", traitBuild: "officialTraitBuildStatsByTier", candidate: "officialCandidateStatsByTier" };
+    for (const key of STATS_TRIM) {
+      const field = fieldOf[key];
+      if (field && bundle[field]) bundle[field] = trimByGames(bundle[field], STATS_MIN_GAMES);
+    }
+  }
+  updateOfficialStats(bundle);
+  console.error(`# stats override: ${STATS_FILE ? `file=${STATS_FILE.split(/[\\/]/).pop()}` : "full"}${STATS_MIN_GAMES > 0 ? `  min-games=${STATS_MIN_GAMES} trim=${STATS_TRIM.join("+")}` : ""}`);
 }
 
 // ---------- run ----------
