@@ -72,6 +72,20 @@ jobs:
             --corpus data/ml-training/corpus.jsonl \
             --new data/official-match-input-accumulated.json
 
+      - name: Archive official match shard
+        run: |
+          node tools/archive_official_matches.mjs \
+            --in data/official-match-input-seeded.json \
+            --archive-dir data/official-archive \
+            --patch "$CURRENT_PATCH"
+
+      - name: Build official archive summary
+        run: |
+          mkdir -p reports
+          node tools/build_official_summary.mjs \
+            --archive-dir data/official-archive \
+            --out reports/officialMatchSummary.json
+
       - name: Build combined stats
         run: |
           mkdir -p reports/generated
@@ -79,6 +93,9 @@ jobs:
             --in data/ml-training/corpus.jsonl \
             --out reports/generated/officialMatchStats.js \
             --json-out reports/generated/officialMatchStats.json
+          node tools/build_compact_stats.mjs \
+            --in reports/generated/officialMatchStats.json \
+            --out reports/generated/officialMatchStats.compact.json
 
       - name: Build empirical spectrum report
         run: |
@@ -107,10 +124,14 @@ jobs:
             data/official-match-input-accumulated.json
             data/ml-training/*.jsonl
             data/ml-training/*.manifest.json
+            data/official-archive/*.jsonl.gz
+            data/official-archive/manifest.json
             reports/empirical-spectrum-report.json
             reports/empirical-spectrum-report.md
+            reports/officialMatchSummary.json
             reports/generated/officialMatchStats.js
             reports/generated/officialMatchStats.json
+            reports/generated/officialMatchStats.compact.json
             data/official-next-seeds.json
           if-no-files-found: ignore
 
