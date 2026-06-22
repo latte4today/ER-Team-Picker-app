@@ -74,14 +74,17 @@ jobs:
 
       - name: Build combined stats
         run: |
+          mkdir -p reports/generated
           node tools/build_official_stats.mjs \
-            --in data/ml-training/corpus.jsonl
+            --in data/ml-training/corpus.jsonl \
+            --out reports/generated/officialMatchStats.js \
+            --json-out reports/generated/officialMatchStats.json
 
       - name: Build empirical spectrum report
         run: |
           node tools/build_empirical_spectrum_report.mjs \
             --in data/ml-training/corpus.jsonl \
-            --stats src/officialMatchStats.json \
+            --stats reports/generated/officialMatchStats.json \
             --out-dir reports \
             --min-games 80 \
             --top 60
@@ -106,8 +109,8 @@ jobs:
             data/ml-training/*.manifest.json
             reports/empirical-spectrum-report.json
             reports/empirical-spectrum-report.md
-            src/officialMatchStats.js
-            src/officialMatchStats.json
+            reports/generated/officialMatchStats.js
+            reports/generated/officialMatchStats.json
             data/official-next-seeds.json
           if-no-files-found: ignore
 
@@ -115,14 +118,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/officialMatchStats.js 2>/dev/null || true
-          git add src/officialMatchStats.json 2>/dev/null || true
+          git add data/official-next-seeds.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
             git commit -m "chore: update tier match data [skip ci]"
-            # Generated stats are owned by this workflow. On conflict, keep our freshly
-            # regenerated version (-X theirs). Retry to survive concurrent pushes to main.
+            # Only small seed state is committed. Large generated stats are uploaded
+            # as workflow artifacts because they can exceed GitHub's file size limit.
             pushed=0
             for attempt in 1 2 3; do
               git fetch origin main
