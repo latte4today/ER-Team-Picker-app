@@ -40,7 +40,10 @@ Other가 ② 증분 요약에서 이 shape로 compact를 뱉으면, 트리머(�
 - [~] B2. **요약 집계기** `officialMatchSummary.json` — `tools/build_official_summary.mjs` 추가.
       현재는 archive shard를 스트리밍해 작은 카운터를 재생성한다. 다음 단계에서 "새 샤드만 fold-in" 증분 모드로 확장.
 - [~] B3. **compact 생성 경로** — `tools/build_compact_stats.mjs`, `tools/build_compact_from_archive.mjs` 추가.
-      workflow가 full stats artifact와 함께 compact artifact를 생성한다. rolling-window/패치 감쇠는 아직 A3/B3 후속.
+      workflow가 full stats artifact와 함께 compact artifact를 생성한다.
+      `--composition-min-games`, `--drop-composition`, `--pair-min-games`, `--trait-build-min-games`,
+      `--candidate-min-games`, `--combat-min-games`, `--round-rates`, `--round-averages` 옵션 준비 완료.
+      실제 임계값은 A가 lean concordance로 판정한 뒤 계약값으로 고정한다.
 - [ ] B4. **인프라:** 큰 파일 git 제외, `STATS_URL` 원격 호스팅, ML 아카이브는 **만료 없는 durable**
       저장(⚠️ CI artifact 14~30일 retention은 ML 아카이브로 쓰면 안 됨 — 데이터 소실).
 
