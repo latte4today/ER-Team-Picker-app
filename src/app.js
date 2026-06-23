@@ -31,7 +31,7 @@ import {
 } from "./combatProfiles.js";
 import { applyTranslations, getLanguage, hasStoredLanguage, setLanguage, t } from "./i18n/index.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
-import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.4";
+import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.5";
 
 const isElectron = /electron/i.test(navigator.userAgent);
 
@@ -241,7 +241,7 @@ function selectSlotCoreButton(button) {
   completeWalkthroughAction("trait");
   renderDetectedTeam();
   renderMatchFeedback();
-  renderRecommendations();
+  scheduleRenderRecommendations();
 }
 
 function selectMatchFeedbackCore(button) {
@@ -299,6 +299,45 @@ function feedbackCandidateIdForMatchFeedback() {
   return variantId && core ? `${variantId}#${core}` : variantId;
 }
 
+function stableJson(value) {
+  if (Array.isArray(value)) return `[${value.map(stableJson).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${stableJson(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function hashString(value) {
+  let hash = 2166136261;
+  for (let i = 0; i < value.length; i += 1) {
+    hash ^= value.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(36);
+}
+
+function dataSignature(value) {
+  return hashString(stableJson(value ?? null));
+}
+
+function clearRecommendationCache() {
+  recommendationCacheKey = "";
+  recommendationCacheResults = null;
+}
+
+function scheduleRenderRecommendations(delay = 180) {
+  if (recommendationDebounceTimer) {
+    clearTimeout(recommendationDebounceTimer);
+  }
+  if (activeView === "setup" && selectedIds.size > 0 && recommendations.childElementCount === 0) {
+    recommendations.innerHTML = `<div class="show-more-loading"><span class="show-more-spinner"></span>${t("recommend.calculating")}</div>`;
+  }
+  recommendationDebounceTimer = setTimeout(() => {
+    recommendationDebounceTimer = 0;
+    renderRecommendations();
+  }, delay);
+}
+
 function matchFeedbackCoresMap() {
   const map = selectedCoresMap();
   if (slotAssignments[0] && coreInfoForMatchFeedback()?.core) {
@@ -336,6 +375,10 @@ let isUnionCalculating = false;
 let recommendLimit = 5;
 let fullTeamLimit = 5;
 let unionComboLimit = 5;
+let officialStatsVersion = "bundled";
+let recommendationDebounceTimer = 0;
+let recommendationCacheKey = "";
+let recommendationCacheResults = null;
 
 // Lazy computation caches
 let _fullTeamState = { status: "idle", compositions: [], anchorId: null };
@@ -1830,7 +1873,7 @@ function loadPreset() {
   savePlayableCharacters();
   renderPlayableTools();
   renderCharacters();
-  renderRecommendations();
+  scheduleRenderRecommendations();
 }
 
 function deletePreset() {
@@ -1864,7 +1907,7 @@ function togglePlayableCharacter(variantId) {
   savePlayableCharacters();
   renderCharacters();
   renderPlayableTools();
-  renderRecommendations();
+  scheduleRenderRecommendations();
 }
 
 function syncSelectedFromSlots() {
@@ -2657,8 +2700,10 @@ function renderRecommendations() {
     cores: selectedCoresMap(),
     matchCore: matchFeedbackCore,
     limit: recommendLimit,
-    feedbackBuckets: Object.keys(remoteFeedback ?? {}).length,
-    popularCount: popularFeedback.length,
+    remoteFeedback: dataSignature(remoteFeedback),
+    popularFeedback: dataSignature(popularFeedback),
+    relationshipRows: dataSignature(popularFeedback),
+    stats: officialStatsVersion,
   });
   if (recommendationKey === setupRecommendationRenderKey && recommendations.childElementCount > 0) return;
   setupRecommendationRenderKey = recommendationKey;
@@ -2678,7 +2723,24 @@ function renderRecommendations() {
   }
 
   const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
-  const results = recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, popularFeedback, selectedCoresMap());
+  const recommendationInputKey = JSON.stringify({
+    language: getLanguage(),
+    selected: [...selectedIds].sort(),
+    tier: tierSelect.value,
+    playable: playablePool ? [...playablePool].sort() : null,
+    cores: selectedCoresMap(),
+    remoteFeedback: dataSignature(remoteFeedback),
+    popularFeedback: dataSignature(popularFeedback),
+    relationshipRows: dataSignature(popularFeedback),
+    stats: officialStatsVersion,
+  });
+  const results = recommendationInputKey === recommendationCacheKey && recommendationCacheResults
+    ? recommendationCacheResults
+    : recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, popularFeedback, selectedCoresMap());
+  if (recommendationInputKey !== recommendationCacheKey) {
+    recommendationCacheKey = recommendationInputKey;
+    recommendationCacheResults = results;
+  }
   if (results.length === 0) {
     recommendations.innerHTML = `<p class="empty-state">${t("recommend.noPlayable")}</p>`;
     return;
@@ -3323,7 +3385,7 @@ clearPlayableButton.addEventListener("click", () => {
   savePlayableCharacters();
   renderPlayableTools();
   renderCharacters();
-  renderRecommendations();
+  scheduleRenderRecommendations();
 });
 
 savePresetButton.addEventListener("click", savePreset);
@@ -3335,7 +3397,7 @@ presetSelect.addEventListener("change", () => {
 });
 renderPresetSelect();
 tierSelect.addEventListener("change", () => {
-  renderRecommendations();
+  scheduleRenderRecommendations();
   refreshRemoteFeedbackIfNeeded();
 });
 
@@ -3831,6 +3893,8 @@ if (recoveredFeedbackCount > 0) {
       if (data.officialCandidateStatsByTier) officialCandidateStatsByTier = data.officialCandidateStatsByTier;
       if (data.officialCompositionStatsByTier) officialCompositionStatsByTier = data.officialCompositionStatsByTier;
       if (data.officialTraitBuildStatsByTier) officialTraitBuildStatsByTier = data.officialTraitBuildStatsByTier;
+      officialStatsVersion = data.source?.generatedAt ?? data.source?.patch ?? url;
+      clearRecommendationCache();
       console.log(`[stats] remote stats loaded (${url.split("/").pop()}):`, data.source?.generatedAt ?? "ok");
       render(); // re-render with fresh data
       return;

@@ -1103,7 +1103,7 @@ function vectorSpecializationScore(candidate, selected, selectedVector = null, c
 
   const selectedHasBacklinePlan = selSum.range >= 0.35 || selSum.poke >= 0.35 || selSum.damage >= 1.15;
   const selectedCanStart = selSum.engage >= 0.45 || selSum.frontline >= 0.9 || (selSum.cc >= 1.65 && selSum.tempo >= 0.75);
-  const selectedHasFrontline = selSum.frontline >= 0.75 || selSum.durability >= 1.05;
+  const selectedHasFrontline = selected.some(isFrontRole) || selSum.frontline >= 1.00 || (selSum.durability >= 1.35 && selSum.engage >= 0.25);
   const selectedHasFollowup = selSum.burst >= 0.28 || selSum.pick >= 0.28 || selSum.tempo >= 0.90 || selSum.damage >= 1.45;
   const selectedHasControlPlan = selSum.cc >= 1.20 || selSum.zone >= 0.25;
 
@@ -2146,6 +2146,36 @@ function candidateSpecificPenaltyReasons(candidate, selected, scores) {
   return reasons;
 }
 
+function specializationReasons(candidate, selected, scores) {
+  if (!VECTOR_SCORING_FLAGS.useVectorSpecializationScore || selected.length === 0 || scores.specialization < 0.24) return [];
+  const selSum = teamVectorFromEffective(selected).sum;
+  const cv = characterVectorFromEffective(candidate);
+  const reasons = [];
+  const selectedHasFrontline = selected.some(isFrontRole) || selSum.frontline >= 1.00 || (selSum.durability >= 1.35 && selSum.engage >= 0.25);
+  const selectedCanStart = selSum.engage >= 0.45 || selSum.frontline >= 0.9 || (selSum.cc >= 1.65 && selSum.tempo >= 0.75);
+  const selectedHasFollowup = selSum.burst >= 0.28 || selSum.pick >= 0.28 || selSum.tempo >= 0.90 || selSum.damage >= 1.45;
+  const selectedHasBacklinePlan = selSum.range >= 0.35 || selSum.poke >= 0.35 || selSum.damage >= 1.15;
+
+  if (!selectedHasFrontline && (cv.frontline >= 0.55 || cv.engage >= 0.35)) {
+    reasons.push(t("recommender.reason.specNeedsFrontline", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  }
+  if (!selectedCanStart && (cv.engage >= 0.35 || cv.cc >= 0.95 || cv.zone >= 0.22)) {
+    reasons.push(t("recommender.reason.specNeedsEngage", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  }
+  if (selectedCanStart && !selectedHasFollowup && (cv.burst >= 0.25 || cv.pick >= 0.20 || cv.duel >= 0.20 || cv.damage >= 0.75)) {
+    reasons.push(t("recommender.reason.specNeedsFollowup", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  }
+  const candidateCanProtect = cv.peel >= 0.25 || candidate.tags.some((tag) => ["peel", "shield", "healing"].includes(tag));
+  if (selectedHasBacklinePlan && selSum.peel < 0.45 && candidateCanProtect) {
+    reasons.push(t("recommender.reason.specNeedsPeel", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  }
+  if (selSum.frontline >= 1.25 && selSum.range < 0.25 && (cv.range >= 0.35 || cv.poke >= 0.25 || cv.zone >= 0.22)) {
+    reasons.push(t("recommender.reason.specNeedsRange", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
+  }
+
+  return reasons.slice(0, 2);
+}
+
 function explain(candidate, selected, scores, explainTier = "all") {
   const reasons = [];
   const penaltyReasons = candidateSpecificPenaltyReasons(candidate, selected, scores);
@@ -2186,6 +2216,7 @@ function explain(candidate, selected, scores, explainTier = "all") {
       }
     }
   }
+  reasons.push(...specializationReasons(candidate, selected, scores));
 
   if (scores.teamShape <= -2.2) {
     const team = [...selected, candidate];

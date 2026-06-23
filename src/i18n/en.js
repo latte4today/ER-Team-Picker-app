@@ -396,6 +396,7 @@ export const en = {
   "recommend.emptyTitle": "Select teammates to see recommended picks.",
   "recommend.emptyBody": "Click a character card to record Teammate 1, Teammate 2, and Self — recommendations update instantly.",
   "recommend.noPlayable": "No candidates available within the current playable pool.",
+  "recommend.calculating": "Calculating recommendations...",
   "recommend.showMore": "Show More ({remaining} more)",
   "feedback.emptyHint": "Designate your pick to rate the match afterwards.",
   "update.new": "New version {version}",
@@ -634,5 +635,10 @@ export const en = {
   "tutorial.step8.body": "The Union tab lets up to four players register their playable pools, choose the three participants, and calculate the best team combinations.",
   "recommender.reason.officialStrongStats": "{name} is a statistically strong pick (official win rate {winRate}%, top3 {top3Rate}%).",
   "recommender.reason.evidenceSynergy": "{name} + {mate}: a proven pairing that places about {lift} better than expected.",
-  "recommender.reason.antiSynergyPair": "{name} + {mate}: this pairing underperforms the average in the data, so pair with caution."
+  "recommender.reason.antiSynergyPair": "{name} + {mate}: this pairing underperforms the average in the data, so pair with caution.",
+  "recommender.reason.specNeedsFrontline": "This team lacks a front line, so {name}'s frontline and durability contribution matters.",
+  "recommender.reason.specNeedsEngage": "This team lacks a reliable opener, making {name}'s engage and control especially valuable.",
+  "recommender.reason.specNeedsFollowup": "The team can already start fights, so {name}'s follow-up damage and catch potential fit well.",
+  "recommender.reason.specNeedsPeel": "The backline needs protection, so {name}'s peel and sustain are useful here.",
+  "recommender.reason.specNeedsRange": "The team leans short-range, so {name}'s range and poke help round it out."
 };

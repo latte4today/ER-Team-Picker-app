@@ -396,6 +396,7 @@ export const ko = {
   "recommend.emptyTitle": "팀원을 선택하면 추천 후보가 표시됩니다.",
   "recommend.emptyBody": "실험체 카드를 누르면 팀원 1, 팀원 2, 나 순서로 기록되며 추천이 바로 갱신됩니다.",
   "recommend.noPlayable": "현재 가능 실험체 목록 안에는 추천할 후보가 없습니다.",
+  "recommend.calculating": "추천 계산 중...",
   "recommend.showMore": "더 보기 ({remaining}개)",
   "feedback.emptyHint": "내 픽을 지정하면 경기 후 평가할 수 있습니다.",
   "update.new": "새 버전 {version}",
@@ -717,4 +718,9 @@ export const ko = {
   "recommender.reason.officialStrongStats": "{name} — 공식 전적 승률 {winRate}%, TOP3 {top3Rate}%로 통계적으로 강한 픽입니다.",
   "recommender.reason.evidenceSynergy": "{name} + {mate}: 공식 전적에서 기대보다 약 {lift}등 좋은 검증된 시너지입니다.",
   "recommender.reason.antiSynergyPair": "{name} + {mate}: 데이터상 평균보다 약한 조합이라 주의가 필요합니다.",
+  "recommender.reason.specNeedsFrontline": "현재 조합에 앞라인이 부족해 {nameSubject} 전열·버티기 기여가 중요합니다.",
+  "recommender.reason.specNeedsEngage": "현재 조합에 먼저 열 수 있는 수단이 부족해 {nameSubject} 개시·제어 가치가 큽니다.",
+  "recommender.reason.specNeedsFollowup": "이미 싸움을 열 수 있어 {nameSubject} 후속 화력·캐치가 잘 맞습니다.",
+  "recommender.reason.specNeedsPeel": "후방 딜러를 살릴 보호가 필요해 {nameSubject} 보호·유지력이 유효합니다.",
+  "recommender.reason.specNeedsRange": "근접 성향이 강해 {nameSubject} 사거리·포킹 보완 가치가 있습니다.",
 };
