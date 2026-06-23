@@ -3776,23 +3776,31 @@ if (recoveredFeedbackCount > 0) {
 }
 
 // ── Remote stats auto-update ─────────────────────────────────────────────────
+// compact(소용량, 추천 결과 동일) 우선 → full → 둘 다 실패 시 번들 fallback.
+// compact는 composition 저표본을 트림한 버전(lean concordance 동일 검증 완료, 계약값 min-games 20).
 (async () => {
-  const STATS_URL =
-    "https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/officialMatchStats.json";
-  try {
-    const res = await fetch(STATS_URL, { cache: "no-store" });
-    if (res.ok) {
+  const BASE = "https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main";
+  const STATS_URLS = [
+    `${BASE}/src/officialMatchStats.compact.json`, // compact 우선 (B가 이 경로에 커밋/호스팅)
+    `${BASE}/src/officialMatchStats.json`,         // full fallback (현행)
+  ];
+  for (const url of STATS_URLS) {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) continue;
       const data = await res.json();
       updateOfficialStats(data);
       if (data.officialCandidateStatsByTier) officialCandidateStatsByTier = data.officialCandidateStatsByTier;
       if (data.officialCompositionStatsByTier) officialCompositionStatsByTier = data.officialCompositionStatsByTier;
       if (data.officialTraitBuildStatsByTier) officialTraitBuildStatsByTier = data.officialTraitBuildStatsByTier;
-      console.log("[stats] remote stats loaded:", data.source?.generatedAt ?? "ok");
+      console.log(`[stats] remote stats loaded (${url.split("/").pop()}):`, data.source?.generatedAt ?? "ok");
       render(); // re-render with fresh data
+      return;
+    } catch (e) {
+      console.log(`[stats] fetch failed (${url.split("/").pop()}):`, e.message);
     }
-  } catch (e) {
-    console.log("[stats] using bundled stats (fetch failed):", e.message);
   }
+  console.log("[stats] using bundled stats (all remote fetches failed)");
 })();
 
 setupErUpdater();
