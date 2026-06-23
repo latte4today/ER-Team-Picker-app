@@ -36,6 +36,7 @@ jobs:
             data/official-cache
             data/official-next-seeds.json
             data/official-match-input-accumulated.json
+            data/official-archive
             data/ml-training/corpus.jsonl
           key: official-cache-${{ github.run_id }}
           restore-keys: official-cache-
@@ -84,7 +85,11 @@ jobs:
           mkdir -p reports
           node tools/build_official_summary.mjs \
             --archive-dir data/official-archive \
-            --out reports/officialMatchSummary.json
+            --previous data/official-archive/officialMatchSummary.json \
+            --state data/official-archive/summary-state.json \
+            --out data/official-archive/officialMatchSummary.json \
+            --incremental
+          cp data/official-archive/officialMatchSummary.json reports/officialMatchSummary.json
 
       - name: Build combined stats
         run: |
@@ -95,7 +100,10 @@ jobs:
             --json-out reports/generated/officialMatchStats.json
           node tools/build_compact_stats.mjs \
             --in reports/generated/officialMatchStats.json \
-            --out reports/generated/officialMatchStats.compact.json
+            --out reports/generated/officialMatchStats.compact.json \
+            --composition-min-games 20 \
+            --round-rates 3 \
+            --round-averages 2
 
       - name: Build empirical spectrum report
         run: |
@@ -126,6 +134,8 @@ jobs:
             data/ml-training/*.manifest.json
             data/official-archive/*.jsonl.gz
             data/official-archive/manifest.json
+            data/official-archive/officialMatchSummary.json
+            data/official-archive/summary-state.json
             reports/empirical-spectrum-report.json
             reports/empirical-spectrum-report.md
             reports/officialMatchSummary.json

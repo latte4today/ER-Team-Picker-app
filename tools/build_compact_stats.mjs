@@ -7,7 +7,7 @@
  * Usage:
  *   node tools/build_compact_stats.mjs
  *   node tools/build_compact_stats.mjs --in <path> --out <path> [--pretty]
- *   node tools/build_compact_stats.mjs --composition-min-games 20 --round-rates 3
+ *   node tools/build_compact_stats.mjs --composition-min-games 20 --round-rates 3 --round-averages 2
  */
 
 import fs from "node:fs";
@@ -24,13 +24,13 @@ function parseArgs() {
     out: path.join(ROOT, "reports", "generated", "officialMatchStats.compact.json"),
     pretty: false,
     dropComposition: false,
-    compositionMinGames: 0,
+    compositionMinGames: 20,
     pairMinGames: 0,
     traitBuildMinGames: 0,
     candidateMinGames: 0,
     combatMinGames: 0,
-    roundRates: undefined,
-    roundAverages: undefined,
+    roundRates: 3,
+    roundAverages: 2,
   };
   for (let index = 2; index < process.argv.length; index += 1) {
     const key = process.argv[index];
