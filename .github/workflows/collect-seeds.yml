@@ -32,9 +32,12 @@ jobs:
           node-version: '20'
 
       - name: Validate durable data archive
+        id: data_archive
+        continue-on-error: true
         run: |
           if [ -z "$DATA_REPO_TOKEN" ]; then
-            echo "::error title=Missing DATA_REPO_TOKEN::Durable ML archive is required. Create $DATA_REPO and add a DATA_REPO_TOKEN secret with Contents read/write permission."
+            echo "::warning title=Missing DATA_REPO_TOKEN::Durable ML archive will be skipped. Create $DATA_REPO and add a DATA_REPO_TOKEN secret with Contents read/write permission."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
             exit 1
           fi
 
@@ -45,10 +48,13 @@ jobs:
             "https://api.github.com/repos/$DATA_REPO")
 
           if [ "$status" != "200" ]; then
-            echo "::error title=Data archive unavailable::Could not access $DATA_REPO with DATA_REPO_TOKEN (HTTP $status). Check that the repo exists and the token has Contents read/write permission."
+            echo "::warning title=Data archive unavailable::Durable ML archive will be skipped. Could not access $DATA_REPO with DATA_REPO_TOKEN (HTTP $status). Check that the repo exists and the token has Contents read/write permission."
             cat /tmp/data-repo.json
+            echo "ready=false" >> "$GITHUB_OUTPUT"
             exit 1
           fi
+
+          echo "ready=true" >> "$GITHUB_OUTPUT"
 
       - name: Restore game cache
         uses: actions/cache@v4
@@ -144,6 +150,7 @@ jobs:
             --patch "$CURRENT_PATCH"
 
       - name: Checkout durable data archive
+        if: steps.data_archive.outputs.ready == 'true'
         uses: actions/checkout@v4
         with:
           repository: ${{ env.DATA_REPO }}
@@ -152,6 +159,8 @@ jobs:
           fetch-depth: 1
 
       - name: Push archive shard to data repo
+        if: steps.data_archive.outputs.ready == 'true'
+        continue-on-error: true
         run: |
           mkdir -p data-repo/official-archive
           cp data/official-archive/*.jsonl.gz data-repo/official-archive/ 2>/dev/null || true
