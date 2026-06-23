@@ -44,8 +44,10 @@ Other가 ② 증분 요약에서 이 shape로 compact를 뱉으면, 트리머(�
       `--composition-min-games`, `--drop-composition`, `--pair-min-games`, `--trait-build-min-games`,
       `--candidate-min-games`, `--combat-min-games`, `--round-rates`, `--round-averages` 옵션 준비 완료.
       A 판정 완료값: `--composition-min-games 20 --round-rates 3 --round-averages 2`.
-- [ ] B4. **인프라:** 큰 파일 git 제외, `STATS_URL` 원격 호스팅, ML 아카이브는 **만료 없는 durable**
-      저장(⚠️ CI artifact 14~30일 retention은 ML 아카이브로 쓰면 안 됨 — 데이터 소실).
+- [~] B4. **인프라:** `src/officialMatchStats.compact.json`을 main에 커밋해 앱의 compact 우선 로드 경로로 제공.
+      full JSON(`src/officialMatchStats.json`)은 git 추적 해제 + ignore. ML 아카이브 gzip shard는
+      `DATA_REPO_TOKEN` secret이 있을 때 `latte4today/ER-Team-Picker-data`의 `official-archive/`로 append commit.
+      CI artifact는 여전히 임시 전달용이며 durable 아카이브가 아니다.
 
 ### 경계/주의
 - rolling window는 **추천기에만**. ML 아카이브엔 적용 금지(전부 보관).

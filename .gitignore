@@ -21,6 +21,7 @@ data/official-next-seeds.json
 data/ml-training/
 data/namu-debug.html
 reports/
+src/officialMatchStats.json
 
 # Local environment and secrets
 .env

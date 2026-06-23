@@ -19,6 +19,7 @@ jobs:
 
     env:
       CURRENT_PATCH: ${{ vars.CURRENT_PATCH || secrets.CURRENT_PATCH || 'current' }}
+      DATA_REPO_TOKEN: ${{ secrets.DATA_REPO_TOKEN }}
 
     steps:
       - name: Checkout
@@ -100,10 +101,11 @@ jobs:
             --json-out reports/generated/officialMatchStats.json
           node tools/build_compact_stats.mjs \
             --in reports/generated/officialMatchStats.json \
-            --out reports/generated/officialMatchStats.compact.json \
+            --out src/officialMatchStats.compact.json \
             --composition-min-games 20 \
             --round-rates 3 \
             --round-averages 2
+          cp src/officialMatchStats.compact.json reports/generated/officialMatchStats.compact.json
 
       - name: Build empirical spectrum report
         run: |
@@ -120,6 +122,34 @@ jobs:
             --in data/official-match-input-accumulated.json \
             --out-dir data/ml-training \
             --patch "$CURRENT_PATCH"
+
+      - name: Checkout durable data archive
+        if: env.DATA_REPO_TOKEN != ''
+        uses: actions/checkout@v4
+        with:
+          repository: latte4today/ER-Team-Picker-data
+          token: ${{ env.DATA_REPO_TOKEN }}
+          path: data-repo
+          fetch-depth: 1
+
+      - name: Push archive shard to data repo
+        if: env.DATA_REPO_TOKEN != ''
+        run: |
+          mkdir -p data-repo/official-archive
+          cp data/official-archive/*.jsonl.gz data-repo/official-archive/ 2>/dev/null || true
+          cp data/official-archive/manifest.json data-repo/official-archive/manifest.json 2>/dev/null || true
+          cp data/official-archive/officialMatchSummary.json data-repo/official-archive/officialMatchSummary.json 2>/dev/null || true
+          cp data/official-archive/summary-state.json data-repo/official-archive/summary-state.json 2>/dev/null || true
+          cd data-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add official-archive
+          if git diff --staged --quiet; then
+            echo "No archive changes to commit"
+          else
+            git commit -m "archive: append official match shard ${CURRENT_PATCH}"
+            git push
+          fi
 
       - name: Upload collected data artifact
         if: always()
@@ -150,6 +180,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/official-next-seeds.json 2>/dev/null || true
+          git add src/officialMatchStats.compact.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
