@@ -2247,6 +2247,71 @@ h2 {
   font-size: 22px;
 }
 
+.quality-score {
+  min-width: 54px;
+  min-height: 42px;
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  align-content: center;
+  gap: 1px;
+  padding: 5px 6px;
+  border: 1px solid color-mix(in srgb, var(--gold) 58%, var(--line));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--gold) 12%, var(--surface-2));
+  color: var(--gold);
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.quality-score span {
+  font-size: 19px;
+}
+
+.quality-score span::after {
+  content: "/100";
+  margin-left: 1px;
+  font-size: 9px;
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.quality-score small {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0;
+}
+
+.quality-score.compact {
+  min-width: 48px;
+  min-height: 34px;
+  padding: 4px 5px;
+}
+
+.quality-score.compact span {
+  font-size: 16px;
+}
+
+.quality-good {
+  border-color: color-mix(in srgb, #59d38c 56%, var(--line));
+  background: color-mix(in srgb, #59d38c 12%, var(--surface-2));
+  color: #86efac;
+}
+
+.quality-ok {
+  border-color: color-mix(in srgb, var(--gold) 58%, var(--line));
+  background: color-mix(in srgb, var(--gold) 12%, var(--surface-2));
+  color: var(--gold);
+}
+
+.quality-weak {
+  border-color: color-mix(in srgb, var(--danger) 48%, var(--line));
+  background: color-mix(in srgb, var(--danger) 10%, var(--surface-2));
+  color: color-mix(in srgb, var(--danger) 76%, white);
+}
+
 .match-feedback {
   min-height: 0;
 }

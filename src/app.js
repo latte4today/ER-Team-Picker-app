@@ -90,6 +90,45 @@ function traitImage(name) {
   return coreIconPath(name);
 }
 
+function clampNumber(value, min, max) {
+  return Math.max(min, Math.min(max, Number(value) || 0));
+}
+
+function compositionQualityScore(rawScore, { divisor = 1 } = {}) {
+  const normalized = (Number(rawScore) || 0) / Math.max(1, divisor);
+  const quality = 100 / (1 + Math.exp(-(normalized + 0.8) / 4));
+  return Math.round(clampNumber(quality, 0, 100));
+}
+
+function compositionQualityGrade(score) {
+  if (score >= 85) return "S";
+  if (score >= 75) return "A";
+  if (score >= 65) return "B";
+  if (score >= 55) return "C";
+  if (score >= 45) return "D";
+  return "E";
+}
+
+function compositionQualityTone(score) {
+  if (score >= 75) return "good";
+  if (score >= 55) return "ok";
+  return "weak";
+}
+
+function qualityBadge(rawScore, { divisor = 1, compact = false } = {}) {
+  const score = compositionQualityScore(rawScore, { divisor });
+  const grade = compositionQualityGrade(score);
+  const tone = compositionQualityTone(score);
+  const raw = Number.isFinite(Number(rawScore)) ? Number(rawScore).toFixed(1) : "-";
+  const compactClass = compact ? " compact" : "";
+  return `
+    <strong class="quality-score quality-${tone}${compactClass}" title="내부 점수 ${raw}">
+      <span>${score}</span>
+      <small>${grade}</small>
+    </strong>
+  `;
+}
+
 // Small "recommended core" chip (icon + name) for recommendation cards.
 function traitChip(variantId, tier, preferredCore = null) {
   const core = preferredCore?.name ? preferredCore : defaultCoreForVariant(variantId, tier);
@@ -1489,12 +1528,11 @@ function renderUnionComboResults() {
 
   const cards = visible
     .map((item, index) => {
-      const scoreTone = item.score < 0 ? " negative-score" : "";
       return `
         <article class="union-combo-card">
           <div class="combo-card-head">
             <span class="recommendation-rank">${t("union.comboLabel", { index: index + 1 })}</span>
-            <strong class="score${scoreTone}">${item.score}</strong>
+            ${qualityBadge(item.score, { compact: true })}
           </div>
           <div class="union-combo-members">
             ${item.combo
@@ -2544,7 +2582,7 @@ function _renderFullTeamCards() {
       <article class="full-team-card">
         <div class="full-team-header">
           <span class="recommendation-rank">${t("fullTeam.rank", { index: index + 1 })}</span>
-          <span class="full-team-score">${combinedScore}</span>
+          ${qualityBadge(combinedScore, { divisor: 2, compact: true })}
         </div>
         <div class="full-team-members">
           <div class="full-team-member">
@@ -2652,7 +2690,6 @@ function renderRecommendations() {
         .map((label) => `<span>${label}</span>`)
         .join("");
       const compactText = compactReasonText(result.reasons);
-      const scoreTone = result.score < 0 ? " negative-score" : "";
       return `
         <article class="recommendation-card">
           <div class="recommendation-avatar">
@@ -2676,7 +2713,7 @@ function renderRecommendations() {
               <button class="feedback-button" type="button" data-choose-pick="${result.character.variantId}" data-choose-core="${result.recommendedCore?.core ?? ""}">${t("recommend.choosePick")}</button>
             </div>
           </div>
-          <strong class="score${scoreTone}">${result.score}</strong>
+          ${qualityBadge(result.score)}
         </article>
       `;
     })
@@ -2730,8 +2767,7 @@ function renderMatchFeedback() {
     .map((label) => `<span>${label}</span>`)
     .join("");
   const compactText = compactReasonText(evaluation?.reasons ?? []);
-  const scoreTone = (evaluation?.score ?? 0) < 0 ? " negative-score" : "";
-  const score = canRateMatch ? `<strong class="chosen-score${scoreTone}">${evaluation?.score ?? "-"}</strong>` : "";
+  const score = canRateMatch && evaluation ? qualityBadge(evaluation.score, { compact: true }) : "";
   const currentFeedbackKey = canRateMatch ? feedbackWindowKey(feedbackTeamIds, chosenFeedbackId, tierSelect.value) : "";
   const hasSubmittedFeedback =
     canRateMatch &&
