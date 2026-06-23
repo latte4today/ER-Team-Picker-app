@@ -96,7 +96,7 @@ function clampNumber(value, min, max) {
 
 function compositionQualityScore(rawScore, { divisor = 1 } = {}) {
   const normalized = (Number(rawScore) || 0) / Math.max(1, divisor);
-  const quality = 100 / (1 + Math.exp(-(normalized + 0.8) / 4));
+  const quality = 70 + normalized * 9;
   return Math.round(clampNumber(quality, 0, 100));
 }
 
@@ -3816,9 +3816,9 @@ if (recoveredFeedbackCount > 0) {
 // compact는 composition 저표본을 트림한 버전(lean concordance 동일 검증 완료, 계약값 min-games 20).
 (async () => {
   const BASE = "https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main";
+  // compact 만 원격 로드(full json은 main에서 제거됨). 원격 실패 시 번들 import(officialMatchStats.js)가 오프라인 fallback.
   const STATS_URLS = [
-    `${BASE}/src/officialMatchStats.compact.json`, // compact 우선 (B가 이 경로에 커밋/호스팅)
-    `${BASE}/src/officialMatchStats.json`,         // full fallback (현행)
+    `${BASE}/src/officialMatchStats.compact.json`,
   ];
   for (const url of STATS_URLS) {
     try {
