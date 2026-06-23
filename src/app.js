@@ -96,7 +96,9 @@ function clampNumber(value, min, max) {
 
 function compositionQualityScore(rawScore, { divisor = 1 } = {}) {
   const normalized = (Number(rawScore) || 0) / Math.max(1, divisor);
-  const quality = 70 + normalized * 9;
+  // 70+x*9는 바닥이 70 근처라 거의 모든 조합이 B에 몰렸다. 중심을 낮추고
+  // 기울기를 키워 등급 변별을 넓힘(약한 조합은 C/D/E까지 내려갈 수 있게).
+  const quality = 66 + normalized * 12;
   return Math.round(clampNumber(quality, 0, 100));
 }
 

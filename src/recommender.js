@@ -698,16 +698,34 @@ const VECTOR_SCORING_FLAGS = {
   empiricalVectorBlend: 0.70,
   usePairSynergyLift: true,
   useLeanScoring: true,
+  useVectorSpecializationScore: true,
   replaceBooleanPredicates: false,
 };
 
-const VECTOR_AXES = ["frontline", "damage", "durability", "cc", "support", "tempo"];
+const VECTOR_AXES = [
+  "frontline",
+  "damage",
+  "durability",
+  "cc",
+  "support",
+  "tempo",
+  "engage",
+  "peel",
+  "sustain",
+  "burst",
+  "poke",
+  "pick",
+  "duel",
+  "zone",
+  "range",
+  "objective",
+];
 const LEAN_SCORING_CONFIG = {
   strengthWeight: 1.22,
-  pairWeight: 0.30,
+  pairWeight: 0.55,
   heuristicWeight: 0.10,
   heuristicCap: 0.38,
-  fitCap: 0.65,
+  fitCap: 0.95,
   difficultyWeight: 0.03,
 };
 const VECTOR_CORE_BLEND = 0.30; // corePlaystyle 혼합 가중치 (역할 시드를 압도하지 않게)
@@ -726,24 +744,31 @@ const DAMAGE_BUCKET_SCALE = { low: 0.65, medium: 1.00, high: 1.30 };
 
 // 태그 → 축 보정 (가산). effective 캐릭터의 tags는 코어 override를 이미 반영함.
 const TAG_VECTOR_MODS = {
-  focus:     { damage: 0.12 },
-  burst:     { damage: 0.12, tempo: 0.05 },
-  sustained: { damage: 0.08, durability: 0.05 },
-  durable:   { durability: 0.15 },
-  sustain:   { durability: 0.10, support: 0.06 },
-  peel:      { support: 0.15, durability: 0.06 },
-  shield:    { support: 0.14, durability: 0.06 },
-  healing:   { support: 0.18 },
-  cc:        { cc: 0.15 },
-  initiate:  { cc: 0.10, tempo: 0.10, frontline: 0.05 },
-  dive:      { tempo: 0.15, frontline: 0.05 },
+  focus:     { damage: 0.12, pick: 0.14 },
+  burst:     { damage: 0.12, burst: 0.22, tempo: 0.05 },
+  sustained: { damage: 0.08, sustain: 0.12, durability: 0.05 },
+  durable:   { durability: 0.15, sustain: 0.08 },
+  sustain:   { sustain: 0.22, durability: 0.10, support: 0.06 },
+  peel:      { peel: 0.24, support: 0.15, durability: 0.06 },
+  shield:    { peel: 0.18, sustain: 0.18, support: 0.14, durability: 0.06 },
+  healing:   { sustain: 0.28, support: 0.18 },
+  cc:        { cc: 0.15, engage: 0.06 },
+  initiate:  { engage: 0.26, cc: 0.10, tempo: 0.10, frontline: 0.05 },
+  engage:    { engage: 0.22, cc: 0.08, tempo: 0.08 },
+  dive:      { engage: 0.12, tempo: 0.15, frontline: 0.05 },
   mobility:  { tempo: 0.15 },
-  range:     { damage: 0.05 },
-  utility:   { support: 0.10, cc: 0.05 },
+  poke:      { poke: 0.22, range: 0.08 },
+  zone:      { zone: 0.24, poke: 0.12, peel: 0.08, cc: 0.06 },
+  range:     { range: 0.20, damage: 0.05 },
+  objective: { objective: 0.24, damage: 0.04 },
+  pick:      { pick: 0.24, burst: 0.08 },
+  duel:      { duel: 0.24, pick: 0.12, burst: 0.06, sustain: 0.06 },
+  speedBoost:{ engage: 0.10, peel: 0.10, tempo: 0.16, support: 0.04 },
+  utility:   { peel: 0.08, sustain: 0.08, support: 0.10, cc: 0.05 },
 };
 
 function emptyVector() {
-  return { frontline: 0, damage: 0, durability: 0, cc: 0, support: 0, tempo: 0 };
+  return Object.fromEntries(VECTOR_AXES.map((axis) => [axis, 0]));
 }
 
 function empiricalVectorRow(character, core, tier = "all") {
@@ -776,7 +801,7 @@ function blendEmpiricalVector(manual, character, core, tier = "all") {
 // 재적용/재추론 없음 — effective의 role/damage 버킷/tags/effectiveCore.profile만 읽는다.
 function characterVectorFromEffective(eff) {
   const seed = ROLE_SEED_VECTORS[eff.role] ?? ROLE_SEED_VECTORS.bruiser;
-  const v = { ...seed };
+  const v = { ...emptyVector(), ...seed };
 
   // 위치(전열/후열)에 맞는 damage 버킷으로 damage 축 스케일.
   const isFrontPositioned = eff.role === "frontline" || eff.role === "bruiser" || eff.role === "assassin";
@@ -1053,10 +1078,10 @@ const VECTOR_METRIC_BALANCE_BLEND    = 0.25;
 const VECTOR_COMPOSITION_GUIDE_AUX_BLEND = 0.20; // 가산형 보조 가중
 
 // 부족한 축을 채우는 후보를 보상, 과잉 축 중복을 감점.
-function vectorRoleBalanceScore(candidate, selected) {
+function vectorRoleBalanceScore(candidate, selected, selectedVector = null, candidateVector = null) {
   if (selected.length === 0) return 1;
-  const selSum = teamVectorFromEffective(selected).sum;
-  const cv = characterVectorFromEffective(candidate);
+  const selSum = selectedVector?.sum ?? teamVectorFromEffective(selected).sum;
+  const cv = candidateVector ?? characterVectorFromEffective(candidate);
   let score = 0;
   if (selSum.frontline < 0.8) score += cv.frontline * 1.1;   // 전열 부족 보강
   if (selSum.damage < 1.3)    score += cv.damage * 0.8;      // 딜 부족 보강
@@ -1067,11 +1092,60 @@ function vectorRoleBalanceScore(candidate, selected) {
   return Math.max(-1.4, Math.min(1.35, score));
 }
 
+// 세분화된 역할 성향 보정. 같은 support라도 Leni(개시 보조/CC/속도), Charlotte/Johann(보호/유지력),
+// Priya(보호+광역 CC)처럼 실제 수행 과제가 다르게 추천에 반영되도록 한다.
+function vectorSpecializationScore(candidate, selected, selectedVector = null, candidateVector = null) {
+  if (!(VECTOR_SCORING_FLAGS.enableCharacterVector && VECTOR_SCORING_FLAGS.useVectorSpecializationScore)) return 0;
+  if (selected.length === 0) return 0;
+  const selSum = selectedVector?.sum ?? teamVectorFromEffective(selected).sum;
+  const cv = candidateVector ?? characterVectorFromEffective(candidate);
+  let score = 0;
+
+  const selectedHasBacklinePlan = selSum.range >= 0.35 || selSum.poke >= 0.35 || selSum.damage >= 1.15;
+  const selectedCanStart = selSum.engage >= 0.45 || selSum.frontline >= 0.9 || (selSum.cc >= 1.65 && selSum.tempo >= 0.75);
+  const selectedHasFrontline = selSum.frontline >= 0.75 || selSum.durability >= 1.05;
+  const selectedHasFollowup = selSum.burst >= 0.28 || selSum.pick >= 0.28 || selSum.tempo >= 0.90 || selSum.damage >= 1.45;
+  const selectedHasControlPlan = selSum.cc >= 1.20 || selSum.zone >= 0.25;
+
+  if (!selectedHasFrontline) score += cv.frontline * 0.38 + cv.durability * 0.22 + cv.engage * 0.28;
+  if (!selectedCanStart) score += cv.engage * 0.75 + cv.cc * 0.18 + cv.zone * 0.10;
+  else score += cv.engage * 0.12;
+
+  if (selectedCanStart && !selectedHasFollowup) score += cv.burst * 0.44 + cv.pick * 0.34 + cv.tempo * 0.20 + cv.duel * 0.16;
+  if (!selectedHasControlPlan) score += cv.cc * 0.26 + cv.zone * 0.28 + cv.pick * 0.10;
+
+  if (selectedHasBacklinePlan && selSum.peel < 0.45) score += cv.peel * 0.70;
+  if (selSum.frontline >= 0.65 && selSum.sustain < 0.50) score += cv.sustain * 0.48;
+
+  if (selSum.damage < 1.30) {
+    score += cv.burst * 0.34 + cv.pick * 0.28 + cv.duel * 0.18 + cv.poke * 0.20 + cv.damage * 0.18;
+    if (isSupport(candidate) && cv.damage < 0.48 && cv.burst < 0.22 && cv.poke < 0.22) score -= 0.35;
+  }
+
+  if (selSum.frontline >= 0.75 && selSum.range < 0.35) score += cv.range * 0.22 + cv.poke * 0.18 + cv.objective * 0.10;
+  if (selSum.range >= 0.55 && !selectedHasFrontline) score += cv.frontline * 0.36 + cv.peel * 0.28;
+  if (selSum.frontline >= 1.25 && selSum.range < 0.25 && selSum.poke < 0.25) score += cv.range * 0.16 + cv.poke * 0.20 + cv.zone * 0.10;
+  if (selected.length >= 2 && selSum.objective < 0.25) score += cv.objective * 0.16;
+
+  if (selSum.engage >= 0.55) score += cv.burst * 0.24 + cv.pick * 0.18 + cv.duel * 0.14 + cv.sustain * 0.12;
+  if (selSum.poke >= 0.35 || selSum.zone >= 0.30) score += cv.peel * 0.22 + cv.range * 0.14 + cv.poke * 0.10 + cv.zone * 0.08;
+  if (selSum.duel >= 0.25 && selSum.engage < 0.45) score += cv.engage * 0.18 + cv.cc * 0.12 + cv.peel * 0.08;
+
+  if (selSum.sustain >= 0.70 && cv.sustain >= 0.55 && cv.damage < 0.55) score -= 0.34;
+  if (selSum.peel >= 0.60 && cv.peel >= 0.55 && cv.damage < 0.55) score -= 0.30;
+  if (selSum.engage >= 0.95 && cv.engage >= 0.55 && cv.peel < 0.25) score -= 0.18;
+  if (selSum.frontline >= 1.65 && cv.frontline >= 0.75 && cv.range < 0.25 && cv.poke < 0.25) score -= 0.28;
+  if (selSum.range >= 0.75 && cv.range >= 0.45 && cv.frontline < 0.35 && cv.peel < 0.25) score -= 0.24;
+  if (selSum.burst >= 0.55 && cv.burst >= 0.45 && cv.sustain < 0.25 && cv.peel < 0.20) score -= 0.20;
+
+  return clamp(score, -1.10, 1.35);
+}
+
 // 전열 포지션 후보의 딜 기여를 vector damage 축으로 평가 (게이팅은 기존 predicate 유지).
-function vectorFrontDamageScore(candidate, selected) {
+function vectorFrontDamageScore(candidate, selected, selectedVector = null, candidateVector = null) {
   if (!isFrontRole(candidate) || selected.length === 0) return 0;
-  const cv = characterVectorFromEffective(candidate);
-  const selSum = teamVectorFromEffective(selected).sum;
+  const cv = candidateVector ?? characterVectorFromEffective(candidate);
+  const selSum = selectedVector?.sum ?? teamVectorFromEffective(selected).sum;
   let score = 0;
   if (cv.damage >= 0.8) {
     if (selSum.damage < 1.3) score += 0.7;          // 딜 부족 팀에 고댐 전열
@@ -1082,10 +1156,10 @@ function vectorFrontDamageScore(candidate, selected) {
 }
 
 // 후방 딜러 후보의 딜 기여를 vector damage 축으로 평가.
-function vectorBacklineDamageScore(candidate, selected) {
+function vectorBacklineDamageScore(candidate, selected, selectedVector = null, candidateVector = null) {
   if (!isBacklineDealer(candidate) || selected.length === 0) return 0;
-  const cv = characterVectorFromEffective(candidate);
-  const selSum = teamVectorFromEffective(selected).sum;
+  const cv = candidateVector ?? characterVectorFromEffective(candidate);
+  const selSum = selectedVector?.sum ?? teamVectorFromEffective(selected).sum;
   let score = 0;
   if (cv.damage >= 0.85) {
     if (selSum.damage < 1.3) score += 0.85;          // 딜 부족 팀에 고댐 후방
@@ -1097,10 +1171,14 @@ function vectorBacklineDamageScore(candidate, selected) {
 }
 
 // 팀 전체 균형을 vector sum 축(딜/내구/CC/유틸/템포)으로 평가.
-function vectorMetricBalanceScore(candidate, selected) {
+function vectorMetricBalanceScore(candidate, selected, selectedVector = null, candidateVector = null) {
   const team = [...selected, candidate];
   if (team.length < 3) return 0;
-  const sum = teamVectorFromEffective(team).sum;
+  const selectedSum = selectedVector?.sum;
+  const candidateVec = candidateVector ?? characterVectorFromEffective(candidate);
+  const sum = selectedSum
+    ? Object.fromEntries(VECTOR_AXES.map((axis) => [axis, (selectedSum[axis] ?? 0) + (candidateVec[axis] ?? 0)]))
+    : teamVectorFromEffective(team).sum;
   let score = 0;
   if (sum.damage <= 1.4) score -= 1.0;
   else if (sum.damage >= 2.4) score += 0.25; // 0.5→0.25: 이미 충분한 딜에 추가 보너스 축소(④ 억제)
@@ -1136,31 +1214,31 @@ function vectorCompositionGuideAux(candidate, selected) {
 }
 
 // ── hybrid 디스패처 ──
-function roleBalanceScore(candidate, selected) {
+function roleBalanceScore(candidate, selected, selectedVector = null, candidateVector = null) {
   const legacy = legacyRoleBalanceScore(candidate, selected);
   if (!(VECTOR_SCORING_FLAGS.enableCharacterVector && VECTOR_SCORING_FLAGS.useVectorRoleBalanceScore)) return legacy;
-  const vector = vectorRoleBalanceScore(candidate, selected);
+  const vector = vectorRoleBalanceScore(candidate, selected, selectedVector, candidateVector);
   return legacy + VECTOR_ROLE_BALANCE_BLEND * (vector - legacy);
 }
 
-function frontDamageScore(candidate, selected) {
+function frontDamageScore(candidate, selected, selectedVector = null, candidateVector = null) {
   const legacy = legacyFrontDamageScore(candidate, selected);
   if (!(VECTOR_SCORING_FLAGS.enableCharacterVector && VECTOR_SCORING_FLAGS.useVectorDamageBalanceScore)) return legacy;
-  const vector = vectorFrontDamageScore(candidate, selected);
+  const vector = vectorFrontDamageScore(candidate, selected, selectedVector, candidateVector);
   return legacy + VECTOR_DAMAGE_BALANCE_BLEND * (vector - legacy);
 }
 
-function backlineDamageScore(candidate, selected) {
+function backlineDamageScore(candidate, selected, selectedVector = null, candidateVector = null) {
   const legacy = legacyBacklineDamageScore(candidate, selected);
   if (!(VECTOR_SCORING_FLAGS.enableCharacterVector && VECTOR_SCORING_FLAGS.useVectorDamageBalanceScore)) return legacy;
-  const vector = vectorBacklineDamageScore(candidate, selected);
+  const vector = vectorBacklineDamageScore(candidate, selected, selectedVector, candidateVector);
   return legacy + VECTOR_DAMAGE_BALANCE_BLEND * (vector - legacy);
 }
 
-function metricBalanceScore(candidate, selected) {
+function metricBalanceScore(candidate, selected, selectedVector = null, candidateVector = null) {
   const legacy = legacyMetricBalanceScore(candidate, selected);
   if (!(VECTOR_SCORING_FLAGS.enableCharacterVector && VECTOR_SCORING_FLAGS.useVectorMetricBalanceScore)) return legacy;
-  const vector = vectorMetricBalanceScore(candidate, selected);
+  const vector = vectorMetricBalanceScore(candidate, selected, selectedVector, candidateVector);
   return legacy + VECTOR_METRIC_BALANCE_BLEND * (vector - legacy);
 }
 
@@ -1872,10 +1950,17 @@ function leanStrengthScore(candidate, tier) {
   return clamp(official + legacy, -2.8, 3.2);
 }
 
-function leanPairSynergyTerm(candidate, selected) {
+function leanPairSynergyTerm(candidate, selected, tier) {
   if (selected.length === 0) return 0;
+  // 앵커(선택 캐릭터)별 변별력 확보: 유의미한 lift가 있으면 그걸 쓰고,
+  // 없으면 dense co-occurrence 통계, 그것도 없으면 수동 시너지 표로 fallback.
+  // (lean 경로가 sparse한 유의 lift만 보던 탓에 같은 역할 앵커가 전부 0이 되던 버그 수정)
   const total = selected.reduce((sum, teammate) => {
-    return sum + evidencePairScore(candidate.characterId, teammate.characterId);
+    const evidence = evidencePairScore(candidate.characterId, teammate.characterId);
+    if (evidence !== 0) return sum + evidence;
+    const dense = officialPairSynergyScore(candidate, [teammate], tier);
+    if (dense !== 0) return sum + dense;
+    return sum + manualPairFallbackScore(candidate.characterId, teammate.characterId);
   }, 0);
   return total / selected.length;
 }
@@ -1900,6 +1985,7 @@ function leanFitTerm(scores) {
     scores.frontDamage * 0.14 +
     scores.backlineDamage * 0.14 +
     scores.teamDamageBudget * 0.16 +
+    scores.specialization * 0.55 +
     scores.conflict * 0.12 +
     scores.compositionGuide * 0.08,
     -LEAN_SCORING_CONFIG.fitCap,
@@ -1910,7 +1996,7 @@ function leanFitTerm(scores) {
 function leanCandidateTotal(candidate, selected, tier, scores, feedbackScore) {
   const config = LEAN_SCORING_CONFIG;
   const strengthScore = leanStrengthScore(candidate, tier);
-  const pairTerm = leanPairSynergyTerm(candidate, selected);
+  const pairTerm = leanPairSynergyTerm(candidate, selected, tier);
   const fitTerm = selected.length > 0 ? leanFitTerm(scores) : 0;
   const heuristicTerm = clamp(
     leanHeuristicSum(scores) * config.heuristicWeight,
@@ -2831,6 +2917,8 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
   const candidateCoreRow = coreRowFor(candidate.variantId, cores[candidate.variantId], tier);
   const effectiveSelected = invariantContext?.effectiveSelected ?? effectiveTeamFor(selected, cores, tier);
   const effectiveCandidate = applyCoreRoleProfile(candidate, cores[candidate.variantId], tier);
+  const selectedVector = invariantContext?.selectedVector ?? teamVectorFromEffective(effectiveSelected);
+  const candidateVector = characterVectorFromEffective(effectiveCandidate);
   const invariantScores = invariantContext?.scores ?? buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows).scores;
   const candidateFeedbackId = feedbackCandidateId(candidate, candidateCoreRow);
   const feedbackScore = (
@@ -2841,11 +2929,12 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
   const scores = {
     ...invariantScores,
     coverage: coverageScore(effectiveCandidate, effectiveSelected),
-    roleBalance: roleBalanceScore(effectiveCandidate, effectiveSelected),
-    frontDamage: frontDamageScore(effectiveCandidate, effectiveSelected),
-    backlineDamage: backlineDamageScore(effectiveCandidate, effectiveSelected),
+    roleBalance: roleBalanceScore(effectiveCandidate, effectiveSelected, selectedVector, candidateVector),
+    frontDamage: frontDamageScore(effectiveCandidate, effectiveSelected, selectedVector, candidateVector),
+    backlineDamage: backlineDamageScore(effectiveCandidate, effectiveSelected, selectedVector, candidateVector),
     teamDamageBudget: teamDamageBudgetScore(effectiveCandidate, effectiveSelected),
-    metricBalance: metricBalanceScore(effectiveCandidate, effectiveSelected),
+    specialization: vectorSpecializationScore(effectiveCandidate, effectiveSelected, selectedVector, candidateVector),
+    metricBalance: metricBalanceScore(effectiveCandidate, effectiveSelected, selectedVector, candidateVector),
     killPressure: killPressureScore(effectiveCandidate, effectiveSelected),
     weaponBalance: weaponBalanceScore(effectiveCandidate, effectiveSelected),
     teamShape: teamShapeScore(effectiveCandidate, effectiveSelected),
@@ -2862,6 +2951,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.frontDamage +
     scores.backlineDamage +
     scores.teamDamageBudget +
+    scores.specialization +
     scores.metricBalance +
     scores.killPressure +
     scores.weaponBalance +
@@ -3087,6 +3177,7 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   // Selected team's effective state is invariant across all candidates/cores in this pass.
   // Compute once and reuse instead of recomputing inside every evaluateCandidate call.
   const effectiveSelected = effectiveTeamFor(selected, cores, tier);
+  const selectedVector = teamVectorFromEffective(effectiveSelected);
 
   const scored = characterVariants
     .filter((candidate) => !selectedCharacters.has(candidate.characterId))
@@ -3095,6 +3186,7 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
       const options = candidateCoreOptions(candidate.variantId, tier, cores);
       const invariantContext = buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows);
       invariantContext.effectiveSelected = effectiveSelected;
+      invariantContext.selectedVector = selectedVector;
       return options
         .map((core) => evaluateCandidate(
           selectedIds,

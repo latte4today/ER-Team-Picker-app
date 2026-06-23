@@ -56,7 +56,7 @@ const SCAN = Number(opt("--scan", 80000));
 const TIER = opt("--tier", "all");
 const SEED = Number(opt("--seed", 1));
 const METRIC = opt("--metric", "teamscore"); // teamscore | retrieval | both | concordance. 0.3.4 주 지표는 concordance(로비통제).
-const CONFIGS = opt("--configs", "legacy,vector,empirical,shipped,lean").split(",").map((s) => s.trim());
+const CONFIGS = opt("--configs", "legacy,vector,empirical,shipped,lean_no_specialization,lean").split(",").map((s) => s.trim());
 const GAMES = Number(opt("--games", 800));       // concordance: 샘플할 게임(로비) 수
 const MIN_TEAMS = Number(opt("--min-teams", 4)); // concordance: 게임당 최소 팀 수
 const CONTROL = !argv.includes("--no-control");  // concordance: 양성대조(solo top3합) 포함
@@ -91,11 +91,12 @@ const rng = mulberry32(SEED);
 function applyConfig(name) {
   const F = VECTOR_SCORING_FLAGS, D = DIVERSITY_CONFIG;
   switch (name) {
-    case "legacy":    F.enableCharacterVector = false; F.useEmpiricalVectorBlend = false; F.usePairSynergyLift = false; F.useLeanScoring = false; D.enabled = false; break;
-    case "vector":    F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = false; F.usePairSynergyLift = false; F.useLeanScoring = false; D.enabled = false; break;
-    case "empirical": F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = true;  F.usePairSynergyLift = false; F.useLeanScoring = false; D.enabled = false; break;
-    case "shipped":   F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = true;  F.usePairSynergyLift = true;  F.useLeanScoring = false; D.enabled = true;  break;
-    case "lean":      F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = true;  F.usePairSynergyLift = true;  F.useLeanScoring = true;  D.enabled = true;  break;
+    case "legacy":    F.enableCharacterVector = false; F.useEmpiricalVectorBlend = false; F.usePairSynergyLift = false; F.useLeanScoring = false; F.useVectorSpecializationScore = false; D.enabled = false; break;
+    case "vector":    F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = false; F.usePairSynergyLift = false; F.useLeanScoring = false; F.useVectorSpecializationScore = false; D.enabled = false; break;
+    case "empirical": F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = true;  F.usePairSynergyLift = false; F.useLeanScoring = false; F.useVectorSpecializationScore = false; D.enabled = false; break;
+    case "shipped":   F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = true;  F.usePairSynergyLift = true;  F.useLeanScoring = false; F.useVectorSpecializationScore = false; D.enabled = true;  break;
+    case "lean_no_specialization": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = false; D.enabled = true; break;
+    case "lean":      F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = true;  F.usePairSynergyLift = true;  F.useLeanScoring = true;  F.useVectorSpecializationScore = true;  D.enabled = true;  break;
     default: throw new Error("unknown config: " + name);
   }
 }
