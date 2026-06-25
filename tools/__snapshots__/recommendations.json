@@ -5,62 +5,62 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 1.25
+        "total": 1.1
       },
       {
         "v": "sho:spear",
         "core": "증폭 드론",
-        "total": 1.02
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 0.83
-      },
-      {
-        "v": "sho:dagger",
-        "core": "증폭 드론",
-        "total": 0.7
+        "total": 0.9
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 0.65
-      },
-      {
-        "v": "aya:pistol",
-        "core": "벽력",
-        "total": 0.65
+        "total": 0.58
       },
       {
         "v": "adina:arcana",
         "core": "도깨비불",
-        "total": 0.56
+        "total": 0.48
       },
       {
         "v": "arda:arcana",
         "core": "벽력",
-        "total": 0.52
+        "total": 0.46
       },
       {
         "v": "alex:flex",
         "core": "스텔라 차지",
-        "total": 0.49
+        "total": 0.42
+      },
+      {
+        "v": "jenny:pistol",
+        "core": "흡혈마",
+        "total": 0.47
+      },
+      {
+        "v": "henry:shuriken",
+        "core": "도깨비불",
+        "total": 0.42
       },
       {
         "v": "leon:glove",
         "core": "액셀러레이터",
-        "total": 0.4
-      },
-      {
-        "v": "leon:tonfa",
-        "core": "벽력",
-        "total": 0.37
+        "total": 0.35
       },
       {
         "v": "estelle:axe",
         "core": "치유 드론",
-        "total": 0.34
+        "total": 0.29
+      },
+      {
+        "v": "nadine:crossbow",
+        "core": "아드레날린",
+        "total": 0.28
+      },
+      {
+        "v": "ian:dagger",
+        "core": "응징",
+        "total": 0.27
       }
     ]
   },
@@ -72,62 +72,62 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 1.96
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 1.54
+        "total": 2.05
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 1.37
-      },
-      {
-        "v": "aya:pistol",
-        "core": "벽력",
-        "total": 1.36
-      },
-      {
-        "v": "alex:flex",
-        "core": "스텔라 차지",
-        "total": 1.17
-      },
-      {
-        "v": "sho:spear",
-        "core": "증폭 드론",
-        "total": 1.12
+        "total": 1.63
       },
       {
         "v": "jenny:pistol",
         "core": "흡혈마",
-        "total": 1.3
+        "total": 1.56
       },
       {
         "v": "henry:shuriken",
         "core": "도깨비불",
-        "total": 1.26
-      },
-      {
-        "v": "leon:tonfa",
-        "core": "벽력",
-        "total": 1.09
+        "total": 1.5
       },
       {
         "v": "nadine:crossbow",
         "core": "아드레날린",
-        "total": 1.05
+        "total": 1.4
       },
       {
-        "v": "aya:assault_rifle",
+        "v": "alex:flex",
+        "core": "스텔라 차지",
+        "total": 1.39
+      },
+      {
+        "v": "isol:assault_rifle",
         "core": "아드레날린",
-        "total": 1
+        "total": 1.49
+      },
+      {
+        "v": "barbara:pistol",
+        "core": "벽력",
+        "total": 1.46
+      },
+      {
+        "v": "leon:tonfa",
+        "core": "벽력",
+        "total": 1.32
+      },
+      {
+        "v": "sho:spear",
+        "core": "증폭 드론",
+        "total": 1.29
       },
       {
         "v": "ian:dagger",
         "core": "흡혈마",
-        "total": 0.99
+        "total": 1.29
+      },
+      {
+        "v": "bernice:sniper_rifle",
+        "core": "흡혈마",
+        "total": 1.22
       }
     ]
   },
@@ -139,62 +139,62 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 2.01
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 1.59
+        "total": 2.23
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 1.42
+        "total": 1.71
       },
       {
-        "v": "aya:pistol",
-        "core": "벽력",
-        "total": 1.41
-      },
-      {
-        "v": "alex:flex",
-        "core": "스텔라 차지",
-        "total": 1.19
-      },
-      {
-        "v": "sho:spear",
-        "core": "증폭 드론",
-        "total": 1.11
-      },
-      {
-        "v": "adina:arcana",
-        "core": "도깨비불",
-        "total": 1.31
+        "v": "jenny:pistol",
+        "core": "흡혈마",
+        "total": 1.66
       },
       {
         "v": "arda:arcana",
         "core": "벽력",
-        "total": 1.3
+        "total": 1.59
+      },
+      {
+        "v": "alex:flex",
+        "core": "스텔라 차지",
+        "total": 1.43
       },
       {
         "v": "leon:tonfa",
         "core": "벽력",
-        "total": 1.1
+        "total": 1.37
       },
       {
-        "v": "leon:glove",
-        "core": "액셀러레이터",
-        "total": 1.08
+        "v": "adina:arcana",
+        "core": "도깨비불",
+        "total": 1.57
       },
       {
-        "v": "aya:assault_rifle",
-        "core": "아드레날린",
-        "total": 0.99
+        "v": "henry:shuriken",
+        "core": "도깨비불",
+        "total": 1.51
       },
       {
-        "v": "sho:dagger",
+        "v": "sho:spear",
         "core": "증폭 드론",
-        "total": 0.89
+        "total": 1.35
+      },
+      {
+        "v": "nadine:crossbow",
+        "core": "아드레날린",
+        "total": 1.33
+      },
+      {
+        "v": "silvia:pistol",
+        "core": "흡혈마",
+        "total": 1.29
+      },
+      {
+        "v": "estelle:axe",
+        "core": "치유 드론",
+        "total": 1.23
       }
     ]
   },
@@ -206,62 +206,62 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 1.87
+        "total": 2.04
       },
       {
         "v": "sho:spear",
         "core": "치유 드론",
-        "total": 1.74
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 1.46
-      },
-      {
-        "v": "sho:dagger",
-        "core": "치유 드론",
-        "total": 1.42
+        "total": 1.96
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 1.16
+        "total": 1.55
       },
       {
-        "v": "leon:glove",
-        "core": "액셀러레이터",
-        "total": 1.12
-      },
-      {
-        "v": "arda:arcana",
-        "core": "벽력",
-        "total": 1.13
-      },
-      {
-        "v": "leon:tonfa",
-        "core": "벽력",
-        "total": 1.11
-      },
-      {
-        "v": "estelle:axe",
-        "core": "치유 드론",
-        "total": 1.04
-      },
-      {
-        "v": "aya:pistol",
-        "core": "벽력",
-        "total": 1.04
-      },
-      {
-        "v": "jenny:pistol",
-        "core": "흡혈마",
-        "total": 1.04
+        "v": "isol:assault_rifle",
+        "core": "아드레날린",
+        "total": 1.43
       },
       {
         "v": "alex:flex",
         "core": "스텔라 차지",
-        "total": 1.03
+        "total": 1.43
+      },
+      {
+        "v": "leon:glove",
+        "core": "액셀러레이터",
+        "total": 1.37
+      },
+      {
+        "v": "chloe:shuriken",
+        "core": "아드레날린",
+        "total": 1.41
+      },
+      {
+        "v": "ian:dagger",
+        "core": "흡혈마",
+        "total": 1.35
+      },
+      {
+        "v": "barbara:pistol",
+        "core": "벽력",
+        "total": 1.33
+      },
+      {
+        "v": "nadine:crossbow",
+        "core": "아드레날린",
+        "total": 1.32
+      },
+      {
+        "v": "arda:arcana",
+        "core": "벽력",
+        "total": 1.32
+      },
+      {
+        "v": "estelle:axe",
+        "core": "치유 드론",
+        "total": 1.27
       }
     ]
   },
@@ -271,64 +271,64 @@
     ],
     "top": [
       {
-        "v": "zahir:shuriken",
-        "core": "흡혈마",
-        "total": 1.89
-      },
-      {
         "v": "sho:spear",
         "core": "치유 드론",
-        "total": 1.67
+        "total": 2.06
       },
       {
-        "v": "zahir:throw",
+        "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 1.48
+        "total": 2.04
       },
       {
-        "v": "sho:dagger",
-        "core": "증폭 드론",
-        "total": 1.42
-      },
-      {
-        "v": "aya:pistol",
+        "v": "adina:arcana",
         "core": "도깨비불",
-        "total": 1.28
+        "total": 1.59
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 1.28
+        "total": 1.55
       },
       {
-        "v": "arda:arcana",
+        "v": "henry:shuriken",
         "core": "헌신",
-        "total": 1.2
-      },
-      {
-        "v": "jenny:pistol",
-        "core": "흡혈마",
-        "total": 1.19
+        "total": 1.53
       },
       {
         "v": "alex:flex",
         "core": "스텔라 차지",
-        "total": 1.16
+        "total": 1.4
       },
       {
-        "v": "leon:tonfa",
-        "core": "초재생",
-        "total": 1.12
+        "v": "arda:arcana",
+        "core": "헌신",
+        "total": 1.41
       },
       {
         "v": "leon:glove",
         "core": "흡혈마",
-        "total": 1.11
+        "total": 1.38
+      },
+      {
+        "v": "adriana:throw",
+        "core": "벽력",
+        "total": 1.38
+      },
+      {
+        "v": "ian:dagger",
+        "core": "응징",
+        "total": 1.35
       },
       {
         "v": "estelle:axe",
         "core": "치유 드론",
-        "total": 1.08
+        "total": 1.34
+      },
+      {
+        "v": "johann:arcana",
+        "core": "초재생",
+        "total": 1.27
       }
     ]
   },
@@ -341,42 +341,27 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 2.21
-      },
-      {
-        "v": "zahir:throw",
-        "core": "흡혈마",
-        "total": 1.78
+        "total": 2.1
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 1.61
-      },
-      {
-        "v": "aya:pistol",
-        "core": "벽력",
-        "total": 1.6
-      },
-      {
-        "v": "nadine:crossbow",
-        "core": "아드레날린",
-        "total": 0.97
-      },
-      {
-        "v": "aya:assault_rifle",
-        "core": "아드레날린",
-        "total": 0.93
+        "total": 1.81
       },
       {
         "v": "adina:arcana",
         "core": "도깨비불",
-        "total": 1.51
+        "total": 1.64
       },
       {
         "v": "henry:shuriken",
-        "core": "헌신",
-        "total": 1.45
+        "core": "도깨비불",
+        "total": 1.58
+      },
+      {
+        "v": "nadine:crossbow",
+        "core": "아드레날린",
+        "total": 0.93
       },
       {
         "v": "bernice:sniper_rifle",
@@ -384,19 +369,34 @@
         "total": 0.85
       },
       {
+        "v": "hyejin:bow",
+        "core": "증폭 드론",
+        "total": 1.56
+      },
+      {
+        "v": "jenny:pistol",
+        "core": "흡혈마",
+        "total": 1.52
+      },
+      {
         "v": "katja:sniper_rifle",
         "core": "아드레날린",
-        "total": 0.62
+        "total": 0.6
       },
       {
         "v": "ian:dagger",
-        "core": "응징",
-        "total": 0.51
+        "core": "흡혈마",
+        "total": 0.53
       },
       {
         "v": "vanya:arcana",
         "core": "흡혈마",
-        "total": 0.46
+        "total": 0.51
+      },
+      {
+        "v": "zahir:throw",
+        "core": "벽력",
+        "total": 2
       }
     ]
   },
@@ -409,62 +409,62 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 2.2
-      },
-      {
-        "v": "zahir:throw",
-        "core": "흡혈마",
-        "total": 1.77
+        "total": 2.18
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 1.57
-      },
-      {
-        "v": "aya:pistol",
-        "core": "벽력",
-        "total": 1.5
+        "total": 1.64
       },
       {
         "v": "nadine:crossbow",
         "core": "아드레날린",
-        "total": 1.29
-      },
-      {
-        "v": "aya:assault_rifle",
-        "core": "아드레날린",
-        "total": 1.16
+        "total": 1.58
       },
       {
         "v": "adina:arcana",
         "core": "도깨비불",
-        "total": 1.5
+        "total": 1.58
       },
       {
-        "v": "henry:shuriken",
-        "core": "도깨비불",
-        "total": 1.41
+        "v": "barbara:pistol",
+        "core": "증폭 드론",
+        "total": 1.55
       },
       {
         "v": "bernice:sniper_rifle",
         "core": "흡혈마",
-        "total": 1.04
+        "total": 1.29
+      },
+      {
+        "v": "isol:assault_rifle",
+        "core": "아드레날린",
+        "total": 1.54
+      },
+      {
+        "v": "henry:shuriken",
+        "core": "도깨비불",
+        "total": 1.5
+      },
+      {
+        "v": "rio:bow",
+        "core": "아드레날린",
+        "total": 1
       },
       {
         "v": "katja:sniper_rifle",
         "core": "아드레날린",
-        "total": 0.79
+        "total": 0.99
       },
       {
         "v": "sho:dagger",
         "core": "증폭 드론",
-        "total": 0.69
+        "total": 0.71
       },
       {
-        "v": "sho:spear",
-        "core": "치유 드론",
-        "total": 0.64
+        "v": "vanya:arcana",
+        "core": "흡혈마",
+        "total": 0.63
       }
     ]
   },
@@ -475,64 +475,64 @@
     ],
     "top": [
       {
-        "v": "zahir:shuriken",
-        "core": "흡혈마",
-        "total": 1.89
-      },
-      {
         "v": "sho:spear",
         "core": "치유 드론",
-        "total": 1.86
+        "total": 2.15
       },
       {
-        "v": "sho:dagger",
-        "core": "증폭 드론",
-        "total": 1.65
-      },
-      {
-        "v": "zahir:throw",
+        "v": "leon:glove",
         "core": "흡혈마",
-        "total": 1.47
+        "total": 1.61
       },
       {
         "v": "alex:flex",
         "core": "스텔라 차지",
-        "total": 1.39
-      },
-      {
-        "v": "aya:pistol",
-        "core": "벽력",
-        "total": 1.3
-      },
-      {
-        "v": "leon:tonfa",
-        "core": "벽력",
-        "total": 1.25
-      },
-      {
-        "v": "aya:sniper_rifle",
-        "core": "벽력",
-        "total": 1.24
-      },
-      {
-        "v": "estelle:axe",
-        "core": "치유 드론",
-        "total": 1.23
-      },
-      {
-        "v": "ian:dagger",
-        "core": "응징",
-        "total": 1.22
-      },
-      {
-        "v": "henry:shuriken",
-        "core": "헌신",
-        "total": 1.13
+        "total": 1.57
       },
       {
         "v": "markus:hammer",
         "core": "응징",
-        "total": 1.12
+        "total": 1.48
+      },
+      {
+        "v": "estelle:axe",
+        "core": "치유 드론",
+        "total": 1.47
+      },
+      {
+        "v": "cathy:dagger",
+        "core": "증폭 드론",
+        "total": 1.37
+      },
+      {
+        "v": "li_dailin:glove",
+        "core": "치유 드론",
+        "total": 1.43
+      },
+      {
+        "v": "lenox:whip",
+        "core": "헌신",
+        "total": 1.4
+      },
+      {
+        "v": "yuki:two_handed_sword",
+        "core": "금강",
+        "total": 1.32
+      },
+      {
+        "v": "hyunwoo:glove",
+        "core": "응징",
+        "total": 1.25
+      },
+      {
+        "v": "mai:whip",
+        "core": "치유 드론",
+        "total": 1.24
+      },
+      {
+        "v": "leni:pistol",
+        "core": "헌신",
+        "total": 0.97
       }
     ]
   },
@@ -545,22 +545,22 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 2.08
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 1.68
+        "total": 2.09
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 1.37
+        "total": 1.46
+      },
+      {
+        "v": "barbara:pistol",
+        "core": "증폭 드론",
+        "total": 1.3
       },
       {
         "v": "jenny:pistol",
         "core": "흡혈마",
-        "total": 1.22
+        "total": 1.28
       },
       {
         "v": "leon:tonfa",
@@ -568,39 +568,39 @@
         "total": 1.15
       },
       {
+        "v": "nadine:crossbow",
+        "core": "아드레날린",
+        "total": 1.03
+      },
+      {
+        "v": "henry:shuriken",
+        "core": "도깨비불",
+        "total": 1.28
+      },
+      {
+        "v": "adina:arcana",
+        "core": "도깨비불",
+        "total": 1.24
+      },
+      {
         "v": "alex:flex",
         "core": "스텔라 차지",
         "total": 1.02
       },
       {
-        "v": "henry:shuriken",
-        "core": "도깨비불",
-        "total": 1.16
-      },
-      {
-        "v": "adina:arcana",
-        "core": "도깨비불",
-        "total": 1.13
-      },
-      {
         "v": "bernice:sniper_rifle",
         "core": "흡혈마",
-        "total": 0.93
+        "total": 1.01
       },
       {
         "v": "ian:dagger",
         "core": "흡혈마",
-        "total": 0.93
+        "total": 0.91
       },
       {
-        "v": "nadine:crossbow",
-        "core": "아드레날린",
-        "total": 0.92
-      },
-      {
-        "v": "aya:assault_rifle",
-        "core": "아드레날린",
-        "total": 0.89
+        "v": "cathy:dagger",
+        "core": "증폭 드론",
+        "total": 0.82
       }
     ]
   },
@@ -613,62 +613,62 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 1.92
-      },
-      {
-        "v": "jenny:pistol",
-        "core": "흡혈마",
-        "total": 1.51
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 1.5
+        "total": 2.25
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 1.47
+        "total": 1.86
       },
       {
-        "v": "alex:flex",
-        "core": "스텔라 차지",
-        "total": 1.3
+        "v": "arda:arcana",
+        "core": "벽력",
+        "total": 1.77
       },
       {
-        "v": "sho:dagger",
-        "core": "증폭 드론",
-        "total": 1.25
-      },
-      {
-        "v": "henry:shuriken",
-        "core": "헌신",
-        "total": 1.42
-      },
-      {
-        "v": "isol:pistol",
-        "core": "헌신",
-        "total": 1.28
-      },
-      {
-        "v": "silvia:pistol",
+        "v": "jenny:pistol",
         "core": "흡혈마",
-        "total": 1.14
-      },
-      {
-        "v": "sho:spear",
-        "core": "증폭 드론",
-        "total": 1.09
+        "total": 1.72
       },
       {
         "v": "nadine:crossbow",
         "core": "아드레날린",
-        "total": 1.02
+        "total": 1.4
+      },
+      {
+        "v": "sho:dagger",
+        "core": "증폭 드론",
+        "total": 1.23
+      },
+      {
+        "v": "henry:shuriken",
+        "core": "헌신",
+        "total": 1.71
+      },
+      {
+        "v": "isol:assault_rifle",
+        "core": "아드레날린",
+        "total": 1.7
       },
       {
         "v": "leni:pistol",
         "core": "헌신",
-        "total": 0.97
+        "total": 1.2
+      },
+      {
+        "v": "bernice:sniper_rifle",
+        "core": "흡혈마",
+        "total": 1.18
+      },
+      {
+        "v": "silvia:pistol",
+        "core": "흡혈마",
+        "total": 1.09
+      },
+      {
+        "v": "katja:sniper_rifle",
+        "core": "아드레날린",
+        "total": 0.99
       }
     ]
   },
@@ -681,62 +681,62 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 1.85
+        "total": 2.14
       },
       {
         "v": "jenny:pistol",
         "core": "흡혈마",
-        "total": 1.51
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 1.44
-      },
-      {
-        "v": "aya:sniper_rifle",
-        "core": "벽력",
-        "total": 1.38
-      },
-      {
-        "v": "nadine:crossbow",
-        "core": "아드레날린",
-        "total": 1.19
-      },
-      {
-        "v": "alex:flex",
-        "core": "스텔라 차지",
-        "total": 1.1
+        "total": 1.75
       },
       {
         "v": "henry:shuriken",
         "core": "도깨비불",
-        "total": 1.37
+        "total": 1.71
       },
       {
-        "v": "isol:pistol",
+        "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 1.29
+        "total": 1.7
+      },
+      {
+        "v": "nadine:crossbow",
+        "core": "아드레날린",
+        "total": 1.54
       },
       {
         "v": "bernice:sniper_rifle",
         "core": "흡혈마",
-        "total": 0.98
+        "total": 1.32
       },
       {
-        "v": "aya:assault_rifle",
+        "v": "barbara:pistol",
+        "core": "벽력",
+        "total": 1.68
+      },
+      {
+        "v": "isol:assault_rifle",
         "core": "아드레날린",
-        "total": 0.95
+        "total": 1.56
       },
       {
         "v": "silvia:pistol",
         "core": "흡혈마",
-        "total": 0.92
+        "total": 1.15
       },
       {
-        "v": "ian:dagger",
-        "core": "흡혈마",
-        "total": 0.8
+        "v": "alex:flex",
+        "core": "스텔라 차지",
+        "total": 0.97
+      },
+      {
+        "v": "katja:sniper_rifle",
+        "core": "아드레날린",
+        "total": 0.95
+      },
+      {
+        "v": "cathy:dagger",
+        "core": "증폭 드론",
+        "total": 0.91
       }
     ]
   },
@@ -749,62 +749,62 @@
       {
         "v": "sho:spear",
         "core": "치유 드론",
-        "total": 1.84
-      },
-      {
-        "v": "zahir:shuriken",
-        "core": "흡혈마",
-        "total": 1.75
-      },
-      {
-        "v": "sho:dagger",
-        "core": "증폭 드론",
-        "total": 1.52
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 1.47
+        "total": 2.19
       },
       {
         "v": "leon:tonfa",
         "core": "초재생",
-        "total": 1.37
+        "total": 1.65
       },
       {
         "v": "estelle:axe",
         "core": "치유 드론",
-        "total": 1.34
-      },
-      {
-        "v": "leon:glove",
-        "core": "흡혈마",
-        "total": 1.3
-      },
-      {
-        "v": "arda:arcana",
-        "core": "빛의 수호",
-        "total": 1.28
+        "total": 1.65
       },
       {
         "v": "ian:dagger",
         "core": "응징",
-        "total": 1.24
+        "total": 1.52
       },
       {
         "v": "leni:pistol",
         "core": "헌신",
-        "total": 1.2
+        "total": 1.51
       },
       {
         "v": "markus:hammer",
         "core": "응징",
-        "total": 1.16
+        "total": 1.49
       },
       {
-        "v": "mai:whip",
+        "v": "alex:flex",
+        "core": "스텔라 차지",
+        "total": 1.48
+      },
+      {
+        "v": "eleven:hammer",
         "core": "치유 드론",
-        "total": 0.97
+        "total": 1.41
+      },
+      {
+        "v": "johann:arcana",
+        "core": "초재생",
+        "total": 1.36
+      },
+      {
+        "v": "zahir:shuriken",
+        "core": "흡혈마",
+        "total": 1.3
+      },
+      {
+        "v": "cathy:dagger",
+        "core": "증폭 드론",
+        "total": 1.23
+      },
+      {
+        "v": "yuki:two_handed_sword",
+        "core": "금강",
+        "total": 1.23
       }
     ]
   },
@@ -817,62 +817,62 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 1.42
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 1.16
+        "total": 1.69
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
+        "total": 1.32
+      },
+      {
+        "v": "jenny:pistol",
+        "core": "흡혈마",
+        "total": 1.23
+      },
+      {
+        "v": "jackie:dagger",
+        "core": "액셀러레이터",
         "total": 1.03
       },
       {
         "v": "alex:flex",
         "core": "스텔라 차지",
-        "total": 0.97
+        "total": 1.01
       },
       {
-        "v": "jenny:pistol",
-        "core": "흡혈마",
-        "total": 0.91
+        "v": "cathy:dagger",
+        "core": "증폭 드론",
+        "total": 0.92
       },
       {
-        "v": "ian:dagger",
-        "core": "흡혈마",
-        "total": 0.87
-      },
-      {
-        "v": "leon:tonfa",
+        "v": "celine:throw",
         "core": "벽력",
-        "total": 0.8
+        "total": 1.05
       },
       {
-        "v": "adina:arcana",
+        "v": "daniel:dagger",
         "core": "도깨비불",
-        "total": 0.73
+        "total": 1
+      },
+      {
+        "v": "barbara:pistol",
+        "core": "증폭 드론",
+        "total": 0.9
+      },
+      {
+        "v": "sissela:shuriken",
+        "core": "벽력",
+        "total": 0.89
       },
       {
         "v": "yuki:dual_swords",
         "core": "액셀러레이터",
-        "total": 0.54
+        "total": 0.83
       },
       {
         "v": "nadine:crossbow",
         "core": "아드레날린",
-        "total": 0.54
-      },
-      {
-        "v": "barbara:pistol",
-        "core": "벽력",
-        "total": 0.53
-      },
-      {
-        "v": "yuki:two_handed_sword",
-        "core": "금강",
-        "total": 0.44
+        "total": 0.76
       }
     ]
   },
@@ -885,47 +885,47 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 1.98
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 1.67
+        "total": 1.99
       },
       {
         "v": "isol:assault_rifle",
         "core": "아드레날린",
-        "total": 1.33
-      },
-      {
-        "v": "aya:sniper_rifle",
-        "core": "벽력",
-        "total": 1.32
+        "total": 1.49
       },
       {
         "v": "nadine:crossbow",
         "core": "아드레날린",
-        "total": 1.29
-      },
-      {
-        "v": "aya:assault_rifle",
-        "core": "아드레날린",
-        "total": 1.16
+        "total": 1.47
       },
       {
         "v": "adina:arcana",
         "core": "도깨비불",
-        "total": 1.28
+        "total": 1.39
+      },
+      {
+        "v": "aya:assault_rifle",
+        "core": "아드레날린",
+        "total": 1.33
+      },
+      {
+        "v": "barbara:pistol",
+        "core": "증폭 드론",
+        "total": 1.3
       },
       {
         "v": "henry:shuriken",
         "core": "헌신",
-        "total": 1.21
+        "total": 1.26
+      },
+      {
+        "v": "jenny:pistol",
+        "core": "흡혈마",
+        "total": 1.25
       },
       {
         "v": "bernice:sniper_rifle",
         "core": "흡혈마",
-        "total": 1.04
+        "total": 1.14
       },
       {
         "v": "leon:tonfa",
@@ -933,14 +933,14 @@
         "total": 0.87
       },
       {
-        "v": "alex:flex",
-        "core": "스텔라 차지",
-        "total": 0.79
+        "v": "rio:bow",
+        "core": "아드레날린",
+        "total": 0.86
       },
       {
-        "v": "ian:dagger",
-        "core": "응징",
-        "total": 0.71
+        "v": "alex:flex",
+        "core": "스텔라 차지",
+        "total": 0.75
       }
     ]
   },
@@ -953,62 +953,62 @@
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 1.99
-      },
-      {
-        "v": "zahir:throw",
-        "core": "벽력",
-        "total": 1.67
+        "total": 2.03
       },
       {
         "v": "aya:sniper_rifle",
         "core": "벽력",
-        "total": 1.45
+        "total": 1.57
       },
       {
         "v": "jenny:pistol",
         "core": "흡혈마",
-        "total": 1.42
+        "total": 1.5
       },
       {
         "v": "nadine:crossbow",
         "core": "아드레날린",
-        "total": 1.26
+        "total": 1.37
       },
       {
-        "v": "aya:assault_rifle",
-        "core": "아드레날린",
-        "total": 1.16
-      },
-      {
-        "v": "aya:pistol",
-        "core": "벽력",
-        "total": 1.32
-      },
-      {
-        "v": "hyejin:bow",
+        "v": "barbara:pistol",
         "core": "증폭 드론",
-        "total": 1.15
+        "total": 1.34
       },
       {
         "v": "bernice:sniper_rifle",
         "core": "흡혈마",
-        "total": 1.04
+        "total": 1.19
+      },
+      {
+        "v": "isol:assault_rifle",
+        "core": "아드레날린",
+        "total": 1.49
+      },
+      {
+        "v": "hyejin:bow",
+        "core": "증폭 드론",
+        "total": 1.27
       },
       {
         "v": "sho:spear",
         "core": "치유 드론",
-        "total": 1.02
+        "total": 1.01
+      },
+      {
+        "v": "katja:sniper_rifle",
+        "core": "아드레날린",
+        "total": 1
       },
       {
         "v": "alex:flex",
         "core": "스텔라 차지",
-        "total": 1
+        "total": 0.96
       },
       {
         "v": "ian:dagger",
         "core": "응징",
-        "total": 0.94
+        "total": 0.9
       }
     ]
   },
@@ -1021,62 +1021,62 @@
       {
         "v": "sho:spear",
         "core": "치유 드론",
-        "total": 2.03
+        "total": 2.02
       },
       {
         "v": "zahir:shuriken",
         "core": "흡혈마",
-        "total": 1.95
-      },
-      {
-        "v": "sho:dagger",
-        "core": "증폭 드론",
-        "total": 1.71
-      },
-      {
-        "v": "zahir:throw",
-        "core": "흡혈마",
-        "total": 1.53
-      },
-      {
-        "v": "aya:pistol",
-        "core": "벽력",
-        "total": 1.41
-      },
-      {
-        "v": "jenny:pistol",
-        "core": "흡혈마",
-        "total": 1.41
-      },
-      {
-        "v": "arda:arcana",
-        "core": "벽력",
-        "total": 1.47
-      },
-      {
-        "v": "leon:glove",
-        "core": "액셀러레이터",
-        "total": 1.38
-      },
-      {
-        "v": "leon:tonfa",
-        "core": "벽력",
-        "total": 1.37
-      },
-      {
-        "v": "chloe:shuriken",
-        "core": "아드레날린",
-        "total": 1.35
+        "total": 1.96
       },
       {
         "v": "estelle:axe",
         "core": "헌신",
-        "total": 1.32
+        "total": 1.63
       },
       {
-        "v": "alex:flex",
-        "core": "스텔라 차지",
-        "total": 1.3
+        "v": "arda:arcana",
+        "core": "빛의 수호",
+        "total": 1.54
+      },
+      {
+        "v": "isol:pistol",
+        "core": "헌신",
+        "total": 1.46
+      },
+      {
+        "v": "leni:pistol",
+        "core": "헌신",
+        "total": 1.43
+      },
+      {
+        "v": "hyejin:bow",
+        "core": "증폭 드론",
+        "total": 1.46
+      },
+      {
+        "v": "jenny:pistol",
+        "core": "흡혈마",
+        "total": 1.38
+      },
+      {
+        "v": "li_dailin:glove",
+        "core": "치유 드론",
+        "total": 1.36
+      },
+      {
+        "v": "bernice:sniper_rifle",
+        "core": "흡혈마",
+        "total": 1.34
+      },
+      {
+        "v": "nadine:crossbow",
+        "core": "아드레날린",
+        "total": 1.34
+      },
+      {
+        "v": "chloe:shuriken",
+        "core": "아드레날린",
+        "total": 1.33
       }
     ]
   }

@@ -1,4 +1,11 @@
 export const en = {
+  "recommend.archetype.F2/D1/S0": "Double frontline · 1 dealer",
+  "recommend.archetype.F0/D3/S0": "No-tank triple dealer",
+  "recommend.archetype.F1/D2/S0": "Standard",
+  "recommend.archetype.F2/D0/S1": "Double frontline · support",
+  "recommend.archetype.F1/D1/S1": "Balanced support",
+  "recommend.archetype.F0/D2/S1": "2 dealers · support",
+  "recommend.archetype.F3/D0/S0": "Triple frontline",
   "app.brandSubtitle": "Eternal Return Squad Advisor",
   "app.sidebarLabel": "App Menu",
   "app.title": "Eternal Return Squad Advisor",

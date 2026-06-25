@@ -1,0 +1,60 @@
+name: backtest-latest-archive
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "35 20 * * *"
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    env:
+      DATA_REPO: latte4today/ER-Team-Picker-data
+    steps:
+      - name: Checkout app
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Checkout durable data archive
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.DATA_REPO }}
+          token: ${{ secrets.DATA_REPO_TOKEN }}
+          path: data-repo
+          fetch-depth: 1
+
+      - name: Validate pair synergy contract
+        run: npm run check-pair-synergy-lift
+
+      - name: Backtest latest durable archive
+        run: |
+          node tools/backtest_latest_archive.mjs \
+            --no-sync \
+            --archive-dir data-repo/official-archive \
+            --out reports/generated/latest-official-archive.jsonl \
+            --configs lean,lean_deficit,lean_deficit_hi_022,lean_deficit_hi_028,lean_deficit_hi_034 \
+            --metric concordance \
+            --games 1500 \
+            --scan 250000 \
+            --team-tier meteor_mithril,demigod_eternity \
+            --seed 1 \
+            --bootstrap 500 \
+            --ci-baseline lean
+
+      - name: Upload validation corpus manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: latest-archive-backtest-input
+          retention-days: 30
+          path: |
+            reports/generated/latest-official-archive.manifest.json
+          if-no-files-found: ignore

@@ -119,6 +119,7 @@ function parseArgs() {
   const args = {
     in: DEFAULT_IN,
     outDir: DEFAULT_OUT_DIR,
+    out: null, // 정확 출력 파일 경로(지정 시 outDir/타임스탬프 대신 사용)
     patch: process.env.CURRENT_PATCH || "",
   };
   for (let index = 2; index < process.argv.length; index += 1) {
@@ -128,6 +129,7 @@ function parseArgs() {
     index += 1;
     if (key === "--in") args.in = path.resolve(ROOT, value);
     if (key === "--out-dir") args.outDir = path.resolve(ROOT, value);
+    if (key === "--out") args.out = path.resolve(ROOT, value);
     if (key === "--patch") args.patch = value;
   }
   return args;
@@ -276,16 +278,24 @@ function teamFeatures(members) {
 
 async function main() {
   const args = parseArgs();
-  const raw = JSON.parse(await fs.readFile(args.in, "utf8"));
-  const teams = Array.isArray(raw.teams) ? raw.teams : [];
+  // 입력은 JSON({teams:[...]}) 또는 JSONL(팀 1줄) 둘 다 허용. 아카이브 corpus는 JSONL.
+  let raw = {};
+  let teams;
+  if (/\.jsonl$/i.test(args.in)) {
+    const text = await fs.readFile(args.in, "utf8");
+    teams = text.split(/\r?\n/).filter((line) => line.trim()).map((line) => JSON.parse(line));
+  } else {
+    raw = JSON.parse(await fs.readFile(args.in, "utf8"));
+    teams = Array.isArray(raw.teams) ? raw.teams : [];
+  }
   const patch = args.patch || raw.patch || process.env.CURRENT_PATCH || await projectVersion();
   const generatedAt = new Date().toISOString();
   const stamp = generatedAt.replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
-  const outPath = path.join(args.outDir, `matches-${safeFilePart(patch)}-${stamp}.jsonl`);
-  const manifestPath = path.join(args.outDir, `matches-${safeFilePart(patch)}-${stamp}.manifest.json`);
+  const outPath = args.out ?? path.join(args.outDir, `matches-${safeFilePart(patch)}-${stamp}.jsonl`);
+  const manifestPath = outPath.replace(/\.jsonl$/i, ".manifest.json");
   const weaponCodeToId = inferOfficialWeaponMap(teams);
 
-  await fs.mkdir(args.outDir, { recursive: true });
+  await fs.mkdir(path.dirname(outPath), { recursive: true });
   const handle = await fs.open(outPath, "w");
 
   let exported = 0;

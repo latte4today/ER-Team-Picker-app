@@ -907,6 +907,13 @@ function compactReasonText(reasons = []) {
   return t("recommend.stageBody");
 }
 
+function archetypeDisplayLabel(arch) {
+  if (!arch?.skeleton) return arch?.label ?? "";
+  const key = `recommend.archetype.${arch.skeleton}`;
+  const localized = t(key);
+  return localized === key ? (arch.label ?? arch.skeleton) : localized;
+}
+
 function feedbackCTABanner() {
   if (!chosenPickId) return "";
   const feedbackTeamIds = slotAssignments.slice(1).filter(Boolean);
@@ -1382,9 +1389,9 @@ function variantById(variantId) {
 function unionComboScore(combo) {
   const [first, second, third] = combo;
   const evaluations = [
-    evaluateCandidate([second.variantId, third.variantId], first.variantId, tierSelect.value, remoteFeedback, popularFeedback),
-    evaluateCandidate([first.variantId, third.variantId], second.variantId, tierSelect.value, remoteFeedback, popularFeedback),
-    evaluateCandidate([first.variantId, second.variantId], third.variantId, tierSelect.value, remoteFeedback, popularFeedback),
+    evaluateCandidate([second.variantId, third.variantId], first.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows()),
+    evaluateCandidate([first.variantId, third.variantId], second.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows()),
+    evaluateCandidate([first.variantId, second.variantId], third.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows()),
   ].filter(Boolean);
   const average = evaluations.reduce((sum, evaluation) => sum + evaluation.score, 0) / evaluations.length;
   return {
@@ -1533,7 +1540,7 @@ async function buildUnionCombos(players, rosters) {
   const ranked = rosters.map((roster) => {
     if (roster.length <= 12) return roster;
     const scored = roster.map((character) => {
-      const ev = evaluateCandidate([], character.variantId, tier, remoteFeedback, popularFeedback);
+      const ev = evaluateCandidate([], character.variantId, tier, remoteFeedback, currentRelationshipRows());
       return { character, score: ev?.score ?? 0 };
     });
     scored.sort((a, b) => b.score - a.score);
@@ -1940,14 +1947,17 @@ function assignSlot(slotIndex, id) {
   syncSelectedFromSlots();
 }
 
+function clearSlot(slotIndex) {
+  slotAssignments[slotIndex] = null;
+  slotCores[slotIndex] = null;
+  if (slotIndex === 0) matchFeedbackCore = null;
+  syncSelectedFromSlots();
+}
+
 function assignNextPick(id) {
   const characterId = id.split(":")[0];
   const existingSlot = slotAssignments.findIndex((variantId) => variantId?.split(":")[0] === characterId);
   if (existingSlot >= 0) {
-    slotAssignments[existingSlot] = null;
-    slotCores[existingSlot] = null;
-    if (existingSlot === 0) matchFeedbackCore = null;
-    syncSelectedFromSlots();
     return;
   }
 
@@ -2058,6 +2068,10 @@ function popularFeedbackRows(sortMode = "overall") {
     .filter((row) => row.likes > 0)
     .sort(sorter)
     .slice(0, 14);
+}
+
+function currentRelationshipRows() {
+  return Array.isArray(popularFeedback) ? popularFeedback : [];
 }
 
 function officialBucketForTier(tier = "all") {
@@ -2569,14 +2583,14 @@ async function renderFullTeamRecommendations() {
 
   const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
   const tier = tierSelect.value;
-  const slot1Results = recommend([anchorId], tier, remoteFeedback, playablePool, popularFeedback, selectedCoresMap()).slice(0, 8);
+  const slot1Results = recommend([anchorId], tier, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap()).slice(0, 8);
   const seen = new Set();
 
   for (const r1 of slot1Results) {
     await yieldToUi();
     if (_fullTeamState.anchorId !== anchorId) return; // anchor changed — abort
 
-    const slot2Results = recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, popularFeedback, selectedCoresMap()).slice(0, 3);
+    const slot2Results = recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap()).slice(0, 3);
     for (const r2 of slot2Results) {
       const pairKey = [r1.character.characterId, r2.character.characterId].sort().join("+");
       if (seen.has(pairKey)) continue;
@@ -2702,7 +2716,7 @@ function renderRecommendations() {
     limit: recommendLimit,
     remoteFeedback: dataSignature(remoteFeedback),
     popularFeedback: dataSignature(popularFeedback),
-    relationshipRows: dataSignature(popularFeedback),
+    relationshipRows: dataSignature(currentRelationshipRows()),
     stats: officialStatsVersion,
   });
   if (recommendationKey === setupRecommendationRenderKey && recommendations.childElementCount > 0) return;
@@ -2731,12 +2745,12 @@ function renderRecommendations() {
     cores: selectedCoresMap(),
     remoteFeedback: dataSignature(remoteFeedback),
     popularFeedback: dataSignature(popularFeedback),
-    relationshipRows: dataSignature(popularFeedback),
+    relationshipRows: dataSignature(currentRelationshipRows()),
     stats: officialStatsVersion,
   });
   const results = recommendationInputKey === recommendationCacheKey && recommendationCacheResults
     ? recommendationCacheResults
-    : recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, popularFeedback, selectedCoresMap());
+    : recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap());
   if (recommendationInputKey !== recommendationCacheKey) {
     recommendationCacheKey = recommendationInputKey;
     recommendationCacheResults = results;
@@ -2754,6 +2768,12 @@ function renderRecommendations() {
         .map((label) => `<span>${label}</span>`)
         .join("");
       const compactText = compactReasonText(result.reasons);
+      // 아키타입 칩: 표시 텍스트는 모델의 label(데이터)뿐, 나머지는 data-* 속성으로(문구는 별도 수정).
+      const arch = result.archetype;
+      const archLabel = archetypeDisplayLabel(arch);
+      const archetypeChip = archLabel
+        ? `<div class="recommendation-archetype" data-skeleton="${arch.skeleton}" data-top3="${arch.profile?.top3 ?? ""}" data-win="${arch.profile?.win ?? ""}" data-bottom="${arch.profile?.bottom ?? ""}" data-slope="${arch.tierSlope ?? ""}">${archLabel}</div>`
+        : "";
       return `
         <article class="recommendation-card">
           <div class="recommendation-avatar">
@@ -2767,6 +2787,7 @@ function renderRecommendations() {
               <span>${characterSubtitle(result.character)}</span>
             </div>
             ${traitChip(result.character.variantId, tierSelect.value, result.recommendedCore)}
+            ${archetypeChip}
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
             <details class="recommendation-details">
@@ -2825,7 +2846,7 @@ function renderMatchFeedback() {
   const chosenFeedbackId = feedbackCandidateIdForMatchFeedback();
   const chosenCore = coreInfoForMatchFeedback();
   const canRateMatch = canSubmitMatchFeedback(feedbackTeamIds, chosenFeedbackId);
-  const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, popularFeedback, matchFeedbackCoresMap());
+  const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows(), matchFeedbackCoresMap());
   const reasonList = evaluation?.reasons.map((reason) => `<li>${reason}</li>`).join("") ?? "";
   const compactLabels = compactReasonLabels(evaluation?.reasons ?? [])
     .map((label) => `<span>${label}</span>`)
@@ -3463,8 +3484,7 @@ recommendations.addEventListener("click", (event) => {
   const button = event.target.closest("[data-choose-pick]");
   if (!button) return;
 
-  chosenPickId = button.dataset.choosePick;
-  slotAssignments[0] = chosenPickId;
+  assignSlot(0, button.dataset.choosePick);
   slotCores[0] = button.dataset.chooseCore || null;
   matchFeedbackCore = null;
   renderDetectedTeam();
@@ -3500,10 +3520,7 @@ matchFeedback.addEventListener("click", (event) => {
 
   const clearPickButton = event.target.closest("[data-clear-pick]");
   if (clearPickButton) {
-    chosenPickId = null;
-    slotAssignments[0] = null;
-    slotCores[0] = null;
-    matchFeedbackCore = null;
+    clearSlot(0);
     renderDetectedTeam();
     render();
     return;
@@ -3576,17 +3593,6 @@ manualSlots.addEventListener("click", (event) => {
   if (!button) return;
   const slotIndex = Number(button.dataset.manualSlot);
   const slotLabel = slotIndex === 0 ? t("slot.self") : t(`slot.teammate${slotIndex}`);
-
-  if (slotAssignments[slotIndex]) {
-    slotAssignments[slotIndex] = null;
-    slotCores[slotIndex] = null;
-    if (slotIndex === 0) matchFeedbackCore = null;
-    activeSlot = null;
-    syncSelectedFromSlots();
-    renderDetectedTeam([], t("slot.deselect", { slot: slotLabel }));
-    render();
-    return;
-  }
 
   if (activeSlot === slotIndex) {
     activeSlot = null;

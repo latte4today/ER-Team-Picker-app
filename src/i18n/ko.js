@@ -1,4 +1,11 @@
 export const ko = {
+  "recommend.archetype.F2/D1/S0": "더블전열·1딜",
+  "recommend.archetype.F0/D3/S0": "노탱3딜",
+  "recommend.archetype.F1/D2/S0": "정석",
+  "recommend.archetype.F2/D0/S1": "더블전열·서폿",
+  "recommend.archetype.F1/D1/S1": "밸런스·서폿",
+  "recommend.archetype.F0/D2/S1": "2딜·서폿",
+  "recommend.archetype.F3/D0/S0": "트리플전열",
   "app.brandSubtitle": "이터널 리턴 조합 추천",
   "app.sidebarLabel": "앱 메뉴",
   "app.title": "이터널 리턴 조합 추천",

@@ -1742,6 +1742,22 @@ h2 {
   margin-bottom: 7px;
 }
 
+/* 아키타입 칩 — 최소 레이아웃만(문구/색상 등은 추후 조정). */
+.recommendation-archetype {
+  display: inline-block;
+  align-self: flex-start;
+  margin: 2px 0 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.5;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.recommendation-archetype:empty {
+  display: none;
+}
+
 .recommendation-tags:empty {
   display: none;
 }

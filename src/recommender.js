@@ -1,6 +1,7 @@
 import { characterVariants, roleNames, synergyPairs } from "./data.js";
 import { getFeedbackScore, loadFeedback } from "./feedback.js";
 import { officialPairSynergyLift } from "./pairSynergyLift.js";
+import { compModel } from "./compModel.js";
 import {
   experimentTiers,
   oneTrickWeight,
@@ -26,7 +27,6 @@ import {
 } from "./officialMatchStats.js";
 import { coreRowForVariant, normalizeCoreName, normalizeTraitBuildRows } from "./traitMeta.js";
 
-// Mutable references — can be overridden at runtime via updateOfficialStats()
 let officialCandidateStatsByTier  = _bundledCandidateStats;
 let officialCompositionStatsByTier = _bundledCompositionStats;
 let officialPairStatsByTier       = _bundledPairStats;
@@ -93,6 +93,7 @@ export function updateOfficialStats(remote) {
   _effectiveCoreProfileCache = new Map();
   _variantCoreBaselineCache = new Map();
   _teamShapeCache = new Map();
+  _needsNormalizer = null;
 }
 import { tournamentCompositions } from "./tournamentMeta.js";
 import {
@@ -109,7 +110,6 @@ import {
 
 const requiredTags = ["initiate", "focus", "peel", "cc", "sustained", "poke", "burst"];
 
-// Character lookup maps (O(1)) — replaces repeated characterVariants.find() in hot paths.
 const _variantById = new Map();
 const _firstByCharacterId = new Map();
 for (const _c of characterVariants) {
@@ -128,7 +128,6 @@ function _objId(o) {
   return id;
 }
 
-// teamShape memo — same (effective) team is scored by ~13 functions per candidate.
 // Cleared in updateOfficialStats (effective objects change); capped to bound memory.
 let _teamShapeCache = new Map();
 
@@ -635,16 +634,16 @@ function _computeTeamShape(team) {
 }
 
 function teamShapeLabel(shape) {
-  if (shape.tanks === 1 && shape.backline === 2 && shape.melee === 0 && shape.supports === 0) return "1탱 2원";
-  if (shape.tanks === 0 && shape.melee === 1 && shape.backline === 2 && shape.supports === 0) return "1근 2원";
-  if (shape.tanks === 0 && shape.melee === 2 && shape.backline === 1 && shape.supports === 0) return "2근 1원";
-  if (shape.tanks === 0 && shape.melee === 2 && shape.supports === 1 && shape.backline === 0) return "2근 1서포터";
-  if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1 && shape.supports === 0) return "1탱 1근 1원";
-  if (shape.backline === 3 && shape.tanks === 0 && shape.melee === 0) return "3원";
-  if (shape.melee + shape.tanks === 3 && shape.backline === 0 && shape.supports === 0) return "3근";
-  if (shape.tanks >= 1 && shape.supports >= 1) return "탱커+서포터";
-  if (shape.tanks >= 2) return "투탱";
-  return `${shape.tanks}탱 ${shape.melee}근 ${shape.backline}원${shape.supports ? ` ${shape.supports}서포터` : ""}`;
+  if (shape.tanks === 1 && shape.backline === 2 && shape.melee === 0 && shape.supports === 0) return "F1/B2";
+  if (shape.tanks === 0 && shape.melee === 1 && shape.backline === 2 && shape.supports === 0) return "M1/B2";
+  if (shape.tanks === 0 && shape.melee === 2 && shape.backline === 1 && shape.supports === 0) return "M2/B1";
+  if (shape.tanks === 0 && shape.melee === 2 && shape.supports === 1 && shape.backline === 0) return "M2/S1";
+  if (shape.tanks === 1 && shape.melee === 1 && shape.backline === 1 && shape.supports === 0) return "F1/M1/B1";
+  if (shape.backline === 3 && shape.tanks === 0 && shape.melee === 0) return "B3";
+  if (shape.melee + shape.tanks === 3 && shape.backline === 0 && shape.supports === 0) return "Front3";
+  if (shape.tanks >= 1 && shape.supports >= 1) return "Front+Support";
+  if (shape.tanks >= 2) return "DoubleFront";
+  return `F${shape.tanks}/M${shape.melee}/B${shape.backline}${shape.supports ? `/S${shape.supports}` : ""}`;
 }
 
 function teamFeatureSummary(team, candidate) {
@@ -671,21 +670,8 @@ function teamFeatureSummary(team, candidate) {
   return t("recommender.reason.teamFeatureDefault", { nameObject: objectName(candidate), name: characterName(candidate) });
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Continuous role representation (연속화 1단계 — 실험 계층)
 //
-// 목표: 이산 role + 부울 술어를 6축 연속 벡터로 *표현*한다. 이번 단계는 표현 계층만
-// 추가하고, 기존 isTank/teamShape/술어는 그대로 둔다. 점수 함수 중 teamShapeScore
-// 하나만 플래그로 벡터 버전을 실험 연결한다.
 //
-// 중요 원칙:
-//  - characterVector는 raw character를 직접 해석하지 않는다. 반드시
-//    applyCoreRoleProfile()로 만든 effective character를 기반으로 한다.
-//  - inferredCoreRoleOverride / applyCoreRoleProfile 로직은 재구현하지 않는다.
-//    effective character가 이미 들고 있는 role/frontDamage/backlineDamage/tags 와
-//    effectiveCore.profile(= corePlaystyle 결과)을 *읽어* 매핑만 한다.
-//  - 교전 타이밍/사거리(코어 무관 고정)는 벡터에 흡수하지 않는다.
-// ─────────────────────────────────────────────────────────────────────────────
 
 const VECTOR_SCORING_FLAGS = {
   enableCharacterVector: true,
@@ -699,6 +685,8 @@ const VECTOR_SCORING_FLAGS = {
   usePairSynergyLift: true,
   useLeanScoring: true,
   useVectorSpecializationScore: true,
+  useDeficitFitModel: false,
+  useArchetypeModel: false,
   replaceBooleanPredicates: false,
 };
 
@@ -721,16 +709,16 @@ const VECTOR_AXES = [
   "objective",
 ];
 const LEAN_SCORING_CONFIG = {
-  strengthWeight: 1.22,
+  strengthWeight: 1.08,
   pairWeight: 0.55,
   heuristicWeight: 0.10,
   heuristicCap: 0.38,
   fitCap: 0.95,
   difficultyWeight: 0.03,
+  stackPenaltyCap: 1.45,
 };
-const VECTOR_CORE_BLEND = 0.30; // corePlaystyle 혼합 가중치 (역할 시드를 압도하지 않게)
+const VECTOR_CORE_BLEND = 0.30;
 
-// 역할 시드 벡터 (각 축 0..~1). 튜닝 대상.
 const ROLE_SEED_VECTORS = {
   frontline: { frontline: 1.00, damage: 0.20, durability: 0.90, cc: 0.45, support: 0.20, tempo: 0.20 },
   bruiser:   { frontline: 0.85, damage: 0.60, durability: 0.60, cc: 0.35, support: 0.10, tempo: 0.40 },
@@ -742,7 +730,6 @@ const ROLE_SEED_VECTORS = {
 
 const DAMAGE_BUCKET_SCALE = { low: 0.65, medium: 1.00, high: 1.30 };
 
-// 태그 → 축 보정 (가산). effective 캐릭터의 tags는 코어 override를 이미 반영함.
 const TAG_VECTOR_MODS = {
   focus:     { damage: 0.12, pick: 0.14 },
   burst:     { damage: 0.12, burst: 0.22, tempo: 0.05 },
@@ -797,29 +784,31 @@ function blendEmpiricalVector(manual, character, core, tier = "all") {
   return out;
 }
 
-// 순수 매핑: 이미 effective인 캐릭터(applyCoreRoleProfile 결과)를 6축 벡터로.
-// 재적용/재추론 없음 — effective의 role/damage 버킷/tags/effectiveCore.profile만 읽는다.
 function characterVectorFromEffective(eff) {
   const seed = ROLE_SEED_VECTORS[eff.role] ?? ROLE_SEED_VECTORS.bruiser;
   const v = { ...emptyVector(), ...seed };
 
-  // 위치(전열/후열)에 맞는 damage 버킷으로 damage 축 스케일.
   const isFrontPositioned = eff.role === "frontline" || eff.role === "bruiser" || eff.role === "assassin";
   const bucket = isFrontPositioned ? eff.frontDamage : eff.backlineDamage;
   v.damage *= DAMAGE_BUCKET_SCALE[bucket] ?? 1;
 
-  // 태그 보정.
   for (const tag of eff.tags ?? []) {
     const mod = TAG_VECTOR_MODS[tag];
     if (!mod) continue;
     for (const [axis, delta] of Object.entries(mod)) v[axis] += delta;
   }
 
-  // 경험적 CC 질량(ccProfile 가중합)을 cc 축에 반영 — 태그보다 신뢰도 높음.
-  const ccMass = ccPower(eff); // 대략 0..3
+  const rangeScore = eff.roleProfile?.range ?? 1;
+  v.range += clamp((rangeScore - 1) / 4, 0, 1) * 0.85;
+  if (eff.weaponRange === "ranged") { v.range += 0.30; v.poke += 0.12; }
+  else if (eff.weaponRange === "hybrid") { v.range += 0.12; }
+  if (eff.role === "ranged" || eff.role === "mage") v.poke += 0.18;
+  if (eff.role === "assassin") { v.burst += 0.30; v.pick += 0.22; v.duel += 0.18; }
+  if (bucket === "high") v.burst += 0.20;
+
+  const ccMass = ccPower(eff);
   v.cc = Math.max(v.cc, Math.min(1.0, ccMass * 0.42));
 
-  // 코어 플레이스타일 혼합 (effective가 이미 들고 있음 — 재계산 안 함).
   const cp = eff.effectiveCore?.profile;
   if (cp) {
     v.damage     += (cp.damage     ?? 0) * VECTOR_CORE_BLEND;
@@ -833,7 +822,6 @@ function characterVectorFromEffective(eff) {
   return blendEmpiricalVector(v, eff, eff.effectiveCore?.core, eff.effectiveTier ?? "all");
 }
 
-// 공개 API: raw character + core + tier → effective 적용 후 벡터.
 function characterVector(character, core, tier = "all") {
   if (!character) return emptyVector();
   const eff = applyCoreRoleProfile(character, core, tier);
@@ -855,19 +843,242 @@ function aggregateVectors(memberVectors) {
   return { sum, avg, max, members: memberVectors };
 }
 
-// 이미 effective인 팀에 대한 집계 (재적용 회피 — 점수 함수 내부에서 사용).
 function teamVectorFromEffective(effTeam) {
   return aggregateVectors(effTeam.map(characterVectorFromEffective));
 }
 
-// 공개 API: raw team + coreMap + tier → {sum, avg, max, members}.
 function teamVector(team, coreMap = {}, tier = "all") {
   return aggregateVectors(team.map((c) => characterVector(c, coreMap?.[c.variantId], tier)));
 }
 
-// 실험용 vector 기반 teamShapeScore. legacy의 의도를 연속 질량으로 근사한다
-// (정확 재현이 목적이 아니라, 연속화가 추천을 어떻게 바꾸는지 관찰하기 위함).
-// 출력 범위는 legacy와 동일하게 [-5.4, 3.0]로 클램프.
+const NEEDS = ["frontline", "damage", "durability", "control", "protect", "reach", "burstPick", "tempo"];
+const NEEDS_MAP = {
+  frontline:  { frontline: 1.0 },
+  damage:     { damage: 1.0 },
+  durability: { durability: 1.0 },
+  control:    { cc: 0.7, engage: 0.6, zone: 0.5 },
+  protect:    { peel: 0.7, sustain: 0.6, support: 0.6 },
+  reach:      { range: 0.8, poke: 0.6 },
+  burstPick:  { burst: 0.7, pick: 0.6, duel: 0.4 },
+  tempo:      { tempo: 0.9, objective: 0.3 },
+};
+
+const DEFICIT_FIT_CONFIG = {
+  target:     { frontline: 6, damage: 7, durability: 5, control: 6, protect: 6, reach: 6, burstPick: 5, tempo: 4 },
+  rawNeedCap: { frontline: 1.3, damage: 1.4, durability: 1.3, control: 1.2, protect: 1.15, reach: 0.9, burstPick: 0.5, tempo: 0.95 },
+  needWeight: { frontline: 1, damage: 1, durability: 0.8, control: 1, protect: 1, reach: 1, burstPick: 0.8, tempo: 0.6 },
+  coverageExtraWeight: 0.5,
+  tiers: null,
+  k: 4,
+  overW: 0.04,
+  fitScale: 0.16,
+  fitClamp: 2.2,
+};
+
+function vectorToNeeds(v) {
+  const out = {};
+  for (const need of NEEDS) {
+    const m = NEEDS_MAP[need];
+    let s = 0;
+    for (const axis in m) s += (v[axis] ?? 0) * m[axis];
+    out[need] = s;
+  }
+  return out;
+}
+
+let _needsNormalizer = null;
+function buildNeedsNormalizer() {
+  const cols = {};
+  for (const n of NEEDS) cols[n] = [];
+  for (const c of characterVariants) {
+    const needs = vectorToNeeds(characterVector(c, undefined, "all"));
+    for (const n of NEEDS) cols[n].push(needs[n]);
+  }
+  const stats = {};
+  for (const n of NEEDS) {
+    const arr = cols[n].sort((a, b) => a - b);
+    const mean = arr.reduce((s, x) => s + x, 0) / (arr.length || 1);
+    const variance = arr.reduce((s, x) => s + (x - mean) ** 2, 0) / (arr.length || 1);
+    const p90 = arr.length ? arr[Math.min(arr.length - 1, Math.floor((arr.length - 1) * 0.9))] : 0;
+    const max = arr.length ? arr[arr.length - 1] : 0;
+    stats[n] = { sorted: arr, mean, std: Math.sqrt(variance) || 1, p90, max };
+  }
+  _needsNormalizer = stats;
+}
+function needsNormalizer() {
+  if (!_needsNormalizer) buildNeedsNormalizer();
+  return _needsNormalizer;
+}
+function pctNeed(need, raw) {
+  const s = needsNormalizer()[need];
+  if (!s || !s.sorted.length) return 0;
+  const arr = s.sorted;
+  let lo = 0, hi = arr.length;
+  while (lo < hi) { const m = (lo + hi) >> 1; if (arr[m] <= raw) lo = m + 1; else hi = m; }
+  return (lo / arr.length) * 10;
+}
+function zNeed(need, raw) {
+  const s = needsNormalizer()[need];
+  if (!s) return 0;
+  return (raw - s.mean) / s.std;
+}
+
+function teamCoverageNeeds(memberVectors) {
+  const cfg = DEFICIT_FIT_CONFIG;
+  const memberNeeds = memberVectors.map(vectorToNeeds);
+  const extraW = cfg.coverageExtraWeight ?? 0.5;
+  const cov = {};
+  for (const need of NEEDS) {
+    const cap = cfg.rawNeedCap[need] || 1;
+    const abilities = memberNeeds
+      .map((mn) => clamp((mn[need] ?? 0) / cap, 0, 1))
+      .sort((a, b) => b - a);
+    let cov01 = 0, remaining = 1;
+    for (let i = 0; i < abilities.length; i++) {
+      const contrib = i === 0 ? abilities[i] : abilities[i] * extraW;
+      const add = contrib * remaining;
+      cov01 += add;
+      remaining -= add;
+    }
+    cov[need] = 10 * clamp(cov01, 0, 1);
+  }
+  return cov;
+}
+
+function computeDeficitInfo(selectedVector) {
+  const coverage = teamCoverageNeeds(selectedVector?.members ?? []);
+  const deficits = {};
+  for (const need of NEEDS) {
+    deficits[need] = Math.max(0, (DEFICIT_FIT_CONFIG.target[need] ?? 0) - (coverage[need] ?? 0));
+  }
+  return { coverage, deficits };
+}
+
+function deficitTierAllowed(tier) {
+  const t = DEFICIT_FIT_CONFIG.tiers;
+  return !t || t.length === 0 || t.includes(tier);
+}
+
+function deficitFitScore(candidateVector, deficits, coverage) {
+  const cfg = DEFICIT_FIT_CONFIG;
+  const cNeeds = vectorToNeeds(candidateVector);
+  let fill = 0, satur = 0;
+  for (const need of NEEDS) {
+    const c = pctNeed(need, cNeeds[need]);
+    const w = cfg.needWeight[need] ?? 1;
+    fill += (deficits[need] ?? 0) * (1 - Math.exp(-c / cfg.k)) * w;
+    const over = Math.max(0, (coverage[need] ?? 0) - (cfg.target[need] ?? 0));
+    satur += cfg.overW * (c / 10) * over * w;
+  }
+  return clamp((fill - satur) * cfg.fitScale, -cfg.fitClamp, cfg.fitClamp);
+}
+export { NEEDS, DEFICIT_FIT_CONFIG, computeDeficitInfo, deficitFitScore };
+
+const ARCHETYPE_FIT_CONFIG = {
+  tierWeight: 0.55,
+  fillWeight: 0.06,
+  archQualityWeight: 0.30,
+  offMetaPenalty: 0.60,
+  cap: 2.2,
+};
+const ARCH_PARAMS = ["dmg", "tank", "protect", "heal", "cc"];
+const _TIER_RANK = {
+  iron_bronze: 0, iron_gold: 0, silver_gold: 0, silver_platinum: 1,
+  platinum_diamond: 1, diamond_meteor: 2, meteor_mithril: 2,
+  demigod_eternity: 3, demigod: 3, all: 1.5,
+};
+function _compReady() {
+  return compModel && compModel.characters && Object.keys(compModel.characters).length > 0;
+}
+function _compChar(characterId) {
+  return compModel?.characters?.[characterId] ?? null;
+}
+function tierIndex(tier) {
+  return _TIER_RANK[tier] ?? 1.5;
+}
+function teamSkeleton(characterIds) {
+  let f = 0, d = 0, s = 0;
+  for (const cid of characterIds) {
+    const er = _compChar(cid)?.effRole;
+    if (er === "D") d++;
+    else if (er === "S") s++;
+    else f++;
+  }
+  return `F${f}/D${d}/S${s}`;
+}
+function archetypeInfoFor(candidate, selected) {
+  if (!_compReady()) return null;
+  const cids = [...selected.map((c) => c.characterId), candidate.characterId];
+  const skel = teamSkeleton(cids);
+  const arch = compModel.archetypes?.[skel];
+  if (!arch) return { skeleton: skel, label: null, profile: null, offMeta: true };
+  return { skeleton: skel, label: arch.label || skel, profile: arch.profile ?? null,
+           tierSlope: arch.tierSlope ?? null };
+}
+function archetypeFitScore(candidate, selected, tier) {
+  if (!_compReady() || selected.length === 0) return 0;
+  const cfg = ARCHETYPE_FIT_CONFIG;
+  const cids = [...selected.map((c) => c.characterId), candidate.characterId];
+  const skel = teamSkeleton(cids);
+  const arch = compModel.archetypes?.[skel];
+  if (!arch) return -cfg.offMetaPenalty;
+  let score = 0;
+  const slope = arch.tierSlope ?? 0;
+  score += (slope / 10) * (tierIndex(tier) - 1.5) * cfg.tierWeight;
+  const cand = _compChar(candidate.characterId)?.params;
+  const memberParams = cids.map((cid) => _compChar(cid)?.params).filter(Boolean);
+  if (cand && memberParams.length) {
+    for (const k of ARCH_PARAMS) {
+      const teamMean = memberParams.reduce((sum, p) => sum + (p[k] ?? 0), 0) / memberParams.length;
+      const deficit = Math.max(0, (arch.requirement?.[k] ?? 0) - teamMean);
+      score += deficit * ((cand[k] ?? 0) / 10) * cfg.fillWeight;
+    }
+  }
+  score += (((arch.profile?.top3 ?? 40) - 40) / 10) * cfg.archQualityWeight;
+  return clamp(score, -cfg.cap, cfg.cap);
+}
+export { compModel, archetypeFitScore, archetypeInfoFor };
+
+//   import { debugDeficitModel } from "../src/recommender.js";
+export function debugDeficitModel(selectedIds = [], candidateId = null, tier = "all", cores = {}) {
+  const selected = selectedCharactersFromIds(selectedIds);
+  const effectiveSelected = effectiveTeamFor(selected, cores, tier);
+  const selectedVector = teamVectorFromEffective(effectiveSelected);
+  const { coverage, deficits } = computeDeficitInfo(selectedVector);
+  const norm = needsNormalizer();
+  const cfg = DEFICIT_FIT_CONFIG;
+
+  const needs = NEEDS.map((need) => ({
+    need,
+    mean: Number((norm[need]?.mean ?? 0).toFixed(3)),
+    std: Number((norm[need]?.std ?? 0).toFixed(3)),
+    p90: Number((norm[need]?.p90 ?? 0).toFixed(3)),
+    max: Number((norm[need]?.max ?? 0).toFixed(3)),
+    rawCap: cfg.rawNeedCap[need] ?? 1,
+    target: cfg.target[need] ?? 0,
+    coverage: Number((coverage[need] ?? 0).toFixed(2)),
+    deficit: Number((deficits[need] ?? 0).toFixed(2)),
+  }));
+
+  let candidate = null;
+  const c = candidateId ? _variantById.get(candidateId) : null;
+  if (c) {
+    const cv = characterVectorFromEffective(applyCoreRoleProfile(c, cores[candidateId], tier));
+    const cNeeds = vectorToNeeds(cv);
+    candidate = {
+      variantId: candidateId,
+      fit: Number(deficitFitScore(cv, deficits, coverage).toFixed(3)),
+      needs: NEEDS.map((need) => ({
+        need,
+        raw: Number((cNeeds[need] ?? 0).toFixed(3)),
+        pct: Number(pctNeed(need, cNeeds[need]).toFixed(2)),
+        z: Number(zNeed(need, cNeeds[need]).toFixed(2)),
+      })),
+    };
+  }
+  return { tier, needs, candidate };
+}
+
 function vectorTeamShapeScore(candidate, selected) {
   const team = [...selected, candidate];
   if (team.length < 3) return 0;
@@ -876,43 +1087,30 @@ function vectorTeamShapeScore(candidate, selected) {
   const utility = sum.cc + sum.support;
   let score = 0;
 
-  // (1) 딜 충분성. 결핍(→충족) 전환은 보상하되, 이미 충분한 팀에 딜이 더 쌓일 때는
-  //     추가 보너스를 saturating(체감 감쇠)시켜 Category ④(딜 축 중복 가점)를 억제한다.
-  //     결핍 패널티는 유지 → 진짜 저댐 조합 감지 + Leni+Markus류 구제(전환 보상) 보존.
   if (sum.damage < 1.5) {
     score -= (1.5 - sum.damage) * 2.6;
   } else {
-    // 상한 ~0.48, 대부분의 이득이 damage≈1.5~2.0 구간에서 실현되고 그 이상은 거의 평탄.
     score += 0.5 * (1 - Math.exp(-(sum.damage - 1.5) / 0.45));
   }
 
-  // (2) 전열 질량 과다 + 딜 부족 — legacy: 2+탱 저댐 → 패널티.
   if (sum.frontline >= 2.3 && sum.damage < 1.5) score -= 1.5;
 
-  // (3) 전열+서포터인데 딜 얇음 — legacy: 탱+서포터 딜 부족 패널티.
   if (sum.frontline >= 0.9 && sum.support >= 0.7 && sum.damage < 1.6) score -= 1.4;
 
-  // (4) 전/후열 균형 + 유틸 충분 — legacy 양호 조합 보너스.
   if (sum.frontline >= 0.8 && sum.damage >= 1.6 && utility >= 0.9) score += 0.9;
 
-  // (5) 후방 위주 조합은 제어/피어가 있어야 가치 — legacy 3원 분기 근사.
   if (sum.frontline < 0.7) {
     if (utility >= 1.0 && sum.damage >= 1.8) score += 0.5;
     else if (utility < 0.7) score -= 0.6;
   }
 
-  // (6) 다이브/템포 + CC 셋업 시너지.
   if (sum.tempo >= 1.2 && sum.cc >= 0.8) score += 0.4;
 
   return Math.max(-5.4, Math.min(3.0, score));
 }
 
-// vector 점수를 legacy에 섞는 비율. final = legacy + BLEND * (vector - legacy).
-// 0 이면 완전 legacy, 1 이면 완전 vector. 우선 0.30(=70% legacy / 30% vector).
 const VECTOR_TEAM_SHAPE_BLEND = 0.30;
 
-// 디스패처: 플래그가 꺼져 있으면 legacy 단독. 켜져 있으면 legacy와 vector를 hybrid 블렌딩
-// (vector를 100% 대체하지 않고 legacy 대비 편차의 일부만 반영).
 function teamShapeScore(candidate, selected) {
   const legacy = legacyTeamShapeScore(candidate, selected);
   if (!(VECTOR_SCORING_FLAGS.enableCharacterVector && VECTOR_SCORING_FLAGS.useVectorTeamShapeScore)) {
@@ -947,8 +1145,6 @@ function legacyTeamShapeScore(candidate, selected) {
 
   if (shape.tanks === 1 && shape.backline === 2 && shape.supports === 0) {
     const tank = team.find(isTank);
-    // 보호형 탱커(필/실드/힐 or 가드 스타일)와 돌격형 탱커(firstEngage only) 구분
-    // 매그너스·엘레나 등 다이브형 탱커는 원거리 딜러를 지킬 수 없어 보너스 감소
     const isProtectiveTank = tank && (
       tank.tags.includes("peel") ||
       tank.tags.includes("shield") ||
@@ -958,7 +1154,7 @@ function legacyTeamShapeScore(candidate, selected) {
     );
     if (isLowDamageFront(tank)) score += 1.2;
     else if (isProtectiveTank) score += 1.45;
-    else score += 0.75; // 돌격형 탱커 (매그너스, 엘레나 등) — 데미지는 높지만 보호 불가
+    else score += 0.75;
   }
   if (shape.tanks === 0 && shape.melee === 2 && shape.backline === 1) score += 1.25;
   if (shape.tanks === 0 && shape.melee === 2 && shape.supports === 1) score += 1.1;
@@ -981,18 +1177,16 @@ function legacyTeamShapeScore(candidate, selected) {
   if (shape.longRangeCarries >= 2 && !hasPeel && teamCcPower(team) < 2.0) score -= 0.7;
   if (shape.sustainedCarries >= 2 && teamCcPower(team) < 1.6) score -= 0.6;
 
-  // ── speedBoost 서포터: 팀 평균 사거리 점수가 낮을수록 이동속도 이득이 커짐 ──
   if (candidate.tags.includes("speedBoost") && isSupport(candidate) && selected.length >= 1) {
     const avgRange = selected.reduce((s, c) => s + (c.roleProfile?.range ?? 1), 0) / selected.length;
     const hasFront = selected.some((c) => c.role === "frontline" || c.role === "bruiser");
     if (hasFront) {
-      if (avgRange < 2.0) score += 1.3;       // 전원 근접: 최대 이득
-      else if (avgRange < 2.8) score += 0.7;  // 주로 근접
-      else if (avgRange < 3.5) score += 0.2;  // 혼합
+      if (avgRange < 2.0) score += 1.3;
+      else if (avgRange < 2.8) score += 0.7;
+      else if (avgRange < 3.5) score += 0.2;
     }
   }
 
-  // ── hyperCarry 암살자: 팀 이니시 강도 + CC 수치에 따라 가치가 선형 변동 ──
   if (candidate.tags.includes("hyperCarry") && selected.length >= 1) {
     const selectedCC = teamCcPower(selected);
     const teamInitiate = selected.reduce((s, c) => s + (c.roleProfile?.initiate ?? 0), 0);
@@ -1008,7 +1202,6 @@ function legacyTeamShapeScore(candidate, selected) {
     }
   }
 
-  // ── 낮은 이니시 암살자 (initiateStrength ≤ 1): 팀 셋업 없을 때 경미한 패널티 ──
   if (candidate.role === "assassin" && !candidate.tags.includes("hyperCarry") && selected.length >= 1) {
     const selfInitiate = candidate.roleProfile?.initiate ?? 0;
     if (selfInitiate <= 1) {
@@ -1061,39 +1254,27 @@ function coverageScore(candidate, selected) {
   return candidate.tags.filter((tag) => missing.includes(tag)).length * 0.9 + ccCoverageScore(candidate, selected);
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Full vector scoring experiment (실험 브랜치)
 //
-// 주요 점수 함수의 vector 기반 실험 버전 + hybrid 디스패처.
-//  - legacy 함수는 보존(legacy* 로 개명), 플래그 off 면 legacy 단독.
-//  - 디스패처: final = legacy + BLEND * (vector − legacy)   (0.20~0.35)
-//  - compositionGuide 만 "보조 적용": final = legacy + AUX_BLEND * aux (가산형).
-//  - vector 함수는 teamVector(frontline/damage/durability/cc/support/tempo) 사용.
-//  - boolean predicate(isTank 등)는 게이팅 용도로 읽기만 하고 교체하지 않음.
-// ─────────────────────────────────────────────────────────────────────────────
 
 const VECTOR_ROLE_BALANCE_BLEND      = 0.25;
-const VECTOR_DAMAGE_BALANCE_BLEND    = 0.25; // front/backline 공용
+const VECTOR_DAMAGE_BALANCE_BLEND    = 0.25;
 const VECTOR_METRIC_BALANCE_BLEND    = 0.25;
-const VECTOR_COMPOSITION_GUIDE_AUX_BLEND = 0.20; // 가산형 보조 가중
+const VECTOR_COMPOSITION_GUIDE_AUX_BLEND = 0.20;
 
-// 부족한 축을 채우는 후보를 보상, 과잉 축 중복을 감점.
 function vectorRoleBalanceScore(candidate, selected, selectedVector = null, candidateVector = null) {
   if (selected.length === 0) return 1;
   const selSum = selectedVector?.sum ?? teamVectorFromEffective(selected).sum;
   const cv = candidateVector ?? characterVectorFromEffective(candidate);
   let score = 0;
-  if (selSum.frontline < 0.8) score += cv.frontline * 1.1;   // 전열 부족 보강
-  if (selSum.damage < 1.3)    score += cv.damage * 0.8;      // 딜 부족 보강
-  if (selSum.support < 0.4)   score += cv.support * 0.7;     // 유틸 부재 보강
-  if (selSum.frontline >= 1.6 && cv.frontline >= 0.8 && cv.damage < 0.5) score -= 0.7; // 전열 과잉
-  if (selSum.support >= 0.8 && cv.support >= 0.8) score -= 0.5;                         // 서포터 중복
-  if (selSum.damage >= 2.0 && cv.damage >= 0.85 && cv.frontline < 0.3 && cv.support < 0.3) score -= 0.3; // 순딜 포화
+  if (selSum.frontline < 0.8) score += cv.frontline * 1.1;
+  if (selSum.damage < 1.3)    score += cv.damage * 0.8;
+  if (selSum.support < 0.4)   score += cv.support * 0.7;
+  if (selSum.frontline >= 1.6 && cv.frontline >= 0.8 && cv.damage < 0.5) score -= 0.7;
+  if (selSum.support >= 0.8 && cv.support >= 0.8) score -= 0.5;
+  if (selSum.damage >= 2.0 && cv.damage >= 0.85 && cv.frontline < 0.3 && cv.support < 0.3) score -= 0.3;
   return Math.max(-1.4, Math.min(1.35, score));
 }
 
-// 세분화된 역할 성향 보정. 같은 support라도 Leni(개시 보조/CC/속도), Charlotte/Johann(보호/유지력),
-// Priya(보호+광역 CC)처럼 실제 수행 과제가 다르게 추천에 반영되도록 한다.
 function vectorSpecializationScore(candidate, selected, selectedVector = null, candidateVector = null) {
   if (!(VECTOR_SCORING_FLAGS.enableCharacterVector && VECTOR_SCORING_FLAGS.useVectorSpecializationScore)) return 0;
   if (selected.length === 0) return 0;
@@ -1141,36 +1322,33 @@ function vectorSpecializationScore(candidate, selected, selectedVector = null, c
   return clamp(score, -1.10, 1.35);
 }
 
-// 전열 포지션 후보의 딜 기여를 vector damage 축으로 평가 (게이팅은 기존 predicate 유지).
 function vectorFrontDamageScore(candidate, selected, selectedVector = null, candidateVector = null) {
   if (!isFrontRole(candidate) || selected.length === 0) return 0;
   const cv = candidateVector ?? characterVectorFromEffective(candidate);
   const selSum = selectedVector?.sum ?? teamVectorFromEffective(selected).sum;
   let score = 0;
   if (cv.damage >= 0.8) {
-    if (selSum.damage < 1.3) score += 0.7;          // 딜 부족 팀에 고댐 전열
+    if (selSum.damage < 1.3) score += 0.7;
     score += (cv.damage - 0.8) * 0.6;
   }
-  if (cv.damage <= 0.45 && selSum.damage < 1.3) score -= 0.9; // 딜 부족인데 저댐 전열
+  if (cv.damage <= 0.45 && selSum.damage < 1.3) score -= 0.9;
   return Math.max(-1.6, Math.min(1.4, score));
 }
 
-// 후방 딜러 후보의 딜 기여를 vector damage 축으로 평가.
 function vectorBacklineDamageScore(candidate, selected, selectedVector = null, candidateVector = null) {
   if (!isBacklineDealer(candidate) || selected.length === 0) return 0;
   const cv = candidateVector ?? characterVectorFromEffective(candidate);
   const selSum = selectedVector?.sum ?? teamVectorFromEffective(selected).sum;
   let score = 0;
   if (cv.damage >= 0.85) {
-    if (selSum.damage < 1.3) score += 0.85;          // 딜 부족 팀에 고댐 후방
-    if (selSum.frontline >= 0.8) score += 0.3;       // 전열 보유 시 후방 캐리 가치↑
+    if (selSum.damage < 1.3) score += 0.85;
+    if (selSum.frontline >= 0.8) score += 0.3;
     score += (cv.damage - 0.85) * 0.5;
   }
   if (cv.damage <= 0.5 && selSum.damage < 1.3) score -= 0.9;
   return Math.max(-1.5, Math.min(1.6, score));
 }
 
-// 팀 전체 균형을 vector sum 축(딜/내구/CC/유틸/템포)으로 평가.
 function vectorMetricBalanceScore(candidate, selected, selectedVector = null, candidateVector = null) {
   const team = [...selected, candidate];
   if (team.length < 3) return 0;
@@ -1181,7 +1359,7 @@ function vectorMetricBalanceScore(candidate, selected, selectedVector = null, ca
     : teamVectorFromEffective(team).sum;
   let score = 0;
   if (sum.damage <= 1.4) score -= 1.0;
-  else if (sum.damage >= 2.4) score += 0.25; // 0.5→0.25: 이미 충분한 딜에 추가 보너스 축소(④ 억제)
+  else if (sum.damage >= 2.4) score += 0.25;
   if (sum.durability <= 1.0) score -= 0.6;
   else if (sum.durability >= 1.8) score += 0.3;
   if (sum.cc <= 0.8) score -= 0.55;
@@ -1192,8 +1370,6 @@ function vectorMetricBalanceScore(candidate, selected, selectedVector = null, ca
   return Math.max(-1.6, Math.min(1.25, score));
 }
 
-// 보조 신호: 축 균형(딜/내구/CC 결핍 개수)으로 작은 가산/감산. legacy의 교전·정체성
-// 로직을 대체하지 않고 위에 얹기만 함.
 function vectorCompositionGuideAux(candidate, selected) {
   const team = [...selected, candidate];
   if (team.length < 3) return 0;
@@ -1201,19 +1377,15 @@ function vectorCompositionGuideAux(candidate, selected) {
   let aux = 0;
   const deficits = [sum.damage < 1.5, sum.durability < 0.9, sum.cc < 0.8].filter(Boolean).length;
   if (deficits === 0) {
-    // 상수처럼 붙던 균형 보너스를 0.6→0.4로 약화. 추가로, 딜만 과하고 내구/CC가
-    // 빠듯한 "딜로 떠받친 가짜 균형"(④ 성격)은 보너스를 더 깎는다. 진짜 균형
-    // (예: Leni+Markus류 고CC·peel + 적정 딜)은 영향 없음.
     aux += 0.4;
     if (sum.damage >= 2.6 && (sum.durability < 1.2 || sum.cc < 1.2)) aux -= 0.2;
   } else {
     aux -= deficits * 0.4;
   }
-  if (sum.frontline < 0.6 && sum.cc < 1.0) aux -= 0.4; // 전열 전무 + 제어 부족
+  if (sum.frontline < 0.6 && sum.cc < 1.0) aux -= 0.4;
   return Math.max(-1.5, Math.min(1.0, aux));
 }
 
-// ── hybrid 디스패처 ──
 function roleBalanceScore(candidate, selected, selectedVector = null, candidateVector = null) {
   const legacy = legacyRoleBalanceScore(candidate, selected);
   if (!(VECTOR_SCORING_FLAGS.enableCharacterVector && VECTOR_SCORING_FLAGS.useVectorRoleBalanceScore)) return legacy;
@@ -1430,7 +1602,6 @@ function conflictScore(candidate, selected) {
   return penalty;
 }
 
-// 보조 적용: legacy 교전/정체성 로직을 유지하고 vector 균형 신호를 가산만 한다.
 function compositionGuideScore(candidate, selected) {
   const legacy = legacyCompositionGuideScore(candidate, selected);
   if (!(VECTOR_SCORING_FLAGS.enableCharacterVector && VECTOR_SCORING_FLAGS.useVectorCompositionGuideScore)) return legacy;
@@ -1458,8 +1629,6 @@ function legacyCompositionGuideScore(candidate, selected) {
     if (shape.melee >= 1) score -= 1.85;
   }
 
-  // 돌격형 탱커(firstEngage, 필·실드 없음)가 백라인 2명과 근접 없는 구성
-  // → 탱커가 적진으로 달려들어 자기 팀 원딜을 보호 못 함 (매그너스 등)
   if (shape.tanks === 1 && shape.backline === 2 && shape.melee === 0) {
     const tank = team.find(isTank);
     if (
@@ -1502,8 +1671,6 @@ function legacyCompositionGuideScore(candidate, selected) {
   if (shape.backline >= 3 && shape.firstEngagers === 0 && shape.counterOnlyRanged + shape.pokeThenEngage + shape.rangedEngageHelpers >= 2 && teamCcPower(team) >= 2.0) score += 0.55;
   if (lateEngageIds.has(candidate.characterId) && hasDiveTeam && !hasSupport) score -= 0.45;
 
-  // 라우라: 전원 근접(백라인 0) + 기존 팀에 이미 다이브 캐릭터가 있을 때 중복 패널티
-  // 팀에 원거리 딜러가 없으면 라우라의 다이브 가치가 희석됨
   if (candidate.characterId === "laura" && shape.backline === 0 && shape.supports === 0 && shape.melee + shape.tanks >= 3) {
     score -= 0.6;
   }
@@ -1543,7 +1710,6 @@ function officialBucketRows(bucket, candidateId) {
 }
 
 
-// ── Bayesian smoothing helpers ────────────────────────────────────────────────
 
 function bayesianRate(wins, games, alpha, globalRate) {
   if (!games && !alpha) return globalRate ?? 0;
@@ -1560,7 +1726,6 @@ function globalWinRate(tier) {
   return totalGames > 0 ? totalWins / totalGames : 0.5;
 }
 
-// ── Official v2 scoring ───────────────────────────────────────────────────────
 
 function officialCandidateStats(candidate, tier) {
   const bucket = officialStatsBucketForTier(tier);
@@ -1952,9 +2117,6 @@ function leanStrengthScore(candidate, tier) {
 
 function leanPairSynergyTerm(candidate, selected, tier) {
   if (selected.length === 0) return 0;
-  // 앵커(선택 캐릭터)별 변별력 확보: 유의미한 lift가 있으면 그걸 쓰고,
-  // 없으면 dense co-occurrence 통계, 그것도 없으면 수동 시너지 표로 fallback.
-  // (lean 경로가 sparse한 유의 lift만 보던 탓에 같은 역할 앵커가 전부 0이 되던 버그 수정)
   const total = selected.reduce((sum, teammate) => {
     const evidence = evidencePairScore(candidate.characterId, teammate.characterId);
     if (evidence !== 0) return sum + evidence;
@@ -1993,16 +2155,19 @@ function leanFitTerm(scores) {
   );
 }
 
-function leanCandidateTotal(candidate, selected, tier, scores, feedbackScore) {
+function leanCandidateTotal(candidate, selected, tier, scores, feedbackScore, fitOverride = null) {
   const config = LEAN_SCORING_CONFIG;
   const strengthScore = leanStrengthScore(candidate, tier);
   const pairTerm = leanPairSynergyTerm(candidate, selected, tier);
-  const fitTerm = selected.length > 0 ? leanFitTerm(scores) : 0;
+  const fitTerm = fitOverride !== null
+    ? fitOverride
+    : (selected.length > 0 ? leanFitTerm(scores) : 0);
   const heuristicTerm = clamp(
     leanHeuristicSum(scores) * config.heuristicWeight,
     -config.heuristicCap,
     config.heuristicCap,
   );
+  const stackPenalty = leanStackPenalty(candidate, selected, config);
   return (
     strengthScore * config.strengthWeight +
     pairTerm * config.pairWeight +
@@ -2010,8 +2175,24 @@ function leanCandidateTotal(candidate, selected, tier, scores, feedbackScore) {
     heuristicTerm +
     scores.relationship +
     feedbackScore -
+    stackPenalty -
     candidate.difficulty * config.difficultyWeight
   );
+}
+
+function leanStackPenalty(candidate, selected, config = LEAN_SCORING_CONFIG) {
+  if (selected.length < 2) return 0;
+  let penalty = 0;
+  const selectedBacklines = selected.filter(isBacklineDealer).length;
+  if (isBacklineDealer(candidate) && selectedBacklines >= 2) penalty += 0.85;
+
+  const selectedSkillBacklines = selected.filter((character) => isBacklineDealer(character) && character.damage === "skill").length;
+  if (isBacklineDealer(candidate) && candidate.damage === "skill" && selectedSkillBacklines >= 2) penalty += 0.45;
+
+  const selectedSameRole = selected.filter((character) => character.role === candidate.role).length;
+  if (selectedSameRole >= 2) penalty += 0.25;
+
+  return clamp(penalty, 0, config.stackPenaltyCap);
 }
 
 function feedbackSentiment(likes = 0, dislikes = 0) {
@@ -2132,7 +2313,6 @@ function candidateSpecificPenaltyReasons(candidate, selected, scores) {
   }
 
   // This penalty is about adding an *engager* to Lenox's counter-attack comp, so gate it on the
-  // candidate actually being an engager/melee dealer — not merely on the team's melee count
   // (which a teammate's core-role flip could inflate). Counter/ranged picks never trigger it.
   if (
     nextShape.guardOnly >= 1 &&
@@ -2188,8 +2368,6 @@ function explain(candidate, selected, scores, explainTier = "all") {
   const identity = t("recommender.reason.identity", { nameSubject: subjectName(candidate), name: characterName(candidate), weapon: weaponLabel(candidate), role: roleLabel(candidate), detail: identityDetail });
   const signature = signatureReason(candidate);
 
-  // Lean 모드: 검증된 캐릭터 강함과 증거 기반 페어 시너지/안티시너지가 순위를 지배하므로,
-  // 그 근거(실제 수치·팀원 지목)를 먼저 노출해 "왜 추천됐는가"가 실제 순위 근거와 일치하게 한다.
   if (VECTOR_SCORING_FLAGS.useLeanScoring) {
     const ocs = officialCandidateStats(candidate, explainTier);
     if (ocs && (scores.dakStatistics >= 0.6 || scores.officialMatch >= 0.5 || scores.meta >= 0.65)) {
@@ -2388,7 +2566,7 @@ function explain(candidate, selected, scores, explainTier = "all") {
   if (reasons.length === 0 && candidate.tags.includes("sustained")) reasons.push(t("recommender.reason.sustainedFallback", { nameSubject: subjectName(candidate), name: characterName(candidate), role: damageLabel(candidate) }));
   if (reasons.length === 0 && candidate.tags.includes("poke")) reasons.push(t("recommender.reason.pokeFallback", { nameSubject: subjectName(candidate), name: characterName(candidate) }));
   if (reasons.length === 0) reasons.push(t("recommender.reason.genericFallback", { identity }));
-  return [...new Set(reasons)].slice(0, 3); // 중복 근거 제거 후 상위 3개
+  return [...new Set(reasons)].slice(0, 3);
 }
 
 function selectedCharactersFromIds(selectedIds) {
@@ -2397,7 +2575,6 @@ function selectedCharactersFromIds(selectedIds) {
     .filter(Boolean);
 }
 
-// ── Per-core (trait) scoring ───────────────────────────────────────────────────
 function traitBuildRowsFor(variantId, tier) {
   const bucket = officialStatsBucketForTier(tier);
   const rows = officialTraitBuildStatsByTier?.[bucket]?.[variantId]
@@ -2522,7 +2699,6 @@ function inferredCoreRoleOverride(character, row, profile, tier) {
   const lowDamageLean = damageVsSelf <= 0.90 || damageVsField <= 0.82;
 
   // A role *reclassification* (tank<->bruiser) is the strongest structural lever, so it
-  // must be corroborated by the core's own intrinsic playstyle and a solid sample — not a
   // single noisy damage ratio. This prevents, e.g., a support/heal core (high profile.support)
   // from being read as a damage bruiser just because its damage row edged above the character's
   // own average. Characters whose combat identity is fixed (guard-only anchors, counter-only
@@ -2533,9 +2709,6 @@ function inferredCoreRoleOverride(character, row, profile, tier) {
     isCounterOnlyRanged(character) ||
     cannotStartEngage(character);
   // Compare the core's offensive vs defensive mass RELATIVE to itself rather than against an
-  // absolute cut. Cores like 응징 sit near-neutral (offense ≈ defense), so they force neither
-  // direction — the character's own match stats (strong*Evidence below) decide. Only clearly
-  // offensive cores (취약/벽력...) or clearly defensive cores (치유드론/금강...) lean hard.
   const coreOffenseMass = profile.damage + profile.tempo * 0.3;
   const coreDefenseMass = profile.durability + profile.support;
   const coreLeansOffense = coreOffenseMass - coreDefenseMass >= 0.12 && profile.support < 0.45;
@@ -2626,7 +2799,6 @@ function inferredCoreRoleOverride(character, row, profile, tier) {
 
   // Base offensive front (bruiser/assassin) turning defensive. Only a build that has clearly
   // traded away its damage (lowDamageLean) becomes a PURE frontline tank. A build that is
-  // sturdier but still dealing damage stays a bruiser — a "tanky bruiser" — and merely gains
   // durability emphasis, so it keeps counting as a melee dealer rather than a tank.
   if (defensiveLean && coreLeansDefense && baseIsDamageFront && !identityFixed && strongDefenseEvidence) {
     if (lowDamageLean) {
@@ -3001,8 +3173,15 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.relationship -
     candidate.difficulty * 0.08 +
     feedbackScore;
+  let fitOverride = null;
+  if (VECTOR_SCORING_FLAGS.useLeanScoring && VECTOR_SCORING_FLAGS.useArchetypeModel && selected.length > 0) {
+    fitOverride = archetypeFitScore(candidate, selected, tier);
+  } else if (VECTOR_SCORING_FLAGS.useLeanScoring && VECTOR_SCORING_FLAGS.useDeficitFitModel && selected.length > 0 && deficitTierAllowed(tier)) {
+    const deficitInfo = invariantContext?.deficitInfo ?? computeDeficitInfo(selectedVector);
+    fitOverride = deficitFitScore(candidateVector, deficitInfo.deficits, deficitInfo.coverage);
+  }
   const total = VECTOR_SCORING_FLAGS.useLeanScoring
-    ? leanCandidateTotal(effectiveCandidate, effectiveSelected, tier, scores, feedbackScore)
+    ? leanCandidateTotal(effectiveCandidate, effectiveSelected, tier, scores, feedbackScore, fitOverride)
     : legacyTotal;
 
   return {
@@ -3010,6 +3189,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     score: Number(total.toFixed(1)),
     total: Number(total.toFixed(3)),
     scores,
+    archetype: VECTOR_SCORING_FLAGS.useArchetypeModel ? archetypeInfoFor(candidate, selected) : null,
     feedbackCandidateId: candidateFeedbackId,
     recommendedCore: candidateCoreRow
       ? {
@@ -3040,7 +3220,6 @@ export function debugCoreRoleProfile(selectedIds = [], cores = {}, tier = "all")
   };
 }
 
-// Audit harness: sweep every variant × its plausible cores and report every case where the
 // core inference changes the character's role, damage bucket, or tags. Run locally to review
 // the full surface of role flips (not just one character) before/after tuning the thresholds.
 export function auditCoreRoleFlips(tier = "all", { roleChangesOnly = false } = {}) {
@@ -3074,11 +3253,8 @@ export function auditCoreRoleFlips(tier = "all", { roleChangesOnly = false } = {
   return flips.sort((a, b) => Number(b.roleChanged) - Number(a.roleChanged));
 }
 
-// 벡터 표현 계층 공개 (진단 스크립트/외부 도구용).
 export { characterVector, teamVector, VECTOR_SCORING_FLAGS };
 
-// 진단: 특성(코어)에 따라 역할이 달라질 수 있는 캐릭터들의 core별 effectiveRole + vector 출력.
-// filters: characterId / variantId 접두 / 이름 부분일치 중 아무거나.
 export function auditCharacterVectors(filters = [], tier = "all") {
   const matches = (character) =>
     filters.length === 0 ||
@@ -3111,24 +3287,17 @@ export function auditCharacterVectors(filters = [], tier = "all") {
   return out;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 추천 다양성 후처리 (점수식 무수정 — 순위 재배열만)
 //
-// 문제: full-vector 점수는 변해도 Top12가 하나의 승리 플랜(예: control_mage/backline_dps)
-// 으로 쏠린다. 해법: 후보를 recommendation archetype 으로 분류하고, 같은 archetype 이
-// 상위권을 과점하지 않도록 soft cap 으로 재배열한다. 단 점수가 크게 낮은 후보를 억지로
-// 끌어올리지 않는다(점수차 한도 내에서만 승급).
-// ─────────────────────────────────────────────────────────────────────────────
 
 const DIVERSITY_CONFIG = {
   enabled: true,
-  top6PerArchetype: 2,          // Top6 내 동일 archetype 최대 2
-  top12PerArchetype: 3,         // Top12 내 동일 archetype 최대 3
-  top12PerVariant: 1,           // Top12 내 동일 variant는 우선 1개만 노출
-  maxScoreDropToPromote: 1.5,   // 다양성으로 승급 시 허용하는 최대 점수차(밀려나는 후보 대비)
+  top6PerArchetype: 2,
+  top12PerArchetype: 3,
+  top12PerVariant: 1,
+  top12PerCharacter: 1,
+  maxScoreDropToPromote: 1.5,
 };
 
-// 후보를 승리 플랜(archetype)으로 분류. 캐릭터 기본 속성만 사용(팀 무관, 결정적).
 function recommendationArchetype(character) {
   if (!character) return "backline_dps";
   const tags = character.tags ?? [];
@@ -3137,16 +3306,12 @@ function recommendationArchetype(character) {
   const ccArea = (cc.wide ?? 0) + (cc.medium ?? 0);
   const ccTotal = ccArea + (cc.targeted ?? 0) + (cc.nonTarget ?? 0) + (cc.single ?? 0) + (cc.narrow ?? 0) + (cc.veryNarrow ?? 0);
 
-  // 서포트/유틸
   if (character.role === "support" || has("healing") || has("shield") || has("speedBoost") ||
       (has("peel") && character.role !== "frontline")) return "support_utility";
-  // 전열 안정화 (탱커)
   if (character.role === "frontline") return "frontline_stabilizer";
-  // 근접 다이브 / 템포
   if (character.role === "assassin" || character.role === "bruiser") {
     return (has("dive") || has("mobility")) ? "third_melee_dive" : "tempo_skirmisher";
   }
-  // 후방 (ranged/mage)
   if (isBacklineDealer(character)) {
     if (has("range") && !has("short_range_dealer") && (character.damage === "basic" || has("sustained"))) return "long_range_carry";
     if (character.role === "mage" && (has("cc") || ccArea >= 2 || ccTotal >= 3)) return "control_mage";
@@ -3156,45 +3321,47 @@ function recommendationArchetype(character) {
   return "backline_dps";
 }
 
-// 정렬된(내림차순) 추천 리스트를 archetype soft-cap 으로 재배열.
-// cap 초과 시, 점수차가 maxScoreDropToPromote 이내인 다른 archetype 후보를 우선 승급.
-// 적합한 승급 후보가 없으면(=다 너무 낮으면) 원래 후보를 그대로 둠(억지 승급 금지).
 function diversifyRecommendations(sortedResults, config = DIVERSITY_CONFIG) {
   if (!config?.enabled || sortedResults.length <= 2) return sortedResults;
-  const { top6PerArchetype, top12PerArchetype, top12PerVariant, maxScoreDropToPromote } = config;
+  const { top6PerArchetype, top12PerArchetype, top12PerVariant, top12PerCharacter, maxScoreDropToPromote } = config;
   const capAt = (pos) => (pos < 6 ? top6PerArchetype : pos < 12 ? top12PerArchetype : Infinity);
   const variantCapAt = (pos) => (pos < 12 ? top12PerVariant : Infinity);
+  const characterCapAt = (pos) => (pos < 12 ? top12PerCharacter : Infinity);
   const arche = (r) => recommendationArchetype(r.character);
   const variant = (r) => r.character.variantId;
+  const character = (r) => r.character.characterId;
 
   const pool = [...sortedResults];
   const result = [];
   const counts = {};
   const variantCounts = {};
+  const characterCounts = {};
 
   while (pool.length) {
     const pos = result.length;
     const cap = capAt(pos);
     const variantCap = variantCapAt(pos);
+    const characterCap = characterCapAt(pos);
     const head = pool[0];
     let pickIdx = 0;
 
-    if ((counts[arche(head)] ?? 0) >= cap || (variantCounts[variant(head)] ?? 0) >= variantCap) {
-      // head 의 archetype/variant 가 cap 초과 → 점수차 한도 내에서 다른 후보 탐색
+    if ((counts[arche(head)] ?? 0) >= cap || (variantCounts[variant(head)] ?? 0) >= variantCap || (characterCounts[character(head)] ?? 0) >= characterCap) {
       for (let i = 1; i < pool.length; i++) {
-        if (head.total - pool[i].total > maxScoreDropToPromote) break; // 더 내려가도 다 너무 낮음
-        if ((counts[arche(pool[i])] ?? 0) < cap && (variantCounts[variant(pool[i])] ?? 0) < variantCap) { pickIdx = i; break; }
+        if (head.total - pool[i].total > maxScoreDropToPromote) break;
+        if ((counts[arche(pool[i])] ?? 0) < cap && (variantCounts[variant(pool[i])] ?? 0) < variantCap && (characterCounts[character(pool[i])] ?? 0) < characterCap) { pickIdx = i; break; }
       }
-      // 적합한 대안 없으면 pickIdx 0 유지(원래 후보 채택 — 억지로 끌어올리지 않음)
     }
 
     const [picked] = pool.splice(pickIdx, 1);
     counts[arche(picked)] = (counts[arche(picked)] ?? 0) + 1;
     variantCounts[variant(picked)] = (variantCounts[variant(picked)] ?? 0) + 1;
+    characterCounts[character(picked)] = (characterCounts[character(picked)] ?? 0) + 1;
     result.push(picked);
   }
   return result;
 }
+
+const RECOMMENDATION_RESULT_CAP = 48;
 
 export { recommendationArchetype, diversifyRecommendations, DIVERSITY_CONFIG };
 
@@ -3209,6 +3376,9 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   // Compute once and reuse instead of recomputing inside every evaluateCandidate call.
   const effectiveSelected = effectiveTeamFor(selected, cores, tier);
   const selectedVector = teamVectorFromEffective(effectiveSelected);
+  const deficitInfo = (VECTOR_SCORING_FLAGS.useDeficitFitModel && selected.length > 0)
+    ? computeDeficitInfo(selectedVector)
+    : null;
 
   const scored = characterVariants
     .filter((candidate) => !selectedCharacters.has(candidate.characterId))
@@ -3218,6 +3388,7 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
       const invariantContext = buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows);
       invariantContext.effectiveSelected = effectiveSelected;
       invariantContext.selectedVector = selectedVector;
+      if (deficitInfo) invariantContext.deficitInfo = deficitInfo;
       return options
         .map((core) => evaluateCandidate(
           selectedIds,
@@ -3241,6 +3412,5 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
     return true;
   });
 
-  // 점수식은 그대로. 다양성 후처리로 archetype 과점만 완화한 뒤 상위 노출.
-  return diversifyRecommendations(deduped).slice(0, 18);
+  return diversifyRecommendations(deduped).slice(0, RECOMMENDATION_RESULT_CAP);
 }

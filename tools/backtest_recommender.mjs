@@ -37,7 +37,7 @@ globalThis.document = { documentElement: { lang: "ko" } };
 
 import fs from "node:fs";
 import readline from "node:readline";
-import { recommend, evaluateCandidate, updateOfficialStats, VECTOR_SCORING_FLAGS, DIVERSITY_CONFIG } from "../src/recommender.js";
+import { recommend, evaluateCandidate, updateOfficialStats, VECTOR_SCORING_FLAGS, DIVERSITY_CONFIG, DEFICIT_FIT_CONFIG } from "../src/recommender.js";
 import * as OFFICIAL_FULL from "../src/officialMatchStats.js";
 
 // ---------- args ----------
@@ -62,7 +62,14 @@ const MIN_TEAMS = Number(opt("--min-teams", 4)); // concordance: 게임당 최�
 const CONTROL = !argv.includes("--no-control");  // concordance: 양성대조(solo top3합) 포함
 const TEAM_TIER = opt("--team-tier", null); // 팀 tierBucket 필터 (쉼표구분). 예: demigod_eternity 또는 meteor_mithril,demigod_eternity
 const TEAM_TIER_SET = TEAM_TIER ? new Set(TEAM_TIER.split(",").map((s) => s.trim())) : null;
+const BOOTSTRAP = Number(opt("--bootstrap", 0));
+const CI_BASELINE = opt("--ci-baseline", CONFIGS[0] ?? "control");
+const BOOTSTRAP_SEED = Number(opt("--bootstrap-seed", SEED + 1009));
 const TIER_ORDER = ["iron_gold", "platinum_diamond", "meteor_mithril", "demigod_eternity"]; // 저→고
+
+function tierForConfig(configName, gameTier) {
+  return TIER === "team" || configName.startsWith("lean_deficit_hi_") ? gameTier : TIER;
+}
 
 if (!DATA || !fs.existsSync(DATA)) {
   console.error("`--data <matches.jsonl 경로>` 가 필요합니다 (존재하는 파일).");
@@ -90,6 +97,10 @@ const rng = mulberry32(SEED);
 // 주의: 다양성은 recommend 후처리라 teamscore(evaluateCandidate)엔 영향 없음 → teamscore에선 shipped≡empirical.
 function applyConfig(name) {
   const F = VECTOR_SCORING_FLAGS, D = DIVERSITY_CONFIG;
+  F.useDeficitFitModel = false; // 기본 off; 아래 deficit config만 켬(설정 간 누수 방지)
+  F.useArchetypeModel = false;  // 기본 off; lean_archetype만 켬
+  DEFICIT_FIT_CONFIG.fitScale = 0.16;
+  DEFICIT_FIT_CONFIG.tiers = null;
   switch (name) {
     case "legacy":    F.enableCharacterVector = false; F.useEmpiricalVectorBlend = false; F.usePairSynergyLift = false; F.useLeanScoring = false; F.useVectorSpecializationScore = false; D.enabled = false; break;
     case "vector":    F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = false; F.usePairSynergyLift = false; F.useLeanScoring = false; F.useVectorSpecializationScore = false; D.enabled = false; break;
@@ -97,6 +108,11 @@ function applyConfig(name) {
     case "shipped":   F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = true;  F.usePairSynergyLift = true;  F.useLeanScoring = false; F.useVectorSpecializationScore = false; D.enabled = true;  break;
     case "lean_no_specialization": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = false; D.enabled = true; break;
     case "lean":      F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = true;  F.usePairSynergyLift = true;  F.useLeanScoring = true;  F.useVectorSpecializationScore = true;  D.enabled = true;  break;
+    case "lean_archetype": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; F.useArchetypeModel = true; D.enabled = true; break;
+    case "lean_deficit": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; F.useDeficitFitModel = true; D.enabled = true; break;
+    case "lean_deficit_hi_022": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; F.useDeficitFitModel = true; DEFICIT_FIT_CONFIG.tiers = ["meteor_mithril", "demigod_eternity"]; DEFICIT_FIT_CONFIG.fitScale = 0.22; D.enabled = true; break;
+    case "lean_deficit_hi_028": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; F.useDeficitFitModel = true; DEFICIT_FIT_CONFIG.tiers = ["meteor_mithril", "demigod_eternity"]; DEFICIT_FIT_CONFIG.fitScale = 0.28; D.enabled = true; break;
+    case "lean_deficit_hi_034": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; F.useDeficitFitModel = true; DEFICIT_FIT_CONFIG.tiers = ["meteor_mithril", "demigod_eternity"]; DEFICIT_FIT_CONFIG.fitScale = 0.34; D.enabled = true; break;
     default: throw new Error("unknown config: " + name);
   }
 }
@@ -195,9 +211,9 @@ function runTeamscore(teams) {
     const isWin = !!t.result?.isWin;
     const plc = t.result?.placement ?? null;
     const bucket = t.tierBucket ?? "unknown";
-    const tier = TIER === "team" ? (t.tierBucket ?? "all") : TIER;
     for (const c of CONFIGS) {
       applyConfig(c);
+      const tier = tierForConfig(c, t.tierBucket ?? "all");
       const sc = computeTeamScore(ids, tier);
       const D = data[c];
       D.scores.push(sc); D.wins.push(isWin); D.plc.push(plc);
@@ -279,25 +295,29 @@ function runConcordance({ games, vtop3, scanned, eligibleGames, totalGames }) {
 
   const names = [...CONFIGS, ...(CONTROL ? ["control"] : [])];
   const acc = {}; for (const n of names) acc[n] = { all: { c: 0, p: 0 }, tier: {} };
+  const perGame = {}; for (const n of names) perGame[n] = [];
   const addPair = (node, sBetter, sWorse) => { node.p++; if (sBetter > sWorse) node.c += 1; else if (sBetter === sWorse) node.c += 0.5; };
 
   let done = 0;
   for (const g of games) {
-    const tier = TIER === "team" ? g.tier : TIER;
     for (const n of names) {
       if (n !== "control") applyConfig(n);
+      const tier = tierForConfig(n, g.tier);
       const scores = g.teams.map((tm) => n === "control"
         ? tm.ids.reduce((s, id) => s + (vtop3.get(id) ?? 0), 0) / 3
         : computeTeamScore(tm.ids, tier));
       const A = acc[n];
       const T = A.tier[g.tier] ?? (A.tier[g.tier] = { c: 0, p: 0 });
+      const G = { c: 0, p: 0, tier: g.tier };
       for (let i = 0; i < g.teams.length; i++) for (let j = i + 1; j < g.teams.length; j++) {
         const pi = g.teams[i].plc, pj = g.teams[j].plc;
         if (pi === pj) continue;
         const sBetter = pi < pj ? scores[i] : scores[j];
         const sWorse = pi < pj ? scores[j] : scores[i];
         addPair(A.all, sBetter, sWorse); addPair(T, sBetter, sWorse);
+        addPair(G, sBetter, sWorse);
       }
+      perGame[n].push(G);
     }
     if (++done % 100 === 0) process.stderr.write(`  concordance ...${done}/${games.length}\r`);
   }
@@ -316,6 +336,60 @@ function runConcordance({ games, vtop3, scanned, eligibleGames, totalGames }) {
   }
   console.log("읽기: control(캐릭터 강함)이 0.5보다 뚜렷이 높으면 = 하니스/데이터가 신호를 잡는다는 양성대조(통과).");
   console.log("핵심: legacy→vector→empirical 가 오르면 조합로직 기여. 모두 ~0.50이고 control보다 낮으면, 조합은 로비순위도 거의 예측 못함.");
+  if (BOOTSTRAP > 0) printBootstrapCi(perGame, names, CI_BASELINE, BOOTSTRAP, BOOTSTRAP_SEED);
+}
+
+function concordanceFromGameRows(rows, indexes = null) {
+  let c = 0;
+  let p = 0;
+  if (indexes) {
+    for (const index of indexes) {
+      const row = rows[index];
+      c += row.c;
+      p += row.p;
+    }
+  } else {
+    for (const row of rows) {
+      c += row.c;
+      p += row.p;
+    }
+  }
+  return p ? c / p : 0.5;
+}
+
+function percentile(sorted, q) {
+  if (!sorted.length) return 0;
+  const pos = (sorted.length - 1) * q;
+  const lo = Math.floor(pos);
+  const hi = Math.ceil(pos);
+  if (lo === hi) return sorted[lo];
+  return sorted[lo] + (sorted[hi] - sorted[lo]) * (pos - lo);
+}
+
+function printBootstrapCi(perGame, names, baselineName, iterations, seed) {
+  if (!names.includes(baselineName)) {
+    console.log(`\n# bootstrap skipped: baseline '${baselineName}' is not in configs/control.`);
+    return;
+  }
+  const nGames = perGame[baselineName]?.length ?? 0;
+  if (!nGames || iterations <= 0) return;
+  const bootRng = mulberry32(seed);
+  console.log(`\n=== BOOTSTRAP 95% CI: overall concordance delta vs ${baselineName} (games=${nGames}, iterations=${iterations}) ===`);
+  for (const name of names) {
+    if (name === baselineName) continue;
+    const observed = concordanceFromGameRows(perGame[name]) - concordanceFromGameRows(perGame[baselineName]);
+    const deltas = [];
+    for (let i = 0; i < iterations; i += 1) {
+      const indexes = new Array(nGames);
+      for (let j = 0; j < nGames; j += 1) indexes[j] = Math.floor(bootRng() * nGames);
+      deltas.push(concordanceFromGameRows(perGame[name], indexes) - concordanceFromGameRows(perGame[baselineName], indexes));
+    }
+    deltas.sort((a, b) => a - b);
+    const lo = percentile(deltas, 0.025);
+    const hi = percentile(deltas, 0.975);
+    const meanDelta = mean(deltas);
+    console.log(`   ${name.padEnd(22)} observed=${observed.toFixed(4)}  mean=${meanDelta.toFixed(4)}  ci95=[${lo.toFixed(4)}, ${hi.toFixed(4)}]`);
+  }
 }
 
 // ---------- A2: 통계 번들 교체/트림 (composition 드롭 영향 측정용) ----------
