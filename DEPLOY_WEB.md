@@ -29,4 +29,4 @@ Vercel should create a new production deployment automatically within a few minu
 
 The web sidebar version comes from `src/updateConfig.js`.
 
-Current release: `v0.2.1 · web`
+Current release: `v0.3.6 · web`
