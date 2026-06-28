@@ -7,6 +7,8 @@
  */
 
 import fs from "node:fs/promises";
+import { createReadStream } from "node:fs";
+import readline from "node:readline";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { characters, characterVariants } from "../src/data.js";
@@ -162,23 +164,22 @@ function resultForTeam(team) {
   };
 }
 
-function inferOfficialWeaponMap(teams) {
-  const counts = new Map();
-  for (const team of teams) {
-    for (const player of team.players ?? []) {
-      const characterId = CHARACTER_CODE_TO_ID[String(player.character)];
-      const weaponCode = player.weapon;
-      if (!characterId || weaponCode === undefined || weaponCode === null || weaponCode === "") continue;
-      const variants = variantsByCharacter.get(characterId) ?? [];
-      const weapon = variants.length === 1 ? variants[0].weapon : undefined;
-      if (!weapon) continue;
-      const key = String(weaponCode);
-      if (!counts.has(key)) counts.set(key, new Map());
-      const weaponCounts = counts.get(key);
-      weaponCounts.set(weapon, (weaponCounts.get(weapon) ?? 0) + 1);
-    }
+// 스트리밍 친화: 팀 1개씩 counts에 누적(메모리에 전체 팀을 안 올림).
+function accumulateWeaponCounts(team, counts) {
+  for (const player of team.players ?? []) {
+    const characterId = CHARACTER_CODE_TO_ID[String(player.character)];
+    const weaponCode = player.weapon;
+    if (!characterId || weaponCode === undefined || weaponCode === null || weaponCode === "") continue;
+    const variants = variantsByCharacter.get(characterId) ?? [];
+    const weapon = variants.length === 1 ? variants[0].weapon : undefined;
+    if (!weapon) continue;
+    const key = String(weaponCode);
+    if (!counts.has(key)) counts.set(key, new Map());
+    const weaponCounts = counts.get(key);
+    weaponCounts.set(weapon, (weaponCounts.get(weapon) ?? 0) + 1);
   }
-
+}
+function finalizeWeaponMap(counts) {
   const output = new Map();
   for (const [code, weaponCounts] of counts) {
     const [weapon] = [...weaponCounts.entries()].sort((a, b) => b[1] - a[1])[0] ?? [];
@@ -276,65 +277,83 @@ function teamFeatures(members) {
   };
 }
 
+// JSONL을 한 줄씩 스트리밍(전체 문자열/배열로 안 올림 → 대용량 안전).
+async function* jsonlTeams(file) {
+  const rl = readline.createInterface({ input: createReadStream(file), crlfDelay: Infinity });
+  for await (const line of rl) {
+    const s = line.trim();
+    if (!s) continue;
+    try { yield JSON.parse(s); } catch { /* 깨진 줄 skip */ }
+  }
+}
+// 팀 1개 → 출력 레코드(또는 skip 사유).
+function teamToRow(team, weaponCodeToId, ctx) {
+  const members = (team.players ?? []).map((player) => compactPlayer(player, weaponCodeToId));
+  if (members.some((member) => !member.characterId)) return { skip: "unknownChar" };
+  const memberKeys = new Set(members.map((member) => member.variantId ?? member.characterId));
+  if (memberKeys.size !== 3) return { skip: "invalidSize" };
+  return { row: {
+    schemaVersion: 1,
+    source: ctx.raw.source ?? "official-api",
+    generatedAt: ctx.generatedAt,
+    collectedAt: team.collectedAt ?? ctx.raw.generatedAt ?? null,
+    patch: ctx.patch,
+    seasonId: team.seasonId ?? ctx.raw.collection?.season ?? null,
+    matchingMode: team.matchingMode ?? ctx.raw.collection?.matchingMode ?? null,
+    matchingTeamMode: team.matchingTeamMode ?? ctx.raw.collection?.teamMode ?? null,
+    tierBucket: team.tierBucket ?? "unknown",
+    fineBucket: team.fineBucket ?? null,
+    sourceRankMmr: team.sourceRankMmr ?? null,
+    gameId: team.gameId,
+    teamKey: team.teamKey,
+    result: resultForTeam(team),
+    members,
+    teamFeatures: teamFeatures(members),
+  } };
+}
+
 async function main() {
   const args = parseArgs();
-  // 입력은 JSON({teams:[...]}) 또는 JSONL(팀 1줄) 둘 다 허용. 아카이브 corpus는 JSONL.
+  // 입력은 JSON({teams:[...]}) 또는 JSONL(팀 1줄). 아카이브 corpus(대용량)는 JSONL → 스트리밍.
   let raw = {};
-  let teams;
-  if (/\.jsonl$/i.test(args.in)) {
-    const text = await fs.readFile(args.in, "utf8");
-    teams = text.split(/\r?\n/).filter((line) => line.trim()).map((line) => JSON.parse(line));
-  } else {
+  let arrayTeams = null;
+  const isJsonl = /\.jsonl$/i.test(args.in);
+  if (!isJsonl) {
     raw = JSON.parse(await fs.readFile(args.in, "utf8"));
-    teams = Array.isArray(raw.teams) ? raw.teams : [];
+    arrayTeams = Array.isArray(raw.teams) ? raw.teams : [];
   }
+  const eachTeam = () => (isJsonl ? jsonlTeams(args.in) : arrayTeams);
+
   const patch = args.patch || raw.patch || process.env.CURRENT_PATCH || await projectVersion();
   const generatedAt = new Date().toISOString();
   const stamp = generatedAt.replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
   const outPath = args.out ?? path.join(args.outDir, `matches-${safeFilePart(patch)}-${stamp}.jsonl`);
   const manifestPath = outPath.replace(/\.jsonl$/i, ".manifest.json");
-  const weaponCodeToId = inferOfficialWeaponMap(teams);
+
+  // 1차 패스: weaponCode→weapon 맵 추론 (스트리밍).
+  const weaponCounts = new Map();
+  let rawTeams = 0;
+  for await (const team of eachTeam()) {
+    rawTeams += 1;
+    accumulateWeaponCounts(team, weaponCounts);
+  }
+  const weaponCodeToId = finalizeWeaponMap(weaponCounts);
 
   await fs.mkdir(path.dirname(outPath), { recursive: true });
   const handle = await fs.open(outPath, "w");
 
+  const ctx = { generatedAt, patch, raw };
   let exported = 0;
   let skippedInvalidSize = 0;
   let skippedUnknownCharacter = 0;
 
+  // 2차 패스: 변환 + 기록 (스트리밍).
   try {
-    for (const team of teams) {
-      const members = (team.players ?? []).map((player) => compactPlayer(player, weaponCodeToId));
-      if (members.some((member) => !member.characterId)) {
-        skippedUnknownCharacter += 1;
-        continue;
-      }
-      const memberKeys = new Set(members.map((member) => member.variantId ?? member.characterId));
-      if (memberKeys.size !== 3) {
-        skippedInvalidSize += 1;
-        continue;
-      }
-
-      const result = resultForTeam(team);
-      const row = {
-        schemaVersion: 1,
-        source: raw.source ?? "official-api",
-        generatedAt,
-        collectedAt: team.collectedAt ?? raw.generatedAt ?? null,
-        patch,
-        seasonId: team.seasonId ?? raw.collection?.season ?? null,
-        matchingMode: team.matchingMode ?? raw.collection?.matchingMode ?? null,
-        matchingTeamMode: team.matchingTeamMode ?? raw.collection?.teamMode ?? null,
-        tierBucket: team.tierBucket ?? "unknown",
-        fineBucket: team.fineBucket ?? null,
-        sourceRankMmr: team.sourceRankMmr ?? null,
-        gameId: team.gameId,
-        teamKey: team.teamKey,
-        result,
-        members,
-        teamFeatures: teamFeatures(members),
-      };
-      await handle.write(`${JSON.stringify(row)}\n`);
+    for await (const team of eachTeam()) {
+      const out = teamToRow(team, weaponCodeToId, ctx);
+      if (out.skip === "unknownChar") { skippedUnknownCharacter += 1; continue; }
+      if (out.skip === "invalidSize") { skippedInvalidSize += 1; continue; }
+      await handle.write(`${JSON.stringify(out.row)}\n`);
       exported += 1;
     }
   } finally {
@@ -347,7 +366,7 @@ async function main() {
     patch,
     input: path.relative(ROOT, args.in),
     output: path.relative(ROOT, outPath),
-    rawTeams: teams.length,
+    rawTeams,
     exportedTeams: exported,
     skippedTeams: {
       invalidSize: skippedInvalidSize,
