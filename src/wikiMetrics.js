@@ -25,6 +25,7 @@ export const wikiMetrics = {
   chiara: { difficulty: 2, damage: 3, defense: 4, crowdControl: 3, mobility: 2, utility: 1 },
   chloe: { difficulty: 5, damage: 3, defense: 3, crowdControl: 3, mobility: 2, utility: 1 },
   coreline: { difficulty: 4, damage: 5, defense: 2, crowdControl: 3, mobility: 2, utility: 1 },
+  craver: { difficulty: 4, damage: 4, defense: 2, crowdControl: 3, mobility: 5, utility: 1 },
   daniel: { difficulty: 3, damage: 5, defense: 2, crowdControl: 1, mobility: 4, utility: 1 },
   darko: { difficulty: 2, damage: 4, defense: 2, crowdControl: 5, mobility: 3, utility: 1 },
   debi_marlene: { difficulty: 4, damage: 4, defense: 2, crowdControl: 3, mobility: 3, utility: 1 },

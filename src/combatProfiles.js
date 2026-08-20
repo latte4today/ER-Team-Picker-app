@@ -57,6 +57,7 @@ const byCharacter = {
   jenny: "diveFollowRanged",
   tsubame: "diveFollowRanged",
   justina: "diveFollowRanged",
+  craver: "diveFollowRanged",
 
   zahir: "counterOnlyRanged",
   sissela: "counterOnlyRanged",
