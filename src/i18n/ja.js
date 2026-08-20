@@ -546,6 +546,7 @@ export const ja = {
   "char.chiara": "キアラ",
   "char.chloe": "クロエ",
   "char.coreline": "コレライン",
+  "char.craver": "クレイヴァー",
   "char.daniel": "ダニエル",
   "char.darko": "ダルコ",
   "char.debi_marlene": "デビ＆マルレン",

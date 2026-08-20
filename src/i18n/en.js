@@ -546,6 +546,7 @@ export const en = {
   "char.chiara": "Chiara",
   "char.chloe": "Chloe",
   "char.coreline": "Coraline",
+  "char.craver": "Craver",
   "char.daniel": "Daniel",
   "char.darko": "Darko",
   "char.debi_marlene": "Debi & Marlene",

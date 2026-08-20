@@ -546,6 +546,7 @@ export const zhHans = {
   "char.chiara": "琪娅拉",
   "char.chloe": "克洛伊",
   "char.coreline": "卡洛琳",
+  "char.craver": "克雷弗",
   "char.daniel": "丹尼尔",
   "char.darko": "达尔科",
   "char.debi_marlene": "黛比&玛莲",

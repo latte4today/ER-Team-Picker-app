@@ -550,6 +550,7 @@ export const ko = {
   "char.chiara": "키아라",
   "char.chloe": "클로에",
   "char.coreline": "코렐라인",
+  "char.craver": "크레이버",
   "char.daniel": "다니엘",
   "char.darko": "다르코",
   "char.debi_marlene": "데비&마를렌",

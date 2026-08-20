@@ -546,6 +546,7 @@ export const zhHant = {
   "char.chiara": "琪婭拉",
   "char.chloe": "克洛伊",
   "char.coreline": "卡洛琳",
+  "char.craver": "克雷弗",
   "char.daniel": "丹尼爾",
   "char.darko": "達爾科",
   "char.debi_marlene": "黛比&瑪蓮",
