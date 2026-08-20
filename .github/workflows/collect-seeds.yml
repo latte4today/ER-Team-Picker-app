@@ -131,6 +131,12 @@ jobs:
             --composition-min-games 20 \
             --round-rates 3 \
             --round-averages 2
+          node tools/build_pair_role_stats.mjs \
+            --in src/officialMatchStats.compact.json \
+            --out src/pairRoleStats.js \
+            --min-games 60 \
+            --min-candidates 2
+          node tools/check_pair_role_stats.mjs
           cp src/officialMatchStats.compact.json reports/generated/officialMatchStats.compact.json
 
       - name: Build empirical spectrum report
@@ -208,6 +214,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/official-next-seeds.json 2>/dev/null || true
           git add src/officialMatchStats.compact.json 2>/dev/null || true
+          git add src/pairRoleStats.js 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else

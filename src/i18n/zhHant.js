@@ -153,6 +153,8 @@ export const zhHant = {
   "recommender.reason.dakCompositionNegative": "根據排位高手戰绩，{nameSubject}在相似陣容中有低排名案例，因此被扣分。",
   "recommender.reason.officialMatchPositive": "官方對局資料中，{nameSubject}與相似隊友陣容取得過較好結果。",
   "recommender.reason.officialMatchNegative": "官方對局資料中，{nameSubject}與相似隊友陣容的表現偏低。",
+  "recommender.reason.pairRolePositive": "累積對局資料顯示，{role}位置尤其適合這兩名已選隊友。",
+  "recommender.reason.pairRoleNegative": "累積對局資料顯示，{role}位置與這兩名隊友搭配時表現偏低。",
   "recommender.reason.coreRolePositive": "按已選核心特性來看，{nameSubject}能補上目前陣容缺少的交戰功能。",
   "recommender.reason.coreFitPositive": "{nameSubject}的已選核心特性能補足目前陣容的傷害、保護與控制平衡。",
   "recommender.reason.coreFitNegative": "按已選核心特性來看，{nameSubject}容易與目前陣容職責重疊，或難以補上短板。",

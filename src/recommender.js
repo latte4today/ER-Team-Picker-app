@@ -1,6 +1,7 @@
 import { characterVariants, roleNames, synergyPairs } from "./data.js";
 import { getFeedbackScore, loadFeedback } from "./feedback.js";
 import { officialPairSynergyLift } from "./pairSynergyLift.js";
+import { officialPairRoleStatsByTier as _bundledPairRoleStats } from "./pairRoleStats.js";
 import { compModel } from "./compModel.js";
 import {
   experimentTiers,
@@ -30,6 +31,7 @@ import { coreRowForVariant, normalizeCoreName, normalizeTraitBuildRows } from ".
 let officialCandidateStatsByTier  = _bundledCandidateStats;
 let officialCompositionStatsByTier = _bundledCompositionStats;
 let officialPairStatsByTier       = _bundledPairStats;
+let officialPairRoleStatsByTier   = _bundledPairRoleStats;
 let officialCombatStatsByTier     = _bundledCombatStats;
 let officialTraitBuildStatsByTier = _bundledTraitBuildStats;
 let officialEmpiricalVectorStatsByTier = _bundledEmpiricalVectorStats;
@@ -82,6 +84,7 @@ export function updateOfficialStats(remote) {
   if (remote.officialCandidateStatsByTier)  officialCandidateStatsByTier  = remote.officialCandidateStatsByTier;
   if (remote.officialCompositionStatsByTier) officialCompositionStatsByTier = remote.officialCompositionStatsByTier;
   if (remote.officialPairStatsByTier)       officialPairStatsByTier       = remote.officialPairStatsByTier;
+  if (remote.officialPairRoleStatsByTier)   officialPairRoleStatsByTier   = remote.officialPairRoleStatsByTier;
   if (remote.officialCombatStatsByTier)     officialCombatStatsByTier     = remote.officialCombatStatsByTier;
   if (remote.officialTraitBuildStatsByTier) officialTraitBuildStatsByTier = remote.officialTraitBuildStatsByTier;
   if (remote.officialEmpiricalVectorStatsByTier) officialEmpiricalVectorStatsByTier = remote.officialEmpiricalVectorStatsByTier;
@@ -711,6 +714,7 @@ const VECTOR_AXES = [
 const LEAN_SCORING_CONFIG = {
   strengthWeight: 1.08,
   pairWeight: 0.55,
+  pairRoleWeight: 0.45,
   heuristicWeight: 0.10,
   heuristicCap: 0.38,
   fitCap: 0.95,
@@ -1931,6 +1935,38 @@ function officialPairSynergyScore(candidate, selected, tier) {
   return clamp((totalSynergy / count) * 5, -1.0, 1.2);
 }
 
+function officialPairRoleScore(candidate, selected, tier) {
+  if (selected.length !== 2 || !candidate?.role) return 0;
+  const preferred = officialStatsBucketForTier(tier);
+  const buckets = preferred === "all" ? ["all"] : [preferred, "all"];
+
+  let row;
+  for (const bucket of buckets) {
+    const stats = officialPairRoleStatsByTier?.[bucket];
+    if (!stats) continue;
+    for (const idA of officialStatIds(selected[0])) {
+      for (const idB of officialStatIds(selected[1])) {
+        const pair = [idA, idB].sort().join("|");
+        row = stats[`${pair}#${candidate.role}`];
+        if (row) break;
+      }
+      if (row) break;
+    }
+    if (row) break;
+  }
+  if (!row || (row.games ?? 0) < 60 || (row.candidates ?? 0) < 2) return 0;
+
+  const confidence = row.games / (row.games + 120);
+  const placementLift = Number.isFinite(row.avgPlacement) && Number.isFinite(row.baselineAvgPlacement)
+    ? (row.baselineAvgPlacement - row.avgPlacement) * 0.35
+    : 0;
+  const raw =
+    ((row.winRate ?? 0) - (row.baselineWinRate ?? 0)) * 6 +
+    ((row.top3Rate ?? 0) - (row.baselineTop3Rate ?? 0)) * 2.2 +
+    placementLift;
+  return clamp(raw * confidence, -0.55, 0.65);
+}
+
 function officialCombatSignalScore(candidate, tier) {
   const bucket = officialStatsBucketForTier(tier);
   const combatStats = officialCombatStatsByTier?.[bucket] ?? officialCombatStatsByTier?.all;
@@ -2171,6 +2207,7 @@ function leanCandidateTotal(candidate, selected, tier, scores, feedbackScore, fi
   return (
     strengthScore * config.strengthWeight +
     pairTerm * config.pairWeight +
+    scores.officialPairRole * config.pairRoleWeight +
     fitTerm +
     heuristicTerm +
     scores.relationship +
@@ -2394,6 +2431,8 @@ function explain(candidate, selected, scores, explainTier = "all") {
       }
     }
   }
+  if (scores.officialPairRole >= 0.24) reasons.push(t("recommender.reason.pairRolePositive", { role: roleLabel(candidate) }));
+  if (scores.officialPairRole <= -0.24) reasons.push(t("recommender.reason.pairRoleNegative", { role: roleLabel(candidate) }));
   reasons.push(...specializationReasons(candidate, selected, scores));
 
   if (scores.teamShape <= -2.2) {
@@ -3143,6 +3182,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     teamShape: teamShapeScore(effectiveCandidate, effectiveSelected),
     conflict: conflictScore(effectiveCandidate, effectiveSelected),
     compositionGuide: compositionGuideScore(effectiveCandidate, effectiveSelected),
+    officialPairRole: officialPairRoleScore(effectiveCandidate, effectiveSelected, tier),
     officialCore:  officialCoreScore(candidate, tier, cores),
     officialCoreFit: officialCoreFitScore(effectiveCandidate, effectiveSelected, tier, cores),
     officialCoreRoleShift: officialCoreRoleShiftScore(effectiveCandidate, effectiveSelected, tier, cores),
@@ -3167,6 +3207,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     scores.meta +
     scores.officialMatch * 0.35 +
     scores.officialV2 * 0.35 +
+    scores.officialPairRole * 0.45 +
     scores.officialCore * 0.35 +
     scores.officialCoreFit * 0.2 +
     scores.officialCoreRoleShift * 0.2 +

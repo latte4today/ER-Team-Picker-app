@@ -153,6 +153,8 @@ export const ja = {
   "recommender.reason.dakCompositionNegative": "ランカー戦績基準で{nameSubject}似た構成で下位を記録した事例があり、減点されました。",
   "recommender.reason.officialMatchPositive": "公式戦績データで{nameSubject}似た味方構成と良い結果を出しています。",
   "recommender.reason.officialMatchNegative": "公式戦績データでは{nameSubject}似た味方構成でやや安定しにくい結果です。",
+  "recommender.reason.pairRolePositive": "蓄積された戦績では、選択した2人に{role}ポジションが特によく合っています。",
+  "recommender.reason.pairRoleNegative": "蓄積された戦績では、選択した2人と{role}ポジションの成績が低めです。",
   "recommender.reason.coreRolePositive": "選択中のコア特性基準で、{nameSubject}現在の構成に足りない交戦機能を補えます。",
   "recommender.reason.coreFitPositive": "{nameSubject}選択中のコア特性が、この構成の火力・保護・CCバランスを補います。",
   "recommender.reason.coreFitNegative": "選択中のコア特性基準では、{nameSubject}役割が重なったり、構成の不足分を補いにくいです。",

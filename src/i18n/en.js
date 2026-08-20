@@ -153,6 +153,8 @@ export const en = {
   "recommender.reason.dakCompositionNegative": "Ranker match data shows {nameSubject} placing low in similar compositions — a penalty was applied.",
   "recommender.reason.officialMatchPositive": "Official match data shows {nameSubject} performing well with similar teammates.",
   "recommender.reason.officialMatchNegative": "Official match data shows {nameSubject} has been less reliable with similar teammates.",
+  "recommender.reason.pairRolePositive": "Accumulated match data shows the {role} position fits these two selected teammates especially well.",
+  "recommender.reason.pairRoleNegative": "Accumulated match data shows weaker results when the {role} position joins these two teammates.",
   "recommender.reason.coreRolePositive": "With the selected core trait, {nameSubject} covers a combat function this composition is missing.",
   "recommender.reason.coreFitPositive": "{nameSubject}'s selected core trait helps balance this composition's damage, protection, and CC profile.",
   "recommender.reason.coreFitNegative": "With the selected core trait, {nameSubject} overlaps roles or struggles to cover this composition's gaps.",

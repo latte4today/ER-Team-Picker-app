@@ -153,6 +153,8 @@ export const zhHans = {
   "recommender.reason.dakCompositionNegative": "根据排位高手战绩，{nameSubject}在相似阵容中有低排名案例，因此被扣分。",
   "recommender.reason.officialMatchPositive": "官方对局数据中，{nameSubject}与相似队友阵容取得过较好结果。",
   "recommender.reason.officialMatchNegative": "官方对局数据中，{nameSubject}与相似队友阵容的表现偏低。",
+  "recommender.reason.pairRolePositive": "累计对局数据显示，{role}位置尤其适合这两名已选队友。",
+  "recommender.reason.pairRoleNegative": "累计对局数据显示，{role}位置与这两名队友搭配时表现偏低。",
   "recommender.reason.coreRolePositive": "按已选核心特性来看，{nameSubject}能补上当前阵容缺少的交战功能。",
   "recommender.reason.coreFitPositive": "{nameSubject}的已选核心特性能补足当前阵容的伤害、保护与控制平衡。",
   "recommender.reason.coreFitNegative": "按已选核心特性来看，{nameSubject}容易与当前阵容职责重叠，或难以补上短板。",

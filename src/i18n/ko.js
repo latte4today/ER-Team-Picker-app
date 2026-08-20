@@ -153,6 +153,8 @@ export const ko = {
   "recommender.reason.dakCompositionNegative": "{nameSubject} 랭커 전적 기준으로 현재 팀원과 성과가 낮은 편입니다.",
   "recommender.reason.officialMatchPositive": "{nameSubject} 공식 전적에서 비슷한 팀원과 좋은 결과를 낸 기록이 있습니다.",
   "recommender.reason.officialMatchNegative": "{nameSubject} 공식 전적 기준으로 비슷한 팀원과 성과가 낮은 편입니다.",
+  "recommender.reason.pairRolePositive": "누적 전적에서 선택한 두 실험체에는 {role} 포지션이 특히 잘 맞았습니다.",
+  "recommender.reason.pairRoleNegative": "누적 전적에서 선택한 두 실험체와 {role} 포지션의 성과가 낮아 감점되었습니다.",
   "recommender.reason.coreRolePositive": "{nameSubject} 선택한 특성 기준으로 현재 조합에 부족한 교전 기능을 보완합니다.",
   "recommender.reason.coreFitPositive": "{nameSubject} 선택한 특성의 평균 지표가 현재 조합의 화력, 보호, CC 균형을 보완합니다.",
   "recommender.reason.coreFitNegative": "{nameSubject} 선택한 특성 기준으로 현재 조합과 역할이 겹치거나 부족한 부분을 채우기 어렵습니다.",
