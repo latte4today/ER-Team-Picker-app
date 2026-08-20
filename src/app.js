@@ -31,7 +31,7 @@ import {
 } from "./combatProfiles.js";
 import { applyTranslations, getLanguage, hasStoredLanguage, setLanguage, t } from "./i18n/index.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
-import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.6";
+import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.7";
 
 const isElectron = /electron/i.test(navigator.userAgent);
 
@@ -352,6 +352,7 @@ function baseFeedbackVariantId(id) {
 const savedTheme = localStorage.getItem("er-team-picker-theme");
 const tierGuideStorageKey = "er-team-picker-tier-guide-seen";
 const walkthroughStorageKey = "er-team-picker-walkthrough-seen";
+const walkthroughDisabledStorageKey = "er-team-picker-walkthrough-disabled";
 const legacyPlayableStorageKey = "er-team-picker-playable-characters";
 const playableStorageKey = "er-team-picker-playable-variants";
 const presetStorageKey = "er-team-picker-playable-presets";
@@ -753,7 +754,8 @@ function showWalkthroughStep(index, { prepare = true } = {}) {
 }
 
 function shouldShowInitialWalkthrough() {
-  return localStorage.getItem(walkthroughStorageKey) !== "true";
+  return localStorage.getItem(walkthroughStorageKey) !== "true"
+    && localStorage.getItem(walkthroughDisabledStorageKey) !== "true";
 }
 
 function requestInitialWalkthrough() {
@@ -784,9 +786,10 @@ function openWalkthrough({ initial = false } = {}) {
   showWalkthroughStep(0);
 }
 
-function closeWalkthrough() {
+function closeWalkthrough({ disableFuture = false } = {}) {
   walkthroughActive = false;
   localStorage.setItem(walkthroughStorageKey, "true");
+  if (disableFuture) localStorage.setItem(walkthroughDisabledStorageKey, "true");
   clearWalkthroughHighlight();
   if (walkthroughOverlay) walkthroughOverlay.hidden = true;
 }
@@ -805,7 +808,7 @@ function previousWalkthroughStep() {
 }
 
 function skipWalkthroughStep() {
-  nextWalkthroughStep({ force: true });
+  closeWalkthrough({ disableFuture: true });
 }
 
 languageGate?.addEventListener("click", (event) => {

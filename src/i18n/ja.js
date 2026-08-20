@@ -633,7 +633,7 @@ export const ja = {
   "tutorial.progress": "ステップ {current} / {total}",
   "tutorial.prev": "戻る",
   "tutorial.next": "次へ",
-  "tutorial.skip": "スキップ",
+  "tutorial.skip": "今後表示しない",
   "tutorial.finish": "完了",
   "tutorial.step1.title": "実験体を2人選んで推薦を受ける",
   "tutorial.step1.body": "チームメイト1・チームメイト2にあたる実験体カードを順にクリックしてください。右側の推薦エリアに、自分が選ぶと良い実験体がすぐに表示されます。",

@@ -100,7 +100,7 @@ async function listShards(archiveDir) {
   try {
     const entries = await fsp.readdir(archiveDir, { withFileTypes: true });
     return entries
-      .filter((entry) => entry.isFile() && /^matches-\d{4}-\d{2}-\d{2}\.jsonl(\.gz)?$/.test(entry.name))
+      .filter((entry) => entry.isFile() && /^matches-\d{4}-\d{2}-\d{2}(?:-[a-zA-Z0-9._-]+)?\.jsonl(\.gz)?$/.test(entry.name))
       .map((entry) => path.join(archiveDir, entry.name))
       .sort();
   } catch {
@@ -116,11 +116,12 @@ function lineReader(filePath, start = 0) {
 
 function emptySummary(args) {
   return {
-    version: 1,
+    version: 2,
     generatedAt: new Date().toISOString(),
     archiveDir: path.relative(ROOT, args.archiveDir).replace(/\\/g, "/"),
     shards: [],
     totals: { teams: 0, players: 0 },
+    quality: { duplicatesRemoved: 0, invalidKeys: 0 },
     byTier: {},
     byFineTier: {},
     byPatch: {},
@@ -180,14 +181,29 @@ function upsertShard(summary, shardName, next) {
   }
 }
 
-async function processShard(summary, shardPath, startByte) {
+async function processShard(summary, shardPath, startByte, seenKeys = null) {
   const shardName = path.basename(shardPath);
   let shardTeams = 0;
   const rl = lineReader(shardPath, startByte);
   for await (const line of rl) {
     if (!line.trim()) continue;
     try {
-      addTeam(summary, JSON.parse(line));
+      const team = JSON.parse(line);
+      if (seenKeys) {
+        const gameId = team?.gameId;
+        const teamKey = team?.teamKey;
+        if (gameId === undefined || gameId === null || teamKey === undefined || teamKey === null) {
+          summary.quality.invalidKeys += 1;
+          continue;
+        }
+        const key = `${gameId}:${teamKey}`;
+        if (seenKeys.has(key)) {
+          summary.quality.duplicatesRemoved += 1;
+          continue;
+        }
+        seenKeys.add(key);
+      }
+      addTeam(summary, team);
       shardTeams += 1;
     } catch {
       // Skip malformed lines; archive shards are append-only and should keep moving.
@@ -202,19 +218,26 @@ async function main() {
   const args = parseArgs();
   const shards = await listShards(args.archiveDir);
   const previousPath = args.previous || args.out;
-  const hasPreviousSummary = args.incremental && fs.existsSync(previousPath);
+  const previousSummary = args.incremental && fs.existsSync(previousPath)
+    ? await readJson(previousPath, null)
+    : null;
+  const hasPreviousSummary = previousSummary?.version === 2;
+  if (previousSummary && !hasPreviousSummary) {
+    console.warn("Summary schema changed; rebuilding once with global duplicate removal.");
+  }
   let state = hasPreviousSummary
     ? await readJson(args.state, { version: 1, processedShards: {} })
     : { version: 1, processedShards: {} };
   let summary = hasPreviousSummary
-    ? await readJson(previousPath, emptySummary(args))
+    ? previousSummary
     : emptySummary(args);
 
-  summary.version = 1;
+  summary.version = 2;
   summary.generatedAt = new Date().toISOString();
   summary.archiveDir = path.relative(ROOT, args.archiveDir).replace(/\\/g, "/");
   summary.shards ||= [];
   summary.totals ||= { teams: 0, players: 0 };
+  summary.quality ||= { duplicatesRemoved: 0, invalidKeys: 0 };
   summary.byTier ||= {};
   summary.byFineTier ||= {};
   summary.byPatch ||= {};
@@ -236,6 +259,7 @@ async function main() {
   }
   let processedShardCount = 0;
   let processedTeams = 0;
+  const seenKeys = hasPreviousSummary ? null : new Set();
 
   for (const shardPath of shards) {
     const shardName = path.basename(shardPath);
@@ -245,7 +269,7 @@ async function main() {
       continue;
     }
     const startByte = priorBytes > 0 && priorBytes < stat.size ? priorBytes : 0;
-    const result = await processShard(summary, shardPath, startByte);
+    const result = await processShard(summary, shardPath, startByte, seenKeys);
     processed[shardName] = { bytes: result.bytes, teams: (processed[shardName]?.teams || 0) + result.teams };
     processedShardCount += 1;
     processedTeams += result.teams;
@@ -253,7 +277,7 @@ async function main() {
 
   await fsp.mkdir(path.dirname(args.out), { recursive: true });
   await fsp.writeFile(args.out, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
-  state.version = 1;
+  state.version = 2;
   state.updatedAt = summary.generatedAt;
   state.archiveDir = summary.archiveDir;
   state.processedShards = processed;
@@ -263,6 +287,7 @@ async function main() {
   console.log(`Official summary: ${path.relative(ROOT, args.out)}`);
   console.log(`  shards: ${summary.shards.length}`);
   console.log(`  teams: ${summary.totals.teams}`);
+  console.log(`  duplicates removed: ${summary.quality.duplicatesRemoved}`);
   console.log(`  processed this run: ${processedShardCount} shards, ${processedTeams} teams`);
 }
 

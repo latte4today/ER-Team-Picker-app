@@ -628,7 +628,7 @@ export const ko = {
   "tutorial.progress": "{current} / {total} 단계",
   "tutorial.prev": "이전",
   "tutorial.next": "다음",
-  "tutorial.skip": "건너뛰기",
+  "tutorial.skip": "다시 보지 않기",
   "tutorial.finish": "완료",
   "tutorial.step1.title": "실험체 2개를 클릭해 추천받기",
   "tutorial.step1.body": "팀원 1, 팀원 2에 해당하는 실험체 카드를 차례로 클릭하세요. 오른쪽 추천 영역에 내가 고르면 좋은 실험체가 바로 표시됩니다.",

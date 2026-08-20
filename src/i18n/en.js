@@ -625,7 +625,7 @@ export const en = {
   "tutorial.progress": "Step {current} / {total}",
   "tutorial.prev": "Back",
   "tutorial.next": "Next",
-  "tutorial.skip": "Skip",
+  "tutorial.skip": "Don't show again",
   "tutorial.finish": "Finish",
   "tutorial.step1.title": "Pick two teammates, then get recommendations",
   "tutorial.step1.body": "Click two experiment cards to fill Teammate 1 and Teammate 2. The recommendation panel immediately shows candidates for your own pick.",

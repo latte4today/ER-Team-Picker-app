@@ -1,6 +1,6 @@
 {
   "name": "eternal-return-team-picker",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "private": true,
   "type": "module",
   "description": "Desktop app for Eternal Return team composition recommendations.",
@@ -16,6 +16,9 @@
     "materialize-official-archive": "node tools/materialize_archive_corpus.mjs --archive-dir data/external/ER-Team-Picker-data/official-archive --out reports/generated/latest-official-archive.jsonl",
     "backtest-latest-archive": "node tools/backtest_latest_archive.mjs",
     "ceiling-latest-archive": "node tools/backtest_latest_archive.mjs --ceiling",
+    "analyze-composition-interactions": "python tools/analyze_composition_interactions.py",
+    "audit-archive-duplicates": "python tools/audit_archive_duplicates.py",
+    "test-archive-dedup": "node tools/test_archive_dedup.mjs",
     "build-official-summary": "node tools/build_official_summary.mjs",
     "build-official-compact-from-archive": "node tools/build_compact_from_archive.mjs",
     "build-compact-stats": "node tools/build_compact_stats.mjs",

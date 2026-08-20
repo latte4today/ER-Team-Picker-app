@@ -56,6 +56,23 @@ jobs:
 
           echo "ready=true" >> "$GITHUB_OUTPUT"
 
+      - name: Checkout durable data archive
+        if: steps.data_archive.outputs.ready == 'true'
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ env.DATA_REPO }}
+          token: ${{ env.DATA_REPO_TOKEN }}
+          path: data-repo
+          fetch-depth: 1
+
+      - name: Configure archive source
+        run: |
+          if [ "${{ steps.data_archive.outputs.ready }}" = "true" ]; then
+            echo "DURABLE_ARCHIVE_DIR=data-repo/official-archive" >> "$GITHUB_ENV"
+          else
+            echo "DURABLE_ARCHIVE_DIR=data/official-archive" >> "$GITHUB_ENV"
+          fi
+
       - name: Restore game cache
         uses: actions/cache@v5
         with:
@@ -74,6 +91,12 @@ jobs:
           mkdir -p data
           echo '${{ secrets.TIER_SEEDS }}' > data/official-tier-seeds.json
 
+      - name: Prepare cross-run game index
+        run: |
+          node tools/build_archive_seen_games.mjs \
+            --archive-dir "$DURABLE_ARCHIVE_DIR" \
+            --out "$DURABLE_ARCHIVE_DIR/seen-game-ids.txt"
+
       - name: Collect seed-tier match data
         run: |
           node tools/official_seed_collector.mjs \
@@ -85,6 +108,7 @@ jobs:
             --seed-pool-size 50 \
             --top-rankers 100 \
             --top-tier demigod_eternity \
+            --seen-games "$DURABLE_ARCHIVE_DIR/seen-game-ids.txt" \
             --delay-ms 1000 \
             --retry-429-ms 60000
 
@@ -93,6 +117,20 @@ jobs:
           node tools/merge_match_input.mjs \
             --accumulated data/official-match-input-accumulated.json \
             --new data/official-match-input-seeded.json
+
+      - name: Restore ML corpus from durable archive on cache miss
+        run: |
+          if [ ! -s data/ml-training/corpus.jsonl ]; then
+            mkdir -p data/ml-training
+            if compgen -G "$DURABLE_ARCHIVE_DIR/matches-*.jsonl.gz" > /dev/null; then
+              node tools/materialize_archive_corpus.mjs \
+                --archive-dir "$DURABLE_ARCHIVE_DIR" \
+                --out data/ml-training/corpus.jsonl \
+                --manifest-out data/ml-training/corpus.restore.manifest.json
+            else
+              echo "No prior archive shards; ML corpus will start from this run."
+            fi
+          fi
 
       - name: Append to ML corpus (unbounded JSONL)
         run: |
@@ -104,19 +142,20 @@ jobs:
         run: |
           node tools/archive_official_matches.mjs \
             --in data/official-match-input-seeded.json \
-            --archive-dir data/official-archive \
+            --archive-dir "$DURABLE_ARCHIVE_DIR" \
+            --seen-games "$DURABLE_ARCHIVE_DIR/seen-game-ids.txt" \
             --patch "$CURRENT_PATCH"
 
       - name: Build official archive summary
         run: |
           mkdir -p reports
           node tools/build_official_summary.mjs \
-            --archive-dir data/official-archive \
-            --previous data/official-archive/officialMatchSummary.json \
-            --state data/official-archive/summary-state.json \
-            --out data/official-archive/officialMatchSummary.json \
+            --archive-dir "$DURABLE_ARCHIVE_DIR" \
+            --previous "$DURABLE_ARCHIVE_DIR/officialMatchSummary.json" \
+            --state "$DURABLE_ARCHIVE_DIR/summary-state.json" \
+            --out "$DURABLE_ARCHIVE_DIR/officialMatchSummary.json" \
             --incremental
-          cp data/official-archive/officialMatchSummary.json reports/officialMatchSummary.json
+          cp "$DURABLE_ARCHIVE_DIR/officialMatchSummary.json" reports/officialMatchSummary.json
 
       - name: Build combined stats
         run: |
@@ -155,24 +194,10 @@ jobs:
             --out-dir data/ml-training \
             --patch "$CURRENT_PATCH"
 
-      - name: Checkout durable data archive
-        if: steps.data_archive.outputs.ready == 'true'
-        uses: actions/checkout@v5
-        with:
-          repository: ${{ env.DATA_REPO }}
-          token: ${{ env.DATA_REPO_TOKEN }}
-          path: data-repo
-          fetch-depth: 1
-
       - name: Push archive shard to data repo
         if: steps.data_archive.outputs.ready == 'true'
         continue-on-error: true
         run: |
-          mkdir -p data-repo/official-archive
-          cp data/official-archive/*.jsonl.gz data-repo/official-archive/ 2>/dev/null || true
-          cp data/official-archive/manifest.json data-repo/official-archive/manifest.json 2>/dev/null || true
-          cp data/official-archive/officialMatchSummary.json data-repo/official-archive/officialMatchSummary.json 2>/dev/null || true
-          cp data/official-archive/summary-state.json data-repo/official-archive/summary-state.json 2>/dev/null || true
           cd data-repo
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -199,6 +224,10 @@ jobs:
             data/official-archive/manifest.json
             data/official-archive/officialMatchSummary.json
             data/official-archive/summary-state.json
+            data-repo/official-archive/seen-game-ids.txt
+            data-repo/official-archive/manifest.json
+            data-repo/official-archive/officialMatchSummary.json
+            data-repo/official-archive/summary-state.json
             reports/empirical-spectrum-report.json
             reports/empirical-spectrum-report.md
             reports/officialMatchSummary.json

@@ -633,7 +633,7 @@ export const zhHans = {
   "tutorial.progress": "步骤 {current} / {total}",
   "tutorial.prev": "上一步",
   "tutorial.next": "下一步",
-  "tutorial.skip": "跳过",
+  "tutorial.skip": "不再显示",
   "tutorial.finish": "完成",
   "tutorial.step1.title": "选择两名实验体获取推荐",
   "tutorial.step1.body": "依次点击对应队友1、队友2的实验体卡片。右侧推荐区会立即显示适合你选择的实验体。",

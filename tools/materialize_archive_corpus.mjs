@@ -37,7 +37,7 @@ function parseArgs() {
 async function listShards(archiveDir) {
   const entries = await fsp.readdir(archiveDir, { withFileTypes: true });
   return entries
-    .filter((entry) => entry.isFile() && /^matches-\d{4}-\d{2}-\d{2}\.jsonl(\.gz)?$/.test(entry.name))
+    .filter((entry) => entry.isFile() && /^matches-\d{4}-\d{2}-\d{2}(?:-[a-zA-Z0-9._-]+)?\.jsonl(\.gz)?$/.test(entry.name))
     .map((entry) => path.join(archiveDir, entry.name))
     .sort();
 }
@@ -62,10 +62,34 @@ async function main() {
   });
 
   let lines = 0;
+  let rawLines = 0;
+  let duplicatesRemoved = 0;
+  let invalidKeys = 0;
+  const seen = new Set();
   for (const shard of shards) {
     const rl = lineReader(shard);
     for await (const line of rl) {
       if (!line.trim()) continue;
+      rawLines += 1;
+      let team;
+      try {
+        team = JSON.parse(line);
+      } catch {
+        invalidKeys += 1;
+        continue;
+      }
+      const gameId = team?.gameId;
+      const teamKey = team?.teamKey;
+      if (gameId === undefined || gameId === null || teamKey === undefined || teamKey === null) {
+        invalidKeys += 1;
+        continue;
+      }
+      const key = `${gameId}:${teamKey}`;
+      if (seen.has(key)) {
+        duplicatesRemoved += 1;
+        continue;
+      }
+      seen.add(key);
       await write(`${line}\n`);
       lines += 1;
     }
@@ -80,12 +104,16 @@ async function main() {
     archiveDir: path.relative(ROOT, args.archiveDir).replace(/\\/g, "/"),
     out: path.relative(ROOT, args.out).replace(/\\/g, "/"),
     lines,
+    rawLines,
+    duplicatesRemoved,
+    invalidKeys,
     shardCount: shards.length,
     shards: shards.map((shard) => path.basename(shard)),
   };
   await fsp.writeFile(args.manifestOut, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 
-  console.log(`Materialized archive corpus: ${manifest.out} (${lines} teams, ${shards.length} shards)`);
+  console.log(`Materialized archive corpus: ${manifest.out} (${lines} unique teams, ${shards.length} shards)`);
+  console.log(`  raw=${rawLines} duplicatesRemoved=${duplicatesRemoved} invalidKeys=${invalidKeys}`);
   console.log(`Manifest: ${path.relative(ROOT, args.manifestOut).replace(/\\/g, "/")}`);
 }
 

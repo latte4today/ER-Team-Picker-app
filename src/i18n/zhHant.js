@@ -633,7 +633,7 @@ export const zhHant = {
   "tutorial.progress": "步驟 {current} / {total}",
   "tutorial.prev": "上一步",
   "tutorial.next": "下一步",
-  "tutorial.skip": "略過",
+  "tutorial.skip": "不再顯示",
   "tutorial.finish": "完成",
   "tutorial.step1.title": "選擇兩名實驗體取得推薦",
   "tutorial.step1.body": "依序點擊對應隊友1、隊友2的實驗體卡片。右側推薦區會立即顯示適合你選擇的實驗體。",

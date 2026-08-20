@@ -266,21 +266,38 @@ export function normalizeGame(gameId, payload, sourceRankInfo) {
     if (teamKey === undefined || character === undefined) continue;
     const key = String(teamKey);
     if (!teamMap.has(key)) {
+      const rawTeamMmr = firstValue(row, ["mmrAvg", "teamMmr", "teamMMR"]);
+      const teamMmr = Number(rawTeamMmr);
+      const hasTeamMmr = Number.isFinite(teamMmr) && teamMmr > 0;
+      const gameFineBucket = hasTeamMmr ? tierBucketFromMmr(teamMmr) : undefined;
       teamMap.set(key, {
         gameId,
         teamKey: key,
         rank:              firstValue(row, ["gameRank", "game_rank"]),
         victory:           Boolean(firstValue(row, ["victory"])),
-        tierBucket:        sourceRankInfo?.tierBucket ?? "unknown",
-        fineBucket:        sourceRankInfo?.fineBucket,
+        tierBucket:        gameFineBucket ? compactTierBucket(gameFineBucket) : (sourceRankInfo?.tierBucket ?? "unknown"),
+        fineBucket:        gameFineBucket ?? sourceRankInfo?.fineBucket,
+        tierSource:        gameFineBucket ? "game-team-mmr" : "seed-user-rank",
+        teamMmr:           hasTeamMmr ? teamMmr : undefined,
         sourceRankMmr:     sourceRankInfo?.mmr,
+        versionSeason:     firstValue(row, ["versionSeason"]),
+        versionMajor:      firstValue(row, ["versionMajor"]),
+        versionMinor:      firstValue(row, ["versionMinor"]),
+        startedAt:         firstValue(row, ["startDtm", "startAt", "startedAt"]),
+        premadeMatchingType: firstValue(row, ["premadeMatchingType"]),
+        mainWeather:       firstValue(row, ["mainWeather"]),
+        subWeather:        firstValue(row, ["subWeather"]),
+        premadeSize:       0,
         matchingMode:      firstValue(row, ["matchingMode", "matching_mode"]),
         matchingTeamMode:  firstValue(row, ["matchingTeamMode", "matching_team_mode"]),
         seasonId:          firstValue(row, ["seasonId", "season_id"]),
         players: [],
       });
     }
-    teamMap.get(key).players.push({
+    const team = teamMap.get(key);
+    const premadeSize = Number(firstValue(row, ["preMade", "premade"]) ?? 0);
+    if (Number.isFinite(premadeSize)) team.premadeSize = Math.max(team.premadeSize, premadeSize);
+    team.players.push({
       character: characterOf(row),
       weapon:    weaponOf(row),
       traits:    traitInfoOf(row),

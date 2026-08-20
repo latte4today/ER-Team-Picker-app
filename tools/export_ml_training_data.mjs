@@ -108,6 +108,7 @@ const CHARACTER_CODE_TO_ID = {
   86: "fenrir",
   87: "coreline",
   88: "bihyung",
+  89: "craver",
 };
 
 const characterById = new Map(characters.map((character) => [character.id, character]));
@@ -293,7 +294,7 @@ function teamToRow(team, weaponCodeToId, ctx) {
   const memberKeys = new Set(members.map((member) => member.variantId ?? member.characterId));
   if (memberKeys.size !== 3) return { skip: "invalidSize" };
   return { row: {
-    schemaVersion: 1,
+    schemaVersion: 2,
     source: ctx.raw.source ?? "official-api",
     generatedAt: ctx.generatedAt,
     collectedAt: team.collectedAt ?? ctx.raw.generatedAt ?? null,
@@ -303,7 +304,17 @@ function teamToRow(team, weaponCodeToId, ctx) {
     matchingTeamMode: team.matchingTeamMode ?? ctx.raw.collection?.teamMode ?? null,
     tierBucket: team.tierBucket ?? "unknown",
     fineBucket: team.fineBucket ?? null,
+    tierSource: team.tierSource ?? null,
+    teamMmr: team.teamMmr ?? null,
     sourceRankMmr: team.sourceRankMmr ?? null,
+    versionSeason: team.versionSeason ?? null,
+    versionMajor: team.versionMajor ?? null,
+    versionMinor: team.versionMinor ?? null,
+    startedAt: team.startedAt ?? null,
+    premadeMatchingType: team.premadeMatchingType ?? null,
+    premadeSize: team.premadeSize ?? null,
+    mainWeather: team.mainWeather ?? null,
+    subWeather: team.subWeather ?? null,
     gameId: team.gameId,
     teamKey: team.teamKey,
     result: resultForTeam(team),
@@ -361,7 +372,7 @@ async function main() {
   }
 
   const manifest = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedAt,
     patch,
     input: path.relative(ROOT, args.in),

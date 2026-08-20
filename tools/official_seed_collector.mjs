@@ -61,6 +61,7 @@ const DEFAULTS = {
   retry429Ms:      60000,
   strictTier:      false,
   targetTeams:     0,        // 0 = no limit; otherwise split evenly across tiers
+  seenGames:       undefined,
 };
 
 function parseArgs() {
@@ -88,6 +89,7 @@ function parseArgs() {
       case "--retry-429-ms":       args.retry429Ms      = Number(value); break;
       case "--strict-tier":        args.strictTier      = value !== "false"; break;
       case "--target-teams":       args.targetTeams     = Number(value); break;
+      case "--seen-games":         args.seenGames       = path.resolve(ROOT, value); break;
     }
   }
   return args;
@@ -111,7 +113,7 @@ function reachedTierTarget(gameIds, options) {
     estimatedTeamsFromGames(gameIds) >= options.targetTeamsPerTier;
 }
 
-async function collectGamesForUser(client, userId, options, knownTierBucket, gameIds, gameRankInfo, userTier) {
+async function collectGamesForUser(client, userId, options, knownTierBucket, gameIds, gameRankInfo, userTier, seenGames) {
   const rankInfo     = await lookupRankInfo(client, userId, options.season, options.teamMode);
   const actualBucket = rankInfo.tierBucket;
 
@@ -131,19 +133,24 @@ async function collectGamesForUser(client, userId, options, knownTierBucket, gam
   );
   const ids = gameRows(gamesPayload).map(gameIdOf).filter(Boolean).slice(0, options.gamesPerUser);
   let added = 0;
+  let skippedSeen = 0;
   for (const id of ids) {
+    if (seenGames?.has(String(id))) {
+      skippedSeen += 1;
+      continue;
+    }
     gameIds.add(id);
     if (!gameRankInfo.has(String(id))) {
       gameRankInfo.set(String(id), effectiveRankInfo);
       added++;
     }
   }
-  return { added, total: ids.length, tierBucket: effectiveBucket, mmr: rankInfo.mmr };
+  return { added, total: ids.length, skippedSeen, tierBucket: effectiveBucket, mmr: rankInfo.mmr };
 }
 
 async function expandFromGames(
   client, sourceGameIds, tierBucket, options,
-  gameIds, gameRankInfo, processedUsers, label, userTier
+  gameIds, gameRankInfo, processedUsers, label, userTier, seenGames
 ) {
   let expanded = 0;
   for (const gameId of sourceGameIds) {
@@ -169,7 +176,7 @@ async function expandFromGames(
 
       try {
         const result = await collectGamesForUser(
-          client, userId, options, tierBucket, gameIds, gameRankInfo, userTier
+          client, userId, options, tierBucket, gameIds, gameRankInfo, userTier, seenGames
         );
         if (!result.skipped) {
           expanded++;
@@ -186,7 +193,7 @@ async function expandFromGames(
   return expanded;
 }
 
-async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankInfo, userTier) {
+async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankInfo, userTier, seenGames) {
   const processedUsers = new Set();
 
   // Phase 0a: userId seeds from previous run
@@ -198,8 +205,8 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
     processedUsers.add(uid);
     process.stdout.write(`  [${tierBucket}] userId-seed ...${uid.slice(-6)} `);
     try {
-      const r = await collectGamesForUser(client, uid, options, tierBucket, gameIds, gameRankInfo, userTier);
-      console.log(r.skipped ? `skipped (${r.actual})` : `+${r.added} games (${r.tierBucket}, mmr:${r.mmr ?? "?"})`);
+      const r = await collectGamesForUser(client, uid, options, tierBucket, gameIds, gameRankInfo, userTier, seenGames);
+      console.log(r.skipped ? `skipped (${r.actual})` : `+${r.added} new games, ${r.skippedSeen} archived (${r.tierBucket}, mmr:${r.mmr ?? "?"})`);
     } catch (err) { console.log(`error: ${err.message}`); }
   }
 
@@ -213,8 +220,8 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
     if (processedUsers.has(String(userId))) { console.log("already seen"); continue; }
     processedUsers.add(String(userId));
     try {
-      const r = await collectGamesForUser(client, userId, options, tierBucket, gameIds, gameRankInfo, userTier);
-      console.log(r.skipped ? `skipped (${r.actual})` : `+${r.added} games (${r.tierBucket}, mmr:${r.mmr ?? "?"}) - total: ${gameIds.size}`);
+      const r = await collectGamesForUser(client, userId, options, tierBucket, gameIds, gameRankInfo, userTier, seenGames);
+      console.log(r.skipped ? `skipped (${r.actual})` : `+${r.added} new games, ${r.skippedSeen} archived (${r.tierBucket}, mmr:${r.mmr ?? "?"}) - total: ${gameIds.size}`);
     } catch (err) { console.log(`error: ${err.message}`); }
   }
 
@@ -228,7 +235,7 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
   if (options.depth >= 1 && !reachedTierTarget(gameIds, options)) {
     await expandFromGames(
       client, [...afterDepth0], tierBucket, options,
-      gameIds, gameRankInfo, processedUsers, "depth-1", userTier
+      gameIds, gameRankInfo, processedUsers, "depth-1", userTier, seenGames
     );
   }
 
@@ -239,7 +246,7 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
       console.log(`  [${tierBucket}] depth-2: expanding from ${newDepth1Games.length} new games...`);
       await expandFromGames(
         client, newDepth1Games, tierBucket, options,
-        gameIds, gameRankInfo, processedUsers, "depth-2", userTier
+        gameIds, gameRankInfo, processedUsers, "depth-2", userTier, seenGames
       );
     }
   }
@@ -300,10 +307,24 @@ async function fetchTopRankerUserIds(client, season, teamMode, limit) {
   return [...new Set(ids)];
 }
 
+async function loadSeenGames(filePath) {
+  if (!filePath) return new Set();
+  try {
+    const raw = await fs.readFile(filePath, "utf8");
+    return new Set(raw.split(/\r?\n/).map((value) => value.trim()).filter(Boolean));
+  } catch {
+    return new Set();
+  }
+}
+
 async function main() {
   const options = parseArgs();
   const apiKey  = requireEnv("ER_API_KEY");
   const client  = makeClient(apiKey, BASE_URL, options.delayMs, options.retry429Ms);
+  const seenGames = await loadSeenGames(options.seenGames);
+  if (options.seenGames) {
+    console.log(`Loaded archived game index: ${path.relative(ROOT, options.seenGames)} (${seenGames.size} games)`);
+  }
 
   // Load nickname seeds
   let seedsConfig;
@@ -381,7 +402,7 @@ async function main() {
     const tierGameIds      = new Set();
     const tierGameRankInfo = new Map();
     const { processedUserIds } = await expandTier(
-      client, compacted, seeds, tierOptions, tierGameIds, tierGameRankInfo, userActualTier
+      client, compacted, seeds, tierOptions, tierGameIds, tierGameRankInfo, userActualTier, seenGames
     );
     tierUserIds[compacted] = processedUserIds;
 
@@ -417,6 +438,7 @@ async function main() {
       strictTier:      options.strictTier,
       storesNicknames: false,
       storesUserIds:   false,
+      knownArchivedGames: seenGames.size,
     },
     tierBreakdown: byTier,
     teams,
