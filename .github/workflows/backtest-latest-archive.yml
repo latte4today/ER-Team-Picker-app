@@ -10,12 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATA_REPO: latte4today/ER-Team-Picker-data
+      DATA_REPO_TOKEN: ${{ secrets.DATA_REPO_TOKEN }}
     steps:
       - name: Checkout app
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: npm
@@ -23,11 +24,31 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate durable data archive access
+        shell: bash
+        run: |
+          if [ -z "$DATA_REPO_TOKEN" ]; then
+            echo "::error title=Missing DATA_REPO_TOKEN::Add the repository secret DATA_REPO_TOKEN with Contents read access to $DATA_REPO."
+            exit 1
+          fi
+
+          status=$(curl -L -sS -o /tmp/data-repo.json -w "%{http_code}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $DATA_REPO_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$DATA_REPO")
+
+          if [ "$status" != "200" ]; then
+            message=$(node -e "try{const r=require('/tmp/data-repo.json'); console.log(r.message || 'Unknown GitHub API error')}catch{console.log('Unknown GitHub API error')}")
+            echo "::error title=Data archive authentication failed::$DATA_REPO could not be accessed (HTTP $status: $message). Replace DATA_REPO_TOKEN with the current fine-grained token."
+            exit 1
+          fi
+
       - name: Checkout durable data archive
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ env.DATA_REPO }}
-          token: ${{ secrets.DATA_REPO_TOKEN }}
+          token: ${{ env.DATA_REPO_TOKEN }}
           path: data-repo
           fetch-depth: 1
 
@@ -51,7 +72,7 @@ jobs:
 
       - name: Upload validation corpus manifest
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: latest-archive-backtest-input
           retention-days: 30
