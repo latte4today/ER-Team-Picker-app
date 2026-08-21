@@ -308,6 +308,25 @@ export function normalizeGame(gameId, payload, sourceRankInfo) {
   return [...teamMap.values()].filter((t) => t.players.length >= 2);
 }
 
+/**
+ * Preserve every recent game as a participant-discovery edge while separating
+ * the games that are new enough to archive. An archived game must not be
+ * stored twice, but it can still lead the crawler to active players.
+ */
+export function partitionRecentGameIds(ids, seenGames = new Set()) {
+  const traversalIds = [];
+  const newIds = [];
+  const local = new Set();
+  for (const value of ids || []) {
+    const id = String(value ?? "").trim();
+    if (!id || local.has(id)) continue;
+    local.add(id);
+    traversalIds.push(id);
+    if (!seenGames.has(id)) newIds.push(id);
+  }
+  return { traversalIds, newIds };
+}
+
 /** Extract other players' user identifiers from a game payload (for depth-1 expansion). */
 export function extractPlayerIds(gamePayload) {
   const rows = gameRows(gamePayload);

@@ -18,6 +18,7 @@
     "ceiling-latest-archive": "node tools/backtest_latest_archive.mjs --ceiling",
     "analyze-composition-interactions": "python tools/analyze_composition_interactions.py",
     "audit-archive-duplicates": "python tools/audit_archive_duplicates.py",
+    "migrate-archive-dedup": "python tools/migrate_archive_dedup.py",
     "test-archive-dedup": "node tools/test_archive_dedup.mjs",
     "build-official-summary": "node tools/build_official_summary.mjs",
     "build-official-compact-from-archive": "node tools/build_compact_from_archive.mjs",

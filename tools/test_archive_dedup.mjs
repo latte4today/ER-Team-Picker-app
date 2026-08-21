@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { normalizeGame } from "./official_collect_utils.mjs";
+import { normalizeGame, partitionRecentGameIds } from "./official_collect_utils.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -27,6 +27,10 @@ assert.equal(normalized[0].tierSource, "game-team-mmr");
 assert.equal(normalized[0].teamMmr, 7600);
 assert.equal(normalized[0].premadeSize, 3);
 assert.equal(normalized[0].versionMajor, 5);
+
+const recentPartition = partitionRecentGameIds(["100", 101, "100", 102], new Set(["100", "102"]));
+assert.deepEqual(recentPartition.traversalIds, ["100", "101", "102"]);
+assert.deepEqual(recentPartition.newIds, ["101"]);
 
 function run(script, args) {
   return new Promise((resolve, reject) => {

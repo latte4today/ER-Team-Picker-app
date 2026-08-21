@@ -100,13 +100,13 @@ jobs:
       - name: Collect seed-tier match data
         run: |
           node tools/official_seed_collector.mjs \
-            --games-per-user 10 \
-            --depth 2 \
-            --max-users-per-tier 350 \
+            --games-per-user 20 \
+            --depth 3 \
+            --max-users-per-tier 500 \
             --target-teams 16000 \
-            --next-seed-count 15 \
-            --seed-pool-size 50 \
-            --top-rankers 100 \
+            --next-seed-count 25 \
+            --seed-pool-size 100 \
+            --top-rankers 150 \
             --top-tier demigod_eternity \
             --seen-games "$DURABLE_ARCHIVE_DIR/seen-game-ids.txt" \
             --delay-ms 1000 \

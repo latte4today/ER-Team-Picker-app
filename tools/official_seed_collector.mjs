@@ -11,6 +11,7 @@
  *   depth 0 - seeds only
  *   depth 1 - seeds + participants from seed games
  *   depth 2 - depth 1 + participants from depth-1 games
+ *   depth N - continue the participant graph for N expansion rounds
  *
  * After collection, N random userIds per tier are written to
  * data/official-next-seeds.json for the next run (no nicknames stored).
@@ -37,6 +38,7 @@ import {
   rankRows,
   nicknameOf,
   firstValue,
+  partitionRecentGameIds,
 } from "./official_collect_utils.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -113,7 +115,10 @@ function reachedTierTarget(gameIds, options) {
     estimatedTeamsFromGames(gameIds) >= options.targetTeamsPerTier;
 }
 
-async function collectGamesForUser(client, userId, options, knownTierBucket, gameIds, gameRankInfo, userTier, seenGames) {
+async function collectGamesForUser(
+  client, userId, options, knownTierBucket,
+  gameIds, traversalGameIds, gameRankInfo, userTier, seenGames
+) {
   const rankInfo     = await lookupRankInfo(client, userId, options.season, options.teamMode);
   const actualBucket = rankInfo.tierBucket;
 
@@ -132,25 +137,28 @@ async function collectGamesForUser(client, userId, options, knownTierBucket, gam
     { cache: false }
   );
   const ids = gameRows(gamesPayload).map(gameIdOf).filter(Boolean).slice(0, options.gamesPerUser);
+  const { traversalIds, newIds } = partitionRecentGameIds(ids, seenGames);
+  for (const id of traversalIds) traversalGameIds.add(id);
   let added = 0;
-  let skippedSeen = 0;
-  for (const id of ids) {
-    if (seenGames?.has(String(id))) {
-      skippedSeen += 1;
-      continue;
-    }
+  for (const id of newIds) {
     gameIds.add(id);
     if (!gameRankInfo.has(String(id))) {
       gameRankInfo.set(String(id), effectiveRankInfo);
       added++;
     }
   }
-  return { added, total: ids.length, skippedSeen, tierBucket: effectiveBucket, mmr: rankInfo.mmr };
+  return {
+    added,
+    total: traversalIds.length,
+    skippedSeen: traversalIds.length - newIds.length,
+    tierBucket: effectiveBucket,
+    mmr: rankInfo.mmr,
+  };
 }
 
 async function expandFromGames(
   client, sourceGameIds, tierBucket, options,
-  gameIds, gameRankInfo, processedUsers, label, userTier, seenGames
+  gameIds, traversalGameIds, gameRankInfo, processedUsers, label, userTier, seenGames
 ) {
   let expanded = 0;
   for (const gameId of sourceGameIds) {
@@ -176,7 +184,8 @@ async function expandFromGames(
 
       try {
         const result = await collectGamesForUser(
-          client, userId, options, tierBucket, gameIds, gameRankInfo, userTier, seenGames
+          client, userId, options, tierBucket,
+          gameIds, traversalGameIds, gameRankInfo, userTier, seenGames
         );
         if (!result.skipped) {
           expanded++;
@@ -195,6 +204,7 @@ async function expandFromGames(
 
 async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankInfo, userTier, seenGames) {
   const processedUsers = new Set();
+  const traversalGameIds = new Set();
 
   // Phase 0a: userId seeds from previous run
   for (const userId of (seeds.userIds ?? [])) {
@@ -205,7 +215,10 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
     processedUsers.add(uid);
     process.stdout.write(`  [${tierBucket}] userId-seed ...${uid.slice(-6)} `);
     try {
-      const r = await collectGamesForUser(client, uid, options, tierBucket, gameIds, gameRankInfo, userTier, seenGames);
+      const r = await collectGamesForUser(
+        client, uid, options, tierBucket,
+        gameIds, traversalGameIds, gameRankInfo, userTier, seenGames
+      );
       console.log(r.skipped ? `skipped (${r.actual})` : `+${r.added} new games, ${r.skippedSeen} archived (${r.tierBucket}, mmr:${r.mmr ?? "?"})`);
     } catch (err) { console.log(`error: ${err.message}`); }
   }
@@ -220,38 +233,43 @@ async function expandTier(client, tierBucket, seeds, options, gameIds, gameRankI
     if (processedUsers.has(String(userId))) { console.log("already seen"); continue; }
     processedUsers.add(String(userId));
     try {
-      const r = await collectGamesForUser(client, userId, options, tierBucket, gameIds, gameRankInfo, userTier, seenGames);
+      const r = await collectGamesForUser(
+        client, userId, options, tierBucket,
+        gameIds, traversalGameIds, gameRankInfo, userTier, seenGames
+      );
       console.log(r.skipped ? `skipped (${r.actual})` : `+${r.added} new games, ${r.skippedSeen} archived (${r.tierBucket}, mmr:${r.mmr ?? "?"}) - total: ${gameIds.size}`);
     } catch (err) { console.log(`error: ${err.message}`); }
   }
 
-  const afterDepth0 = new Set(gameIds);
-  console.log(`  [${tierBucket}] depth-0: ${processedUsers.size} users, ${afterDepth0.size} games`);
+  console.log(
+    `  [${tierBucket}] depth-0: ${processedUsers.size} users, ` +
+    `${gameIds.size} new games, ${traversalGameIds.size} traversal games`
+  );
   if (reachedTierTarget(gameIds, options)) {
     console.log(`  [${tierBucket}] target reached at depth-0: ~${estimatedTeamsFromGames(gameIds)} teams`);
   }
 
-  // Phase 1: depth-1 expansion
-  if (options.depth >= 1 && !reachedTierTarget(gameIds, options)) {
+  // Archived games remain valid participant-discovery edges. Only gameIds is
+  // normalized and written, so this traversal cannot reintroduce duplicates.
+  const exploredTraversalGames = new Set();
+  let frontier = [...traversalGameIds];
+  for (let level = 1; level <= options.depth && !reachedTierTarget(gameIds, options); level += 1) {
+    frontier = frontier.filter((id) => !exploredTraversalGames.has(String(id)));
+    if (!frontier.length) break;
+    for (const id of frontier) exploredTraversalGames.add(String(id));
+    console.log(`  [${tierBucket}] depth-${level}: expanding from ${frontier.length} traversal games...`);
     await expandFromGames(
-      client, [...afterDepth0], tierBucket, options,
-      gameIds, gameRankInfo, processedUsers, "depth-1", userTier, seenGames
+      client, frontier, tierBucket, options,
+      gameIds, traversalGameIds, gameRankInfo, processedUsers,
+      `depth-${level}`, userTier, seenGames
     );
+    frontier = [...traversalGameIds];
   }
 
-  // Phase 2: depth-2 expansion
-  if (options.depth >= 2 && !reachedTierTarget(gameIds, options)) {
-    const newDepth1Games = [...gameIds].filter(id => !afterDepth0.has(id));
-    if (newDepth1Games.length > 0) {
-      console.log(`  [${tierBucket}] depth-2: expanding from ${newDepth1Games.length} new games...`);
-      await expandFromGames(
-        client, newDepth1Games, tierBucket, options,
-        gameIds, gameRankInfo, processedUsers, "depth-2", userTier, seenGames
-      );
-    }
-  }
-
-  console.log(`  [${tierBucket}] complete: ${processedUsers.size} users, ${gameIds.size} total games`);
+  console.log(
+    `  [${tierBucket}] complete: ${processedUsers.size} users, ` +
+    `${gameIds.size} new games, ${traversalGameIds.size} traversal games`
+  );
   return { processedUserIds: [...processedUsers] };
 }
 
