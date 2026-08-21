@@ -1644,6 +1644,34 @@ h2 {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
 }
 
+.recommendation-score-axes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 4px 0 2px;
+}
+
+.score-axis {
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-3) 86%, transparent);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.score-axis-composition.score-axis-positive {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+  color: var(--accent-strong);
+}
+
+.score-axis-negative {
+  border-color: rgba(248, 113, 113, 0.36);
+  color: #fca5a5;
+}
+
 .app-main[data-view="recommendations"] .recommendations {
   align-content: stretch;
 }

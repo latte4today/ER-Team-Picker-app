@@ -29,6 +29,7 @@ const pairRoleStatsMeta = {
   sourceTeams: source.source?.validTeams ?? null,
   minGames,
   minCandidates,
+  baselineMethod: "additive-logit candidate + selected-pair - tier",
   rowsByTier: Object.fromEntries(
     Object.entries(officialPairRoleStatsByTier).map(([bucket, rows]) => [bucket, Object.keys(rows).length]),
   ),

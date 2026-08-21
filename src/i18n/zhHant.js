@@ -453,6 +453,8 @@ export const zhHant = {
   "union.maxPlayersDesc": "請先取消其他玩家的出場勾選，再重新選擇。",
   "playable.mark": "可用",
   "recommend.rank": "推薦 {index}",
+  "recommend.compositionScore": "陣容",
+  "recommend.individualScore": "單體",
   "recommend.details": "詳細說明",
   "recommend.choosePick": "設為我的選擇",
   "feedback.done": "評價已記錄。",

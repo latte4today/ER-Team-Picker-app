@@ -453,6 +453,8 @@ export const zhHans = {
   "union.maxPlayersDesc": "请先取消其他玩家的出场勾选，再重新选择。",
   "playable.mark": "可用",
   "recommend.rank": "推荐 {index}",
+  "recommend.compositionScore": "阵容",
+  "recommend.individualScore": "单体",
   "recommend.details": "详细说明",
   "recommend.choosePick": "设为我的选择",
   "feedback.done": "评价已记录。",

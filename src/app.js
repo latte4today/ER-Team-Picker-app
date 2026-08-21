@@ -758,6 +758,20 @@ function shouldShowInitialWalkthrough() {
     && localStorage.getItem(walkthroughDisabledStorageKey) !== "true";
 }
 
+function scoreAxisChips(scoreAxes) {
+  if (!scoreAxes) return "";
+  const chip = (key, value, kind) => {
+    const numeric = Number(value) || 0;
+    const signed = `${numeric >= 0 ? "+" : ""}${numeric.toFixed(1)}`;
+    const tone = numeric >= 0.2 ? "positive" : numeric <= -0.2 ? "negative" : "neutral";
+    return `<span class="score-axis score-axis-${kind} score-axis-${tone}">${t(key)} ${signed}</span>`;
+  };
+  return `<div class="recommendation-score-axes">
+    ${chip("recommend.compositionScore", scoreAxes.composition, "composition")}
+    ${chip("recommend.individualScore", scoreAxes.individual, "individual")}
+  </div>`;
+}
+
 function requestInitialWalkthrough() {
   if (!shouldShowInitialWalkthrough() || walkthroughActive) return;
   if (languageGate && !languageGate.hidden) return;
@@ -2791,6 +2805,7 @@ function renderRecommendations() {
             </div>
             ${traitChip(result.character.variantId, tierSelect.value, result.recommendedCore)}
             ${archetypeChip}
+            ${scoreAxisChips(result.scoreAxes)}
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
             <details class="recommendation-details">

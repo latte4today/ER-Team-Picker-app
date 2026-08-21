@@ -454,6 +454,8 @@ export const ko = {
 
   "playable.mark": "가능",
   "recommend.rank": "추천 {index}",
+  "recommend.compositionScore": "조합",
+  "recommend.individualScore": "개인",
   "recommend.details": "상세 설명",
   "recommend.choosePick": "내 선택으로 기록",
   "feedback.done": "평가가 반영되었습니다.",

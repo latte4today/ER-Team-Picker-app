@@ -713,10 +713,12 @@ const VECTOR_AXES = [
 ];
 const LEAN_SCORING_CONFIG = {
   strengthWeight: 1.08,
-  pairWeight: 0.55,
-  pairRoleWeight: 0.45,
-  heuristicWeight: 0.10,
-  heuristicCap: 0.38,
+  selectedStrengthWeight: 0.65,
+  pairWeight: 0.70,
+  pairRoleWeight: 0.55,
+  fitWeight: 1.05,
+  heuristicWeight: 0.12,
+  heuristicCap: 0.43,
   fitCap: 0.95,
   difficultyWeight: 0.03,
   stackPenaltyCap: 1.45,
@@ -2191,7 +2193,7 @@ function leanFitTerm(scores) {
   );
 }
 
-function leanCandidateTotal(candidate, selected, tier, scores, feedbackScore, fitOverride = null) {
+function leanCandidateComponents(candidate, selected, tier, scores, feedbackScore, fitOverride = null) {
   const config = LEAN_SCORING_CONFIG;
   const strengthScore = leanStrengthScore(candidate, tier);
   const pairTerm = leanPairSynergyTerm(candidate, selected, tier);
@@ -2204,17 +2206,26 @@ function leanCandidateTotal(candidate, selected, tier, scores, feedbackScore, fi
     config.heuristicCap,
   );
   const stackPenalty = leanStackPenalty(candidate, selected, config);
-  return (
-    strengthScore * config.strengthWeight +
+  const strengthWeight = selected.length > 0
+    ? config.selectedStrengthWeight
+    : config.strengthWeight;
+  const standaloneContext = selected.length === 0
+    ? heuristicTerm + scores.relationship + feedbackScore
+    : 0;
+  const individual =
+    strengthScore * strengthWeight -
+    candidate.difficulty * config.difficultyWeight +
+    standaloneContext;
+  const composition = selected.length > 0 ? (
     pairTerm * config.pairWeight +
     scores.officialPairRole * config.pairRoleWeight +
-    fitTerm +
+    fitTerm * config.fitWeight +
     heuristicTerm +
     scores.relationship +
     feedbackScore -
-    stackPenalty -
-    candidate.difficulty * config.difficultyWeight
-  );
+    stackPenalty
+  ) : 0;
+  return { individual, composition, total: individual + composition };
 }
 
 function leanStackPenalty(candidate, selected, config = LEAN_SCORING_CONFIG) {
@@ -3221,15 +3232,20 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     const deficitInfo = invariantContext?.deficitInfo ?? computeDeficitInfo(selectedVector);
     fitOverride = deficitFitScore(candidateVector, deficitInfo.deficits, deficitInfo.coverage);
   }
-  const total = VECTOR_SCORING_FLAGS.useLeanScoring
-    ? leanCandidateTotal(effectiveCandidate, effectiveSelected, tier, scores, feedbackScore, fitOverride)
-    : legacyTotal;
+  const scoreAxes = VECTOR_SCORING_FLAGS.useLeanScoring
+    ? leanCandidateComponents(effectiveCandidate, effectiveSelected, tier, scores, feedbackScore, fitOverride)
+    : null;
+  const total = scoreAxes?.total ?? legacyTotal;
 
   return {
     character: candidate,
     score: Number(total.toFixed(1)),
     total: Number(total.toFixed(3)),
     scores,
+    scoreAxes: scoreAxes ? {
+      individual: Number(scoreAxes.individual.toFixed(3)),
+      composition: Number(scoreAxes.composition.toFixed(3)),
+    } : null,
     archetype: VECTOR_SCORING_FLAGS.useArchetypeModel ? archetypeInfoFor(candidate, selected) : null,
     feedbackCandidateId: candidateFeedbackId,
     recommendedCore: candidateCoreRow
@@ -3294,7 +3310,7 @@ export function auditCoreRoleFlips(tier = "all", { roleChangesOnly = false } = {
   return flips.sort((a, b) => Number(b.roleChanged) - Number(a.roleChanged));
 }
 
-export { characterVector, teamVector, VECTOR_SCORING_FLAGS };
+export { characterVector, teamVector, VECTOR_SCORING_FLAGS, LEAN_SCORING_CONFIG };
 
 export function auditCharacterVectors(filters = [], tier = "all") {
   const matches = (character) =>

@@ -37,7 +37,7 @@ globalThis.document = { documentElement: { lang: "ko" } };
 
 import fs from "node:fs";
 import readline from "node:readline";
-import { recommend, evaluateCandidate, updateOfficialStats, VECTOR_SCORING_FLAGS, DIVERSITY_CONFIG, DEFICIT_FIT_CONFIG } from "../src/recommender.js";
+import { recommend, evaluateCandidate, updateOfficialStats, VECTOR_SCORING_FLAGS, DIVERSITY_CONFIG, DEFICIT_FIT_CONFIG, LEAN_SCORING_CONFIG } from "../src/recommender.js";
 import * as OFFICIAL_FULL from "../src/officialMatchStats.js";
 
 // ---------- args ----------
@@ -97,6 +97,15 @@ const rng = mulberry32(SEED);
 // 주의: 다양성은 recommend 후처리라 teamscore(evaluateCandidate)엔 영향 없음 → teamscore에선 shipped≡empirical.
 function applyConfig(name) {
   const F = VECTOR_SCORING_FLAGS, D = DIVERSITY_CONFIG;
+  Object.assign(LEAN_SCORING_CONFIG, {
+    strengthWeight: 1.08,
+    selectedStrengthWeight: 0.65,
+    pairWeight: 0.70,
+    pairRoleWeight: 0.55,
+    fitWeight: 1.05,
+    heuristicWeight: 0.12,
+    heuristicCap: 0.43,
+  });
   F.useDeficitFitModel = false; // 기본 off; 아래 deficit config만 켬(설정 간 누수 방지)
   F.useArchetypeModel = false;  // 기본 off; lean_archetype만 켬
   DEFICIT_FIT_CONFIG.fitScale = 0.16;
@@ -108,6 +117,10 @@ function applyConfig(name) {
     case "shipped":   F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = true;  F.usePairSynergyLift = true;  F.useLeanScoring = false; F.useVectorSpecializationScore = false; D.enabled = true;  break;
     case "lean_no_specialization": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = false; D.enabled = true; break;
     case "lean":      F.enableCharacterVector = true;  F.useEmpiricalVectorBlend = true;  F.usePairSynergyLift = true;  F.useLeanScoring = true;  F.useVectorSpecializationScore = true;  D.enabled = true;  break;
+    case "lean_strength_legacy": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; Object.assign(LEAN_SCORING_CONFIG, { selectedStrengthWeight: 1.08, pairWeight: 0.55, pairRoleWeight: 0.45, fitWeight: 1.00, heuristicWeight: 0.10, heuristicCap: 0.38 }); D.enabled = true; break;
+    case "lean_split_065": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; Object.assign(LEAN_SCORING_CONFIG, { selectedStrengthWeight: 0.65, pairWeight: 0.70, pairRoleWeight: 0.55, fitWeight: 1.05, heuristicWeight: 0.12, heuristicCap: 0.43 }); D.enabled = true; break;
+    case "lean_split_050": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; Object.assign(LEAN_SCORING_CONFIG, { selectedStrengthWeight: 0.50, pairWeight: 0.80, pairRoleWeight: 0.60, fitWeight: 1.15, heuristicWeight: 0.14, heuristicCap: 0.48 }); D.enabled = true; break;
+    case "lean_split_035": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; Object.assign(LEAN_SCORING_CONFIG, { selectedStrengthWeight: 0.35, pairWeight: 0.90, pairRoleWeight: 0.70, fitWeight: 1.25, heuristicWeight: 0.16, heuristicCap: 0.52 }); D.enabled = true; break;
     case "lean_archetype": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; F.useArchetypeModel = true; D.enabled = true; break;
     case "lean_deficit": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; F.useDeficitFitModel = true; D.enabled = true; break;
     case "lean_deficit_hi_022": F.enableCharacterVector = true; F.useEmpiricalVectorBlend = true; F.usePairSynergyLift = true; F.useLeanScoring = true; F.useVectorSpecializationScore = true; F.useDeficitFitModel = true; DEFICIT_FIT_CONFIG.tiers = ["meteor_mithril", "demigod_eternity"]; DEFICIT_FIT_CONFIG.fitScale = 0.22; D.enabled = true; break;
@@ -157,13 +170,15 @@ function summarize(acc) {
 // ---------- teamscore metric (실제 3인 팀 전체를 점수화) ----------
 // teamScore = mean( evaluateCandidate(A|B+C), evaluateCandidate(B|A+C), evaluateCandidate(C|A+B) )
 function computeTeamScore(ids, tier) {
-  let s = 0;
+  let s = 0, composition = 0, individual = 0;
   for (let i = 0; i < 3; i++) {
     const sel = ids.filter((_, k) => k !== i);
     const r = evaluateCandidate(sel, ids[i], tier, {}, [], {});
     s += r?.total ?? 0;
+    composition += r?.scoreAxes?.composition ?? 0;
+    individual += r?.scoreAxes?.individual ?? 0;
   }
-  return s / 3;
+  return { total: s / 3, composition: composition / 3, individual: individual / 3 };
 }
 
 // --- 통계 ---
@@ -204,7 +219,7 @@ function spearman(x, y) {
 
 function runTeamscore(teams) {
   const data = {};
-  for (const c of CONFIGS) data[c] = { scores: [], wins: [], plc: [], tier: {} };
+  for (const c of CONFIGS) data[c] = { scores: [], composition: [], individual: [], wins: [], plc: [], tier: {} };
   let done = 0;
   for (const t of teams) {
     const ids = t.members.map((m) => m.variantId);
@@ -216,9 +231,9 @@ function runTeamscore(teams) {
       const tier = tierForConfig(c, t.tierBucket ?? "all");
       const sc = computeTeamScore(ids, tier);
       const D = data[c];
-      D.scores.push(sc); D.wins.push(isWin); D.plc.push(plc);
-      const tb = D.tier[bucket] ?? (D.tier[bucket] = { scores: [], wins: [], plc: [] });
-      tb.scores.push(sc); tb.wins.push(isWin); tb.plc.push(plc);
+      D.scores.push(sc.total); D.composition.push(sc.composition); D.individual.push(sc.individual); D.wins.push(isWin); D.plc.push(plc);
+      const tb = D.tier[bucket] ?? (D.tier[bucket] = { scores: [], composition: [], individual: [], wins: [], plc: [] });
+      tb.scores.push(sc.total); tb.composition.push(sc.composition); tb.individual.push(sc.individual); tb.wins.push(isWin); tb.plc.push(plc);
     }
     if (++done % 200 === 0) process.stderr.write(`  teamscore ...${done}/${teams.length}\r`);
   }
@@ -238,6 +253,8 @@ function runTeamscore(teams) {
   for (const c of CONFIGS) {
     console.log(`■ config=${c}`);
     line("overall", data[c].scores, data[c].wins, data[c].plc);
+    line("composition only", data[c].composition, data[c].wins, data[c].plc);
+    line("individual only", data[c].individual, data[c].wins, data[c].plc);
     const tiers = Object.keys(data[c].tier).sort((a, b) => (TIER_ORDER.indexOf(a) + 1 || 99) - (TIER_ORDER.indexOf(b) + 1 || 99));
     for (const tb of tiers) line(tb, data[c].tier[tb].scores, data[c].tier[tb].wins, data[c].tier[tb].plc);
     console.log("");

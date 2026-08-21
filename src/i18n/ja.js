@@ -453,6 +453,8 @@ export const ja = {
   "union.maxPlayersDesc": "他のプレイヤーの出場チェックを外してから再度選択してください。",
   "playable.mark": "使用可",
   "recommend.rank": "おすすめ {index}",
+  "recommend.compositionScore": "編成",
+  "recommend.individualScore": "個人",
   "recommend.details": "詳細",
   "recommend.choosePick": "自分のピックとして記録",
   "feedback.done": "評価が反映されました。",

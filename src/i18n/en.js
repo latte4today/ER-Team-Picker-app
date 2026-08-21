@@ -453,6 +453,8 @@ export const en = {
   "union.maxPlayersDesc": "Uncheck another player first, then select again.",
   "playable.mark": "Available",
   "recommend.rank": "Pick {index}",
+  "recommend.compositionScore": "Team fit",
+  "recommend.individualScore": "Solo",
   "recommend.details": "Details",
   "recommend.choosePick": "Mark as My Pick",
   "feedback.done": "Feedback recorded.",
