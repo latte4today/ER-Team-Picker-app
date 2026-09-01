@@ -19,6 +19,13 @@ for (const [bucket, stats] of Object.entries(officialPairRoleStatsByTier ?? {}))
   }
 }
 
+// An empty table satisfies every per-row rule above, so it used to pass. Publishing
+// zero pair-role stats silently disables the officialPairRole term for everyone.
+const MIN_ROWS = Number(process.env.PAIR_ROLE_MIN_ROWS ?? 200);
+if (rows < MIN_ROWS) {
+  errors.push(`only ${rows} rows total (expected at least ${MIN_ROWS}) - the upstream build produced an empty or near-empty table`);
+}
+
 if (errors.length) {
   console.error(`# pair-role stats check failed (${errors.length} issues)`);
   errors.slice(0, 25).forEach((error) => console.error(`- ${error}`));

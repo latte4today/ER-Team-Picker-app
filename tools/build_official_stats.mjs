@@ -107,7 +107,7 @@ const FALLBACK_CHARACTER_CODE_TO_ID = {
 };
 
 function parseArgs() {
-  const args = { in: [DEFAULT_IN], out: DEFAULT_OUT, minGames: 2, fetchCharacterData: true, patch: process.env.CURRENT_PATCH || 'current', jsonOut: DEFAULT_OUT.replace(/\.js$/, '.json') };
+  const args = { in: [DEFAULT_IN], out: DEFAULT_OUT, minGames: 2, fetchCharacterData: true, patch: process.env.CURRENT_PATCH || 'current', jsonOut: DEFAULT_OUT.replace(/\.js$/, '.json'), matchingMode: 3, season: null, priorSeasonWeight: 0.25 };
   for (let index = 2; index < process.argv.length; index += 1) {
     const key = process.argv[index];
     if (!key.startsWith("--")) continue;
@@ -126,6 +126,10 @@ function parseArgs() {
     if (key === "--out") args.out = path.resolve(ROOT, value);
     if (key === "--json-out") args.jsonOut = path.resolve(ROOT, value);
     if (key === "--min-games") args.minGames = Number(value);
+    // "any" keeps the pre-filter behaviour of mixing every mode / season together.
+    if (key === "--matching-mode") args.matchingMode = value === "any" ? null : Number(value);
+    if (key === "--season") args.season = value === "any" ? null : value;
+    if (key === "--prior-season-weight") args.priorSeasonWeight = Number(value);
   }
   return args;
 }
@@ -834,11 +838,17 @@ function finalizeCompositionStats(source, minGames) {
 }
 
 
-// Recency decay. Weight older games lower within a patch.
-// lambda=0.02 means roughly 50% weight at 35 days.
-function recencyWeight(collectedAt, lambda = 0.02) {
-  if (!collectedAt) return 1;
-  const daysAgo = (Date.now() - new Date(collectedAt).getTime()) / 86400000;
+// Recency decay. lambda=0.02 means roughly 50% weight at 35 days.
+//
+// This must key off when the game was PLAYED, not when we scraped it. Keying on
+// collectedAt made the decay useless: the archive is collected over a ~10 day
+// window, so a three-month-old game pulled yesterday scored full weight. startedAt
+// is only present on part of the corpus, so collectedAt stays as the fallback.
+function recencyWeight(playedAt, lambda = 0.02) {
+  if (!playedAt) return 1;
+  const timestamp = new Date(playedAt).getTime();
+  if (!Number.isFinite(timestamp)) return 1;
+  const daysAgo = (Date.now() - timestamp) / 86400000;
   return Math.exp(-lambda * Math.max(0, daysAgo));
 }
 
@@ -956,9 +966,44 @@ async function build() {
   let validTeams = 0;
   let droppedByUnknownChar = 0;
   let droppedByInvalidSize = 0;
+  let droppedByMode = 0;
+  let droppedBySeason = 0;
+
+  // Ranked squad is what the recommender is meant to describe; ~47% of the archive
+  // was normal games, diluting every tier. That one is a hard filter.
+  //
+  // Season is a weight, not a filter. Dropping finished seasons outright emptied the
+  // high tiers completely (0 pair-role rows for meteor_mithril and demigod_eternity),
+  // which is worse than carrying slightly stale evidence. Prior seasons are kept at a
+  // reduced weight so the current season dominates without leaving gaps.
+  //
+  // The startedAt decay cannot do this job on its own: 99.4% of season-39 rows have no
+  // startedAt and fall back to full weight, while 97% of current-season rows do have it
+  // and decay - exactly backwards. The season weight is what fixes the ordering.
+  const seasonIds = new Set(
+    allTeams.map((team) => team.seasonId).filter((id) => Number.isFinite(id) && id > 0),
+  );
+  const currentSeason = seasonIds.size ? Math.max(...seasonIds) : null;
+  const seasonFilter = args.season === null
+    ? null
+    : args.season === "current" ? currentSeason : Number(args.season);
+  if (args.matchingMode !== null) console.log(`Filter: matchingMode = ${args.matchingMode}`);
+  if (seasonFilter !== null) console.log(`Filter: seasonId = ${seasonFilter}${args.season === "current" ? " (latest in corpus)" : ""}`);
+  if (seasonFilter === null && currentSeason !== null) {
+    console.log(`Weight: seasonId ${currentSeason} = 1.0, prior seasons = ${args.priorSeasonWeight}`);
+  }
+  const seasonWeightFor = (seasonId) => {
+    if (seasonFilter !== null || currentSeason === null) return 1;
+    if (!Number.isFinite(seasonId) || seasonId <= 0) return args.priorSeasonWeight;
+    return seasonId === currentSeason ? 1 : args.priorSeasonWeight;
+  };
 
   for (const team of allTeams) {
-    const rw = recencyWeight(team.collectedAt ?? args.collectedAt);
+    if (args.matchingMode !== null && team.matchingMode !== undefined
+        && team.matchingMode !== args.matchingMode) { droppedByMode += 1; continue; }
+    if (seasonFilter !== null && team.seasonId !== undefined
+        && team.seasonId !== seasonFilter) { droppedBySeason += 1; continue; }
+    const rw = recencyWeight(team.startedAt ?? team.collectedAt ?? args.collectedAt) * seasonWeightFor(team.seasonId);
     const rawPlayers = team.players ?? [];
     const players = rawPlayers
       .map((player) => {
@@ -1029,7 +1074,13 @@ async function build() {
     dropReasons: {
       unknownChar: droppedByUnknownChar,
       invalidSize: droppedByInvalidSize,
+      matchingMode: droppedByMode,
+      season: droppedBySeason,
     },
+    matchingMode: args.matchingMode,
+    seasonId: seasonFilter,
+    currentSeason,
+    priorSeasonWeight: seasonFilter === null ? args.priorSeasonWeight : null,
     mappedCharacters: mappedCodes.size,
     mappedWeaponCodes: weaponCodeToId.size,
     unmappedCharacterCodes: [...unmappedCodes].sort((a, b) => Number(a) - Number(b)),
@@ -1069,12 +1120,19 @@ async function build() {
   console.log(`saved JS: ${path.relative(ROOT, args.out)}`);
   console.log(`saved JSON: ${path.relative(ROOT, args.jsonOut)}`);
   const droppedTeams = allTeams.length - validTeams;
+  if (validTeams === 0 && allTeams.length > 0) {
+    // A filter that matches nothing used to sail through here and hand the app an
+    // empty stats blob. Loading every team and keeping none is always a bug.
+    console.error(`ERROR: every one of ${allTeams.length} teams was filtered out - refusing to publish empty stats.`);
+    console.error(`  drops: ${JSON.stringify({ unknownChar: droppedByUnknownChar, invalidSize: droppedByInvalidSize, matchingMode: droppedByMode, season: droppedBySeason })}`);
+    process.exitCode = 1;
+  }
   console.log(JSON.stringify({
     rawTeams: allTeams.length,
     mappedTeams,
     validTeams,
     droppedTeams,
-    dropReasons: { unknownChar: droppedByUnknownChar, invalidSize: droppedByInvalidSize },
+    dropReasons: { unknownChar: droppedByUnknownChar, invalidSize: droppedByInvalidSize, matchingMode: droppedByMode, season: droppedBySeason },
     unknownCharacterCodes: source.unmappedCharacterCodes,
   }, null, 2));
 }
