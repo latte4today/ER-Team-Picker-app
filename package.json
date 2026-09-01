@@ -42,7 +42,8 @@
     "pack": "electron-builder --dir",
     "clean-build": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"foreach ($path in @('dist','release')) { if (Test-Path -LiteralPath $path) { Remove-Item -LiteralPath $path -Recurse -Force } }\"",
     "package-win": "npm run clean-build && electron-builder --dir",
-    "installer-win": "npm run clean-build && electron-builder --win nsis"
+    "installer-win": "npm run clean-build && electron-builder --win nsis",
+    "build-realtime-stats": "node tools/build_realtime_stats.mjs"
   },
   "dependencies": {
     "electron-updater": "^6.3.9"

@@ -43,6 +43,9 @@ jobs:
             --matchesPerRanker 12 \
             --cacheMaxAgeHours 0
 
+      - name: Rebuild realtime stats
+        run: node tools/build_realtime_stats.mjs
+
       - name: Verify every character has tier data
         run: |
           # A character present in data.js but missing from metaData.js scores
@@ -68,6 +71,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/metaData.js 2>/dev/null || true
+          git add src/dakggRealtimeStats.js 2>/dev/null || true
           git add snapshots/recommendation-baseline.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
