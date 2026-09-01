@@ -116,18 +116,24 @@ let weaponTemplatesPromise;
 
 async function loadTemplates() {
   if (!templatesPromise) {
+    // A newly added character may not have its portrait yet. Skip templates that
+    // fail to load instead of rejecting the whole set and disabling detection.
     templatesPromise = Promise.all(
       characters.flatMap((character) =>
         character.imageTemplates.map(async (src) => {
-          const image = await loadImage(src);
-          return {
-            character,
-            src,
-            thumb: readThumbFromImage(image),
-          };
+          try {
+            const image = await loadImage(src);
+            return {
+              character,
+              src,
+              thumb: readThumbFromImage(image),
+            };
+          } catch {
+            return null;
+          }
         }),
       ),
-    );
+    ).then((templates) => templates.filter(Boolean));
   }
   return templatesPromise;
 }

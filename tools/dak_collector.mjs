@@ -9,6 +9,9 @@ const META_PATH = path.join(ROOT, "src", "metaData.js");
 const DATA_PATH = path.join(ROOT, "src", "data.js");
 const API_BASE = "https://er.dakgg.io";
 
+// Set from --cacheMaxAgeHours in main(); 0 or less disables cache reuse entirely.
+let cacheMaxAgeMs = 12 * 60 * 60 * 1000;
+
 const DEFAULTS = {
   rankers: 200,
   matchesPerRanker: 12,
@@ -18,6 +21,7 @@ const DEFAULTS = {
   teamMode: "SQUAD",
   matchingMode: "RANK",
   locale: "ko",
+  cacheMaxAgeHours: 12,
   output: META_PATH,
 };
 
@@ -35,7 +39,7 @@ function parseArgs() {
     if (!key.startsWith("--")) continue;
     index += 1;
     const option = key.slice(2);
-    if (["rankers", "matchesPerRanker", "delayMs"].includes(option)) args[option] = Number(value);
+    if (["rankers", "matchesPerRanker", "delayMs", "cacheMaxAgeHours"].includes(option)) args[option] = Number(value);
     else if (option === "output") args.output = path.resolve(ROOT, value);
     else args[option] = value;
   }
@@ -54,12 +58,24 @@ function cacheName(url) {
   return Buffer.from(url).toString("base64url") + ".json";
 }
 
+// A finished match never changes, so its detail response can be cached forever.
+// Everything else (leaderboards, tier stats, a player's match list) moves with the
+// meta, and a stale hit silently replays an old patch — which is how newly added
+// characters ended up with no tier data at all.
+function isImmutableUrl(url) {
+  return /\/matches\/\d+\/\d+(?:\?|$)/.test(url);
+}
+
 async function fetchJson(url, { delayMs, force = false } = {}) {
   await fs.mkdir(CACHE_DIR, { recursive: true });
   const cachePath = path.join(CACHE_DIR, cacheName(url));
   if (!force) {
     try {
-      return JSON.parse(await fs.readFile(cachePath, "utf8"));
+      const fresh = isImmutableUrl(url)
+        || !Number.isFinite(cacheMaxAgeMs)
+        || cacheMaxAgeMs <= 0
+        || Date.now() - (await fs.stat(cachePath)).mtimeMs <= cacheMaxAgeMs;
+      if (fresh) return JSON.parse(await fs.readFile(cachePath, "utf8"));
     } catch {
       // Cache miss.
     }
@@ -360,11 +376,13 @@ export function placementScore({ avgPlacement, winRate = 0, top3Rate = 0 }) {
 
 async function main() {
   const options = parseArgs();
+  cacheMaxAgeMs = Number(options.cacheMaxAgeHours) * 60 * 60 * 1000;
   const seasonKey = options.seasonKey ?? await getCurrentSeason(options.locale, options.delayMs);
   const localByName = readLocalCharacters(await fs.readFile(DATA_PATH, "utf8"));
 
   console.log(`season: ${seasonKey}`);
   console.log(`rankers: ${options.rankers}, matches per ranker: ${options.matchesPerRanker}`);
+  console.log(`cache reuse: ${cacheMaxAgeMs > 0 ? `${options.cacheMaxAgeHours}h (finished matches cached forever)` : "disabled"}`);
 
   const { rankers, characterById } = await collectLeaderboard(options, seasonKey);
   const dakMap = buildDakCharacterMap(characterById, localByName);
