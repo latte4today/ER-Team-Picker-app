@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T14:18:14.970Z",
+  "generatedAt": "2026-09-01T16:51:00.282Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -441,9 +441,9 @@
         {
           "rank": 6,
           "variantId": "johann:arcana",
-          "core": "7200101",
-          "coreName": "초재생",
-          "total": 0.642
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.639
         },
         {
           "rank": 7,

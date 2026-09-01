@@ -11,7 +11,6 @@ const CORE_ICON_SLUG_BY_NAME = {
   "불괴": "ironclad",
   "빛의 수호": "heavy-kneepads",
   "응징": "bitter-retribution",
-  "초재생": "healing-factor",
   "증폭 드론": "amplification-drone",
   "치유 드론": "healing-drone",
   "헌신": "sentinel",
@@ -30,12 +29,13 @@ export const CURRENT_CORE_NAME_BY_CODE = {
   7100201: "불괴",
   7100401: "빛의 수호",
   7100501: "응징",
-  7200101: "초재생",
   7200201: "증폭 드론",
   7200301: "치유 드론",
   7200501: "헌신",
-  // Support-group core the whitelist was silently dropping. It is 0.26% of ranked
-  // core picks overall but 12.7% of Arda's, so it was missing from her core list.
+  // Season 40 swapped the Support group's fourth core: 초재생 (7200101) moved down to
+  // a sub and 폭발 선인장 took its slot. The archive still carries season-39 games
+  // where 초재생 was a core, so it has to leave this whitelist or those stale rows
+  // get recommended as a core that no longer exists.
   7211301: "폭발 선인장",
   7300101: "스텔라 차지",
   7300201: "도깨비불",
