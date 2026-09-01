@@ -15,6 +15,7 @@ const CORE_ICON_SLUG_BY_NAME = {
   "증폭 드론": "amplification-drone",
   "치유 드론": "healing-drone",
   "헌신": "sentinel",
+  "폭발 선인장": "blast-cactus",
 };
 
 export const CURRENT_CORE_TRAIT_NAMES = new Set(Object.keys(CORE_ICON_SLUG_BY_NAME));
@@ -33,6 +34,9 @@ export const CURRENT_CORE_NAME_BY_CODE = {
   7200201: "증폭 드론",
   7200301: "치유 드론",
   7200501: "헌신",
+  // Support-group core the whitelist was silently dropping. It is 0.26% of ranked
+  // core picks overall but 12.7% of Arda's, so it was missing from her core list.
+  7211301: "폭발 선인장",
   7300101: "스텔라 차지",
   7300201: "도깨비불",
   7300301: "와류",

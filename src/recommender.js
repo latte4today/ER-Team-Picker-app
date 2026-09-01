@@ -732,6 +732,13 @@ const LEAN_SCORING_CONFIG = {
   fitSpecialization: 0.55,
   fitConflict: 0.12,
   fitCompositionGuide: 0.08,
+  // officialV2 and officialMatch are computed on every evaluation and shown in the
+  // reasons, but the lean total never used them. Measured against real ranked teams
+  // they are the two best discriminators of a winning team's pick (AUC 0.599 and
+  // 0.546) while the total itself only manages 0.546. Default 0 keeps the shipped
+  // behaviour; tools/backtest_recommender.mjs sweeps them.
+  officialV2Weight: 0,
+  officialMatchWeight: 0,
 };
 const VECTOR_CORE_BLEND = 0.30;
 
@@ -2230,6 +2237,8 @@ function leanCandidateComponents(candidate, selected, tier, scores, feedbackScor
   const composition = selected.length > 0 ? (
     pairTerm * config.pairWeight +
     scores.officialPairRole * config.pairRoleWeight +
+    scores.officialV2 * config.officialV2Weight +
+    scores.officialMatch * config.officialMatchWeight +
     fitTerm * config.fitWeight +
     heuristicTerm +
     scores.relationship +
