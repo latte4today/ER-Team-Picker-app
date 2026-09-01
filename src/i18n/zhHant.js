@@ -586,6 +586,7 @@ export const zhHant = {
   "char.lenox": "倫諾克斯",
   "char.leon": "里昂",
   "char.li_dailin": "李黛琳",
+  "char.lucia": "露西婭",
   "char.luke": "盧克",
   "char.magnus": "馬格努斯",
   "char.mai": "梅",

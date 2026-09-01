@@ -109,6 +109,7 @@ const CHARACTER_CODE_TO_ID = {
   87: "coreline",
   88: "bihyung",
   89: "craver",
+  90: "lucia",
 };
 
 const characterById = new Map(characters.map((character) => [character.id, character]));

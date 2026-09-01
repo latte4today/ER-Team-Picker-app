@@ -103,6 +103,7 @@ const FALLBACK_CHARACTER_CODE_TO_ID = {
   87: "coreline",
   88: "bihyung",
   89: "craver",
+  90: "lucia",
 };
 
 function parseArgs() {

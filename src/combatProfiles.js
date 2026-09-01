@@ -48,6 +48,7 @@ const byCharacter = {
   bernice: "rangedEngageHelper",
   barbara: "rangedEngageHelper",
   nathapon: "rangedEngageHelper",
+  lucia: "rangedEngageHelper",
 
   william: "diveFollowRanged",
   rozzi: "diveFollowRanged",

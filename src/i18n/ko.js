@@ -590,6 +590,7 @@ export const ko = {
   "char.lenox": "레녹스",
   "char.leon": "레온",
   "char.li_dailin": "리 다이린",
+  "char.lucia": "루치아",
   "char.luke": "루크",
   "char.magnus": "매그너스",
   "char.mai": "마이",

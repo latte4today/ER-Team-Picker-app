@@ -63,6 +63,7 @@ export const wikiMetrics = {
   lenox: { difficulty: 2, damage: 2, defense: 4, crowdControl: 5, mobility: 1, utility: 1 },
   leon: { difficulty: 1, damage: 2, defense: 4, crowdControl: 5, mobility: 3, utility: 3 },
   li_dailin: { difficulty: 3, damage: 4, defense: 2, crowdControl: 3, mobility: 4, utility: 1 },
+  lucia: { difficulty: 4, damage: 4, defense: 1, crowdControl: 3, mobility: 3, utility: 1 },
   luke: { difficulty: 2, damage: 5, defense: 2, crowdControl: 1, mobility: 5, utility: 1 },
   magnus: { difficulty: 1, damage: 2, defense: 4, crowdControl: 4, mobility: 3, utility: 1 },
   mai: { difficulty: 3, damage: 2, defense: 5, crowdControl: 4, mobility: 3, utility: 4 },

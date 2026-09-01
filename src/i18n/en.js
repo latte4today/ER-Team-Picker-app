@@ -586,6 +586,7 @@ export const en = {
   "char.lenox": "Lenox",
   "char.leon": "Leon",
   "char.li_dailin": "Li Dailin",
+  "char.lucia": "Lucia",
   "char.luke": "Luke",
   "char.magnus": "Magnus",
   "char.mai": "Mai",

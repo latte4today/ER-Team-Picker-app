@@ -28,6 +28,7 @@ const CHARACTER_CODE_TO_ID = {
   71: "kenneth", 72: "katja", 73: "charlotte", 74: "darko", 75: "lenore", 76: "garnet",
   77: "yumin", 78: "hisui", 79: "justina", 80: "istvan", 81: "nia", 82: "shirin", 83: "henry",
   84: "blair", 85: "mirka", 86: "fenrir", 87: "coreline", 88: "bihyung",
+  89: "craver", 90: "lucia",
 };
 
 function parseArgs() {

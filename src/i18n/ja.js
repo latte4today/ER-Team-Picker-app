@@ -586,6 +586,7 @@ export const ja = {
   "char.lenox": "レノックス",
   "char.leon": "レオン",
   "char.li_dailin": "リ・ダイリン",
+  "char.lucia": "ルチア",
   "char.luke": "ルーク",
   "char.magnus": "マグナス",
   "char.mai": "マイ",

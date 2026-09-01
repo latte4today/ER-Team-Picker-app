@@ -586,6 +586,7 @@ export const zhHans = {
   "char.lenox": "伦诺克斯",
   "char.leon": "莱昂",
   "char.li_dailin": "李黛琳",
+  "char.lucia": "露西娅",
   "char.luke": "卢克",
   "char.magnus": "马格努斯",
   "char.mai": "梅",
