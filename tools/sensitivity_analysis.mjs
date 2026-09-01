@@ -334,8 +334,12 @@ for (const metric of metrics) {
   } else {
     console.log(`   ${"weight".padEnd(24)} ${"mu*".padStart(9)} ${"sigma".padStart(9)}  reading`);
     for (const row of result[metric]) {
-      const reading = row.muStar < 1e-6
-        ? "no effect - dead knob"
+      // Never call a 0.0000 a dead knob. stackPenaltyCap reads 0.0000 here even
+      // though moving it swings a stacked-composition total by 0.51 - the affected
+      // candidates just sit far from the top-5, so the effect lands below what this
+      // panel and this rounding can see. Absence of evidence only.
+      const reading = row.muStar < 1e-4
+        ? "below resolution here"
         : row.sigma > row.muStar
           ? "non-linear / interacting"
           : "roughly linear";
