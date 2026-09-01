@@ -1975,6 +1975,8 @@ function assignNextPick(id) {
   const characterId = id.split(":")[0];
   const existingSlot = slotAssignments.findIndex((variantId) => variantId?.split(":")[0] === characterId);
   if (existingSlot >= 0) {
+    // Clicking an already-picked character takes it back out of the team.
+    clearSlot(existingSlot);
     return;
   }
 
