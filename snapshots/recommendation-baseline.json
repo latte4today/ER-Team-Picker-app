@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T19:07:23.116Z",
+  "generatedAt": "2026-09-01T23:20:49.026Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -174,7 +174,7 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.509
+          "total": 1.513
         },
         {
           "rank": 2,
@@ -188,14 +188,14 @@
           "variantId": "aya:sniper_rifle",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.209
+          "total": 1.213
         },
         {
           "rank": 4,
           "variantId": "barbara:pistol",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 1.195
+          "total": 1.199
         },
         {
           "rank": 5,
@@ -209,35 +209,35 @@
           "variantId": "bernice:sniper_rifle",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.072
+          "total": 1.071
         },
         {
           "rank": 7,
           "variantId": "henry:shuriken",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.099
+          "total": 1.103
         },
         {
           "rank": 8,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.067
+          "total": 1.071
         },
         {
           "rank": 9,
           "variantId": "chiara:rapier",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.966
+          "total": 0.953
         },
         {
           "rank": 10,
           "variantId": "camilo:dual_swords",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.912
+          "total": 0.899
         }
       ]
     },
