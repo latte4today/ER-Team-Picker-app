@@ -1,0 +1,5986 @@
+[
+  {
+    "gameId": 7690,
+    "teamNumber": 2,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      6,
+      51,
+      77
+    ],
+    "rankScore": 10,
+    "killScore": 18.5,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 51,
+        "kills": 3,
+        "assists": 16
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "kills": 4,
+        "assists": 16
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 6,
+        "kills": 15,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7690,
+    "teamNumber": 5,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      24,
+      36,
+      40
+    ],
+    "rankScore": 7,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "YJS_WiD",
+        "characterNum": 24,
+        "kills": 5,
+        "assists": 4
+      },
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 4,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7690,
+    "teamNumber": 7,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 5,
+    "killScore": 8.5,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 2,
+        "assists": 6
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 8,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7690,
+    "teamNumber": 3,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      12,
+      28,
+      33
+    ],
+    "rankScore": 4,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "DEH_Chika",
+        "characterNum": 12,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "DEH_hesil",
+        "characterNum": 33,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "DEH_DDangkong",
+        "characterNum": 28,
+        "kills": 2,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7690,
+    "teamNumber": 6,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      58,
+      85,
+      89
+    ],
+    "rankScore": 3,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "GNS_Gyeongkwae",
+        "characterNum": 85,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "GNS_March",
+        "characterNum": 58,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "GNS_Kiro",
+        "characterNum": 89,
+        "kills": 4,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7690,
+    "teamNumber": 1,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      19,
+      43
+    ],
+    "rankScore": 2,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "WTK_BluePeriod",
+        "characterNum": 43,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "WTK_Magician",
+        "characterNum": 19,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "WTK_Masuhana",
+        "characterNum": 6,
+        "kills": 6,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7690,
+    "teamNumber": 4,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      45,
+      57
+    ],
+    "rankScore": 1,
+    "killScore": 1.5,
+    "players": [
+      {
+        "nickname": "CL_Ghost",
+        "characterNum": 45,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "CL_TRIO",
+        "characterNum": 1,
+        "kills": 2,
+        "assists": 0
+      },
+      {
+        "nickname": "CL_Yuni",
+        "characterNum": 57,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7690,
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      17,
+      24,
+      25
+    ],
+    "rankScore": 0,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "JG_Eliso",
+        "characterNum": 24,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "JG_TiRim",
+        "characterNum": 17,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "JG_Rohne",
+        "characterNum": 25,
+        "kills": 1,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7692,
+    "teamNumber": 6,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      58,
+      85,
+      89
+    ],
+    "rankScore": 10,
+    "killScore": 15.5,
+    "players": [
+      {
+        "nickname": "GNS_Gyeongkwae",
+        "characterNum": 85,
+        "kills": 8,
+        "assists": 8
+      },
+      {
+        "nickname": "GNS_March",
+        "characterNum": 58,
+        "kills": 4,
+        "assists": 12
+      },
+      {
+        "nickname": "GNS_Kiro",
+        "characterNum": 89,
+        "kills": 6,
+        "assists": 11
+      }
+    ]
+  },
+  {
+    "gameId": 7692,
+    "teamNumber": 7,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 7,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 5,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7692,
+    "teamNumber": 2,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      6,
+      51,
+      77
+    ],
+    "rankScore": 5,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 51,
+        "kills": 0,
+        "assists": 6
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "kills": 7,
+        "assists": 3
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 6,
+        "kills": 3,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7692,
+    "teamNumber": 1,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      19,
+      43
+    ],
+    "rankScore": 4,
+    "killScore": 8.5,
+    "players": [
+      {
+        "nickname": "WTK_BluePeriod",
+        "characterNum": 43,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "WTK_Magician",
+        "characterNum": 19,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "WTK_Masuhana",
+        "characterNum": 6,
+        "kills": 5,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7692,
+    "teamNumber": 4,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      45,
+      57
+    ],
+    "rankScore": 3,
+    "killScore": 1,
+    "players": [
+      {
+        "nickname": "CL_Ghost",
+        "characterNum": 45,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "CL_TRIO",
+        "characterNum": 1,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "CL_Yuni",
+        "characterNum": 57,
+        "kills": 0,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7692,
+    "teamNumber": 5,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      24,
+      36,
+      40
+    ],
+    "rankScore": 2,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "YJS_WiD",
+        "characterNum": 24,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 4,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7692,
+    "teamNumber": 3,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      12,
+      28,
+      33
+    ],
+    "rankScore": 1,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "DEH_Chika",
+        "characterNum": 12,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "DEH_hesil",
+        "characterNum": 33,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "DEH_DDangkong",
+        "characterNum": 28,
+        "kills": 3,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7692,
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      17,
+      24,
+      25
+    ],
+    "rankScore": 0,
+    "killScore": 1.5,
+    "players": [
+      {
+        "nickname": "JG_Eliso",
+        "characterNum": 24,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "JG_TiRim",
+        "characterNum": 17,
+        "kills": 2,
+        "assists": 0
+      },
+      {
+        "nickname": "JG_Rohne",
+        "characterNum": 25,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7693,
+    "teamNumber": 7,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 10,
+    "killScore": 14.5,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 3,
+        "assists": 8
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 6,
+        "assists": 9
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 6,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7693,
+    "teamNumber": 6,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      58,
+      85,
+      89
+    ],
+    "rankScore": 7,
+    "killScore": 9.5,
+    "players": [
+      {
+        "nickname": "GNS_Gyeongkwae",
+        "characterNum": 85,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "GNS_March",
+        "characterNum": 58,
+        "kills": 6,
+        "assists": 8
+      },
+      {
+        "nickname": "GNS_Kiro",
+        "characterNum": 89,
+        "kills": 7,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7693,
+    "teamNumber": 3,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      12,
+      28,
+      33
+    ],
+    "rankScore": 5,
+    "killScore": 11.5,
+    "players": [
+      {
+        "nickname": "DEH_Chika",
+        "characterNum": 12,
+        "kills": 4,
+        "assists": 7
+      },
+      {
+        "nickname": "DEH_hesil",
+        "characterNum": 33,
+        "kills": 5,
+        "assists": 4
+      },
+      {
+        "nickname": "DEH_DDangkong",
+        "characterNum": 28,
+        "kills": 7,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 7693,
+    "teamNumber": 2,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      51,
+      77
+    ],
+    "rankScore": 4,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 51,
+        "kills": 1,
+        "assists": 7
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 6,
+        "kills": 6,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7693,
+    "teamNumber": 5,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      36,
+      40,
+      54
+    ],
+    "rankScore": 3,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 2,
+        "assists": 7
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 2,
+        "assists": 6
+      },
+      {
+        "nickname": "YJS_Jaksal",
+        "characterNum": 54,
+        "kills": 5,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7693,
+    "teamNumber": 4,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      57,
+      76
+    ],
+    "rankScore": 2,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "CL_Ghost",
+        "characterNum": 76,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "CL_TRIO",
+        "characterNum": 1,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "CL_Yuni",
+        "characterNum": 57,
+        "kills": 2,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7693,
+    "teamNumber": 1,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      19,
+      43
+    ],
+    "rankScore": 1,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "WTK_BluePeriod",
+        "characterNum": 43,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "WTK_Magician",
+        "characterNum": 19,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "WTK_Masuhana",
+        "characterNum": 6,
+        "kills": 3,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7693,
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      24,
+      33
+    ],
+    "rankScore": 0,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "JG_Eliso",
+        "characterNum": 24,
+        "kills": 6,
+        "assists": 0
+      },
+      {
+        "nickname": "JG_TiRim",
+        "characterNum": 33,
+        "kills": 0,
+        "assists": 6
+      },
+      {
+        "nickname": "JG_Rohne",
+        "characterNum": 6,
+        "kills": 0,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7695,
+    "teamNumber": 7,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 10,
+    "killScore": 8,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 2,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7695,
+    "teamNumber": 5,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      36,
+      40,
+      54
+    ],
+    "rankScore": 7,
+    "killScore": 10,
+    "players": [
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 3,
+        "assists": 7
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 7,
+        "assists": 6
+      },
+      {
+        "nickname": "YJS_Jaksal",
+        "characterNum": 54,
+        "kills": 4,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7695,
+    "teamNumber": 3,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      12,
+      28,
+      33
+    ],
+    "rankScore": 5,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "DEH_Chika",
+        "characterNum": 12,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "DEH_hesil",
+        "characterNum": 33,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "DEH_DDangkong",
+        "characterNum": 28,
+        "kills": 2,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7695,
+    "teamNumber": 4,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      45,
+      57
+    ],
+    "rankScore": 4,
+    "killScore": 12,
+    "players": [
+      {
+        "nickname": "CL_Ghost",
+        "characterNum": 45,
+        "kills": 2,
+        "assists": 6
+      },
+      {
+        "nickname": "CL_TRIO",
+        "characterNum": 1,
+        "kills": 6,
+        "assists": 4
+      },
+      {
+        "nickname": "CL_Yuni",
+        "characterNum": 57,
+        "kills": 6,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7695,
+    "teamNumber": 2,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      15,
+      21,
+      27
+    ],
+    "rankScore": 3,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 27,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 15,
+        "kills": 0,
+        "assists": 7
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 21,
+        "kills": 5,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7695,
+    "teamNumber": 6,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      58,
+      85,
+      89
+    ],
+    "rankScore": 2,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "GNS_Gyeongkwae",
+        "characterNum": 85,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "GNS_March",
+        "characterNum": 58,
+        "kills": 6,
+        "assists": 3
+      },
+      {
+        "nickname": "GNS_Kiro",
+        "characterNum": 89,
+        "kills": 1,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7695,
+    "teamNumber": 1,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      32,
+      45,
+      79
+    ],
+    "rankScore": 1,
+    "killScore": 9.5,
+    "players": [
+      {
+        "nickname": "WTK_BluePeriod",
+        "characterNum": 79,
+        "kills": 4,
+        "assists": 7
+      },
+      {
+        "nickname": "WTK_Magician",
+        "characterNum": 45,
+        "kills": 0,
+        "assists": 9
+      },
+      {
+        "nickname": "WTK_Masuhana",
+        "characterNum": 32,
+        "kills": 8,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7695,
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      24,
+      26,
+      28
+    ],
+    "rankScore": 0,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "JG_Eliso",
+        "characterNum": 24,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "JG_TiRim",
+        "characterNum": 28,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "JG_Rohne",
+        "characterNum": 26,
+        "kills": 3,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7698,
+    "teamNumber": 4,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      35,
+      51,
+      60
+    ],
+    "rankScore": 10,
+    "killScore": 9.5,
+    "players": [
+      {
+        "nickname": "GBW_Escape",
+        "characterNum": 60,
+        "kills": 5,
+        "assists": 3
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 51,
+        "kills": 2,
+        "assists": 9
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "kills": 4,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7698,
+    "teamNumber": 7,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      1,
+      17,
+      59
+    ],
+    "rankScore": 7,
+    "killScore": 10,
+    "players": [
+      {
+        "nickname": "OMO_Sindas9",
+        "characterNum": 59,
+        "kills": 4,
+        "assists": 6
+      },
+      {
+        "nickname": "OMO_GunMe",
+        "characterNum": 17,
+        "kills": 0,
+        "assists": 11
+      },
+      {
+        "nickname": "OMO_Myuhwang",
+        "characterNum": 1,
+        "kills": 8,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7698,
+    "teamNumber": 3,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      10,
+      28,
+      33
+    ],
+    "rankScore": 5,
+    "killScore": 8.5,
+    "players": [
+      {
+        "nickname": "HD_Azi",
+        "characterNum": 10,
+        "kills": 4,
+        "assists": 4
+      },
+      {
+        "nickname": "HD_Artist",
+        "characterNum": 33,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "HD_TOPSUN",
+        "characterNum": 28,
+        "kills": 5,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7698,
+    "teamNumber": 2,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      23,
+      53,
+      66
+    ],
+    "rankScore": 4,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "GSL_Anonymous",
+        "characterNum": 66,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": "GSL_MinJae",
+        "characterNum": 53,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "GSL_HydeeeeE",
+        "characterNum": 23,
+        "kills": 2,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7698,
+    "teamNumber": 1,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      23,
+      30,
+      47
+    ],
+    "rankScore": 3,
+    "killScore": 9.5,
+    "players": [
+      {
+        "nickname": "BGL_Nunuzz",
+        "characterNum": 30,
+        "kills": 1,
+        "assists": 7
+      },
+      {
+        "nickname": "BGL_SaengGak",
+        "characterNum": 47,
+        "kills": 7,
+        "assists": 4
+      },
+      {
+        "nickname": "BGL_Winterdream",
+        "characterNum": 23,
+        "kills": 3,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7698,
+    "teamNumber": 8,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      42,
+      50
+    ],
+    "rankScore": 2,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "BB_YeoJoon",
+        "characterNum": 50,
+        "kills": 0,
+        "assists": 1
+      },
+      {
+        "nickname": "BB_HwanE",
+        "characterNum": 21,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "BB_SeonJiman",
+        "characterNum": 42,
+        "kills": 1,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7698,
+    "teamNumber": 5,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      49,
+      65,
+      73
+    ],
+    "rankScore": 1,
+    "killScore": 4.5,
+    "players": [
+      {
+        "nickname": "MP_Propose",
+        "characterNum": 49,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "MP_CIESTA",
+        "characterNum": 73,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "MP_Taek",
+        "characterNum": 65,
+        "kills": 4,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7698,
+    "teamNumber": 6,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      46,
+      86
+    ],
+    "rankScore": 0,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "KIN_SOWASO",
+        "characterNum": 46,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "KIN_EongManSa",
+        "characterNum": 86,
+        "kills": 5,
+        "assists": 4
+      },
+      {
+        "nickname": "KIN_Attack",
+        "characterNum": 1,
+        "kills": 2,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7700,
+    "teamNumber": 4,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      35,
+      51,
+      60
+    ],
+    "rankScore": 10,
+    "killScore": 10,
+    "players": [
+      {
+        "nickname": "GBW_Escape",
+        "characterNum": 60,
+        "kills": 6,
+        "assists": 2
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 51,
+        "kills": 3,
+        "assists": 6
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "kills": 1,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7700,
+    "teamNumber": 5,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      49,
+      65,
+      73
+    ],
+    "rankScore": 7,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "MP_Propose",
+        "characterNum": 49,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "MP_CIESTA",
+        "characterNum": 73,
+        "kills": 0,
+        "assists": 7
+      },
+      {
+        "nickname": "MP_Taek",
+        "characterNum": 65,
+        "kills": 3,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7700,
+    "teamNumber": 7,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      1,
+      17,
+      59
+    ],
+    "rankScore": 5,
+    "killScore": 9.5,
+    "players": [
+      {
+        "nickname": "OMO_Sindas9",
+        "characterNum": 59,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "OMO_GunMe",
+        "characterNum": 17,
+        "kills": 0,
+        "assists": 7
+      },
+      {
+        "nickname": "OMO_Myuhwang",
+        "characterNum": 1,
+        "kills": 9,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7700,
+    "teamNumber": 6,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      46,
+      86
+    ],
+    "rankScore": 4,
+    "killScore": 10.5,
+    "players": [
+      {
+        "nickname": "KIN_SOWASO",
+        "characterNum": 46,
+        "kills": 1,
+        "assists": 8
+      },
+      {
+        "nickname": "KIN_EongManSa",
+        "characterNum": 86,
+        "kills": 5,
+        "assists": 8
+      },
+      {
+        "nickname": "KIN_Attack",
+        "characterNum": 1,
+        "kills": 8,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7700,
+    "teamNumber": 8,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      42,
+      50
+    ],
+    "rankScore": 3,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "BB_YeoJoon",
+        "characterNum": 50,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "BB_HwanE",
+        "characterNum": 21,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "BB_SeonJiman",
+        "characterNum": 42,
+        "kills": 4,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7700,
+    "teamNumber": 1,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      23,
+      30,
+      47
+    ],
+    "rankScore": 2,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "BGL_Nunuzz",
+        "characterNum": 30,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "BGL_SaengGak",
+        "characterNum": 47,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "BGL_Winterdream",
+        "characterNum": 23,
+        "kills": 2,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7700,
+    "teamNumber": 2,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      23,
+      53,
+      66
+    ],
+    "rankScore": 1,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "GSL_Anonymous",
+        "characterNum": 66,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "GSL_MinJae",
+        "characterNum": 53,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "GSL_HydeeeeE",
+        "characterNum": 23,
+        "kills": 2,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7700,
+    "teamNumber": 3,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      10,
+      28,
+      33
+    ],
+    "rankScore": 0,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "HD_Azi",
+        "characterNum": 10,
+        "kills": 2,
+        "assists": 0
+      },
+      {
+        "nickname": "HD_Artist",
+        "characterNum": 33,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "HD_TOPSUN",
+        "characterNum": 28,
+        "kills": 2,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7702,
+    "teamNumber": 4,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      35,
+      51,
+      60
+    ],
+    "rankScore": 10,
+    "killScore": 8.5,
+    "players": [
+      {
+        "nickname": "GBW_Escape",
+        "characterNum": 60,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 51,
+        "kills": 5,
+        "assists": 4
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "kills": 3,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7702,
+    "teamNumber": 5,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      49,
+      65,
+      73
+    ],
+    "rankScore": 7,
+    "killScore": 12,
+    "players": [
+      {
+        "nickname": "MP_Propose",
+        "characterNum": 49,
+        "kills": 4,
+        "assists": 9
+      },
+      {
+        "nickname": "MP_CIESTA",
+        "characterNum": 73,
+        "kills": 0,
+        "assists": 12
+      },
+      {
+        "nickname": "MP_Taek",
+        "characterNum": 65,
+        "kills": 9,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7702,
+    "teamNumber": 3,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      16,
+      28,
+      33
+    ],
+    "rankScore": 5,
+    "killScore": 10,
+    "players": [
+      {
+        "nickname": "HD_Artist",
+        "characterNum": 33,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "HD_TOPSUN",
+        "characterNum": 28,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "HD_NoGyang",
+        "characterNum": 16,
+        "kills": 8,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7702,
+    "teamNumber": 6,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      46,
+      86
+    ],
+    "rankScore": 4,
+    "killScore": 9.5,
+    "players": [
+      {
+        "nickname": "KIN_SOWASO",
+        "characterNum": 46,
+        "kills": 3,
+        "assists": 7
+      },
+      {
+        "nickname": "KIN_EongManSa",
+        "characterNum": 86,
+        "kills": 2,
+        "assists": 9
+      },
+      {
+        "nickname": "KIN_Attack",
+        "characterNum": 1,
+        "kills": 8,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7702,
+    "teamNumber": 7,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      17,
+      59
+    ],
+    "rankScore": 3,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "OMO_Sindas9",
+        "characterNum": 59,
+        "kills": 0,
+        "assists": 3
+      },
+      {
+        "nickname": "OMO_GunMe",
+        "characterNum": 17,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "OMO_Myuhwang",
+        "characterNum": 1,
+        "kills": 2,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7702,
+    "teamNumber": 1,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      23,
+      30,
+      47
+    ],
+    "rankScore": 2,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "BGL_Nunuzz",
+        "characterNum": 30,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "BGL_SaengGak",
+        "characterNum": 47,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "BGL_Winterdream",
+        "characterNum": 23,
+        "kills": 3,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7702,
+    "teamNumber": 8,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      42,
+      50
+    ],
+    "rankScore": 1,
+    "killScore": 10,
+    "players": [
+      {
+        "nickname": "BB_YeoJoon",
+        "characterNum": 50,
+        "kills": 5,
+        "assists": 8
+      },
+      {
+        "nickname": "BB_HwanE",
+        "characterNum": 21,
+        "kills": 4,
+        "assists": 7
+      },
+      {
+        "nickname": "BB_SeonJiman",
+        "characterNum": 42,
+        "kills": 4,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 7702,
+    "teamNumber": 2,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      23,
+      28,
+      53
+    ],
+    "rankScore": 0,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "GSL_MinJae",
+        "characterNum": 53,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "GSL_HydeeeeE",
+        "characterNum": 23,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "GSL_YuSeJu",
+        "characterNum": 28,
+        "kills": 0,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7703,
+    "teamNumber": 8,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      21,
+      42,
+      50
+    ],
+    "rankScore": 10,
+    "killScore": 17,
+    "players": [
+      {
+        "nickname": "BB_YeoJoon",
+        "characterNum": 50,
+        "kills": 3,
+        "assists": 12
+      },
+      {
+        "nickname": "BB_HwanE",
+        "characterNum": 21,
+        "kills": 11,
+        "assists": 6
+      },
+      {
+        "nickname": "BB_SeonJiman",
+        "characterNum": 42,
+        "kills": 4,
+        "assists": 13
+      }
+    ]
+  },
+  {
+    "gameId": 7703,
+    "teamNumber": 4,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      5,
+      35,
+      51
+    ],
+    "rankScore": 7,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "GBW_Escape",
+        "characterNum": 5,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 51,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "kills": 2,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7703,
+    "teamNumber": 3,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      16,
+      28,
+      33
+    ],
+    "rankScore": 5,
+    "killScore": 8,
+    "players": [
+      {
+        "nickname": "HD_Artist",
+        "characterNum": 33,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "HD_TOPSUN",
+        "characterNum": 28,
+        "kills": 6,
+        "assists": 3
+      },
+      {
+        "nickname": "HD_NoGyang",
+        "characterNum": 16,
+        "kills": 2,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7703,
+    "teamNumber": 6,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      46,
+      86
+    ],
+    "rankScore": 4,
+    "killScore": 8,
+    "players": [
+      {
+        "nickname": "KIN_SOWASO",
+        "characterNum": 46,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "KIN_EongManSa",
+        "characterNum": 86,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "KIN_Attack",
+        "characterNum": 1,
+        "kills": 7,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7703,
+    "teamNumber": 5,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      49,
+      65,
+      73
+    ],
+    "rankScore": 3,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "MP_Propose",
+        "characterNum": 49,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "MP_CIESTA",
+        "characterNum": 73,
+        "kills": 0,
+        "assists": 5
+      },
+      {
+        "nickname": "MP_Taek",
+        "characterNum": 65,
+        "kills": 4,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7703,
+    "teamNumber": 1,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      23,
+      30,
+      47
+    ],
+    "rankScore": 2,
+    "killScore": 8,
+    "players": [
+      {
+        "nickname": "BGL_Nunuzz",
+        "characterNum": 30,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "BGL_SaengGak",
+        "characterNum": 47,
+        "kills": 6,
+        "assists": 2
+      },
+      {
+        "nickname": "BGL_Winterdream",
+        "characterNum": 23,
+        "kills": 0,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7703,
+    "teamNumber": 7,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      17,
+      59
+    ],
+    "rankScore": 1,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "OMO_Sindas9",
+        "characterNum": 59,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "OMO_GunMe",
+        "characterNum": 17,
+        "kills": 1,
+        "assists": 8
+      },
+      {
+        "nickname": "OMO_Myuhwang",
+        "characterNum": 1,
+        "kills": 7,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7703,
+    "teamNumber": 2,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      23,
+      28,
+      53
+    ],
+    "rankScore": 0,
+    "killScore": 10,
+    "players": [
+      {
+        "nickname": "GSL_MinJae",
+        "characterNum": 53,
+        "kills": 4,
+        "assists": 6
+      },
+      {
+        "nickname": "GSL_HydeeeeE",
+        "characterNum": 23,
+        "kills": 3,
+        "assists": 8
+      },
+      {
+        "nickname": "GSL_YuSeJu",
+        "characterNum": 28,
+        "kills": 5,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7706,
+    "teamNumber": 2,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      28,
+      53,
+      60
+    ],
+    "rankScore": 10,
+    "killScore": 13.5,
+    "players": [
+      {
+        "nickname": "DIT_Rosner",
+        "characterNum": 28,
+        "kills": 7,
+        "assists": 6
+      },
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 53,
+        "kills": 3,
+        "assists": 9
+      },
+      {
+        "nickname": "DIT_Cherish",
+        "characterNum": 60,
+        "kills": 5,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7706,
+    "teamNumber": 8,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      24,
+      36,
+      40
+    ],
+    "rankScore": 7,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "YJS_WiD",
+        "characterNum": 24,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 2,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7706,
+    "teamNumber": 3,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      31,
+      53,
+      79
+    ],
+    "rankScore": 5,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "FL_Rachan",
+        "characterNum": 53,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "FL_Junragas",
+        "characterNum": 79,
+        "kills": 2,
+        "assists": 6
+      },
+      {
+        "nickname": " FL_CanDoit",
+        "characterNum": 31,
+        "kills": 5,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7706,
+    "teamNumber": 5,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 4,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 3,
+        "assists": 1
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 3,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7706,
+    "teamNumber": 4,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      24,
+      82
+    ],
+    "rankScore": 3,
+    "killScore": 4.5,
+    "players": [
+      {
+        "nickname": "PE_SeolDaBi",
+        "characterNum": 82,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "PE_Sseureu",
+        "characterNum": 6,
+        "kills": 5,
+        "assists": 1
+      },
+      {
+        "nickname": "PE_KeyFive",
+        "characterNum": 24,
+        "kills": 1,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7706,
+    "teamNumber": 6,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      42,
+      50
+    ],
+    "rankScore": 2,
+    "killScore": 8.5,
+    "players": [
+      {
+        "nickname": "BB_YeoJoon",
+        "characterNum": 50,
+        "kills": 5,
+        "assists": 5
+      },
+      {
+        "nickname": "BB_HwanE",
+        "characterNum": 21,
+        "kills": 1,
+        "assists": 9
+      },
+      {
+        "nickname": "BB_SeonJiman",
+        "characterNum": 42,
+        "kills": 5,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7706,
+    "teamNumber": 1,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      64,
+      71,
+      89
+    ],
+    "rankScore": 1,
+    "killScore": 10,
+    "players": [
+      {
+        "nickname": "NT_Pokpo",
+        "characterNum": 71,
+        "kills": 4,
+        "assists": 4
+      },
+      {
+        "nickname": "NT_Sin",
+        "characterNum": 89,
+        "kills": 4,
+        "assists": 6
+      },
+      {
+        "nickname": "NT_KIKO",
+        "characterNum": 64,
+        "kills": 4,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7706,
+    "teamNumber": 7,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      46,
+      86
+    ],
+    "rankScore": 0,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "KIN_SOWASO",
+        "characterNum": 46,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "KIN_EongManSa",
+        "characterNum": 86,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "KIN_Attack",
+        "characterNum": 1,
+        "kills": 4,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7708,
+    "teamNumber": 2,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      28,
+      53,
+      60
+    ],
+    "rankScore": 10,
+    "killScore": 14,
+    "players": [
+      {
+        "nickname": "DIT_Rosner",
+        "characterNum": 28,
+        "kills": 9,
+        "assists": 9
+      },
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 53,
+        "kills": 3,
+        "assists": 12
+      },
+      {
+        "nickname": "DIT_Cherish",
+        "characterNum": 60,
+        "kills": 7,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 7708,
+    "teamNumber": 5,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 7,
+    "killScore": 19.5,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 10,
+        "assists": 5
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 7,
+        "assists": 7
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 5,
+        "assists": 12
+      }
+    ]
+  },
+  {
+    "gameId": 7708,
+    "teamNumber": 8,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      24,
+      36,
+      40
+    ],
+    "rankScore": 5,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "YJS_WiD",
+        "characterNum": 24,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 4,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7708,
+    "teamNumber": 4,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      24,
+      82
+    ],
+    "rankScore": 4,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "PE_SeolDaBi",
+        "characterNum": 82,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "PE_Sseureu",
+        "characterNum": 6,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "PE_KeyFive",
+        "characterNum": 24,
+        "kills": 0,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7708,
+    "teamNumber": 7,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      46,
+      86
+    ],
+    "rankScore": 3,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "KIN_SOWASO",
+        "characterNum": 46,
+        "kills": 4,
+        "assists": 5
+      },
+      {
+        "nickname": "KIN_EongManSa",
+        "characterNum": 86,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "KIN_Attack",
+        "characterNum": 1,
+        "kills": 1,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7708,
+    "teamNumber": 6,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      42,
+      50
+    ],
+    "rankScore": 2,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "BB_YeoJoon",
+        "characterNum": 50,
+        "kills": 3,
+        "assists": 6
+      },
+      {
+        "nickname": "BB_HwanE",
+        "characterNum": 21,
+        "kills": 7,
+        "assists": 2
+      },
+      {
+        "nickname": "BB_SeonJiman",
+        "characterNum": 42,
+        "kills": 1,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 7708,
+    "teamNumber": 1,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      64,
+      71,
+      89
+    ],
+    "rankScore": 1,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "NT_Pokpo",
+        "characterNum": 71,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "NT_Sin",
+        "characterNum": 89,
+        "kills": 4,
+        "assists": 7
+      },
+      {
+        "nickname": "NT_KIKO",
+        "characterNum": 64,
+        "kills": 6,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7708,
+    "teamNumber": 3,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      31,
+      53,
+      79
+    ],
+    "rankScore": 0,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "FL_Rachan",
+        "characterNum": 53,
+        "kills": 0,
+        "assists": 3
+      },
+      {
+        "nickname": "FL_Junragas",
+        "characterNum": 79,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": " FL_CanDoit",
+        "characterNum": 31,
+        "kills": 3,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7709,
+    "teamNumber": 2,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      28,
+      53,
+      60
+    ],
+    "rankScore": 10,
+    "killScore": 12,
+    "players": [
+      {
+        "nickname": "DIT_Rosner",
+        "characterNum": 28,
+        "kills": 8,
+        "assists": 4
+      },
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 53,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "DIT_Cherish",
+        "characterNum": 60,
+        "kills": 3,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7709,
+    "teamNumber": 3,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      31,
+      53,
+      79
+    ],
+    "rankScore": 7,
+    "killScore": 13.5,
+    "players": [
+      {
+        "nickname": "FL_Rachan",
+        "characterNum": 53,
+        "kills": 4,
+        "assists": 7
+      },
+      {
+        "nickname": "FL_Junragas",
+        "characterNum": 79,
+        "kills": 6,
+        "assists": 7
+      },
+      {
+        "nickname": " FL_CanDoit",
+        "characterNum": 31,
+        "kills": 5,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7709,
+    "teamNumber": 8,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      36,
+      40,
+      54
+    ],
+    "rankScore": 5,
+    "killScore": 12.5,
+    "players": [
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 7,
+        "assists": 8
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 7,
+        "assists": 7
+      },
+      {
+        "nickname": "YJS_Jaksal",
+        "characterNum": 54,
+        "kills": 5,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7709,
+    "teamNumber": 5,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 4,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 0,
+        "assists": 5
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 4,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7709,
+    "teamNumber": 6,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      42,
+      50
+    ],
+    "rankScore": 3,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "BB_YeoJoon",
+        "characterNum": 50,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "BB_HwanE",
+        "characterNum": 21,
+        "kills": 6,
+        "assists": 3
+      },
+      {
+        "nickname": "BB_SeonJiman",
+        "characterNum": 42,
+        "kills": 1,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7709,
+    "teamNumber": 1,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      64,
+      74,
+      89
+    ],
+    "rankScore": 2,
+    "killScore": 10.5,
+    "players": [
+      {
+        "nickname": "NT_Sin",
+        "characterNum": 89,
+        "kills": 7,
+        "assists": 4
+      },
+      {
+        "nickname": "NT_KIKO",
+        "characterNum": 64,
+        "kills": 5,
+        "assists": 4
+      },
+      {
+        "nickname": "NT_Ken",
+        "characterNum": 74,
+        "kills": 2,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7709,
+    "teamNumber": 4,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      24,
+      82
+    ],
+    "rankScore": 1,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "PE_SeolDaBi",
+        "characterNum": 82,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "PE_Sseureu",
+        "characterNum": 6,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "PE_KeyFive",
+        "characterNum": 24,
+        "kills": 1,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7709,
+    "teamNumber": 7,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      35,
+      46,
+      53
+    ],
+    "rankScore": 0,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "KIN_SOWASO",
+        "characterNum": 46,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "KIN_EongManSa",
+        "characterNum": 53,
+        "kills": 0,
+        "assists": 3
+      },
+      {
+        "nickname": "KIN_Attack",
+        "characterNum": 35,
+        "kills": 3,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7710,
+    "teamNumber": 3,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      31,
+      68,
+      79
+    ],
+    "rankScore": 10,
+    "killScore": 12,
+    "players": [
+      {
+        "nickname": "FL_Rachan",
+        "characterNum": 68,
+        "kills": 4,
+        "assists": 5
+      },
+      {
+        "nickname": "FL_Junragas",
+        "characterNum": 79,
+        "kills": 6,
+        "assists": 2
+      },
+      {
+        "nickname": " FL_CanDoit",
+        "characterNum": 31,
+        "kills": 3,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7710,
+    "teamNumber": 4,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      6,
+      24,
+      55
+    ],
+    "rankScore": 7,
+    "killScore": 19,
+    "players": [
+      {
+        "nickname": "PE_SeolDaBi",
+        "characterNum": 55,
+        "kills": 3,
+        "assists": 16
+      },
+      {
+        "nickname": "PE_Sseureu",
+        "characterNum": 6,
+        "kills": 11,
+        "assists": 7
+      },
+      {
+        "nickname": "PE_KeyFive",
+        "characterNum": 24,
+        "kills": 7,
+        "assists": 12
+      }
+    ]
+  },
+  {
+    "gameId": 7710,
+    "teamNumber": 8,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      36,
+      40,
+      54
+    ],
+    "rankScore": 5,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 4,
+        "assists": 6
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "YJS_Jaksal",
+        "characterNum": 54,
+        "kills": 3,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7710,
+    "teamNumber": 6,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      42,
+      50
+    ],
+    "rankScore": 4,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "BB_YeoJoon",
+        "characterNum": 50,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "BB_HwanE",
+        "characterNum": 21,
+        "kills": 5,
+        "assists": 1
+      },
+      {
+        "nickname": "BB_SeonJiman",
+        "characterNum": 42,
+        "kills": 1,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7710,
+    "teamNumber": 2,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      4,
+      28,
+      60
+    ],
+    "rankScore": 3,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "DIT_Rosner",
+        "characterNum": 28,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 4,
+        "kills": 2,
+        "assists": 0
+      },
+      {
+        "nickname": "DIT_Cherish",
+        "characterNum": 60,
+        "kills": 1,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7710,
+    "teamNumber": 1,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      64,
+      74,
+      89
+    ],
+    "rankScore": 2,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "NT_Sin",
+        "characterNum": 89,
+        "kills": 4,
+        "assists": 4
+      },
+      {
+        "nickname": "NT_KIKO",
+        "characterNum": 64,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "NT_Ken",
+        "characterNum": 74,
+        "kills": 4,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7710,
+    "teamNumber": 5,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 1,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 2,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7710,
+    "teamNumber": 7,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      9,
+      46,
+      56
+    ],
+    "rankScore": 0,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "KIN_SOWASO",
+        "characterNum": 46,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "KIN_EongManSa",
+        "characterNum": 9,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "KIN_Attack",
+        "characterNum": 56,
+        "kills": 4,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7712,
+    "teamNumber": 3,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      1,
+      50,
+      55
+    ],
+    "rankScore": 10,
+    "killScore": 10.5,
+    "players": [
+      {
+        "nickname": "INW_Kachu",
+        "characterNum": 50,
+        "kills": 1,
+        "assists": 11
+      },
+      {
+        "nickname": "INW_NXA",
+        "characterNum": 55,
+        "kills": 3,
+        "assists": 8
+      },
+      {
+        "nickname": "INW_Isana",
+        "characterNum": 1,
+        "kills": 8,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7712,
+    "teamNumber": 7,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      58,
+      85,
+      89
+    ],
+    "rankScore": 7,
+    "killScore": 10.5,
+    "players": [
+      {
+        "nickname": "GNS_Gyeongkwae",
+        "characterNum": 85,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "GNS_March",
+        "characterNum": 58,
+        "kills": 6,
+        "assists": 7
+      },
+      {
+        "nickname": "GNS_Kiro",
+        "characterNum": 89,
+        "kills": 6,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7712,
+    "teamNumber": 5,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      46,
+      53,
+      62
+    ],
+    "rankScore": 5,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 46,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 62,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 53,
+        "kills": 5,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7712,
+    "teamNumber": 1,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      16,
+      22,
+      56
+    ],
+    "rankScore": 4,
+    "killScore": 10.5,
+    "players": [
+      {
+        "nickname": "HB_SSil",
+        "characterNum": 16,
+        "kills": 3,
+        "assists": 7
+      },
+      {
+        "nickname": "HB_Karmis",
+        "characterNum": 22,
+        "kills": 6,
+        "assists": 4
+      },
+      {
+        "nickname": "HB_WangCho",
+        "characterNum": 56,
+        "kills": 3,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7712,
+    "teamNumber": 6,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      51,
+      77
+    ],
+    "rankScore": 3,
+    "killScore": 2.5,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 51,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 6,
+        "kills": 2,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7712,
+    "teamNumber": 4,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      24,
+      33,
+      46
+    ],
+    "rankScore": 2,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "AWK_JunbongE",
+        "characterNum": 46,
+        "kills": 5,
+        "assists": 3
+      },
+      {
+        "nickname": "AWK_Seobin",
+        "characterNum": 24,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "AWK_KiTA",
+        "characterNum": 33,
+        "kills": 0,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7712,
+    "teamNumber": 2,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      32,
+      45,
+      79
+    ],
+    "rankScore": 1,
+    "killScore": 0,
+    "players": [
+      {
+        "nickname": "DSP_Runatic",
+        "characterNum": 32,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "DSP_Shikimori",
+        "characterNum": 79,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "DSP_Husky",
+        "characterNum": 45,
+        "kills": 0,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7712,
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      17,
+      59
+    ],
+    "rankScore": 0,
+    "killScore": 1.5,
+    "players": [
+      {
+        "nickname": "OMO_Sindas9",
+        "characterNum": 59,
+        "kills": 2,
+        "assists": 0
+      },
+      {
+        "nickname": "OMO_GunMe",
+        "characterNum": 17,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "OMO_Myuhwang",
+        "characterNum": 1,
+        "kills": 0,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7713,
+    "teamNumber": 5,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      46,
+      53,
+      62
+    ],
+    "rankScore": 10,
+    "killScore": 12,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 46,
+        "kills": 9,
+        "assists": 2
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 62,
+        "kills": 1,
+        "assists": 10
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 53,
+        "kills": 3,
+        "assists": 10
+      }
+    ]
+  },
+  {
+    "gameId": 7713,
+    "teamNumber": 1,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      16,
+      22,
+      56
+    ],
+    "rankScore": 7,
+    "killScore": 16,
+    "players": [
+      {
+        "nickname": "HB_SSil",
+        "characterNum": 16,
+        "kills": 10,
+        "assists": 3
+      },
+      {
+        "nickname": "HB_Karmis",
+        "characterNum": 22,
+        "kills": 2,
+        "assists": 13
+      },
+      {
+        "nickname": "HB_WangCho",
+        "characterNum": 56,
+        "kills": 4,
+        "assists": 11
+      }
+    ]
+  },
+  {
+    "gameId": 7713,
+    "teamNumber": 2,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      32,
+      45,
+      79
+    ],
+    "rankScore": 5,
+    "killScore": 13,
+    "players": [
+      {
+        "nickname": "DSP_Runatic",
+        "characterNum": 32,
+        "kills": 9,
+        "assists": 4
+      },
+      {
+        "nickname": "DSP_Shikimori",
+        "characterNum": 79,
+        "kills": 4,
+        "assists": 10
+      },
+      {
+        "nickname": "DSP_Husky",
+        "characterNum": 45,
+        "kills": 3,
+        "assists": 11
+      }
+    ]
+  },
+  {
+    "gameId": 7713,
+    "teamNumber": 8,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      17,
+      59
+    ],
+    "rankScore": 4,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "OMO_Sindas9",
+        "characterNum": 59,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "OMO_GunMe",
+        "characterNum": 17,
+        "kills": 0,
+        "assists": 8
+      },
+      {
+        "nickname": "OMO_Myuhwang",
+        "characterNum": 1,
+        "kills": 5,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7713,
+    "teamNumber": 7,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      58,
+      85,
+      89
+    ],
+    "rankScore": 3,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "GNS_Gyeongkwae",
+        "characterNum": 85,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "GNS_March",
+        "characterNum": 58,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "GNS_Kiro",
+        "characterNum": 89,
+        "kills": 2,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7713,
+    "teamNumber": 3,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      50,
+      55
+    ],
+    "rankScore": 2,
+    "killScore": 4.5,
+    "players": [
+      {
+        "nickname": "INW_Kachu",
+        "characterNum": 50,
+        "kills": 0,
+        "assists": 5
+      },
+      {
+        "nickname": "INW_NXA",
+        "characterNum": 55,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": "INW_Isana",
+        "characterNum": 1,
+        "kills": 3,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7713,
+    "teamNumber": 6,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      51,
+      77
+    ],
+    "rankScore": 1,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 51,
+        "kills": 0,
+        "assists": 5
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 21,
+        "kills": 3,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7713,
+    "teamNumber": 4,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      24,
+      33,
+      46
+    ],
+    "rankScore": 0,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "AWK_JunbongE",
+        "characterNum": 46,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "AWK_Seobin",
+        "characterNum": 24,
+        "kills": 6,
+        "assists": 2
+      },
+      {
+        "nickname": "AWK_KiTA",
+        "characterNum": 33,
+        "kills": 1,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 7714,
+    "teamNumber": 3,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      1,
+      50,
+      55
+    ],
+    "rankScore": 10,
+    "killScore": 14,
+    "players": [
+      {
+        "nickname": "INW_Kachu",
+        "characterNum": 50,
+        "kills": 3,
+        "assists": 10
+      },
+      {
+        "nickname": "INW_NXA",
+        "characterNum": 55,
+        "kills": 2,
+        "assists": 12
+      },
+      {
+        "nickname": "INW_Isana",
+        "characterNum": 1,
+        "kills": 9,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7714,
+    "teamNumber": 7,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      58,
+      85,
+      89
+    ],
+    "rankScore": 7,
+    "killScore": 4.5,
+    "players": [
+      {
+        "nickname": "GNS_Gyeongkwae",
+        "characterNum": 85,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "GNS_March",
+        "characterNum": 58,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "GNS_Kiro",
+        "characterNum": 89,
+        "kills": 1,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7714,
+    "teamNumber": 1,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      16,
+      22,
+      56
+    ],
+    "rankScore": 5,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "HB_SSil",
+        "characterNum": 16,
+        "kills": 6,
+        "assists": 5
+      },
+      {
+        "nickname": "HB_Karmis",
+        "characterNum": 22,
+        "kills": 3,
+        "assists": 8
+      },
+      {
+        "nickname": "HB_WangCho",
+        "characterNum": 56,
+        "kills": 3,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7714,
+    "teamNumber": 4,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      35,
+      46
+    ],
+    "rankScore": 4,
+    "killScore": 4.5,
+    "players": [
+      {
+        "nickname": "AWK_JunbongE",
+        "characterNum": 46,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "AWK_KiTA",
+        "characterNum": 35,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "AWK_Ziro",
+        "characterNum": 21,
+        "kills": 3,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7714,
+    "teamNumber": 5,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      46,
+      53,
+      62
+    ],
+    "rankScore": 3,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 46,
+        "kills": 5,
+        "assists": 0
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 62,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 53,
+        "kills": 3,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7714,
+    "teamNumber": 2,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      32,
+      45,
+      79
+    ],
+    "rankScore": 2,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "DSP_Runatic",
+        "characterNum": 32,
+        "kills": 5,
+        "assists": 1
+      },
+      {
+        "nickname": "DSP_Shikimori",
+        "characterNum": 79,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "DSP_Husky",
+        "characterNum": 45,
+        "kills": 0,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7714,
+    "teamNumber": 6,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      51,
+      53,
+      77
+    ],
+    "rankScore": 1,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 51,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "MIQ_JIN",
+        "characterNum": 53,
+        "kills": 7,
+        "assists": 1
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "kills": 1,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7714,
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      17,
+      45
+    ],
+    "rankScore": 0,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "OMO_Tails",
+        "characterNum": 45,
+        "kills": 0,
+        "assists": 6
+      },
+      {
+        "nickname": "OMO_GunMe",
+        "characterNum": 17,
+        "kills": 0,
+        "assists": 6
+      },
+      {
+        "nickname": "OMO_Myuhwang",
+        "characterNum": 1,
+        "kills": 6,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7715,
+    "teamNumber": 4,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      21,
+      35,
+      81
+    ],
+    "rankScore": 10,
+    "killScore": 16,
+    "players": [
+      {
+        "nickname": "AWK_JunbongE",
+        "characterNum": 81,
+        "kills": 6,
+        "assists": 12
+      },
+      {
+        "nickname": "AWK_KiTA",
+        "characterNum": 35,
+        "kills": 4,
+        "assists": 12
+      },
+      {
+        "nickname": "AWK_Ziro",
+        "characterNum": 21,
+        "kills": 10,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7715,
+    "teamNumber": 1,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      16,
+      22,
+      56
+    ],
+    "rankScore": 7,
+    "killScore": 17,
+    "players": [
+      {
+        "nickname": "HB_SSil",
+        "characterNum": 16,
+        "kills": 8,
+        "assists": 8
+      },
+      {
+        "nickname": "HB_Karmis",
+        "characterNum": 22,
+        "kills": 6,
+        "assists": 7
+      },
+      {
+        "nickname": "HB_WangCho",
+        "characterNum": 56,
+        "kills": 4,
+        "assists": 10
+      }
+    ]
+  },
+  {
+    "gameId": 7715,
+    "teamNumber": 5,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      35,
+      59,
+      66
+    ],
+    "rankScore": 5,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 59,
+        "kills": 0,
+        "assists": 3
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 66,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "kills": 2,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7715,
+    "teamNumber": 2,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      32,
+      45,
+      79
+    ],
+    "rankScore": 4,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "DSP_Runatic",
+        "characterNum": 32,
+        "kills": 5,
+        "assists": 2
+      },
+      {
+        "nickname": "DSP_Shikimori",
+        "characterNum": 79,
+        "kills": 4,
+        "assists": 5
+      },
+      {
+        "nickname": "DSP_Husky",
+        "characterNum": 45,
+        "kills": 0,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 7715,
+    "teamNumber": 3,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      50,
+      55
+    ],
+    "rankScore": 3,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "INW_Kachu",
+        "characterNum": 50,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "INW_NXA",
+        "characterNum": 55,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "INW_Isana",
+        "characterNum": 1,
+        "kills": 1,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7715,
+    "teamNumber": 7,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      58,
+      85,
+      89
+    ],
+    "rankScore": 2,
+    "killScore": 1,
+    "players": [
+      {
+        "nickname": "GNS_Gyeongkwae",
+        "characterNum": 85,
+        "kills": 0,
+        "assists": 1
+      },
+      {
+        "nickname": "GNS_March",
+        "characterNum": 58,
+        "kills": 1,
+        "assists": 0
+      },
+      {
+        "nickname": "GNS_Kiro",
+        "characterNum": 89,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7715,
+    "teamNumber": 6,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      51,
+      53,
+      77
+    ],
+    "rankScore": 1,
+    "killScore": 1.5,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 51,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "MIQ_JIN",
+        "characterNum": 53,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "kills": 1,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7715,
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      17,
+      45
+    ],
+    "rankScore": 0,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "OMO_Tails",
+        "characterNum": 45,
+        "kills": 0,
+        "assists": 5
+      },
+      {
+        "nickname": "OMO_GunMe",
+        "characterNum": 17,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "OMO_Myuhwang",
+        "characterNum": 1,
+        "kills": 5,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7719,
+    "teamNumber": 4,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      1,
+      50,
+      55
+    ],
+    "rankScore": 10,
+    "killScore": 8,
+    "players": [
+      {
+        "nickname": "INW_Kachu",
+        "characterNum": 50,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "INW_NXA",
+        "characterNum": 55,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "INW_Isana",
+        "characterNum": 1,
+        "kills": 5,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7719,
+    "teamNumber": 2,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      16,
+      22,
+      56
+    ],
+    "rankScore": 7,
+    "killScore": 12.5,
+    "players": [
+      {
+        "nickname": "HB_SSil",
+        "characterNum": 16,
+        "kills": 7,
+        "assists": 5
+      },
+      {
+        "nickname": "HB_Karmis",
+        "characterNum": 22,
+        "kills": 4,
+        "assists": 8
+      },
+      {
+        "nickname": "HB_WangCho",
+        "characterNum": 56,
+        "kills": 2,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 7719,
+    "teamNumber": 5,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 5,
+    "killScore": 9.5,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 3,
+        "assists": 6
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 5,
+        "assists": 4
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 5,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7719,
+    "teamNumber": 7,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      36,
+      40,
+      54
+    ],
+    "rankScore": 4,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 5,
+        "assists": 3
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 0,
+        "assists": 6
+      },
+      {
+        "nickname": "YJS_Jaksal",
+        "characterNum": 54,
+        "kills": 5,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7719,
+    "teamNumber": 1,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      28,
+      53,
+      60
+    ],
+    "rankScore": 3,
+    "killScore": 9.5,
+    "players": [
+      {
+        "nickname": "DIT_Rosner",
+        "characterNum": 28,
+        "kills": 2,
+        "assists": 7
+      },
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 53,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "DIT_Cherish",
+        "characterNum": 60,
+        "kills": 8,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7719,
+    "teamNumber": 8,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      46,
+      53,
+      62
+    ],
+    "rankScore": 2,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 46,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 62,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 53,
+        "kills": 2,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7719,
+    "teamNumber": 3,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      31,
+      53,
+      79
+    ],
+    "rankScore": 1,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "FL_Rachan",
+        "characterNum": 53,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "FL_Junragas",
+        "characterNum": 79,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": " FL_CanDoit",
+        "characterNum": 31,
+        "kills": 0,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7719,
+    "teamNumber": 6,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      35,
+      81
+    ],
+    "rankScore": 0,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "AWK_JunbongE",
+        "characterNum": 81,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "AWK_KiTA",
+        "characterNum": 35,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "AWK_Ziro",
+        "characterNum": 21,
+        "kills": 2,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7721,
+    "teamNumber": 4,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      1,
+      50,
+      55
+    ],
+    "rankScore": 10,
+    "killScore": 12.5,
+    "players": [
+      {
+        "nickname": "INW_Kachu",
+        "characterNum": 50,
+        "kills": 5,
+        "assists": 10
+      },
+      {
+        "nickname": "INW_NXA",
+        "characterNum": 55,
+        "kills": 3,
+        "assists": 11
+      },
+      {
+        "nickname": "INW_Isana",
+        "characterNum": 1,
+        "kills": 7,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7721,
+    "teamNumber": 3,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      31,
+      68,
+      79
+    ],
+    "rankScore": 7,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "FL_Rachan",
+        "characterNum": 68,
+        "kills": 4,
+        "assists": 9
+      },
+      {
+        "nickname": "FL_Junragas",
+        "characterNum": 79,
+        "kills": 4,
+        "assists": 7
+      },
+      {
+        "nickname": " FL_CanDoit",
+        "characterNum": 31,
+        "kills": 5,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7721,
+    "teamNumber": 2,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      16,
+      22,
+      56
+    ],
+    "rankScore": 5,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "HB_SSil",
+        "characterNum": 16,
+        "kills": 3,
+        "assists": 9
+      },
+      {
+        "nickname": "HB_Karmis",
+        "characterNum": 22,
+        "kills": 7,
+        "assists": 4
+      },
+      {
+        "nickname": "HB_WangCho",
+        "characterNum": 56,
+        "kills": 4,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7721,
+    "teamNumber": 8,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      35,
+      59,
+      62
+    ],
+    "rankScore": 4,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 59,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 62,
+        "kills": 0,
+        "assists": 6
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "kills": 3,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7721,
+    "teamNumber": 5,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 3,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 5,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7721,
+    "teamNumber": 6,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      35,
+      46
+    ],
+    "rankScore": 2,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "AWK_JunbongE",
+        "characterNum": 46,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "AWK_KiTA",
+        "characterNum": 35,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": "AWK_Ziro",
+        "characterNum": 21,
+        "kills": 0,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7721,
+    "teamNumber": 1,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      4,
+      28,
+      60
+    ],
+    "rankScore": 1,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "DIT_Rosner",
+        "characterNum": 28,
+        "kills": 3,
+        "assists": 0
+      },
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 4,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "DIT_Cherish",
+        "characterNum": 60,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7721,
+    "teamNumber": 7,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      36,
+      40,
+      54
+    ],
+    "rankScore": 0,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 0,
+        "assists": 3
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 0,
+        "assists": 1
+      },
+      {
+        "nickname": "YJS_Jaksal",
+        "characterNum": 54,
+        "kills": 3,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7723,
+    "teamNumber": 3,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      31,
+      53,
+      79
+    ],
+    "rankScore": 10,
+    "killScore": 9.5,
+    "players": [
+      {
+        "nickname": "FL_Rachan",
+        "characterNum": 53,
+        "kills": 1,
+        "assists": 10
+      },
+      {
+        "nickname": "FL_Junragas",
+        "characterNum": 79,
+        "kills": 4,
+        "assists": 5
+      },
+      {
+        "nickname": " FL_CanDoit",
+        "characterNum": 31,
+        "kills": 6,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7723,
+    "teamNumber": 1,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      28,
+      53,
+      60
+    ],
+    "rankScore": 7,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "DIT_Rosner",
+        "characterNum": 28,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 53,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "DIT_Cherish",
+        "characterNum": 60,
+        "kills": 1,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7723,
+    "teamNumber": 2,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      16,
+      22,
+      56
+    ],
+    "rankScore": 5,
+    "killScore": 11.5,
+    "players": [
+      {
+        "nickname": "HB_SSil",
+        "characterNum": 16,
+        "kills": 2,
+        "assists": 12
+      },
+      {
+        "nickname": "HB_Karmis",
+        "characterNum": 22,
+        "kills": 3,
+        "assists": 8
+      },
+      {
+        "nickname": "HB_WangCho",
+        "characterNum": 56,
+        "kills": 10,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7723,
+    "teamNumber": 7,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      24,
+      36,
+      40
+    ],
+    "rankScore": 4,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "YJS_WiD",
+        "characterNum": 24,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 0,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7723,
+    "teamNumber": 4,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      50,
+      55
+    ],
+    "rankScore": 3,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "INW_Kachu",
+        "characterNum": 50,
+        "kills": 0,
+        "assists": 6
+      },
+      {
+        "nickname": "INW_NXA",
+        "characterNum": 55,
+        "kills": 0,
+        "assists": 6
+      },
+      {
+        "nickname": "INW_Isana",
+        "characterNum": 1,
+        "kills": 6,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7723,
+    "teamNumber": 6,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      24,
+      28,
+      33
+    ],
+    "rankScore": 2,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "AWK_JunbongE",
+        "characterNum": 28,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "AWK_Seobin",
+        "characterNum": 24,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "AWK_KiTA",
+        "characterNum": 33,
+        "kills": 5,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7723,
+    "teamNumber": 8,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      32,
+      51,
+      53
+    ],
+    "rankScore": 1,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 32,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 51,
+        "kills": 0,
+        "assists": 3
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 53,
+        "kills": 2,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7723,
+    "teamNumber": 5,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 0,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 0,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7724,
+    "teamNumber": 4,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      1,
+      50,
+      55
+    ],
+    "rankScore": 10,
+    "killScore": 10,
+    "players": [
+      {
+        "nickname": "INW_Kachu",
+        "characterNum": 50,
+        "kills": 4,
+        "assists": 6
+      },
+      {
+        "nickname": "INW_NXA",
+        "characterNum": 55,
+        "kills": 2,
+        "assists": 7
+      },
+      {
+        "nickname": "INW_Isana",
+        "characterNum": 1,
+        "kills": 4,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7724,
+    "teamNumber": 8,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      35,
+      46,
+      51
+    ],
+    "rankScore": 7,
+    "killScore": 8,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 46,
+        "kills": 9,
+        "assists": 2
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 51,
+        "kills": 0,
+        "assists": 9
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "kills": 3,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 7724,
+    "teamNumber": 1,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      28,
+      60,
+      76
+    ],
+    "rankScore": 5,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "DIT_Rosner",
+        "characterNum": 28,
+        "kills": 8,
+        "assists": 4
+      },
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 76,
+        "kills": 5,
+        "assists": 6
+      },
+      {
+        "nickname": "DIT_Cherish",
+        "characterNum": 60,
+        "kills": 2,
+        "assists": 10
+      }
+    ]
+  },
+  {
+    "gameId": 7724,
+    "teamNumber": 2,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      16,
+      22,
+      56
+    ],
+    "rankScore": 4,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "HB_SSil",
+        "characterNum": 16,
+        "kills": 4,
+        "assists": 1
+      },
+      {
+        "nickname": "HB_Karmis",
+        "characterNum": 22,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "HB_WangCho",
+        "characterNum": 56,
+        "kills": 0,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7724,
+    "teamNumber": 6,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      24,
+      28,
+      33
+    ],
+    "rankScore": 3,
+    "killScore": 12.5,
+    "players": [
+      {
+        "nickname": "AWK_JunbongE",
+        "characterNum": 28,
+        "kills": 5,
+        "assists": 5
+      },
+      {
+        "nickname": "AWK_Seobin",
+        "characterNum": 24,
+        "kills": 8,
+        "assists": 3
+      },
+      {
+        "nickname": "AWK_KiTA",
+        "characterNum": 33,
+        "kills": 2,
+        "assists": 11
+      }
+    ]
+  },
+  {
+    "gameId": 7724,
+    "teamNumber": 3,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      31,
+      68,
+      79
+    ],
+    "rankScore": 2,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "FL_Rachan",
+        "characterNum": 68,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "FL_Junragas",
+        "characterNum": 79,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": " FL_CanDoit",
+        "characterNum": 31,
+        "kills": 3,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7724,
+    "teamNumber": 7,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      24,
+      36,
+      40
+    ],
+    "rankScore": 1,
+    "killScore": 2.5,
+    "players": [
+      {
+        "nickname": "YJS_WiD",
+        "characterNum": 24,
+        "kills": 1,
+        "assists": 0
+      },
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "YJS_CoYo",
+        "characterNum": 40,
+        "kills": 1,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7724,
+    "teamNumber": 5,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 0,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 3,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7725,
+    "teamNumber": 7,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      24,
+      36,
+      54
+    ],
+    "rankScore": 10,
+    "killScore": 17,
+    "players": [
+      {
+        "nickname": "YJS_WiD",
+        "characterNum": 24,
+        "kills": 1,
+        "assists": 13
+      },
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 8,
+        "assists": 9
+      },
+      {
+        "nickname": "YJS_Jaksal",
+        "characterNum": 54,
+        "kills": 11,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7725,
+    "teamNumber": 3,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      31,
+      53,
+      79
+    ],
+    "rankScore": 7,
+    "killScore": 10,
+    "players": [
+      {
+        "nickname": "FL_Rachan",
+        "characterNum": 53,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "FL_Junragas",
+        "characterNum": 79,
+        "kills": 4,
+        "assists": 6
+      },
+      {
+        "nickname": " FL_CanDoit",
+        "characterNum": 31,
+        "kills": 5,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7725,
+    "teamNumber": 1,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      32,
+      60,
+      68
+    ],
+    "rankScore": 5,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 68,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "DIT_DD0",
+        "characterNum": 32,
+        "kills": 4,
+        "assists": 1
+      },
+      {
+        "nickname": "DIT_Cherish",
+        "characterNum": 60,
+        "kills": 2,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 7725,
+    "teamNumber": 6,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      24,
+      28,
+      33
+    ],
+    "rankScore": 4,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "AWK_JunbongE",
+        "characterNum": 28,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "AWK_Seobin",
+        "characterNum": 24,
+        "kills": 4,
+        "assists": 6
+      },
+      {
+        "nickname": "AWK_KiTA",
+        "characterNum": 33,
+        "kills": 3,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7725,
+    "teamNumber": 8,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      46,
+      51,
+      53
+    ],
+    "rankScore": 3,
+    "killScore": 4.5,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 46,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 51,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 53,
+        "kills": 1,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7725,
+    "teamNumber": 4,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      50,
+      55
+    ],
+    "rankScore": 2,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "INW_Kachu",
+        "characterNum": 50,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "INW_NXA",
+        "characterNum": 55,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "INW_Isana",
+        "characterNum": 1,
+        "kills": 3,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7725,
+    "teamNumber": 5,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 1,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 4,
+        "assists": 1
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 0,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 7725,
+    "teamNumber": 2,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      16,
+      22,
+      56
+    ],
+    "rankScore": 0,
+    "killScore": 1.5,
+    "players": [
+      {
+        "nickname": "HB_SSil",
+        "characterNum": 16,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "HB_Karmis",
+        "characterNum": 22,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "HB_WangCho",
+        "characterNum": 56,
+        "kills": 2,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 7726,
+    "teamNumber": 4,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      1,
+      50,
+      55
+    ],
+    "rankScore": 10,
+    "killScore": 13,
+    "players": [
+      {
+        "nickname": "INW_Kachu",
+        "characterNum": 50,
+        "kills": 3,
+        "assists": 10
+      },
+      {
+        "nickname": "INW_NXA",
+        "characterNum": 55,
+        "kills": 4,
+        "assists": 8
+      },
+      {
+        "nickname": "INW_Isana",
+        "characterNum": 1,
+        "kills": 6,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7726,
+    "teamNumber": 7,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      24,
+      36,
+      54
+    ],
+    "rankScore": 7,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "YJS_WiD",
+        "characterNum": 24,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "YJS_UmU",
+        "characterNum": 36,
+        "kills": 4,
+        "assists": 9
+      },
+      {
+        "nickname": "YJS_Jaksal",
+        "characterNum": 54,
+        "kills": 8,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 7726,
+    "teamNumber": 2,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      16,
+      22,
+      56
+    ],
+    "rankScore": 5,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "HB_SSil",
+        "characterNum": 16,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "HB_Karmis",
+        "characterNum": 22,
+        "kills": 4,
+        "assists": 5
+      },
+      {
+        "nickname": "HB_WangCho",
+        "characterNum": 56,
+        "kills": 4,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7726,
+    "teamNumber": 1,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      32,
+      60,
+      68
+    ],
+    "rankScore": 4,
+    "killScore": 1.5,
+    "players": [
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 68,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "DIT_DD0",
+        "characterNum": 32,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "DIT_Cherish",
+        "characterNum": 60,
+        "kills": 0,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 7726,
+    "teamNumber": 8,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      46,
+      51,
+      53
+    ],
+    "rankScore": 3,
+    "killScore": 9,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 46,
+        "kills": 7,
+        "assists": 4
+      },
+      {
+        "nickname": " GBW_Himekawa",
+        "characterNum": 51,
+        "kills": 0,
+        "assists": 9
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 53,
+        "kills": 4,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 7726,
+    "teamNumber": 5,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      19,
+      37,
+      67
+    ],
+    "rankScore": 2,
+    "killScore": 10.5,
+    "players": [
+      {
+        "nickname": "MV_Oracle",
+        "characterNum": 67,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "MV_GODHAMSIN",
+        "characterNum": 19,
+        "kills": 2,
+        "assists": 7
+      },
+      {
+        "nickname": "MV_EthaN",
+        "characterNum": 37,
+        "kills": 8,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7726,
+    "teamNumber": 3,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      31,
+      68,
+      79
+    ],
+    "rankScore": 1,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "FL_Rachan",
+        "characterNum": 68,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "FL_Junragas",
+        "characterNum": 79,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": " FL_CanDoit",
+        "characterNum": 31,
+        "kills": 4,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 7726,
+    "teamNumber": 6,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      35,
+      81
+    ],
+    "rankScore": 0,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "AWK_JunbongE",
+        "characterNum": 81,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": "AWK_Seobin",
+        "characterNum": 1,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "AWK_KiTA",
+        "characterNum": 35,
+        "kills": 1,
+        "assists": 2
+      }
+    ]
+  }
+]
