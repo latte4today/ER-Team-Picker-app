@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T16:51:00.282Z",
+  "generatedAt": "2026-09-01T19:07:23.116Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -174,70 +174,70 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.463
+          "total": 1.509
         },
         {
           "rank": 2,
           "variantId": "nadine:crossbow",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.271
+          "total": 1.231
         },
         {
           "rank": 3,
-          "variantId": "isol:assault_rifle",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.222
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 1.209
         },
         {
           "rank": 4,
-          "variantId": "aya:assault_rifle",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.188
-        },
-        {
-          "rank": 5,
           "variantId": "barbara:pistol",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 1.148
+          "total": 1.195
+        },
+        {
+          "rank": 5,
+          "variantId": "isol:assault_rifle",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 1.182
         },
         {
           "rank": 6,
           "variantId": "bernice:sniper_rifle",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.112
+          "total": 1.072
         },
         {
           "rank": 7,
-          "variantId": "jenny:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 1.098
-        },
-        {
-          "rank": 8,
           "variantId": "henry:shuriken",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.053
+          "total": 1.099
         },
         {
-          "rank": 9,
+          "rank": 8,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.021
+          "total": 1.067
         },
         {
-          "rank": 10,
+          "rank": 9,
           "variantId": "chiara:rapier",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.962
+          "total": 0.966
+        },
+        {
+          "rank": 10,
+          "variantId": "camilo:dual_swords",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.912
         }
       ]
     },
