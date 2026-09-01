@@ -178,6 +178,14 @@ jobs:
           node tools/check_pair_role_stats.mjs
           cp src/officialMatchStats.compact.json reports/generated/officialMatchStats.compact.json
 
+      - name: Refresh recommendation baseline
+        run: |
+          # The stats committed below change recommendation output on purpose, so
+          # the snapshot has to move with them. Without this the baseline goes
+          # stale on the very next commit and the check is red forever, which
+          # hides the drift it exists to catch.
+          node tools/recommendation_snapshot.mjs --update
+
       - name: Build empirical spectrum report
         run: |
           node tools/build_empirical_spectrum_report.mjs \
@@ -244,6 +252,7 @@ jobs:
           git add data/official-next-seeds.json 2>/dev/null || true
           git add src/officialMatchStats.compact.json 2>/dev/null || true
           git add src/pairRoleStats.js 2>/dev/null || true
+          git add snapshots/recommendation-baseline.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else

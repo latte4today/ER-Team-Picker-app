@@ -9,7 +9,8 @@ const META_PATH = path.join(ROOT, "src", "metaData.js");
 const DATA_PATH = path.join(ROOT, "src", "data.js");
 const API_BASE = "https://er.dakgg.io";
 
-// Set from --cacheMaxAgeHours in main(); 0 or less disables cache reuse entirely.
+// Set from --cacheMaxAgeHours in main(). 0 re-fetches every time-sensitive
+// response; finished match details are immutable and reused regardless.
 let cacheMaxAgeMs = 12 * 60 * 60 * 1000;
 
 const DEFAULTS = {
@@ -71,11 +72,12 @@ async function fetchJson(url, { delayMs, force = false } = {}) {
   const cachePath = path.join(CACHE_DIR, cacheName(url));
   if (!force) {
     try {
-      const fresh = isImmutableUrl(url)
-        || !Number.isFinite(cacheMaxAgeMs)
-        || cacheMaxAgeMs <= 0
-        || Date.now() - (await fs.stat(cachePath)).mtimeMs <= cacheMaxAgeMs;
-      if (fresh) return JSON.parse(await fs.readFile(cachePath, "utf8"));
+      const withinBudget = Number.isFinite(cacheMaxAgeMs)
+        && cacheMaxAgeMs > 0
+        && Date.now() - (await fs.stat(cachePath)).mtimeMs <= cacheMaxAgeMs;
+      if (isImmutableUrl(url) || withinBudget) {
+        return JSON.parse(await fs.readFile(cachePath, "utf8"));
+      }
     } catch {
       // Cache miss.
     }
@@ -382,7 +384,7 @@ async function main() {
 
   console.log(`season: ${seasonKey}`);
   console.log(`rankers: ${options.rankers}, matches per ranker: ${options.matchesPerRanker}`);
-  console.log(`cache reuse: ${cacheMaxAgeMs > 0 ? `${options.cacheMaxAgeHours}h (finished matches cached forever)` : "disabled"}`);
+  console.log(`cache reuse: ${cacheMaxAgeMs > 0 ? `${options.cacheMaxAgeHours}h` : "off"} for live data; finished matches cached forever`);
 
   const { rankers, characterById } = await collectLeaderboard(options, seasonKey);
   const dakMap = buildDakCharacterMap(characterById, localByName);

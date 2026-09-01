@@ -1,0 +1,85 @@
+name: Collect dak.gg Meta
+
+# src/metaData.js is the only stats file the archive pipeline never touches, so
+# until now it moved only when someone ran `npm run collect-dak` by hand. That is
+# how Craver sat at zero tier data for two weeks after being added. dak.gg is a
+# public API and needs no secret, so this can just run on a schedule.
+
+on:
+  schedule:
+    - cron: '30 4 * * *' # 04:30 UTC / 13:30 KST - outside the collect-seeds windows
+  workflow_dispatch:
+    inputs:
+      rankers:
+        description: Number of leaderboard rankers to sample
+        required: false
+        default: '200'
+
+concurrency:
+  group: collect-dak-meta-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Collect dak.gg meta
+        run: |
+          node tools/dak_collector.mjs \
+            --rankers "${{ github.event.inputs.rankers || '200' }}" \
+            --matchesPerRanker 12 \
+            --cacheMaxAgeHours 0
+
+      - name: Verify every character has tier data
+        run: |
+          # A character present in data.js but missing from metaData.js scores
+          # zero on every meta component and silently sinks in the rankings.
+          node --input-type=module -e '
+            const { characters } = await import("./src/data.js");
+            const { experimentTiers } = await import("./src/metaData.js");
+            const missing = characters
+              .map((c) => c.id)
+              .filter((id) => !(id in (experimentTiers.all ?? {})));
+            if (missing.length) {
+              console.error(`::error title=Characters missing tier data::${missing.join(", ")}`);
+              process.exit(1);
+            }
+            console.log(`all ${characters.length} characters have tier data`);
+          '
+
+      - name: Refresh recommendation baseline
+        run: node tools/recommendation_snapshot.mjs --update
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/metaData.js 2>/dev/null || true
+          git add snapshots/recommendation-baseline.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update dak meta [skip ci]"
+            pushed=0
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase -X theirs origin/main || { git rebase --abort 2>/dev/null || true; }
+              if git push origin main; then pushed=1; break; fi
+              echo "push attempt $attempt failed; retrying..."
+              sleep 5
+            done
+            [ "$pushed" -eq 1 ] || { echo "could not push after retries" >&2; exit 1; }
+          fi
