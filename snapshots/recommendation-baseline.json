@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T13:12:03.145Z",
+  "generatedAt": "2026-09-01T14:10:54.038Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -174,70 +174,70 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.615
+          "total": 1.463
         },
         {
           "rank": 2,
           "variantId": "nadine:crossbow",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.431
+          "total": 1.271
         },
         {
           "rank": 3,
           "variantId": "isol:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.382
+          "total": 1.222
         },
         {
           "rank": 4,
-          "variantId": "aya:sniper_rifle",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 1.355
+          "variantId": "aya:assault_rifle",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 1.188
         },
         {
           "rank": 5,
           "variantId": "barbara:pistol",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 1.3
+          "total": 1.148
         },
         {
           "rank": 6,
           "variantId": "bernice:sniper_rifle",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.271
+          "total": 1.112
         },
         {
           "rank": 7,
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.249
+          "total": 1.098
         },
         {
           "rank": 8,
           "variantId": "henry:shuriken",
-          "core": "7200501",
-          "coreName": "헌신",
-          "total": 1.213
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 1.053
         },
         {
           "rank": 9,
-          "variantId": "katja:sniper_rifle",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.057
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 1.021
         },
         {
           "rank": 10,
-          "variantId": "rio:bow",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.055
+          "variantId": "chiara:rapier",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.962
         }
       ]
     },
@@ -422,7 +422,7 @@
           "variantId": "hyejin:shuriken",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.862
+          "total": 0.864
         },
         {
           "rank": 4,
@@ -500,14 +500,14 @@
           "variantId": "leon:tonfa",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.813
+          "total": 0.797
         },
         {
           "rank": 4,
           "variantId": "sho:dagger",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.783
+          "total": 0.778
         },
         {
           "rank": 5,
@@ -542,7 +542,7 @@
           "variantId": "hyejin:shuriken",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.616
+          "total": 0.617
         },
         {
           "rank": 10,

@@ -3429,6 +3429,9 @@ function diversifyRecommendations(sortedResults, config = DIVERSITY_CONFIG) {
   return result;
 }
 
+// Exposed so retrieval backtests can rank the whole candidate pool. With the cap on,
+// the true pick falls outside the returned list ~62% of the time, and MRR ends up
+// measuring the cutoff rather than the ranking.
 const RECOMMENDATION_RESULT_CAP = 48;
 
 export { recommendationArchetype, diversifyRecommendations, DIVERSITY_CONFIG };
@@ -3480,5 +3483,5 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
     return true;
   });
 
-  return diversifyRecommendations(deduped).slice(0, RECOMMENDATION_RESULT_CAP);
+  return diversifyRecommendations(deduped).slice(0, DIVERSITY_CONFIG.resultCap ?? RECOMMENDATION_RESULT_CAP);
 }

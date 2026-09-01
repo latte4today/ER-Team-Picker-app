@@ -60,6 +60,13 @@ const CONFIGS = opt("--configs", "legacy,vector,empirical,shipped,lean_no_specia
 const GAMES = Number(opt("--games", 800));       // concordance: 샘플할 게임(로비) 수
 const MIN_TEAMS = Number(opt("--min-teams", 4)); // concordance: 게임당 최소 팀 수
 const CONTROL = !argv.includes("--no-control");  // concordance: 양성대조(solo top3합) 포함
+// Evaluation data has to follow the same policy as the stats the recommender is
+// scoring with. Tuning against unranked ground truth while the stats bundle is
+// ranked-only optimises for a population the app no longer describes.
+const MATCHING_MODE = opt("--matching-mode", "3") === "any" ? null : Number(opt("--matching-mode", "3"));
+// retrieval ranks the held-out pick against the whole pool. Leaving the shipped
+// 48-row cap in place makes MRR a measure of the cutoff, not of the ranking.
+const RESULT_CAP = Number(opt("--result-cap", 500));
 const TEAM_TIER = opt("--team-tier", null); // 팀 tierBucket 필터 (쉼표구분). 예: demigod_eternity 또는 meteor_mithril,demigod_eternity
 const TEAM_TIER_SET = TEAM_TIER ? new Set(TEAM_TIER.split(",").map((s) => s.trim())) : null;
 const BOOTSTRAP = Number(opt("--bootstrap", 0));
@@ -97,6 +104,7 @@ const rng = mulberry32(SEED);
 // 주의: 다양성은 recommend 후처리라 teamscore(evaluateCandidate)엔 영향 없음 → teamscore에선 shipped≡empirical.
 function applyConfig(name) {
   const F = VECTOR_SCORING_FLAGS, D = DIVERSITY_CONFIG;
+  D.resultCap = RESULT_CAP;
   Object.assign(LEAN_SCORING_CONFIG, {
     strengthWeight: 1.08,
     selectedStrengthWeight: 0.65,
@@ -146,6 +154,7 @@ async function sampleTeams() {
     // distinct characterIds (recommend는 같은 characterId 중복 후보를 거름)
     const cids = new Set(members.map((m) => m.characterId));
     if (cids.size !== 3) continue;
+    if (MATCHING_MODE !== null && t.matchingMode !== undefined && t.matchingMode !== null && t.matchingMode !== MATCHING_MODE) continue;
     if (TEAM_TIER_SET && !TEAM_TIER_SET.has(t.tierBucket)) continue; // 팀 티어 필터
     seen++;
     // reservoir
@@ -279,6 +288,7 @@ async function sampleGames() {
     const m = t.members;
     if (!Array.isArray(m) || m.length !== 3 || !m.every((x) => x && x.variantId)) continue;
     if (new Set(m.map((x) => x.characterId)).size !== 3) continue;
+    if (MATCHING_MODE !== null && t.matchingMode !== undefined && t.matchingMode !== null && t.matchingMode !== MATCHING_MODE) continue;
     const plc = t.result?.placement;
     if (plc == null) continue;
     const ids = m.map((x) => x.variantId);
