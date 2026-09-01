@@ -722,6 +722,16 @@ const LEAN_SCORING_CONFIG = {
   fitCap: 0.95,
   difficultyWeight: 0.03,
   stackPenaltyCap: 1.45,
+  // Sub-weights inside the fit term. Same values they were inlined with; lifted
+  // here so tools/sensitivity_analysis.mjs can perturb them like the rest.
+  fitRoleBalance: 0.24,
+  fitCoverage: 0.18,
+  fitFrontDamage: 0.14,
+  fitBacklineDamage: 0.14,
+  fitTeamDamageBudget: 0.16,
+  fitSpecialization: 0.55,
+  fitConflict: 0.12,
+  fitCompositionGuide: 0.08,
 };
 const VECTOR_CORE_BLEND = 0.30;
 
@@ -2179,17 +2189,18 @@ function leanHeuristicSum(scores) {
 }
 
 function leanFitTerm(scores) {
+  const config = LEAN_SCORING_CONFIG;
   return clamp(
-    scores.roleBalance * 0.24 +
-    scores.coverage * 0.18 +
-    scores.frontDamage * 0.14 +
-    scores.backlineDamage * 0.14 +
-    scores.teamDamageBudget * 0.16 +
-    scores.specialization * 0.55 +
-    scores.conflict * 0.12 +
-    scores.compositionGuide * 0.08,
-    -LEAN_SCORING_CONFIG.fitCap,
-    LEAN_SCORING_CONFIG.fitCap,
+    scores.roleBalance * config.fitRoleBalance +
+    scores.coverage * config.fitCoverage +
+    scores.frontDamage * config.fitFrontDamage +
+    scores.backlineDamage * config.fitBacklineDamage +
+    scores.teamDamageBudget * config.fitTeamDamageBudget +
+    scores.specialization * config.fitSpecialization +
+    scores.conflict * config.fitConflict +
+    scores.compositionGuide * config.fitCompositionGuide,
+    -config.fitCap,
+    config.fitCap,
   );
 }
 
