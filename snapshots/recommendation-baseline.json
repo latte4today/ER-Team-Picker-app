@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T05:14:30.338Z",
+  "generatedAt": "2026-09-02T09:49:01.102Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -422,7 +422,7 @@
           "variantId": "hyejin:shuriken",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.864
+          "total": 0.872
         },
         {
           "rank": 4,
@@ -500,7 +500,7 @@
           "variantId": "leon:tonfa",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.797
+          "total": 0.804
         },
         {
           "rank": 4,
@@ -542,7 +542,7 @@
           "variantId": "hyejin:shuriken",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.617
+          "total": 0.624
         },
         {
           "rank": 10,
