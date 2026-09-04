@@ -62,6 +62,8 @@
     "files": [
       "index.html",
       "src/**/*",
+      "!src/officialMatchStats.json",
+      "!src/officialMatchStats.compact.json",
       "assets/**/*",
       "electron/**/*",
       "supabase/**/*",
