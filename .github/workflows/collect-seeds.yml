@@ -118,18 +118,25 @@ jobs:
             --accumulated data/official-match-input-accumulated.json \
             --new data/official-match-input-seeded.json
 
-      - name: Restore ML corpus from durable archive on cache miss
+      - name: Restore ML corpus from durable archive when it is behind
         run: |
-          if [ ! -s data/ml-training/corpus.jsonl ]; then
-            mkdir -p data/ml-training
-            if compgen -G "$DURABLE_ARCHIVE_DIR/matches-*.jsonl.gz" > /dev/null; then
-              node tools/materialize_archive_corpus.mjs \
-                --archive-dir "$DURABLE_ARCHIVE_DIR" \
-                --out data/ml-training/corpus.jsonl \
-                --manifest-out data/ml-training/corpus.restore.manifest.json
-            else
-              echo "No prior archive shards; ML corpus will start from this run."
-            fi
+          # This used to fire only when corpus.jsonl was missing. A cached corpus
+          # is never empty, so anything added to the archive out of band - the 24
+          # dedup shards backfilled on 2026-08-21 - never reached it, and the stats
+          # were built off a third of the data we hold. Compare coverage against
+          # the archive manifest instead of testing for a missing file.
+          mkdir -p data/ml-training
+          if node tools/check_corpus_freshness.mjs \
+              --archive-dir "$DURABLE_ARCHIVE_DIR" \
+              --corpus data/ml-training/corpus.jsonl; then
+            echo "ML corpus already covers the archive."
+          elif compgen -G "$DURABLE_ARCHIVE_DIR/matches-*.jsonl.gz" > /dev/null; then
+            node tools/materialize_archive_corpus.mjs \
+              --archive-dir "$DURABLE_ARCHIVE_DIR" \
+              --out data/ml-training/corpus.jsonl \
+              --manifest-out data/ml-training/corpus.restore.manifest.json
+          else
+            echo "No prior archive shards; ML corpus will start from this run."
           fi
 
       - name: Append to ML corpus (unbounded JSONL)
@@ -175,7 +182,7 @@ jobs:
             --out src/pairRoleStats.js \
             --min-games 60 \
             --min-candidates 2
-          node tools/check_pair_role_stats.mjs
+          node tools/check_pair_role_stats.mjs --archive-dir "$DURABLE_ARCHIVE_DIR"
           cp src/officialMatchStats.compact.json reports/generated/officialMatchStats.compact.json
 
       - name: Refresh recommendation baseline
