@@ -44,7 +44,8 @@
     "package-win": "npm run clean-build && electron-builder --dir",
     "installer-win": "npm run clean-build && electron-builder --win nsis",
     "build-realtime-stats": "node tools/build_realtime_stats.mjs",
-    "check-corpus-freshness": "node tools/check_corpus_freshness.mjs --archive-dir data/external/ER-Team-Picker-data/official-archive"
+    "check-corpus-freshness": "node tools/check_corpus_freshness.mjs --archive-dir data/external/ER-Team-Picker-data/official-archive",
+    "build-bundled-stats": "node tools/build_bundled_stats.mjs"
   },
   "dependencies": {
     "electron-updater": "^6.3.9"
