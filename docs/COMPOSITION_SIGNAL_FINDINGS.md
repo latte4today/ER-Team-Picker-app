@@ -113,12 +113,52 @@ Retrieval numbers are noisy. The same shipped config measured hit@3 = 2.42% on 1
 teams and 3.64% on 55 teams from the same held-out block. Anything under a few
 hundred teams cannot separate two configs; use the paired bootstrap.
 
+## The corpus was the biggest single problem (fixed 2026-09-04)
+
+Everything above was measured against stats built from the full archive. What
+shipped was not. The collect-seeds workflow only re-materialised the ML corpus
+when the file was missing, and a cache-restored corpus is never missing, so the
+1.8M teams backfilled into the archive on 2026-08-21 never reached it. Every
+stats build since ran on a third of the data:
+
+```
+                        source teams   pair-role rows   meteor_mithril   demigod_eternity
+shipped (CI)               442,940            815              2                0
+rebuilt (full archive)   1,389,762          5,032             78                1
+```
+
+That thinning was doing more damage than any weighting decision. Same two-stage
+config, same 1,200 held-out season-41 teams, outcome gradient:
+
+```
+442,940-team stats     +0.8pp   z=0.28
+1,389,762-team stats   +4.4pp   z=1.41
+```
+
+`tools/check_corpus_freshness.mjs` now compares corpus coverage against the
+archive manifest, and `check_pair_role_stats.mjs` fails when the source-team
+count falls below 35% of the archive. Neither is a metric improvement; both stop
+this from silently recurring.
+
+## pairSynergyLift was frozen by a schema change, not by neglect
+
+`tools/pair_synergy_lift.mjs` read `members[].characterId` and
+`result.placement`. Shards written since carry `players[].character` (official
+numeric code) and a top-level `rank`. Against the current corpus the old reader
+matched nothing, printed `teams=0`, and exited 0 - so nobody noticed the June
+file was never being regenerated. It also had no ranked filter and a 200k scan
+cap, and because the corpus is written oldest-shard-first, that cap took the
+oldest slice rather than a sample.
+
+Rebuilt ranked-only on the current season: 73 pairs over 40 characters becomes
+161 pairs over 71, and the outcome gradient goes +4.4pp to +5.0pp (z 1.41 to
+1.59). The tool now defaults to `--min-season current`, refuses to write a file
+when it reads zero teams, and records its filters in the generated metadata.
+
 ## Still open
 
-- `relationship` never fires (0%) and `synergy` fires 3.3% off 17 hand-written
-  pairs. Both occupy weight in the total.
-- `pairSynergyLift` is a June build covering 40 of 90 characters. The lean pair
-  term prefers it over live official pair stats and scores slightly worse for it
-  (AUC 0.6067 vs 0.6154).
-- CI builds stats from a corpus of ~800k teams while the durable archive holds
-  2.6M; the workflow only re-materialises on a cache miss.
+- `synergy` fires 3.3% off 17 hand-written pairs and occupies weight in the
+  total. (`relationship` firing 0% is not a defect - it is the user feedback
+  loop, and there is no feedback data in a backtest.)
+- The two-stage gradient is positive but not significant (z=1.59). It is a
+  restored signal, not a proven gain.
