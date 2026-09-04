@@ -694,8 +694,12 @@ const VECTOR_SCORING_FLAGS = {
   // composition alone. Measured on held-out season-41 ranked games, the single-total
   // path had a significantly negative outcome gradient - teams that picked from its
   // top 12 placed top-3 5.5pp LESS often than teams that picked outside it (z=-2.12).
-  // Two-stage removes that (+0.8pp, z=0.33) and stops the list being nearly the same
-  // whoever you pick: mean top-5 overlap across unrelated teams drops 33% -> 15%.
+  //
+  // Two-stage reverses that. On 1,200 held-out teams with stats built from the whole
+  // archive and the ordering weights below, teams that picked from the top 12 place
+  // top-3 8.3pp MORE often (z=2.70) - the first result here that clears significance.
+  // It also stops the list being nearly the same whoever you pick: 95 of 115 variants
+  // reach a top 5 across unrelated teams, and mean top-5 overlap is 6.3%.
   useTwoStageRanking: true,
   replaceBooleanPredicates: false,
 };
@@ -748,7 +752,10 @@ const LEAN_SCORING_CONFIG = {
   officialMatchWeight: 0,
   // Stage 1 keeps this many candidates on individual merit. Smaller starves the
   // ordering of anything to choose between; larger lets weak characters surface.
-  twoStageShortlist: 45,
+  // 45 starved it: held out, 45 scored +4.1pp against 90's +8.3pp, and surfaced 55
+  // variants across unrelated teams against 95. The cost of 90 is a C/D-tier share
+  // of 32% against 28%, and roughly double the time per call.
+  twoStageShortlist: 90,
 };
 const VECTOR_CORE_BLEND = 0.30;
 
@@ -1264,6 +1271,14 @@ function evidencePairScore(a, b) {
   return clamp((row.lift ?? 0) * 1.15 * sampleConfidence * zConfidence, -0.9, 1.0);
 }
 
+// The 17 hand-written pairs in data.js. Measured 2026-09-04 against 539,719 ranked
+// season-41 teams: 11 of the 17 point the same direction as the empirical lift and
+// 6 point the opposite way, which is a coin flip, and the hand values are 2-4x
+// larger than any measured lift. It no longer matters either way - with the dense
+// official pair table in front of it this branch is unreachable on the shipped lean
+// path (emptying synergyPairs changed 0 of 196 recommendation contexts, scores
+// included). Kept because the non-lean pairScore still reads it; do not treat these
+// numbers as evidence of anything.
 function manualPairFallbackScore(a, b) {
   const raw = (synergyPairs[pairKey(a, b)] ?? 6.2) - 6.2;
   return clamp(raw * 0.25, -0.25, 0.65);
@@ -3453,7 +3468,7 @@ function diversifyRecommendations(sortedResults, config = DIVERSITY_CONFIG) {
 // measuring the cutoff rather than the ranking.
 const RECOMMENDATION_RESULT_CAP = 48;
 
-export { recommendationArchetype, diversifyRecommendations, DIVERSITY_CONFIG };
+export { recommendationArchetype, diversifyRecommendations, DIVERSITY_CONFIG, TWO_STAGE_ORDERING_WEIGHTS };
 
 // Stage 2 scores composition only: individual strength already decided who is on the
 // shortlist, so letting it vote again just reproduces the static meta list.
@@ -3461,7 +3476,15 @@ const TWO_STAGE_ORDERING_WEIGHTS = {
   selectedStrengthWeight: 0,
   fitWeight: 0,
   heuristicWeight: 0,
-  pairWeight: 3.0,
+  // Stage 2 orders on composition alone, and empirical pair evidence is the only
+  // composition signal that has ever measured above noise (AUC 0.615 against 0.521
+  // for officialPairRole). It was carrying a third of the weight it should.
+  pairWeight: 8.0,
+  // Zero, deliberately. officialPairRole is a role-shaped proxy for the same thing
+  // pairWeight measures directly, and on held-out season-41 games it costs more
+  // than it adds at every weight tried (0.55 -> 1.2 -> 2.5 fell monotonically).
+  // Growing its table 7.5x by fixing the corpus did not change that.
+  pairRoleWeight: 0,
 };
 
 function twoStageShortlist(candidates, tier, limit) {

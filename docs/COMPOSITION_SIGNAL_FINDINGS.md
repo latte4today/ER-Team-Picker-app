@@ -155,10 +155,70 @@ Rebuilt ranked-only on the current season: 73 pairs over 40 characters becomes
 1.59). The tool now defaults to `--min-season current`, refuses to write a file
 when it reads zero teams, and records its filters in the generated metadata.
 
+## The 17 hand-written synergy pairs are unreachable, and were guesswork
+
+`data.js` carries 17 hand-written pair ratings that `manualPairFallbackScore`
+reads. Two questions: are they right, and do they matter.
+
+Right: no better than chance. Against raw pair lift over 539,719 ranked
+season-41 teams, 11 of 17 point the same direction and 6 point the opposite way
+(binomial p ~ 0.17 against a coin). None of the 17 clears FDR significance even
+at the unfiltered `--fdr 1.0` cut, and the hand values are 2-4x larger than any
+lift actually measured for them:
+
+```
+lenox:hart        hand +2.6   measured -0.062  (n=169)    OPPOSITE
+estelle:hart      hand +2.0   measured -0.143  (n=192)    OPPOSITE
+hart:cathy        hand +1.3   measured -0.169  (n=175)    OPPOSITE
+rio:yuki          hand +1.8   measured +0.108  (n=1883)   same sign
+```
+
+Matter: no. `leanPairSynergyTerm` tries the empirical lift, then the dense
+official pair table, and only then this. The dense table always answers first.
+Emptying `synergyPairs` entirely changed **0 of 196** recommendation contexts -
+not the ordering, not the scores to six decimal places.
+
+So there is nothing to fix and nothing to gain by removing it from the shipped
+path. Left in place because the non-lean `pairScore` still reads it, with a
+comment at the call site so the next person does not mistake it for evidence.
+
+Coverage, for reference: of 4,005 unordered character pairs, 161 (4.0%) have a
+significant lift row and 17 (0.4%) have a hand-written entry. The other 95.6%
+rely entirely on the dense official pair table.
+
+## Re-tuning stage 2 on the fixed corpus
+
+Every weight in the two-stage path was chosen against the thin 442k-team stats.
+Re-swept on 700 tuning teams (lines 2.2M+), validated on the untouched 1,200-team
+held-out block (lines 1.6M-2.1M):
+
+```
+config                        gradient    z    variety  overlap  C/D+  ms/call
+45 / 3.0 / 0.55  (was)         +5.0pp   1.59      55     9.5%    28%     45
+90 / 8.0 / 0     (now)         +8.3pp   2.70      95     6.3%    32%     94
+45 / 8.0 / 0                   +4.1pp   1.31      55     9.9%    28%     45
+```
+
+z=2.70 is the first result in this file that clears significance.
+
+Two cautions about how this was read. On the tuning block, `45 / 8.0 / 0` scored
++8.1pp and the shortlist axis looked like noise (45, 60, 90, 120 gave 8.1, 4.6,
+8.8, 8.6). Held out, that reversed: the shortlist is what carries the result and
+45 scores *below* the old config. A single tuning block at n~160 in the top
+bucket cannot separate these; only the held-out number was trusted.
+
+`pairRoleWeight` fell monotonically with weight (0, 0.55, 1.2, 2.5 gave 6.3, 3.3,
+3.1, 2.1) and is now 0. Growing its table 7.5x by fixing the corpus did not
+rescue it - it is a role-shaped proxy for what pairWeight already measures
+directly, consistent with its AUC (0.5211 against 0.6154).
+
+Cost: two picks go 46ms to 94ms - still faster than the 148ms the single-total
+path took before two-stage existed. C/D-tier share of the top 5 goes 28% to 32%.
+
 ## Still open
 
-- `synergy` fires 3.3% off 17 hand-written pairs and occupies weight in the
-  total. (`relationship` firing 0% is not a defect - it is the user feedback
-  loop, and there is no feedback data in a backtest.)
-- The two-stage gradient is positive but not significant (z=1.59). It is a
-  restored signal, not a proven gain.
+- (`relationship` firing 0% is not a defect - it is the user feedback loop, and
+  there is no feedback data in a backtest.)
+- The gradient is measured against `isTop3`, on ranked season-41 games only. It
+  says teams that picked what we rank highly place better; it does not say our
+  ranking caused it.

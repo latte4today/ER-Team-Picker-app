@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T14:29:45.906Z",
+  "generatedAt": "2026-09-04T15:37:34.493Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -90,73 +90,73 @@
       "results": [
         {
           "rank": 1,
-          "variantId": "hyejin:shuriken",
+          "variantId": "fiora:spear",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.7
+          "total": 2.29
         },
         {
           "rank": 2,
-          "variantId": "jenny:pistol",
+          "variantId": "fiora:spear",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.654
+          "total": 2.29
         },
         {
           "rank": 3,
-          "variantId": "aya:assault_rifle",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 0.35
+          "variantId": "fiora:spear",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 2.29
         },
         {
           "rank": 4,
-          "variantId": "aya:sniper_rifle",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.323
+          "variantId": "tazia:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 2.252
         },
         {
           "rank": 5,
-          "variantId": "zahir:shuriken",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.272
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 2.066
         },
         {
           "rank": 6,
-          "variantId": "jackie:dagger",
-          "core": "7200201",
-          "coreName": "증폭 드론",
-          "total": 0.238
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 1.895
         },
         {
           "rank": 7,
-          "variantId": "jackie:dagger",
+          "variantId": "magnus:bat",
           "core": "7000701",
           "coreName": "액셀러레이터",
-          "total": 0.238
+          "total": 1.755
         },
         {
           "rank": 8,
-          "variantId": "markus:hammer",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": 0.227
+          "variantId": "magnus:bat",
+          "core": "7100101",
+          "coreName": "금강",
+          "total": 1.755
         },
         {
           "rank": 9,
-          "variantId": "sho:spear",
-          "core": "7200301",
-          "coreName": "치유 드론",
-          "total": 0.214
+          "variantId": "magnus:bat",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 1.755
         },
         {
           "rank": 10,
-          "variantId": "sho:spear",
+          "variantId": "chiara:rapier",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.214
+          "total": 1.455
         }
       ]
     },
@@ -171,73 +171,73 @@
       "results": [
         {
           "rank": 1,
-          "variantId": "chloe:shuriken",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 0.477
-        },
-        {
-          "rank": 2,
           "variantId": "lenore:guitar",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.41
+          "total": 1.465
+        },
+        {
+          "rank": 2,
+          "variantId": "chloe:shuriken",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 1.389
         },
         {
           "rank": 3,
-          "variantId": "sho:dagger",
-          "core": "7200201",
-          "coreName": "증폭 드론",
-          "total": 0.361
-        },
-        {
-          "rank": 4,
-          "variantId": "sho:dagger",
-          "core": "7200301",
-          "coreName": "치유 드론",
-          "total": 0.361
-        },
-        {
-          "rank": 5,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.296
+          "total": 1.162
         },
         {
-          "rank": 6,
+          "rank": 4,
           "variantId": "zahir:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.296
+          "total": 1.162
+        },
+        {
+          "rank": 5,
+          "variantId": "sho:dagger",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 1.112
+        },
+        {
+          "rank": 6,
+          "variantId": "sho:dagger",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 1.112
         },
         {
           "rank": 7,
           "variantId": "ian:dagger",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.27
+          "total": 0.907
         },
         {
           "rank": 8,
           "variantId": "ian:dagger",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.27
+          "total": 0.907
         },
         {
           "rank": 9,
           "variantId": "barbara:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.199
+          "total": 0.904
         },
         {
           "rank": 10,
           "variantId": "barbara:pistol",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.199
+          "total": 0.904
         }
       ]
     },
