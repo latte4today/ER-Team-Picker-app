@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T23:21:33.134Z",
+  "generatedAt": "2026-09-04T05:35:35.254Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -174,42 +174,42 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.45
+          "total": 1.449
         },
         {
           "rank": 2,
           "variantId": "nadine:crossbow",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.191
+          "total": 1.19
         },
         {
           "rank": 3,
           "variantId": "barbara:pistol",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 1.186
+          "total": 1.185
         },
         {
           "rank": 4,
           "variantId": "aya:sniper_rifle",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.142
+          "total": 1.141
         },
         {
           "rank": 5,
           "variantId": "isol:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.142
+          "total": 1.14
         },
         {
           "rank": 6,
           "variantId": "bernice:sniper_rifle",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.032
+          "total": 1.03
         },
         {
           "rank": 7,
@@ -223,21 +223,21 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.058
+          "total": 1.057
         },
         {
           "rank": 9,
           "variantId": "camilo:dual_swords",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.838
+          "total": 0.853
         },
         {
           "rank": 10,
-          "variantId": "katja:sniper_rifle",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 0.818
+          "variantId": "chiara:rapier",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.828
         }
       ]
     },
