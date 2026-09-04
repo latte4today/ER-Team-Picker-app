@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T10:13:54.519Z",
+  "generatedAt": "2026-09-04T13:30:10.986Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -171,17 +171,17 @@
       "results": [
         {
           "rank": 1,
-          "variantId": "chloe:shuriken",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 0.454
-        },
-        {
-          "rank": 2,
           "variantId": "lenore:guitar",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.446
+          "total": 0.467
+        },
+        {
+          "rank": 2,
+          "variantId": "chloe:shuriken",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.436
         },
         {
           "rank": 3,
@@ -202,42 +202,42 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.333
+          "total": 0.353
         },
         {
           "rank": 6,
           "variantId": "zahir:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.333
+          "total": 0.353
         },
         {
           "rank": 7,
           "variantId": "ian:dagger",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.265
+          "total": 0.268
         },
         {
           "rank": 8,
           "variantId": "ian:dagger",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.265
+          "total": 0.268
         },
         {
           "rank": 9,
           "variantId": "barbara:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.236
+          "total": 0.257
         },
         {
           "rank": 10,
           "variantId": "barbara:pistol",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.236
+          "total": 0.257
         }
       ]
     },
