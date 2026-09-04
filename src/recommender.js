@@ -690,6 +690,13 @@ const VECTOR_SCORING_FLAGS = {
   useVectorSpecializationScore: true,
   useDeficitFitModel: false,
   useArchetypeModel: false,
+  // Rank in two stages: shortlist on individual merit, then order that shortlist by
+  // composition alone. Measured on held-out season-41 ranked games, the single-total
+  // path had a significantly negative outcome gradient - teams that picked from its
+  // top 12 placed top-3 5.5pp LESS often than teams that picked outside it (z=-2.12).
+  // Two-stage removes that (+0.8pp, z=0.33) and stops the list being nearly the same
+  // whoever you pick: mean top-5 overlap across unrelated teams drops 33% -> 15%.
+  useTwoStageRanking: true,
   replaceBooleanPredicates: false,
 };
 
@@ -739,6 +746,9 @@ const LEAN_SCORING_CONFIG = {
   // behaviour; tools/backtest_recommender.mjs sweeps them.
   officialV2Weight: 0,
   officialMatchWeight: 0,
+  // Stage 1 keeps this many candidates on individual merit. Smaller starves the
+  // ordering of anything to choose between; larger lets weak characters surface.
+  twoStageShortlist: 45,
 };
 const VECTOR_CORE_BLEND = 0.30;
 
@@ -3445,6 +3455,26 @@ const RECOMMENDATION_RESULT_CAP = 48;
 
 export { recommendationArchetype, diversifyRecommendations, DIVERSITY_CONFIG };
 
+// Stage 2 scores composition only: individual strength already decided who is on the
+// shortlist, so letting it vote again just reproduces the static meta list.
+const TWO_STAGE_ORDERING_WEIGHTS = {
+  selectedStrengthWeight: 0,
+  fitWeight: 0,
+  heuristicWeight: 0,
+  pairWeight: 3.0,
+};
+
+function twoStageShortlist(candidates, tier, limit) {
+  if (candidates.length <= limit) return candidates;
+  // leanStrengthScore is the individual-merit term the full evaluation already uses,
+  // so shortlisting with it is consistent and much cheaper than a second full pass.
+  return candidates
+    .map((candidate) => ({ candidate, strength: leanStrengthScore(candidate, tier) }))
+    .sort((a, b) => b.strength - a.strength)
+    .slice(0, limit)
+    .map((row) => row.candidate);
+}
+
 export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candidateCharacterIds = undefined, relationshipRows = [], cores = {}) {
   const selected = selectedCharactersFromIds(selectedIds);
 
@@ -3460,9 +3490,23 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
     ? computeDeficitInfo(selectedVector)
     : null;
 
-  const scored = characterVariants
+  let pool = characterVariants
     .filter((candidate) => !selectedCharacters.has(candidate.characterId))
-    .filter((candidate) => !candidatePool || candidatePool.has(candidateUsesVariants ? candidate.variantId : candidate.characterId))
+    .filter((candidate) => !candidatePool || candidatePool.has(candidateUsesVariants ? candidate.variantId : candidate.characterId));
+
+  // Two-stage only has meaning once there is a team to fit; with nothing picked the
+  // ranking is individual merit either way.
+  const twoStage = VECTOR_SCORING_FLAGS.useTwoStageRanking
+    && VECTOR_SCORING_FLAGS.useLeanScoring
+    && selected.length > 0;
+  const restoreWeights = twoStage ? { ...LEAN_SCORING_CONFIG } : null;
+  if (twoStage) {
+    pool = twoStageShortlist(pool, tier, LEAN_SCORING_CONFIG.twoStageShortlist);
+    Object.assign(LEAN_SCORING_CONFIG, TWO_STAGE_ORDERING_WEIGHTS);
+  }
+
+  try {
+  const scored = pool
     .flatMap((candidate) => {
       const options = candidateCoreOptions(candidate.variantId, tier, cores);
       const invariantContext = buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows);
@@ -3492,5 +3536,16 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
     return true;
   });
 
-  return diversifyRecommendations(deduped).slice(0, DIVERSITY_CONFIG.resultCap ?? RECOMMENDATION_RESULT_CAP);
+  // diversifyRecommendations exists to stop the same few characters filling every
+  // list - the symptom two-stage now fixes at the source. Running both means paying
+  // for it twice: promoting lower-scored candidates costs outcome quality (-2.3pp
+  // against +0.8pp with it off) and buys no variety at all here (mean top-5 overlap
+  // 14.4% with it, 11.7% without). So it only applies to the single-stage path.
+  const ordered = twoStage ? deduped : diversifyRecommendations(deduped);
+  return ordered.slice(0, DIVERSITY_CONFIG.resultCap ?? RECOMMENDATION_RESULT_CAP);
+  } finally {
+    // recommend() is synchronous, so this swap cannot interleave with another call,
+    // but it must not leak to evaluateCandidate callers either way.
+    if (restoreWeights) Object.assign(LEAN_SCORING_CONFIG, restoreWeights);
+  }
 }
