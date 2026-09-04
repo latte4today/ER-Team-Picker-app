@@ -15,6 +15,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
+import { FALLBACK_CHARACTER_CODE_TO_ID as CHARACTER_CODE_TO_ID } from "./character_code_map.mjs";
 
 const argv = process.argv.slice(2);
 const opt = (name, fallback) => {
@@ -27,7 +28,21 @@ const BY = opt("--by", "char");
 const MIN = Number(opt("--min", 40));
 const FDR = Number(opt("--fdr", 0.10));
 const TOP = Number(opt("--top", 25));
-const SCAN = Number(opt("--scan", 200000));
+// The corpus is written oldest-shard-first, so a scan cap does not sample the
+// data - it takes the oldest slice of it. The 2026-06 build read the first
+// 200k lines and shipped a model of whatever season those happened to be.
+const SCAN = Number(opt("--scan", Infinity));
+// Ranked only, matching the policy build_official_stats.mjs applies. Normal games
+// are half the archive and are not the games this app is used for.
+const MATCHING_MODE = opt("--matching-mode", "3") === "any" ? null : Number(opt("--matching-mode", "3"));
+// Pair lift is a per-patch quantity; unlike the stats build there is no season
+// weighting here, so old seasons have to be dropped outright. "current" resolves
+// to the highest seasonId in the input rather than a number someone has to
+// remember to bump - that is exactly how this file went stale the first time.
+const MIN_SEASON_ARG = opt("--min-season", "current");
+const MIN_SEASON = MIN_SEASON_ARG === "any" ? null
+  : MIN_SEASON_ARG === "current" ? "current"
+  : Number(MIN_SEASON_ARG);
 const TEAM_TIER = opt("--team-tier", null);
 const OUT = opt("--out", null);
 const TEAM_TIER_SET = TEAM_TIER ? new Set(TEAM_TIER.split(",").map((value) => value.trim()).filter(Boolean)) : null;
@@ -39,6 +54,29 @@ if (!DATA || !fs.existsSync(DATA)) {
 
 function keyOf(member) {
   return BY === "variant" ? member.variantId : member.characterId;
+}
+
+// The archive schema moved. The 2026-06 build read `members[].characterId` and
+// `result.placement`; shards written since carry `players[].character` (the
+// official numeric code) and a top-level `rank`. Against the current corpus the
+// old reader matched nothing and reported "teams=0" without failing, which is why
+// src/pairSynergyLift.js stayed frozen at its June contents. Read both shapes.
+function teamShape(team) {
+  if (Array.isArray(team.members) && team.members.length === 3) {
+    const placement = team.result?.placement;
+    if (placement == null) return null;
+    if (!team.members.every((member) => member?.variantId && member?.characterId)) return null;
+    return { keys: team.members.map(keyOf), placement };
+  }
+  if (Array.isArray(team.players) && team.players.length === 3) {
+    const placement = team.rank;
+    if (placement == null) return null;
+    if (BY === "variant") throw new Error("--by variant is not supported on the players schema (no local variant ids)");
+    const keys = team.players.map((player) => CHARACTER_CODE_TO_ID[String(player?.character)]);
+    if (keys.some((key) => !key)) return null;
+    return { keys, placement };
+  }
+  return null;
 }
 
 function pairKey(a, b) {
@@ -70,6 +108,7 @@ async function readTeams() {
   const lobbySize = new Map();
   const rl = readline.createInterface({ input: fs.createReadStream(DATA), crlfDelay: Infinity });
   let scanned = 0;
+  const dropped = { matchingMode: 0, season: 0, shape: 0 };
 
   for await (const line of rl) {
     if (++scanned > SCAN) break;
@@ -81,17 +120,42 @@ async function readTeams() {
       continue;
     }
 
-    const members = team.members;
-    const placement = team.result?.placement;
-    if (!Array.isArray(members) || members.length !== 3 || placement == null) continue;
-    if (!members.every((member) => member?.variantId && member?.characterId)) continue;
     if (TEAM_TIER_SET && !TEAM_TIER_SET.has(team.tierBucket)) continue;
+    if (MATCHING_MODE !== null && team.matchingMode !== undefined
+        && team.matchingMode !== MATCHING_MODE) { dropped.matchingMode += 1; continue; }
+    if (typeof MIN_SEASON === "number" && Number.isFinite(team.seasonId)
+        && team.seasonId < MIN_SEASON) { dropped.season += 1; continue; }
 
-    const keys = members.map(keyOf);
+    const shape = teamShape(team);
+    if (!shape) { dropped.shape += 1; continue; }
+    const { keys, placement } = shape;
     if (new Set(keys).size !== 3) continue;
     const gameId = String(team.gameId ?? "");
-    rawTeams.push({ keys, placement, gameId });
+    rawTeams.push({ keys, placement, gameId, seasonId: team.seasonId });
     if (gameId) lobbySize.set(gameId, (lobbySize.get(gameId) ?? 0) + 1);
+  }
+
+  // "current" can only be known once the whole input has been seen. Resolving it
+  // here keeps this to a single pass over a multi-GB corpus.
+  let resolvedSeason = typeof MIN_SEASON === "number" ? MIN_SEASON : null;
+  if (MIN_SEASON === "current") {
+    // Spreading hundreds of thousands of arguments into Math.max blows the stack.
+    for (const raw of rawTeams) {
+      if (Number.isFinite(raw.seasonId) && raw.seasonId > 0 && raw.seasonId > (resolvedSeason ?? 0)) {
+        resolvedSeason = raw.seasonId;
+      }
+    }
+    if (resolvedSeason !== null) {
+      const kept = rawTeams.filter((raw) => !Number.isFinite(raw.seasonId) || raw.seasonId >= resolvedSeason);
+      dropped.season += rawTeams.length - kept.length;
+      // Spreading 500k+ elements into push blows the stack the same way Math.max does.
+      rawTeams.length = 0;
+      for (const raw of kept) rawTeams.push(raw);
+      // Lobby sizes were counted before the season filter; recount so the
+      // placement normalisation still reflects the teams we actually keep.
+      lobbySize.clear();
+      for (const raw of kept) if (raw.gameId) lobbySize.set(raw.gameId, (lobbySize.get(raw.gameId) ?? 0) + 1);
+    }
   }
 
   // 2차: 로비 크기로 placement를 8팀 스케일(1..8)로 정규화 → 7팀/8팀 로비를 일관 비교.
@@ -114,7 +178,7 @@ async function readTeams() {
     marginal.set(key, sum / marginalCount.get(key));
   }
 
-  return { teams, marginal, scanned: Math.min(scanned, SCAN) };
+  return { teams, marginal, scanned: Math.min(scanned, SCAN), dropped, resolvedSeason };
 }
 
 function buildRows(teams, marginal) {
@@ -179,7 +243,15 @@ function writeModule(outPath, rows, meta) {
   fs.writeFileSync(outPath, content);
 }
 
-const { teams, marginal, scanned } = await readTeams();
+const { teams, marginal, scanned, dropped, resolvedSeason } = await readTeams();
+console.error(`scanned ${scanned} lines | kept ${teams.length} teams | dropped ${dropped.matchingMode} unranked, ${dropped.season} old-season, ${dropped.shape} unreadable`);
+
+// Reading nothing used to produce a valid-looking file with zero pairs. Refuse,
+// so a schema change fails the build instead of quietly freezing the model.
+if (teams.length === 0) {
+  console.error("No teams read - check --matching-mode/--min-season and the input schema.");
+  process.exit(1);
+}
 const rows = buildRows(teams, marginal);
 const significant = rows.filter((row) => row.significant);
 const synergy = significant.filter((row) => row.lift > 0).sort((a, b) => b.lift - a.lift);
@@ -192,6 +264,8 @@ const meta = {
   minSamples: MIN,
   fdr: FDR,
   scanLimit: SCAN,
+  matchingMode: MATCHING_MODE,
+  minSeason: resolvedSeason,
   scanned,
   teams: teams.length,
   pairs: rows.length,
