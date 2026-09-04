@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T09:48:14.352Z",
+  "generatedAt": "2026-09-04T10:13:54.519Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -90,73 +90,73 @@
       "results": [
         {
           "rank": 1,
-          "variantId": "zahir:shuriken",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 1.884
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.7
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 1.599
-        },
-        {
-          "rank": 3,
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.573
+          "total": 0.654
+        },
+        {
+          "rank": 3,
+          "variantId": "aya:assault_rifle",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.35
         },
         {
           "rank": 4,
-          "variantId": "arda:arcana",
+          "variantId": "aya:sniper_rifle",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.505
+          "total": 0.323
         },
         {
           "rank": 5,
-          "variantId": "leon:tonfa",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 1.307
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.272
         },
         {
           "rank": 6,
-          "variantId": "nadine:crossbow",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.29
+          "variantId": "jackie:dagger",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.238
         },
         {
           "rank": 7,
-          "variantId": "adina:arcana",
-          "core": "7300201",
-          "coreName": "도깨비불",
-          "total": 1.443
+          "variantId": "jackie:dagger",
+          "core": "7000701",
+          "coreName": "액셀러레이터",
+          "total": 0.238
         },
         {
           "rank": 8,
-          "variantId": "henry:shuriken",
-          "core": "7300201",
-          "coreName": "도깨비불",
-          "total": 1.425
+          "variantId": "markus:hammer",
+          "core": "7100501",
+          "coreName": "응징",
+          "total": 0.227
         },
         {
           "rank": 9,
-          "variantId": "alex:flex",
-          "core": "7300101",
-          "coreName": "스텔라 차지",
-          "total": 1.28
+          "variantId": "sho:spear",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.214
         },
         {
           "rank": 10,
-          "variantId": "silvia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 1.216
+          "variantId": "sho:spear",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.214
         }
       ]
     },
@@ -171,73 +171,73 @@
       "results": [
         {
           "rank": 1,
-          "variantId": "zahir:shuriken",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 1.651
+          "variantId": "chloe:shuriken",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.454
         },
         {
           "rank": 2,
-          "variantId": "isol:assault_rifle",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.359
+          "variantId": "lenore:guitar",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.446
         },
         {
           "rank": 3,
-          "variantId": "nadine:crossbow",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.349
+          "variantId": "sho:dagger",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.361
         },
         {
           "rank": 4,
-          "variantId": "aya:sniper_rifle",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 1.341
+          "variantId": "sho:dagger",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.361
         },
         {
           "rank": 5,
-          "variantId": "barbara:pistol",
-          "core": "7200201",
-          "coreName": "증폭 드론",
-          "total": 1.336
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.333
         },
         {
           "rank": 6,
-          "variantId": "bernice:sniper_rifle",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 1.19
+          "variantId": "zahir:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.333
         },
         {
           "rank": 7,
-          "variantId": "henry:shuriken",
-          "core": "7200501",
-          "coreName": "헌신",
-          "total": 1.25
+          "variantId": "ian:dagger",
+          "core": "7100501",
+          "coreName": "응징",
+          "total": 0.265
         },
         {
           "rank": 8,
-          "variantId": "jenny:pistol",
+          "variantId": "ian:dagger",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.226
+          "total": 0.265
         },
         {
           "rank": 9,
-          "variantId": "katja:sniper_rifle",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.034
+          "variantId": "barbara:pistol",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.236
         },
         {
           "rank": 10,
-          "variantId": "rio:bow",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.032
+          "variantId": "barbara:pistol",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.236
         }
       ]
     },
