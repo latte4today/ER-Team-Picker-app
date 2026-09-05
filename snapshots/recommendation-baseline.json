@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T15:48:25.086Z",
+  "generatedAt": "2026-09-05T08:04:00.976Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -227,17 +227,17 @@
         },
         {
           "rank": 9,
+          "variantId": "sua:hammer",
+          "core": "7100201",
+          "coreName": "불괴",
+          "total": 0.521
+        },
+        {
+          "rank": 10,
           "variantId": "nadine:crossbow",
           "core": "7000601",
           "coreName": "아드레날린",
           "total": 0.511
-        },
-        {
-          "rank": 10,
-          "variantId": "fiora:spear",
-          "core": "7200201",
-          "coreName": "증폭 드론",
-          "total": 0.449
         }
       ]
     },

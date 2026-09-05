@@ -215,6 +215,38 @@ directly, consistent with its AUC (0.5211 against 0.6154).
 Cost: two picks go 46ms to 94ms - still faster than the 148ms the single-total
 path took before two-stage existed. C/D-tier share of the top 5 goes 28% to 32%.
 
+## Stage-1 shortlisting was a straight loss (2026-09-05)
+
+The re-tune above was chosen on the outcome gradient, variety, tier mix and speed.
+It did not measure retrieval, on the reasoning that predicting what players pick
+is not the goal. Not the goal and not measured are different things: the cost
+went unreported. Measured now, held out, 1,200 season-41 ranked teams:
+
+```
+shortlist  coverage   hit@12/random  hit@3/random  MRR/random   gradient
+   45        31.2%        0.40x          0.51x        0.47x    +4.1pp z=1.31
+   90        73.3%        0.90x          1.05x        1.00x    +8.3pp z=2.70
+   off      100.0%        1.10x          1.30x        1.25x    +7.1pp z=2.30
+```
+
+At 90, **a quarter of the picks players actually made were not in the list at
+all** - stage 1 had already discarded them - and ranking quality sat at or below
+chance as a direct consequence. That is a usability loss independent of any goal:
+a character that never appears cannot be judged.
+
+Turning stage 1 off costs 1.2pp of gradient, which is inside the noise (both
+configs significant, heavily overlapping), and buys full coverage plus
+above-chance ranking on all three retrieval metrics. Variety goes 95 to 110 of
+115 variants. Tier mix barely moves - C-and-below 30% to 32% - and a two-pick
+call costs 7ms more (88ms to 95ms).
+
+So the two-stage idea survives, but only its second half: the value was never in
+pre-filtering by individual merit, it was in ordering by composition alone.
+
+`twoStageShortlist` is null rather than a number above the roster size, because
+120 would behave identically today at 115 variants and then silently start
+filtering again the week the roster grows past it.
+
 ## Still open
 
 - (`relationship` firing 0% is not a defect - it is the user feedback loop, and

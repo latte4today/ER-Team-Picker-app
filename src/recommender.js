@@ -750,12 +750,28 @@ const LEAN_SCORING_CONFIG = {
   // behaviour; tools/backtest_recommender.mjs sweeps them.
   officialV2Weight: 0,
   officialMatchWeight: 0,
-  // Stage 1 keeps this many candidates on individual merit. Smaller starves the
-  // ordering of anything to choose between; larger lets weak characters surface.
-  // 45 starved it: held out, 45 scored +4.1pp against 90's +8.3pp, and surfaced 55
-  // variants across unrelated teams against 95. The cost of 90 is a C/D-tier share
-  // of 32% against 28%, and roughly double the time per call.
-  twoStageShortlist: 90,
+  // Stage 1 would keep this many candidates on individual merit; null means it keeps
+  // everyone and stage 2 orders the whole roster on composition alone.
+  //
+  // Filtering here was measured as a straight loss. Held out on 1,200 season-41
+  // ranked teams, against no filter at all:
+  //
+  //             coverage   hit@12/random   hit@3/random   MRR/random   gradient
+  //   45          31.2%        0.40x           0.51x        0.47x     +4.1pp z=1.31
+  //   90          73.3%        0.90x           1.05x        1.00x     +8.3pp z=2.70
+  //   off        100.0%        1.10x           1.30x        1.25x     +7.1pp z=2.30
+  //
+  // The gradient difference between 90 and off is inside the noise (both significant,
+  // heavily overlapping), and everything else moves one way. At 90, a quarter of the
+  // picks players actually made were not in the list at all, and ranking quality sat
+  // at or below chance because of it. Off, the list covers everyone and beats chance
+  // on all three retrieval metrics. Tier mix barely moves (C-and-below 30% -> 32%)
+  // and a two-pick call costs 7ms more.
+  //
+  // Deliberately null rather than a number above the roster size: 120 would behave
+  // identically today with 115 variants and then silently start filtering again the
+  // week the roster grows past it.
+  twoStageShortlist: null,
 };
 const VECTOR_CORE_BLEND = 0.30;
 
@@ -3488,7 +3504,7 @@ const TWO_STAGE_ORDERING_WEIGHTS = {
 };
 
 function twoStageShortlist(candidates, tier, limit) {
-  if (candidates.length <= limit) return candidates;
+  if (!Number.isFinite(limit) || candidates.length <= limit) return candidates;
   // leanStrengthScore is the individual-merit term the full evaluation already uses,
   // so shortlisting with it is consistent and much cheaper than a second full pass.
   return candidates
