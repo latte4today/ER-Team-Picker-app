@@ -457,6 +457,7 @@ export const zhHant = {
   "recommend.individualScore": "單體",
   "recommend.details": "詳細說明",
   "recommend.mostPlayedCore": "最常用特性",
+  "recommend.top3Rate": "前三率",
   "recommend.choosePick": "設為我的選擇",
   "feedback.done": "評價已記錄。",
   "feedback.diagnosis": "當前陣容診斷",

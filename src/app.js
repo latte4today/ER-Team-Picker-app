@@ -922,25 +922,50 @@ function synergyFaces(candidate) {
   return rows.length ? `<span class="rec-syn-row">${rows.join("")}</span>` : "";
 }
 
-// Other cores for the same build. They are ordered by how often the core is
-// actually played, not by score - the score cannot tell them apart, because the
-// only path a core has into the total runs through the heuristic bundle that stage
-// 2 zeroes (see coreFitWeight in recommender.js: giving it its own weight was
-// measured and cost outcome). So the number shown is the share of games on that
-// core, which is a fact, rather than a score, which would be the same on all of
-// them and would imply a ranking that does not exist.
-function altCoreChips(group) {
+// A build's cores all score the same - the only path a core has into the total runs
+// through the heuristic bundle stage 2 zeroes, and giving it its own weight was
+// measured and cost outcome (see coreFitWeight in recommender.js). But the core is
+// not therefore irrelevant: across the 96 builds carrying two or more cores at 200+
+// games, the spread between a build's best and worst core is 4.2 points of top-3
+// rate at the median and 13.4 at the top, and the most-played core is the
+// best-placing one only 35% of the time.
+//
+// So the core to show is chosen on how it places, not on how often it is picked.
+// Shrunk toward the build's own games-weighted average, because a core with 230
+// games and a flattering rate is mostly noise next to one with 5,000.
+const CORE_SHRINK_ALPHA = 400;
+
+function coreOutcome(row, prior) {
+  const core = row.recommendedCore;
+  const games = core?.games ?? 0;
+  const rate = core?.top3Rate;
+  if (!Number.isFinite(rate)) return prior;
+  return (rate * games + prior * CORE_SHRINK_ALPHA) / (games + CORE_SHRINK_ALPHA);
+}
+
+function coreRanked(group) {
   const all = [group.best, ...group.alts].filter((row) => row.recommendedCore?.name);
+  if (!all.length) return { all: [], prior: 0 };
+  const totalGames = all.reduce((sum, row) => sum + (row.recommendedCore.games ?? 0), 0);
+  const prior = totalGames > 0
+    ? all.reduce((sum, row) => sum + (row.recommendedCore.top3Rate ?? 0) * (row.recommendedCore.games ?? 0), 0) / totalGames
+    : 0;
+  const ranked = [...all].sort((a, b) => coreOutcome(b, prior) - coreOutcome(a, prior));
+  return { all: ranked, prior };
+}
+
+function altCoreChips(group) {
+  const { all, prior } = coreRanked(group);
   if (all.length < 2) return "";
-  const total = all.reduce((sum, row) => sum + (row.recommendedCore.games ?? 0), 0);
   const chips = all.slice(0, 4).map((row) => {
     const core = row.recommendedCore;
     const img = traitImage(core.name);
     const icon = img ? `<img src="${img}" alt="">` : "";
-    const share = total > 0 ? Math.round(100 * (core.games ?? 0) / total) : null;
-    const current = row === group.best ? " rec-alt-current" : "";
-    return `<button type="button" class="rec-alt${current}" data-choose-pick="${row.character.variantId}" data-choose-core="${core.core ?? ""}" title="${core.name}">`
-      + `${icon}<span>${core.name}</span>${share === null ? "" : `<small>${share}%</small>`}</button>`;
+    const rate = Number.isFinite(core.top3Rate) ? `${(core.top3Rate * 100).toFixed(1)}%` : "";
+    const current = row === group.display ? " rec-alt-current" : "";
+    const title = `${core.name} · ${t("recommend.top3Rate")} ${rate} · ${core.games ?? 0}`;
+    return `<button type="button" class="rec-alt${current}" data-choose-pick="${row.character.variantId}" data-choose-core="${core.core ?? ""}" title="${title}">`
+      + `${icon}<span>${core.name}</span>${rate ? `<small>${rate}</small>` : ""}</button>`;
   }).join("");
   return `<div class="rec-alts">${chips}</div>`;
 }
@@ -2838,6 +2863,12 @@ function renderRecommendations() {
     else byVariant.set(key, { best: row, alts: [] });
   }
   const unique = [...byVariant.values()];
+  // Every core in a group scores the same, so "best" is only first-in-list. Which
+  // core to show, and to record when the user takes the pick, is decided on how the
+  // core actually places.
+  for (const group of unique) {
+    group.display = coreRanked(group).all[0] ?? group.best;
+  }
   const visible = unique.slice(0, recommendLimit);
   const hasMore = unique.length > recommendLimit;
   // One compact row per rank, details behind a click. The measurement only supports
@@ -2847,6 +2878,7 @@ function renderRecommendations() {
   const cards = visible
     .map((group, index) => {
       const result = group.best;
+      const shown = group.display ?? group.best;
       const reasonList = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
       const compactLabels = compactReasonLabels(result.reasons)
         .map((label) => `<span>${label}</span>`)
@@ -2857,11 +2889,11 @@ function renderRecommendations() {
       const archetypeChip = archLabel
         ? `<div class="recommendation-archetype" data-skeleton="${arch.skeleton}" data-top3="${arch.profile?.top3 ?? ""}" data-win="${arch.profile?.win ?? ""}" data-bottom="${arch.profile?.bottom ?? ""}" data-slope="${arch.tierSlope ?? ""}">${archLabel}</div>`
         : "";
-      const core = result.recommendedCore;
-      // Most-played core for this build, not a scored choice - the score is identical
-      // across a build's cores, so calling it "recommended" would overstate it.
+      const core = shown.recommendedCore;
+      // Best-placing core for this build, shrunk for sample size - not a scored
+      // choice, since the score is identical across a build's cores.
       const coreIcon = core?.name && traitImage(core.name)
-        ? `<img class="rec-row-core" src="${traitImage(core.name)}" alt="" title="${core.name} (${t("recommend.mostPlayedCore")})" loading="lazy">`
+        ? `<img class="rec-row-core" src="${traitImage(core.name)}" alt="" title="${core.name} · ${t("recommend.top3Rate")} ${Number.isFinite(core.top3Rate) ? (core.top3Rate * 100).toFixed(1) + "%" : "-"}" loading="lazy">`
         : "";
       const name = t(`char.${result.character.id}`);
       return `
@@ -2890,7 +2922,7 @@ function renderRecommendations() {
             <ul class="rec-reasons">${reasonList}</ul>
             ${altCoreChips(group)}
             <div class="feedback-row">
-              <button class="feedback-button" type="button" data-choose-pick="${result.character.variantId}" data-choose-core="${core?.core ?? ""}">${t("recommend.choosePick")}</button>
+              <button class="feedback-button" type="button" data-choose-pick="${shown.character.variantId}" data-choose-core="${core?.core ?? ""}">${t("recommend.choosePick")}</button>
             </div>
           </div>
         </li>

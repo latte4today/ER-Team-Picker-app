@@ -457,6 +457,7 @@ export const en = {
   "recommend.individualScore": "Solo",
   "recommend.details": "Details",
   "recommend.mostPlayedCore": "most-played trait",
+  "recommend.top3Rate": "top-3 rate",
   "recommend.choosePick": "Mark as My Pick",
   "feedback.done": "Feedback recorded.",
   "feedback.diagnosis": "Team Diagnosis",
