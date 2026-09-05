@@ -3875,6 +3875,11 @@ h2 {
 
 .rec-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+/* The initial only stands in when the portrait 404s. Setting display here beats the
+   UA rule for [hidden], so it has to opt out again - the same trap as .rec-body
+   below, which is why both are spelled out. */
+.rec-face span[hidden] { display: none; }
+
 .rec-face span {
   position: absolute;
   inset: 0;
