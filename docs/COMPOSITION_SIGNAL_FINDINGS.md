@@ -247,6 +247,34 @@ pre-filtering by individual merit, it was in ordering by composition alone.
 120 would behave identically today at 115 variants and then silently start
 filtering again the week the roster grows past it.
 
+## officialV2 was sitting at zero weight for no reason (2026-09-05)
+
+`officialV2Weight` and `officialMatchWeight` were computed on every evaluation and
+shown in the recommendation reasons, but the lean total multiplied both by zero.
+The note beside them said they were the two best discriminators of a winning
+team's pick (AUC 0.599 and 0.546, against 0.546 for the total itself), which had
+never been acted on.
+
+Swept on the tuning block, validated on the untouched held-out 1,200 teams:
+
+```
+officialV2  officialMatch    gradient      hit@12  hit@3   MRR   variety
+   0.0           0.0       +9.6pp z=2.99    1.04x  1.23x  1.21x    112
+   0.4           0.0      +10.7pp z=3.33    1.05x  1.21x  1.21x    112
+   1.5           0.0      +10.5pp z=3.31    1.07x  1.13x  1.21x    109
+   0.0           0.3      +10.2pp z=3.18    1.04x  1.18x  1.21x    111
+```
+
+Shipped at 0.4. 1.5 buys the same gradient but costs hit@3 (1.23x to 1.13x) and
+variety (112 to 109) - which is what re-adding individual strength to a
+composition-only ordering looks like, and is exactly what the shortlist removal
+above was for. 0.4 moves the gradient and leaves every other metric alone.
+
+The improvement is modest and its own significance is not established - what is
+established is that the direction reproduced on both blocks (+0.8pp tuning,
++1.1pp held out) at no measurable cost. officialMatch stays 0; on top of 0.4 it
+bought nothing.
+
 ## Still open
 
 - (`relationship` firing 0% is not a defect - it is the user feedback loop, and

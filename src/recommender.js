@@ -748,11 +748,23 @@ const LEAN_SCORING_CONFIG = {
   fitConflict: 0.12,
   fitCompositionGuide: 0.08,
   // officialV2 and officialMatch are computed on every evaluation and shown in the
-  // reasons, but the lean total never used them. Measured against real ranked teams
-  // they are the two best discriminators of a winning team's pick (AUC 0.599 and
-  // 0.546) while the total itself only manages 0.546. Default 0 keeps the shipped
-  // behaviour; tools/backtest_recommender.mjs sweeps them.
-  officialV2Weight: 0,
+  // reasons; for a long time the lean total ignored both. Swept on the tuning block
+  // and validated on the untouched held-out 1,200 teams:
+  //
+  //   officialV2  officialMatch    gradient      hit@12  hit@3   MRR   variety
+  //      0.0           0.0       +9.6pp z=2.99    1.04x  1.23x  1.21x    112
+  //      0.4           0.0      +10.7pp z=3.33    1.05x  1.21x  1.21x    112
+  //      1.5           0.0      +10.5pp z=3.31    1.07x  1.13x  1.21x    109
+  //      0.0           0.3      +10.2pp z=3.18    1.04x  1.18x  1.21x    111
+  //
+  // 0.4 rather than 1.5: the gradient is the same within noise, but 1.5 costs hit@3
+  // and variety, which is what re-adding individual strength to a composition-only
+  // ordering looks like. 0.4 moves the gradient and leaves every other metric where
+  // it was. The direction reproduced on both blocks (+0.8pp tuning, +1.1pp held out).
+  //
+  // officialMatch stays 0: on its own it is worth less than officialV2, and adding
+  // it on top of 0.4 bought nothing on the tuning block.
+  officialV2Weight: 0.4,
   officialMatchWeight: 0,
   // Stage 1 would keep this many candidates on individual merit; null means it keeps
   // everyone and stage 2 orders the whole roster on composition alone.
