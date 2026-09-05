@@ -275,6 +275,50 @@ established is that the direction reproduced on both blocks (+0.8pp tuning,
 +1.1pp held out) at no measurable cost. officialMatch stays 0; on top of 0.4 it
 bought nothing.
 
+## Two-stage made the recommended trait score-irrelevant (found 2026-09-05)
+
+Noticed from the UI, not from a test: three Priya rows in a row, all 79. Checked
+it, and on all 210 multi-core builds every core for a build scores identically, to
+four decimals.
+
+The core reaches the total only through `officialCoreFit` and
+`officialCoreRoleShift` inside `leanHeuristicSum`, and stage 2 sets
+`heuristicWeight` to 0. So shipping two-stage silently switched the trait off as a
+scoring input, while the UI kept presenting a "recommended core".
+
+```
+                                  multi-core builds  identical  max spread
+two-stage on  (heuristicWeight 0)        210            210       0.0000
+two-stage off (single total)             210            121       1.1000
+two-stage on  + heuristicWeight 0.12     210            155       0.4000
+```
+
+Two fixes were tried and both rejected on held-out data.
+
+Restoring the whole heuristic bundle costs gradient (tuning block: +5.6pp at 0
+falling to +3.1pp at 0.12) while raising retrieval - the same trade the structural
+terms always make.
+
+Giving the core terms their own weight, away from that bundle, looked free on the
+tuning block: gradient flat at 5.3-6.0pp while retrieval climbed. Held out it was
+not free, and it was monotone:
+
+```
+coreFitWeight   gradient        hit@12  hit@3   MRR
+    0.00      +10.7pp z=3.33     1.05x  1.21x  1.21x
+    0.25       +8.4pp z=2.74     1.16x  1.26x  1.29x
+    1.00       +6.3pp z=2.25     1.39x  1.70x  1.48x
+    1.60       +5.9pp z=2.19     1.53x  1.78x  1.56x
+```
+
+Which core a character runs predicts what people pick and does not predict how the
+pick places. `coreFitWeight` stays 0.
+
+So the display was corrected instead of the score. The row's core is labelled as
+the most-played trait, which is what it has always actually been - core options are
+ordered by games, not by any score - and the alternates show share of games rather
+than a score that would be identical across all of them.
+
 ## Still open
 
 - (`relationship` firing 0% is not a defect - it is the user feedback loop, and

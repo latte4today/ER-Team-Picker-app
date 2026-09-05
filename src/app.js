@@ -922,19 +922,27 @@ function synergyFaces(candidate) {
   return rows.length ? `<span class="rec-syn-row">${rows.join("")}</span>` : "";
 }
 
-// Other cores for the same build, folded out of the ranking and into the row they
-// belong to. Scores are shown so a lower-ranked core is visibly a lower-ranked core.
-function altCoreChips(alts = []) {
-  if (!alts.length) return "";
-  const chips = alts.slice(0, 4).map((alt) => {
-    const core = alt.recommendedCore;
-    if (!core?.name) return "";
+// Other cores for the same build. They are ordered by how often the core is
+// actually played, not by score - the score cannot tell them apart, because the
+// only path a core has into the total runs through the heuristic bundle that stage
+// 2 zeroes (see coreFitWeight in recommender.js: giving it its own weight was
+// measured and cost outcome). So the number shown is the share of games on that
+// core, which is a fact, rather than a score, which would be the same on all of
+// them and would imply a ranking that does not exist.
+function altCoreChips(group) {
+  const all = [group.best, ...group.alts].filter((row) => row.recommendedCore?.name);
+  if (all.length < 2) return "";
+  const total = all.reduce((sum, row) => sum + (row.recommendedCore.games ?? 0), 0);
+  const chips = all.slice(0, 4).map((row) => {
+    const core = row.recommendedCore;
     const img = traitImage(core.name);
     const icon = img ? `<img src="${img}" alt="">` : "";
-    return `<button type="button" class="rec-alt" data-choose-pick="${alt.character.variantId}" data-choose-core="${core.core ?? ""}" title="${core.name}">`
-      + `${icon}<span>${core.name}</span><small>${compositionQualityScore(alt.score)}</small></button>`;
-  }).filter(Boolean).join("");
-  return chips ? `<div class="rec-alts">${chips}</div>` : "";
+    const share = total > 0 ? Math.round(100 * (core.games ?? 0) / total) : null;
+    const current = row === group.best ? " rec-alt-current" : "";
+    return `<button type="button" class="rec-alt${current}" data-choose-pick="${row.character.variantId}" data-choose-core="${core.core ?? ""}" title="${core.name}">`
+      + `${icon}<span>${core.name}</span>${share === null ? "" : `<small>${share}%</small>`}</button>`;
+  }).join("");
+  return `<div class="rec-alts">${chips}</div>`;
 }
 
 function compactReasonLabels(reasons = []) {
@@ -2850,8 +2858,10 @@ function renderRecommendations() {
         ? `<div class="recommendation-archetype" data-skeleton="${arch.skeleton}" data-top3="${arch.profile?.top3 ?? ""}" data-win="${arch.profile?.win ?? ""}" data-bottom="${arch.profile?.bottom ?? ""}" data-slope="${arch.tierSlope ?? ""}">${archLabel}</div>`
         : "";
       const core = result.recommendedCore;
+      // Most-played core for this build, not a scored choice - the score is identical
+      // across a build's cores, so calling it "recommended" would overstate it.
       const coreIcon = core?.name && traitImage(core.name)
-        ? `<img class="rec-row-core" src="${traitImage(core.name)}" alt="" title="${core.name}" loading="lazy">`
+        ? `<img class="rec-row-core" src="${traitImage(core.name)}" alt="" title="${core.name} (${t("recommend.mostPlayedCore")})" loading="lazy">`
         : "";
       const name = t(`char.${result.character.id}`);
       return `
@@ -2878,7 +2888,7 @@ function renderRecommendations() {
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
             <ul class="rec-reasons">${reasonList}</ul>
-            ${altCoreChips(group.alts)}
+            ${altCoreChips(group)}
             <div class="feedback-row">
               <button class="feedback-button" type="button" data-choose-pick="${result.character.variantId}" data-choose-core="${core?.core ?? ""}">${t("recommend.choosePick")}</button>
             </div>

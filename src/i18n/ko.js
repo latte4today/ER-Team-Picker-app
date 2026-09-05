@@ -457,6 +457,7 @@ export const ko = {
   "recommend.compositionScore": "조합",
   "recommend.individualScore": "개인",
   "recommend.details": "상세 설명",
+  "recommend.mostPlayedCore": "가장 많이 쓰는 특성",
   "recommend.choosePick": "내 선택으로 기록",
   "feedback.done": "평가가 반영되었습니다.",
   "feedback.diagnosis": "현재 조합 진단",

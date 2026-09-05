@@ -456,6 +456,7 @@ export const en = {
   "recommend.compositionScore": "Team fit",
   "recommend.individualScore": "Solo",
   "recommend.details": "Details",
+  "recommend.mostPlayedCore": "most-played trait",
   "recommend.choosePick": "Mark as My Pick",
   "feedback.done": "Feedback recorded.",
   "feedback.diagnosis": "Team Diagnosis",

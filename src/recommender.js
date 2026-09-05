@@ -766,6 +766,24 @@ const LEAN_SCORING_CONFIG = {
   // it on top of 0.4 bought nothing on the tuning block.
   officialV2Weight: 0.4,
   officialMatchWeight: 0,
+  // officialCoreFit + officialCoreRoleShift on their own, separate from the
+  // heuristic bundle they normally travel in - because stage 2 zeroes that bundle,
+  // which is what makes the recommended core score-irrelevant today.
+  //
+  // Measured and rejected. On the tuning block it looked free - gradient flat at
+  // 5.3-6.0pp while retrieval climbed. Held out on 1,200 teams it is not free at
+  // all, and the trade runs the same way as the full bundle:
+  //
+  //   coreFitWeight   gradient        hit@12  hit@3   MRR
+  //       0.00      +10.7pp z=3.33     1.05x  1.21x  1.21x
+  //       0.25       +8.4pp z=2.74     1.16x  1.26x  1.29x
+  //       1.00       +6.3pp z=2.25     1.39x  1.70x  1.48x
+  //       1.60       +5.9pp z=2.19     1.53x  1.78x  1.56x
+  //
+  // Monotone in both directions: it buys agreement with what players pick and pays
+  // for it in how those picks place. Left at 0 rather than removed so the next
+  // person can see the experiment was run, and re-run it when the corpus is bigger.
+  coreFitWeight: 0,
   // Stage 1 would keep this many candidates on individual merit; null means it keeps
   // everyone and stage 2 orders the whole roster on composition alone.
   //
@@ -2299,6 +2317,12 @@ function leanCandidateComponents(candidate, selected, tier, scores, feedbackScor
     -config.heuristicCap,
     config.heuristicCap,
   );
+  // The core only reaches the total through leanHeuristicSum, which stage 2 zeroes.
+  // That made the recommended trait score-irrelevant: every core for a build came
+  // out to the same total, to four decimals, on all 210 multi-core builds. Restoring
+  // the whole heuristic bundle to fix it costs outcome gradient (it also carries the
+  // structural terms measured at AUC 0.494), so the core terms get their own weight.
+  const coreTerm = (scores.officialCoreFit + scores.officialCoreRoleShift) * config.coreFitWeight;
   const stackPenalty = leanStackPenalty(candidate, selected, config);
   const strengthWeight = selected.length > 0
     ? config.selectedStrengthWeight
@@ -2317,6 +2341,7 @@ function leanCandidateComponents(candidate, selected, tier, scores, feedbackScor
     scores.officialMatch * config.officialMatchWeight +
     fitTerm * config.fitWeight +
     heuristicTerm +
+    coreTerm +
     scores.relationship +
     feedbackScore -
     stackPenalty

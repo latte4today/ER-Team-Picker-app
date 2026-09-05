@@ -456,6 +456,7 @@ export const zhHans = {
   "recommend.compositionScore": "阵容",
   "recommend.individualScore": "单体",
   "recommend.details": "详细说明",
+  "recommend.mostPlayedCore": "最常用特性",
   "recommend.choosePick": "设为我的选择",
   "feedback.done": "评价已记录。",
   "feedback.diagnosis": "当前阵容诊断",

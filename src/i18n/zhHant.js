@@ -456,6 +456,7 @@ export const zhHant = {
   "recommend.compositionScore": "陣容",
   "recommend.individualScore": "單體",
   "recommend.details": "詳細說明",
+  "recommend.mostPlayedCore": "最常用特性",
   "recommend.choosePick": "設為我的選擇",
   "feedback.done": "評價已記錄。",
   "feedback.diagnosis": "當前陣容診斷",

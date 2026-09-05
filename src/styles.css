@@ -4003,3 +4003,9 @@ h2 {
 .rec-head .quality-score.compact span { font-size: 13px; }
 .rec-head .quality-score.compact span::after { display: none; }
 .rec-head .quality-score.compact small { font-size: 9px; }
+
+/* The core the build is actually on, among the alternatives. */
+.rec-alt-current {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+  color: var(--ink);
+}
