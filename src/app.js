@@ -950,11 +950,20 @@ function playstyleTag(top3Rate, winRate) {
   return null;
 }
 
+// Drawn rather than written with an emoji: emoji render at different sizes and
+// weights per platform, and this sits in a 41px row next to 10px text.
+const PLAYSTYLE_ICONS = {
+  ceiling: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 1 9 8H1z" fill="currentColor"/></svg>',
+  steady: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 1 8.5 2.4v3.1C8.5 7.2 7 8.6 5 9.2 3 8.6 1.5 7.2 1.5 5.5V2.4z" fill="currentColor"/></svg>',
+};
+
 function playstyleChip(top3Rate, winRate) {
   const tag = playstyleTag(top3Rate, winRate);
   if (!tag) return "";
-  const detail = `${t("recommend.top3Rate")} ${(top3Rate * 100).toFixed(1)}% · ${t("recommend.winRate")} ${(winRate * 100).toFixed(1)}%`;
-  return `<span class="rec-style rec-style-${tag.key}" title="${detail}">${tag.label}</span>`;
+  const detail = `${tag.label} · ${t("recommend.top3Rate")} ${(top3Rate * 100).toFixed(1)}%`
+    + ` · ${t("recommend.winRate")} ${(winRate * 100).toFixed(1)}%`;
+  return `<span class="rec-style rec-style-${tag.key}" title="${detail}">`
+    + `${PLAYSTYLE_ICONS[tag.key] ?? ""}<span>${tag.label}</span></span>`;
 }
 
 // A build's cores all score the same - the only path a core has into the total runs
@@ -3007,6 +3016,7 @@ function renderRecommendations() {
               <b>${name}</b>
               <small>${characterSubtitle(result.character)}</small>
             </span>
+            ${playstyleChip(candidateRates.top3Rate, candidateRates.winRate)}
             ${synergyFaces(result.character)}
             ${coreIcon}
             ${qualityBadge(result.score, { compact: true })}
@@ -3017,7 +3027,6 @@ function renderRecommendations() {
             ${archetypeChip}
             ${scoreAxisChips(result.scoreAxes)}
             <p class="recommendation-summary">${compactText}</p>
-            ${playstyleChip(candidateRates.top3Rate, candidateRates.winRate)}
             <div class="recommendation-tags">${compactLabels}</div>
             <ul class="rec-reasons">${reasonList}</ul>
             ${altCoreChips(group)}

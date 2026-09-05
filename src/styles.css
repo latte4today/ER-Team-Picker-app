@@ -3843,7 +3843,7 @@ h2 {
 
 .rec-head {
   display: grid;
-  grid-template-columns: 18px 24px minmax(0, 1fr) auto auto auto 12px;
+  grid-template-columns: 18px 24px minmax(0, 1fr) auto auto auto auto 12px;
   align-items: center;
   gap: 7px;
   width: 100%;
@@ -3966,8 +3966,10 @@ h2 {
 .rec-body .feedback-row { margin-top: 2px; }
 
 @media (max-width: 720px) {
-  .rec-head { grid-template-columns: 18px 26px minmax(0, 1fr) auto auto 12px; gap: 6px; }
+  .rec-head { grid-template-columns: 18px 26px minmax(0, 1fr) auto auto auto 12px; gap: 5px; }
   .rec-row-core { display: none; }
+  .rec-style { padding: 1px 4px 1px 3px; }
+  .rec-style span { display: none; } /* icon only once the row gets tight */
   .rec-body { padding-left: 12px; }
 }
 
@@ -4029,16 +4031,23 @@ h2 {
   display: inline-block;
 }
 
-/* 고점형 / 안정형: win rate and top-3 rate correlate at only r=0.617, so a build
-   that places safely and one that converts are genuinely different things. */
+/* 고점 / 순방: win rate and top-3 rate correlate at only r=0.617, so a build that
+   places safely and one that converts are genuinely different things. Sits in the
+   rank row itself, where it is meant to tell two picks apart at a glance. */
 .rec-style {
-  justify-self: start;
-  padding: 2px 7px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px 1px 4px;
   border: 1px solid var(--line);
   border-radius: 999px;
   font-size: 10px;
   font-weight: 700;
+  line-height: 1.5;
+  white-space: nowrap;
 }
+
+.rec-style svg { width: 8px; height: 8px; flex: none; }
 
 .rec-style-ceiling {
   border-color: color-mix(in srgb, #f0a35e 55%, var(--line));
