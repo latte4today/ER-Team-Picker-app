@@ -3843,11 +3843,14 @@ h2 {
 
 .rec-head {
   display: grid;
-  grid-template-columns: 18px 24px minmax(0, 1fr) auto auto auto auto 12px;
+  /* Fixed tracks, not auto. With auto, a row missing a sticker or a synergy face
+     pulled everything after it left and the score column stopped lining up down
+     the list - the columns have to hold their place whether or not they are used. */
+  grid-template-columns: 16px 22px minmax(0, 1fr) 40px 40px 16px 40px 10px;
   align-items: center;
-  gap: 7px;
+  gap: 5px;
   width: 100%;
-  padding: 4px 8px;
+  padding: 4px 7px;
   border: 0;
   background: none;
   color: inherit;
@@ -3866,8 +3869,8 @@ h2 {
 
 .rec-face {
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 5px;
   overflow: hidden;
   background: var(--surface-3);
@@ -3911,7 +3914,7 @@ h2 {
 
 /* Teammate faces this pick has measured synergy with. Green ring: better than the
    two of them apart. Red ring: worse. Absent means no verdict, not "neutral". */
-.rec-syn-row { display: flex; gap: 3px; }
+.rec-syn-row { display: flex; gap: 3px; justify-content: flex-end; }
 
 .rec-syn {
   width: 18px;
@@ -3966,10 +3969,11 @@ h2 {
 .rec-body .feedback-row { margin-top: 2px; }
 
 @media (max-width: 720px) {
-  .rec-head { grid-template-columns: 18px 26px minmax(0, 1fr) auto auto auto 12px; gap: 5px; }
+  .rec-head { grid-template-columns: 18px 26px minmax(0, 1fr) 22px 42px 40px 12px; gap: 5px; }
   .rec-row-core { display: none; }
   .rec-style { padding: 1px 4px 1px 3px; }
   .rec-style span { display: none; } /* icon only once the row gets tight */
+  .rec-legend .rec-style span { display: inline; } /* the legend is the explanation */
   .rec-body { padding-left: 12px; }
 }
 
@@ -4037,6 +4041,7 @@ h2 {
 .rec-style {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 3px;
   padding: 1px 6px 1px 4px;
   border: 1px solid var(--line);
@@ -4058,3 +4063,30 @@ h2 {
   border-color: color-mix(in srgb, #6aa9f0 55%, var(--line));
   color: color-mix(in srgb, #6aa9f0 80%, var(--ink));
 }
+
+/* Empty stand-ins so a row without a sticker, a synergy face or a core icon still
+   occupies the same tracks as one that has them. */
+.rec-style-slot,
+.rec-core-slot { display: block; }
+
+/* Legend for the row markers. Took the place of a paragraph about draft stage:
+   the markers need explaining, the paragraph did not. */
+.rec-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  margin-bottom: 6px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--surface-3) 55%, transparent);
+}
+
+.rec-legend small { color: var(--muted); font-size: 10px; margin-right: 4px; }
+.rec-legend-syn { display: inline-flex; gap: 2px; }
+.rec-legend .rec-syn { background: var(--surface-3); }
+
+/* Full role line lives in the body now; the row only carries the weapon, which is
+   what actually tells two builds of the same character apart. */
+.rec-body-role { margin: 6px 0 0; color: var(--muted); font-size: 11px; }

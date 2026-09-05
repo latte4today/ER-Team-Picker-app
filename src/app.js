@@ -1128,13 +1128,18 @@ function feedbackCTABanner() {
   `;
 }
 
+// Replaced a two-line paragraph about which stage of the draft you are in. The row
+// markers need explaining and the paragraph did not, so this takes that space.
 function recommendationStageNotice() {
-  if (selectedIds.size !== 1) return "";
-
+  if (selectedIds.size === 0) return "";
   return `
-    <div class="recommendation-stage-notice">
-      <strong>${t("recommend.stageTitle")}</strong>
-      <span>${t("recommend.stageBody")}</span>
+    <div class="rec-legend">
+      <span class="rec-style rec-style-ceiling">${PLAYSTYLE_ICONS.ceiling}<span>${t("recommend.styleCeiling")}</span></span>
+      <small>${t("recommend.legendCeiling")}</small>
+      <span class="rec-style rec-style-steady">${PLAYSTYLE_ICONS.steady}<span>${t("recommend.styleSteady")}</span></span>
+      <small>${t("recommend.legendSteady")}</small>
+      <span class="rec-legend-syn"><i class="rec-syn rec-syn-good"></i><i class="rec-syn rec-syn-bad"></i></span>
+      <small>${t("recommend.legendSynergy")}</small>
     </div>
   `;
 }
@@ -3014,15 +3019,16 @@ function renderRecommendations() {
             </span>
             <span class="rec-id">
               <b>${name}</b>
-              <small>${characterSubtitle(result.character)}</small>
+              <small>${t(`weapon.${result.character.weapon}`)}</small>
             </span>
-            ${playstyleChip(candidateRates.top3Rate, candidateRates.winRate)}
-            ${synergyFaces(result.character)}
-            ${coreIcon}
+            ${playstyleChip(candidateRates.top3Rate, candidateRates.winRate) || '<span class="rec-style-slot"></span>'}
+            ${synergyFaces(result.character) || '<span class="rec-syn-row"></span>'}
+            ${coreIcon || '<span class="rec-core-slot"></span>'}
             ${qualityBadge(result.score, { compact: true })}
             <span class="rec-caret" aria-hidden="true"></span>
           </button>
           <div class="rec-body" hidden>
+            <p class="rec-body-role">${characterSubtitle(result.character)}</p>
             ${traitChip(result.character.variantId, tierSelect.value, core)}
             ${archetypeChip}
             ${scoreAxisChips(result.scoreAxes)}
