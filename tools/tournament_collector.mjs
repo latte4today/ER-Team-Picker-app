@@ -28,22 +28,44 @@ function getArg(name) {
 
 const idsArg = getArg('--ids');
 const rangeArg = getArg('--range');
+const autoMode = args.includes('--auto');
 const outArg = getArg('--out') ?? 'data/tournament_compositions.json';
 const delayMs = parseInt(getArg('--delay') ?? '800', 10);
+// How many consecutive 404s end an --auto scan. Tournament ids are not perfectly
+// dense - the season-41 set skips 7691, 7694, 7696-7697 and so on - so stopping at
+// the first miss would truncate the scan almost immediately.
+const gapTolerance = parseInt(getArg('--gap') ?? '25', 10);
+
+const outPathResolved = path.resolve(ROOT, outArg);
+let existing = [];
+if (fs.existsSync(outPathResolved)) {
+  try { existing = JSON.parse(fs.readFileSync(outPathResolved, 'utf8')); } catch { existing = []; }
+  if (!Array.isArray(existing)) existing = [];
+}
+const knownIds = new Set(existing.map(r => r.gameId));
 
 let gameIds = [];
+let autoStart = null;
 
 if (idsArg) {
   gameIds = idsArg.split(',').map(s => parseInt(s.trim(), 10)).filter(Boolean);
 } else if (rangeArg) {
   const [start, end] = rangeArg.split('-').map(Number);
   for (let i = start; i <= end; i++) gameIds.push(i);
+} else if (autoMode) {
+  // Resume from one past the highest id already collected and walk forward until
+  // the ids run out. Nobody has to know or remember the current range.
+  autoStart = (knownIds.size ? Math.max(...knownIds) : parseInt(getArg('--from') ?? '7690', 10) - 1) + 1;
 } else {
-  console.error('Usage: node tools/tournament_collector.mjs --ids 6960,6961 OR --range 6950-6980');
+  console.error('Usage: node tools/tournament_collector.mjs --auto | --ids 6960,6961 | --range 6950-6980');
   process.exit(1);
 }
 
-console.log(`Fetching ${gameIds.length} game(s): ${gameIds.join(', ')}`);
+if (autoMode) {
+  console.log(`Auto scan from ${autoStart} (have ${knownIds.size} games, ${existing.length} team rows), stopping after ${gapTolerance} consecutive misses`);
+} else {
+  console.log(`Fetching ${gameIds.length} game(s): ${gameIds.join(', ')}`);
+}
 
 // ── Fetch ────────────────────────────────────────────────────────────────────
 async function fetchGame(id) {
@@ -79,6 +101,11 @@ function extractCompositions(data) {
         gameRank: p.gameRank,
         gameId: p.gameId,
         matchingMode: p.matchingMode,
+        // Without this the rows carry no season and nothing downstream can tell a
+        // season-39 game from a season-41 one - which is how tournamentMeta.js came
+        // to mix them silently.
+        seasonId: p.seasonId,
+        startDtm: p.startDtm ?? null,
       };
     }
     teams[p.teamNumber].players.push({
@@ -110,6 +137,9 @@ function extractCompositions(data) {
 
     compositions.push({
       gameId: team.gameId,
+      seasonId: team.seasonId,
+      matchingMode: team.matchingMode,
+      startDtm: team.startDtm,
       teamNumber: team.teamNumber,
       placement: team.gameRank,           // 1 = winner, 8 = last
       win: team.gameRank === 1 ? 1 : 0,
@@ -138,14 +168,31 @@ async function main() {
   let skipped = 0;
   let errors = 0;
 
-  for (const id of gameIds) {
+  // In --auto mode the list is not known up front: walk forward until the misses
+  // pile up past the gap tolerance.
+  let cursor = autoStart;
+  let consecutiveMisses = 0;
+  const idQueue = autoMode ? null : gameIds;
+
+  for (let index = 0; ; index += 1) {
+    let id;
+    if (idQueue) {
+      if (index >= idQueue.length) break;
+      id = idQueue[index];
+    } else {
+      if (consecutiveMisses >= gapTolerance) break;
+      id = cursor;
+      cursor += 1;
+    }
     process.stdout.write(`  Game ${id} ... `);
     try {
       const data = await fetchGame(id);
       if (!data) {
         console.log('not found (skipped)');
         skipped++;
+        consecutiveMisses += 1;
       } else {
+        consecutiveMisses = 0;
         const comps = extractCompositions(data);
         if (!comps) {
           console.log('no game data (skipped)');
@@ -161,9 +208,7 @@ async function main() {
       errors++;
     }
 
-    if (delayMs > 0 && gameIds.indexOf(id) < gameIds.length - 1) {
-      await sleep(delayMs);
-    }
+    if (delayMs > 0) await sleep(delayMs);
   }
 
   console.log(`\nSummary: ${fetched} games fetched, ${skipped} skipped, ${errors} errors`);
@@ -180,11 +225,17 @@ async function main() {
     if (allResults.length > 24) console.log(`  ... and ${allResults.length - 24} more`);
   }
 
-  // Save output
-  const outPath = path.resolve(ROOT, outArg);
+  // Save output. --auto appends to what is already there; a full re-scan every
+  // run would be pointless traffic and would lose games the API has since dropped.
+  const outPath = outPathResolved;
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  fs.writeFileSync(outPath, JSON.stringify(allResults, null, 2), 'utf8');
-  console.log(`\nSaved to ${outPath}`);
+  const merged = autoMode ? [...existing, ...allResults.filter(r => !knownIds.has(r.gameId))] : allResults;
+  merged.sort((a, b) => (a.gameId - b.gameId) || (a.placement - b.placement));
+  fs.writeFileSync(outPath, JSON.stringify(merged, null, 2), "utf8");
+  const gamesSaved = new Set(merged.map(r => r.gameId)).size;
+  console.log("");
+  console.log(`Saved to ${outPath}`);
+  console.log(`  ${gamesSaved} games, ${merged.length} team rows` + (autoMode ? ` (was ${knownIds.size} games)` : ""));
 
   // Print aggregated win rates per composition (if multiple games)
   if (fetched > 1 && allResults.length > 0) {

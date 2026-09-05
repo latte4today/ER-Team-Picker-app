@@ -1,0 +1,89 @@
+name: Collect Tournament Games
+
+# Pro games carry composition signal that ranked averages away: in the season-39
+# set one trio accounted for 27 of 79 games. But the collector needed someone to
+# know the current dak.gg game-id range and type it in, so nobody ran it, and
+# src/tournamentMeta.js sat on 22 games while seasons rolled over.
+#
+# --auto resumes from the highest id already collected and walks forward, so this
+# needs no arguments and no maintenance. Daily is generous for a schedule that
+# publishes a handful of games a week; it just means new ones land within a day.
+
+on:
+  schedule:
+    - cron: '15 6 * * *' # 06:15 UTC / 15:15 KST - clear of the other two workflows
+  workflow_dispatch:
+    inputs:
+      gap:
+        description: Consecutive missing ids that end the forward scan
+        required: false
+        default: '25'
+
+concurrency:
+  group: collect-tournament-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Scan forward for new tournament games
+        run: |
+          node tools/tournament_collector.mjs \
+            --auto \
+            --out data/tournament_s41.json \
+            --delay 800 \
+            --gap "${{ github.event.inputs.gap || '25' }}"
+
+      - name: Rebuild tournament meta
+        run: node tools/build_tournament_meta.mjs --in data/tournament_s41.json
+
+      - name: Verify the module is not empty
+        run: |
+          # An empty or collapsed tournamentMeta silently zeroes the tournament term
+          # for everyone, exactly like the pair-role table did.
+          node --input-type=module -e '
+            const { tournamentTotalGames, tournamentCharStats } = await import("./src/tournamentMeta.js");
+            const chars = Object.keys(tournamentCharStats ?? {}).length;
+            if (!tournamentTotalGames || chars < 20) {
+              console.error(`::error title=Tournament meta collapsed::games=${tournamentTotalGames} characters=${chars}`);
+              process.exit(1);
+            }
+            console.log(`tournament meta ok: ${tournamentTotalGames} games, ${chars} characters`);
+          '
+
+      - name: Refresh recommendation baseline
+        run: node tools/recommendation_snapshot.mjs --update
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/tournament_s41.json src/tournamentMeta.js snapshots/recommendation-baseline.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No new tournament games"
+          else
+            git commit -m "chore: update tournament games [skip ci]"
+            pushed=0
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase -X theirs origin/main || { git rebase --abort 2>/dev/null || true; }
+              if git push origin main; then pushed=1; break; fi
+              echo "push attempt $attempt failed; retrying..."
+              sleep 5
+            done
+            [ "$pushed" -eq 1 ] || { echo "could not push after retries" >&2; exit 1; }
+          fi
