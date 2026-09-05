@@ -3815,3 +3815,186 @@ h2 {
     display: none;
   }
 }
+
+/* ── Compact recommendation list ──────────────────────────────────────────────
+   The card list was 236px per entry, so fewer than two fitted in the panel and
+   seeing rank 12 meant scrolling roughly 2,800px. The measurement supports
+   "these twelve are worth considering" and not the ordering inside them, so the
+   list is built to make twelve readable at once. Everything that used to sit in
+   the card body is still here, one click away. */
+.rec-list {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rec-item {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-2);
+  overflow: hidden;
+  transition: border-color 140ms ease;
+}
+
+.rec-item:hover { border-color: color-mix(in srgb, var(--accent) 48%, var(--line)); }
+.rec-item-open { border-color: color-mix(in srgb, var(--accent) 64%, var(--line)); }
+
+.rec-head {
+  display: grid;
+  grid-template-columns: 18px 24px minmax(0, 1fr) auto auto auto 12px;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 4px 8px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rec-num {
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.rec-face {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--surface-3);
+}
+
+.rec-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.rec-face span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Name and role share a line. Stacking them was most of the row height, and the
+   whole point of this list is that twelve ranks fit without scrolling. */
+.rec-id {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.rec-id b { font-size: 13px; font-weight: 800; white-space: nowrap; }
+
+.rec-id small {
+  color: var(--muted);
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Teammate faces this pick has measured synergy with. Green ring: better than the
+   two of them apart. Red ring: worse. Absent means no verdict, not "neutral". */
+.rec-syn-row { display: flex; gap: 3px; }
+
+.rec-syn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid transparent;
+}
+
+.rec-syn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rec-syn-good { border-color: var(--good, #4ade80); }
+.rec-syn-bad { border-color: var(--bad, #f87171); }
+.rec-syn-bad img { filter: grayscale(0.55); }
+
+.rec-row-core { width: 18px; height: 18px; border-radius: 4px; display: block; }
+
+.rec-caret {
+  width: 100%;
+  height: 6px;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: rotate(45deg) translate(-1px, -1px);
+  transition: transform 140ms ease;
+  justify-self: center;
+}
+
+.rec-item-open .rec-caret { transform: rotate(-135deg) translate(-2px, -2px); }
+
+/* display:grid would beat the UA [hidden] rule, so the body has to opt out again. */
+.rec-body[hidden] { display: none; }
+
+.rec-body {
+  display: grid;
+  gap: 6px;
+  padding: 2px 10px 10px 49px;
+  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+}
+
+.rec-body .recommendation-summary { margin: 6px 0 0; font-size: 12px; }
+.rec-body .recommendation-score-axes { margin: 0; }
+
+.rec-reasons {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 16px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.rec-body .feedback-row { margin-top: 2px; }
+
+@media (max-width: 720px) {
+  .rec-head { grid-template-columns: 18px 26px minmax(0, 1fr) auto auto 12px; gap: 6px; }
+  .rec-row-core { display: none; }
+  .rec-body { padding-left: 12px; }
+}
+
+/* Alternate cores for the same build, folded out of the ranking into their row. */
+.rec-alts { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.rec-alt {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px 3px 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-3) 80%, transparent);
+  color: var(--muted);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.rec-alt:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); color: var(--ink); }
+.rec-alt img { width: 15px; height: 15px; border-radius: 3px; display: block; }
+.rec-alt small { font-variant-numeric: tabular-nums; opacity: 0.75; }
+
+/* The shared compact badge has a 34px floor, which set the row height on its own.
+   Inside a rank row it only has to stay readable next to 13px text. */
+.rec-head .quality-score.compact {
+  min-width: 40px;
+  min-height: 24px;
+  padding: 2px 5px;
+  gap: 3px;
+}
+
+.rec-head .quality-score.compact span { font-size: 13px; }
+.rec-head .quality-score.compact span::after { display: none; }
+.rec-head .quality-score.compact small { font-size: 9px; }

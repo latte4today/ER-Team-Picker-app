@@ -20,6 +20,7 @@ import {
   officialTraitBuildStatsByTier as bundledOfficialTraitBuildStatsByTier,
 } from "./officialMatchStats.js";
 import { coreIconPath, topCoreRowsForVariant } from "./traitMeta.js";
+import { officialPairSynergyLift } from "./pairSynergyLift.js";
 import { teamMetricProfile, teamMetricTags } from "./characterMetrics.js";
 import {
   helpsMeleeEngage,
@@ -373,7 +374,7 @@ let activeView = appMain?.dataset.view ?? "setup";
 let activeUnionPlayer = 0;
 let activeUnionRole = "all";
 let isUnionCalculating = false;
-let recommendLimit = 5;
+let recommendLimit = 12;
 let fullTeamLimit = 5;
 let unionComboLimit = 5;
 let officialStatsVersion = "bundled";
@@ -896,6 +897,44 @@ function characterBrief(characterId) {
 
 function characterSubtitle(character) {
   return [roleLabel(character.role), t(`weapon.${character.weapon}`), character.weaponStyle].filter(Boolean).join(" · ");
+}
+
+// Faces of the teammates this pick has *measured* synergy with. Only the 161
+// character pairs that cleared FDR appear here - the rest have data but no verdict,
+// and inventing a verdict for them would be the thing this whole app tries not to do.
+function synergyFaces(candidate) {
+  const rows = [];
+  for (const variantId of selectedIds) {
+    const mate = variantById(variantId);
+    if (!mate || mate.characterId === candidate.characterId) continue;
+    const key = [candidate.characterId, mate.characterId].sort().join("|");
+    const lift = officialPairSynergyLift[key]?.lift;
+    if (!Number.isFinite(lift) || lift === 0) continue;
+    const good = lift > 0;
+    const name = t(`char.${mate.id}`);
+    const sign = good ? "+" : "";
+    rows.push(
+      `<span class="rec-syn ${good ? "rec-syn-good" : "rec-syn-bad"}" title="${name} ${sign}${lift.toFixed(2)}">`
+      + `<img src="${mate.image}" alt="${name}" loading="lazy">`
+      + `</span>`,
+    );
+  }
+  return rows.length ? `<span class="rec-syn-row">${rows.join("")}</span>` : "";
+}
+
+// Other cores for the same build, folded out of the ranking and into the row they
+// belong to. Scores are shown so a lower-ranked core is visibly a lower-ranked core.
+function altCoreChips(alts = []) {
+  if (!alts.length) return "";
+  const chips = alts.slice(0, 4).map((alt) => {
+    const core = alt.recommendedCore;
+    if (!core?.name) return "";
+    const img = traitImage(core.name);
+    const icon = img ? `<img src="${img}" alt="">` : "";
+    return `<button type="button" class="rec-alt" data-choose-pick="${alt.character.variantId}" data-choose-core="${core.core ?? ""}" title="${core.name}">`
+      + `${icon}<span>${core.name}</span><small>${compositionQualityScore(alt.score)}</small></button>`;
+  }).filter(Boolean).join("");
+  return chips ? `<div class="rec-alts">${chips}</div>` : "";
 }
 
 function compactReasonLabels(reasons = []) {
@@ -1940,7 +1979,7 @@ function syncSelectedFromSlots() {
     if (variantId) selectedIds.add(variantId);
   });
   chosenPickId = slotAssignments[0];
-  recommendLimit = 5;
+  recommendLimit = 12;
   fullTeamLimit = 5;
   _fullTeamState = { status: "idle", compositions: [], anchorId: null };
   setupRecommendationRenderKey = "";
@@ -2778,55 +2817,81 @@ function renderRecommendations() {
     recommendations.innerHTML = `<p class="empty-state">${t("recommend.noPlayable")}</p>`;
     return;
   }
-  const visible = results.slice(0, recommendLimit);
-  const hasMore = results.length > recommendLimit;
+  // recommend() returns one entry per (variant, core), so the raw list spends
+  // several ranks on the same build: a 12-row list was showing Priya three times
+  // and Leon five, six distinct characters in twelve slots. Collapse to one row per
+  // build and keep the other cores as alternatives inside it, so twelve rows mean
+  // twelve things to actually choose between.
+  const byVariant = new Map();
+  for (const row of results) {
+    const key = row.character.variantId;
+    const group = byVariant.get(key);
+    if (group) group.alts.push(row);
+    else byVariant.set(key, { best: row, alts: [] });
+  }
+  const unique = [...byVariant.values()];
+  const visible = unique.slice(0, recommendLimit);
+  const hasMore = unique.length > recommendLimit;
+  // One compact row per rank, details behind a click. The measurement only supports
+  // "these twelve are worth considering" - it does not support the ordering inside
+  // them - so the list is built to make twelve readable at once rather than to make
+  // one look authoritative.
   const cards = visible
-    .map((result, index) => {
+    .map((group, index) => {
+      const result = group.best;
       const reasonList = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
       const compactLabels = compactReasonLabels(result.reasons)
         .map((label) => `<span>${label}</span>`)
         .join("");
       const compactText = compactReasonText(result.reasons);
-      // 아키타입 칩: 표시 텍스트는 모델의 label(데이터)뿐, 나머지는 data-* 속성으로(문구는 별도 수정).
       const arch = result.archetype;
       const archLabel = archetypeDisplayLabel(arch);
       const archetypeChip = archLabel
         ? `<div class="recommendation-archetype" data-skeleton="${arch.skeleton}" data-top3="${arch.profile?.top3 ?? ""}" data-win="${arch.profile?.win ?? ""}" data-bottom="${arch.profile?.bottom ?? ""}" data-slope="${arch.tierSlope ?? ""}">${archLabel}</div>`
         : "";
+      const core = result.recommendedCore;
+      const coreIcon = core?.name && traitImage(core.name)
+        ? `<img class="rec-row-core" src="${traitImage(core.name)}" alt="" title="${core.name}" loading="lazy">`
+        : "";
+      const name = t(`char.${result.character.id}`);
       return `
-        <article class="recommendation-card">
-          <div class="recommendation-avatar">
-            <img src="${result.character.image}" alt="" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.hidden = false;">
-            <span hidden>${t(`char.${result.character.id}`).slice(0, 1)}</span>
-          </div>
-          <div class="recommendation-main">
-            <div class="recommendation-title">
-              <span class="recommendation-rank">${t("recommend.rank", { index: index + 1 })}</span>
-              <h3>${t(`char.${result.character.id}`)}</h3>
-              <span>${characterSubtitle(result.character)}</span>
-            </div>
-            ${traitChip(result.character.variantId, tierSelect.value, result.recommendedCore)}
+        <li class="rec-item">
+          <button class="rec-head" type="button" data-rec-toggle aria-expanded="false">
+            <span class="rec-num">${index + 1}</span>
+            <span class="rec-face">
+              <img src="${result.character.image}" alt="" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.hidden = false;">
+              <span hidden>${name.slice(0, 1)}</span>
+            </span>
+            <span class="rec-id">
+              <b>${name}</b>
+              <small>${characterSubtitle(result.character)}</small>
+            </span>
+            ${synergyFaces(result.character)}
+            ${coreIcon}
+            ${qualityBadge(result.score, { compact: true })}
+            <span class="rec-caret" aria-hidden="true"></span>
+          </button>
+          <div class="rec-body" hidden>
+            ${traitChip(result.character.variantId, tierSelect.value, core)}
             ${archetypeChip}
             ${scoreAxisChips(result.scoreAxes)}
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
-            <details class="recommendation-details">
-              <summary>${t("recommend.details")}</summary>
-              <ul>${reasonList}</ul>
-            </details>
+            <ul class="rec-reasons">${reasonList}</ul>
+            ${altCoreChips(group.alts)}
             <div class="feedback-row">
-              <button class="feedback-button" type="button" data-choose-pick="${result.character.variantId}" data-choose-core="${result.recommendedCore?.core ?? ""}">${t("recommend.choosePick")}</button>
+              <button class="feedback-button" type="button" data-choose-pick="${result.character.variantId}" data-choose-core="${core?.core ?? ""}">${t("recommend.choosePick")}</button>
             </div>
           </div>
-          ${qualityBadge(result.score)}
-        </article>
+        </li>
       `;
     })
     .join("");
+  const list = `<ol class="rec-list">${cards}</ol>`;
   const showMoreBtn = hasMore
     ? `<button class="show-more-button" type="button" data-show-more-recommendations>${t("recommend.showMore", { remaining: results.length - recommendLimit })}</button>`
     : "";
-  recommendations.innerHTML = feedbackCTABanner() + recommendationStageNotice() + cards + showMoreBtn;
+  recommendations.innerHTML = feedbackCTABanner() + recommendationStageNotice() + list + showMoreBtn;
 }
 
 function renderRecommendationsPreservingRankScroll() {
@@ -3474,9 +3539,22 @@ recommendations.addEventListener("click", (event) => {
     return;
   }
 
+  const recToggle = event.target.closest("[data-rec-toggle]");
+  if (recToggle) {
+    const item = recToggle.closest(".rec-item");
+    const body = item?.querySelector(".rec-body");
+    if (body) {
+      const open = body.hidden;
+      body.hidden = !open;
+      recToggle.setAttribute("aria-expanded", String(open));
+      item.classList.toggle("rec-item-open", open);
+    }
+    return;
+  }
+
   const showMoreButton = event.target.closest("[data-show-more-recommendations]");
   if (showMoreButton) {
-    recommendLimit += 5;
+    recommendLimit += 12;
     renderRecommendations();
     return;
   }
