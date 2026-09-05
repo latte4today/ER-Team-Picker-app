@@ -164,7 +164,33 @@ jobs:
             --incremental
           cp "$DURABLE_ARCHIVE_DIR/officialMatchSummary.json" reports/officialMatchSummary.json
 
+      # This used to sit after the stats build. On 2026-09-04 the stats build ran
+      # out of heap and the job died before ever pushing - so three hours of
+      # rate-limited collection went to the artifact and never reached the durable
+      # archive. Twice. Collection is expensive and irreplaceable; the analysis on
+      # top of it is neither. The push goes first now.
+      - name: Push archive shard to data repo
+        if: steps.data_archive.outputs.ready == 'true'
+        continue-on-error: true
+        run: |
+          cd data-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add official-archive
+          if git diff --staged --quiet; then
+            echo "No archive changes to commit"
+          else
+            git commit -m "archive: append official match shard ${CURRENT_PATCH}"
+            git push
+          fi
+
       - name: Build combined stats
+        # The archive passed 3M teams on 2026-09-04 and this step died with exit 134,
+        # "Reached heap limit". build_official_stats holds the corpus in memory; it now
+        # drops unranked teams at load, which halves that, but the default heap on a
+        # runner is still not sized for a corpus this big and the archive keeps growing.
+        env:
+          NODE_OPTIONS: --max-old-space-size=12288
         run: |
           mkdir -p reports/generated
           node tools/build_official_stats.mjs \
@@ -194,6 +220,9 @@ jobs:
           node tools/recommendation_snapshot.mjs --update
 
       - name: Build empirical spectrum report
+        # Reads the same multi-GB corpus.
+        env:
+          NODE_OPTIONS: --max-old-space-size=12288
         run: |
           node tools/build_empirical_spectrum_report.mjs \
             --in data/ml-training/corpus.jsonl \
@@ -203,26 +232,13 @@ jobs:
             --top 60
 
       - name: Export ML training artifact
+        env:
+          NODE_OPTIONS: --max-old-space-size=12288
         run: |
           node tools/export_ml_training_data.mjs \
             --in data/official-match-input-accumulated.json \
             --out-dir data/ml-training \
             --patch "$CURRENT_PATCH"
-
-      - name: Push archive shard to data repo
-        if: steps.data_archive.outputs.ready == 'true'
-        continue-on-error: true
-        run: |
-          cd data-repo
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add official-archive
-          if git diff --staged --quiet; then
-            echo "No archive changes to commit"
-          else
-            git commit -m "archive: append official match shard ${CURRENT_PATCH}"
-            git push
-          fi
 
       - name: Upload collected data artifact
         if: always()

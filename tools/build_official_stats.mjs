@@ -836,7 +836,16 @@ async function build() {
   // legacy wrapped-JSON format ({ teams: [...] }).
   const dedupKeys = new Set();
   const allTeams = [];
+  // Unranked games are roughly half the archive and are dropped later anyway. The
+  // matchingMode test is a plain field read with no dependency on the code maps
+  // built further down, so doing it here instead of in the aggregation loop keeps
+  // half the corpus - and half the dedup keys - out of memory entirely. The
+  // archive passed 3.06M teams on 2026-09-04 and CI died with exit 134 on this
+  // load; the counts below still report the pre-filter totals.
+  let droppedAtLoadByMode = 0;
   const pushTeam = (team) => {
+    if (args.matchingMode !== null && team.matchingMode !== undefined
+        && team.matchingMode !== args.matchingMode) { droppedAtLoadByMode += 1; return; }
     const key = `${team.gameId}:${team.teamKey}`;
     if (dedupKeys.has(key)) return;
     dedupKeys.add(key);
@@ -860,6 +869,11 @@ async function build() {
     }
     console.log(`Loaded ${path.relative(ROOT, inPath)}: ${allTeams.length - before} teams (total: ${allTeams.length})`);
   }
+  // Everything downstream reports against the corpus as it arrived, not as filtered.
+  const rawTeamCount = allTeams.length + droppedAtLoadByMode;
+  if (droppedAtLoadByMode) {
+    console.log(`Held in memory: ${allTeams.length} of ${rawTeamCount} teams (${droppedAtLoadByMode} unranked dropped at load)`);
+  }
 
   const codeMap = await buildCharacterCodeMap(args.fetchCharacterData);
   const traitNameMap = await buildTraitNameMap(args.fetchCharacterData);
@@ -875,7 +889,7 @@ async function build() {
   let validTeams = 0;
   let droppedByUnknownChar = 0;
   let droppedByInvalidSize = 0;
-  let droppedByMode = 0;
+  let droppedByMode = droppedAtLoadByMode;
   let droppedBySeason = 0;
 
   // Ranked squad is what the recommender is meant to describe; ~47% of the archive
@@ -976,10 +990,10 @@ async function build() {
     source: "official-api-merged",
     generatedAt: new Date().toISOString(),
     patch: args.patch,
-    totalTeams: allTeams.length,
+    totalTeams: rawTeamCount,
     mappedTeams,
     validTeams,
-    droppedTeams: allTeams.length - validTeams,
+    droppedTeams: rawTeamCount - validTeams,
     dropReasons: {
       unknownChar: droppedByUnknownChar,
       invalidSize: droppedByInvalidSize,
@@ -1028,16 +1042,16 @@ async function build() {
 
   console.log(`saved JS: ${path.relative(ROOT, args.out)}`);
   console.log(`saved JSON: ${path.relative(ROOT, args.jsonOut)}`);
-  const droppedTeams = allTeams.length - validTeams;
-  if (validTeams === 0 && allTeams.length > 0) {
+  const droppedTeams = rawTeamCount - validTeams;
+  if (validTeams === 0 && rawTeamCount > 0) {
     // A filter that matches nothing used to sail through here and hand the app an
     // empty stats blob. Loading every team and keeping none is always a bug.
-    console.error(`ERROR: every one of ${allTeams.length} teams was filtered out - refusing to publish empty stats.`);
+    console.error(`ERROR: every one of ${rawTeamCount} teams was filtered out - refusing to publish empty stats.`);
     console.error(`  drops: ${JSON.stringify({ unknownChar: droppedByUnknownChar, invalidSize: droppedByInvalidSize, matchingMode: droppedByMode, season: droppedBySeason })}`);
     process.exitCode = 1;
   }
   console.log(JSON.stringify({
-    rawTeams: allTeams.length,
+    rawTeams: rawTeamCount,
     mappedTeams,
     validTeams,
     droppedTeams,
