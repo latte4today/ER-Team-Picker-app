@@ -4028,3 +4028,24 @@ h2 {
   background: var(--accent-strong, #6ee7b7);
   display: inline-block;
 }
+
+/* 고점형 / 안정형: win rate and top-3 rate correlate at only r=0.617, so a build
+   that places safely and one that converts are genuinely different things. */
+.rec-style {
+  justify-self: start;
+  padding: 2px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.rec-style-ceiling {
+  border-color: color-mix(in srgb, #f0a35e 55%, var(--line));
+  color: color-mix(in srgb, #f0a35e 80%, var(--ink));
+}
+
+.rec-style-steady {
+  border-color: color-mix(in srgb, #6aa9f0 55%, var(--line));
+  color: color-mix(in srgb, #6aa9f0 80%, var(--ink));
+}

@@ -388,6 +388,42 @@ the most-played trait, which is what it has always actually been - core options 
 ordered by games, not by any score - and the alternates show share of games rather
 than a score that would be identical across all of them.
 
+## Placing and winning are different properties (2026-09-06)
+
+Everything above optimises and reports on top-3 rate. That hides a real
+distinction: a composition that avoids elimination is not the same as one that
+converts when its items come together.
+
+Across the 115 builds with 3,000+ games the two rates correlate at **r=0.617**.
+
+```
+                        top-3 rate        win rate
+charlotte:arcana      35.0% (114th)     14.8% (14th)
+theodore:sniper_rifle 37.6% (105th)     14.6% (21st)
+daniel:dagger         42.4%  (11th)     12.2% (92nd)
+alex:flex             43.6%   (3rd)     13.1% (71st)
+```
+
+Charlotte is second-worst in the pool at reaching top 3 and 14th at winning.
+Daniel is the reverse. Ranking either one by top-3 rate alone describes it wrongly.
+
+It shows up in cores too: of the 54 builds offering a core choice, **12 (22%)**
+have a different best core for top-3 rate than for win rate.
+
+```
+fiora:spear   top-3 best 증폭 드론 39.6%/13.6%   win best 빛의 수호 39.6%/16.5%
+isol:pistol   top-3 best 폭발 선인장 45.2%/13.7%  win best 헌신 42.4%/14.5%
+```
+
+Same top-3 rate for Fiora's two cores, three points of win rate between them.
+
+Labelled rather than scored, for now. win/top-3 averages 0.333 across the pool
+with the middle half between 0.318 and 0.350, so a build more than 5% off the pool
+ratio - roughly the quartile line - is tagged 고점형 or 안정형, and both rates are
+shown on the core chips. Choosing which one to *optimise* is a different change:
+the outcome gradient is measured against isTop3 throughout, and switching the
+objective would invalidate every number in this file.
+
 ## Still open
 
 - (`relationship` firing 0% is not a defect - it is the user feedback loop, and

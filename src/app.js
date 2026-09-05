@@ -922,6 +922,41 @@ function synergyFaces(candidate) {
   return rows.length ? `<span class="rec-syn-row">${rows.join("")}</span>` : "";
 }
 
+// Placing top-3 and winning outright are not the same property, and the data says
+// so plainly: across builds with 3,000+ games the two rates correlate at only
+// r=0.617. charlotte:arcana is 114th of 115 on top-3 rate and 14th on win rate;
+// daniel:dagger is 11th on top-3 and 92nd on win. One survives, the other spikes.
+//
+// The ratio win/top-3 averages 0.333 over the whole pool, with the middle half
+// between 0.318 and 0.350, so ±5% off the pool ratio is roughly the quartile line
+// and is what gets a label. Below that band a build places safely and converts
+// rarely; above it, it converts what it reaches.
+const PLAYSTYLE_POOL_RATIO = 0.3334;
+const PLAYSTYLE_BAND = 0.05;
+
+// Official placement rates for a build, in the bucket the tier selector is on.
+function officialRatesForVariant(variantId) {
+  const bucket = officialBucketForTier(tierSelect.value);
+  const row = officialCandidateStatsByTier?.[bucket]?.[variantId]
+    ?? officialCandidateStatsByTier?.all?.[variantId];
+  return { top3Rate: row?.top3Rate ?? null, winRate: row?.winRate ?? null };
+}
+
+function playstyleTag(top3Rate, winRate) {
+  if (!Number.isFinite(top3Rate) || !Number.isFinite(winRate) || top3Rate <= 0) return null;
+  const delta = (winRate / top3Rate) / PLAYSTYLE_POOL_RATIO - 1;
+  if (delta >= PLAYSTYLE_BAND) return { key: "ceiling", label: t("recommend.styleCeiling") };
+  if (delta <= -PLAYSTYLE_BAND) return { key: "steady", label: t("recommend.styleSteady") };
+  return null;
+}
+
+function playstyleChip(top3Rate, winRate) {
+  const tag = playstyleTag(top3Rate, winRate);
+  if (!tag) return "";
+  const detail = `${t("recommend.top3Rate")} ${(top3Rate * 100).toFixed(1)}% · ${t("recommend.winRate")} ${(winRate * 100).toFixed(1)}%`;
+  return `<span class="rec-style rec-style-${tag.key}" title="${detail}">${tag.label}</span>`;
+}
+
 // A build's cores all score the same - the only path a core has into the total runs
 // through the heuristic bundle stage 2 zeroes, and giving it its own weight was
 // measured and cost outcome (see coreFitWeight in recommender.js). The core still
@@ -1017,7 +1052,12 @@ function altCoreChips(group) {
     // Both numbers, because they disagree often enough to matter: the core most
     // people run is the best-placing one on about half of the builds that offer a
     // choice, and hiding the pick rate would make the other half look arbitrary.
-    const title = `${core.name} · ${t("recommend.top3Rate")} ${rate} · ${t("recommend.pickShare")} ${share}%`
+    const win = Number.isFinite(core.winRate) ? `${(core.winRate * 100).toFixed(1)}%` : "";
+    const style = playstyleTag(core.top3Rate, core.winRate);
+    const title = `${core.name} · ${t("recommend.top3Rate")} ${rate}`
+      + (win ? ` · ${t("recommend.winRate")} ${win}` : "")
+      + ` · ${t("recommend.pickShare")} ${share}%`
+      + (style ? ` · ${style.label}` : "")
       + (row === played ? ` · ${t("recommend.mostPlayedCore")}` : "")
       + (row === fitChosen ? ` · ${t("recommend.fitsTeam")}` : "");
     return `<button type="button" class="rec-alt${current}" data-choose-pick="${row.character.variantId}" data-choose-core="${core.core ?? ""}" title="${title}">`
@@ -2954,6 +2994,7 @@ function renderRecommendations() {
         ? `<img class="rec-row-core" src="${traitImage(core.name)}" alt="" title="${core.name} · ${t("recommend.top3Rate")} ${Number.isFinite(core.top3Rate) ? (core.top3Rate * 100).toFixed(1) + "%" : "-"}" loading="lazy">`
         : "";
       const name = t(`char.${result.character.id}`);
+      const candidateRates = officialRatesForVariant(result.character.variantId);
       return `
         <li class="rec-item">
           <button class="rec-head" type="button" data-rec-toggle aria-expanded="false">
@@ -2976,6 +3017,7 @@ function renderRecommendations() {
             ${archetypeChip}
             ${scoreAxisChips(result.scoreAxes)}
             <p class="recommendation-summary">${compactText}</p>
+            ${playstyleChip(candidateRates.top3Rate, candidateRates.winRate)}
             <div class="recommendation-tags">${compactLabels}</div>
             <ul class="rec-reasons">${reasonList}</ul>
             ${altCoreChips(group)}
