@@ -424,6 +424,48 @@ shown on the core chips. Choosing which one to *optimise* is a different change:
 the outcome gradient is measured against isTop3 throughout, and switching the
 objective would invalidate every number in this file.
 
+## Measuring against isTop3 was hiding a better answer (2026-09-06)
+
+Every weight in this file was chosen against `isTop3`. That metric cannot see the
+difference between 1st and 3rd, or between 4th and 8th. Re-measured against the
+placement curve the game itself uses - taken from the tournament payloads, 1st 10,
+2nd 7, 3rd 5, 4th 4, 5th 3, 6th 2, 7th 1, 8th 0 - and using Welch's t on the
+continuous score rather than a rate difference.
+
+The shipped config's edge is much larger on winning than on placing:
+
+```
+                top-12 pick    rest      difference
+top-3 rate         48.8%       37.9%    +10.8pp  (+28% relative)
+win rate           21.07%      12.33%   + 8.75pp (+71% relative)
+placement score     4.769       4.086   + 0.683  t=3.06
+```
+
+Most decisions survive the change of metric: coreFitWeight still falls monotonically
+(0.635 → 0.452), shortlist 90 is still worse than off (0.569 vs 0.635), pairRole
+0.55 still buys nothing, and v2 0.8 / pair 12 are inside the noise.
+
+One does not. `selectedStrengthWeight` was 0 - stage 2 ordering on composition
+alone - because that looked best on isTop3:
+
+```
+selectedStrengthWeight   tuning          held out        rank/perf rho
+       0.00            +0.635 t=2.32   +0.683 t=3.06        0.275
+       0.30            +0.717 t=2.56   +0.810 t=3.53        0.390
+       0.50            +0.523 t=1.85   +0.873 t=3.71        0.453
+```
+
+Zero is worse than either on both blocks. The blocks disagree between 0.30 and
+0.50, which is noise, so 0.30 - the one that wins on both - is shipped.
+
+The rho column is the part isTop3 could never have surfaced. It is the Spearman
+correlation between where the app ranks a build and how that build actually
+places. With nothing selected it is 0.98; at `selectedStrengthWeight` 0 it fell to
+0.28 the moment anything was picked, which is exactly the "strong characters
+ranked below weak ones" a user reported from looking at the list. The complaint
+and the outcome metric turned out to point the same way; treating them as opposed,
+and zeroing one side, was the mistake.
+
 ## Still open
 
 - (`relationship` firing 0% is not a defect - it is the user feedback loop, and

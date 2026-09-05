@@ -3565,7 +3565,24 @@ export { recommendationArchetype, diversifyRecommendations, DIVERSITY_CONFIG, TW
 // Stage 2 scores composition only: individual strength already decided who is on the
 // shortlist, so letting it vote again just reproduces the static meta list.
 const TWO_STAGE_ORDERING_WEIGHTS = {
-  selectedStrengthWeight: 0,
+  // Was 0, on the theory that stage 2 should order on composition alone. That was
+  // measured against isTop3, which cannot see the difference between 1st and 3rd -
+  // and a strong character contributes more to winning outright than to merely
+  // placing. Re-measured against the game's own placement curve (1st 10, 2nd 7,
+  // 3rd 5, 4th 4 ... 8th 0):
+  //
+  //   selectedStrengthWeight   tuning            held out          rank/perf rho
+  //          0.00            +0.635 t=2.32     +0.683 t=3.06        0.275
+  //          0.30            +0.717 t=2.56     +0.810 t=3.53        0.390
+  //          0.50            +0.523 t=1.85     +0.873 t=3.71        0.453
+  //
+  // Both blocks agree that above zero beats zero; they disagree on 0.30 against
+  // 0.50, which is noise between blocks, so this takes the one that wins on both
+  // rather than the one that wins on the newer. It also answers a complaint the
+  // metric could not: at 0 the ranking barely tracked how good a character is
+  // (Spearman 0.28 against its own placement record), which is why strong picks
+  // were turning up below weak ones once anything was selected.
+  selectedStrengthWeight: 0.30,
   fitWeight: 0,
   heuristicWeight: 0,
   // Stage 2 orders on composition alone, and empirical pair evidence is the only
