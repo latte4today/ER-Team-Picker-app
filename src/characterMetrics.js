@@ -62,7 +62,44 @@ export function characterMetric(character) {
   return wikiMetrics[character.characterId ?? character.id] ?? estimatedMetric(character);
 }
 
+// The five call sites in the recommender all ask for the same team inside a single
+// candidate evaluation, and the team repeats across candidates too. Recomputing it
+// meant six object allocations plus toFixed formatting per call, roughly a quarter
+// of a two-pick recommendation. Keyed on the members, capped so a long session
+// cannot grow it without bound.
+const _teamProfileCache = new Map();
+const TEAM_PROFILE_CACHE_MAX = 4096;
+
 export function teamMetricProfile(team) {
+  // Built without map/sort/join: those allocate two arrays per call and this runs
+  // for every candidate. Teams are 1-3 members, so an insertion sort in place over
+  // a tiny fixed buffer is both shorter and cheaper.
+  let key = "";
+  if (team.length === 1) {
+    key = team[0]?.characterId ?? team[0]?.id ?? "?";
+  } else {
+    let a = team[0]?.characterId ?? team[0]?.id ?? "?";
+    let b = team[1]?.characterId ?? team[1]?.id ?? "?";
+    if (team.length === 2) {
+      key = a < b ? `${a}|${b}` : `${b}|${a}`;
+    } else {
+      let c = team[2]?.characterId ?? team[2]?.id ?? "?";
+      if (a > b) { const t2 = a; a = b; b = t2; }
+      if (b > c) { const t2 = b; b = c; c = t2; }
+      if (a > b) { const t2 = a; a = b; b = t2; }
+      key = team.length === 3 ? `${a}|${b}|${c}`
+        : team.map((x) => x?.characterId ?? x?.id ?? "?").sort().join("|");
+    }
+  }
+  const cached = _teamProfileCache.get(key);
+  if (cached) return cached;
+  const computed = computeTeamMetricProfile(team);
+  if (_teamProfileCache.size >= TEAM_PROFILE_CACHE_MAX) _teamProfileCache.clear();
+  _teamProfileCache.set(key, computed);
+  return computed;
+}
+
+function computeTeamMetricProfile(team) {
   const metrics = team.map(characterMetric);
   const total = metrics.reduce(
     (state, metric) => {

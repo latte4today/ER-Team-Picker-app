@@ -96,6 +96,8 @@ export function updateOfficialStats(remote) {
   _effectiveCoreProfileCache = new Map();
   _variantCoreBaselineCache = new Map();
   _teamShapeCache = new Map();
+  _traitBuildRowsCache = new Map();
+  _globalWinRateCache = new Map();
   _needsNormalizer = null;
 }
 import { tournamentCompositions } from "./tournamentMeta.js";
@@ -133,6 +135,8 @@ function _objId(o) {
 
 // Cleared in updateOfficialStats (effective objects change); capped to bound memory.
 let _teamShapeCache = new Map();
+let _traitBuildRowsCache = new Map();
+let _globalWinRateCache = new Map();
 
 // Pre-built indexes for O(1) lookup instead of O(n) filter on every evaluateCandidate call
 const _rankerCompositionByCandidate = new Map();
@@ -810,8 +814,17 @@ const TAG_VECTOR_MODS = {
   utility:   { peel: 0.08, sustain: 0.08, support: 0.10, cc: 0.05 },
 };
 
+// Object.fromEntries(VECTOR_AXES.map(...)) allocated a 16-element array of pairs
+// and then an object, on every call, and this is called several times per candidate.
+// A literal with the axes spelled out gives V8 a fixed shape and no intermediates -
+// it was 9% of a two-pick recommendation on its own.
 function emptyVector() {
-  return Object.fromEntries(VECTOR_AXES.map((axis) => [axis, 0]));
+  return {
+    frontline: 0, damage: 0, durability: 0, cc: 0,
+    support: 0, tempo: 0, engage: 0, peel: 0,
+    sustain: 0, burst: 0, poke: 0, pick: 0,
+    duel: 0, zone: 0, range: 0, objective: 0,
+  };
 }
 
 function empiricalVectorRow(character, core, tier = "all") {
@@ -842,7 +855,7 @@ function blendEmpiricalVector(manual, character, core, tier = "all") {
 
 function characterVectorFromEffective(eff) {
   const seed = ROLE_SEED_VECTORS[eff.role] ?? ROLE_SEED_VECTORS.bruiser;
-  const v = { ...emptyVector(), ...seed };
+  const v = Object.assign(emptyVector(), seed);
 
   const isFrontPositioned = eff.role === "frontline" || eff.role === "bruiser" || eff.role === "assassin";
   const bucket = isFrontPositioned ? eff.frontDamage : eff.backlineDamage;
@@ -1782,6 +1795,16 @@ function bayesianRate(wins, games, alpha, globalRate) {
 
 function globalWinRate(tier) {
   const bucket = officialStatsBucketForTier(tier);
+  const cached = _globalWinRateCache.get(bucket);
+  if (cached !== undefined) return cached;
+  const value = computeGlobalWinRate(bucket);
+  _globalWinRateCache.set(bucket, value);
+  return value;
+}
+
+// Reduces over every candidate row in the bucket. It is a function of the stats
+// tables and nothing else, but was being recomputed inside the per-candidate loop.
+function computeGlobalWinRate(bucket) {
   const stats = officialCandidateStatsByTier?.[bucket] ?? officialCandidateStatsByTier?.all ?? {};
   const entries = Object.values(stats);
   if (!entries.length) return 0.5;
@@ -2688,10 +2711,15 @@ function selectedCharactersFromIds(selectedIds) {
 
 function traitBuildRowsFor(variantId, tier) {
   const bucket = officialStatsBucketForTier(tier);
+  const key = `${bucket}|${variantId}`;
+  const cached = _traitBuildRowsCache.get(key);
+  if (cached) return cached;
   const rows = officialTraitBuildStatsByTier?.[bucket]?.[variantId]
     ?? officialTraitBuildStatsByTier?.all?.[variantId]
     ?? [];
-  return normalizeTraitBuildRows(variantId, rows);
+  const normalized = normalizeTraitBuildRows(variantId, rows);
+  _traitBuildRowsCache.set(key, normalized);
+  return normalized;
 }
 
 function coreRowFor(variantId, core, tier) {

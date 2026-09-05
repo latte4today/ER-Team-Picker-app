@@ -131,7 +131,27 @@ function variantOverrideRows(variantId, rows = []) {
     .filter((row) => row.name);
 }
 
+// Keyed on the rows array itself, so it invalidates for free: updateOfficialStats
+// swaps in fresh table objects and the old entries simply become unreachable. This
+// was 6% of a two-pick recommendation - coreRowFor normalizes, then hands the result
+// to coreRowForVariant, which normalizes it again, for every candidate.
+const _normalizedRowsCache = new WeakMap();
+
 export function normalizeTraitBuildRows(variantId, rows = []) {
+  let byVariant = _normalizedRowsCache.get(rows);
+  if (byVariant) {
+    const hit = byVariant.get(variantId);
+    if (hit) return hit;
+  }
+  const computed = computeNormalizedTraitBuildRows(variantId, rows);
+  if (rows && typeof rows === "object") {
+    if (!byVariant) { byVariant = new Map(); _normalizedRowsCache.set(rows, byVariant); }
+    byVariant.set(variantId, computed);
+  }
+  return computed;
+}
+
+function computeNormalizedTraitBuildRows(variantId, rows = []) {
   const overrideRows = variantOverrideRows(variantId, rows);
   if (overrideRows) return overrideRows;
 
