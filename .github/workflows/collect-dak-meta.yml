@@ -81,6 +81,14 @@ jobs:
             for attempt in 1 2 3; do
               git fetch origin main
               git rebase -X theirs origin/main || { git rebase --abort 2>/dev/null || true; }
+              # The baseline was generated against the code this run checked out, which
+              # can be older than what it now sits on: c97f17a landed a baseline built
+              # with officialV2Weight 0 on top of a main that had already moved it to
+              # 0.4, so the committed baseline did not match the committed code.
+              # Regenerate after the rebase, when the tree is the tree that ships.
+              node tools/recommendation_snapshot.mjs --update || true
+              git add snapshots/recommendation-baseline.json 2>/dev/null || true
+              git diff --staged --quiet || git commit --amend --no-edit
               if git push origin main; then pushed=1; break; fi
               echo "push attempt $attempt failed; retrying..."
               sleep 5
