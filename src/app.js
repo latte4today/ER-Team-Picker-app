@@ -924,48 +924,75 @@ function synergyFaces(candidate) {
 
 // A build's cores all score the same - the only path a core has into the total runs
 // through the heuristic bundle stage 2 zeroes, and giving it its own weight was
-// measured and cost outcome (see coreFitWeight in recommender.js). But the core is
-// not therefore irrelevant: across the 96 builds carrying two or more cores at 200+
-// games, the spread between a build's best and worst core is 4.2 points of top-3
-// rate at the median and 13.4 at the top, and the most-played core is the
-// best-placing one only 35% of the time.
+// measured and cost outcome (see coreFitWeight in recommender.js). The core still
+// matters though, so which one to show is decided on how it places.
 //
-// So the core to show is chosen on how it places, not on how often it is picked.
-// Shrunk toward the build's own games-weighted average, because a core with 230
-// games and a flattering rate is mostly noise next to one with 5,000.
-const CORE_SHRINK_ALPHA = 400;
+// Restricted to the cores the app actually offers, which is what candidateCoreOptions
+// already filters to - the top core plus anything with 12% of its games. Across the
+// 54 builds that offer two or more, the spread between best and worst is 1.5 points
+// of top-3 rate at the median and 6.8 at the maximum, and the most-played core is
+// also the best-placing one 28 times out of 54.
+//
+// The most-played core is the default and only loses to a challenger that clears a
+// two-proportion z-test. An earlier version shrank toward the build's average with a
+// fixed alpha, which let a core with a thousand games outrank one with forty thousand
+// on a couple of points; a test that reports its own confidence does not.
+const CORE_PREFER_Z = 2;
 
-function coreOutcome(row, prior) {
-  const core = row.recommendedCore;
-  const games = core?.games ?? 0;
-  const rate = core?.top3Rate;
-  if (!Number.isFinite(rate)) return prior;
-  return (rate * games + prior * CORE_SHRINK_ALPHA) / (games + CORE_SHRINK_ALPHA);
+function coreProportionZ(a, b) {
+  const na = a.games ?? 0;
+  const nb = b.games ?? 0;
+  const pa = a.top3Rate;
+  const pb = b.top3Rate;
+  if (!na || !nb || !Number.isFinite(pa) || !Number.isFinite(pb)) return 0;
+  const pooled = (pa * na + pb * nb) / (na + nb);
+  const se = Math.sqrt(pooled * (1 - pooled) * (1 / na + 1 / nb));
+  return se > 0 ? (pa - pb) / se : 0;
 }
 
 function coreRanked(group) {
   const all = [group.best, ...group.alts].filter((row) => row.recommendedCore?.name);
-  if (!all.length) return { all: [], prior: 0 };
-  const totalGames = all.reduce((sum, row) => sum + (row.recommendedCore.games ?? 0), 0);
-  const prior = totalGames > 0
-    ? all.reduce((sum, row) => sum + (row.recommendedCore.top3Rate ?? 0) * (row.recommendedCore.games ?? 0), 0) / totalGames
-    : 0;
-  const ranked = [...all].sort((a, b) => coreOutcome(b, prior) - coreOutcome(a, prior));
-  return { all: ranked, prior };
+  if (all.length < 2) return { all, played: all[0] ?? null };
+  const played = all.reduce((a, b) => ((b.recommendedCore.games ?? 0) > (a.recommendedCore.games ?? 0) ? b : a));
+  const ranked = [...all].sort((a, b) => {
+    const za = coreProportionZ(a.recommendedCore, played.recommendedCore);
+    const zb = coreProportionZ(b.recommendedCore, played.recommendedCore);
+    const qa = a === played ? Infinity : (za >= CORE_PREFER_Z ? za : -Infinity);
+    const qb = b === played ? Infinity : (zb >= CORE_PREFER_Z ? zb : -Infinity);
+    if (qa !== qb) return qb - qa;
+    return (b.recommendedCore.games ?? 0) - (a.recommendedCore.games ?? 0);
+  });
+  // The most-played core sorts first by construction; promote a challenger only when
+  // it is significantly better, and put it in front so it is the one shown.
+  const challenger = all
+    .filter((row) => row !== played && coreProportionZ(row.recommendedCore, played.recommendedCore) >= CORE_PREFER_Z)
+    .sort((a, b) => (b.recommendedCore.top3Rate ?? 0) - (a.recommendedCore.top3Rate ?? 0))[0];
+  if (challenger) {
+    const rest = ranked.filter((row) => row !== challenger);
+    return { all: [challenger, ...rest], played };
+  }
+  return { all: [played, ...ranked.filter((row) => row !== played)], played };
 }
 
 function altCoreChips(group) {
-  const { all, prior } = coreRanked(group);
+  const { all, played } = coreRanked(group);
   if (all.length < 2) return "";
+  const totalGames = all.reduce((sum, row) => sum + (row.recommendedCore.games ?? 0), 0);
   const chips = all.slice(0, 4).map((row) => {
     const core = row.recommendedCore;
     const img = traitImage(core.name);
     const icon = img ? `<img src="${img}" alt="">` : "";
     const rate = Number.isFinite(core.top3Rate) ? `${(core.top3Rate * 100).toFixed(1)}%` : "";
+    const share = totalGames > 0 ? Math.round(100 * (core.games ?? 0) / totalGames) : null;
     const current = row === group.display ? " rec-alt-current" : "";
-    const title = `${core.name} · ${t("recommend.top3Rate")} ${rate} · ${core.games ?? 0}`;
+    // Both numbers, because they disagree often enough to matter: the core most
+    // people run is the best-placing one on about half of the builds that offer a
+    // choice, and hiding the pick rate would make the other half look arbitrary.
+    const title = `${core.name} · ${t("recommend.top3Rate")} ${rate} · ${t("recommend.pickShare")} ${share}%`
+      + (row === played ? ` · ${t("recommend.mostPlayedCore")}` : "");
     return `<button type="button" class="rec-alt${current}" data-choose-pick="${row.character.variantId}" data-choose-core="${core.core ?? ""}" title="${title}">`
-      + `${icon}<span>${core.name}</span>${rate ? `<small>${rate}</small>` : ""}</button>`;
+      + `${icon}<span>${core.name}</span>${rate ? `<small>${rate}</small>` : ""}`
+      + `${share === null ? "" : `<em>${share}%</em>`}</button>`;
   }).join("");
   return `<div class="rec-alts">${chips}</div>`;
 }

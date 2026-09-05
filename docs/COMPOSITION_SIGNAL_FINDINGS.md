@@ -314,27 +314,41 @@ coreFitWeight   gradient        hit@12  hit@3   MRR
 Which core a character runs predicts what people pick and does not predict how the
 pick places. `coreFitWeight` stays 0.
 
-But "the score cannot rank cores" is not "the core does not matter". Across the 96
-builds carrying two or more cores at 200+ games each:
+But "the score cannot rank cores" is not "the core does not matter".
+
+The first version of this measured over every core in the trait build table and
+reported a 4.2pp median spread with the most-played core best only 35% of the
+time. That was wrong, and a user caught it: it counted cores the app never offers.
+Fenrir/glove has seventeen core rows, and the "best" one it found was 빛의 수호 at
+236 games - 0.3% of the build - against 취약 at 38,930. candidateCoreOptions
+already filters to the top core plus anything holding 12% of its games, so those
+rows never reach a user.
+
+Restricted to what the app actually offers:
 
 ```
-top-3 rate spread between a build's best and worst core
-  median 4.2pp | top quartile 7.2pp | top decile 9.2pp | max 13.4pp
-
-the most-played core is also the best-placing one: 34 of 96 (35%)
+                        every core in the table    cores the app offers
+builds with a choice              96                        54
+median top-3 spread             4.2pp                     1.5pp
+max spread                     13.4pp                     6.8pp
+most-played is best            35%                        52%
 ```
 
+Smaller, and still worth acting on - the disagreements sit on large samples:
+
 ```
-fenrir:glove     spread 13.4pp   best 빛의 수호 41.9%   most-played 취약 36.4%
-kenneth:axe      spread 13.4pp   best 스텔라 차지 48.3%  most-played 금강 38.1%
-craver:pistol    spread 11.3pp   best 헌신 44.5%        most-played 흡혈마 37.8%
+lucia:sniper_rifle   흡혈마 33.5% (49,670)  →  벽력 36.5% (11,395)   z=6.1
+fenrir:glove         취약   36.4% (38,930)  →  응징 38.6% (24,945)   z=5.6
+leon:tonfa           벽력   40.2% (3,978)   →  헌신 46.7% (1,372)    z=4.2
+nicky:glove          금강   37.5% (67,445)  →  치유 드론 39.5% (8,187) z=3.5
 ```
 
-So the core the app shows is now chosen on how it places, shrunk toward the build's
-own games-weighted average (alpha 400, because 230 games with a flattering rate is
-mostly noise next to 5,000). The alternates show top-3 rate rather than a score
-that would be identical across all of them. This changes which core is displayed
-and recorded, not which character is ranked where.
+The most-played core is the default, and a challenger replaces it only when it
+clears a two-proportion z-test at 2. The first attempt shrank toward the build's
+average with a fixed alpha of 400, which let a 236-game core outrank a 38,930-game
+one; a test that reports its own confidence does not have that failure mode. Both
+numbers are shown, pick rate and top-3 rate, because they disagree on half the
+builds and showing only one makes the other half look arbitrary.
 
 So the display was corrected instead of the score. The row's core is labelled as
 the most-played trait, which is what it has always actually been - core options are

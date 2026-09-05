@@ -458,6 +458,7 @@ export const zhHans = {
   "recommend.details": "详细说明",
   "recommend.mostPlayedCore": "最常用特性",
   "recommend.top3Rate": "前三率",
+  "recommend.pickShare": "选取率",
   "recommend.choosePick": "设为我的选择",
   "feedback.done": "评价已记录。",
   "feedback.diagnosis": "当前阵容诊断",

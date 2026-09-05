@@ -458,6 +458,7 @@ export const ja = {
   "recommend.details": "詳細",
   "recommend.mostPlayedCore": "最も使われる特性",
   "recommend.top3Rate": "TOP3率",
+  "recommend.pickShare": "ピック率",
   "recommend.choosePick": "自分のピックとして記録",
   "feedback.done": "評価が反映されました。",
   "feedback.diagnosis": "現在の編成診断",
