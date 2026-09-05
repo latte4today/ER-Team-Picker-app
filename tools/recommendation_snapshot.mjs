@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -21,15 +22,53 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const snapshotPath = path.resolve(__dirname, "../snapshots/recommendation-baseline.json");
 const update = process.argv.includes("--update");
 
-const cases = [
-  { name: "empty-team/all/no-cores", tier: "all", selected: [], cores: {} },
-  { name: "one-front/all/no-cores", tier: "all", selected: ["luke:bat"], cores: {} },
-  { name: "two-picks/all/no-cores", tier: "all", selected: ["alonso:glove", "nia:pistol"], cores: {} },
-  { name: "empty-team/iron_gold/no-cores", tier: "iron_gold", selected: [], cores: {} },
-  { name: "empty-team/platinum_diamond/no-cores", tier: "platinum_diamond", selected: [], cores: {} },
-  { name: "empty-team/meteor_mithril/no-cores", tier: "meteor_mithril", selected: [], cores: {} },
-  { name: "empty-team/demigod_eternity/no-cores", tier: "demigod_eternity", selected: [], cores: {} },
+// This guard used to be 7 cases, five of them empty teams. Two-stage ranking only
+// engages once something is picked, so it was effectively watching two contexts -
+// and on 2026-09-05 it passed a change that moved 3,600 held-out evaluations
+// (coverage 73% -> 100%, top-5 variety 95 -> 110 variants). Passing was not
+// evidence of no change; it was evidence of a thin guard.
+//
+// Seeds are held fixed rather than derived from an index into the roster, so
+// adding a character does not silently reshuffle every case. Unknown ids are
+// skipped with a warning instead of crashing, for when a variant is retired.
+const SEEDS = [
+  "luke:bat",          // frontline
+  "garnet:bat",        // frontline
+  "alonso:glove",      // bruiser
+  "nicky:glove",       // bruiser
+  "daniel:dagger",     // assassin
+  "nia:pistol",        // mage
+  "nadine:bow",        // mage
+  "rozzi:pistol",      // ranged
+  "rio:bow",           // ranged
+  "leni:pistol",       // support
+  "charlotte:arcana",  // support
 ];
+const TIERS = ["all", "iron_gold", "platinum_diamond", "meteor_mithril", "demigod_eternity"];
+
+const { characterVariants } = await import("../src/data.js");
+const known = new Set(characterVariants.map((v) => v.variantId));
+const seeds = SEEDS.filter((id) => {
+  if (known.has(id)) return true;
+  console.warn(`skipping unknown snapshot seed: ${id}`);
+  return false;
+});
+
+const cases = [];
+for (const tier of TIERS) {
+  cases.push({ name: `empty-team/${tier}/no-cores`, tier, selected: [], cores: {} });
+  for (const seed of seeds) {
+    cases.push({ name: `one-pick/${tier}/${seed}`, tier, selected: [seed], cores: {} });
+  }
+  // Pair each seed with the next, so every seed appears on both sides of a two-pick
+  // context without generating the full grid.
+  for (let i = 0; i < seeds.length; i += 1) {
+    const a = seeds[i];
+    const b = seeds[(i + 1) % seeds.length];
+    if (a.split(":")[0] === b.split(":")[0]) continue;
+    cases.push({ name: `two-pick/${tier}/${a}+${b}`, tier, selected: [a, b], cores: {} });
+  }
+}
 
 function summarizeResult(row, index) {
   return {
@@ -41,15 +80,27 @@ function summarizeResult(row, index) {
   };
 }
 
+// The top 10 catches what a user would notice; the digest catches everything else,
+// including a reordering of the tail or a candidate dropping out of the list.
+function digestOf(rows) {
+  const text = rows
+    .map((row) => `${row.character.variantId}#${row.recommendedCore?.core ?? ""}:${(row.total ?? 0).toFixed(4)}`)
+    .join(",");
+  return createHash("sha256").update(text).digest("hex").slice(0, 16);
+}
+
 const snapshot = {
   generatedAt: new Date().toISOString(),
   note: "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
-  cases: cases.map((item) => ({
-    ...item,
-    results: recommend(item.selected, item.tier, {}, undefined, [], item.cores)
-      .slice(0, 10)
-      .map(summarizeResult),
-  })),
+  cases: cases.map((item) => {
+    const rows = recommend(item.selected, item.tier, {}, undefined, [], item.cores);
+    return {
+      ...item,
+      count: rows.length,
+      digest: digestOf(rows),
+      results: rows.slice(0, 10).map(summarizeResult),
+    };
+  }),
 };
 
 if (update) {
@@ -70,15 +121,15 @@ const actualCases = snapshot.cases.map(({ generatedAt, note, ...item }) => item)
 const expectedCases = expected.cases.map(({ generatedAt, note, ...item }) => item);
 
 if (JSON.stringify(actualCases) !== JSON.stringify(expectedCases)) {
-  console.error("recommendation snapshot changed");
-  for (let i = 0; i < actualCases.length; i += 1) {
-    const actual = actualCases[i];
-    const prev = expectedCases[i];
-    if (JSON.stringify(actual) === JSON.stringify(prev)) continue;
-    console.error(`\n[${actual.name}]`);
-    console.error("expected:", JSON.stringify(prev?.results ?? [], null, 2));
-    console.error("actual:  ", JSON.stringify(actual?.results ?? [], null, 2));
+  const changed = actualCases.filter((actual, i) => JSON.stringify(actual) !== JSON.stringify(expectedCases[i]));
+  console.error(`recommendation snapshot changed: ${changed.length} of ${actualCases.length} cases`);
+  for (const actual of changed.slice(0, 5)) {
+    const prev = expectedCases.find((c) => c.name === actual.name);
+    console.error(`\n[${actual.name}]  digest ${prev?.digest ?? "?"} -> ${actual.digest}  (${prev?.count ?? "?"} -> ${actual.count} rows)`);
+    console.error("expected top 3:", JSON.stringify((prev?.results ?? []).slice(0, 3)));
+    console.error("actual   top 3:", JSON.stringify((actual.results ?? []).slice(0, 3)));
   }
+  if (changed.length > 5) console.error(`\n... and ${changed.length - 5} more`);
   process.exit(1);
 }
 
