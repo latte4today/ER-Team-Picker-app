@@ -459,6 +459,7 @@ export const zhHant = {
   "recommend.mostPlayedCore": "最常用特性",
   "recommend.top3Rate": "前三率",
   "recommend.pickShare": "選取率",
+  "recommend.fitsTeam": "契合當前陣容",
   "recommend.choosePick": "設為我的選擇",
   "feedback.done": "評價已記錄。",
   "feedback.diagnosis": "當前陣容診斷",

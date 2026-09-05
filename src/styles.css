@@ -4018,3 +4018,13 @@ h2 {
   opacity: 0.55;
   font-size: 10px;
 }
+
+/* Marks the core picked because it suits the current team rather than because it
+   places best on its own. */
+.rec-alt-fit {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-strong, #6ee7b7);
+  display: inline-block;
+}

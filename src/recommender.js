@@ -3443,7 +3443,11 @@ export function auditCoreRoleFlips(tier = "all", { roleChangesOnly = false } = {
   return flips.sort((a, b) => Number(b.roleChanged) - Number(a.roleChanged));
 }
 
-export { characterVector, teamVector, VECTOR_SCORING_FLAGS, LEAN_SCORING_CONFIG };
+// Exported so the UI can ask how well a particular core fits the current team.
+// The lean total multiplies this by fitWeight, which stage 2 sets to 0 - but the
+// term itself is computed per core and does distinguish them, which is exactly
+// what choosing between a build's cores needs.
+export { characterVector, teamVector, VECTOR_SCORING_FLAGS, LEAN_SCORING_CONFIG, leanFitTerm as teamFitScore };
 
 export function auditCharacterVectors(filters = [], tier = "all") {
   const matches = (character) =>

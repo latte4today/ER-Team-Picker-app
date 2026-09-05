@@ -460,6 +460,7 @@ export const ko = {
   "recommend.mostPlayedCore": "가장 많이 쓰는 특성",
   "recommend.top3Rate": "3등 확률",
   "recommend.pickShare": "픽률",
+  "recommend.fitsTeam": "팀에 맞음",
   "recommend.choosePick": "내 선택으로 기록",
   "feedback.done": "평가가 반영되었습니다.",
   "feedback.diagnosis": "현재 조합 진단",

@@ -13,7 +13,7 @@ import {
 } from "./feedback.js";
 import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
-import { evaluateCandidate, recommend, updateOfficialStats } from "./recommender.js";
+import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats } from "./recommender.js";
 import {
   officialCandidateStatsByTier as bundledOfficialCandidateStatsByTier,
   officialCompositionStatsByTier as bundledOfficialCompositionStatsByTier,
@@ -938,6 +938,8 @@ function synergyFaces(candidate) {
 // fixed alpha, which let a core with a thousand games outrank one with forty thousand
 // on a couple of points; a test that reports its own confidence does not.
 const CORE_PREFER_Z = 2;
+// How much better a core has to fit before it displaces the one people actually run.
+const CORE_FIT_MARGIN = 0.05;
 
 function coreProportionZ(a, b) {
   const na = a.games ?? 0;
@@ -950,32 +952,59 @@ function coreProportionZ(a, b) {
   return se > 0 ? (pa - pb) / se : 0;
 }
 
+// Which core to show is not only a question of which one places best. The same
+// character is a different thing on different cores - Fiora on 증폭 드론 picks up
+// durable and peel and drops to medium front damage, on 흡혈마 she is high damage -
+// and the model already knows it: 26 of the 53 builds that offer a choice change
+// tags with the core, 28 fire a role override, and the profile axes move by 0.36
+// (damage) and 0.38 (durability) at the median.
+//
+// It knows and then discards it. Against a team of two ranged picks, Fiora's cores
+// score teamShape 0.712 / 0.118 / 0.118 and coverage 1.396 / 0.496 / 1.396 - and an
+// identical total, because stage 2 zeroes fitWeight. Since the ranking of characters
+// is measured and the choice between a build's cores is not part of it, the fit term
+// can be used here without touching what is ranked where.
+//
+// Rule: drop cores that are significantly worse on top-3 rate than the build's best,
+// then among what survives take the one that fits this team. With nothing picked the
+// fit term is 0 for every core and this falls back to placement and pick rate.
 function coreRanked(group) {
   const all = [group.best, ...group.alts].filter((row) => row.recommendedCore?.name);
-  if (all.length < 2) return { all, played: all[0] ?? null };
+  if (all.length < 2) return { all, played: all[0] ?? null, fitChosen: null };
+
   const played = all.reduce((a, b) => ((b.recommendedCore.games ?? 0) > (a.recommendedCore.games ?? 0) ? b : a));
-  const ranked = [...all].sort((a, b) => {
-    const za = coreProportionZ(a.recommendedCore, played.recommendedCore);
-    const zb = coreProportionZ(b.recommendedCore, played.recommendedCore);
-    const qa = a === played ? Infinity : (za >= CORE_PREFER_Z ? za : -Infinity);
-    const qb = b === played ? Infinity : (zb >= CORE_PREFER_Z ? zb : -Infinity);
-    if (qa !== qb) return qb - qa;
-    return (b.recommendedCore.games ?? 0) - (a.recommendedCore.games ?? 0);
-  });
-  // The most-played core sorts first by construction; promote a challenger only when
-  // it is significantly better, and put it in front so it is the one shown.
-  const challenger = all
-    .filter((row) => row !== played && coreProportionZ(row.recommendedCore, played.recommendedCore) >= CORE_PREFER_Z)
-    .sort((a, b) => (b.recommendedCore.top3Rate ?? 0) - (a.recommendedCore.top3Rate ?? 0))[0];
-  if (challenger) {
-    const rest = ranked.filter((row) => row !== challenger);
-    return { all: [challenger, ...rest], played };
-  }
-  return { all: [played, ...ranked.filter((row) => row !== played)], played };
+  const bestRate = all.reduce((a, b) => ((b.recommendedCore.top3Rate ?? 0) > (a.recommendedCore.top3Rate ?? 0) ? b : a));
+
+  const eligible = all.filter((row) => row === bestRate
+    || coreProportionZ(bestRate.recommendedCore, row.recommendedCore) < CORE_PREFER_Z);
+
+  const fitOf = (row) => {
+    try { return teamFitScore(row.scores ?? {}) ?? 0; } catch { return 0; }
+  };
+  // Default to what people actually run among the cores that are not significantly
+  // worse, and let fit override it only by a margin. leanFitTerm clamps at 0.95, so
+  // near-ties at the ceiling are common and a bare argmax would flip the displayed
+  // core on differences of 0.003.
+  const fallback = eligible.reduce((a, b) => ((b.recommendedCore.games ?? 0) > (a.recommendedCore.games ?? 0) ? b : a));
+  const fallbackFit = fitOf(fallback);
+  const better = eligible
+    .filter((row) => row !== fallback && fitOf(row) - fallbackFit >= CORE_FIT_MARGIN)
+    .sort((a, b) => fitOf(b) - fitOf(a))[0];
+  const chosen = better ?? fallback;
+  const spread = better ? fitOf(better) - fallbackFit : 0;
+
+  const rest = all
+    .filter((row) => row !== chosen)
+    .sort((a, b) => (b.recommendedCore.top3Rate ?? 0) - (a.recommendedCore.top3Rate ?? 0));
+  return {
+    all: [chosen, ...rest],
+    played,
+    fitChosen: better ?? null,
+  };
 }
 
 function altCoreChips(group) {
-  const { all, played } = coreRanked(group);
+  const { all, played, fitChosen } = coreRanked(group);
   if (all.length < 2) return "";
   const totalGames = all.reduce((sum, row) => sum + (row.recommendedCore.games ?? 0), 0);
   const chips = all.slice(0, 4).map((row) => {
@@ -989,10 +1018,12 @@ function altCoreChips(group) {
     // people run is the best-placing one on about half of the builds that offer a
     // choice, and hiding the pick rate would make the other half look arbitrary.
     const title = `${core.name} · ${t("recommend.top3Rate")} ${rate} · ${t("recommend.pickShare")} ${share}%`
-      + (row === played ? ` · ${t("recommend.mostPlayedCore")}` : "");
+      + (row === played ? ` · ${t("recommend.mostPlayedCore")}` : "")
+      + (row === fitChosen ? ` · ${t("recommend.fitsTeam")}` : "");
     return `<button type="button" class="rec-alt${current}" data-choose-pick="${row.character.variantId}" data-choose-core="${core.core ?? ""}" title="${title}">`
       + `${icon}<span>${core.name}</span>${rate ? `<small>${rate}</small>` : ""}`
-      + `${share === null ? "" : `<em>${share}%</em>`}</button>`;
+      + `${share === null ? "" : `<em>${share}%</em>`}`
+      + `${row === fitChosen ? `<i class="rec-alt-fit" title="${t("recommend.fitsTeam")}"></i>` : ""}</button>`;
   }).join("");
   return `<div class="rec-alts">${chips}</div>`;
 }

@@ -459,6 +459,7 @@ export const en = {
   "recommend.mostPlayedCore": "most-played trait",
   "recommend.top3Rate": "top-3 rate",
   "recommend.pickShare": "pick rate",
+  "recommend.fitsTeam": "fits this team",
   "recommend.choosePick": "Mark as My Pick",
   "feedback.done": "Feedback recorded.",
   "feedback.diagnosis": "Team Diagnosis",

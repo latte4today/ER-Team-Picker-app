@@ -350,6 +350,39 @@ one; a test that reports its own confidence does not have that failure mode. Bot
 numbers are shown, pick rate and top-3 rate, because they disagree on half the
 builds and showing only one makes the other half look arbitrary.
 
+### The core changes what the character is, and the model already knows
+
+The same character is a different thing on different cores. The model encodes this
+and then throws it away. Of the 53 builds offering a choice, 26 change tags with
+the core and 28 fire a role override; the playstyle axes move by 0.36 (damage) and
+0.38 (durability) at the median, up to 0.98.
+
+```
+fiora:spear
+  증폭 드론   front=medium  tags=[dive,duel,durable,peel,sustained]
+  흡혈마      front=high    tags=[dive,duel,sustained]
+  빛의 수호   front=high    tags=[dive,duel,focus,sustained]  damage=skill
+```
+
+And the fit terms respond to it, per team:
+
+```
+fiora:spear against [rozzi:pistol, nadine:bow]
+  증폭 드론   teamShape 0.712  coverage 1.396
+  흡혈마      teamShape 0.118  coverage 0.496
+  빛의 수호   teamShape 0.118  coverage 1.396
+  ... total, all three: -0.7720
+```
+
+Identical totals, because stage 2 zeroes fitWeight. Ranking characters by fit was
+measured and rejected; choosing between one build's cores is a different question
+and is not part of what was measured, so the fit term is used there. Cores
+significantly worse on top-3 rate are dropped, the most-played of what remains is
+the default, and fit displaces it only by a margin of 0.05 - leanFitTerm clamps at
+0.95 and near-ties at the ceiling would otherwise flip the display on 0.003. It
+fires on about 7% of builds and the answer moves with the team: 6 flips against
+one frontline pick, 7 against two, 0 against a lone assassin.
+
 So the display was corrected instead of the score. The row's core is labelled as
 the most-played trait, which is what it has always actually been - core options are
 ordered by games, not by any score - and the alternates show share of games rather
