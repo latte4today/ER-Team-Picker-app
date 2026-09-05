@@ -209,6 +209,10 @@ jobs:
             --min-games 60 \
             --min-candidates 2
           node tools/check_pair_role_stats.mjs --archive-dir "$DURABLE_ARCHIVE_DIR"
+          # src/officialMatchStats.js is the offline fallback and is generated from
+          # the compact stats above. Without this it stops moving the moment CI takes
+          # over, which is exactly how it ended up three months stale with no Lucia.
+          node tools/build_bundled_stats.mjs
           cp src/officialMatchStats.compact.json reports/generated/officialMatchStats.compact.json
 
       - name: Refresh recommendation baseline
@@ -274,6 +278,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/official-next-seeds.json 2>/dev/null || true
           git add src/officialMatchStats.compact.json 2>/dev/null || true
+          git add src/officialMatchStats.js 2>/dev/null || true
           git add src/pairRoleStats.js 2>/dev/null || true
           git add snapshots/recommendation-baseline.json 2>/dev/null || true
           if git diff --staged --quiet; then
