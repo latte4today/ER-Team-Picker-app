@@ -1,0 +1,33 @@
+# Vercel stores every deployment against the free tier's 10GB, so a 74MB tree
+# times six CI pushes a day fills it in about three weeks. This is the list of
+# things the browser never asks for.
+
+# The web app fetches stats from raw.githubusercontent.com at runtime
+# (src/app.js: BASE + "/src/officialMatchStats.compact.json"), so the copy inside
+# the deployment is never read. src/officialMatchStats.js stays - it is the
+# offline fallback and the browser does import it.
+# electron-builder already excludes these two for the same reason.
+src/officialMatchStats.compact.json
+src/officialMatchStats.json
+
+# Collector inputs and outputs. data/l10n-ko.txt alone is 3.8MB.
+data/
+
+# Not served: build/analysis scripts, notes, the recommendation baseline, the
+# desktop shell, the installer, and the Supabase schema.
+tools/
+docs/
+snapshots/
+electron/
+installer/
+supabase/
+.github/
+.claude/
+
+*.md
+test_*.mjs
+dakgg_realtime_stats_from_images.ts
+translation_reference.txt
+requirements-analysis.txt
+build-installer.bat
+run-app.bat

@@ -48,6 +48,13 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Strip PNG metadata from the new portraits
+        if: steps.sync.outputs.changed == 'true'
+        # dak.gg's portraits carry the editor metadata that put 1.9MB iTXt chunks
+        # on twelve of the existing ones - 16.6MB of the repo, in every
+        # deployment and every installer.
+        run: node tools/strip_png_metadata.mjs assets
+
       - name: Verify the draft loads
         if: steps.sync.outputs.changed == 'true'
         run: |
