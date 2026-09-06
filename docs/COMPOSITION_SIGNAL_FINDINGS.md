@@ -535,6 +535,85 @@ empty and `altCoreChips` had nothing to render. Harmless while the choice change
 nothing; a dead end the moment it did. The chips now come from the trait table,
 which is not filtered by the override.
 
+## A teammate's trait reached nothing (2026-09-06)
+
+Reported right after the trait scoring above shipped: changing a trait in the
+team panel still did nothing. Correct, and the previous fix did not touch it -
+that one scores a *candidate's* core. A teammate's core reached nothing at all.
+
+The information was there and was being discarded. Of the 52 builds that offer a
+real choice of core, 26 change tags with it and 3 flip role outright (Luke,
+Li Dailin, Hyunwoo, all bruiser <-> frontline). `effectiveTeamFor` computes that
+for the picked team on every call. It then dies, because the only paths role and
+tags have into the total are `fitWeight` and `heuristicWeight`, and stage 2 set
+both to 0. Everything still live is keyed on characterId and cannot see a core:
+`pairWeight` 8.0, `officialV2Weight` 0.4.
+
+Confirmed rather than assumed - Luke's three cores gave a byte-identical top 12,
+in the module and in the browser.
+
+### The harness was missing
+
+Every weight table in `recommender.js` cites an outcome gradient, and the tool
+that produced them was never committed. They were unreproducible, and the one
+weight chosen without them (stage-1 shortlisting) shipped a cost nobody saw.
+`tools/measure_recommender_outcome.mjs` is that harness, written down: same two
+blocks, same placement curve, `--build-sample` once over the corpus and then any
+number of sweeps against the sample.
+
+It reproduces the shipped config closely enough to trust for relative work -
+gradient +0.707 t=3.18 against the +0.810 t=3.53 in the notes, coverage 100%,
+variety 107 - on a fresh 1,200-team held-out sample.
+
+Two definitions had to be pinned down to get there. Retrieval must be measured
+against the full ranking, not the 48-row list `recommend()` returns: against the
+capped list coverage reads 30%, which is a fact about the cap. And `rho` is
+build-level - where we rank a build against how that build actually places, over
+builds with 30+ games - not a per-team correlation, which reads 0.02 and means
+nothing.
+
+### fitWeight 0.2
+
+`fitWeight: 0` was never swept on its own. It was zeroed alongside
+`heuristicWeight` under "stage 2 orders on composition alone", and team fit *is*
+composition. Held out on 1,200 season-41 teams:
+
+```
+fitWeight   gradient      hit@12  hit@3   MRR    rho   variety
+   0.0     +0.707 t=3.18   0.92x  0.93x  1.07x  0.476    107
+   0.2     +0.742 t=3.40   0.94x  0.94x  1.09x  0.469    107
+   0.5     +0.668 t=3.10   0.98x  0.96x  1.11x  0.458    105
+   1.0     +0.671 t=3.13   1.03x  1.01x  1.16x  0.382    105
+```
+
+0.2 is ahead of 0 on both blocks and behind on nothing, at the same speed (39.5
+against 39.4 ms/call, interleaved - a single A-then-B run showed 46.5 and was
+noise). The gradient gap is inside one standard error, so the claim is "0.2 costs
+nothing", not "0.2 is better". Costing nothing is enough when it buys a path that
+did not exist.
+
+0.5 and 1.0 buy retrieval and pay in placement, the trade every individual-merit
+term makes here, and 1.0 drops rho to 0.382 - the number that tracked "strong
+picks below weak ones" when `selectedStrengthWeight` was 0.
+
+### How much this actually buys
+
+Not much, and the reason is in the data rather than the weight:
+
+```
+fitWeight   seats where a teammate's trait changes the top 12   rows changed
+   0.0                    0 / 30                                    0.00
+   0.2                    4 / 30                                    0.13
+   0.5                    4 / 30                                    0.17
+   1.0                   11 / 30                                    0.50
+```
+
+Even at 1.0 it is half a row in twelve. A trait mostly changes how strong a
+character is - which the core-strength term now scores directly - and only rarely
+changes what they *do*, which is the only thing a teammate's trait could act
+through. 3 role flips out of 52 builds is the ceiling on this effect, and no
+weight raises it.
+
 ## Still open
 
 - (`relationship` firing 0% is not a defect - it is the user feedback loop, and

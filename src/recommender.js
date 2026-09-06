@@ -3682,7 +3682,28 @@ const TWO_STAGE_ORDERING_WEIGHTS = {
   // (Spearman 0.28 against its own placement record), which is why strong picks
   // were turning up below weak ones once anything was selected.
   selectedStrengthWeight: 0.30,
-  fitWeight: 0,
+  // Was 0, but never on its own evidence - it was zeroed alongside heuristicWeight
+  // as part of "stage 2 orders on composition alone", and team fit *is*
+  // composition. That zero is also why a teammate's trait reached nothing: the
+  // core changes their role and tags, and the fit term is the only path those have
+  // into the total. Swept properly, held out on 1,200 season-41 teams:
+  //
+  //   fitWeight   gradient      hit@12  hit@3   MRR    rho   variety
+  //      0.0     +0.707 t=3.18   0.92x  0.93x  1.07x  0.476    107
+  //      0.2     +0.742 t=3.40   0.94x  0.94x  1.09x  0.469    107
+  //      0.5     +0.668 t=3.10   0.98x  0.96x  1.11x  0.458    105
+  //      1.0     +0.671 t=3.13   1.03x  1.01x  1.16x  0.382    105
+  //
+  // 0.2 is ahead of 0 on both blocks and behind on nothing. The gradient gap is
+  // inside the noise (one standard error is about 0.22 here), so this is "0.2
+  // costs nothing", not "0.2 is better" - and costing nothing is enough, because
+  // it buys the teammate's trait a path it did not have.
+  //
+  // Not higher: 0.5 and 1.0 both give the retrieval gain that individual-merit
+  // terms always give and pay for it in placement, and 1.0 drops rank/performance
+  // rho from 0.476 to 0.382 - the same number that tracked "strong picks turning
+  // up below weak ones" when selectedStrengthWeight was 0.
+  fitWeight: 0.2,
   heuristicWeight: 0,
   // Stage 2 orders on composition alone, and empirical pair evidence is the only
   // composition signal that has ever measured above noise (AUC 0.615 against 0.521
