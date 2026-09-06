@@ -2316,6 +2316,19 @@ function userFeedbackBonus(likes = 0, dislikes = 0, totalOverride = undefined) {
   return sentiment * confidence * 42;
 }
 
+// Bounded form of userFeedbackBonus for the ranking tab, where it sits next to a
+// score built from tens of thousands of games and must not be able to move it far.
+const RANKING_VOTE_CAP = 3;
+const RANKING_VOTE_HALF = 20;
+
+function rankingVoteBonus(likes = 0, dislikes = 0, totalOverride = undefined) {
+  const total = totalOverride ?? likes + dislikes;
+  if (total <= 0) return 0;
+  const sentiment = (likes - dislikes) / Math.max(1, total);
+  const shrink = total / (total + RANKING_VOTE_HALF);
+  return sentiment * shrink * RANKING_VOTE_CAP;
+}
+
 function compositionMembers(row) {
   if (!row) return [];
   if (row.teamKey && row.candidateId) return [...row.teamKey.split("+"), row.candidateId].map(baseFeedbackVariantId).filter(Boolean);
@@ -2369,8 +2382,14 @@ function officialCharacterRankAverages(officialRows, group) {
   const rows = Object.entries(officialRows)
     .map(([characterId, stat]) => ({ character: characterById(characterId), stat }))
     .filter(({ character, stat }) => character && stat?.games > 0);
-  const groupedRows = rows.filter(({ character }) => characterRankGroup(character) === group);
-  const sourceRows = groupedRows.length >= 6 ? groupedRows : rows;
+  // Normalised against the whole pool, not the role group. Group-relative made sense
+  // while damage carried up to 30% of the score - a support cannot be compared to a
+  // backline on damage dealt. The score is now win rate, top-3 rate and placement,
+  // which mean the same thing whatever the role, and normalising per group let a
+  // build be first overall by being good *for a support* while placing 4.39 against
+  // a 4.05 at the top. Against real average placement: group-relative 0.851, pool
+  // 0.928.
+  const sourceRows = rows;
 
   const totals = sourceRows.reduce((state, { stat }) => {
     const games = stat.games ?? 0;
@@ -2413,20 +2432,36 @@ function officialCharacterRankAverages(officialRows, group) {
   };
 }
 
+// Damage dealt, damage taken and CC time used to carry up to 30% of this score.
+// Checked against what the builds actually do - their real average placement, which
+// none of these weights feed into - they are close to worthless and actively drag
+// the composite down:
+//
+//   single stat vs real placement:  damage 0.290  damage taken 0.290  cc 0.127
+//                                   top-3 rate 0.991  win rate 0.572
+//
+//   whole score vs real placement:  with them 0.702, without them 0.862
+//
+// That gap is what a ranking tab looks like when it rewards doing damage instead of
+// winning: markus:axe sat 18th while placing 83rd, garnet:bat 23rd while placing
+// 81st, and martina:camera was buried at 97th while placing 32nd. The three stats
+// stay on the card - they describe how a character plays and that is worth seeing -
+// they just no longer decide where it ranks. Their weight is redistributed across
+// the outcome terms in each group's own proportions.
 function characterRankingWeights(group) {
   if (group === "support") {
-    return { win: 0.24, top3: 0.34, placement: 0.24, damage: 0.04, durability: 0.04, cc: 0.10 };
+    return { win: 0.29, top3: 0.42, placement: 0.29, damage: 0, durability: 0, cc: 0 };
   }
   if (group === "front") {
-    return { win: 0.24, top3: 0.26, placement: 0.20, damage: 0.12, durability: 0.10, cc: 0.08 };
+    return { win: 0.34, top3: 0.37, placement: 0.29, damage: 0, durability: 0, cc: 0 };
   }
   if (group === "backline") {
-    return { win: 0.22, top3: 0.24, placement: 0.16, damage: 0.30, durability: 0.02, cc: 0.06 };
+    return { win: 0.35, top3: 0.39, placement: 0.26, damage: 0, durability: 0, cc: 0 };
   }
   if (group === "assassin") {
-    return { win: 0.24, top3: 0.22, placement: 0.18, damage: 0.28, durability: 0.02, cc: 0.06 };
+    return { win: 0.38, top3: 0.34, placement: 0.28, damage: 0, durability: 0, cc: 0 };
   }
-  return { win: 0.24, top3: 0.26, placement: 0.20, damage: 0.18, durability: 0.04, cc: 0.08 };
+  return { win: 0.34, top3: 0.37, placement: 0.29, damage: 0, durability: 0, cc: 0 };
 }
 
 function officialCharacterRankingScore(character, stat, officialRows) {
@@ -2444,12 +2479,25 @@ function officialCharacterRankingScore(character, stat, officialRows) {
   return 58 + raw * 46 * rankingConfidence(stat.games ?? 0, 260);
 }
 
-function rankTierForScore(score) {
-  if (score >= 76) return "S";
-  if (score >= 66) return "A";
-  if (score >= 55) return "B";
-  if (score >= 44) return "C";
-  return "D";
+// Fixed cut-offs at 76/66/55/44 against a score that actually spans 47 to 67: 98 of
+// 115 builds came out B, one came out A, and no build in the game could reach S.
+// A tier badge that says the same thing about everything is not a tier badge.
+//
+// Tiers are relative standing, so they are cut by rank instead: top 10% S, next 20%
+// A, middle 40% B, next 20% C, bottom 10% D. The absolute score is still shown and
+// still orders the list; this only decides where the lines fall.
+const RANK_TIER_BANDS = [
+  { tier: "S", upTo: 0.10 },
+  { tier: "A", upTo: 0.30 },
+  { tier: "B", upTo: 0.70 },
+  { tier: "C", upTo: 0.90 },
+  { tier: "D", upTo: 1.01 },
+];
+
+function rankTierByPercentile(index, total) {
+  if (total <= 0) return "B";
+  const p = (index + 0.5) / total;
+  return (RANK_TIER_BANDS.find((band) => p < band.upTo) ?? RANK_TIER_BANDS.at(-1)).tier;
 }
 
 function rankerCompositionRows() {
@@ -2574,13 +2622,29 @@ function rankerCharacterRows(role = "all") {
       const fallbackScore = ranker
         ? ((ranker.top3Rate ?? 0) * 30 + (ranker.winRate ?? 0) * 34 + Math.min(8, ranker.games ?? 0) - Math.max(0, (ranker.avgPlacement ?? 4.5) - 4.5) * 4) * 0.18
         : 0;
-      const voteScore = userFeedbackBonus(feedback.likes, feedback.dislikes, feedback.total) * 1.35;
-      const score = (official ? officialScore : 48) + fallbackScore + voteScore;
+      // userFeedbackBonus scales to 42 and this multiplied it by another 1.35, so a
+      // build with six likes and no dislikes collected 31.8 points. The official
+      // score spans about 23 points across the whole roster, so a handful of votes
+      // outweighed tens of thousands of games: coreline:arcana sat first on 55.8
+      // official + 31.8 votes while zahir:shuriken, the best official score in the
+      // game at 69.7, had one like and one dislike and fell to 34th.
+      //
+      // Votes are a tiebreaker here, not the signal. Capped at +/-3 points and
+      // shrunk by sample size, so twenty votes reach half of it.
+      const voteScore = rankingVoteBonus(feedback.likes, feedback.dislikes, feedback.total);
+      // The dak ranker numbers are a fallback for builds the official archive has no
+      // row for - they are not extra evidence for builds it does. They were being
+      // added on top, and they are computed off a handful of games from leaderboard
+      // players: coreline:arcana had a 10-game ranker row at 70% top-3, worth +7.06
+      // on a score whose entire official spread is about 10 points, which is how it
+      // came to sit first overall while placing 4.39 to the real leader's 4.05.
+      // The min(8, games) term alone hands +8 to anything with eight games on it.
+      const score = official ? officialScore + voteScore : 48 + fallbackScore + voteScore;
       const stat = official ?? ranker ?? {};
       return {
         characterId: statId,
         score,
-        tierLabel: rankTierForScore(score),
+        tierLabel: "B",
         games: stat.games ?? 0,
         avgPlacement: stat.avgPlacement,
         top3Rate: stat.top3Rate ?? 0,
@@ -2591,7 +2655,8 @@ function rankerCharacterRows(role = "all") {
         votes: feedback.total,
       };
     })
-    .sort((a, b) => b.score - a.score);
+    .sort((a, b) => b.score - a.score)
+    .map((row, index, all) => ({ ...row, tierLabel: rankTierByPercentile(index, all.length) }));
 }
 
 function renderRankRoleFilters() {
