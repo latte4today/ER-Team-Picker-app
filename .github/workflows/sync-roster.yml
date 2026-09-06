@@ -1,0 +1,122 @@
+name: Sync Character Roster
+
+# A new character is invisible until someone hand-edits nine files. While that
+# is pending the damage is silent: build_official_stats drops every team that
+# picked them as unknownChar (2546 teams for Lucia), and they cannot be picked
+# in the app at all.
+#
+# This opens a pull request instead of pushing to main on purpose. The
+# mechanical half - code map, names, weapons, portrait - is trustworthy, but
+# role, tags, damage and ccProfile are guesses, and merging those unreviewed
+# would quietly skew everyone's recommendations. The PR makes the character
+# available in one click and puts the guesses in front of a human.
+
+on:
+  schedule:
+    - cron: '15 5 * * *' # 05:15 UTC / 14:15 KST - after collect-dak-meta
+  workflow_dispatch:
+
+concurrency:
+  group: sync-roster
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Draft any new characters
+        id: sync
+        run: |
+          node tools/sync_character_roster.mjs | tee sync-report.txt
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify the draft loads
+        if: steps.sync.outputs.changed == 'true'
+        run: |
+          # A malformed insertion would break the app for every character, not
+          # just the new one, so fail here rather than in the PR.
+          node --input-type=module -e '
+            const { characters, characterWeapons } = await import("./src/data.js");
+            const { FALLBACK_CHARACTER_CODE_TO_ID } = await import("./tools/character_code_map.mjs");
+            const ids = new Set(characters.map((c) => c.id));
+            if (ids.size !== characters.length) throw new Error("duplicate character id");
+            const codes = new Set(Object.values(FALLBACK_CHARACTER_CODE_TO_ID));
+            const unmapped = [...ids].filter((id) => !codes.has(id));
+            if (unmapped.length) throw new Error(`no character code for: ${unmapped.join(", ")}`);
+            const noWeapon = [...ids].filter((id) => !characterWeapons[id]?.length);
+            if (noWeapon.length) throw new Error(`no weapon mastery for: ${noWeapon.join(", ")}`);
+            for (const locale of ["ko", "en", "ja", "zhHans", "zhHant"]) {
+              const mod = await import(`./src/i18n/${locale}.js`);
+              const dict = mod[locale];
+              const missing = [...ids].filter((id) => !dict[`char.${id}`]);
+              if (missing.length) throw new Error(`${locale} missing: ${missing.join(", ")}`);
+            }
+            console.log(`${characters.length} characters load cleanly`);
+          '
+
+      - name: Open a pull request
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          branch="roster-sync-$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add src tools assets
+          {
+            echo "feat: draft new characters from the live roster"
+            echo
+            sed -n "/new character/,/^$/p" sync-report.txt
+            echo "Mechanical fields are from dak.gg and can be trusted. Role, damage,"
+            echo "tags and difficulty are guesses; ccProfile is absent. See the PR body."
+            echo
+            echo "Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+          } > commit-msg.txt
+          git commit -F commit-msg.txt
+          git push origin "$branch"
+
+          {
+            echo "Drafted from the live dak.gg roster by \`tools/sync_character_roster.mjs\`."
+            echo
+            echo '```'
+            cat sync-report.txt
+            echo '```'
+            echo
+            echo "**Trustworthy** (straight from dak.gg): character code, localized names, weapon masteries, portrait."
+            echo
+            echo "**Please check before merging** - these are guesses:"
+            echo "- \`role\` - from the dak archetype, which disagrees with our hand-assigned role on 8 of 90 existing characters"
+            echo "- \`damage\` - from mastery stats, right about two thirds of the time"
+            echo "- \`tags\` - a role placeholder, almost certainly wrong"
+            echo "- \`difficulty\` - placeholder 3"
+            echo "- \`ccProfile\` - absent, so the character currently scores as having no crowd control"
+            echo
+            echo "Merging as-is is still better than leaving them off the roster: without the code map entry every game they appear in is dropped as \`unknownChar\`."
+            echo
+            echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+          } > pr-body.md
+
+          gh pr create \
+            --title "feat: add new characters from the live roster" \
+            --body-file pr-body.md \
+            --base main \
+            --head "$branch"

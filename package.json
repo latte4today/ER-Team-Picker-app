@@ -8,6 +8,8 @@
   "scripts": {
     "start": "cmd /d /s /c start \"\" \"%CD%\\node_modules\\electron\\dist\\electron.exe\" --no-sandbox \"%CD%\"",
     "app": "cmd /d /s /c start \"\" \"%CD%\\node_modules\\electron\\dist\\electron.exe\" --no-sandbox \"%CD%\"",
+    "sync-roster": "node tools/sync_character_roster.mjs",
+    "check-roster": "node tools/sync_character_roster.mjs --check",
     "collect-dak": "node tools/dak_collector.mjs --rankers 200 --matchesPerRanker 12",
     "collect-official": "node tools/official_collector.mjs",
     "collect-official-seeds": "node tools/official_seed_collector.mjs",
