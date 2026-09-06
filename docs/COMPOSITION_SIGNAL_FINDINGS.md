@@ -466,6 +466,75 @@ ranked below weak ones" a user reported from looking at the list. The complaint
 and the outcome metric turned out to point the same way; treating them as opposed,
 and zeroing one side, was the mistake.
 
+## The trait was scored backwards (2026-09-06)
+
+Reported as "changing the trait does not change the result". It did change it -
+by 0.003 points, in the wrong direction.
+
+With `coreFitWeight` at 0, the only path a core had into the total was
+`officialCoreRoleShift` inside the heuristic bundle, at weight 0.12 and only with
+nothing selected. That term measures how much a core *changes the character's
+role*, not whether it wins. Across the 52 builds that offer two or more cores,
+79 within-build pairs:
+
+```
+                              before    after
+agrees with measured top-3      37%      94%
+corr(score delta, top-3 delta) -0.429   +0.963
+identical-scoring pairs          13        1
+mean score spread per build    0.0027   0.2042
+```
+
+The spread it was failing to represent is real: 1.5pp of top-3 rate at the
+median between a build's best and worst offered core, 4.0pp at p90, 6.3pp at the
+maximum. Leon on tonfa is 46.5% on 헌신 against 40.2% on 벽력 over 1,400 games.
+
+`leanCoreStrengthScore` scores a core on its own measured top-3 and win rate, in
+the same units and with the same coefficients the variant-level strength term
+uses, shrunk at 900 games rather than 260 because a within-build difference is
+smaller than a between-build one.
+
+### Centring it on the build's average was wrong
+
+The obvious anchor - the build's games-weighted mean - inflates builds for having
+options. `recommend()` ranks a build by the best of its cores, so each extra core
+is another draw from a noisy estimate and the maximum drifts up with the number
+of draws. Mean rank change near the top 12, per-core rows:
+
+```
+build offers   mean rank change
+   1 core           -1.23
+   2 cores          +2.51
+   3 cores          +3.52
+```
+
+A third of the top 12 churned, for no reason a player would recognise.
+
+Anchoring at the build's *best* offered core instead puts every build's ceiling
+at 0, so the term cannot move any build: the variant-level stats already average
+over the cores as they are actually played, and ranking by the max on top of that
+double-counts. Deduplicated to what the UI actually shows - one row per build -
+the ordering barely moves at all:
+
+```
+top-12 membership retained          99.8%
+mean |rank shift|                    0.02
+mean rank change, 1 / 2 / 3 cores   +0.00 / -0.04 / +0.01
+```
+
+`coreStrengthWeight` is therefore not tunable against any outcome metric, and is
+not presented as if it were: 0.5, 1.0, 2.0 and 4.0 give an identical top-12 build
+order in the same 50 of 51 cases. It sets only how far the score falls when you
+ask for a worse trait.
+
+### The bug this exposed
+
+Picking a trait made every chip for switching away from it disappear. Overriding
+a core makes `candidateCoreOptions` return that core alone, so `group.alts` is
+empty and `altCoreChips` had nothing to render. Harmless while the choice changed
+nothing; a dead end the moment it did. The chips now come from the trait table,
+which is not filtered by the override.
+
 ## Still open
 
 - (`relationship` firing 0% is not a defect - it is the user feedback loop, and
@@ -473,3 +542,7 @@ and zeroing one side, was the mistake.
 - The gradient is measured against `isTop3`, on ranked season-41 games only. It
   says teams that picked what we rank highly place better; it does not say our
   ranking caused it.
+- `leanCoreStrengthScore` uses each core's raw top-3 and win rate. Who picks a
+  core is not random - a niche trait is played by people who sought it out - so
+  part of any core's edge is the player, not the trait. The anchoring bounds what
+  that can do to the ordering (nothing), but not what it does to the number shown.

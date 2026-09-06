@@ -966,10 +966,13 @@ function playstyleChip(top3Rate, winRate) {
     + `${PLAYSTYLE_ICONS[tag.key] ?? ""}<span>${tag.label}</span></span>`;
 }
 
-// A build's cores all score the same - the only path a core has into the total runs
-// through the heuristic bundle stage 2 zeroes, and giving it its own weight was
-// measured and cost outcome (see coreFitWeight in recommender.js). The core still
-// matters though, so which one to show is decided on how it places.
+// A build's cores no longer score the same: leanCoreStrengthScore gives each one
+// its own measured placement, anchored so the best core sits at the build's own
+// score. What that term deliberately does not know is the team - it is part of
+// `individual`, so it is the same core whoever else is picked.
+//
+// That is what this adds. Restricted to the cores that are not significantly worse
+// on placement, pick the one that fits the team in front of us.
 //
 // Restricted to the cores the app actually offers, which is what candidateCoreOptions
 // already filters to - the top core plus anything with 12% of its games. Across the
@@ -1004,10 +1007,10 @@ function coreProportionZ(a, b) {
 // (damage) and 0.38 (durability) at the median.
 //
 // It knows and then discards it. Against a team of two ranged picks, Fiora's cores
-// score teamShape 0.712 / 0.118 / 0.118 and coverage 1.396 / 0.496 / 1.396 - and an
-// identical total, because stage 2 zeroes fitWeight. Since the ranking of characters
-// is measured and the choice between a build's cores is not part of it, the fit term
-// can be used here without touching what is ranked where.
+// score teamShape 0.712 / 0.118 / 0.118 and coverage 1.396 / 0.496 / 1.396, and
+// stage 2 zeroes fitWeight so none of that reaches the total. Since the ranking of
+// characters is measured and the choice between a build's cores is not part of it,
+// the fit term can be used here without touching what is ranked where.
 //
 // Rule: drop cores that are significantly worse on top-3 rate than the build's best,
 // then among what survives take the one that fits this team. With nothing picked the
@@ -1047,17 +1050,33 @@ function coreRanked(group) {
   };
 }
 
-function altCoreChips(group) {
+// The chips are built from the trait table, not from the scored rows, because
+// once the user picks a trait recommend() is asked for that core alone and the
+// others stop being evaluated. They used to be rendered off group.alts, so
+// choosing a trait deleted every chip for switching away from it - a dead end
+// nobody hit while the choice changed nothing, and a trap the moment it did.
+function altCoreChips(group, tier) {
   const { all, played, fitChosen } = coreRanked(group);
-  if (all.length < 2) return "";
-  const totalGames = all.reduce((sum, row) => sum + (row.recommendedCore.games ?? 0), 0);
-  const chips = all.slice(0, 4).map((row) => {
-    const core = row.recommendedCore;
+  const scoredByCode = new Map(all.map((row) => [String(row.recommendedCore.core), row]));
+  const table = topCoresForVariant(group.best.character.variantId, tier);
+  // coreRanked's order when we have it - it knows which core fits this team -
+  // then anything the override left unevaluated, best placement first.
+  const ordered = [
+    ...all.map((row) => row.recommendedCore),
+    ...table
+      .filter((core) => !scoredByCode.has(String(core.core)))
+      .sort((a, b) => (b.top3Rate ?? 0) - (a.top3Rate ?? 0)),
+  ];
+  if (ordered.length < 2) return "";
+  const currentCode = String(group.display?.recommendedCore?.core ?? "");
+  const totalGames = ordered.reduce((sum, core) => sum + (core.games ?? 0), 0);
+  const chips = ordered.slice(0, 4).map((core) => {
+    const row = scoredByCode.get(String(core.core)) ?? null;
     const img = traitImage(core.name);
     const icon = img ? `<img src="${img}" alt="">` : "";
     const rate = Number.isFinite(core.top3Rate) ? `${(core.top3Rate * 100).toFixed(1)}%` : "";
     const share = totalGames > 0 ? Math.round(100 * (core.games ?? 0) / totalGames) : null;
-    const current = row === group.display ? " rec-alt-current" : "";
+    const current = String(core.core) === currentCode ? " rec-alt-current" : "";
     // Both numbers, because they disagree often enough to matter: the core most
     // people run is the best-placing one on about half of the builds that offer a
     // choice, and hiding the pick rate would make the other half look arbitrary.
@@ -1067,12 +1086,12 @@ function altCoreChips(group) {
       + (win ? ` · ${t("recommend.winRate")} ${win}` : "")
       + ` · ${t("recommend.pickShare")} ${share}%`
       + (style ? ` · ${style.label}` : "")
-      + (row === played ? ` · ${t("recommend.mostPlayedCore")}` : "")
-      + (row === fitChosen ? ` · ${t("recommend.fitsTeam")}` : "");
-    return `<button type="button" class="rec-alt${current}" data-choose-pick="${row.character.variantId}" data-choose-core="${core.core ?? ""}" title="${title}">`
+      + (row && row === played ? ` · ${t("recommend.mostPlayedCore")}` : "")
+      + (row && row === fitChosen ? ` · ${t("recommend.fitsTeam")}` : "");
+    return `<button type="button" class="rec-alt${current}" data-choose-pick="${group.best.character.variantId}" data-choose-core="${core.core ?? ""}" title="${title}">`
       + `${icon}<span>${core.name}</span>${rate ? `<small>${rate}</small>` : ""}`
       + `${share === null ? "" : `<em>${share}%</em>`}`
-      + `${row === fitChosen ? `<i class="rec-alt-fit" title="${t("recommend.fitsTeam")}"></i>` : ""}</button>`;
+      + `${row && row === fitChosen ? `<i class="rec-alt-fit" title="${t("recommend.fitsTeam")}"></i>` : ""}</button>`;
   }).join("");
   return `<div class="rec-alts">${chips}</div>`;
 }
@@ -3040,9 +3059,10 @@ function renderRecommendations() {
     else byVariant.set(key, { best: row, alts: [] });
   }
   const unique = [...byVariant.values()];
-  // Every core in a group scores the same, so "best" is only first-in-list. Which
-  // core to show, and to record when the user takes the pick, is decided on how the
-  // core actually places.
+  // group.best is now the build's best-placing core rather than an arbitrary
+  // first-in-list (see leanCoreStrengthScore). coreRanked still decides what to
+  // show, because it adds one thing the score deliberately leaves out: which of
+  // the cores that are not significantly worse fits *this* team.
   for (const group of unique) {
     group.display = coreRanked(group).all[0] ?? group.best;
   }
@@ -3054,8 +3074,13 @@ function renderRecommendations() {
   // one look authoritative.
   const cards = visible
     .map((group, index) => {
-      const result = group.best;
+      // The row is ordered by group.best but rendered from the core it actually
+      // shows. Those used to be interchangeable; now that a core's measured
+      // placement moves the score they are not, and reading reasons, axes and the
+      // quality badge off `best` would caption one trait's icon with another
+      // trait's reasoning.
       const shown = group.display ?? group.best;
+      const result = shown;
       const reasonList = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
       const compactLabels = compactReasonLabels(result.reasons)
         .map((label) => `<span>${label}</span>`)
@@ -3067,8 +3092,7 @@ function renderRecommendations() {
         ? `<div class="recommendation-archetype" data-skeleton="${arch.skeleton}" data-top3="${arch.profile?.top3 ?? ""}" data-win="${arch.profile?.win ?? ""}" data-bottom="${arch.profile?.bottom ?? ""}" data-slope="${arch.tierSlope ?? ""}">${archLabel}</div>`
         : "";
       const core = shown.recommendedCore;
-      // Best-placing core for this build, shrunk for sample size - not a scored
-      // choice, since the score is identical across a build's cores.
+      // Best-placing core that also fits this team, shrunk for sample size.
       const coreIcon = core?.name && traitImage(core.name)
         ? `<img class="rec-row-core" src="${traitImage(core.name)}" alt="" title="${core.name} · ${t("recommend.top3Rate")} ${Number.isFinite(core.top3Rate) ? (core.top3Rate * 100).toFixed(1) + "%" : "-"}" loading="lazy">`
         : "";
@@ -3100,7 +3124,7 @@ function renderRecommendations() {
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
             <ul class="rec-reasons">${reasonList}</ul>
-            ${altCoreChips(group)}
+            ${altCoreChips(group, tierSelect.value)}
             <div class="feedback-row">
               <button class="feedback-button" type="button" data-choose-pick="${shown.character.variantId}" data-choose-core="${core?.core ?? ""}">${t("recommend.choosePick")}</button>
             </div>

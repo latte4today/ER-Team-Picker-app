@@ -97,6 +97,7 @@ export function updateOfficialStats(remote) {
   _variantCoreBaselineCache = new Map();
   _teamShapeCache = new Map();
   _traitBuildRowsCache = new Map();
+  _coreStrengthCache = new Map();
   _globalWinRateCache = new Map();
   _needsNormalizer = null;
 }
@@ -784,6 +785,15 @@ const LEAN_SCORING_CONFIG = {
   // for it in how those picks place. Left at 0 rather than removed so the next
   // person can see the experiment was run, and re-run it when the corpus is bigger.
   coreFitWeight: 0,
+  // The core's own measured top-3 and win rate, anchored at the build's best core.
+  //
+  // Not tuned, because there is nothing here to tune against: the anchoring puts
+  // every build's best core at 0, so this weight cannot move which build is ranked
+  // where. Checked rather than assumed - 0.5, 1.0, 2.0 and 4.0 give a top-12 build
+  // order identical to 0 in 50 of 51 cases, the same 50 for all four. All it sets
+  // is how far the score drops when you ask for a worse trait, so it is 1.0: the
+  // same units the variant-level strength term already uses for the same data.
+  coreStrengthWeight: 1.0,
   // Stage 1 would keep this many candidates on individual merit; null means it keeps
   // everyone and stage 2 orders the whole roster on composition alone.
   //
@@ -2264,6 +2274,82 @@ function leanStrengthScore(candidate, tier) {
   return clamp(official + legacy, -2.8, 3.2);
 }
 
+let _coreStrengthCache = new Map();
+
+/**
+ * How much better or worse this core is than the rest of the build, in the same
+ * units leanStrengthScore uses for the build itself.
+ *
+ * Fixes a term that was pointing the wrong way. A core used to reach the total
+ * only through officialCoreRoleShift inside the heuristic bundle, which measures
+ * how much the core changes the character's *role*, not whether it wins. It
+ * agreed with the measured top-3 rate on 29 of 78 within-build pairs, correlation
+ * -0.429 - the app preferred the worse trait more often than not, by 0.003 points.
+ *
+ * Anchored at zero on the build's best offered core, not on the build's average.
+ * Centring on the average was measured first and is wrong here: recommend() ranks
+ * a build by the best of its cores, so every extra core is another draw from a
+ * noisy estimate and the maximum drifts up with the number of draws. Builds were
+ * promoted for having options rather than for being good - mean rank change near
+ * the top 12 was -1.23 for one-core builds, +2.51 for two and +3.52 for three,
+ * and a third of the top 12 churned.
+ *
+ * With the best core at zero the build ranks exactly where the variant-level
+ * stats put it - which already average over the cores as they are actually
+ * played - and the only thing this term does is what it is for: pick the right
+ * core, and drop the score when you ask for a worse one.
+ *
+ * Shrunk by each core's own sample size at 900 games rather than the 260 used for
+ * variants, because a within-build difference is smaller than the between-build
+ * one the variant term resolves.
+ */
+function leanCoreStrengthScore(candidate, tier) {
+  const core = candidate?.effectiveCore?.core;
+  if (!core) return 0;
+
+  const bucket = officialStatsBucketForTier(tier);
+  const key = `${bucket}|${candidate.variantId}|${core}`;
+  const cached = _coreStrengthCache.get(key);
+  if (cached !== undefined) return cached;
+
+  const rows = traitBuildRowsFor(candidate.variantId, tier).filter((row) => (row.games ?? 0) > 0);
+  let score = 0;
+  if (rows.length >= 2) {
+    let games = 0;
+    let top3 = 0;
+    let win = 0;
+    for (const row of rows) {
+      const weight = row.games ?? 0;
+      games += weight;
+      top3 += (row.top3Rate ?? 0) * weight;
+      win += (row.winRate ?? 0) * weight;
+    }
+    if (games > 0) {
+      const baseTop3 = top3 / games;
+      const baseWin = win / games;
+      const deltaFor = (row) => clamp(
+        (((row.top3Rate ?? baseTop3) - baseTop3) * 7.2 + ((row.winRate ?? baseWin) - baseWin) * 4.8)
+          * officialStatConfidence(row, 900),
+        -0.6,
+        0.6,
+      );
+
+      const offered = new Set(candidateCoreOptions(candidate.variantId, tier).map(String));
+      let best = -Infinity;
+      for (const row of rows) {
+        if (!offered.has(String(row.core))) continue;
+        best = Math.max(best, deltaFor(row));
+      }
+
+      const row = rows.find((candidateRow) => String(candidateRow.core) === String(core));
+      if (row && Number.isFinite(best)) score = Math.min(0, deltaFor(row) - best);
+    }
+  }
+
+  _coreStrengthCache.set(key, score);
+  return score;
+}
+
 function leanPairSynergyTerm(candidate, selected, tier) {
   if (selected.length === 0) return 0;
   const total = selected.reduce((sum, teammate) => {
@@ -2323,6 +2409,11 @@ function leanCandidateComponents(candidate, selected, tier, scores, feedbackScor
   // the whole heuristic bundle to fix it costs outcome gradient (it also carries the
   // structural terms measured at AUC 0.494), so the core terms get their own weight.
   const coreTerm = (scores.officialCoreFit + scores.officialCoreRoleShift) * config.coreFitWeight;
+  // Separate from coreTerm on purpose. coreFitWeight buys agreement with what
+  // players pick and pays for it in how those picks place (see its comment);
+  // this is the core's own measured outcome, and it sits in `individual` so
+  // changing the trait changes the character's score with or without teammates.
+  const coreStrengthTerm = leanCoreStrengthScore(candidate, tier) * config.coreStrengthWeight;
   const stackPenalty = leanStackPenalty(candidate, selected, config);
   const strengthWeight = selected.length > 0
     ? config.selectedStrengthWeight
@@ -2331,7 +2422,8 @@ function leanCandidateComponents(candidate, selected, tier, scores, feedbackScor
     ? heuristicTerm + scores.relationship + feedbackScore
     : 0;
   const individual =
-    strengthScore * strengthWeight -
+    strengthScore * strengthWeight +
+    coreStrengthTerm -
     candidate.difficulty * config.difficultyWeight +
     standaloneContext;
   const composition = selected.length > 0 ? (
@@ -3565,6 +3657,13 @@ export { recommendationArchetype, diversifyRecommendations, DIVERSITY_CONFIG, TW
 // Stage 2 scores composition only: individual strength already decided who is on the
 // shortlist, so letting it vote again just reproduces the static meta list.
 const TWO_STAGE_ORDERING_WEIGHTS = {
+  // Carried through stage 2 rather than zeroed with the rest of the individual
+  // bundle. The trait has to keep mattering once teammates are picked - that is
+  // when people are actually clicking through them - and it costs nothing to
+  // leave in: it is anchored at 0 for every build's best core, so it changes no
+  // ordering. Listed explicitly because Object.assign would otherwise carry it
+  // by omission, which is not a decision anyone could see.
+  coreStrengthWeight: 1.0,
   // Was 0, on the theory that stage 2 should order on composition alone. That was
   // measured against isTop3, which cannot see the difference between 1st and 3rd -
   // and a strong character contributes more to winning outright than to merely
