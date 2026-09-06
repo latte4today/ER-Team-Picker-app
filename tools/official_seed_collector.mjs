@@ -39,6 +39,7 @@ import {
   nicknameOf,
   firstValue,
   partitionRecentGameIds,
+  sleep,
 } from "./official_collect_utils.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -63,6 +64,9 @@ const DEFAULTS = {
   retry429Ms:      60000,
   strictTier:      false,
   targetTeams:     0,        // 0 = no limit; otherwise split evenly across tiers
+  // Pages of the game list to walk per user. Ten rows a page, so this bounds how far
+  // back we will look for a user who plays a lot of non-ranked games.
+  maxGamePages:    6,
   seenGames:       undefined,
 };
 
@@ -87,6 +91,7 @@ function parseArgs() {
       case "--seed-pool-size":     args.seedPoolSize    = Number(value); break;
       case "--top-rankers":        args.topRankers      = Number(value); break;
       case "--top-tier":           args.topTier         = value; break;
+      case "--max-game-pages":     args.maxGamePages    = Number(value); break;
       case "--delay-ms":           args.delayMs         = Number(value); break;
       case "--retry-429-ms":       args.retry429Ms      = Number(value); break;
       case "--strict-tier":        args.strictTier      = value !== "false"; break;
@@ -132,11 +137,7 @@ async function collectGamesForUser(
   // expansion bucket), preventing cross-tier seed drift. Unmeasured users are left out.
   if (userTier && actualBucket !== "unknown") userTier.set(String(userId), effectiveBucket);
 
-  const gamesPayload = await client.getJson(
-    `/v1/user/games/uid/${encodeURIComponent(userId)}`,
-    { cache: false }
-  );
-  const ids = gameRows(gamesPayload).map(gameIdOf).filter(Boolean).slice(0, options.gamesPerUser);
+  const ids = await recentGameIdsForUser(client, userId, options);
   const { traversalIds, newIds } = partitionRecentGameIds(ids, seenGames);
   for (const id of traversalIds) traversalGameIds.add(id);
   let added = 0;
@@ -154,6 +155,46 @@ async function collectGamesForUser(
     tierBucket: effectiveBucket,
     mmr: rankInfo.mmr,
   };
+}
+
+// The list endpoint returns ten rows a page behind a `next` cursor, and the old code
+// took one page and sliced it - so --games-per-user 20 always yielded ten. It also
+// carries matchingMode, matchingTeamMode and seasonId per row, which means the games
+// we are going to discard can be discarded here, before spending a detail request on
+// them. Half of everything collected was being thrown away by the ranked-squad filter
+// downstream: 44.4% normal squad, 5.3% cobalt. Both together are worth roughly four
+// times the useful games per unit of API budget, which is the real constraint - every
+// request costs a second of rate-limit delay.
+async function recentGameIdsForUser(client, userId, options) {
+  const wantMode = options.matchingMode ?? null;
+  const wantTeamMode = options.teamMode ?? null;
+  const ids = [];
+  let cursor = null;
+  for (let page = 0; page < options.maxGamePages && ids.length < options.gamesPerUser; page += 1) {
+    const suffix = cursor ? `?next=${encodeURIComponent(cursor)}` : "";
+    let payload;
+    try {
+      payload = await client.getJson(
+        `/v1/user/games/uid/${encodeURIComponent(userId)}${suffix}`,
+        { cache: false },
+      );
+    } catch {
+      break;
+    }
+    const rows = gameRows(payload);
+    if (!rows.length) break;
+    for (const row of rows) {
+      if (ids.length >= options.gamesPerUser) break;
+      if (wantMode !== null && row.matchingMode !== undefined && row.matchingMode !== wantMode) continue;
+      if (wantTeamMode !== null && row.matchingTeamMode !== undefined && row.matchingTeamMode !== wantTeamMode) continue;
+      const id = gameIdOf(row);
+      if (id) ids.push(id);
+    }
+    cursor = payload?.next ?? null;
+    if (!cursor) break;
+    if (options.delayMs > 0) await sleep(options.delayMs);
+  }
+  return ids;
 }
 
 async function expandFromGames(
@@ -356,6 +397,9 @@ async function main() {
   if (!options.season)       options.season       = seedsConfig.season       ?? 39;
   if (!options.teamMode)     options.teamMode     = seedsConfig.teamMode     ?? 3;
   if (!options.matchingMode) options.matchingMode = seedsConfig.matchingMode ?? 3;
+  // Squad. The app only models three-person teams, so duo and cobalt rows are cost
+  // without benefit.
+  if (!options.teamMode) options.teamMode = seedsConfig.teamMode ?? 3;
 
   const nicknameTiers = seedsConfig.tiers ?? {};
 
