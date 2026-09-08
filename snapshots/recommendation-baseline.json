@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T02:26:01.099Z",
+  "generatedAt": "2026-09-08T09:46:55.002Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e31c347288961974",
+      "digest": "d7c57176a49e2324",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ea2c5c5bdf169b66",
+      "digest": "b307b82eebbd278b",
       "results": [
         {
           "rank": 1,
@@ -1270,7 +1270,7 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.595
+          "total": 1.587
         },
         {
           "rank": 5,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9e4335dd5db8a80b",
+      "digest": "48ac9dcf44b4c493",
       "results": [
         {
           "rank": 1,
@@ -1740,7 +1740,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8fed7b16b2969d0c",
+      "digest": "0449456edb214fe9",
       "results": [
         {
           "rank": 1,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "32b5ce24f061f3ac",
+      "digest": "c99f96e4c63de294",
       "results": [
         {
           "rank": 1,
@@ -1844,7 +1844,7 @@
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.346
+          "total": 1.335
         },
         {
           "rank": 4,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2386b3ee9221a82d",
+      "digest": "fd25dee86a557827",
       "results": [
         {
           "rank": 1,
@@ -3158,7 +3158,7 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.824
+          "total": 1.816
         },
         {
           "rank": 4,
@@ -3303,7 +3303,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "acbe9a30cac6bb19",
+      "digest": "838944138336eb17",
       "results": [
         {
           "rank": 1,
@@ -3552,7 +3552,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "560e5a9a7bd3e6cb",
+      "digest": "d79f125b6b7a826e",
       "results": [
         {
           "rank": 1,
@@ -3635,7 +3635,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "345497aa874a8d75",
+      "digest": "67b3b0f03f2f7510",
       "results": [
         {
           "rank": 1,
@@ -3718,7 +3718,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e5eb243c74ab1df2",
+      "digest": "22a5b1810fc35359",
       "results": [
         {
           "rank": 1,
@@ -3732,14 +3732,14 @@
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.19
+          "total": 1.178
         },
         {
           "rank": 3,
           "variantId": "cathy:dual_swords",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 1.096
+          "total": 1.105
         },
         {
           "rank": 4,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0fa998ae233484e0",
+      "digest": "eca4787523b3f400",
       "results": [
         {
           "rank": 1,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ab6afe2b62e939de",
+      "digest": "10dc9444778c8bd3",
       "results": [
         {
           "rank": 1,
@@ -5198,7 +5198,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "830498a8dfef527a",
+      "digest": "437d404256dafcd3",
       "results": [
         {
           "rank": 1,
@@ -5447,7 +5447,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "06180b950c5a1c13",
+      "digest": "8e1dfbd73e27abcc",
       "results": [
         {
           "rank": 1,
@@ -5530,7 +5530,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3c7b29bfcf6fc979",
+      "digest": "623864a103dd9ec2",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "95f1ae0bb6aae3d2",
+      "digest": "0214890e11e0f983",
       "results": [
         {
           "rank": 1,
@@ -5655,7 +5655,7 @@
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.826
+          "total": 0.815
         },
         {
           "rank": 7,
@@ -6678,7 +6678,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "eefb575a8fdcfdb2",
+      "digest": "1a382aed4da19f94",
       "results": [
         {
           "rank": 1,
@@ -6741,7 +6741,7 @@
           "variantId": "isol:pistol",
           "core": "7200501",
           "coreName": "헌신",
-          "total": 0.86
+          "total": 0.85
         },
         {
           "rank": 10,
@@ -6844,7 +6844,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6ba1db1e98e72cb0",
+      "digest": "907e6cdb9f120567",
       "results": [
         {
           "rank": 1,
@@ -6927,7 +6927,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4078d6fcaaf3c4e3",
+      "digest": "00e911d07d559c6e",
       "results": [
         {
           "rank": 1,
@@ -7342,7 +7342,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1cda753eaf957aa2",
+      "digest": "81df21a6b9257bf5",
       "results": [
         {
           "rank": 1,
@@ -7425,7 +7425,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b6866f6ba6393db4",
+      "digest": "acaaf553a3d70aca",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c354051c72e304c4",
+      "digest": "e86eb8429e94c3b9",
       "results": [
         {
           "rank": 1,
@@ -7536,7 +7536,7 @@
           "variantId": "silvia:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.881
+          "total": 0.872
         },
         {
           "rank": 5,
@@ -7564,7 +7564,7 @@
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.642
+          "total": 0.63
         },
         {
           "rank": 9,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d341fa9e69b37844",
+      "digest": "82883b890adc72e2",
       "results": [
         {
           "rank": 1,
@@ -8988,7 +8988,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "92f4722447413de2",
+      "digest": "a4b5d482b1b20052",
       "results": [
         {
           "rank": 1,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0db7ac98ae21ceda",
+      "digest": "6aba52abc95fbda2",
       "results": [
         {
           "rank": 1,
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bc7d9aaddf0fd42c",
+      "digest": "4cddb9d36702a520",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8dac471b3625b78a",
+      "digest": "bda536ec2f01b6fd",
       "results": [
         {
           "rank": 1,
@@ -9438,7 +9438,7 @@
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.288
+          "total": 0.277
         },
         {
           "rank": 6,
