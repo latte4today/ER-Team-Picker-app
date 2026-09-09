@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T01:32:57.756Z",
+  "generatedAt": "2026-09-09T09:58:10.173Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -254,7 +254,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2ecdc013a6c0684d",
+      "digest": "17716b6938aedfc3",
       "results": [
         {
           "rank": 1,
@@ -296,7 +296,7 @@
           "variantId": "estelle:axe",
           "core": "7100101",
           "coreName": "금강",
-          "total": 1.1
+          "total": 1.077
         },
         {
           "rank": 7,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8b759c54bdd27e8c",
+      "digest": "ddd67e110837898b",
       "results": [
         {
           "rank": 1,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "afd79d01470a9f1b",
+      "digest": "231dfa99bfac3320",
       "results": [
         {
           "rank": 1,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "421019f4e093f4a6",
+      "digest": "45e4f8728aa904ad",
       "results": [
         {
           "rank": 1,
@@ -2149,7 +2149,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "09c6fecd5d22d47f",
+      "digest": "84d65e7d749e00c6",
       "results": [
         {
           "rank": 1,
@@ -2184,7 +2184,7 @@
           "variantId": "estelle:axe",
           "core": "7300301",
           "coreName": "와류",
-          "total": 1.278
+          "total": 1.255
         },
         {
           "rank": 6,
@@ -2195,17 +2195,17 @@
         },
         {
           "rank": 7,
-          "variantId": "estelle:axe",
-          "core": "7100101",
-          "coreName": "금강",
-          "total": 1.209
-        },
-        {
-          "rank": 8,
           "variantId": "aya:sniper_rifle",
           "core": "7000501",
           "coreName": "벽력",
           "total": 1.207
+        },
+        {
+          "rank": 8,
+          "variantId": "estelle:axe",
+          "core": "7100101",
+          "coreName": "금강",
+          "total": 1.186
         },
         {
           "rank": 9,
@@ -2888,7 +2888,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d3d6e10174296573",
+      "digest": "6ecffa69c4b26dd2",
       "results": [
         {
           "rank": 1,
@@ -3220,7 +3220,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f319a75a4d10e1cc",
+      "digest": "0c62f693d633e548",
       "results": [
         {
           "rank": 1,
@@ -3255,7 +3255,7 @@
           "variantId": "silvia:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.458
+          "total": 1.448
         },
         {
           "rank": 6,
@@ -3469,7 +3469,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a134bf6ea58facb5",
+      "digest": "3c2bc2895e0e33d6",
       "results": [
         {
           "rank": 1,
@@ -3552,7 +3552,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "170a4f9e151c6764",
+      "digest": "69d7dd66735bec83",
       "results": [
         {
           "rank": 1,
@@ -3608,7 +3608,7 @@
           "variantId": "adela:bat",
           "core": "7000201",
           "coreName": "취약",
-          "total": 0.834
+          "total": 0.825
         },
         {
           "rank": 9,
@@ -3718,7 +3718,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c100a1608bcd6449",
+      "digest": "2c60f1a7ef00a737",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "81615ae7cacc0907",
+      "digest": "838a631082d1800b",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "63746828df063253",
+      "digest": "1370e38505ba1683",
       "results": [
         {
           "rank": 1,
@@ -6844,7 +6844,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0a3bac2809b4adcb",
+      "digest": "50ab5ab7917099f5",
       "results": [
         {
           "rank": 1,
@@ -7176,7 +7176,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1ed4b80df7bf34ff",
+      "digest": "12caa5ff2c70ba5e",
       "results": [
         {
           "rank": 1,
@@ -7342,7 +7342,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "00d4f31846edc942",
+      "digest": "d49553e47e823a56",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "74790ef3a4f05b08",
+      "digest": "6b74aa2e0db8de0c",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "14e1c9f0231eaed8",
+      "digest": "c475caaa3c4ca8ab",
       "results": [
         {
           "rank": 1,
@@ -8739,7 +8739,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d57bbccea6da9dd8",
+      "digest": "730188ca432badfe",
       "results": [
         {
           "rank": 1,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6a0838de0f8a57b9",
+      "digest": "34f418d2b7ae59bd",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "57b803faf3d9ee84",
+      "digest": "4b2c25b0c1d97a1d",
       "results": [
         {
           "rank": 1,
