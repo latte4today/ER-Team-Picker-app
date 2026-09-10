@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T07:13:19.941Z",
+  "generatedAt": "2026-09-10T09:57:07.649Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "41947e26560e1cc2",
+      "digest": "8a1c768b68b1ffe8",
       "results": [
         {
           "rank": 1,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "15422c84c92a79c6",
+      "digest": "443446a8735b0d9a",
       "results": [
         {
           "rank": 1,
@@ -2149,7 +2149,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "29c74e558265fc18",
+      "digest": "0be614d37d770772",
       "results": [
         {
           "rank": 1,
@@ -2163,7 +2163,7 @@
           "variantId": "hyunwoo:tonfa",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 1.242
+          "total": 1.265
         },
         {
           "rank": 3,
@@ -2971,7 +2971,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ba678904ed076409",
+      "digest": "b241d4ca119affcb",
       "results": [
         {
           "rank": 1,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ca1ead57a299a61b",
+      "digest": "7cb8a39ec46cd70f",
       "results": [
         {
           "rank": 1,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b63cbef7720f862b",
+      "digest": "883c73c2924e154d",
       "results": [
         {
           "rank": 1,
@@ -3635,7 +3635,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4bed5c4a4e7e3f94",
+      "digest": "a38180caed00f7bc",
       "results": [
         {
           "rank": 1,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0ca282c26b3da461",
+      "digest": "103db4aa0dbfdda2",
       "results": [
         {
           "rank": 1,
@@ -5115,7 +5115,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5cde24a561ea4945",
+      "digest": "1a347ce7ddba71b6",
       "results": [
         {
           "rank": 1,
@@ -5447,7 +5447,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5565838e17cb9e19",
+      "digest": "8df13bfe68eb3dca",
       "results": [
         {
           "rank": 1,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5414b1f41e271cce",
+      "digest": "a82f18ff8b77f9ce",
       "results": [
         {
           "rank": 1,
@@ -7342,7 +7342,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e138f406f9eccc36",
+      "digest": "9866f43df8208895",
       "results": [
         {
           "rank": 1,
@@ -7425,7 +7425,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ec4537bc15e22167",
+      "digest": "5796a40c44977c73",
       "results": [
         {
           "rank": 1,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a0f4838a57c1b1a9",
+      "digest": "759e89eef592bd1e",
       "results": [
         {
           "rank": 1,
