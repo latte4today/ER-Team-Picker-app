@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T07:02:58.482Z",
+  "generatedAt": "2026-09-11T09:53:19.009Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3ce3cb0752bc27e4",
+      "digest": "58001b563c61645b",
       "results": [
         {
           "rank": 1,
@@ -1388,7 +1388,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.889
+          "total": 0.899
         },
         {
           "rank": 10,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d745146d5c68f090",
+      "digest": "1cc21edb96c1e519",
       "results": [
         {
           "rank": 1,
@@ -2149,7 +2149,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "46b4bc546d9753f6",
+      "digest": "edb954448a9e2a26",
       "results": [
         {
           "rank": 1,
@@ -2177,7 +2177,7 @@
           "variantId": "hyunwoo:tonfa",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 1.242
+          "total": 1.219
         },
         {
           "rank": 5,
@@ -2971,7 +2971,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1dab950cf66304d9",
+      "digest": "24a93a7d27fb3784",
       "results": [
         {
           "rank": 1,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bbf33f69857bfb28",
+      "digest": "12bf99a17481ca6d",
       "results": [
         {
           "rank": 1,
@@ -3220,7 +3220,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9f9643b867fb7788",
+      "digest": "efd2dde32d345e83",
       "results": [
         {
           "rank": 1,
@@ -3255,7 +3255,7 @@
           "variantId": "silvia:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.404
+          "total": 1.414
         },
         {
           "rank": 6,
@@ -3290,7 +3290,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.996
+          "total": 1.006
         }
       ]
     },
@@ -5115,7 +5115,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8509505c639a804d",
+      "digest": "57479ba5ec13867d",
       "results": [
         {
           "rank": 1,
@@ -5447,7 +5447,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2a20a215e6ac75dd",
+      "digest": "9680795604599117",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "61f9f921288ec1f7",
+      "digest": "2936a56a131034aa",
       "results": [
         {
           "rank": 1,
@@ -5638,17 +5638,17 @@
         },
         {
           "rank": 4,
-          "variantId": "ian:dagger",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": 0.975
-        },
-        {
-          "rank": 5,
           "variantId": "barbara:pistol",
           "core": "7000501",
           "coreName": "벽력",
           "total": 0.971
+        },
+        {
+          "rank": 5,
+          "variantId": "ian:dagger",
+          "core": "7100501",
+          "coreName": "응징",
+          "total": 0.965
         },
         {
           "rank": 6,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6e638240e71f82a3",
+      "digest": "c93987e41795bf58",
       "results": [
         {
           "rank": 1,
@@ -7093,7 +7093,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a034e5dac33f7406",
+      "digest": "0bcce4c36aa5543e",
       "results": [
         {
           "rank": 1,
@@ -7342,7 +7342,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f31ed085cea25958",
+      "digest": "63f8d089fb5d938b",
       "results": [
         {
           "rank": 1,
@@ -7425,7 +7425,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d0929c4469d57945",
+      "digest": "f0cf82db90bba790",
       "results": [
         {
           "rank": 1,
@@ -7485,16 +7485,16 @@
         },
         {
           "rank": 9,
-          "variantId": "hyunwoo:tonfa",
-          "core": "7300201",
-          "coreName": "도깨비불",
-          "total": 0.415
-        },
-        {
-          "rank": 10,
           "variantId": "nadine:crossbow",
           "core": "7000601",
           "coreName": "아드레날린",
+          "total": 0.406
+        },
+        {
+          "rank": 10,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
           "total": 0.406
         }
       ]
@@ -8905,7 +8905,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cbdcd2163d84c9d6",
+      "digest": "b54d6cf3edf489ad",
       "results": [
         {
           "rank": 1,
@@ -8988,7 +8988,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0d040b995bd15007",
+      "digest": "f64db344a6d93c54",
       "results": [
         {
           "rank": 1,
@@ -9020,24 +9020,24 @@
         },
         {
           "rank": 5,
+          "variantId": "charlotte:arcana",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.303
+        },
+        {
+          "rank": 6,
           "variantId": "sho:spear",
           "core": "7200301",
           "coreName": "치유 드론",
           "total": 0.303
         },
         {
-          "rank": 6,
+          "rank": 7,
           "variantId": "johann:arcana",
           "core": "7200301",
           "coreName": "치유 드론",
           "total": 0.297
-        },
-        {
-          "rank": 7,
-          "variantId": "charlotte:arcana",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.292
         },
         {
           "rank": 8,
@@ -9071,7 +9071,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "379350189e086b7f",
+      "digest": "ece275a47a43b638",
       "results": [
         {
           "rank": 1,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "61a7804e02da7b3d",
+      "digest": "9fb13041f6647631",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "75a0460f2e053312",
+      "digest": "20e179369a9fcb96",
       "results": [
         {
           "rank": 1,
