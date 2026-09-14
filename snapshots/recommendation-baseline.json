@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T07:31:56.124Z",
+  "generatedAt": "2026-09-14T10:58:40.005Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7d7f1392d2f76282",
+      "digest": "55c0b44d8137e7f9",
       "results": [
         {
           "rank": 1,
@@ -1740,7 +1740,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d70a3930731a091c",
+      "digest": "4f929fd231a9e210",
       "results": [
         {
           "rank": 1,
@@ -1754,7 +1754,7 @@
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.59
+          "total": 1.601
         },
         {
           "rank": 3,
@@ -1775,7 +1775,7 @@
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.309
+          "total": 1.318
         },
         {
           "rank": 6,
@@ -1789,7 +1789,7 @@
           "variantId": "felix:spear",
           "core": "7100101",
           "coreName": "금강",
-          "total": 1.12
+          "total": 1.13
         },
         {
           "rank": 8,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3a3ef77dab233685",
+      "digest": "b6c8310ccae076e4",
       "results": [
         {
           "rank": 1,
@@ -3552,7 +3552,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dc0ed98ae0637bcd",
+      "digest": "309589d43dfe8fb2",
       "results": [
         {
           "rank": 1,
@@ -3635,14 +3635,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fdd1056159ae5dbd",
+      "digest": "43315e026b0e613a",
       "results": [
         {
           "rank": 1,
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 2.094
+          "total": 2.105
         },
         {
           "rank": 2,
@@ -3663,7 +3663,7 @@
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.365
+          "total": 1.374
         },
         {
           "rank": 5,
@@ -3677,7 +3677,7 @@
           "variantId": "felix:spear",
           "core": "7100101",
           "coreName": "금강",
-          "total": 1.093
+          "total": 1.103
         },
         {
           "rank": 7,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "77be734a12020d24",
+      "digest": "a838a958bfc13a35",
       "results": [
         {
           "rank": 1,
@@ -5447,7 +5447,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "92e07892c947f134",
+      "digest": "d7549c00ed3093dc",
       "results": [
         {
           "rank": 1,
@@ -5530,7 +5530,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "febd74a35bd870bd",
+      "digest": "85ea056e2891c301",
       "results": [
         {
           "rank": 1,
@@ -5565,21 +5565,21 @@
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.796
+          "total": 0.806
         },
         {
           "rank": 6,
+          "variantId": "tazia:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.773
+        },
+        {
+          "rank": 7,
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.772
-        },
-        {
-          "rank": 7,
-          "variantId": "tazia:shuriken",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.762
         },
         {
           "rank": 8,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d5e7c1ce93c45317",
+      "digest": "adc855277ec52f18",
       "results": [
         {
           "rank": 1,
@@ -5669,7 +5669,7 @@
           "variantId": "hyejin:bow",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.765
+          "total": 0.753
         },
         {
           "rank": 9,
@@ -6678,7 +6678,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0ea6eb976a819235",
+      "digest": "f7d09339dbd6d4a8",
       "results": [
         {
           "rank": 1,
@@ -7342,7 +7342,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d825816f15762a43",
+      "digest": "88cb0d0f4cd4441b",
       "results": [
         {
           "rank": 1,
@@ -7363,7 +7363,7 @@
           "variantId": "haze:assault_rifle",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.006
+          "total": 1.014
         },
         {
           "rank": 4,
@@ -7425,7 +7425,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5841eb48469253a9",
+      "digest": "266840f5158e03d8",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d74cc489093dea69",
+      "digest": "9d52705ca81b187b",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4689d50bbfe3e642",
+      "digest": "0ff6693e8feb9a9d",
       "results": [
         {
           "rank": 1,
@@ -8905,7 +8905,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "855ac283ad158bd5",
+      "digest": "7afbf465ace9a1b1",
       "results": [
         {
           "rank": 1,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "412fb03c6f8d785c",
+      "digest": "a6dd265e24a6a5c0",
       "results": [
         {
           "rank": 1,
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9d5ad87a1c58a8e6",
+      "digest": "29dc9556107ceff4",
       "results": [
         {
           "rank": 1,
@@ -9341,7 +9341,7 @@
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.277
+          "total": 0.288
         },
         {
           "rank": 4,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e658480e87a55ed0",
+      "digest": "6f0965cfcbc99569",
       "results": [
         {
           "rank": 1,
