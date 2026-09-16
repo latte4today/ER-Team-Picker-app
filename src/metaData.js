@@ -2,7 +2,7 @@ export const DAK_META_SOURCE = {
   leaderboard: "https://dak.gg/er/leaderboard",
   statistics: "https://dak.gg/er/statistics",
   seasonKey: "SEASON_21",
-  generatedAt: "2026-09-15T10:25:10.677Z",
+  generatedAt: "2026-09-16T10:20:37.834Z",
 };
 
 export const statsTierBuckets = {
@@ -25,457 +25,181 @@ export const tierScoreWeights = {
 
 export const experimentTiers = {
   all: {
-    nicky: "A",
+    nicky: "S",
     katja: "S",
     yuki: "A",
     craver: "C",
     darko: "B",
     debi_marlene: "C",
     aya: "A",
-    luke: "B",
+    luke: "C",
     rio: "A",
     jackie: "C",
     leon: "S",
-    lucia: "D",
+    tsubame: "A",
     hisui: "B",
-    tsubame: "S",
+    lucia: "D",
     shoichi: "D",
     haze: "B",
     magnus: "B",
-    markus: "C",
     justina: "C",
+    markus: "C",
     fenrir: "C",
-    rozzi: "B",
-    garnet: "C",
-    isol: "S",
+    isol: "A",
     adriana: "S",
-    shirin: "C",
+    garnet: "C",
     abigail: "C",
+    shirin: "B",
+    rozzi: "B",
     yumin: "B",
-    camilo: "A",
-    estelle: "A",
-    vanya: "C",
     cathy: "S",
-    bernice: "B",
-    lenore: "S",
+    estelle: "A",
+    camilo: "A",
+    vanya: "C",
     aiden: "B",
+    lenore: "S",
+    bernice: "A",
     nia: "C",
     lenox: "A",
+    bihyung: "B",
     chiara: "C",
-    bihyung: "C",
     alex: "A",
-    hyunwoo: "D",
     nadine: "A",
-    sua: "B",
+    hyunwoo: "D",
     kenneth: "C",
-    sissela: "B",
+    sua: "B",
     istvan: "C",
+    yan: "C",
+    sissela: "B",
     barbara: "B",
     henry: "S",
-    yan: "C",
-    blair: "C",
-    bianca: "B",
     echion: "B",
+    bianca: "B",
+    blair: "C",
     eleven: "B",
-    laura: "A",
-    william: "S",
-    isaac: "B",
     coreline: "C",
+    isaac: "B",
+    william: "S",
+    laura: "B",
     tia: "A",
-    alonso: "C",
     emma: "B",
-    li_dailin: "B",
+    alonso: "C",
+    li_dailin: "C",
     felix: "A",
     piolo: "B",
-    hyejin: "C",
     irem: "A",
     daniel: "A",
+    hyejin: "B",
+    eva: "S",
+    chloe: "S",
+    adela: "B",
+    celine: "S",
     fiora: "C",
     ian: "A",
-    adela: "B",
-    eva: "S",
-    celine: "S",
-    chloe: "S",
-    mirka: "C",
-    adina: "S",
-    sho: "A",
     nathapon: "S",
-    hart: "C",
-    karla: "B",
+    sho: "A",
+    adina: "S",
+    mirka: "C",
     arda: "B",
-    theodore: "D",
-    elena: "B",
+    hart: "C",
     zahir: "S",
-    silvia: "A",
-    tazia: "A",
+    karla: "B",
+    elena: "B",
+    theodore: "C",
+    silvia: "B",
+    tazia: "S",
     jenny: "A",
     leni: "D",
-    charlotte: "C",
     priya: "C",
+    charlotte: "C",
     mai: "A",
-    martina: "C",
+    martina: "D",
     johann: "C"
   },
   bronze: {
     nicky: "A",
     katja: "S",
     yuki: "S",
-    darko: "A",
-    debi_marlene: "C",
-    craver: "C",
-    aya: "S",
-    hisui: "B",
-    luke: "D",
-    rio: "A",
-    leon: "S",
-    lucia: "D",
-    tsubame: "A",
-    jackie: "C",
-    magnus: "B",
-    haze: "B",
-    abigail: "B",
-    shoichi: "D",
-    garnet: "C",
-    shirin: "C",
-    fenrir: "C",
-    markus: "B",
-    isol: "S",
-    lenore: "S",
-    yumin: "B",
-    nia: "C",
-    vanya: "B",
-    estelle: "A",
-    bihyung: "C",
-    adriana: "S",
-    rozzi: "B",
-    justina: "C",
-    bernice: "A",
-    camilo: "A",
-    lenox: "A",
-    cathy: "S",
-    chiara: "C",
-    aiden: "C",
-    sua: "B",
-    bianca: "B",
-    henry: "S",
-    barbara: "B",
-    hyunwoo: "C",
-    kenneth: "C",
-    eleven: "B",
-    alex: "A",
-    sissela: "B",
-    nadine: "A",
-    istvan: "B",
-    alonso: "C",
-    yan: "C",
-    tia: "A",
-    laura: "B",
-    blair: "D",
-    li_dailin: "B",
-    coreline: "C",
-    echion: "B",
-    isaac: "B",
-    william: "S",
-    emma: "B",
-    irem: "B",
-    felix: "A",
-    piolo: "B",
-    mirka: "C",
-    hyejin: "B",
-    eva: "S",
-    celine: "S",
-    daniel: "A",
-    chloe: "S",
-    adina: "S",
-    nathapon: "S",
-    ian: "B",
-    fiora: "C",
-    adela: "B",
-    arda: "A",
-    sho: "A",
-    elena: "B",
-    theodore: "C",
-    hart: "C",
-    karla: "C",
-    silvia: "A",
-    zahir: "S",
-    tazia: "B",
-    leni: "D",
-    jenny: "A",
-    charlotte: "C",
-    mai: "B",
-    priya: "C",
-    martina: "D",
-    johann: "C"
-  },
-  gold: {
-    nicky: "A",
-    katja: "S",
-    yuki: "S",
-    darko: "A",
-    debi_marlene: "C",
-    craver: "C",
-    aya: "S",
-    hisui: "B",
-    luke: "D",
-    rio: "A",
-    leon: "S",
-    lucia: "D",
-    tsubame: "A",
-    jackie: "C",
-    magnus: "B",
-    haze: "B",
-    abigail: "B",
-    shoichi: "D",
-    garnet: "C",
-    shirin: "C",
-    fenrir: "C",
-    markus: "B",
-    isol: "S",
-    lenore: "S",
-    yumin: "B",
-    nia: "C",
-    vanya: "B",
-    estelle: "A",
-    bihyung: "C",
-    adriana: "S",
-    rozzi: "B",
-    justina: "C",
-    bernice: "A",
-    camilo: "A",
-    lenox: "A",
-    cathy: "S",
-    chiara: "C",
-    aiden: "C",
-    sua: "B",
-    bianca: "B",
-    henry: "S",
-    barbara: "B",
-    hyunwoo: "C",
-    kenneth: "C",
-    eleven: "B",
-    alex: "A",
-    sissela: "B",
-    nadine: "A",
-    istvan: "B",
-    alonso: "C",
-    yan: "C",
-    tia: "A",
-    laura: "B",
-    blair: "D",
-    li_dailin: "B",
-    coreline: "C",
-    echion: "B",
-    isaac: "B",
-    william: "S",
-    emma: "B",
-    irem: "B",
-    felix: "A",
-    piolo: "B",
-    mirka: "C",
-    hyejin: "B",
-    eva: "S",
-    celine: "S",
-    daniel: "A",
-    chloe: "S",
-    adina: "S",
-    nathapon: "S",
-    ian: "B",
-    fiora: "C",
-    adela: "B",
-    arda: "A",
-    sho: "A",
-    elena: "B",
-    theodore: "C",
-    hart: "C",
-    karla: "C",
-    silvia: "A",
-    zahir: "S",
-    tazia: "B",
-    leni: "D",
-    jenny: "A",
-    charlotte: "C",
-    mai: "B",
-    priya: "C",
-    martina: "D",
-    johann: "C"
-  },
-  platinum_plus: {
-    nicky: "A",
-    katja: "S",
-    yuki: "S",
-    darko: "A",
-    debi_marlene: "C",
-    craver: "C",
-    aya: "S",
-    hisui: "B",
-    luke: "D",
-    rio: "A",
-    leon: "S",
-    lucia: "D",
-    tsubame: "A",
-    jackie: "C",
-    magnus: "B",
-    haze: "B",
-    abigail: "B",
-    shoichi: "D",
-    garnet: "C",
-    shirin: "C",
-    fenrir: "C",
-    markus: "B",
-    isol: "S",
-    lenore: "S",
-    yumin: "B",
-    nia: "C",
-    vanya: "B",
-    estelle: "A",
-    bihyung: "C",
-    adriana: "S",
-    rozzi: "B",
-    justina: "C",
-    bernice: "A",
-    camilo: "A",
-    lenox: "A",
-    cathy: "S",
-    chiara: "C",
-    aiden: "C",
-    sua: "B",
-    bianca: "B",
-    henry: "S",
-    barbara: "B",
-    hyunwoo: "C",
-    kenneth: "C",
-    eleven: "B",
-    alex: "A",
-    sissela: "B",
-    nadine: "A",
-    istvan: "B",
-    alonso: "C",
-    yan: "C",
-    tia: "A",
-    laura: "B",
-    blair: "D",
-    li_dailin: "B",
-    coreline: "C",
-    echion: "B",
-    isaac: "B",
-    william: "S",
-    emma: "B",
-    irem: "B",
-    felix: "A",
-    piolo: "B",
-    mirka: "C",
-    hyejin: "B",
-    eva: "S",
-    celine: "S",
-    daniel: "A",
-    chloe: "S",
-    adina: "S",
-    nathapon: "S",
-    ian: "B",
-    fiora: "C",
-    adela: "B",
-    arda: "A",
-    sho: "A",
-    elena: "B",
-    theodore: "C",
-    hart: "C",
-    karla: "C",
-    silvia: "A",
-    zahir: "S",
-    tazia: "B",
-    leni: "D",
-    jenny: "A",
-    charlotte: "C",
-    mai: "B",
-    priya: "C",
-    martina: "D",
-    johann: "C"
-  },
-  diamond_plus: {
-    nicky: "A",
-    katja: "S",
-    yuki: "A",
-    craver: "C",
     darko: "B",
-    debi_marlene: "C",
-    aya: "A",
-    luke: "B",
+    debi_marlene: "B",
+    craver: "C",
+    aya: "S",
+    hisui: "C",
+    luke: "D",
     rio: "A",
-    jackie: "C",
     leon: "S",
     lucia: "D",
-    hisui: "B",
-    tsubame: "S",
-    shoichi: "D",
+    tsubame: "A",
+    jackie: "B",
     haze: "B",
     magnus: "B",
-    markus: "C",
-    justina: "C",
-    fenrir: "C",
-    rozzi: "B",
+    abigail: "B",
+    shoichi: "D",
     garnet: "C",
-    isol: "S",
-    adriana: "S",
+    fenrir: "C",
+    markus: "B",
     shirin: "C",
-    abigail: "C",
-    yumin: "B",
-    camilo: "A",
-    estelle: "A",
-    vanya: "C",
-    cathy: "S",
-    bernice: "B",
+    isol: "A",
     lenore: "S",
-    aiden: "B",
     nia: "C",
-    lenox: "A",
-    chiara: "C",
+    yumin: "B",
     bihyung: "C",
-    alex: "A",
-    hyunwoo: "D",
-    nadine: "A",
-    sua: "B",
-    kenneth: "C",
-    sissela: "B",
-    istvan: "C",
-    barbara: "B",
-    henry: "S",
-    yan: "C",
-    blair: "C",
+    vanya: "B",
+    estelle: "A",
+    adriana: "S",
+    justina: "C",
+    rozzi: "B",
+    cathy: "S",
+    bernice: "A",
+    lenox: "A",
+    camilo: "A",
+    aiden: "C",
+    chiara: "C",
     bianca: "B",
-    echion: "B",
+    sua: "B",
+    henry: "S",
+    barbara: "B",
+    hyunwoo: "C",
+    kenneth: "C",
     eleven: "B",
-    laura: "A",
-    william: "S",
-    isaac: "B",
+    alex: "A",
+    nadine: "A",
+    istvan: "B",
+    sissela: "B",
+    alonso: "B",
+    yan: "C",
+    tia: "B",
+    blair: "D",
+    li_dailin: "C",
     coreline: "C",
-    tia: "A",
-    alonso: "C",
+    laura: "B",
+    echion: "B",
+    isaac: "B",
     emma: "B",
-    li_dailin: "B",
+    william: "S",
+    irem: "B",
     felix: "A",
-    piolo: "B",
-    hyejin: "C",
-    irem: "A",
-    daniel: "A",
-    fiora: "C",
-    ian: "A",
-    adela: "B",
-    eva: "S",
-    celine: "S",
-    chloe: "S",
+    eva: "A",
+    piolo: "A",
     mirka: "C",
-    adina: "S",
-    sho: "A",
+    hyejin: "B",
+    celine: "S",
+    daniel: "A",
+    chloe: "S",
     nathapon: "S",
-    hart: "C",
-    karla: "B",
-    arda: "B",
-    theodore: "D",
+    adina: "S",
+    ian: "B",
+    arda: "A",
+    adela: "B",
+    fiora: "B",
+    sho: "A",
     elena: "B",
+    hart: "C",
+    theodore: "B",
+    karla: "C",
     zahir: "S",
     silvia: "A",
-    tazia: "A",
+    tazia: "B",
     jenny: "A",
     leni: "D",
     charlotte: "C",
@@ -484,94 +208,370 @@ export const experimentTiers = {
     martina: "C",
     johann: "C"
   },
+  gold: {
+    nicky: "A",
+    katja: "S",
+    yuki: "S",
+    darko: "B",
+    debi_marlene: "B",
+    craver: "C",
+    aya: "S",
+    hisui: "C",
+    luke: "D",
+    rio: "A",
+    leon: "S",
+    lucia: "D",
+    tsubame: "A",
+    jackie: "B",
+    haze: "B",
+    magnus: "B",
+    abigail: "B",
+    shoichi: "D",
+    garnet: "C",
+    fenrir: "C",
+    markus: "B",
+    shirin: "C",
+    isol: "A",
+    lenore: "S",
+    nia: "C",
+    yumin: "B",
+    bihyung: "C",
+    vanya: "B",
+    estelle: "A",
+    adriana: "S",
+    justina: "C",
+    rozzi: "B",
+    cathy: "S",
+    bernice: "A",
+    lenox: "A",
+    camilo: "A",
+    aiden: "C",
+    chiara: "C",
+    bianca: "B",
+    sua: "B",
+    henry: "S",
+    barbara: "B",
+    hyunwoo: "C",
+    kenneth: "C",
+    eleven: "B",
+    alex: "A",
+    nadine: "A",
+    istvan: "B",
+    sissela: "B",
+    alonso: "B",
+    yan: "C",
+    tia: "B",
+    blair: "D",
+    li_dailin: "C",
+    coreline: "C",
+    laura: "B",
+    echion: "B",
+    isaac: "B",
+    emma: "B",
+    william: "S",
+    irem: "B",
+    felix: "A",
+    eva: "A",
+    piolo: "A",
+    mirka: "C",
+    hyejin: "B",
+    celine: "S",
+    daniel: "A",
+    chloe: "S",
+    nathapon: "S",
+    adina: "S",
+    ian: "B",
+    arda: "A",
+    adela: "B",
+    fiora: "B",
+    sho: "A",
+    elena: "B",
+    hart: "C",
+    theodore: "B",
+    karla: "C",
+    zahir: "S",
+    silvia: "A",
+    tazia: "B",
+    jenny: "A",
+    leni: "D",
+    charlotte: "C",
+    priya: "C",
+    mai: "A",
+    martina: "C",
+    johann: "C"
+  },
+  platinum_plus: {
+    nicky: "A",
+    katja: "S",
+    yuki: "S",
+    darko: "B",
+    debi_marlene: "B",
+    craver: "C",
+    aya: "S",
+    hisui: "C",
+    luke: "D",
+    rio: "A",
+    leon: "S",
+    lucia: "D",
+    tsubame: "A",
+    jackie: "B",
+    haze: "B",
+    magnus: "B",
+    abigail: "B",
+    shoichi: "D",
+    garnet: "C",
+    fenrir: "C",
+    markus: "B",
+    shirin: "C",
+    isol: "A",
+    lenore: "S",
+    nia: "C",
+    yumin: "B",
+    bihyung: "C",
+    vanya: "B",
+    estelle: "A",
+    adriana: "S",
+    justina: "C",
+    rozzi: "B",
+    cathy: "S",
+    bernice: "A",
+    lenox: "A",
+    camilo: "A",
+    aiden: "C",
+    chiara: "C",
+    bianca: "B",
+    sua: "B",
+    henry: "S",
+    barbara: "B",
+    hyunwoo: "C",
+    kenneth: "C",
+    eleven: "B",
+    alex: "A",
+    nadine: "A",
+    istvan: "B",
+    sissela: "B",
+    alonso: "B",
+    yan: "C",
+    tia: "B",
+    blair: "D",
+    li_dailin: "C",
+    coreline: "C",
+    laura: "B",
+    echion: "B",
+    isaac: "B",
+    emma: "B",
+    william: "S",
+    irem: "B",
+    felix: "A",
+    eva: "A",
+    piolo: "A",
+    mirka: "C",
+    hyejin: "B",
+    celine: "S",
+    daniel: "A",
+    chloe: "S",
+    nathapon: "S",
+    adina: "S",
+    ian: "B",
+    arda: "A",
+    adela: "B",
+    fiora: "B",
+    sho: "A",
+    elena: "B",
+    hart: "C",
+    theodore: "B",
+    karla: "C",
+    zahir: "S",
+    silvia: "A",
+    tazia: "B",
+    jenny: "A",
+    leni: "D",
+    charlotte: "C",
+    priya: "C",
+    mai: "A",
+    martina: "C",
+    johann: "C"
+  },
+  diamond_plus: {
+    nicky: "S",
+    katja: "S",
+    yuki: "A",
+    craver: "C",
+    darko: "B",
+    debi_marlene: "C",
+    aya: "A",
+    luke: "C",
+    rio: "A",
+    jackie: "C",
+    leon: "S",
+    tsubame: "A",
+    hisui: "B",
+    lucia: "D",
+    shoichi: "D",
+    haze: "B",
+    magnus: "B",
+    justina: "C",
+    markus: "C",
+    fenrir: "C",
+    isol: "A",
+    adriana: "S",
+    garnet: "C",
+    abigail: "C",
+    shirin: "B",
+    rozzi: "B",
+    yumin: "B",
+    cathy: "S",
+    estelle: "A",
+    camilo: "A",
+    vanya: "C",
+    aiden: "B",
+    lenore: "S",
+    bernice: "A",
+    nia: "C",
+    lenox: "A",
+    bihyung: "B",
+    chiara: "C",
+    alex: "A",
+    nadine: "A",
+    hyunwoo: "D",
+    kenneth: "C",
+    sua: "B",
+    istvan: "C",
+    yan: "C",
+    sissela: "B",
+    barbara: "B",
+    henry: "S",
+    echion: "B",
+    bianca: "B",
+    blair: "C",
+    eleven: "B",
+    coreline: "C",
+    isaac: "B",
+    william: "S",
+    laura: "B",
+    tia: "A",
+    emma: "B",
+    alonso: "C",
+    li_dailin: "C",
+    felix: "A",
+    piolo: "B",
+    irem: "A",
+    daniel: "A",
+    hyejin: "B",
+    eva: "S",
+    chloe: "S",
+    adela: "B",
+    celine: "S",
+    fiora: "C",
+    ian: "A",
+    nathapon: "S",
+    sho: "A",
+    adina: "S",
+    mirka: "C",
+    arda: "B",
+    hart: "C",
+    zahir: "S",
+    karla: "B",
+    elena: "B",
+    theodore: "C",
+    silvia: "B",
+    tazia: "S",
+    jenny: "A",
+    leni: "D",
+    priya: "C",
+    charlotte: "C",
+    mai: "A",
+    martina: "D",
+    johann: "C"
+  },
   mithril_plus: {
     craver: "B",
-    nicky: "A",
+    nicky: "S",
     jackie: "B",
     yuki: "B",
-    luke: "B",
+    justina: "A",
     aya: "A",
+    luke: "C",
     rio: "C",
-    justina: "B",
-    debi_marlene: "C",
     katja: "C",
     darko: "B",
+    debi_marlene: "B",
     markus: "B",
     tsubame: "B",
     shoichi: "B",
-    shirin: "B",
-    garnet: "B",
-    alex: "S",
-    william: "A",
-    echion: "B",
+    shirin: "C",
+    alex: "A",
     cathy: "A",
+    echion: "A",
+    istvan: "B",
+    garnet: "B",
+    blair: "B",
+    william: "A",
+    haze: "C",
     bernice: "B",
-    haze: "B",
     chiara: "C",
     fenrir: "C",
-    emma: "A",
-    blair: "B",
-    istvan: "A",
+    aiden: "B",
+    emma: "S",
+    isol: "S",
     kenneth: "C",
-    camilo: "C",
+    adriana: "S",
+    lenox: "A",
+    nadine: "A",
     magnus: "C",
     sissela: "A",
-    isol: "S",
-    adriana: "A",
-    aiden: "A",
-    adela: "B",
-    nadine: "S",
     rozzi: "S",
-    lenox: "S",
-    laura: "B",
-    hyejin: "A",
-    vanya: "B",
-    lucia: "D",
+    hyejin: "S",
+    adela: "C",
+    camilo: "C",
+    vanya: "C",
     estelle: "B",
     sua: "A",
-    felix: "S",
-    leon: "B",
-    yumin: "B",
+    laura: "A",
+    lucia: "D",
+    felix: "A",
+    yan: "B",
     hisui: "B",
-    hyunwoo: "D",
+    leon: "B",
     tia: "A",
-    yan: "C",
     nia: "D",
-    alonso: "C",
-    henry: "B",
-    piolo: "C",
-    bihyung: "B",
-    fiora: "B",
-    li_dailin: "B",
+    yumin: "B",
+    bihyung: "A",
+    hyunwoo: "C",
+    henry: "A",
+    alonso: "B",
+    piolo: "B",
     coreline: "C",
-    barbara: "B",
+    fiora: "B",
+    li_dailin: "D",
     zahir: "A",
-    abigail: "C",
     isaac: "C",
-    hart: "B",
+    hart: "C",
     irem: "S",
-    eleven: "B",
+    abigail: "C",
+    barbara: "A",
+    eleven: "A",
     bianca: "S",
-    karla: "B",
-    sho: "D",
+    sho: "C",
+    karla: "A",
     adina: "S",
     daniel: "S",
-    theodore: "D",
-    elena: "C",
-    lenore: "C",
     celine: "B",
-    nathapon: "A",
-    eva: "A",
+    elena: "B",
+    theodore: "D",
     arda: "C",
+    eva: "A",
+    nathapon: "B",
+    jenny: "A",
+    lenore: "A",
     ian: "A",
-    jenny: "S",
-    silvia: "A",
-    tazia: "S",
-    mirka: "C",
-    chloe: "A",
-    charlotte: "B",
+    silvia: "S",
+    tazia: "A",
+    chloe: "C",
+    mirka: "D",
+    charlotte: "A",
+    priya: "A",
     martina: "C",
-    priya: "B",
     mai: "A",
     leni: "D",
     johann: "B"
@@ -581,3254 +581,3254 @@ export const experimentTiers = {
 export const statisticsPerformance = {
   all: {
     nicky: {
-      games: 18707,
-      avgPlacement: 4.38,
-      winRate: 0.121,
-      top3Rate: 0.382
+      games: 18464,
+      avgPlacement: 4.36,
+      winRate: 0.123,
+      top3Rate: 0.384
     },
     katja: {
-      games: 16691,
-      avgPlacement: 4.32,
-      winRate: 0.139,
+      games: 16705,
+      avgPlacement: 4.31,
+      winRate: 0.138,
       top3Rate: 0.392
     },
     yuki: {
-      games: 14285,
+      games: 14269,
       avgPlacement: 4.29,
       winRate: 0.121,
-      top3Rate: 0.402
+      top3Rate: 0.403
     },
     craver: {
-      games: 13039,
+      games: 12955,
       avgPlacement: 4.31,
-      winRate: 0.111,
-      top3Rate: 0.395
+      winRate: 0.113,
+      top3Rate: 0.393
     },
     darko: {
-      games: 12889,
+      games: 12797,
       avgPlacement: 4.37,
-      winRate: 0.129,
-      top3Rate: 0.384
-    },
-    debi_marlene: {
-      games: 12630,
-      avgPlacement: 4.36,
-      winRate: 0.121,
+      winRate: 0.13,
       top3Rate: 0.382
     },
+    debi_marlene: {
+      games: 12331,
+      avgPlacement: 4.35,
+      winRate: 0.122,
+      top3Rate: 0.385
+    },
     aya: {
-      games: 10922,
+      games: 10918,
       avgPlacement: 4.23,
-      winRate: 0.141,
+      winRate: 0.139,
       top3Rate: 0.405
     },
     luke: {
-      games: 10910,
-      avgPlacement: 4.41,
-      winRate: 0.125,
-      top3Rate: 0.376
+      games: 10775,
+      avgPlacement: 4.42,
+      winRate: 0.123,
+      top3Rate: 0.375
     },
     rio: {
-      games: 10563,
+      games: 10555,
       avgPlacement: 4.27,
-      winRate: 0.147,
+      winRate: 0.148,
       top3Rate: 0.4
     },
     jackie: {
-      games: 10171,
-      avgPlacement: 4.34,
-      winRate: 0.121,
-      top3Rate: 0.391
+      games: 10207,
+      avgPlacement: 4.33,
+      winRate: 0.118,
+      top3Rate: 0.39
     },
     leon: {
-      games: 9399,
+      games: 9222,
       avgPlacement: 4.22,
-      winRate: 0.137,
+      winRate: 0.138,
       top3Rate: 0.412
     },
-    lucia: {
-      games: 8987,
-      avgPlacement: 4.53,
-      winRate: 0.105,
-      top3Rate: 0.352
+    tsubame: {
+      games: 8893,
+      avgPlacement: 4.27,
+      winRate: 0.13,
+      top3Rate: 0.396
     },
     hisui: {
-      games: 8882,
-      avgPlacement: 4.41,
-      winRate: 0.136,
-      top3Rate: 0.371
-    },
-    tsubame: {
-      games: 8821,
-      avgPlacement: 4.27,
+      games: 8856,
+      avgPlacement: 4.42,
       winRate: 0.132,
-      top3Rate: 0.397
+      top3Rate: 0.367
+    },
+    lucia: {
+      games: 8693,
+      avgPlacement: 4.54,
+      winRate: 0.105,
+      top3Rate: 0.35
     },
     shoichi: {
-      games: 8603,
+      games: 8534,
       avgPlacement: 4.45,
       winRate: 0.111,
-      top3Rate: 0.365
+      top3Rate: 0.367
     },
     haze: {
-      games: 8544,
-      avgPlacement: 4.27,
-      winRate: 0.134,
+      games: 8496,
+      avgPlacement: 4.26,
+      winRate: 0.132,
       top3Rate: 0.402
     },
     magnus: {
-      games: 8416,
-      avgPlacement: 4.35,
-      winRate: 0.133,
-      top3Rate: 0.391
-    },
-    markus: {
-      games: 7784,
-      avgPlacement: 4.33,
-      winRate: 0.14,
-      top3Rate: 0.389
+      games: 8248,
+      avgPlacement: 4.34,
+      winRate: 0.131,
+      top3Rate: 0.392
     },
     justina: {
-      games: 7619,
+      games: 7991,
       avgPlacement: 4.33,
-      winRate: 0.122,
+      winRate: 0.124,
       top3Rate: 0.389
     },
+    markus: {
+      games: 7873,
+      avgPlacement: 4.33,
+      winRate: 0.138,
+      top3Rate: 0.385
+    },
     fenrir: {
-      games: 7600,
-      avgPlacement: 4.45,
+      games: 7622,
+      avgPlacement: 4.44,
       winRate: 0.111,
-      top3Rate: 0.366
-    },
-    rozzi: {
-      games: 7416,
-      avgPlacement: 4.24,
-      winRate: 0.133,
-      top3Rate: 0.412
-    },
-    garnet: {
-      games: 7397,
-      avgPlacement: 4.28,
-      winRate: 0.117,
-      top3Rate: 0.397
+      top3Rate: 0.365
     },
     isol: {
-      games: 7351,
+      games: 7530,
       avgPlacement: 4.26,
-      winRate: 0.137,
+      winRate: 0.135,
       top3Rate: 0.407
     },
     adriana: {
-      games: 7292,
-      avgPlacement: 4.11,
-      winRate: 0.149,
-      top3Rate: 0.434
+      games: 7336,
+      avgPlacement: 4.1,
+      winRate: 0.151,
+      top3Rate: 0.437
     },
-    shirin: {
-      games: 7244,
-      avgPlacement: 4.36,
-      winRate: 0.114,
-      top3Rate: 0.384
+    garnet: {
+      games: 7242,
+      avgPlacement: 4.25,
+      winRate: 0.122,
+      top3Rate: 0.401
     },
     abigail: {
-      games: 7219,
+      games: 7229,
       avgPlacement: 4.37,
-      winRate: 0.129,
+      winRate: 0.13,
       top3Rate: 0.374
     },
-    yumin: {
-      games: 7133,
-      avgPlacement: 4.31,
-      winRate: 0.136,
-      top3Rate: 0.393
-    },
-    camilo: {
-      games: 6850,
+    shirin: {
+      games: 7155,
       avgPlacement: 4.35,
-      winRate: 0.136,
-      top3Rate: 0.385
+      winRate: 0.113,
+      top3Rate: 0.387
     },
-    estelle: {
-      games: 6802,
-      avgPlacement: 4.19,
-      winRate: 0.143,
-      top3Rate: 0.416
+    rozzi: {
+      games: 7128,
+      avgPlacement: 4.25,
+      winRate: 0.133,
+      top3Rate: 0.41
     },
-    vanya: {
-      games: 6704,
-      avgPlacement: 4.34,
-      winRate: 0.136,
-      top3Rate: 0.388
+    yumin: {
+      games: 7002,
+      avgPlacement: 4.3,
+      winRate: 0.138,
+      top3Rate: 0.395
     },
     cathy: {
-      games: 6652,
+      games: 6937,
       avgPlacement: 4.19,
-      winRate: 0.139,
-      top3Rate: 0.418
+      winRate: 0.137,
+      top3Rate: 0.417
     },
-    bernice: {
-      games: 6562,
+    estelle: {
+      games: 6849,
+      avgPlacement: 4.21,
+      winRate: 0.14,
+      top3Rate: 0.41
+    },
+    camilo: {
+      games: 6656,
+      avgPlacement: 4.36,
+      winRate: 0.136,
+      top3Rate: 0.382
+    },
+    vanya: {
+      games: 6622,
       avgPlacement: 4.33,
-      winRate: 0.138,
-      top3Rate: 0.393
-    },
-    lenore: {
-      games: 6535,
-      avgPlacement: 4.26,
-      winRate: 0.159,
-      top3Rate: 0.407
-    },
-    aiden: {
-      games: 6487,
-      avgPlacement: 4.35,
-      winRate: 0.126,
-      top3Rate: 0.386
-    },
-    nia: {
-      games: 6287,
-      avgPlacement: 4.37,
-      winRate: 0.125,
-      top3Rate: 0.384
-    },
-    lenox: {
-      games: 6267,
-      avgPlacement: 4.22,
-      winRate: 0.149,
-      top3Rate: 0.414
-    },
-    chiara: {
-      games: 6070,
-      avgPlacement: 4.39,
-      winRate: 0.129,
-      top3Rate: 0.381
-    },
-    bihyung: {
-      games: 6013,
-      avgPlacement: 4.31,
-      winRate: 0.128,
-      top3Rate: 0.4
-    },
-    alex: {
-      games: 5962,
-      avgPlacement: 4.14,
-      winRate: 0.131,
-      top3Rate: 0.432
-    },
-    hyunwoo: {
-      games: 5925,
-      avgPlacement: 4.37,
-      winRate: 0.121,
+      winRate: 0.136,
       top3Rate: 0.39
     },
+    aiden: {
+      games: 6566,
+      avgPlacement: 4.35,
+      winRate: 0.126,
+      top3Rate: 0.388
+    },
+    lenore: {
+      games: 6484,
+      avgPlacement: 4.24,
+      winRate: 0.164,
+      top3Rate: 0.41
+    },
+    bernice: {
+      games: 6408,
+      avgPlacement: 4.31,
+      winRate: 0.142,
+      top3Rate: 0.397
+    },
+    nia: {
+      games: 6327,
+      avgPlacement: 4.36,
+      winRate: 0.127,
+      top3Rate: 0.387
+    },
+    lenox: {
+      games: 6304,
+      avgPlacement: 4.23,
+      winRate: 0.145,
+      top3Rate: 0.41
+    },
+    bihyung: {
+      games: 6216,
+      avgPlacement: 4.29,
+      winRate: 0.13,
+      top3Rate: 0.403
+    },
+    chiara: {
+      games: 6131,
+      avgPlacement: 4.42,
+      winRate: 0.128,
+      top3Rate: 0.377
+    },
+    alex: {
+      games: 5972,
+      avgPlacement: 4.17,
+      winRate: 0.128,
+      top3Rate: 0.425
+    },
     nadine: {
-      games: 5789,
-      avgPlacement: 4.2,
-      winRate: 0.144,
-      top3Rate: 0.419
+      games: 5945,
+      avgPlacement: 4.19,
+      winRate: 0.148,
+      top3Rate: 0.42
+    },
+    hyunwoo: {
+      games: 5815,
+      avgPlacement: 4.38,
+      winRate: 0.121,
+      top3Rate: 0.387
+    },
+    kenneth: {
+      games: 5727,
+      avgPlacement: 4.33,
+      winRate: 0.135,
+      top3Rate: 0.39
     },
     sua: {
-      games: 5665,
-      avgPlacement: 4.25,
+      games: 5582,
+      avgPlacement: 4.26,
       winRate: 0.129,
       top3Rate: 0.408
     },
-    kenneth: {
-      games: 5661,
-      avgPlacement: 4.34,
-      winRate: 0.135,
-      top3Rate: 0.389
-    },
-    sissela: {
-      games: 5445,
-      avgPlacement: 4.25,
-      winRate: 0.138,
-      top3Rate: 0.404
-    },
     istvan: {
-      games: 5431,
+      games: 5568,
       avgPlacement: 4.35,
       winRate: 0.109,
-      top3Rate: 0.388
+      top3Rate: 0.391
+    },
+    yan: {
+      games: 5312,
+      avgPlacement: 4.28,
+      winRate: 0.124,
+      top3Rate: 0.401
+    },
+    sissela: {
+      games: 5304,
+      avgPlacement: 4.25,
+      winRate: 0.14,
+      top3Rate: 0.405
     },
     barbara: {
-      games: 5396,
-      avgPlacement: 4.21,
-      winRate: 0.142,
+      games: 5268,
+      avgPlacement: 4.2,
+      winRate: 0.143,
       top3Rate: 0.422
     },
     henry: {
-      games: 5347,
-      avgPlacement: 4.15,
-      winRate: 0.149,
-      top3Rate: 0.425
-    },
-    yan: {
-      games: 5323,
-      avgPlacement: 4.3,
-      winRate: 0.119,
-      top3Rate: 0.397
-    },
-    blair: {
-      games: 5146,
-      avgPlacement: 4.39,
-      winRate: 0.124,
-      top3Rate: 0.374
-    },
-    bianca: {
-      games: 5146,
-      avgPlacement: 4.31,
-      winRate: 0.127,
-      top3Rate: 0.391
-    },
-    echion: {
-      games: 5037,
-      avgPlacement: 4.29,
-      winRate: 0.135,
-      top3Rate: 0.398
-    },
-    eleven: {
-      games: 5031,
-      avgPlacement: 4.2,
-      winRate: 0.144,
-      top3Rate: 0.414
-    },
-    laura: {
-      games: 5012,
-      avgPlacement: 4.29,
-      winRate: 0.127,
-      top3Rate: 0.398
-    },
-    william: {
-      games: 4876,
-      avgPlacement: 4.22,
-      winRate: 0.156,
-      top3Rate: 0.405
-    },
-    isaac: {
-      games: 4860,
-      avgPlacement: 4.33,
-      winRate: 0.126,
-      top3Rate: 0.387
-    },
-    coreline: {
-      games: 4783,
-      avgPlacement: 4.31,
-      winRate: 0.139,
-      top3Rate: 0.397
-    },
-    tia: {
-      games: 4702,
-      avgPlacement: 4.15,
-      winRate: 0.131,
-      top3Rate: 0.427
-    },
-    alonso: {
-      games: 4668,
-      avgPlacement: 4.48,
-      winRate: 0.137,
-      top3Rate: 0.364
-    },
-    emma: {
-      games: 4661,
-      avgPlacement: 4.21,
-      winRate: 0.138,
-      top3Rate: 0.41
-    },
-    li_dailin: {
-      games: 4527,
-      avgPlacement: 4.24,
-      winRate: 0.126,
-      top3Rate: 0.412
-    },
-    felix: {
-      games: 4113,
-      avgPlacement: 4.23,
-      winRate: 0.146,
-      top3Rate: 0.411
-    },
-    piolo: {
-      games: 3840,
-      avgPlacement: 4.27,
-      winRate: 0.115,
-      top3Rate: 0.399
-    },
-    hyejin: {
-      games: 3693,
-      avgPlacement: 4.19,
-      winRate: 0.135,
-      top3Rate: 0.421
-    },
-    irem: {
-      games: 3692,
-      avgPlacement: 4.15,
-      winRate: 0.13,
-      top3Rate: 0.42
-    },
-    daniel: {
-      games: 3635,
-      avgPlacement: 4.16,
-      winRate: 0.117,
-      top3Rate: 0.428
-    },
-    fiora: {
-      games: 3551,
-      avgPlacement: 4.33,
-      winRate: 0.118,
-      top3Rate: 0.391
-    },
-    ian: {
-      games: 3444,
-      avgPlacement: 4.18,
-      winRate: 0.136,
-      top3Rate: 0.412
-    },
-    adela: {
-      games: 3424,
-      avgPlacement: 4.23,
-      winRate: 0.145,
-      top3Rate: 0.403
-    },
-    eva: {
-      games: 3410,
-      avgPlacement: 4.08,
-      winRate: 0.17,
-      top3Rate: 0.439
-    },
-    celine: {
-      games: 3387,
+      games: 5233,
       avgPlacement: 4.13,
-      winRate: 0.156,
-      top3Rate: 0.431
-    },
-    chloe: {
-      games: 3363,
-      avgPlacement: 4.09,
       winRate: 0.154,
       top3Rate: 0.429
     },
-    mirka: {
-      games: 3093,
-      avgPlacement: 4.26,
-      winRate: 0.143,
-      top3Rate: 0.389
-    },
-    adina: {
-      games: 3012,
-      avgPlacement: 4.12,
-      winRate: 0.166,
-      top3Rate: 0.431
-    },
-    sho: {
-      games: 2998,
-      avgPlacement: 4.1,
-      winRate: 0.155,
-      top3Rate: 0.432
-    },
-    nathapon: {
-      games: 2993,
-      avgPlacement: 4.22,
-      winRate: 0.155,
-      top3Rate: 0.41
-    },
-    hart: {
-      games: 2733,
-      avgPlacement: 4.35,
-      winRate: 0.139,
-      top3Rate: 0.385
-    },
-    karla: {
-      games: 2732,
+    echion: {
+      games: 5210,
       avgPlacement: 4.27,
-      winRate: 0.129,
-      top3Rate: 0.397
+      winRate: 0.138,
+      top3Rate: 0.402
     },
-    arda: {
-      games: 2704,
-      avgPlacement: 4.19,
-      winRate: 0.121,
-      top3Rate: 0.423
+    bianca: {
+      games: 5184,
+      avgPlacement: 4.34,
+      winRate: 0.123,
+      top3Rate: 0.39
     },
-    theodore: {
-      games: 2655,
-      avgPlacement: 4.46,
-      winRate: 0.133,
-      top3Rate: 0.37
-    },
-    elena: {
-      games: 2615,
-      avgPlacement: 4.28,
-      winRate: 0.137,
-      top3Rate: 0.398
-    },
-    zahir: {
-      games: 2608,
-      avgPlacement: 3.99,
-      winRate: 0.194,
-      top3Rate: 0.454
-    },
-    silvia: {
-      games: 2567,
-      avgPlacement: 4.18,
-      winRate: 0.143,
-      top3Rate: 0.425
-    },
-    tazia: {
-      games: 2088,
-      avgPlacement: 4.23,
-      winRate: 0.155,
-      top3Rate: 0.403
-    },
-    jenny: {
-      games: 1856,
-      avgPlacement: 4.06,
-      winRate: 0.173,
-      top3Rate: 0.446
-    },
-    leni: {
-      games: 1677,
-      avgPlacement: 4.38,
-      winRate: 0.129,
+    blair: {
+      games: 5138,
+      avgPlacement: 4.41,
+      winRate: 0.124,
       top3Rate: 0.371
     },
-    charlotte: {
-      games: 1534,
-      avgPlacement: 4.44,
-      winRate: 0.162,
-      top3Rate: 0.37
+    eleven: {
+      games: 4929,
+      avgPlacement: 4.18,
+      winRate: 0.146,
+      top3Rate: 0.418
+    },
+    coreline: {
+      games: 4912,
+      avgPlacement: 4.3,
+      winRate: 0.138,
+      top3Rate: 0.397
+    },
+    isaac: {
+      games: 4897,
+      avgPlacement: 4.34,
+      winRate: 0.127,
+      top3Rate: 0.387
+    },
+    william: {
+      games: 4783,
+      avgPlacement: 4.23,
+      winRate: 0.156,
+      top3Rate: 0.404
+    },
+    laura: {
+      games: 4782,
+      avgPlacement: 4.32,
+      winRate: 0.123,
+      top3Rate: 0.394
+    },
+    tia: {
+      games: 4721,
+      avgPlacement: 4.15,
+      winRate: 0.133,
+      top3Rate: 0.425
+    },
+    emma: {
+      games: 4665,
+      avgPlacement: 4.21,
+      winRate: 0.136,
+      top3Rate: 0.41
+    },
+    alonso: {
+      games: 4606,
+      avgPlacement: 4.43,
+      winRate: 0.14,
+      top3Rate: 0.371
+    },
+    li_dailin: {
+      games: 4563,
+      avgPlacement: 4.26,
+      winRate: 0.123,
+      top3Rate: 0.412
+    },
+    felix: {
+      games: 4047,
+      avgPlacement: 4.24,
+      winRate: 0.142,
+      top3Rate: 0.409
+    },
+    piolo: {
+      games: 3751,
+      avgPlacement: 4.22,
+      winRate: 0.119,
+      top3Rate: 0.409
+    },
+    irem: {
+      games: 3707,
+      avgPlacement: 4.17,
+      winRate: 0.128,
+      top3Rate: 0.418
+    },
+    daniel: {
+      games: 3679,
+      avgPlacement: 4.14,
+      winRate: 0.12,
+      top3Rate: 0.432
+    },
+    hyejin: {
+      games: 3600,
+      avgPlacement: 4.19,
+      winRate: 0.137,
+      top3Rate: 0.423
+    },
+    eva: {
+      games: 3502,
+      avgPlacement: 4.1,
+      winRate: 0.166,
+      top3Rate: 0.435
+    },
+    chloe: {
+      games: 3416,
+      avgPlacement: 4.09,
+      winRate: 0.152,
+      top3Rate: 0.428
+    },
+    adela: {
+      games: 3415,
+      avgPlacement: 4.25,
+      winRate: 0.141,
+      top3Rate: 0.4
+    },
+    celine: {
+      games: 3410,
+      avgPlacement: 4.14,
+      winRate: 0.157,
+      top3Rate: 0.43
+    },
+    fiora: {
+      games: 3375,
+      avgPlacement: 4.33,
+      winRate: 0.116,
+      top3Rate: 0.393
+    },
+    ian: {
+      games: 3345,
+      avgPlacement: 4.18,
+      winRate: 0.136,
+      top3Rate: 0.416
+    },
+    nathapon: {
+      games: 3097,
+      avgPlacement: 4.22,
+      winRate: 0.155,
+      top3Rate: 0.405
+    },
+    sho: {
+      games: 3096,
+      avgPlacement: 4.09,
+      winRate: 0.159,
+      top3Rate: 0.433
+    },
+    adina: {
+      games: 3056,
+      avgPlacement: 4.11,
+      winRate: 0.163,
+      top3Rate: 0.435
+    },
+    mirka: {
+      games: 3039,
+      avgPlacement: 4.31,
+      winRate: 0.138,
+      top3Rate: 0.381
+    },
+    arda: {
+      games: 2841,
+      avgPlacement: 4.19,
+      winRate: 0.124,
+      top3Rate: 0.426
+    },
+    hart: {
+      games: 2814,
+      avgPlacement: 4.37,
+      winRate: 0.137,
+      top3Rate: 0.381
+    },
+    zahir: {
+      games: 2674,
+      avgPlacement: 4,
+      winRate: 0.19,
+      top3Rate: 0.452
+    },
+    karla: {
+      games: 2646,
+      avgPlacement: 4.27,
+      winRate: 0.128,
+      top3Rate: 0.401
+    },
+    elena: {
+      games: 2612,
+      avgPlacement: 4.24,
+      winRate: 0.138,
+      top3Rate: 0.409
+    },
+    theodore: {
+      games: 2580,
+      avgPlacement: 4.43,
+      winRate: 0.135,
+      top3Rate: 0.373
+    },
+    silvia: {
+      games: 2509,
+      avgPlacement: 4.2,
+      winRate: 0.136,
+      top3Rate: 0.421
+    },
+    tazia: {
+      games: 2012,
+      avgPlacement: 4.21,
+      winRate: 0.16,
+      top3Rate: 0.401
+    },
+    jenny: {
+      games: 1949,
+      avgPlacement: 4.08,
+      winRate: 0.169,
+      top3Rate: 0.44
+    },
+    leni: {
+      games: 1621,
+      avgPlacement: 4.38,
+      winRate: 0.123,
+      top3Rate: 0.369
     },
     priya: {
-      games: 1512,
+      games: 1586,
       avgPlacement: 4.26,
-      winRate: 0.149,
-      top3Rate: 0.403
+      winRate: 0.145,
+      top3Rate: 0.407
+    },
+    charlotte: {
+      games: 1565,
+      avgPlacement: 4.4,
+      winRate: 0.164,
+      top3Rate: 0.38
     },
     mai: {
-      games: 1476,
-      avgPlacement: 4.2,
-      winRate: 0.165,
-      top3Rate: 0.422
+      games: 1519,
+      avgPlacement: 4.17,
+      winRate: 0.167,
+      top3Rate: 0.423
     },
     martina: {
       games: 1402,
-      avgPlacement: 4.35,
-      winRate: 0.141,
-      top3Rate: 0.386
+      avgPlacement: 4.38,
+      winRate: 0.136,
+      top3Rate: 0.379
     },
     johann: {
-      games: 572,
-      avgPlacement: 4.27,
-      winRate: 0.145,
-      top3Rate: 0.414
+      games: 595,
+      avgPlacement: 4.23,
+      winRate: 0.153,
+      top3Rate: 0.417
     }
   },
   bronze: {
     nicky: {
-      games: 34489,
-      avgPlacement: 4.38,
-      winRate: 0.123,
-      top3Rate: 0.382
+      games: 33573,
+      avgPlacement: 4.37,
+      winRate: 0.124,
+      top3Rate: 0.383
     },
     katja: {
-      games: 32604,
-      avgPlacement: 4.32,
+      games: 32188,
+      avgPlacement: 4.31,
       winRate: 0.139,
-      top3Rate: 0.392
+      top3Rate: 0.393
     },
     yuki: {
-      games: 24007,
+      games: 23807,
       avgPlacement: 4.23,
-      winRate: 0.128,
-      top3Rate: 0.414
+      winRate: 0.129,
+      top3Rate: 0.413
     },
     darko: {
-      games: 23149,
+      games: 22766,
       avgPlacement: 4.37,
-      winRate: 0.127,
+      winRate: 0.129,
       top3Rate: 0.383
     },
     debi_marlene: {
-      games: 22232,
-      avgPlacement: 4.33,
-      winRate: 0.123,
-      top3Rate: 0.39
+      games: 21749,
+      avgPlacement: 4.32,
+      winRate: 0.124,
+      top3Rate: 0.391
     },
     craver: {
-      games: 20193,
+      games: 19920,
       avgPlacement: 4.29,
-      winRate: 0.115,
-      top3Rate: 0.399
+      winRate: 0.116,
+      top3Rate: 0.398
     },
     aya: {
-      games: 19747,
+      games: 19556,
       avgPlacement: 4.22,
-      winRate: 0.143,
+      winRate: 0.141,
       top3Rate: 0.41
     },
     hisui: {
-      games: 19408,
-      avgPlacement: 4.45,
-      winRate: 0.128,
-      top3Rate: 0.366
+      games: 19088,
+      avgPlacement: 4.47,
+      winRate: 0.127,
+      top3Rate: 0.362
     },
     luke: {
-      games: 18387,
-      avgPlacement: 4.43,
-      winRate: 0.122,
-      top3Rate: 0.374
+      games: 18010,
+      avgPlacement: 4.45,
+      winRate: 0.12,
+      top3Rate: 0.372
     },
     rio: {
-      games: 17616,
+      games: 17558,
       avgPlacement: 4.27,
       winRate: 0.147,
-      top3Rate: 0.402
+      top3Rate: 0.401
     },
     leon: {
-      games: 17422,
-      avgPlacement: 4.17,
-      winRate: 0.145,
-      top3Rate: 0.425
+      games: 17043,
+      avgPlacement: 4.16,
+      winRate: 0.147,
+      top3Rate: 0.426
     },
     lucia: {
-      games: 17421,
-      avgPlacement: 4.51,
-      winRate: 0.109,
-      top3Rate: 0.356
+      games: 16772,
+      avgPlacement: 4.52,
+      winRate: 0.108,
+      top3Rate: 0.353
     },
     tsubame: {
-      games: 15730,
-      avgPlacement: 4.27,
-      winRate: 0.129,
-      top3Rate: 0.399
-    },
-    jackie: {
-      games: 15687,
-      avgPlacement: 4.33,
-      winRate: 0.123,
-      top3Rate: 0.393
-    },
-    magnus: {
-      games: 14829,
-      avgPlacement: 4.36,
-      winRate: 0.131,
-      top3Rate: 0.39
-    },
-    haze: {
-      games: 14690,
-      avgPlacement: 4.29,
-      winRate: 0.135,
+      games: 15691,
+      avgPlacement: 4.28,
+      winRate: 0.127,
       top3Rate: 0.398
     },
+    jackie: {
+      games: 15384,
+      avgPlacement: 4.32,
+      winRate: 0.123,
+      top3Rate: 0.394
+    },
+    haze: {
+      games: 14504,
+      avgPlacement: 4.28,
+      winRate: 0.133,
+      top3Rate: 0.398
+    },
+    magnus: {
+      games: 14483,
+      avgPlacement: 4.36,
+      winRate: 0.129,
+      top3Rate: 0.39
+    },
     abigail: {
-      games: 14159,
+      games: 14070,
       avgPlacement: 4.35,
       winRate: 0.133,
       top3Rate: 0.384
     },
     shoichi: {
-      games: 14130,
-      avgPlacement: 4.44,
-      winRate: 0.111,
-      top3Rate: 0.369
+      games: 13939,
+      avgPlacement: 4.43,
+      winRate: 0.113,
+      top3Rate: 0.373
     },
     garnet: {
-      games: 13686,
-      avgPlacement: 4.28,
-      winRate: 0.119,
-      top3Rate: 0.4
-    },
-    shirin: {
-      games: 13601,
-      avgPlacement: 4.39,
-      winRate: 0.112,
-      top3Rate: 0.381
+      games: 13422,
+      avgPlacement: 4.26,
+      winRate: 0.123,
+      top3Rate: 0.403
     },
     fenrir: {
-      games: 13388,
-      avgPlacement: 4.46,
+      games: 13345,
+      avgPlacement: 4.45,
       winRate: 0.106,
-      top3Rate: 0.363
+      top3Rate: 0.364
     },
     markus: {
-      games: 13212,
-      avgPlacement: 4.33,
-      winRate: 0.142,
-      top3Rate: 0.39
-    },
-    isol: {
-      games: 12783,
-      avgPlacement: 4.24,
-      winRate: 0.142,
-      top3Rate: 0.412
-    },
-    lenore: {
-      games: 12741,
-      avgPlacement: 4.25,
-      winRate: 0.157,
-      top3Rate: 0.407
-    },
-    yumin: {
-      games: 12737,
-      avgPlacement: 4.29,
-      winRate: 0.137,
-      top3Rate: 0.398
-    },
-    nia: {
-      games: 12728,
-      avgPlacement: 4.36,
-      winRate: 0.122,
-      top3Rate: 0.387
-    },
-    vanya: {
-      games: 12574,
-      avgPlacement: 4.31,
-      winRate: 0.139,
-      top3Rate: 0.396
-    },
-    estelle: {
-      games: 12451,
-      avgPlacement: 4.22,
-      winRate: 0.14,
-      top3Rate: 0.408
-    },
-    bihyung: {
-      games: 12274,
-      avgPlacement: 4.34,
-      winRate: 0.128,
-      top3Rate: 0.391
-    },
-    adriana: {
-      games: 12204,
-      avgPlacement: 4.09,
-      winRate: 0.151,
-      top3Rate: 0.439
-    },
-    rozzi: {
-      games: 11783,
-      avgPlacement: 4.25,
-      winRate: 0.136,
-      top3Rate: 0.409
-    },
-    justina: {
-      games: 11514,
-      avgPlacement: 4.29,
-      winRate: 0.125,
-      top3Rate: 0.395
-    },
-    bernice: {
-      games: 11460,
-      avgPlacement: 4.33,
-      winRate: 0.139,
-      top3Rate: 0.393
-    },
-    camilo: {
-      games: 11080,
+      games: 13256,
       avgPlacement: 4.32,
       winRate: 0.142,
-      top3Rate: 0.389
+      top3Rate: 0.388
     },
-    lenox: {
-      games: 10955,
-      avgPlacement: 4.25,
-      winRate: 0.145,
-      top3Rate: 0.408
+    shirin: {
+      games: 13181,
+      avgPlacement: 4.38,
+      winRate: 0.111,
+      top3Rate: 0.383
     },
-    cathy: {
-      games: 10789,
-      avgPlacement: 4.17,
-      winRate: 0.139,
-      top3Rate: 0.426
+    isol: {
+      games: 12914,
+      avgPlacement: 4.24,
+      winRate: 0.14,
+      top3Rate: 0.41
     },
-    chiara: {
-      games: 10179,
-      avgPlacement: 4.4,
-      winRate: 0.13,
-      top3Rate: 0.38
+    lenore: {
+      games: 12760,
+      avgPlacement: 4.24,
+      winRate: 0.159,
+      top3Rate: 0.409
     },
-    aiden: {
-      games: 10050,
+    nia: {
+      games: 12737,
       avgPlacement: 4.35,
       winRate: 0.125,
       top3Rate: 0.391
     },
+    yumin: {
+      games: 12449,
+      avgPlacement: 4.28,
+      winRate: 0.138,
+      top3Rate: 0.401
+    },
+    bihyung: {
+      games: 12447,
+      avgPlacement: 4.33,
+      winRate: 0.128,
+      top3Rate: 0.391
+    },
+    vanya: {
+      games: 12351,
+      avgPlacement: 4.3,
+      winRate: 0.139,
+      top3Rate: 0.395
+    },
+    estelle: {
+      games: 12142,
+      avgPlacement: 4.23,
+      winRate: 0.138,
+      top3Rate: 0.407
+    },
+    adriana: {
+      games: 12134,
+      avgPlacement: 4.08,
+      winRate: 0.153,
+      top3Rate: 0.443
+    },
+    justina: {
+      games: 11969,
+      avgPlacement: 4.3,
+      winRate: 0.125,
+      top3Rate: 0.393
+    },
+    rozzi: {
+      games: 11342,
+      avgPlacement: 4.26,
+      winRate: 0.134,
+      top3Rate: 0.407
+    },
+    cathy: {
+      games: 11180,
+      avgPlacement: 4.17,
+      winRate: 0.139,
+      top3Rate: 0.423
+    },
+    bernice: {
+      games: 10975,
+      avgPlacement: 4.32,
+      winRate: 0.142,
+      top3Rate: 0.395
+    },
+    lenox: {
+      games: 10845,
+      avgPlacement: 4.25,
+      winRate: 0.142,
+      top3Rate: 0.407
+    },
+    camilo: {
+      games: 10765,
+      avgPlacement: 4.32,
+      winRate: 0.142,
+      top3Rate: 0.389
+    },
+    aiden: {
+      games: 10075,
+      avgPlacement: 4.35,
+      winRate: 0.125,
+      top3Rate: 0.392
+    },
+    chiara: {
+      games: 10052,
+      avgPlacement: 4.42,
+      winRate: 0.131,
+      top3Rate: 0.377
+    },
+    bianca: {
+      games: 9864,
+      avgPlacement: 4.35,
+      winRate: 0.124,
+      top3Rate: 0.391
+    },
     sua: {
-      games: 10022,
+      games: 9805,
       avgPlacement: 4.28,
       winRate: 0.128,
       top3Rate: 0.401
     },
-    bianca: {
-      games: 9977,
-      avgPlacement: 4.33,
-      winRate: 0.126,
-      top3Rate: 0.392
-    },
     henry: {
-      games: 9878,
-      avgPlacement: 4.15,
-      winRate: 0.153,
-      top3Rate: 0.425
+      games: 9577,
+      avgPlacement: 4.14,
+      winRate: 0.155,
+      top3Rate: 0.429
     },
     barbara: {
-      games: 9776,
-      avgPlacement: 4.23,
-      winRate: 0.143,
+      games: 9499,
+      avgPlacement: 4.22,
+      winRate: 0.144,
       top3Rate: 0.417
     },
     hyunwoo: {
-      games: 9442,
-      avgPlacement: 4.36,
+      games: 9275,
+      avgPlacement: 4.37,
       winRate: 0.125,
-      top3Rate: 0.392
+      top3Rate: 0.39
     },
     kenneth: {
-      games: 9277,
+      games: 9253,
       avgPlacement: 4.33,
-      winRate: 0.133,
-      top3Rate: 0.389
+      winRate: 0.132,
+      top3Rate: 0.388
     },
     eleven: {
-      games: 9248,
-      avgPlacement: 4.23,
-      winRate: 0.145,
-      top3Rate: 0.41
+      games: 9122,
+      avgPlacement: 4.21,
+      winRate: 0.146,
+      top3Rate: 0.414
     },
     alex: {
-      games: 9132,
-      avgPlacement: 4.13,
-      winRate: 0.136,
-      top3Rate: 0.436
-    },
-    sissela: {
-      games: 9041,
-      avgPlacement: 4.24,
-      winRate: 0.14,
-      top3Rate: 0.405
+      games: 9054,
+      avgPlacement: 4.15,
+      winRate: 0.134,
+      top3Rate: 0.432
     },
     nadine: {
-      games: 8847,
+      games: 8968,
       avgPlacement: 4.22,
-      winRate: 0.144,
-      top3Rate: 0.414
+      winRate: 0.147,
+      top3Rate: 0.412
     },
     istvan: {
-      games: 8760,
-      avgPlacement: 4.32,
-      winRate: 0.114,
-      top3Rate: 0.393
+      games: 8948,
+      avgPlacement: 4.31,
+      winRate: 0.116,
+      top3Rate: 0.395
+    },
+    sissela: {
+      games: 8827,
+      avgPlacement: 4.23,
+      winRate: 0.144,
+      top3Rate: 0.409
     },
     alonso: {
-      games: 8476,
-      avgPlacement: 4.44,
-      winRate: 0.139,
-      top3Rate: 0.37
+      games: 8456,
+      avgPlacement: 4.41,
+      winRate: 0.141,
+      top3Rate: 0.377
     },
     yan: {
-      games: 8473,
-      avgPlacement: 4.33,
-      winRate: 0.121,
-      top3Rate: 0.391
+      games: 8437,
+      avgPlacement: 4.3,
+      winRate: 0.123,
+      top3Rate: 0.397
     },
     tia: {
-      games: 8389,
-      avgPlacement: 4.2,
-      winRate: 0.128,
-      top3Rate: 0.419
-    },
-    laura: {
-      games: 8155,
-      avgPlacement: 4.32,
-      winRate: 0.129,
-      top3Rate: 0.396
+      games: 8234,
+      avgPlacement: 4.21,
+      winRate: 0.126,
+      top3Rate: 0.415
     },
     blair: {
-      games: 8057,
-      avgPlacement: 4.41,
+      games: 8060,
+      avgPlacement: 4.43,
       winRate: 0.12,
-      top3Rate: 0.376
+      top3Rate: 0.373
     },
     li_dailin: {
-      games: 7938,
-      avgPlacement: 4.24,
-      winRate: 0.125,
-      top3Rate: 0.414
+      games: 7942,
+      avgPlacement: 4.25,
+      winRate: 0.122,
+      top3Rate: 0.412
     },
     coreline: {
-      games: 7528,
+      games: 7719,
       avgPlacement: 4.33,
-      winRate: 0.134,
+      winRate: 0.133,
+      top3Rate: 0.391
+    },
+    laura: {
+      games: 7692,
+      avgPlacement: 4.34,
+      winRate: 0.124,
       top3Rate: 0.392
     },
     echion: {
-      games: 7403,
+      games: 7602,
       avgPlacement: 4.28,
-      winRate: 0.136,
-      top3Rate: 0.398
+      winRate: 0.137,
+      top3Rate: 0.4
     },
     isaac: {
-      games: 7376,
-      avgPlacement: 4.32,
+      games: 7386,
+      avgPlacement: 4.33,
       winRate: 0.13,
-      top3Rate: 0.391
+      top3Rate: 0.388
+    },
+    emma: {
+      games: 7273,
+      avgPlacement: 4.2,
+      winRate: 0.139,
+      top3Rate: 0.414
     },
     william: {
-      games: 7210,
+      games: 7067,
       avgPlacement: 4.25,
       winRate: 0.157,
       top3Rate: 0.403
     },
-    emma: {
-      games: 7208,
-      avgPlacement: 4.19,
-      winRate: 0.141,
-      top3Rate: 0.416
-    },
     irem: {
-      games: 6305,
-      avgPlacement: 4.17,
+      games: 6301,
+      avgPlacement: 4.16,
       winRate: 0.13,
-      top3Rate: 0.419
+      top3Rate: 0.422
     },
     felix: {
-      games: 6304,
-      avgPlacement: 4.24,
-      winRate: 0.145,
-      top3Rate: 0.41
-    },
-    piolo: {
-      games: 6088,
-      avgPlacement: 4.24,
-      winRate: 0.124,
-      top3Rate: 0.407
-    },
-    mirka: {
-      games: 6068,
+      games: 6156,
       avgPlacement: 4.25,
-      winRate: 0.141,
-      top3Rate: 0.399
-    },
-    hyejin: {
-      games: 5943,
-      avgPlacement: 4.22,
-      winRate: 0.134,
-      top3Rate: 0.416
+      winRate: 0.142,
+      top3Rate: 0.41
     },
     eva: {
-      games: 5834,
-      avgPlacement: 4.12,
-      winRate: 0.166,
-      top3Rate: 0.434
-    },
-    celine: {
-      games: 5714,
-      avgPlacement: 4.16,
-      winRate: 0.155,
-      top3Rate: 0.425
-    },
-    daniel: {
-      games: 5665,
-      avgPlacement: 4.16,
-      winRate: 0.12,
-      top3Rate: 0.43
-    },
-    chloe: {
-      games: 5528,
-      avgPlacement: 4.1,
-      winRate: 0.155,
+      games: 5959,
+      avgPlacement: 4.14,
+      winRate: 0.163,
       top3Rate: 0.432
     },
-    adina: {
-      games: 5202,
-      avgPlacement: 4.13,
-      winRate: 0.157,
-      top3Rate: 0.433
+    piolo: {
+      games: 5940,
+      avgPlacement: 4.21,
+      winRate: 0.127,
+      top3Rate: 0.413
+    },
+    mirka: {
+      games: 5920,
+      avgPlacement: 4.28,
+      winRate: 0.137,
+      top3Rate: 0.391
+    },
+    hyejin: {
+      games: 5786,
+      avgPlacement: 4.22,
+      winRate: 0.133,
+      top3Rate: 0.418
+    },
+    celine: {
+      games: 5778,
+      avgPlacement: 4.15,
+      winRate: 0.155,
+      top3Rate: 0.427
+    },
+    daniel: {
+      games: 5583,
+      avgPlacement: 4.14,
+      winRate: 0.124,
+      top3Rate: 0.434
+    },
+    chloe: {
+      games: 5524,
+      avgPlacement: 4.11,
+      winRate: 0.154,
+      top3Rate: 0.432
     },
     nathapon: {
-      games: 5150,
+      games: 5232,
       avgPlacement: 4.24,
-      winRate: 0.148,
-      top3Rate: 0.407
+      winRate: 0.147,
+      top3Rate: 0.403
+    },
+    adina: {
+      games: 5094,
+      avgPlacement: 4.12,
+      winRate: 0.156,
+      top3Rate: 0.435
     },
     ian: {
-      games: 5145,
+      games: 4967,
       avgPlacement: 4.21,
-      winRate: 0.133,
-      top3Rate: 0.41
-    },
-    fiora: {
-      games: 5014,
-      avgPlacement: 4.29,
-      winRate: 0.123,
-      top3Rate: 0.402
-    },
-    adela: {
-      games: 4886,
-      avgPlacement: 4.24,
-      winRate: 0.148,
-      top3Rate: 0.404
+      winRate: 0.134,
+      top3Rate: 0.412
     },
     arda: {
-      games: 4774,
+      games: 4848,
       avgPlacement: 4.12,
       winRate: 0.144,
-      top3Rate: 0.433
+      top3Rate: 0.435
+    },
+    adela: {
+      games: 4786,
+      avgPlacement: 4.26,
+      winRate: 0.143,
+      top3Rate: 0.4
+    },
+    fiora: {
+      games: 4776,
+      avgPlacement: 4.31,
+      winRate: 0.121,
+      top3Rate: 0.402
     },
     sho: {
-      games: 4655,
+      games: 4764,
       avgPlacement: 4.11,
-      winRate: 0.151,
-      top3Rate: 0.433
+      winRate: 0.157,
+      top3Rate: 0.432
     },
     elena: {
-      games: 4591,
-      avgPlacement: 4.23,
-      winRate: 0.14,
-      top3Rate: 0.41
-    },
-    theodore: {
       games: 4527,
-      avgPlacement: 4.4,
-      winRate: 0.142,
-      top3Rate: 0.377
+      avgPlacement: 4.2,
+      winRate: 0.141,
+      top3Rate: 0.416
     },
     hart: {
-      games: 4351,
-      avgPlacement: 4.34,
-      winRate: 0.137,
-      top3Rate: 0.387
+      games: 4396,
+      avgPlacement: 4.35,
+      winRate: 0.138,
+      top3Rate: 0.385
+    },
+    theodore: {
+      games: 4389,
+      avgPlacement: 4.4,
+      winRate: 0.143,
+      top3Rate: 0.377
     },
     karla: {
-      games: 4335,
-      avgPlacement: 4.34,
-      winRate: 0.12,
-      top3Rate: 0.386
-    },
-    silvia: {
-      games: 4300,
-      avgPlacement: 4.13,
-      winRate: 0.147,
-      top3Rate: 0.433
+      games: 4204,
+      avgPlacement: 4.33,
+      winRate: 0.121,
+      top3Rate: 0.388
     },
     zahir: {
-      games: 4118,
-      avgPlacement: 3.97,
-      winRate: 0.198,
-      top3Rate: 0.459
+      games: 4160,
+      avgPlacement: 3.98,
+      winRate: 0.197,
+      top3Rate: 0.455
+    },
+    silvia: {
+      games: 4145,
+      avgPlacement: 4.16,
+      winRate: 0.143,
+      top3Rate: 0.428
     },
     tazia: {
-      games: 3098,
-      avgPlacement: 4.29,
-      winRate: 0.147,
-      top3Rate: 0.396
-    },
-    leni: {
-      games: 2904,
-      avgPlacement: 4.4,
-      winRate: 0.124,
-      top3Rate: 0.374
+      games: 2980,
+      avgPlacement: 4.3,
+      winRate: 0.15,
+      top3Rate: 0.391
     },
     jenny: {
-      games: 2793,
-      avgPlacement: 4.06,
-      winRate: 0.171,
-      top3Rate: 0.446
+      games: 2924,
+      avgPlacement: 4.08,
+      winRate: 0.166,
+      top3Rate: 0.443
+    },
+    leni: {
+      games: 2797,
+      avgPlacement: 4.4,
+      winRate: 0.122,
+      top3Rate: 0.374
     },
     charlotte: {
-      games: 2620,
-      avgPlacement: 4.48,
-      winRate: 0.158,
-      top3Rate: 0.363
-    },
-    mai: {
-      games: 2469,
-      avgPlacement: 4.23,
-      winRate: 0.164,
-      top3Rate: 0.42
+      games: 2690,
+      avgPlacement: 4.45,
+      winRate: 0.16,
+      top3Rate: 0.371
     },
     priya: {
-      games: 2437,
-      avgPlacement: 4.26,
-      winRate: 0.151,
-      top3Rate: 0.404
+      games: 2521,
+      avgPlacement: 4.27,
+      winRate: 0.144,
+      top3Rate: 0.401
+    },
+    mai: {
+      games: 2485,
+      avgPlacement: 4.18,
+      winRate: 0.166,
+      top3Rate: 0.423
     },
     martina: {
-      games: 2022,
-      avgPlacement: 4.38,
-      winRate: 0.137,
-      top3Rate: 0.383
+      games: 2020,
+      avgPlacement: 4.36,
+      winRate: 0.139,
+      top3Rate: 0.384
     },
     johann: {
-      games: 1065,
-      avgPlacement: 4.28,
-      winRate: 0.14,
-      top3Rate: 0.404
+      games: 1095,
+      avgPlacement: 4.27,
+      winRate: 0.147,
+      top3Rate: 0.397
     }
   },
   gold: {
     nicky: {
-      games: 34489,
-      avgPlacement: 4.38,
-      winRate: 0.123,
-      top3Rate: 0.382
+      games: 33573,
+      avgPlacement: 4.37,
+      winRate: 0.124,
+      top3Rate: 0.383
     },
     katja: {
-      games: 32604,
-      avgPlacement: 4.32,
+      games: 32188,
+      avgPlacement: 4.31,
       winRate: 0.139,
-      top3Rate: 0.392
+      top3Rate: 0.393
     },
     yuki: {
-      games: 24007,
+      games: 23807,
       avgPlacement: 4.23,
-      winRate: 0.128,
-      top3Rate: 0.414
+      winRate: 0.129,
+      top3Rate: 0.413
     },
     darko: {
-      games: 23149,
+      games: 22766,
       avgPlacement: 4.37,
-      winRate: 0.127,
+      winRate: 0.129,
       top3Rate: 0.383
     },
     debi_marlene: {
-      games: 22232,
-      avgPlacement: 4.33,
-      winRate: 0.123,
-      top3Rate: 0.39
+      games: 21749,
+      avgPlacement: 4.32,
+      winRate: 0.124,
+      top3Rate: 0.391
     },
     craver: {
-      games: 20193,
+      games: 19920,
       avgPlacement: 4.29,
-      winRate: 0.115,
-      top3Rate: 0.399
+      winRate: 0.116,
+      top3Rate: 0.398
     },
     aya: {
-      games: 19747,
+      games: 19556,
       avgPlacement: 4.22,
-      winRate: 0.143,
+      winRate: 0.141,
       top3Rate: 0.41
     },
     hisui: {
-      games: 19408,
-      avgPlacement: 4.45,
-      winRate: 0.128,
-      top3Rate: 0.366
+      games: 19088,
+      avgPlacement: 4.47,
+      winRate: 0.127,
+      top3Rate: 0.362
     },
     luke: {
-      games: 18387,
-      avgPlacement: 4.43,
-      winRate: 0.122,
-      top3Rate: 0.374
+      games: 18010,
+      avgPlacement: 4.45,
+      winRate: 0.12,
+      top3Rate: 0.372
     },
     rio: {
-      games: 17616,
+      games: 17558,
       avgPlacement: 4.27,
       winRate: 0.147,
-      top3Rate: 0.402
+      top3Rate: 0.401
     },
     leon: {
-      games: 17422,
-      avgPlacement: 4.17,
-      winRate: 0.145,
-      top3Rate: 0.425
+      games: 17043,
+      avgPlacement: 4.16,
+      winRate: 0.147,
+      top3Rate: 0.426
     },
     lucia: {
-      games: 17421,
-      avgPlacement: 4.51,
-      winRate: 0.109,
-      top3Rate: 0.356
+      games: 16772,
+      avgPlacement: 4.52,
+      winRate: 0.108,
+      top3Rate: 0.353
     },
     tsubame: {
-      games: 15730,
-      avgPlacement: 4.27,
-      winRate: 0.129,
-      top3Rate: 0.399
-    },
-    jackie: {
-      games: 15687,
-      avgPlacement: 4.33,
-      winRate: 0.123,
-      top3Rate: 0.393
-    },
-    magnus: {
-      games: 14829,
-      avgPlacement: 4.36,
-      winRate: 0.131,
-      top3Rate: 0.39
-    },
-    haze: {
-      games: 14690,
-      avgPlacement: 4.29,
-      winRate: 0.135,
+      games: 15691,
+      avgPlacement: 4.28,
+      winRate: 0.127,
       top3Rate: 0.398
     },
+    jackie: {
+      games: 15384,
+      avgPlacement: 4.32,
+      winRate: 0.123,
+      top3Rate: 0.394
+    },
+    haze: {
+      games: 14504,
+      avgPlacement: 4.28,
+      winRate: 0.133,
+      top3Rate: 0.398
+    },
+    magnus: {
+      games: 14483,
+      avgPlacement: 4.36,
+      winRate: 0.129,
+      top3Rate: 0.39
+    },
     abigail: {
-      games: 14159,
+      games: 14070,
       avgPlacement: 4.35,
       winRate: 0.133,
       top3Rate: 0.384
     },
     shoichi: {
-      games: 14130,
-      avgPlacement: 4.44,
-      winRate: 0.111,
-      top3Rate: 0.369
+      games: 13939,
+      avgPlacement: 4.43,
+      winRate: 0.113,
+      top3Rate: 0.373
     },
     garnet: {
-      games: 13686,
-      avgPlacement: 4.28,
-      winRate: 0.119,
-      top3Rate: 0.4
-    },
-    shirin: {
-      games: 13601,
-      avgPlacement: 4.39,
-      winRate: 0.112,
-      top3Rate: 0.381
+      games: 13422,
+      avgPlacement: 4.26,
+      winRate: 0.123,
+      top3Rate: 0.403
     },
     fenrir: {
-      games: 13388,
-      avgPlacement: 4.46,
+      games: 13345,
+      avgPlacement: 4.45,
       winRate: 0.106,
-      top3Rate: 0.363
+      top3Rate: 0.364
     },
     markus: {
-      games: 13212,
-      avgPlacement: 4.33,
-      winRate: 0.142,
-      top3Rate: 0.39
-    },
-    isol: {
-      games: 12783,
-      avgPlacement: 4.24,
-      winRate: 0.142,
-      top3Rate: 0.412
-    },
-    lenore: {
-      games: 12741,
-      avgPlacement: 4.25,
-      winRate: 0.157,
-      top3Rate: 0.407
-    },
-    yumin: {
-      games: 12737,
-      avgPlacement: 4.29,
-      winRate: 0.137,
-      top3Rate: 0.398
-    },
-    nia: {
-      games: 12728,
-      avgPlacement: 4.36,
-      winRate: 0.122,
-      top3Rate: 0.387
-    },
-    vanya: {
-      games: 12574,
-      avgPlacement: 4.31,
-      winRate: 0.139,
-      top3Rate: 0.396
-    },
-    estelle: {
-      games: 12451,
-      avgPlacement: 4.22,
-      winRate: 0.14,
-      top3Rate: 0.408
-    },
-    bihyung: {
-      games: 12274,
-      avgPlacement: 4.34,
-      winRate: 0.128,
-      top3Rate: 0.391
-    },
-    adriana: {
-      games: 12204,
-      avgPlacement: 4.09,
-      winRate: 0.151,
-      top3Rate: 0.439
-    },
-    rozzi: {
-      games: 11783,
-      avgPlacement: 4.25,
-      winRate: 0.136,
-      top3Rate: 0.409
-    },
-    justina: {
-      games: 11514,
-      avgPlacement: 4.29,
-      winRate: 0.125,
-      top3Rate: 0.395
-    },
-    bernice: {
-      games: 11460,
-      avgPlacement: 4.33,
-      winRate: 0.139,
-      top3Rate: 0.393
-    },
-    camilo: {
-      games: 11080,
+      games: 13256,
       avgPlacement: 4.32,
       winRate: 0.142,
-      top3Rate: 0.389
+      top3Rate: 0.388
     },
-    lenox: {
-      games: 10955,
-      avgPlacement: 4.25,
-      winRate: 0.145,
-      top3Rate: 0.408
+    shirin: {
+      games: 13181,
+      avgPlacement: 4.38,
+      winRate: 0.111,
+      top3Rate: 0.383
     },
-    cathy: {
-      games: 10789,
-      avgPlacement: 4.17,
-      winRate: 0.139,
-      top3Rate: 0.426
+    isol: {
+      games: 12914,
+      avgPlacement: 4.24,
+      winRate: 0.14,
+      top3Rate: 0.41
     },
-    chiara: {
-      games: 10179,
-      avgPlacement: 4.4,
-      winRate: 0.13,
-      top3Rate: 0.38
+    lenore: {
+      games: 12760,
+      avgPlacement: 4.24,
+      winRate: 0.159,
+      top3Rate: 0.409
     },
-    aiden: {
-      games: 10050,
+    nia: {
+      games: 12737,
       avgPlacement: 4.35,
       winRate: 0.125,
       top3Rate: 0.391
     },
+    yumin: {
+      games: 12449,
+      avgPlacement: 4.28,
+      winRate: 0.138,
+      top3Rate: 0.401
+    },
+    bihyung: {
+      games: 12447,
+      avgPlacement: 4.33,
+      winRate: 0.128,
+      top3Rate: 0.391
+    },
+    vanya: {
+      games: 12351,
+      avgPlacement: 4.3,
+      winRate: 0.139,
+      top3Rate: 0.395
+    },
+    estelle: {
+      games: 12142,
+      avgPlacement: 4.23,
+      winRate: 0.138,
+      top3Rate: 0.407
+    },
+    adriana: {
+      games: 12134,
+      avgPlacement: 4.08,
+      winRate: 0.153,
+      top3Rate: 0.443
+    },
+    justina: {
+      games: 11969,
+      avgPlacement: 4.3,
+      winRate: 0.125,
+      top3Rate: 0.393
+    },
+    rozzi: {
+      games: 11342,
+      avgPlacement: 4.26,
+      winRate: 0.134,
+      top3Rate: 0.407
+    },
+    cathy: {
+      games: 11180,
+      avgPlacement: 4.17,
+      winRate: 0.139,
+      top3Rate: 0.423
+    },
+    bernice: {
+      games: 10975,
+      avgPlacement: 4.32,
+      winRate: 0.142,
+      top3Rate: 0.395
+    },
+    lenox: {
+      games: 10845,
+      avgPlacement: 4.25,
+      winRate: 0.142,
+      top3Rate: 0.407
+    },
+    camilo: {
+      games: 10765,
+      avgPlacement: 4.32,
+      winRate: 0.142,
+      top3Rate: 0.389
+    },
+    aiden: {
+      games: 10075,
+      avgPlacement: 4.35,
+      winRate: 0.125,
+      top3Rate: 0.392
+    },
+    chiara: {
+      games: 10052,
+      avgPlacement: 4.42,
+      winRate: 0.131,
+      top3Rate: 0.377
+    },
+    bianca: {
+      games: 9864,
+      avgPlacement: 4.35,
+      winRate: 0.124,
+      top3Rate: 0.391
+    },
     sua: {
-      games: 10022,
+      games: 9805,
       avgPlacement: 4.28,
       winRate: 0.128,
       top3Rate: 0.401
     },
-    bianca: {
-      games: 9977,
-      avgPlacement: 4.33,
-      winRate: 0.126,
-      top3Rate: 0.392
-    },
     henry: {
-      games: 9878,
-      avgPlacement: 4.15,
-      winRate: 0.153,
-      top3Rate: 0.425
+      games: 9577,
+      avgPlacement: 4.14,
+      winRate: 0.155,
+      top3Rate: 0.429
     },
     barbara: {
-      games: 9776,
-      avgPlacement: 4.23,
-      winRate: 0.143,
+      games: 9499,
+      avgPlacement: 4.22,
+      winRate: 0.144,
       top3Rate: 0.417
     },
     hyunwoo: {
-      games: 9442,
-      avgPlacement: 4.36,
+      games: 9275,
+      avgPlacement: 4.37,
       winRate: 0.125,
-      top3Rate: 0.392
+      top3Rate: 0.39
     },
     kenneth: {
-      games: 9277,
+      games: 9253,
       avgPlacement: 4.33,
-      winRate: 0.133,
-      top3Rate: 0.389
+      winRate: 0.132,
+      top3Rate: 0.388
     },
     eleven: {
-      games: 9248,
-      avgPlacement: 4.23,
-      winRate: 0.145,
-      top3Rate: 0.41
+      games: 9122,
+      avgPlacement: 4.21,
+      winRate: 0.146,
+      top3Rate: 0.414
     },
     alex: {
-      games: 9132,
-      avgPlacement: 4.13,
-      winRate: 0.136,
-      top3Rate: 0.436
-    },
-    sissela: {
-      games: 9041,
-      avgPlacement: 4.24,
-      winRate: 0.14,
-      top3Rate: 0.405
+      games: 9054,
+      avgPlacement: 4.15,
+      winRate: 0.134,
+      top3Rate: 0.432
     },
     nadine: {
-      games: 8847,
+      games: 8968,
       avgPlacement: 4.22,
-      winRate: 0.144,
-      top3Rate: 0.414
+      winRate: 0.147,
+      top3Rate: 0.412
     },
     istvan: {
-      games: 8760,
-      avgPlacement: 4.32,
-      winRate: 0.114,
-      top3Rate: 0.393
+      games: 8948,
+      avgPlacement: 4.31,
+      winRate: 0.116,
+      top3Rate: 0.395
+    },
+    sissela: {
+      games: 8827,
+      avgPlacement: 4.23,
+      winRate: 0.144,
+      top3Rate: 0.409
     },
     alonso: {
-      games: 8476,
-      avgPlacement: 4.44,
-      winRate: 0.139,
-      top3Rate: 0.37
+      games: 8456,
+      avgPlacement: 4.41,
+      winRate: 0.141,
+      top3Rate: 0.377
     },
     yan: {
-      games: 8473,
-      avgPlacement: 4.33,
-      winRate: 0.121,
-      top3Rate: 0.391
+      games: 8437,
+      avgPlacement: 4.3,
+      winRate: 0.123,
+      top3Rate: 0.397
     },
     tia: {
-      games: 8389,
-      avgPlacement: 4.2,
-      winRate: 0.128,
-      top3Rate: 0.419
-    },
-    laura: {
-      games: 8155,
-      avgPlacement: 4.32,
-      winRate: 0.129,
-      top3Rate: 0.396
+      games: 8234,
+      avgPlacement: 4.21,
+      winRate: 0.126,
+      top3Rate: 0.415
     },
     blair: {
-      games: 8057,
-      avgPlacement: 4.41,
+      games: 8060,
+      avgPlacement: 4.43,
       winRate: 0.12,
-      top3Rate: 0.376
+      top3Rate: 0.373
     },
     li_dailin: {
-      games: 7938,
-      avgPlacement: 4.24,
-      winRate: 0.125,
-      top3Rate: 0.414
+      games: 7942,
+      avgPlacement: 4.25,
+      winRate: 0.122,
+      top3Rate: 0.412
     },
     coreline: {
-      games: 7528,
+      games: 7719,
       avgPlacement: 4.33,
-      winRate: 0.134,
+      winRate: 0.133,
+      top3Rate: 0.391
+    },
+    laura: {
+      games: 7692,
+      avgPlacement: 4.34,
+      winRate: 0.124,
       top3Rate: 0.392
     },
     echion: {
-      games: 7403,
+      games: 7602,
       avgPlacement: 4.28,
-      winRate: 0.136,
-      top3Rate: 0.398
+      winRate: 0.137,
+      top3Rate: 0.4
     },
     isaac: {
-      games: 7376,
-      avgPlacement: 4.32,
+      games: 7386,
+      avgPlacement: 4.33,
       winRate: 0.13,
-      top3Rate: 0.391
+      top3Rate: 0.388
+    },
+    emma: {
+      games: 7273,
+      avgPlacement: 4.2,
+      winRate: 0.139,
+      top3Rate: 0.414
     },
     william: {
-      games: 7210,
+      games: 7067,
       avgPlacement: 4.25,
       winRate: 0.157,
       top3Rate: 0.403
     },
-    emma: {
-      games: 7208,
-      avgPlacement: 4.19,
-      winRate: 0.141,
-      top3Rate: 0.416
-    },
     irem: {
-      games: 6305,
-      avgPlacement: 4.17,
+      games: 6301,
+      avgPlacement: 4.16,
       winRate: 0.13,
-      top3Rate: 0.419
+      top3Rate: 0.422
     },
     felix: {
-      games: 6304,
-      avgPlacement: 4.24,
-      winRate: 0.145,
-      top3Rate: 0.41
-    },
-    piolo: {
-      games: 6088,
-      avgPlacement: 4.24,
-      winRate: 0.124,
-      top3Rate: 0.407
-    },
-    mirka: {
-      games: 6068,
+      games: 6156,
       avgPlacement: 4.25,
-      winRate: 0.141,
-      top3Rate: 0.399
-    },
-    hyejin: {
-      games: 5943,
-      avgPlacement: 4.22,
-      winRate: 0.134,
-      top3Rate: 0.416
+      winRate: 0.142,
+      top3Rate: 0.41
     },
     eva: {
-      games: 5834,
-      avgPlacement: 4.12,
-      winRate: 0.166,
-      top3Rate: 0.434
-    },
-    celine: {
-      games: 5714,
-      avgPlacement: 4.16,
-      winRate: 0.155,
-      top3Rate: 0.425
-    },
-    daniel: {
-      games: 5665,
-      avgPlacement: 4.16,
-      winRate: 0.12,
-      top3Rate: 0.43
-    },
-    chloe: {
-      games: 5528,
-      avgPlacement: 4.1,
-      winRate: 0.155,
+      games: 5959,
+      avgPlacement: 4.14,
+      winRate: 0.163,
       top3Rate: 0.432
     },
-    adina: {
-      games: 5202,
-      avgPlacement: 4.13,
-      winRate: 0.157,
-      top3Rate: 0.433
+    piolo: {
+      games: 5940,
+      avgPlacement: 4.21,
+      winRate: 0.127,
+      top3Rate: 0.413
+    },
+    mirka: {
+      games: 5920,
+      avgPlacement: 4.28,
+      winRate: 0.137,
+      top3Rate: 0.391
+    },
+    hyejin: {
+      games: 5786,
+      avgPlacement: 4.22,
+      winRate: 0.133,
+      top3Rate: 0.418
+    },
+    celine: {
+      games: 5778,
+      avgPlacement: 4.15,
+      winRate: 0.155,
+      top3Rate: 0.427
+    },
+    daniel: {
+      games: 5583,
+      avgPlacement: 4.14,
+      winRate: 0.124,
+      top3Rate: 0.434
+    },
+    chloe: {
+      games: 5524,
+      avgPlacement: 4.11,
+      winRate: 0.154,
+      top3Rate: 0.432
     },
     nathapon: {
-      games: 5150,
+      games: 5232,
       avgPlacement: 4.24,
-      winRate: 0.148,
-      top3Rate: 0.407
+      winRate: 0.147,
+      top3Rate: 0.403
+    },
+    adina: {
+      games: 5094,
+      avgPlacement: 4.12,
+      winRate: 0.156,
+      top3Rate: 0.435
     },
     ian: {
-      games: 5145,
+      games: 4967,
       avgPlacement: 4.21,
-      winRate: 0.133,
-      top3Rate: 0.41
-    },
-    fiora: {
-      games: 5014,
-      avgPlacement: 4.29,
-      winRate: 0.123,
-      top3Rate: 0.402
-    },
-    adela: {
-      games: 4886,
-      avgPlacement: 4.24,
-      winRate: 0.148,
-      top3Rate: 0.404
+      winRate: 0.134,
+      top3Rate: 0.412
     },
     arda: {
-      games: 4774,
+      games: 4848,
       avgPlacement: 4.12,
       winRate: 0.144,
-      top3Rate: 0.433
+      top3Rate: 0.435
+    },
+    adela: {
+      games: 4786,
+      avgPlacement: 4.26,
+      winRate: 0.143,
+      top3Rate: 0.4
+    },
+    fiora: {
+      games: 4776,
+      avgPlacement: 4.31,
+      winRate: 0.121,
+      top3Rate: 0.402
     },
     sho: {
-      games: 4655,
+      games: 4764,
       avgPlacement: 4.11,
-      winRate: 0.151,
-      top3Rate: 0.433
+      winRate: 0.157,
+      top3Rate: 0.432
     },
     elena: {
-      games: 4591,
-      avgPlacement: 4.23,
-      winRate: 0.14,
-      top3Rate: 0.41
-    },
-    theodore: {
       games: 4527,
-      avgPlacement: 4.4,
-      winRate: 0.142,
-      top3Rate: 0.377
+      avgPlacement: 4.2,
+      winRate: 0.141,
+      top3Rate: 0.416
     },
     hart: {
-      games: 4351,
-      avgPlacement: 4.34,
-      winRate: 0.137,
-      top3Rate: 0.387
+      games: 4396,
+      avgPlacement: 4.35,
+      winRate: 0.138,
+      top3Rate: 0.385
+    },
+    theodore: {
+      games: 4389,
+      avgPlacement: 4.4,
+      winRate: 0.143,
+      top3Rate: 0.377
     },
     karla: {
-      games: 4335,
-      avgPlacement: 4.34,
-      winRate: 0.12,
-      top3Rate: 0.386
-    },
-    silvia: {
-      games: 4300,
-      avgPlacement: 4.13,
-      winRate: 0.147,
-      top3Rate: 0.433
+      games: 4204,
+      avgPlacement: 4.33,
+      winRate: 0.121,
+      top3Rate: 0.388
     },
     zahir: {
-      games: 4118,
-      avgPlacement: 3.97,
-      winRate: 0.198,
-      top3Rate: 0.459
+      games: 4160,
+      avgPlacement: 3.98,
+      winRate: 0.197,
+      top3Rate: 0.455
+    },
+    silvia: {
+      games: 4145,
+      avgPlacement: 4.16,
+      winRate: 0.143,
+      top3Rate: 0.428
     },
     tazia: {
-      games: 3098,
-      avgPlacement: 4.29,
-      winRate: 0.147,
-      top3Rate: 0.396
-    },
-    leni: {
-      games: 2904,
-      avgPlacement: 4.4,
-      winRate: 0.124,
-      top3Rate: 0.374
+      games: 2980,
+      avgPlacement: 4.3,
+      winRate: 0.15,
+      top3Rate: 0.391
     },
     jenny: {
-      games: 2793,
-      avgPlacement: 4.06,
-      winRate: 0.171,
-      top3Rate: 0.446
+      games: 2924,
+      avgPlacement: 4.08,
+      winRate: 0.166,
+      top3Rate: 0.443
+    },
+    leni: {
+      games: 2797,
+      avgPlacement: 4.4,
+      winRate: 0.122,
+      top3Rate: 0.374
     },
     charlotte: {
-      games: 2620,
-      avgPlacement: 4.48,
-      winRate: 0.158,
-      top3Rate: 0.363
-    },
-    mai: {
-      games: 2469,
-      avgPlacement: 4.23,
-      winRate: 0.164,
-      top3Rate: 0.42
+      games: 2690,
+      avgPlacement: 4.45,
+      winRate: 0.16,
+      top3Rate: 0.371
     },
     priya: {
-      games: 2437,
-      avgPlacement: 4.26,
-      winRate: 0.151,
-      top3Rate: 0.404
+      games: 2521,
+      avgPlacement: 4.27,
+      winRate: 0.144,
+      top3Rate: 0.401
+    },
+    mai: {
+      games: 2485,
+      avgPlacement: 4.18,
+      winRate: 0.166,
+      top3Rate: 0.423
     },
     martina: {
-      games: 2022,
-      avgPlacement: 4.38,
-      winRate: 0.137,
-      top3Rate: 0.383
+      games: 2020,
+      avgPlacement: 4.36,
+      winRate: 0.139,
+      top3Rate: 0.384
     },
     johann: {
-      games: 1065,
-      avgPlacement: 4.28,
-      winRate: 0.14,
-      top3Rate: 0.404
+      games: 1095,
+      avgPlacement: 4.27,
+      winRate: 0.147,
+      top3Rate: 0.397
     }
   },
   platinum_plus: {
     nicky: {
-      games: 34489,
-      avgPlacement: 4.38,
-      winRate: 0.123,
-      top3Rate: 0.382
+      games: 33573,
+      avgPlacement: 4.37,
+      winRate: 0.124,
+      top3Rate: 0.383
     },
     katja: {
-      games: 32604,
-      avgPlacement: 4.32,
+      games: 32188,
+      avgPlacement: 4.31,
       winRate: 0.139,
-      top3Rate: 0.392
+      top3Rate: 0.393
     },
     yuki: {
-      games: 24007,
+      games: 23807,
       avgPlacement: 4.23,
-      winRate: 0.128,
-      top3Rate: 0.414
+      winRate: 0.129,
+      top3Rate: 0.413
     },
     darko: {
-      games: 23149,
+      games: 22766,
       avgPlacement: 4.37,
-      winRate: 0.127,
+      winRate: 0.129,
       top3Rate: 0.383
     },
     debi_marlene: {
-      games: 22232,
-      avgPlacement: 4.33,
-      winRate: 0.123,
-      top3Rate: 0.39
+      games: 21749,
+      avgPlacement: 4.32,
+      winRate: 0.124,
+      top3Rate: 0.391
     },
     craver: {
-      games: 20193,
+      games: 19920,
       avgPlacement: 4.29,
-      winRate: 0.115,
-      top3Rate: 0.399
+      winRate: 0.116,
+      top3Rate: 0.398
     },
     aya: {
-      games: 19747,
+      games: 19556,
       avgPlacement: 4.22,
-      winRate: 0.143,
+      winRate: 0.141,
       top3Rate: 0.41
     },
     hisui: {
-      games: 19408,
-      avgPlacement: 4.45,
-      winRate: 0.128,
-      top3Rate: 0.366
+      games: 19088,
+      avgPlacement: 4.47,
+      winRate: 0.127,
+      top3Rate: 0.362
     },
     luke: {
-      games: 18387,
-      avgPlacement: 4.43,
-      winRate: 0.122,
-      top3Rate: 0.374
+      games: 18010,
+      avgPlacement: 4.45,
+      winRate: 0.12,
+      top3Rate: 0.372
     },
     rio: {
-      games: 17616,
+      games: 17558,
       avgPlacement: 4.27,
       winRate: 0.147,
-      top3Rate: 0.402
+      top3Rate: 0.401
     },
     leon: {
-      games: 17422,
-      avgPlacement: 4.17,
-      winRate: 0.145,
-      top3Rate: 0.425
+      games: 17043,
+      avgPlacement: 4.16,
+      winRate: 0.147,
+      top3Rate: 0.426
     },
     lucia: {
-      games: 17421,
-      avgPlacement: 4.51,
-      winRate: 0.109,
-      top3Rate: 0.356
+      games: 16772,
+      avgPlacement: 4.52,
+      winRate: 0.108,
+      top3Rate: 0.353
     },
     tsubame: {
-      games: 15730,
-      avgPlacement: 4.27,
-      winRate: 0.129,
-      top3Rate: 0.399
-    },
-    jackie: {
-      games: 15687,
-      avgPlacement: 4.33,
-      winRate: 0.123,
-      top3Rate: 0.393
-    },
-    magnus: {
-      games: 14829,
-      avgPlacement: 4.36,
-      winRate: 0.131,
-      top3Rate: 0.39
-    },
-    haze: {
-      games: 14690,
-      avgPlacement: 4.29,
-      winRate: 0.135,
+      games: 15691,
+      avgPlacement: 4.28,
+      winRate: 0.127,
       top3Rate: 0.398
     },
+    jackie: {
+      games: 15384,
+      avgPlacement: 4.32,
+      winRate: 0.123,
+      top3Rate: 0.394
+    },
+    haze: {
+      games: 14504,
+      avgPlacement: 4.28,
+      winRate: 0.133,
+      top3Rate: 0.398
+    },
+    magnus: {
+      games: 14483,
+      avgPlacement: 4.36,
+      winRate: 0.129,
+      top3Rate: 0.39
+    },
     abigail: {
-      games: 14159,
+      games: 14070,
       avgPlacement: 4.35,
       winRate: 0.133,
       top3Rate: 0.384
     },
     shoichi: {
-      games: 14130,
-      avgPlacement: 4.44,
-      winRate: 0.111,
-      top3Rate: 0.369
+      games: 13939,
+      avgPlacement: 4.43,
+      winRate: 0.113,
+      top3Rate: 0.373
     },
     garnet: {
-      games: 13686,
-      avgPlacement: 4.28,
-      winRate: 0.119,
-      top3Rate: 0.4
-    },
-    shirin: {
-      games: 13601,
-      avgPlacement: 4.39,
-      winRate: 0.112,
-      top3Rate: 0.381
+      games: 13422,
+      avgPlacement: 4.26,
+      winRate: 0.123,
+      top3Rate: 0.403
     },
     fenrir: {
-      games: 13388,
-      avgPlacement: 4.46,
+      games: 13345,
+      avgPlacement: 4.45,
       winRate: 0.106,
-      top3Rate: 0.363
+      top3Rate: 0.364
     },
     markus: {
-      games: 13212,
-      avgPlacement: 4.33,
-      winRate: 0.142,
-      top3Rate: 0.39
-    },
-    isol: {
-      games: 12783,
-      avgPlacement: 4.24,
-      winRate: 0.142,
-      top3Rate: 0.412
-    },
-    lenore: {
-      games: 12741,
-      avgPlacement: 4.25,
-      winRate: 0.157,
-      top3Rate: 0.407
-    },
-    yumin: {
-      games: 12737,
-      avgPlacement: 4.29,
-      winRate: 0.137,
-      top3Rate: 0.398
-    },
-    nia: {
-      games: 12728,
-      avgPlacement: 4.36,
-      winRate: 0.122,
-      top3Rate: 0.387
-    },
-    vanya: {
-      games: 12574,
-      avgPlacement: 4.31,
-      winRate: 0.139,
-      top3Rate: 0.396
-    },
-    estelle: {
-      games: 12451,
-      avgPlacement: 4.22,
-      winRate: 0.14,
-      top3Rate: 0.408
-    },
-    bihyung: {
-      games: 12274,
-      avgPlacement: 4.34,
-      winRate: 0.128,
-      top3Rate: 0.391
-    },
-    adriana: {
-      games: 12204,
-      avgPlacement: 4.09,
-      winRate: 0.151,
-      top3Rate: 0.439
-    },
-    rozzi: {
-      games: 11783,
-      avgPlacement: 4.25,
-      winRate: 0.136,
-      top3Rate: 0.409
-    },
-    justina: {
-      games: 11514,
-      avgPlacement: 4.29,
-      winRate: 0.125,
-      top3Rate: 0.395
-    },
-    bernice: {
-      games: 11460,
-      avgPlacement: 4.33,
-      winRate: 0.139,
-      top3Rate: 0.393
-    },
-    camilo: {
-      games: 11080,
+      games: 13256,
       avgPlacement: 4.32,
       winRate: 0.142,
-      top3Rate: 0.389
+      top3Rate: 0.388
     },
-    lenox: {
-      games: 10955,
-      avgPlacement: 4.25,
-      winRate: 0.145,
-      top3Rate: 0.408
+    shirin: {
+      games: 13181,
+      avgPlacement: 4.38,
+      winRate: 0.111,
+      top3Rate: 0.383
     },
-    cathy: {
-      games: 10789,
-      avgPlacement: 4.17,
-      winRate: 0.139,
-      top3Rate: 0.426
+    isol: {
+      games: 12914,
+      avgPlacement: 4.24,
+      winRate: 0.14,
+      top3Rate: 0.41
     },
-    chiara: {
-      games: 10179,
-      avgPlacement: 4.4,
-      winRate: 0.13,
-      top3Rate: 0.38
+    lenore: {
+      games: 12760,
+      avgPlacement: 4.24,
+      winRate: 0.159,
+      top3Rate: 0.409
     },
-    aiden: {
-      games: 10050,
+    nia: {
+      games: 12737,
       avgPlacement: 4.35,
       winRate: 0.125,
       top3Rate: 0.391
     },
+    yumin: {
+      games: 12449,
+      avgPlacement: 4.28,
+      winRate: 0.138,
+      top3Rate: 0.401
+    },
+    bihyung: {
+      games: 12447,
+      avgPlacement: 4.33,
+      winRate: 0.128,
+      top3Rate: 0.391
+    },
+    vanya: {
+      games: 12351,
+      avgPlacement: 4.3,
+      winRate: 0.139,
+      top3Rate: 0.395
+    },
+    estelle: {
+      games: 12142,
+      avgPlacement: 4.23,
+      winRate: 0.138,
+      top3Rate: 0.407
+    },
+    adriana: {
+      games: 12134,
+      avgPlacement: 4.08,
+      winRate: 0.153,
+      top3Rate: 0.443
+    },
+    justina: {
+      games: 11969,
+      avgPlacement: 4.3,
+      winRate: 0.125,
+      top3Rate: 0.393
+    },
+    rozzi: {
+      games: 11342,
+      avgPlacement: 4.26,
+      winRate: 0.134,
+      top3Rate: 0.407
+    },
+    cathy: {
+      games: 11180,
+      avgPlacement: 4.17,
+      winRate: 0.139,
+      top3Rate: 0.423
+    },
+    bernice: {
+      games: 10975,
+      avgPlacement: 4.32,
+      winRate: 0.142,
+      top3Rate: 0.395
+    },
+    lenox: {
+      games: 10845,
+      avgPlacement: 4.25,
+      winRate: 0.142,
+      top3Rate: 0.407
+    },
+    camilo: {
+      games: 10765,
+      avgPlacement: 4.32,
+      winRate: 0.142,
+      top3Rate: 0.389
+    },
+    aiden: {
+      games: 10075,
+      avgPlacement: 4.35,
+      winRate: 0.125,
+      top3Rate: 0.392
+    },
+    chiara: {
+      games: 10052,
+      avgPlacement: 4.42,
+      winRate: 0.131,
+      top3Rate: 0.377
+    },
+    bianca: {
+      games: 9864,
+      avgPlacement: 4.35,
+      winRate: 0.124,
+      top3Rate: 0.391
+    },
     sua: {
-      games: 10022,
+      games: 9805,
       avgPlacement: 4.28,
       winRate: 0.128,
       top3Rate: 0.401
     },
-    bianca: {
-      games: 9977,
-      avgPlacement: 4.33,
-      winRate: 0.126,
-      top3Rate: 0.392
-    },
     henry: {
-      games: 9878,
-      avgPlacement: 4.15,
-      winRate: 0.153,
-      top3Rate: 0.425
+      games: 9577,
+      avgPlacement: 4.14,
+      winRate: 0.155,
+      top3Rate: 0.429
     },
     barbara: {
-      games: 9776,
-      avgPlacement: 4.23,
-      winRate: 0.143,
+      games: 9499,
+      avgPlacement: 4.22,
+      winRate: 0.144,
       top3Rate: 0.417
     },
     hyunwoo: {
-      games: 9442,
-      avgPlacement: 4.36,
+      games: 9275,
+      avgPlacement: 4.37,
       winRate: 0.125,
-      top3Rate: 0.392
+      top3Rate: 0.39
     },
     kenneth: {
-      games: 9277,
+      games: 9253,
       avgPlacement: 4.33,
-      winRate: 0.133,
-      top3Rate: 0.389
+      winRate: 0.132,
+      top3Rate: 0.388
     },
     eleven: {
-      games: 9248,
-      avgPlacement: 4.23,
-      winRate: 0.145,
-      top3Rate: 0.41
+      games: 9122,
+      avgPlacement: 4.21,
+      winRate: 0.146,
+      top3Rate: 0.414
     },
     alex: {
-      games: 9132,
-      avgPlacement: 4.13,
-      winRate: 0.136,
-      top3Rate: 0.436
-    },
-    sissela: {
-      games: 9041,
-      avgPlacement: 4.24,
-      winRate: 0.14,
-      top3Rate: 0.405
+      games: 9054,
+      avgPlacement: 4.15,
+      winRate: 0.134,
+      top3Rate: 0.432
     },
     nadine: {
-      games: 8847,
+      games: 8968,
       avgPlacement: 4.22,
-      winRate: 0.144,
-      top3Rate: 0.414
+      winRate: 0.147,
+      top3Rate: 0.412
     },
     istvan: {
-      games: 8760,
-      avgPlacement: 4.32,
-      winRate: 0.114,
-      top3Rate: 0.393
+      games: 8948,
+      avgPlacement: 4.31,
+      winRate: 0.116,
+      top3Rate: 0.395
+    },
+    sissela: {
+      games: 8827,
+      avgPlacement: 4.23,
+      winRate: 0.144,
+      top3Rate: 0.409
     },
     alonso: {
-      games: 8476,
-      avgPlacement: 4.44,
-      winRate: 0.139,
-      top3Rate: 0.37
+      games: 8456,
+      avgPlacement: 4.41,
+      winRate: 0.141,
+      top3Rate: 0.377
     },
     yan: {
-      games: 8473,
-      avgPlacement: 4.33,
-      winRate: 0.121,
-      top3Rate: 0.391
+      games: 8437,
+      avgPlacement: 4.3,
+      winRate: 0.123,
+      top3Rate: 0.397
     },
     tia: {
-      games: 8389,
-      avgPlacement: 4.2,
-      winRate: 0.128,
-      top3Rate: 0.419
-    },
-    laura: {
-      games: 8155,
-      avgPlacement: 4.32,
-      winRate: 0.129,
-      top3Rate: 0.396
+      games: 8234,
+      avgPlacement: 4.21,
+      winRate: 0.126,
+      top3Rate: 0.415
     },
     blair: {
-      games: 8057,
-      avgPlacement: 4.41,
+      games: 8060,
+      avgPlacement: 4.43,
       winRate: 0.12,
-      top3Rate: 0.376
+      top3Rate: 0.373
     },
     li_dailin: {
-      games: 7938,
-      avgPlacement: 4.24,
-      winRate: 0.125,
-      top3Rate: 0.414
+      games: 7942,
+      avgPlacement: 4.25,
+      winRate: 0.122,
+      top3Rate: 0.412
     },
     coreline: {
-      games: 7528,
+      games: 7719,
       avgPlacement: 4.33,
-      winRate: 0.134,
+      winRate: 0.133,
+      top3Rate: 0.391
+    },
+    laura: {
+      games: 7692,
+      avgPlacement: 4.34,
+      winRate: 0.124,
       top3Rate: 0.392
     },
     echion: {
-      games: 7403,
+      games: 7602,
       avgPlacement: 4.28,
-      winRate: 0.136,
-      top3Rate: 0.398
+      winRate: 0.137,
+      top3Rate: 0.4
     },
     isaac: {
-      games: 7376,
-      avgPlacement: 4.32,
+      games: 7386,
+      avgPlacement: 4.33,
       winRate: 0.13,
-      top3Rate: 0.391
+      top3Rate: 0.388
+    },
+    emma: {
+      games: 7273,
+      avgPlacement: 4.2,
+      winRate: 0.139,
+      top3Rate: 0.414
     },
     william: {
-      games: 7210,
+      games: 7067,
       avgPlacement: 4.25,
       winRate: 0.157,
       top3Rate: 0.403
     },
-    emma: {
-      games: 7208,
-      avgPlacement: 4.19,
-      winRate: 0.141,
-      top3Rate: 0.416
-    },
     irem: {
-      games: 6305,
-      avgPlacement: 4.17,
+      games: 6301,
+      avgPlacement: 4.16,
       winRate: 0.13,
-      top3Rate: 0.419
+      top3Rate: 0.422
     },
     felix: {
-      games: 6304,
-      avgPlacement: 4.24,
-      winRate: 0.145,
-      top3Rate: 0.41
-    },
-    piolo: {
-      games: 6088,
-      avgPlacement: 4.24,
-      winRate: 0.124,
-      top3Rate: 0.407
-    },
-    mirka: {
-      games: 6068,
+      games: 6156,
       avgPlacement: 4.25,
-      winRate: 0.141,
-      top3Rate: 0.399
-    },
-    hyejin: {
-      games: 5943,
-      avgPlacement: 4.22,
-      winRate: 0.134,
-      top3Rate: 0.416
+      winRate: 0.142,
+      top3Rate: 0.41
     },
     eva: {
-      games: 5834,
-      avgPlacement: 4.12,
-      winRate: 0.166,
-      top3Rate: 0.434
-    },
-    celine: {
-      games: 5714,
-      avgPlacement: 4.16,
-      winRate: 0.155,
-      top3Rate: 0.425
-    },
-    daniel: {
-      games: 5665,
-      avgPlacement: 4.16,
-      winRate: 0.12,
-      top3Rate: 0.43
-    },
-    chloe: {
-      games: 5528,
-      avgPlacement: 4.1,
-      winRate: 0.155,
+      games: 5959,
+      avgPlacement: 4.14,
+      winRate: 0.163,
       top3Rate: 0.432
     },
-    adina: {
-      games: 5202,
-      avgPlacement: 4.13,
-      winRate: 0.157,
-      top3Rate: 0.433
+    piolo: {
+      games: 5940,
+      avgPlacement: 4.21,
+      winRate: 0.127,
+      top3Rate: 0.413
+    },
+    mirka: {
+      games: 5920,
+      avgPlacement: 4.28,
+      winRate: 0.137,
+      top3Rate: 0.391
+    },
+    hyejin: {
+      games: 5786,
+      avgPlacement: 4.22,
+      winRate: 0.133,
+      top3Rate: 0.418
+    },
+    celine: {
+      games: 5778,
+      avgPlacement: 4.15,
+      winRate: 0.155,
+      top3Rate: 0.427
+    },
+    daniel: {
+      games: 5583,
+      avgPlacement: 4.14,
+      winRate: 0.124,
+      top3Rate: 0.434
+    },
+    chloe: {
+      games: 5524,
+      avgPlacement: 4.11,
+      winRate: 0.154,
+      top3Rate: 0.432
     },
     nathapon: {
-      games: 5150,
+      games: 5232,
       avgPlacement: 4.24,
-      winRate: 0.148,
-      top3Rate: 0.407
+      winRate: 0.147,
+      top3Rate: 0.403
+    },
+    adina: {
+      games: 5094,
+      avgPlacement: 4.12,
+      winRate: 0.156,
+      top3Rate: 0.435
     },
     ian: {
-      games: 5145,
+      games: 4967,
       avgPlacement: 4.21,
-      winRate: 0.133,
-      top3Rate: 0.41
-    },
-    fiora: {
-      games: 5014,
-      avgPlacement: 4.29,
-      winRate: 0.123,
-      top3Rate: 0.402
-    },
-    adela: {
-      games: 4886,
-      avgPlacement: 4.24,
-      winRate: 0.148,
-      top3Rate: 0.404
+      winRate: 0.134,
+      top3Rate: 0.412
     },
     arda: {
-      games: 4774,
+      games: 4848,
       avgPlacement: 4.12,
       winRate: 0.144,
-      top3Rate: 0.433
+      top3Rate: 0.435
+    },
+    adela: {
+      games: 4786,
+      avgPlacement: 4.26,
+      winRate: 0.143,
+      top3Rate: 0.4
+    },
+    fiora: {
+      games: 4776,
+      avgPlacement: 4.31,
+      winRate: 0.121,
+      top3Rate: 0.402
     },
     sho: {
-      games: 4655,
+      games: 4764,
       avgPlacement: 4.11,
-      winRate: 0.151,
-      top3Rate: 0.433
+      winRate: 0.157,
+      top3Rate: 0.432
     },
     elena: {
-      games: 4591,
-      avgPlacement: 4.23,
-      winRate: 0.14,
-      top3Rate: 0.41
-    },
-    theodore: {
       games: 4527,
-      avgPlacement: 4.4,
-      winRate: 0.142,
-      top3Rate: 0.377
+      avgPlacement: 4.2,
+      winRate: 0.141,
+      top3Rate: 0.416
     },
     hart: {
-      games: 4351,
-      avgPlacement: 4.34,
-      winRate: 0.137,
-      top3Rate: 0.387
+      games: 4396,
+      avgPlacement: 4.35,
+      winRate: 0.138,
+      top3Rate: 0.385
+    },
+    theodore: {
+      games: 4389,
+      avgPlacement: 4.4,
+      winRate: 0.143,
+      top3Rate: 0.377
     },
     karla: {
-      games: 4335,
-      avgPlacement: 4.34,
-      winRate: 0.12,
-      top3Rate: 0.386
-    },
-    silvia: {
-      games: 4300,
-      avgPlacement: 4.13,
-      winRate: 0.147,
-      top3Rate: 0.433
+      games: 4204,
+      avgPlacement: 4.33,
+      winRate: 0.121,
+      top3Rate: 0.388
     },
     zahir: {
-      games: 4118,
-      avgPlacement: 3.97,
-      winRate: 0.198,
-      top3Rate: 0.459
+      games: 4160,
+      avgPlacement: 3.98,
+      winRate: 0.197,
+      top3Rate: 0.455
+    },
+    silvia: {
+      games: 4145,
+      avgPlacement: 4.16,
+      winRate: 0.143,
+      top3Rate: 0.428
     },
     tazia: {
-      games: 3098,
-      avgPlacement: 4.29,
-      winRate: 0.147,
-      top3Rate: 0.396
-    },
-    leni: {
-      games: 2904,
-      avgPlacement: 4.4,
-      winRate: 0.124,
-      top3Rate: 0.374
+      games: 2980,
+      avgPlacement: 4.3,
+      winRate: 0.15,
+      top3Rate: 0.391
     },
     jenny: {
-      games: 2793,
-      avgPlacement: 4.06,
-      winRate: 0.171,
-      top3Rate: 0.446
+      games: 2924,
+      avgPlacement: 4.08,
+      winRate: 0.166,
+      top3Rate: 0.443
+    },
+    leni: {
+      games: 2797,
+      avgPlacement: 4.4,
+      winRate: 0.122,
+      top3Rate: 0.374
     },
     charlotte: {
-      games: 2620,
-      avgPlacement: 4.48,
-      winRate: 0.158,
-      top3Rate: 0.363
-    },
-    mai: {
-      games: 2469,
-      avgPlacement: 4.23,
-      winRate: 0.164,
-      top3Rate: 0.42
+      games: 2690,
+      avgPlacement: 4.45,
+      winRate: 0.16,
+      top3Rate: 0.371
     },
     priya: {
-      games: 2437,
-      avgPlacement: 4.26,
-      winRate: 0.151,
-      top3Rate: 0.404
+      games: 2521,
+      avgPlacement: 4.27,
+      winRate: 0.144,
+      top3Rate: 0.401
+    },
+    mai: {
+      games: 2485,
+      avgPlacement: 4.18,
+      winRate: 0.166,
+      top3Rate: 0.423
     },
     martina: {
-      games: 2022,
-      avgPlacement: 4.38,
-      winRate: 0.137,
-      top3Rate: 0.383
+      games: 2020,
+      avgPlacement: 4.36,
+      winRate: 0.139,
+      top3Rate: 0.384
     },
     johann: {
-      games: 1065,
-      avgPlacement: 4.28,
-      winRate: 0.14,
-      top3Rate: 0.404
+      games: 1095,
+      avgPlacement: 4.27,
+      winRate: 0.147,
+      top3Rate: 0.397
     }
   },
   diamond_plus: {
     nicky: {
-      games: 18707,
-      avgPlacement: 4.38,
-      winRate: 0.121,
-      top3Rate: 0.382
+      games: 18464,
+      avgPlacement: 4.36,
+      winRate: 0.123,
+      top3Rate: 0.384
     },
     katja: {
-      games: 16691,
-      avgPlacement: 4.32,
-      winRate: 0.139,
+      games: 16705,
+      avgPlacement: 4.31,
+      winRate: 0.138,
       top3Rate: 0.392
     },
     yuki: {
-      games: 14285,
+      games: 14269,
       avgPlacement: 4.29,
       winRate: 0.121,
-      top3Rate: 0.402
+      top3Rate: 0.403
     },
     craver: {
-      games: 13039,
+      games: 12955,
       avgPlacement: 4.31,
-      winRate: 0.111,
-      top3Rate: 0.395
+      winRate: 0.113,
+      top3Rate: 0.393
     },
     darko: {
-      games: 12889,
+      games: 12797,
       avgPlacement: 4.37,
-      winRate: 0.129,
-      top3Rate: 0.384
-    },
-    debi_marlene: {
-      games: 12630,
-      avgPlacement: 4.36,
-      winRate: 0.121,
+      winRate: 0.13,
       top3Rate: 0.382
     },
+    debi_marlene: {
+      games: 12331,
+      avgPlacement: 4.35,
+      winRate: 0.122,
+      top3Rate: 0.385
+    },
     aya: {
-      games: 10922,
+      games: 10918,
       avgPlacement: 4.23,
-      winRate: 0.141,
+      winRate: 0.139,
       top3Rate: 0.405
     },
     luke: {
-      games: 10910,
-      avgPlacement: 4.41,
-      winRate: 0.125,
-      top3Rate: 0.376
+      games: 10775,
+      avgPlacement: 4.42,
+      winRate: 0.123,
+      top3Rate: 0.375
     },
     rio: {
-      games: 10563,
+      games: 10555,
       avgPlacement: 4.27,
-      winRate: 0.147,
+      winRate: 0.148,
       top3Rate: 0.4
     },
     jackie: {
-      games: 10171,
-      avgPlacement: 4.34,
-      winRate: 0.121,
-      top3Rate: 0.391
+      games: 10207,
+      avgPlacement: 4.33,
+      winRate: 0.118,
+      top3Rate: 0.39
     },
     leon: {
-      games: 9399,
+      games: 9222,
       avgPlacement: 4.22,
-      winRate: 0.137,
+      winRate: 0.138,
       top3Rate: 0.412
     },
-    lucia: {
-      games: 8987,
-      avgPlacement: 4.53,
-      winRate: 0.105,
-      top3Rate: 0.352
+    tsubame: {
+      games: 8893,
+      avgPlacement: 4.27,
+      winRate: 0.13,
+      top3Rate: 0.396
     },
     hisui: {
-      games: 8882,
-      avgPlacement: 4.41,
-      winRate: 0.136,
-      top3Rate: 0.371
-    },
-    tsubame: {
-      games: 8821,
-      avgPlacement: 4.27,
+      games: 8856,
+      avgPlacement: 4.42,
       winRate: 0.132,
-      top3Rate: 0.397
+      top3Rate: 0.367
+    },
+    lucia: {
+      games: 8693,
+      avgPlacement: 4.54,
+      winRate: 0.105,
+      top3Rate: 0.35
     },
     shoichi: {
-      games: 8603,
+      games: 8534,
       avgPlacement: 4.45,
       winRate: 0.111,
-      top3Rate: 0.365
+      top3Rate: 0.367
     },
     haze: {
-      games: 8544,
-      avgPlacement: 4.27,
-      winRate: 0.134,
+      games: 8496,
+      avgPlacement: 4.26,
+      winRate: 0.132,
       top3Rate: 0.402
     },
     magnus: {
-      games: 8416,
-      avgPlacement: 4.35,
-      winRate: 0.133,
-      top3Rate: 0.391
-    },
-    markus: {
-      games: 7784,
-      avgPlacement: 4.33,
-      winRate: 0.14,
-      top3Rate: 0.389
+      games: 8248,
+      avgPlacement: 4.34,
+      winRate: 0.131,
+      top3Rate: 0.392
     },
     justina: {
-      games: 7619,
+      games: 7991,
       avgPlacement: 4.33,
-      winRate: 0.122,
+      winRate: 0.124,
       top3Rate: 0.389
     },
+    markus: {
+      games: 7873,
+      avgPlacement: 4.33,
+      winRate: 0.138,
+      top3Rate: 0.385
+    },
     fenrir: {
-      games: 7600,
-      avgPlacement: 4.45,
+      games: 7622,
+      avgPlacement: 4.44,
       winRate: 0.111,
-      top3Rate: 0.366
-    },
-    rozzi: {
-      games: 7416,
-      avgPlacement: 4.24,
-      winRate: 0.133,
-      top3Rate: 0.412
-    },
-    garnet: {
-      games: 7397,
-      avgPlacement: 4.28,
-      winRate: 0.117,
-      top3Rate: 0.397
+      top3Rate: 0.365
     },
     isol: {
-      games: 7351,
+      games: 7530,
       avgPlacement: 4.26,
-      winRate: 0.137,
+      winRate: 0.135,
       top3Rate: 0.407
     },
     adriana: {
-      games: 7292,
-      avgPlacement: 4.11,
-      winRate: 0.149,
-      top3Rate: 0.434
+      games: 7336,
+      avgPlacement: 4.1,
+      winRate: 0.151,
+      top3Rate: 0.437
     },
-    shirin: {
-      games: 7244,
-      avgPlacement: 4.36,
-      winRate: 0.114,
-      top3Rate: 0.384
+    garnet: {
+      games: 7242,
+      avgPlacement: 4.25,
+      winRate: 0.122,
+      top3Rate: 0.401
     },
     abigail: {
-      games: 7219,
+      games: 7229,
       avgPlacement: 4.37,
-      winRate: 0.129,
+      winRate: 0.13,
       top3Rate: 0.374
     },
-    yumin: {
-      games: 7133,
-      avgPlacement: 4.31,
-      winRate: 0.136,
-      top3Rate: 0.393
-    },
-    camilo: {
-      games: 6850,
+    shirin: {
+      games: 7155,
       avgPlacement: 4.35,
-      winRate: 0.136,
-      top3Rate: 0.385
+      winRate: 0.113,
+      top3Rate: 0.387
     },
-    estelle: {
-      games: 6802,
-      avgPlacement: 4.19,
-      winRate: 0.143,
-      top3Rate: 0.416
+    rozzi: {
+      games: 7128,
+      avgPlacement: 4.25,
+      winRate: 0.133,
+      top3Rate: 0.41
     },
-    vanya: {
-      games: 6704,
-      avgPlacement: 4.34,
-      winRate: 0.136,
-      top3Rate: 0.388
+    yumin: {
+      games: 7002,
+      avgPlacement: 4.3,
+      winRate: 0.138,
+      top3Rate: 0.395
     },
     cathy: {
-      games: 6652,
+      games: 6937,
       avgPlacement: 4.19,
-      winRate: 0.139,
-      top3Rate: 0.418
+      winRate: 0.137,
+      top3Rate: 0.417
     },
-    bernice: {
-      games: 6562,
+    estelle: {
+      games: 6849,
+      avgPlacement: 4.21,
+      winRate: 0.14,
+      top3Rate: 0.41
+    },
+    camilo: {
+      games: 6656,
+      avgPlacement: 4.36,
+      winRate: 0.136,
+      top3Rate: 0.382
+    },
+    vanya: {
+      games: 6622,
       avgPlacement: 4.33,
-      winRate: 0.138,
-      top3Rate: 0.393
-    },
-    lenore: {
-      games: 6535,
-      avgPlacement: 4.26,
-      winRate: 0.159,
-      top3Rate: 0.407
-    },
-    aiden: {
-      games: 6487,
-      avgPlacement: 4.35,
-      winRate: 0.126,
-      top3Rate: 0.386
-    },
-    nia: {
-      games: 6287,
-      avgPlacement: 4.37,
-      winRate: 0.125,
-      top3Rate: 0.384
-    },
-    lenox: {
-      games: 6267,
-      avgPlacement: 4.22,
-      winRate: 0.149,
-      top3Rate: 0.414
-    },
-    chiara: {
-      games: 6070,
-      avgPlacement: 4.39,
-      winRate: 0.129,
-      top3Rate: 0.381
-    },
-    bihyung: {
-      games: 6013,
-      avgPlacement: 4.31,
-      winRate: 0.128,
-      top3Rate: 0.4
-    },
-    alex: {
-      games: 5962,
-      avgPlacement: 4.14,
-      winRate: 0.131,
-      top3Rate: 0.432
-    },
-    hyunwoo: {
-      games: 5925,
-      avgPlacement: 4.37,
-      winRate: 0.121,
+      winRate: 0.136,
       top3Rate: 0.39
     },
+    aiden: {
+      games: 6566,
+      avgPlacement: 4.35,
+      winRate: 0.126,
+      top3Rate: 0.388
+    },
+    lenore: {
+      games: 6484,
+      avgPlacement: 4.24,
+      winRate: 0.164,
+      top3Rate: 0.41
+    },
+    bernice: {
+      games: 6408,
+      avgPlacement: 4.31,
+      winRate: 0.142,
+      top3Rate: 0.397
+    },
+    nia: {
+      games: 6327,
+      avgPlacement: 4.36,
+      winRate: 0.127,
+      top3Rate: 0.387
+    },
+    lenox: {
+      games: 6304,
+      avgPlacement: 4.23,
+      winRate: 0.145,
+      top3Rate: 0.41
+    },
+    bihyung: {
+      games: 6216,
+      avgPlacement: 4.29,
+      winRate: 0.13,
+      top3Rate: 0.403
+    },
+    chiara: {
+      games: 6131,
+      avgPlacement: 4.42,
+      winRate: 0.128,
+      top3Rate: 0.377
+    },
+    alex: {
+      games: 5972,
+      avgPlacement: 4.17,
+      winRate: 0.128,
+      top3Rate: 0.425
+    },
     nadine: {
-      games: 5789,
-      avgPlacement: 4.2,
-      winRate: 0.144,
-      top3Rate: 0.419
+      games: 5945,
+      avgPlacement: 4.19,
+      winRate: 0.148,
+      top3Rate: 0.42
+    },
+    hyunwoo: {
+      games: 5815,
+      avgPlacement: 4.38,
+      winRate: 0.121,
+      top3Rate: 0.387
+    },
+    kenneth: {
+      games: 5727,
+      avgPlacement: 4.33,
+      winRate: 0.135,
+      top3Rate: 0.39
     },
     sua: {
-      games: 5665,
-      avgPlacement: 4.25,
+      games: 5582,
+      avgPlacement: 4.26,
       winRate: 0.129,
       top3Rate: 0.408
     },
-    kenneth: {
-      games: 5661,
-      avgPlacement: 4.34,
-      winRate: 0.135,
-      top3Rate: 0.389
-    },
-    sissela: {
-      games: 5445,
-      avgPlacement: 4.25,
-      winRate: 0.138,
-      top3Rate: 0.404
-    },
     istvan: {
-      games: 5431,
+      games: 5568,
       avgPlacement: 4.35,
       winRate: 0.109,
-      top3Rate: 0.388
+      top3Rate: 0.391
+    },
+    yan: {
+      games: 5312,
+      avgPlacement: 4.28,
+      winRate: 0.124,
+      top3Rate: 0.401
+    },
+    sissela: {
+      games: 5304,
+      avgPlacement: 4.25,
+      winRate: 0.14,
+      top3Rate: 0.405
     },
     barbara: {
-      games: 5396,
-      avgPlacement: 4.21,
-      winRate: 0.142,
+      games: 5268,
+      avgPlacement: 4.2,
+      winRate: 0.143,
       top3Rate: 0.422
     },
     henry: {
-      games: 5347,
-      avgPlacement: 4.15,
-      winRate: 0.149,
-      top3Rate: 0.425
-    },
-    yan: {
-      games: 5323,
-      avgPlacement: 4.3,
-      winRate: 0.119,
-      top3Rate: 0.397
-    },
-    blair: {
-      games: 5146,
-      avgPlacement: 4.39,
-      winRate: 0.124,
-      top3Rate: 0.374
-    },
-    bianca: {
-      games: 5146,
-      avgPlacement: 4.31,
-      winRate: 0.127,
-      top3Rate: 0.391
-    },
-    echion: {
-      games: 5037,
-      avgPlacement: 4.29,
-      winRate: 0.135,
-      top3Rate: 0.398
-    },
-    eleven: {
-      games: 5031,
-      avgPlacement: 4.2,
-      winRate: 0.144,
-      top3Rate: 0.414
-    },
-    laura: {
-      games: 5012,
-      avgPlacement: 4.29,
-      winRate: 0.127,
-      top3Rate: 0.398
-    },
-    william: {
-      games: 4876,
-      avgPlacement: 4.22,
-      winRate: 0.156,
-      top3Rate: 0.405
-    },
-    isaac: {
-      games: 4860,
-      avgPlacement: 4.33,
-      winRate: 0.126,
-      top3Rate: 0.387
-    },
-    coreline: {
-      games: 4783,
-      avgPlacement: 4.31,
-      winRate: 0.139,
-      top3Rate: 0.397
-    },
-    tia: {
-      games: 4702,
-      avgPlacement: 4.15,
-      winRate: 0.131,
-      top3Rate: 0.427
-    },
-    alonso: {
-      games: 4668,
-      avgPlacement: 4.48,
-      winRate: 0.137,
-      top3Rate: 0.364
-    },
-    emma: {
-      games: 4661,
-      avgPlacement: 4.21,
-      winRate: 0.138,
-      top3Rate: 0.41
-    },
-    li_dailin: {
-      games: 4527,
-      avgPlacement: 4.24,
-      winRate: 0.126,
-      top3Rate: 0.412
-    },
-    felix: {
-      games: 4113,
-      avgPlacement: 4.23,
-      winRate: 0.146,
-      top3Rate: 0.411
-    },
-    piolo: {
-      games: 3840,
-      avgPlacement: 4.27,
-      winRate: 0.115,
-      top3Rate: 0.399
-    },
-    hyejin: {
-      games: 3693,
-      avgPlacement: 4.19,
-      winRate: 0.135,
-      top3Rate: 0.421
-    },
-    irem: {
-      games: 3692,
-      avgPlacement: 4.15,
-      winRate: 0.13,
-      top3Rate: 0.42
-    },
-    daniel: {
-      games: 3635,
-      avgPlacement: 4.16,
-      winRate: 0.117,
-      top3Rate: 0.428
-    },
-    fiora: {
-      games: 3551,
-      avgPlacement: 4.33,
-      winRate: 0.118,
-      top3Rate: 0.391
-    },
-    ian: {
-      games: 3444,
-      avgPlacement: 4.18,
-      winRate: 0.136,
-      top3Rate: 0.412
-    },
-    adela: {
-      games: 3424,
-      avgPlacement: 4.23,
-      winRate: 0.145,
-      top3Rate: 0.403
-    },
-    eva: {
-      games: 3410,
-      avgPlacement: 4.08,
-      winRate: 0.17,
-      top3Rate: 0.439
-    },
-    celine: {
-      games: 3387,
+      games: 5233,
       avgPlacement: 4.13,
-      winRate: 0.156,
-      top3Rate: 0.431
-    },
-    chloe: {
-      games: 3363,
-      avgPlacement: 4.09,
       winRate: 0.154,
       top3Rate: 0.429
     },
-    mirka: {
-      games: 3093,
-      avgPlacement: 4.26,
-      winRate: 0.143,
-      top3Rate: 0.389
-    },
-    adina: {
-      games: 3012,
-      avgPlacement: 4.12,
-      winRate: 0.166,
-      top3Rate: 0.431
-    },
-    sho: {
-      games: 2998,
-      avgPlacement: 4.1,
-      winRate: 0.155,
-      top3Rate: 0.432
-    },
-    nathapon: {
-      games: 2993,
-      avgPlacement: 4.22,
-      winRate: 0.155,
-      top3Rate: 0.41
-    },
-    hart: {
-      games: 2733,
-      avgPlacement: 4.35,
-      winRate: 0.139,
-      top3Rate: 0.385
-    },
-    karla: {
-      games: 2732,
+    echion: {
+      games: 5210,
       avgPlacement: 4.27,
-      winRate: 0.129,
-      top3Rate: 0.397
+      winRate: 0.138,
+      top3Rate: 0.402
     },
-    arda: {
-      games: 2704,
-      avgPlacement: 4.19,
-      winRate: 0.121,
-      top3Rate: 0.423
+    bianca: {
+      games: 5184,
+      avgPlacement: 4.34,
+      winRate: 0.123,
+      top3Rate: 0.39
     },
-    theodore: {
-      games: 2655,
-      avgPlacement: 4.46,
-      winRate: 0.133,
-      top3Rate: 0.37
-    },
-    elena: {
-      games: 2615,
-      avgPlacement: 4.28,
-      winRate: 0.137,
-      top3Rate: 0.398
-    },
-    zahir: {
-      games: 2608,
-      avgPlacement: 3.99,
-      winRate: 0.194,
-      top3Rate: 0.454
-    },
-    silvia: {
-      games: 2567,
-      avgPlacement: 4.18,
-      winRate: 0.143,
-      top3Rate: 0.425
-    },
-    tazia: {
-      games: 2088,
-      avgPlacement: 4.23,
-      winRate: 0.155,
-      top3Rate: 0.403
-    },
-    jenny: {
-      games: 1856,
-      avgPlacement: 4.06,
-      winRate: 0.173,
-      top3Rate: 0.446
-    },
-    leni: {
-      games: 1677,
-      avgPlacement: 4.38,
-      winRate: 0.129,
+    blair: {
+      games: 5138,
+      avgPlacement: 4.41,
+      winRate: 0.124,
       top3Rate: 0.371
     },
-    charlotte: {
-      games: 1534,
-      avgPlacement: 4.44,
-      winRate: 0.162,
-      top3Rate: 0.37
+    eleven: {
+      games: 4929,
+      avgPlacement: 4.18,
+      winRate: 0.146,
+      top3Rate: 0.418
+    },
+    coreline: {
+      games: 4912,
+      avgPlacement: 4.3,
+      winRate: 0.138,
+      top3Rate: 0.397
+    },
+    isaac: {
+      games: 4897,
+      avgPlacement: 4.34,
+      winRate: 0.127,
+      top3Rate: 0.387
+    },
+    william: {
+      games: 4783,
+      avgPlacement: 4.23,
+      winRate: 0.156,
+      top3Rate: 0.404
+    },
+    laura: {
+      games: 4782,
+      avgPlacement: 4.32,
+      winRate: 0.123,
+      top3Rate: 0.394
+    },
+    tia: {
+      games: 4721,
+      avgPlacement: 4.15,
+      winRate: 0.133,
+      top3Rate: 0.425
+    },
+    emma: {
+      games: 4665,
+      avgPlacement: 4.21,
+      winRate: 0.136,
+      top3Rate: 0.41
+    },
+    alonso: {
+      games: 4606,
+      avgPlacement: 4.43,
+      winRate: 0.14,
+      top3Rate: 0.371
+    },
+    li_dailin: {
+      games: 4563,
+      avgPlacement: 4.26,
+      winRate: 0.123,
+      top3Rate: 0.412
+    },
+    felix: {
+      games: 4047,
+      avgPlacement: 4.24,
+      winRate: 0.142,
+      top3Rate: 0.409
+    },
+    piolo: {
+      games: 3751,
+      avgPlacement: 4.22,
+      winRate: 0.119,
+      top3Rate: 0.409
+    },
+    irem: {
+      games: 3707,
+      avgPlacement: 4.17,
+      winRate: 0.128,
+      top3Rate: 0.418
+    },
+    daniel: {
+      games: 3679,
+      avgPlacement: 4.14,
+      winRate: 0.12,
+      top3Rate: 0.432
+    },
+    hyejin: {
+      games: 3600,
+      avgPlacement: 4.19,
+      winRate: 0.137,
+      top3Rate: 0.423
+    },
+    eva: {
+      games: 3502,
+      avgPlacement: 4.1,
+      winRate: 0.166,
+      top3Rate: 0.435
+    },
+    chloe: {
+      games: 3416,
+      avgPlacement: 4.09,
+      winRate: 0.152,
+      top3Rate: 0.428
+    },
+    adela: {
+      games: 3415,
+      avgPlacement: 4.25,
+      winRate: 0.141,
+      top3Rate: 0.4
+    },
+    celine: {
+      games: 3410,
+      avgPlacement: 4.14,
+      winRate: 0.157,
+      top3Rate: 0.43
+    },
+    fiora: {
+      games: 3375,
+      avgPlacement: 4.33,
+      winRate: 0.116,
+      top3Rate: 0.393
+    },
+    ian: {
+      games: 3345,
+      avgPlacement: 4.18,
+      winRate: 0.136,
+      top3Rate: 0.416
+    },
+    nathapon: {
+      games: 3097,
+      avgPlacement: 4.22,
+      winRate: 0.155,
+      top3Rate: 0.405
+    },
+    sho: {
+      games: 3096,
+      avgPlacement: 4.09,
+      winRate: 0.159,
+      top3Rate: 0.433
+    },
+    adina: {
+      games: 3056,
+      avgPlacement: 4.11,
+      winRate: 0.163,
+      top3Rate: 0.435
+    },
+    mirka: {
+      games: 3039,
+      avgPlacement: 4.31,
+      winRate: 0.138,
+      top3Rate: 0.381
+    },
+    arda: {
+      games: 2841,
+      avgPlacement: 4.19,
+      winRate: 0.124,
+      top3Rate: 0.426
+    },
+    hart: {
+      games: 2814,
+      avgPlacement: 4.37,
+      winRate: 0.137,
+      top3Rate: 0.381
+    },
+    zahir: {
+      games: 2674,
+      avgPlacement: 4,
+      winRate: 0.19,
+      top3Rate: 0.452
+    },
+    karla: {
+      games: 2646,
+      avgPlacement: 4.27,
+      winRate: 0.128,
+      top3Rate: 0.401
+    },
+    elena: {
+      games: 2612,
+      avgPlacement: 4.24,
+      winRate: 0.138,
+      top3Rate: 0.409
+    },
+    theodore: {
+      games: 2580,
+      avgPlacement: 4.43,
+      winRate: 0.135,
+      top3Rate: 0.373
+    },
+    silvia: {
+      games: 2509,
+      avgPlacement: 4.2,
+      winRate: 0.136,
+      top3Rate: 0.421
+    },
+    tazia: {
+      games: 2012,
+      avgPlacement: 4.21,
+      winRate: 0.16,
+      top3Rate: 0.401
+    },
+    jenny: {
+      games: 1949,
+      avgPlacement: 4.08,
+      winRate: 0.169,
+      top3Rate: 0.44
+    },
+    leni: {
+      games: 1621,
+      avgPlacement: 4.38,
+      winRate: 0.123,
+      top3Rate: 0.369
     },
     priya: {
-      games: 1512,
+      games: 1586,
       avgPlacement: 4.26,
-      winRate: 0.149,
-      top3Rate: 0.403
+      winRate: 0.145,
+      top3Rate: 0.407
+    },
+    charlotte: {
+      games: 1565,
+      avgPlacement: 4.4,
+      winRate: 0.164,
+      top3Rate: 0.38
     },
     mai: {
-      games: 1476,
-      avgPlacement: 4.2,
-      winRate: 0.165,
-      top3Rate: 0.422
+      games: 1519,
+      avgPlacement: 4.17,
+      winRate: 0.167,
+      top3Rate: 0.423
     },
     martina: {
       games: 1402,
-      avgPlacement: 4.35,
-      winRate: 0.141,
-      top3Rate: 0.386
+      avgPlacement: 4.38,
+      winRate: 0.136,
+      top3Rate: 0.379
     },
     johann: {
-      games: 572,
-      avgPlacement: 4.27,
-      winRate: 0.145,
-      top3Rate: 0.414
+      games: 595,
+      avgPlacement: 4.23,
+      winRate: 0.153,
+      top3Rate: 0.417
     }
   },
   mithril_plus: {
     craver: {
-      games: 2889,
-      avgPlacement: 4.35,
-      winRate: 0.098,
-      top3Rate: 0.387
-    },
-    nicky: {
-      games: 2770,
-      avgPlacement: 4.39,
-      winRate: 0.12,
-      top3Rate: 0.377
-    },
-    jackie: {
-      games: 2300,
-      avgPlacement: 4.32,
-      winRate: 0.118,
-      top3Rate: 0.399
-    },
-    yuki: {
-      games: 2176,
-      avgPlacement: 4.41,
-      winRate: 0.111,
-      top3Rate: 0.373
-    },
-    luke: {
-      games: 2016,
-      avgPlacement: 4.44,
-      winRate: 0.112,
-      top3Rate: 0.375
-    },
-    aya: {
-      games: 1929,
-      avgPlacement: 4.22,
-      winRate: 0.135,
-      top3Rate: 0.416
-    },
-    rio: {
-      games: 1910,
-      avgPlacement: 4.4,
-      winRate: 0.141,
-      top3Rate: 0.377
-    },
-    justina: {
-      games: 1858,
-      avgPlacement: 4.3,
-      winRate: 0.128,
-      top3Rate: 0.402
-    },
-    debi_marlene: {
-      games: 1852,
-      avgPlacement: 4.42,
-      winRate: 0.124,
-      top3Rate: 0.373
-    },
-    katja: {
-      games: 1760,
-      avgPlacement: 4.37,
-      winRate: 0.138,
+      games: 2861,
+      avgPlacement: 4.34,
+      winRate: 0.104,
       top3Rate: 0.386
     },
-    darko: {
-      games: 1754,
-      avgPlacement: 4.44,
+    nicky: {
+      games: 2807,
+      avgPlacement: 4.37,
       winRate: 0.124,
-      top3Rate: 0.371
+      top3Rate: 0.379
+    },
+    jackie: {
+      games: 2398,
+      avgPlacement: 4.35,
+      winRate: 0.115,
+      top3Rate: 0.391
+    },
+    yuki: {
+      games: 2209,
+      avgPlacement: 4.41,
+      winRate: 0.115,
+      top3Rate: 0.373
+    },
+    justina: {
+      games: 2008,
+      avgPlacement: 4.31,
+      winRate: 0.13,
+      top3Rate: 0.402
+    },
+    aya: {
+      games: 2000,
+      avgPlacement: 4.26,
+      winRate: 0.13,
+      top3Rate: 0.407
+    },
+    luke: {
+      games: 1985,
+      avgPlacement: 4.43,
+      winRate: 0.11,
+      top3Rate: 0.378
+    },
+    rio: {
+      games: 1979,
+      avgPlacement: 4.37,
+      winRate: 0.144,
+      top3Rate: 0.384
+    },
+    katja: {
+      games: 1820,
+      avgPlacement: 4.36,
+      winRate: 0.137,
+      top3Rate: 0.39
+    },
+    darko: {
+      games: 1810,
+      avgPlacement: 4.45,
+      winRate: 0.123,
+      top3Rate: 0.366
+    },
+    debi_marlene: {
+      games: 1788,
+      avgPlacement: 4.34,
+      winRate: 0.132,
+      top3Rate: 0.391
     },
     markus: {
-      games: 1709,
+      games: 1729,
       avgPlacement: 4.33,
-      winRate: 0.147,
-      top3Rate: 0.395
+      winRate: 0.142,
+      top3Rate: 0.394
     },
     tsubame: {
-      games: 1695,
-      avgPlacement: 4.35,
-      winRate: 0.119,
+      games: 1720,
+      avgPlacement: 4.38,
+      winRate: 0.116,
       top3Rate: 0.381
     },
     shoichi: {
-      games: 1615,
-      avgPlacement: 4.41,
-      winRate: 0.128,
-      top3Rate: 0.372
+      games: 1597,
+      avgPlacement: 4.39,
+      winRate: 0.13,
+      top3Rate: 0.381
     },
     shirin: {
-      games: 1554,
-      avgPlacement: 4.44,
+      games: 1559,
+      avgPlacement: 4.49,
       winRate: 0.109,
-      top3Rate: 0.373
-    },
-    garnet: {
-      games: 1492,
-      avgPlacement: 4.27,
-      winRate: 0.119,
-      top3Rate: 0.399
+      top3Rate: 0.362
     },
     alex: {
-      games: 1453,
-      avgPlacement: 4.15,
-      winRate: 0.13,
-      top3Rate: 0.436
-    },
-    william: {
-      games: 1376,
+      games: 1504,
       avgPlacement: 4.21,
-      winRate: 0.147,
-      top3Rate: 0.398
-    },
-    echion: {
-      games: 1372,
-      avgPlacement: 4.32,
-      winRate: 0.131,
-      top3Rate: 0.4
+      winRate: 0.124,
+      top3Rate: 0.421
     },
     cathy: {
-      games: 1361,
+      games: 1489,
       avgPlacement: 4.24,
-      winRate: 0.133,
+      winRate: 0.127,
+      top3Rate: 0.405
+    },
+    echion: {
+      games: 1486,
+      avgPlacement: 4.29,
+      winRate: 0.14,
+      top3Rate: 0.4
+    },
+    istvan: {
+      games: 1388,
+      avgPlacement: 4.35,
+      winRate: 0.101,
+      top3Rate: 0.396
+    },
+    garnet: {
+      games: 1387,
+      avgPlacement: 4.25,
+      winRate: 0.124,
+      top3Rate: 0.397
+    },
+    blair: {
+      games: 1361,
+      avgPlacement: 4.4,
+      winRate: 0.126,
+      top3Rate: 0.367
+    },
+    william: {
+      games: 1361,
+      avgPlacement: 4.22,
+      winRate: 0.148,
       top3Rate: 0.402
     },
-    bernice: {
-      games: 1356,
-      avgPlacement: 4.37,
-      winRate: 0.141,
-      top3Rate: 0.387
-    },
     haze: {
-      games: 1334,
+      games: 1359,
       avgPlacement: 4.3,
-      winRate: 0.132,
-      top3Rate: 0.409
+      winRate: 0.128,
+      top3Rate: 0.401
+    },
+    bernice: {
+      games: 1359,
+      avgPlacement: 4.36,
+      winRate: 0.147,
+      top3Rate: 0.384
     },
     chiara: {
-      games: 1307,
-      avgPlacement: 4.41,
-      winRate: 0.122,
+      games: 1352,
+      avgPlacement: 4.39,
+      winRate: 0.126,
       top3Rate: 0.382
     },
     fenrir: {
-      games: 1290,
-      avgPlacement: 4.5,
-      winRate: 0.103,
-      top3Rate: 0.343
-    },
-    emma: {
-      games: 1287,
-      avgPlacement: 4.19,
-      winRate: 0.151,
-      top3Rate: 0.414
-    },
-    blair: {
-      games: 1285,
-      avgPlacement: 4.36,
-      winRate: 0.132,
-      top3Rate: 0.377
-    },
-    istvan: {
-      games: 1258,
-      avgPlacement: 4.31,
-      winRate: 0.109,
-      top3Rate: 0.403
-    },
-    kenneth: {
-      games: 1242,
-      avgPlacement: 4.36,
-      winRate: 0.134,
-      top3Rate: 0.378
-    },
-    camilo: {
-      games: 1241,
-      avgPlacement: 4.37,
-      winRate: 0.135,
-      top3Rate: 0.377
-    },
-    magnus: {
-      games: 1219,
-      avgPlacement: 4.43,
-      winRate: 0.119,
-      top3Rate: 0.363
-    },
-    sissela: {
-      games: 1214,
-      avgPlacement: 4.22,
-      winRate: 0.148,
-      top3Rate: 0.415
-    },
-    isol: {
-      games: 1213,
-      avgPlacement: 4.34,
-      winRate: 0.118,
-      top3Rate: 0.406
-    },
-    adriana: {
-      games: 1211,
-      avgPlacement: 4.19,
-      winRate: 0.145,
-      top3Rate: 0.424
+      games: 1347,
+      avgPlacement: 4.45,
+      winRate: 0.108,
+      top3Rate: 0.358
     },
     aiden: {
-      games: 1211,
-      avgPlacement: 4.32,
-      winRate: 0.131,
-      top3Rate: 0.393
+      games: 1301,
+      avgPlacement: 4.33,
+      winRate: 0.125,
+      top3Rate: 0.392
     },
-    adela: {
-      games: 1202,
-      avgPlacement: 4.28,
-      winRate: 0.137,
-      top3Rate: 0.389
+    emma: {
+      games: 1298,
+      avgPlacement: 4.19,
+      winRate: 0.148,
+      top3Rate: 0.421
     },
-    nadine: {
-      games: 1194,
-      avgPlacement: 4.18,
-      winRate: 0.157,
-      top3Rate: 0.426
+    isol: {
+      games: 1276,
+      avgPlacement: 4.31,
+      winRate: 0.121,
+      top3Rate: 0.405
     },
-    rozzi: {
-      games: 1188,
+    kenneth: {
+      games: 1258,
+      avgPlacement: 4.34,
+      winRate: 0.136,
+      top3Rate: 0.377
+    },
+    adriana: {
+      games: 1250,
       avgPlacement: 4.17,
-      winRate: 0.154,
-      top3Rate: 0.429
+      winRate: 0.144,
+      top3Rate: 0.425
     },
     lenox: {
-      games: 1181,
-      avgPlacement: 4.17,
-      winRate: 0.145,
-      top3Rate: 0.429
+      games: 1249,
+      avgPlacement: 4.24,
+      winRate: 0.138,
+      top3Rate: 0.414
+    },
+    nadine: {
+      games: 1228,
+      avgPlacement: 4.21,
+      winRate: 0.153,
+      top3Rate: 0.421
+    },
+    magnus: {
+      games: 1217,
+      avgPlacement: 4.42,
+      winRate: 0.118,
+      top3Rate: 0.372
+    },
+    sissela: {
+      games: 1210,
+      avgPlacement: 4.24,
+      winRate: 0.146,
+      top3Rate: 0.415
+    },
+    rozzi: {
+      games: 1209,
+      avgPlacement: 4.16,
+      winRate: 0.147,
+      top3Rate: 0.436
+    },
+    hyejin: {
+      games: 1208,
+      avgPlacement: 4.16,
+      winRate: 0.146,
+      top3Rate: 0.421
+    },
+    adela: {
+      games: 1196,
+      avgPlacement: 4.32,
+      winRate: 0.131,
+      top3Rate: 0.385
+    },
+    camilo: {
+      games: 1195,
+      avgPlacement: 4.36,
+      winRate: 0.138,
+      top3Rate: 0.37
+    },
+    vanya: {
+      games: 1146,
+      avgPlacement: 4.32,
+      winRate: 0.131,
+      top3Rate: 0.395
+    },
+    estelle: {
+      games: 1139,
+      avgPlacement: 4.3,
+      winRate: 0.149,
+      top3Rate: 0.391
+    },
+    sua: {
+      games: 1128,
+      avgPlacement: 4.23,
+      winRate: 0.135,
+      top3Rate: 0.417
     },
     laura: {
-      games: 1169,
+      games: 1115,
       avgPlacement: 4.32,
       winRate: 0.12,
       top3Rate: 0.397
     },
-    hyejin: {
-      games: 1162,
-      avgPlacement: 4.16,
-      winRate: 0.145,
-      top3Rate: 0.42
-    },
-    vanya: {
-      games: 1142,
-      avgPlacement: 4.3,
-      winRate: 0.135,
-      top3Rate: 0.395
-    },
     lucia: {
-      games: 1139,
-      avgPlacement: 4.53,
+      games: 1091,
+      avgPlacement: 4.56,
       winRate: 0.111,
-      top3Rate: 0.365
-    },
-    estelle: {
-      games: 1125,
-      avgPlacement: 4.25,
-      winRate: 0.149,
-      top3Rate: 0.405
-    },
-    sua: {
-      games: 1103,
-      avgPlacement: 4.2,
-      winRate: 0.14,
-      top3Rate: 0.418
+      top3Rate: 0.354
     },
     felix: {
-      games: 1086,
-      avgPlacement: 4.12,
-      winRate: 0.154,
-      top3Rate: 0.433
-    },
-    leon: {
-      games: 1049,
-      avgPlacement: 4.29,
-      winRate: 0.132,
-      top3Rate: 0.393
-    },
-    yumin: {
-      games: 1026,
-      avgPlacement: 4.31,
-      winRate: 0.137,
-      top3Rate: 0.388
-    },
-    hisui: {
-      games: 1012,
-      avgPlacement: 4.37,
-      winRate: 0.151,
-      top3Rate: 0.382
-    },
-    hyunwoo: {
-      games: 1008,
-      avgPlacement: 4.39,
-      winRate: 0.115,
-      top3Rate: 0.375
-    },
-    tia: {
-      games: 993,
-      avgPlacement: 4.19,
-      winRate: 0.131,
-      top3Rate: 0.42
+      games: 1077,
+      avgPlacement: 4.2,
+      winRate: 0.144,
+      top3Rate: 0.412
     },
     yan: {
-      games: 989,
-      avgPlacement: 4.26,
-      winRate: 0.11,
-      top3Rate: 0.408
+      games: 1073,
+      avgPlacement: 4.22,
+      winRate: 0.107,
+      top3Rate: 0.415
+    },
+    hisui: {
+      games: 1062,
+      avgPlacement: 4.38,
+      winRate: 0.139,
+      top3Rate: 0.383
+    },
+    leon: {
+      games: 1057,
+      avgPlacement: 4.3,
+      winRate: 0.128,
+      top3Rate: 0.395
+    },
+    tia: {
+      games: 1050,
+      avgPlacement: 4.19,
+      winRate: 0.131,
+      top3Rate: 0.415
     },
     nia: {
-      games: 989,
-      avgPlacement: 4.52,
-      winRate: 0.118,
-      top3Rate: 0.339
+      games: 1026,
+      avgPlacement: 4.51,
+      winRate: 0.117,
+      top3Rate: 0.337
     },
-    alonso: {
-      games: 934,
-      avgPlacement: 4.41,
-      winRate: 0.127,
-      top3Rate: 0.379
-    },
-    henry: {
-      games: 929,
-      avgPlacement: 4.27,
-      winRate: 0.137,
-      top3Rate: 0.407
-    },
-    piolo: {
-      games: 910,
-      avgPlacement: 4.36,
-      winRate: 0.103,
-      top3Rate: 0.385
+    yumin: {
+      games: 1020,
+      avgPlacement: 4.3,
+      winRate: 0.142,
+      top3Rate: 0.391
     },
     bihyung: {
-      games: 889,
-      avgPlacement: 4.28,
-      winRate: 0.136,
-      top3Rate: 0.409
-    },
-    fiora: {
-      games: 882,
-      avgPlacement: 4.28,
-      winRate: 0.119,
-      top3Rate: 0.397
-    },
-    li_dailin: {
-      games: 875,
-      avgPlacement: 4.27,
-      winRate: 0.109,
-      top3Rate: 0.4
-    },
-    coreline: {
-      games: 866,
-      avgPlacement: 4.34,
-      winRate: 0.155,
-      top3Rate: 0.405
-    },
-    barbara: {
-      games: 835,
-      avgPlacement: 4.28,
-      winRate: 0.139,
-      top3Rate: 0.412
-    },
-    zahir: {
-      games: 834,
-      avgPlacement: 4.12,
-      winRate: 0.182,
-      top3Rate: 0.422
-    },
-    abigail: {
-      games: 783,
-      avgPlacement: 4.38,
-      winRate: 0.128,
-      top3Rate: 0.373
-    },
-    isaac: {
-      games: 776,
-      avgPlacement: 4.42,
-      winRate: 0.11,
-      top3Rate: 0.369
-    },
-    hart: {
-      games: 760,
-      avgPlacement: 4.4,
-      winRate: 0.154,
-      top3Rate: 0.376
-    },
-    irem: {
-      games: 752,
-      avgPlacement: 4.17,
+      games: 1018,
+      avgPlacement: 4.18,
       winRate: 0.149,
-      top3Rate: 0.423
-    },
-    eleven: {
-      games: 715,
-      avgPlacement: 4.15,
-      winRate: 0.137,
-      top3Rate: 0.429
-    },
-    bianca: {
-      games: 712,
-      avgPlacement: 4.25,
-      winRate: 0.135,
-      top3Rate: 0.406
-    },
-    karla: {
-      games: 704,
-      avgPlacement: 4.32,
-      winRate: 0.129,
-      top3Rate: 0.376
-    },
-    sho: {
-      games: 654,
-      avgPlacement: 4.23,
-      winRate: 0.136,
       top3Rate: 0.428
     },
-    adina: {
-      games: 636,
-      avgPlacement: 4.12,
-      winRate: 0.175,
-      top3Rate: 0.425
+    hyunwoo: {
+      games: 993,
+      avgPlacement: 4.36,
+      winRate: 0.121,
+      top3Rate: 0.38
     },
-    daniel: {
-      games: 619,
-      avgPlacement: 4.13,
-      winRate: 0.092,
-      top3Rate: 0.447
+    henry: {
+      games: 954,
+      avgPlacement: 4.25,
+      winRate: 0.147,
+      top3Rate: 0.411
     },
-    theodore: {
-      games: 605,
-      avgPlacement: 4.54,
-      winRate: 0.112,
-      top3Rate: 0.36
+    alonso: {
+      games: 935,
+      avgPlacement: 4.34,
+      winRate: 0.135,
+      top3Rate: 0.389
     },
-    elena: {
-      games: 599,
-      avgPlacement: 4.27,
-      winRate: 0.127,
-      top3Rate: 0.387
-    },
-    lenore: {
-      games: 598,
-      avgPlacement: 4.51,
-      winRate: 0.149,
-      top3Rate: 0.366
-    },
-    celine: {
-      games: 577,
-      avgPlacement: 4.15,
-      winRate: 0.14,
-      top3Rate: 0.437
-    },
-    nathapon: {
-      games: 568,
-      avgPlacement: 4.19,
-      winRate: 0.165,
-      top3Rate: 0.408
-    },
-    eva: {
-      games: 560,
-      avgPlacement: 4.01,
-      winRate: 0.18,
-      top3Rate: 0.448
-    },
-    arda: {
-      games: 558,
+    piolo: {
+      games: 901,
       avgPlacement: 4.3,
-      winRate: 0.113,
-      top3Rate: 0.405
+      winRate: 0.102,
+      top3Rate: 0.401
     },
-    ian: {
-      games: 556,
-      avgPlacement: 4.17,
-      winRate: 0.164,
-      top3Rate: 0.412
+    coreline: {
+      games: 895,
+      avgPlacement: 4.34,
+      winRate: 0.154,
+      top3Rate: 0.393
     },
-    jenny: {
-      games: 528,
-      avgPlacement: 3.91,
-      winRate: 0.212,
-      top3Rate: 0.472
+    fiora: {
+      games: 895,
+      avgPlacement: 4.31,
+      winRate: 0.114,
+      top3Rate: 0.396
     },
-    silvia: {
-      games: 518,
-      avgPlacement: 4.19,
-      winRate: 0.156,
-      top3Rate: 0.429
-    },
-    tazia: {
-      games: 511,
-      avgPlacement: 4.13,
-      winRate: 0.162,
-      top3Rate: 0.429
-    },
-    mirka: {
-      games: 451,
+    li_dailin: {
+      games: 885,
       avgPlacement: 4.29,
-      winRate: 0.157,
-      top3Rate: 0.386
+      winRate: 0.111,
+      top3Rate: 0.401
     },
-    chloe: {
-      games: 442,
-      avgPlacement: 4.18,
-      winRate: 0.161,
-      top3Rate: 0.41
+    zahir: {
+      games: 845,
+      avgPlacement: 4.13,
+      winRate: 0.18,
+      top3Rate: 0.419
     },
-    charlotte: {
-      games: 368,
-      avgPlacement: 4.2,
-      winRate: 0.215,
-      top3Rate: 0.413
-    },
-    martina: {
-      games: 343,
-      avgPlacement: 4.24,
-      winRate: 0.143,
-      top3Rate: 0.402
-    },
-    priya: {
-      games: 336,
-      avgPlacement: 4.11,
-      winRate: 0.185,
-      top3Rate: 0.426
-    },
-    mai: {
-      games: 310,
-      avgPlacement: 4.1,
-      winRate: 0.184,
-      top3Rate: 0.448
-    },
-    leni: {
-      games: 298,
-      avgPlacement: 4.56,
-      winRate: 0.117,
+    isaac: {
+      games: 838,
+      avgPlacement: 4.49,
+      winRate: 0.109,
       top3Rate: 0.352
     },
-    johann: {
-      games: 234,
+    hart: {
+      games: 823,
+      avgPlacement: 4.41,
+      winRate: 0.156,
+      top3Rate: 0.373
+    },
+    irem: {
+      games: 798,
+      avgPlacement: 4.14,
+      winRate: 0.147,
+      top3Rate: 0.43
+    },
+    abigail: {
+      games: 796,
+      avgPlacement: 4.37,
+      winRate: 0.129,
+      top3Rate: 0.373
+    },
+    barbara: {
+      games: 790,
       avgPlacement: 4.24,
-      winRate: 0.158,
+      winRate: 0.141,
+      top3Rate: 0.42
+    },
+    eleven: {
+      games: 742,
+      avgPlacement: 4.12,
+      winRate: 0.143,
+      top3Rate: 0.445
+    },
+    bianca: {
+      games: 706,
+      avgPlacement: 4.29,
+      winRate: 0.133,
+      top3Rate: 0.402
+    },
+    sho: {
+      games: 696,
+      avgPlacement: 4.2,
+      winRate: 0.145,
+      top3Rate: 0.437
+    },
+    karla: {
+      games: 684,
+      avgPlacement: 4.27,
+      winRate: 0.133,
+      top3Rate: 0.39
+    },
+    adina: {
+      games: 677,
+      avgPlacement: 4.09,
+      winRate: 0.174,
+      top3Rate: 0.428
+    },
+    daniel: {
+      games: 665,
+      avgPlacement: 4.1,
+      winRate: 0.096,
+      top3Rate: 0.448
+    },
+    celine: {
+      games: 616,
+      avgPlacement: 4.18,
+      winRate: 0.143,
+      top3Rate: 0.429
+    },
+    elena: {
+      games: 615,
+      avgPlacement: 4.21,
+      winRate: 0.128,
+      top3Rate: 0.403
+    },
+    theodore: {
+      games: 606,
+      avgPlacement: 4.53,
+      winRate: 0.12,
+      top3Rate: 0.351
+    },
+    arda: {
+      games: 595,
+      avgPlacement: 4.31,
+      winRate: 0.109,
+      top3Rate: 0.415
+    },
+    eva: {
+      games: 590,
+      avgPlacement: 4.04,
+      winRate: 0.18,
+      top3Rate: 0.441
+    },
+    nathapon: {
+      games: 583,
+      avgPlacement: 4.25,
+      winRate: 0.156,
+      top3Rate: 0.396
+    },
+    jenny: {
+      games: 582,
+      avgPlacement: 3.94,
+      winRate: 0.215,
+      top3Rate: 0.467
+    },
+    lenore: {
+      games: 578,
+      avgPlacement: 4.43,
+      winRate: 0.161,
+      top3Rate: 0.389
+    },
+    ian: {
+      games: 575,
+      avgPlacement: 4.2,
+      winRate: 0.16,
+      top3Rate: 0.41
+    },
+    silvia: {
+      games: 529,
+      avgPlacement: 4.12,
+      winRate: 0.149,
+      top3Rate: 0.44
+    },
+    tazia: {
+      games: 494,
+      avgPlacement: 4.12,
+      winRate: 0.16,
+      top3Rate: 0.423
+    },
+    chloe: {
+      games: 464,
+      avgPlacement: 4.28,
+      winRate: 0.138,
+      top3Rate: 0.392
+    },
+    mirka: {
+      games: 436,
+      avgPlacement: 4.37,
+      winRate: 0.151,
+      top3Rate: 0.376
+    },
+    charlotte: {
+      games: 403,
+      avgPlacement: 4.14,
+      winRate: 0.223,
       top3Rate: 0.427
+    },
+    priya: {
+      games: 394,
+      avgPlacement: 4.06,
+      winRate: 0.18,
+      top3Rate: 0.439
+    },
+    martina: {
+      games: 355,
+      avgPlacement: 4.23,
+      winRate: 0.132,
+      top3Rate: 0.4
+    },
+    mai: {
+      games: 351,
+      avgPlacement: 3.99,
+      winRate: 0.194,
+      top3Rate: 0.462
+    },
+    leni: {
+      games: 306,
+      avgPlacement: 4.43,
+      winRate: 0.118,
+      top3Rate: 0.363
+    },
+    johann: {
+      games: 255,
+      avgPlacement: 4.16,
+      winRate: 0.169,
+      top3Rate: 0.435
     }
   }
 };
@@ -3837,26 +3837,62 @@ export const rankerCompositionStats = [
   {
     teammates: [
       "charlotte",
-      "felix"
+      "nicky"
     ],
     candidate: "jenny",
-    games: 2,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.471
+    games: 4,
+    avgPlacement: 4.5,
+    winRate: 0.25,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.403
   },
   {
     teammates: [
-      "justina",
-      "yan"
+      "istvan",
+      "laura"
     ],
-    candidate: "echion",
-    games: 2,
-    avgPlacement: 2.5,
-    winRate: 0,
+    candidate: "craver",
+    games: 3,
+    avgPlacement: 2.33,
+    winRate: 0.333,
     top3Rate: 1,
-    oneTrickRatio: 0.982
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "adela",
+      "hart"
+    ],
+    candidate: "coreline",
+    games: 3,
+    avgPlacement: 2.67,
+    winRate: 0.667,
+    top3Rate: 0.667,
+    oneTrickRatio: 0.47
+  },
+  {
+    teammates: [
+      "lenox",
+      "rio"
+    ],
+    candidate: "justina",
+    games: 3,
+    avgPlacement: 4.67,
+    winRate: 0.333,
+    top3Rate: 0.333,
+    oneTrickRatio: 0.458
+  },
+  {
+    teammates: [
+      "chiara",
+      "nathapon"
+    ],
+    candidate: "istvan",
+    games: 2,
+    avgPlacement: 1.5,
+    winRate: 0.5,
+    top3Rate: 1,
+    oneTrickRatio: 0.582
   },
   {
     teammates: [
@@ -3868,7 +3904,43 @@ export const rankerCompositionStats = [
     avgPlacement: 1.5,
     winRate: 0.5,
     top3Rate: 1,
-    oneTrickRatio: 0.671
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "hart",
+      "katja"
+    ],
+    candidate: "coreline",
+    games: 2,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.393
+  },
+  {
+    teammates: [
+      "chiara",
+      "echion"
+    ],
+    candidate: "alex",
+    games: 2,
+    avgPlacement: 2,
+    winRate: 0.5,
+    top3Rate: 1,
+    oneTrickRatio: 0.838
+  },
+  {
+    teammates: [
+      "darko",
+      "piolo"
+    ],
+    candidate: "theodore",
+    games: 2,
+    avgPlacement: 1.5,
+    winRate: 0.5,
+    top3Rate: 1,
+    oneTrickRatio: 0.544
   },
   {
     teammates: [
@@ -3884,39 +3956,15 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "darko",
-      "piolo"
-    ],
-    candidate: "theodore",
-    games: 2,
-    avgPlacement: 1.5,
-    winRate: 0.5,
-    top3Rate: 1,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
       "charlotte",
-      "vanya"
+      "luke"
     ],
     candidate: "jenny",
-    games: 2,
-    avgPlacement: 2.5,
-    winRate: 0.5,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.538
-  },
-  {
-    teammates: [
-      "isol",
-      "lenox"
-    ],
-    candidate: "haze",
     games: 2,
     avgPlacement: 4.5,
     winRate: 0,
     top3Rate: 0.5,
-    oneTrickRatio: 0.452
+    oneTrickRatio: 0.519
   },
   {
     teammates: [
@@ -3944,6 +3992,42 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "aiden",
+      "charlotte"
+    ],
+    candidate: "jenny",
+    games: 2,
+    avgPlacement: 3.5,
+    winRate: 0.5,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.391
+  },
+  {
+    teammates: [
+      "yan",
+      "yuki"
+    ],
+    candidate: "cathy",
+    games: 2,
+    avgPlacement: 2.5,
+    winRate: 0.5,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.578
+  },
+  {
+    teammates: [
+      "craver",
+      "tia"
+    ],
+    candidate: "laura",
+    games: 2,
+    avgPlacement: 2.5,
+    winRate: 0.5,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.43
+  },
+  {
+    teammates: [
       "estelle",
       "rio"
     ],
@@ -3956,27 +4040,39 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "magnus",
-      "shoichi"
+      "aiden",
+      "markus"
     ],
-    candidate: "rozzi",
+    candidate: "katja",
     games: 2,
-    avgPlacement: 3.5,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0.5,
-    oneTrickRatio: 0.421
+    oneTrickRatio: 0.428
   },
   {
     teammates: [
-      "celine",
+      "darko",
       "justina"
     ],
-    candidate: "hart",
+    candidate: "aiden",
     games: 2,
-    avgPlacement: 3,
-    winRate: 0,
+    avgPlacement: 4,
+    winRate: 0.5,
     top3Rate: 0.5,
-    oneTrickRatio: 0.435
+    oneTrickRatio: 0.714
+  },
+  {
+    teammates: [
+      "hyejin",
+      "nicky"
+    ],
+    candidate: "craver",
+    games: 2,
+    avgPlacement: 2.5,
+    winRate: 0.5,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.433
   },
   {
     teammates: [
@@ -3993,14 +4089,26 @@ export const rankerCompositionStats = [
   {
     teammates: [
       "alex",
-      "tia"
+      "rio"
     ],
-    candidate: "chloe",
+    candidate: "silvia",
     games: 2,
-    avgPlacement: 3,
+    avgPlacement: 3.5,
     winRate: 0,
     top3Rate: 0.5,
-    oneTrickRatio: 0.717
+    oneTrickRatio: 0.836
+  },
+  {
+    teammates: [
+      "isol",
+      "markus"
+    ],
+    candidate: "sissela",
+    games: 2,
+    avgPlacement: 4.5,
+    winRate: 0.5,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.639
   },
   {
     teammates: [
@@ -4012,151 +4120,67 @@ export const rankerCompositionStats = [
     avgPlacement: 3.5,
     winRate: 0.5,
     top3Rate: 0.5,
-    oneTrickRatio: 0.523
+    oneTrickRatio: 0.518
   },
   {
     teammates: [
-      "lenox",
-      "rio"
+      "alonso",
+      "eva"
     ],
-    candidate: "justina",
+    candidate: "priya",
     games: 2,
-    avgPlacement: 4,
-    winRate: 0.5,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.446
-  },
-  {
-    teammates: [
-      "hart",
-      "lucia"
-    ],
-    candidate: "emma",
-    games: 2,
-    avgPlacement: 3.5,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0.5,
-    oneTrickRatio: 0.889
+    oneTrickRatio: 0.511
   },
   {
     teammates: [
-      "jackie",
-      "shirin"
+      "charlotte",
+      "debi_marlene"
     ],
-    candidate: "echion",
+    candidate: "jenny",
     games: 2,
-    avgPlacement: 4,
-    winRate: 0.5,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.982
-  },
-  {
-    teammates: [
-      "chiara",
-      "henry"
-    ],
-    candidate: "daniel",
-    games: 2,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0.5,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adela",
-      "sua"
-    ],
-    candidate: "rio",
-    games: 2,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.421
-  },
-  {
-    teammates: [
-      "haze",
-      "lenox"
-    ],
-    candidate: "rio",
-    games: 2,
-    avgPlacement: 4.5,
-    winRate: 0.5,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.467
-  },
-  {
-    teammates: [
-      "craver",
-      "darko"
-    ],
-    candidate: "nathapon",
-    games: 2,
-    avgPlacement: 4.5,
-    winRate: 0.5,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "lenox",
-      "tsubame"
-    ],
-    candidate: "craver",
-    games: 2,
-    avgPlacement: 6,
+    avgPlacement: 5.5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.664
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
       "blair",
-      "kenneth"
+      "charlotte"
     ],
-    candidate: "adela",
+    candidate: "jenny",
     games: 2,
-    avgPlacement: 7.5,
+    avgPlacement: 5.5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.648
+    oneTrickRatio: 0.519
   },
   {
     teammates: [
-      "hyunwoo",
-      "istvan"
+      "celine",
+      "sho"
     ],
-    candidate: "nathapon",
+    candidate: "katja",
     games: 2,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.7
+    oneTrickRatio: 0.437
   },
   {
     teammates: [
-      "katja",
-      "sho"
+      "adela",
+      "cathy"
     ],
-    candidate: "justina",
+    candidate: "kenneth",
     games: 2,
-    avgPlacement: 7.5,
+    avgPlacement: 5.5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "blair",
-      "istvan"
-    ],
-    candidate: "adina",
-    games: 2,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.889
+    oneTrickRatio: 0.423
   },
   {
     teammates: [
@@ -4172,63 +4196,51 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "justina",
-      "luke"
+      "eleven",
+      "jackie"
     ],
-    candidate: "rio",
+    candidate: "irem",
     games: 2,
-    avgPlacement: 7.5,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.467
+    oneTrickRatio: 0.879
   },
   {
     teammates: [
-      "celine",
-      "charlotte"
+      "lenore",
+      "lenox"
     ],
-    candidate: "jenny",
+    candidate: "katja",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.526
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
-      "lucia",
-      "nicky"
+      "cathy",
+      "echion"
     ],
-    candidate: "celine",
+    candidate: "nadine",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.526
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
-      "aiden",
-      "istvan"
+      "luke",
+      "priya"
     ],
-    candidate: "adriana",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.526
-  },
-  {
-    teammates: [
-      "charlotte",
-      "henry"
-    ],
-    candidate: "jenny",
+    candidate: "rio",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.526
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
@@ -4240,7 +4252,7 @@ export const rankerCompositionStats = [
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.415
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
@@ -4252,55 +4264,43 @@ export const rankerCompositionStats = [
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.415
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
-      "bernice",
-      "estelle"
+      "isaac",
+      "sua"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.488
+  },
+  {
+    teammates: [
+      "charlotte",
+      "emma"
     ],
     candidate: "jenny",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.415
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
-      "estelle",
-      "priya"
+      "charlotte",
+      "isaac"
     ],
-    candidate: "rio",
+    candidate: "jenny",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.415
-  },
-  {
-    teammates: [
-      "coreline",
-      "mai"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.415
-  },
-  {
-    teammates: [
-      "fenrir",
-      "mirka"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.415
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
@@ -4376,6 +4376,18 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "rozzi",
+      "shirin"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.506
+  },
+  {
+    teammates: [
       "piolo",
       "tazia"
     ],
@@ -4424,123 +4436,75 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "cathy",
-      "estelle"
+      "emma",
+      "hart"
     ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.362
-  },
-  {
-    teammates: [
-      "charlotte",
-      "darko"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.362
-  },
-  {
-    teammates: [
-      "craver",
-      "echion"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.362
-  },
-  {
-    teammates: [
-      "aiden",
-      "blair"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.362
-  },
-  {
-    teammates: [
-      "bianca",
-      "shirin"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.362
-  },
-  {
-    teammates: [
-      "markus",
-      "yuki"
-    ],
-    candidate: "rio",
+    candidate: "cathy",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.362
+    oneTrickRatio: 0.902
   },
   {
     teammates: [
       "ian",
       "yan"
     ],
-    candidate: "nathapon",
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.902
+  },
+  {
+    teammates: [
+      "aiden",
+      "tia"
+    ],
+    candidate: "cathy",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.629
+    oneTrickRatio: 0.902
   },
   {
     teammates: [
-      "hyejin",
-      "rio"
+      "nathapon",
+      "shoichi"
     ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.629
-  },
-  {
-    teammates: [
-      "william",
-      "yumin"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.629
-  },
-  {
-    teammates: [
-      "jackie",
-      "lenox"
-    ],
-    candidate: "nathapon",
+    candidate: "cathy",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.629
+    oneTrickRatio: 0.902
+  },
+  {
+    teammates: [
+      "shirin",
+      "sissela"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.902
+  },
+  {
+    teammates: [
+      "nicky",
+      "shirin"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.902
   },
   {
     teammates: [
@@ -4552,7 +4516,7 @@ export const rankerCompositionStats = [
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.728
+    oneTrickRatio: 0.729
   },
   {
     teammates: [
@@ -4564,7 +4528,7 @@ export const rankerCompositionStats = [
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.728
+    oneTrickRatio: 0.729
   },
   {
     teammates: [
@@ -4576,7 +4540,7 @@ export const rankerCompositionStats = [
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.728
+    oneTrickRatio: 0.729
   },
   {
     teammates: [
@@ -4588,7 +4552,7 @@ export const rankerCompositionStats = [
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.728
+    oneTrickRatio: 0.729
   },
   {
     teammates: [
@@ -4600,19 +4564,7 @@ export const rankerCompositionStats = [
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.728
-  },
-  {
-    teammates: [
-      "istvan",
-      "laura"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.728
+    oneTrickRatio: 0.729
   },
   {
     teammates: [
@@ -4624,139 +4576,127 @@ export const rankerCompositionStats = [
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.728
+    oneTrickRatio: 0.729
   },
   {
     teammates: [
-      "magnus",
-      "nadine"
+      "markus",
+      "rio"
     ],
-    candidate: "echion",
+    candidate: "tia",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.773
   },
   {
     teammates: [
-      "lucia",
-      "luke"
+      "fenrir",
+      "markus"
     ],
-    candidate: "echion",
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "camilo",
+      "jackie"
+    ],
+    candidate: "tia",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.773
   },
   {
     teammates: [
-      "jackie",
-      "lucia"
+      "debi_marlene",
+      "rozzi"
     ],
-    candidate: "echion",
+    candidate: "tia",
     games: 1,
-    avgPlacement: 3,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.773
   },
   {
     teammates: [
-      "craver",
-      "leon"
+      "bihyung",
+      "martina"
     ],
-    candidate: "echion",
+    candidate: "tia",
     games: 1,
-    avgPlacement: 3,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.773
   },
   {
     teammates: [
-      "irem",
+      "barbara",
       "justina"
     ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "isol",
-      "lenore"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "elena",
-      "hyunwoo"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.555
-  },
-  {
-    teammates: [
-      "craver",
-      "hyejin"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.555
-  },
-  {
-    teammates: [
-      "emma",
-      "nicky"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.555
-  },
-  {
-    teammates: [
-      "chloe",
-      "leon"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.555
-  },
-  {
-    teammates: [
-      "justina",
-      "luke"
-    ],
-    candidate: "cathy",
+    candidate: "tia",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.555
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "aiden",
+      "shirin"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "ian",
+      "rio"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "magnus"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "william",
+      "yumin"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.635
   },
   {
     teammates: [
@@ -4856,7 +4796,187 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "alex",
+      "magnus",
+      "nadine"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "lucia",
+      "luke"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "jackie",
+      "lucia"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "craver",
+      "leon"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "irem",
+      "justina"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "justina",
+      "yan"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "isol",
+      "lenore"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "charlotte",
+      "justina"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.362
+  },
+  {
+    teammates: [
+      "cathy",
+      "estelle"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.362
+  },
+  {
+    teammates: [
+      "charlotte",
+      "darko"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.362
+  },
+  {
+    teammates: [
+      "craver",
+      "echion"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.362
+  },
+  {
+    teammates: [
+      "aiden",
+      "blair"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.362
+  },
+  {
+    teammates: [
+      "bianca",
+      "shirin"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.362
+  },
+  {
+    teammates: [
+      "tsubame",
+      "yumin"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.57
+  },
+  {
+    teammates: [
+      "elena",
+      "hyunwoo"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.57
+  },
+  {
+    teammates: [
+      "craver",
       "hyejin"
     ],
     candidate: "cathy",
@@ -4864,391 +4984,7 @@ export const rankerCompositionStats = [
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "bernice",
-      "jackie"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "bianca",
-      "jackie"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "nadine",
-      "sho"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "bihyung",
-      "darko"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "alonso",
-      "william"
-    ],
-    candidate: "abigail",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "luke",
-      "william"
-    ],
-    candidate: "abigail",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "barbara",
-      "eleven"
-    ],
-    candidate: "abigail",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "hart",
-      "martina"
-    ],
-    candidate: "abigail",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "aya",
-      "nia"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "aya",
-      "johann"
-    ],
-    candidate: "hisui",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "karla",
-      "laura"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "blair",
-      "istvan"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "craver",
-      "sho"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "bernice",
-      "coreline"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "cathy",
-      "ian"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "istvan",
-      "yuki"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "aiden",
-      "luke"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "fiora",
-      "nia"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "shirin"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "chiara",
-      "shoichi"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "emma",
-      "johann"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "craver",
-      "martina"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "barbara",
-      "justina"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "henry",
-      "nia"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "bernice",
-      "silvia"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "justina",
-      "markus"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "adriana",
-      "darko"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "laura",
-      "zahir"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "adina",
-      "coreline"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "markus",
-      "tia"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "hart",
-      "isaac"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "eva",
-      "rozzi"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
+    oneTrickRatio: 0.57
   },
   {
     teammates: [
@@ -5312,6 +5048,246 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "alex",
+      "istvan"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "nadine",
+      "tia"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "adina",
+      "bihyung"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "luke"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "aya",
+      "justina"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "bianca",
+      "chiara"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "chiara",
+      "nicky"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "elena",
+      "jackie"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "hyejin",
+      "mirka"
+    ],
+    candidate: "isaac",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "arda",
+      "chiara"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "jackie",
+      "martina"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "echion",
+      "william"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "bihyung",
+      "tia"
+    ],
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "jackie",
+      "zahir"
+    ],
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "aiden",
+      "luke"
+    ],
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "fiora",
+      "nia"
+    ],
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "shirin"
+    ],
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "chiara",
+      "shoichi"
+    ],
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "jackie",
+      "piolo"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.435
+  },
+  {
+    teammates: [
+      "cathy",
+      "jackie"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.435
+  },
+  {
+    teammates: [
       "henry",
       "lenox"
     ],
@@ -5360,219 +5336,279 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "aya",
-      "fiora"
+      "bernice",
+      "silvia"
     ],
-    candidate: "katja",
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.861
+  },
+  {
+    teammates: [
+      "justina",
+      "markus"
+    ],
+    candidate: "fenrir",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.435
+    oneTrickRatio: 0.861
+  },
+  {
+    teammates: [
+      "adriana",
+      "darko"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.861
   },
   {
     teammates: [
       "laura",
+      "zahir"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.861
+  },
+  {
+    teammates: [
+      "adina",
+      "coreline"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.861
+  },
+  {
+    teammates: [
+      "markus",
       "tia"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.861
+  },
+  {
+    teammates: [
+      "chiara",
+      "hyunwoo"
+    ],
+    candidate: "abigail",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.678
+  },
+  {
+    teammates: [
+      "bihyung",
+      "darko"
     ],
     candidate: "craver",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.435
+    oneTrickRatio: 0.678
+  },
+  {
+    teammates: [
+      "alonso",
+      "william"
+    ],
+    candidate: "abigail",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.678
+  },
+  {
+    teammates: [
+      "luke",
+      "william"
+    ],
+    candidate: "abigail",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.678
+  },
+  {
+    teammates: [
+      "sua",
+      "yumin"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.586
+  },
+  {
+    teammates: [
+      "jackie",
+      "nia"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.586
   },
   {
     teammates: [
       "fiora",
-      "jackie"
+      "shirin"
     ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.972
-  },
-  {
-    teammates: [
-      "alex",
-      "arda"
-    ],
-    candidate: "camilo",
+    candidate: "cathy",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.972
+    oneTrickRatio: 0.586
   },
   {
     teammates: [
-      "irem",
-      "jenny"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.972
-  },
-  {
-    teammates: [
-      "daniel",
-      "lenore"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.972
-  },
-  {
-    teammates: [
-      "adela",
-      "yumin"
-    ],
-    candidate: "bihyung",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.972
-  },
-  {
-    teammates: [
-      "coreline",
-      "estelle"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.445
-  },
-  {
-    teammates: [
-      "debi_marlene",
+      "chiara",
       "echion"
     ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.445
-  },
-  {
-    teammates: [
-      "irem",
-      "karla"
-    ],
-    candidate: "sissela",
+    candidate: "cathy",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.445
+    oneTrickRatio: 0.586
   },
   {
     teammates: [
-      "henry",
-      "yan"
+      "darko",
+      "fenrir"
     ],
-    candidate: "coreline",
+    candidate: "cathy",
     games: 1,
-    avgPlacement: 1,
-    winRate: 1,
+    avgPlacement: 3,
+    winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.445
+    oneTrickRatio: 0.586
   },
   {
     teammates: [
-      "garnet",
+      "luke",
       "sissela"
     ],
-    candidate: "tazia",
+    candidate: "cathy",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.453
+    oneTrickRatio: 0.586
   },
   {
     teammates: [
-      "craver",
-      "yumin"
+      "hyejin",
+      "nicky"
     ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.453
-  },
-  {
-    teammates: [
-      "eleven",
-      "shoichi"
-    ],
-    candidate: "echion",
+    candidate: "cathy",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.453
+    oneTrickRatio: 0.586
   },
   {
     teammates: [
-      "adela",
-      "bernice"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.453
-  },
-  {
-    teammates: [
-      "jenny",
-      "yan"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.453
-  },
-  {
-    teammates: [
-      "celine",
+      "hart",
       "justina"
     ],
-    candidate: "markus",
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.586
+  },
+  {
+    teammates: [
+      "aya",
+      "johann"
+    ],
+    candidate: "hisui",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.453
+    oneTrickRatio: 0.811
   },
   {
     teammates: [
       "karla",
-      "zahir"
+      "laura"
     ],
-    candidate: "markus",
+    candidate: "craver",
     games: 1,
-    avgPlacement: 2,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.811
+  },
+  {
+    teammates: [
+      "blair",
+      "istvan"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.811
+  },
+  {
+    teammates: [
+      "craver",
+      "sho"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.453
+    oneTrickRatio: 0.811
+  },
+  {
+    teammates: [
+      "bernice",
+      "coreline"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.811
   },
   {
     teammates: [
@@ -5624,403 +5660,319 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "aya",
-      "justina"
+      "hyejin",
+      "leon"
     ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.419
-  },
-  {
-    teammates: [
-      "bianca",
-      "chiara"
-    ],
-    candidate: "laura",
+    candidate: "fenrir",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.419
+    oneTrickRatio: 0.486
   },
   {
     teammates: [
-      "chiara",
-      "nicky"
+      "hyejin",
+      "shirin"
     ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.419
-  },
-  {
-    teammates: [
-      "adina",
-      "hart"
-    ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.419
-  },
-  {
-    teammates: [
-      "sua",
-      "yumin"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.576
-  },
-  {
-    teammates: [
-      "jackie",
-      "nia"
-    ],
-    candidate: "cathy",
+    candidate: "fenrir",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.576
+    oneTrickRatio: 0.486
   },
   {
     teammates: [
-      "fiora",
-      "shirin"
+      "bianca",
+      "yan"
     ],
-    candidate: "cathy",
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.486
+  },
+  {
+    teammates: [
+      "piolo",
+      "sissela"
+    ],
+    candidate: "fenrir",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.576
+    oneTrickRatio: 0.486
+  },
+  {
+    teammates: [
+      "echion",
+      "tazia"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.486
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "shoichi"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.486
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "justina"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "aya",
+      "piolo"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "nathapon",
+      "piolo"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bihyung",
+      "hyejin"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adela",
+      "bernice"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adela",
+      "luke"
+    ],
+    candidate: "martina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.832
+  },
+  {
+    teammates: [
+      "camilo",
+      "echion"
+    ],
+    candidate: "martina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.832
+  },
+  {
+    teammates: [
+      "katja",
+      "lenox"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.832
+  },
+  {
+    teammates: [
+      "craver",
+      "martina"
+    ],
+    candidate: "mirka",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.832
+  },
+  {
+    teammates: [
+      "li_dailin",
+      "sissela"
+    ],
+    candidate: "martina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.832
+  },
+  {
+    teammates: [
+      "garnet",
+      "sissela"
+    ],
+    candidate: "martina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.832
   },
   {
     teammates: [
       "chiara",
       "echion"
     ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.576
-  },
-  {
-    teammates: [
-      "darko",
-      "fenrir"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.576
-  },
-  {
-    teammates: [
-      "luke",
-      "sissela"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.576
-  },
-  {
-    teammates: [
-      "hyejin",
-      "nicky"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.576
-  },
-  {
-    teammates: [
-      "hart",
-      "justina"
-    ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.576
-  },
-  {
-    teammates: [
-      "blair",
-      "magnus"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.824
-  },
-  {
-    teammates: [
-      "aya",
-      "laura"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.824
-  },
-  {
-    teammates: [
-      "eleven",
-      "yumin"
-    ],
     candidate: "martina",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.824
+    oneTrickRatio: 0.832
   },
   {
     teammates: [
-      "coreline",
-      "garnet"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.824
-  },
-  {
-    teammates: [
-      "lenox",
-      "sissela"
+      "echion",
+      "vanya"
     ],
     candidate: "martina",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.824
+    oneTrickRatio: 0.832
+  },
+  {
+    teammates: [
+      "arda",
+      "nadine"
+    ],
+    candidate: "martina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.832
+  },
+  {
+    teammates: [
+      "hisui",
+      "markus"
+    ],
+    candidate: "theodore",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "alex",
+      "hyunwoo"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "craver",
+      "silvia"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.736
   },
   {
     teammates: [
       "debi_marlene",
-      "garnet"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.824
-  },
-  {
-    teammates: [
-      "ian",
-      "istvan"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.824
-  },
-  {
-    teammates: [
-      "blair",
-      "camilo"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.824
-  },
-  {
-    teammates: [
-      "adriana",
-      "chiara"
-    ],
-    candidate: "debi_marlene",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.41
-  },
-  {
-    teammates: [
-      "adela",
-      "lenox"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.41
-  },
-  {
-    teammates: [
-      "garnet",
-      "vanya"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.41
-  },
-  {
-    teammates: [
-      "adela",
-      "eva"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.41
-  },
-  {
-    teammates: [
-      "aya",
-      "mai"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.41
-  },
-  {
-    teammates: [
-      "adela",
-      "istvan"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.45
-  },
-  {
-    teammates: [
-      "martina",
-      "william"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.45
-  },
-  {
-    teammates: [
-      "laura",
-      "rozzi"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.45
-  },
-  {
-    teammates: [
-      "rozzi",
-      "vanya"
+      "rio"
     ],
     candidate: "alex",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.45
+    oneTrickRatio: 0.736
   },
   {
     teammates: [
-      "barbara",
-      "markus"
+      "echion",
+      "sho"
     ],
-    candidate: "katja",
+    candidate: "shoichi",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.45
+    oneTrickRatio: 0.736
   },
   {
     teammates: [
-      "arda",
-      "yuki"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.45
-  },
-  {
-    teammates: [
-      "eleven",
-      "jackie"
+      "hyunwoo",
+      "nadine"
     ],
     candidate: "yan",
     games: 1,
-    avgPlacement: 2,
+    avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.525
+    oneTrickRatio: 0.518
   },
   {
     teammates: [
-      "katja",
-      "laura"
-    ],
-    candidate: "yan",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.525
-  },
-  {
-    teammates: [
-      "bernice",
+      "hyunwoo",
       "yumin"
     ],
     candidate: "yan",
@@ -6028,19 +5980,43 @@ export const rankerCompositionStats = [
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.525
+    oneTrickRatio: 0.518
   },
   {
     teammates: [
-      "alex",
-      "nia"
+      "isol",
+      "luke"
     ],
-    candidate: "yuki",
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "irem",
+      "yan"
+    ],
+    candidate: "theodore",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.525
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "irem",
+      "rio"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.518
   },
   {
     teammates: [
@@ -6200,6 +6176,66 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "abigail",
+      "charlotte"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "adela",
+      "magnus"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "bihyung",
+      "charlotte"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "fiora",
+      "rozzi"
+    ],
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "celine",
+      "darko"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
       "garnet",
       "rozzi"
     ],
@@ -6257,6 +6293,54 @@ export const rankerCompositionStats = [
     winRate: 1,
     top3Rate: 1,
     oneTrickRatio: 0.588
+  },
+  {
+    teammates: [
+      "blair",
+      "leni"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "blair",
+      "laura"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "daniel",
+      "lucia"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "shoichi",
+      "yuki"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -6344,6 +6428,54 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "echion",
+      "martina"
+    ],
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.919
+  },
+  {
+    teammates: [
+      "istvan",
+      "karla"
+    ],
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.919
+  },
+  {
+    teammates: [
+      "karla",
+      "tazia"
+    ],
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.919
+  },
+  {
+    teammates: [
+      "hart",
+      "zahir"
+    ],
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.919
+  },
+  {
+    teammates: [
       "mai",
       "nadine"
     ],
@@ -6352,7 +6484,7 @@ export const rankerCompositionStats = [
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.917
+    oneTrickRatio: 0.919
   },
   {
     teammates: [
@@ -6364,7 +6496,7 @@ export const rankerCompositionStats = [
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.917
+    oneTrickRatio: 0.919
   },
   {
     teammates: [
@@ -6376,247 +6508,115 @@ export const rankerCompositionStats = [
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.917
+    oneTrickRatio: 0.919
   },
   {
     teammates: [
-      "debi_marlene",
-      "eva"
+      "garnet",
+      "sissela"
     ],
-    candidate: "chiara",
+    candidate: "tazia",
     games: 1,
-    avgPlacement: 1,
-    winRate: 1,
+    avgPlacement: 3,
+    winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.917
+    oneTrickRatio: 0.436
   },
   {
     teammates: [
       "craver",
-      "kenneth"
+      "yumin"
     ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.917
-  },
-  {
-    teammates: [
-      "nadine",
-      "sho"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.917
-  },
-  {
-    teammates: [
-      "alex",
-      "isaac"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.917
-  },
-  {
-    teammates: [
-      "coreline",
-      "nicky"
-    ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.389
-  },
-  {
-    teammates: [
-      "haze",
-      "justina"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.389
-  },
-  {
-    teammates: [
-      "bianca",
-      "mai"
-    ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.389
-  },
-  {
-    teammates: [
-      "piolo",
-      "sua"
-    ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.389
-  },
-  {
-    teammates: [
-      "karla",
-      "yuki"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.389
-  },
-  {
-    teammates: [
-      "bihyung",
-      "emma"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.389
-  },
-  {
-    teammates: [
-      "echion",
-      "lucia"
-    ],
-    candidate: "garnet",
+    candidate: "markus",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.436
   },
   {
     teammates: [
-      "barbara",
-      "tazia"
+      "eleven",
+      "shoichi"
     ],
-    candidate: "garnet",
+    candidate: "echion",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.436
   },
   {
     teammates: [
-      "craver",
-      "zahir"
+      "adela",
+      "bernice"
     ],
-    candidate: "garnet",
+    candidate: "markus",
     games: 1,
-    avgPlacement: 3,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.436
   },
   {
     teammates: [
-      "alex",
-      "laura"
-    ],
-    candidate: "garnet",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "irem"
-    ],
-    candidate: "garnet",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "priya",
+      "jenny",
       "yan"
     ],
-    candidate: "garnet",
+    candidate: "echion",
     games: 1,
-    avgPlacement: 1,
-    winRate: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.436
+  },
+  {
+    teammates: [
+      "celine",
+      "justina"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.436
+  },
+  {
+    teammates: [
+      "camilo",
+      "lenore"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
     top3Rate: 1,
     oneTrickRatio: 1
   },
   {
     teammates: [
-      "abigail",
-      "yuki"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.457
-  },
-  {
-    teammates: [
-      "craver",
+      "aya",
       "echion"
     ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.457
-  },
-  {
-    teammates: [
-      "kenneth",
-      "sho"
-    ],
-    candidate: "fenrir",
+    candidate: "shirin",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.457
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "henry",
-      "irem"
+      "adriana",
+      "karla"
     ],
-    candidate: "fenrir",
+    candidate: "shirin",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.457
+    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -6677,6 +6677,42 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 1,
     oneTrickRatio: 0.448
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "jackie"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "chiara",
+      "nicky"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "hisui",
+      "justina"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -6788,90 +6824,6 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "aiden",
-      "aya"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "echion",
-      "sho"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "eva",
-      "lenox"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "leni",
-      "shoichi"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "tia"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "echion",
-      "william"
-    ],
-    candidate: "yan",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "markus",
-      "sua"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
       "estelle",
       "zahir"
     ],
@@ -6956,75 +6908,15 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "justina",
-      "nicky"
+      "debi_marlene",
+      "emma"
     ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "laura",
-      "tsubame"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "abigail",
-      "daniel"
-    ],
-    candidate: "shirin",
+    candidate: "nicky",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "mirka",
-      "nicky"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "lenore",
-      "mirka"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "irem",
-      "zahir"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.4
   },
   {
     teammates: [
@@ -7112,159 +7004,615 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "adriana",
-      "yumin"
+      "alonso",
+      "bernice"
     ],
-    candidate: "silvia",
+    candidate: "celine",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.667
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
-      "adela",
-      "nicky"
+      "barbara",
+      "william"
     ],
-    candidate: "silvia",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.667
-  },
-  {
-    teammates: [
-      "isol",
-      "lenox"
-    ],
-    candidate: "aiden",
+    candidate: "sissela",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.667
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
-      "kenneth",
-      "tia"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.667
-  },
-  {
-    teammates: [
-      "bernice",
-      "chiara"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.667
-  },
-  {
-    teammates: [
-      "daniel",
-      "emma"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.667
-  },
-  {
-    teammates: [
-      "silvia",
-      "yumin"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.734
-  },
-  {
-    teammates: [
-      "fiora",
+      "alex",
       "hyunwoo"
     ],
-    candidate: "shoichi",
+    candidate: "laura",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.734
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "jackie",
-      "lenox"
+      "istvan",
+      "silvia"
     ],
-    candidate: "craver",
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "luke",
+      "sho"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adina",
+      "alonso"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "priya",
+      "shoichi"
+    ],
+    candidate: "laura",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.734
-  },
-  {
-    teammates: [
-      "fiora",
-      "shirin"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.734
+    oneTrickRatio: 1
   },
   {
     teammates: [
       "cathy",
-      "william"
+      "craver"
     ],
-    candidate: "alex",
+    candidate: "laura",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.734
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "craver",
+      "debi_marlene"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bianca",
+      "istvan"
+    ],
+    candidate: "sua",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "jackie",
+      "justina"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "emma",
+      "jackie"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "adriana",
+      "echion"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "adina",
+      "aiden"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "jackie",
+      "mai"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "chiara",
+      "laura"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "cathy",
+      "jackie"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bernice",
+      "yan"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "echion",
+      "yuki"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "emma",
+      "estelle"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bernice",
+      "hyejin"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "chiara",
+      "nicky"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "eleven",
+      "irem"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "estelle",
+      "markus"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bihyung",
+      "zahir"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.463
+  },
+  {
+    teammates: [
+      "bihyung",
+      "luke"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.463
   },
   {
     teammates: [
       "hyejin",
       "istvan"
     ],
-    candidate: "shoichi",
+    candidate: "markus",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.734
+    oneTrickRatio: 0.463
   },
   {
     teammates: [
-      "cathy",
-      "emma"
+      "chiara",
+      "isol"
     ],
-    candidate: "shoichi",
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.463
+  },
+  {
+    teammates: [
+      "adriana",
+      "hisui"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.463
+  },
+  {
+    teammates: [
+      "alex",
+      "arda"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.463
+  },
+  {
+    teammates: [
+      "bernice",
+      "johann"
+    ],
+    candidate: "markus",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.734
+    oneTrickRatio: 0.463
+  },
+  {
+    teammates: [
+      "eleven",
+      "fiora"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.463
+  },
+  {
+    teammates: [
+      "nicky",
+      "shirin"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.463
+  },
+  {
+    teammates: [
+      "blair",
+      "luke"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "echion",
+      "nia"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "luke",
+      "nadine"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "elena",
+      "justina"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "emma",
+      "isol"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adela",
+      "lenore"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "irem",
+      "piolo"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.863
+  },
+  {
+    teammates: [
+      "emma",
+      "tsubame"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.863
+  },
+  {
+    teammates: [
+      "cathy",
+      "magnus"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.863
+  },
+  {
+    teammates: [
+      "magnus",
+      "zahir"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.863
+  },
+  {
+    teammates: [
+      "adina",
+      "markus"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "luke"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "elena",
+      "sua"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "mai",
+      "william"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "alex",
+      "coreline"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "alonso",
+      "martina"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "emma",
+      "hart"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "aya",
+      "henry"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.482
   },
   {
     teammates: [
@@ -7364,174 +7712,6 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "elena",
-      "justina"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "emma",
-      "isol"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adela",
-      "lenore"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "aiden",
-      "johann"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "laura",
-      "tia"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adriana",
-      "martina"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "ian",
-      "silvia"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "silvia",
-      "yan"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "alex",
-      "shoichi"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "alex",
-      "nicky"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "haze",
-      "lenox"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "emma",
-      "justina"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "blair",
-      "irem"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "garnet",
-      "jackie"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
       "markus",
       "tia"
     ],
@@ -7592,195 +7772,471 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "aiden",
-      "charlotte"
+      "alex",
+      "priya"
     ],
-    candidate: "jenny",
+    candidate: "sua",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.42
+    oneTrickRatio: 0.766
   },
   {
     teammates: [
-      "charlotte",
-      "nicky"
+      "camilo",
+      "fenrir"
     ],
-    candidate: "jenny",
+    candidate: "sua",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.42
+    oneTrickRatio: 0.766
   },
   {
     teammates: [
-      "emma",
-      "nadine"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.513
-  },
-  {
-    teammates: [
-      "alonso",
-      "justina"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.513
-  },
-  {
-    teammates: [
-      "chiara",
-      "felix"
-    ],
-    candidate: "johann",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.513
-  },
-  {
-    teammates: [
-      "adela",
+      "lenox",
       "sissela"
     ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.513
-  },
-  {
-    teammates: [
-      "haze",
-      "markus"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.513
-  },
-  {
-    teammates: [
-      "garnet",
-      "shirin"
-    ],
-    candidate: "hart",
+    candidate: "sua",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.513
+    oneTrickRatio: 0.766
   },
   {
     teammates: [
-      "shirin",
-      "yan"
+      "camilo",
+      "yumin"
     ],
-    candidate: "leni",
+    candidate: "kenneth",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.513
-  },
-  {
-    teammates: [
-      "bernice",
-      "yuki"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.993
-  },
-  {
-    teammates: [
-      "aya",
-      "lenox"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.993
-  },
-  {
-    teammates: [
-      "sho",
-      "yuki"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.766
   },
   {
     teammates: [
       "luke",
+      "silvia"
+    ],
+    candidate: "sua",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.766
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "leni"
+    ],
+    candidate: "sua",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.766
+  },
+  {
+    teammates: [
+      "echion",
       "vanya"
     ],
-    candidate: "nathapon",
+    candidate: "piolo",
     games: 1,
-    avgPlacement: 2,
+    avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.766
   },
   {
     teammates: [
-      "katja",
-      "lenox"
+      "jackie",
+      "nathapon"
     ],
-    candidate: "nathapon",
+    candidate: "kenneth",
     games: 1,
-    avgPlacement: 2,
+    avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.766
   },
   {
     teammates: [
-      "markus",
-      "nia"
+      "alex",
+      "katja"
     ],
-    candidate: "nathapon",
+    candidate: "sua",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.766
+  },
+  {
+    teammates: [
+      "luke",
+      "nicky"
+    ],
+    candidate: "nia",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.481
   },
   {
     teammates: [
-      "hart",
-      "kenneth"
+      "isaac",
+      "vanya"
     ],
-    candidate: "nathapon",
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "rozzi",
+      "shirin"
+    ],
+    candidate: "emma",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "estelle",
+      "shoichi"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "isaac",
+      "karla"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "camilo",
+      "silvia"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "felix",
+      "sissela"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "adriana",
+      "emma"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "adina",
+      "justina"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "bernice",
+      "markus"
+    ],
+    candidate: "theodore",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "adela",
+      "darko"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "alonso",
+      "cathy"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "nadine",
+      "priya"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "istvan",
+      "shoichi"
+    ],
+    candidate: "camilo",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "craver",
+      "silvia"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "camilo",
+      "nicky"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "darko",
+      "vanya"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "alex",
+      "cathy"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "jackie",
+      "tsubame"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "eva"
+    ],
+    candidate: "karla",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "adela",
+      "garnet"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "nadine"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "charlotte",
+      "rio"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "adela",
+      "hyunwoo"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "aiden",
+      "eleven"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.382
+  },
+  {
+    teammates: [
+      "eleven",
+      "hisui"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.382
+  },
+  {
+    teammates: [
+      "jackie",
+      "luke"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.382
+  },
+  {
+    teammates: [
+      "markus",
+      "piolo"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.382
+  },
+  {
+    teammates: [
+      "justina",
+      "lenox"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.382
+  },
+  {
+    teammates: [
+      "aiden",
+      "aya"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.382
   },
   {
     teammates: [
@@ -7832,171 +8288,99 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "craver",
-      "debi_marlene"
+      "darko",
+      "isaac"
     ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adina",
-      "william"
-    ],
-    candidate: "laura",
+    candidate: "katja",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.443
   },
   {
     teammates: [
-      "jackie",
-      "priya"
+      "darko",
+      "hyejin"
     ],
-    candidate: "laura",
+    candidate: "katja",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.443
   },
   {
     teammates: [
-      "isol",
-      "markus"
+      "sissela",
+      "tazia"
     ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "aiden",
-      "priya"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "blair",
-      "haze"
-    ],
-    candidate: "laura",
+    candidate: "nadine",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.443
   },
   {
     teammates: [
-      "craver",
-      "lucia"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adela",
-      "alex"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "aya",
-      "garnet"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.502
-  },
-  {
-    teammates: [
-      "jenny",
-      "lenox"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.502
-  },
-  {
-    teammates: [
-      "rio",
-      "yuki"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.502
-  },
-  {
-    teammates: [
-      "lenox",
-      "sho"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.502
-  },
-  {
-    teammates: [
-      "coreline",
+      "cathy",
       "irem"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.443
+  },
+  {
+    teammates: [
+      "chiara",
+      "silvia"
     ],
     candidate: "hart",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.443
   },
   {
     teammates: [
-      "cathy",
-      "nathapon"
+      "felix",
+      "johann"
     ],
-    candidate: "karla",
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.437
+  },
+  {
+    teammates: [
+      "nia",
+      "nicky"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.437
+  },
+  {
+    teammates: [
+      "johann",
+      "piolo"
+    ],
+    candidate: "felix",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.437
   },
   {
     teammates: [
@@ -8036,183 +8420,183 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "chiara",
-      "laura"
+      "charlotte",
+      "jenny"
     ],
-    candidate: "shoichi",
+    candidate: "bihyung",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.762
   },
   {
     teammates: [
       "cathy",
-      "jackie"
+      "justina"
     ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bernice",
-      "yan"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "echion",
-      "yuki"
-    ],
-    candidate: "shoichi",
+    candidate: "bihyung",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "emma",
-      "estelle"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chiara",
-      "yuki"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bianca",
-      "karla"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "barbara",
-      "shirin"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "bernice",
-      "daniel"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "elena",
-      "isol"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "echion",
-      "tia"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
+    oneTrickRatio: 0.762
   },
   {
     teammates: [
       "blair",
-      "isol"
+      "isaac"
     ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "hart",
-      "yuki"
-    ],
-    candidate: "jackie",
+    candidate: "bihyung",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "bihyung",
-      "elena"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.86
+    oneTrickRatio: 0.762
   },
   {
     teammates: [
       "echion",
-      "shoichi"
+      "magnus"
     ],
-    candidate: "jackie",
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.762
+  },
+  {
+    teammates: [
+      "adela",
+      "isaac"
+    ],
+    candidate: "bihyung",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.762
+  },
+  {
+    teammates: [
+      "arda",
+      "fiora"
+    ],
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.762
+  },
+  {
+    teammates: [
+      "justina",
+      "lucia"
+    ],
+    candidate: "bihyung",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.762
+  },
+  {
+    teammates: [
+      "justina",
+      "william"
+    ],
+    candidate: "bihyung",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.762
+  },
+  {
+    teammates: [
+      "felix",
+      "magnus"
+    ],
+    candidate: "jenny",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.86
+    oneTrickRatio: 0.551
+  },
+  {
+    teammates: [
+      "alex",
+      "eva"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.551
+  },
+  {
+    teammates: [
+      "alonso",
+      "yan"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.551
+  },
+  {
+    teammates: [
+      "charlotte",
+      "vanya"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.551
+  },
+  {
+    teammates: [
+      "piolo",
+      "sua"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.551
+  },
+  {
+    teammates: [
+      "mai",
+      "nadine"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.551
+  },
+  {
+    teammates: [
+      "charlotte",
+      "hart"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.551
   },
   {
     teammates: [
@@ -8324,195 +8708,123 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "alonso",
-      "yan"
+      "coreline",
+      "nicky"
     ],
-    candidate: "jenny",
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.388
+  },
+  {
+    teammates: [
+      "haze",
+      "justina"
+    ],
+    candidate: "bernice",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.549
+    oneTrickRatio: 0.388
+  },
+  {
+    teammates: [
+      "bianca",
+      "mai"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.388
   },
   {
     teammates: [
       "piolo",
       "sua"
     ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.549
-  },
-  {
-    teammates: [
-      "charlotte",
-      "luke"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.549
-  },
-  {
-    teammates: [
-      "mai",
-      "nadine"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.549
-  },
-  {
-    teammates: [
-      "charlotte",
-      "hart"
-    ],
-    candidate: "jenny",
+    candidate: "tsubame",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.549
+    oneTrickRatio: 0.388
   },
   {
     teammates: [
-      "darko",
-      "priya"
+      "aiden",
+      "eva"
     ],
-    candidate: "jenny",
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.972
+  },
+  {
+    teammates: [
+      "aiden",
+      "blair"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.972
+  },
+  {
+    teammates: [
+      "justina",
+      "nadine"
+    ],
+    candidate: "laura",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.549
-  },
-  {
-    teammates: [
-      "echion",
-      "priya"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.549
-  },
-  {
-    teammates: [
-      "lenox",
-      "nia"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.972
   },
   {
     teammates: [
       "debi_marlene",
-      "magnus"
+      "nicky"
     ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "emma",
-      "lenox"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "coreline",
-      "istvan"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "emma",
-      "isol"
-    ],
-    candidate: "justina",
+    candidate: "laura",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.4
+    oneTrickRatio: 0.972
   },
   {
     teammates: [
-      "fenrir",
-      "lenox"
+      "craver",
+      "irem"
     ],
-    candidate: "justina",
+    candidate: "laura",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.4
+    oneTrickRatio: 0.972
   },
   {
     teammates: [
-      "magnus",
-      "tazia"
+      "daniel",
+      "eleven"
     ],
-    candidate: "celine",
+    candidate: "laura",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.4
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "rozzi"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.4
-  },
-  {
-    teammates: [
-      "adina",
-      "hyejin"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.4
+    oneTrickRatio: 0.972
   },
   {
     teammates: [
@@ -8612,294 +8924,6 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "elena",
-      "isol"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "aya",
-      "lenox"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "emma",
-      "markus"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "emma",
-      "lucia"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "aya",
-      "debi_marlene"
-    ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "mirka",
-      "sua"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "craver",
-      "irem"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "daniel",
-      "eleven"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "haze",
-      "tia"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "istvan",
-      "tia"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "craver",
-      "istvan"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "johann",
-      "kenneth"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "henry",
-      "magnus"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "jenny",
-      "lenox"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "darko",
-      "tazia"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "camilo",
-      "fenrir"
-    ],
-    candidate: "sua",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
-      "lenox",
-      "sissela"
-    ],
-    candidate: "sua",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
-      "camilo",
-      "yumin"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
-      "luke",
-      "silvia"
-    ],
-    candidate: "sua",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "leni"
-    ],
-    candidate: "sua",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
-      "echion",
-      "vanya"
-    ],
-    candidate: "piolo",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
-      "jackie",
-      "nathapon"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
-      "alex",
-      "katja"
-    ],
-    candidate: "sua",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
-      "william",
-      "yan"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
       "emma",
       "fenrir"
     ],
@@ -8972,138 +8996,6 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "bianca",
-      "istvan"
-    ],
-    candidate: "sua",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "jackie",
-      "justina"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "emma",
-      "jackie"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "adriana",
-      "echion"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "adina",
-      "aiden"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "luke",
-      "nadine"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "estelle",
-      "nicky"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hart",
-      "haze"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "justina",
-      "luke"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "katja",
-      "yuki"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chiara",
-      "chloe"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
       "adela",
       "luke"
     ],
@@ -9164,171 +9056,231 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "bihyung",
-      "li_dailin"
+      "sua",
+      "tazia"
     ],
     candidate: "fenrir",
     games: 1,
-    avgPlacement: 2,
+    avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
-      "adina",
-      "luke"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.502
-  },
-  {
-    teammates: [
-      "craver",
-      "tia"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.502
-  },
-  {
-    teammates: [
-      "bernice",
-      "shoichi"
+      "coreline",
+      "william"
     ],
     candidate: "fenrir",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
-      "cathy",
-      "chiara"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.502
-  },
-  {
-    teammates: [
-      "craver",
-      "garnet"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.502
-  },
-  {
-    teammates: [
-      "aya",
+      "adela",
       "blair"
     ],
     candidate: "fenrir",
     games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.488
+  },
+  {
+    teammates: [
+      "lucia",
+      "yuki"
+    ],
+    candidate: "fenrir",
+    games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
-      "henry",
-      "irem"
+      "adriana",
+      "camilo"
     ],
-    candidate: "li_dailin",
+    candidate: "fenrir",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
-      "nicky",
-      "yuki"
+      "chiara",
+      "rio"
     ],
-    candidate: "sissela",
+    candidate: "justina",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.491
   },
   {
     teammates: [
-      "echion",
-      "nicky"
+      "charlotte",
+      "hart"
     ],
-    candidate: "silvia",
+    candidate: "justina",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.491
   },
   {
     teammates: [
-      "rio",
-      "sissela"
+      "chiara",
+      "istvan"
     ],
-    candidate: "lenox",
+    candidate: "karla",
     games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "hart",
-      "tia"
-    ],
-    candidate: "silvia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "blair",
-      "craver"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 3,
+    avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.491
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "jackie"
+    ],
+    candidate: "karla",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.491
+  },
+  {
+    teammates: [
+      "aya",
+      "garnet"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.491
+  },
+  {
+    teammates: [
+      "kenneth",
+      "markus"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.429
   },
   {
     teammates: [
       "alex",
-      "laura"
+      "priya"
     ],
-    candidate: "silvia",
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "adriana",
+      "nicky"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "nicky",
+      "tsubame"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "adina",
+      "estelle"
+    ],
+    candidate: "hisui",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.703
+  },
+  {
+    teammates: [
+      "justina",
+      "magnus"
+    ],
+    candidate: "hisui",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.703
+  },
+  {
+    teammates: [
+      "celine",
+      "fenrir"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.703
+  },
+  {
+    teammates: [
+      "adela",
+      "istvan"
+    ],
+    candidate: "hisui",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.703
+  },
+  {
+    teammates: [
+      "haze",
+      "lenox"
+    ],
+    candidate: "hisui",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.703
   },
   {
     teammates: [
@@ -9428,75 +9380,1947 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "darko",
-      "priya"
+      "chiara",
+      "nadine"
     ],
-    candidate: "markus",
+    candidate: "echion",
     games: 1,
-    avgPlacement: 3,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "cathy",
-      "emma"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "hisui",
-      "jenny"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.461
+    oneTrickRatio: 0.736
   },
   {
     teammates: [
       "aya",
-      "istvan"
+      "nicky"
     ],
-    candidate: "markus",
+    candidate: "echion",
     games: 1,
-    avgPlacement: 2,
+    avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.461
+    oneTrickRatio: 0.736
   },
   {
     teammates: [
-      "tia",
+      "fenrir",
+      "hart"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "fenrir",
+      "william"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "hisui",
+      "magnus"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "cathy",
+      "nadine"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "martina",
+      "vanya"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "bianca",
+      "karla"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "estelle",
+      "hisui"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "hisui",
+      "magnus"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "bianca",
+      "darko"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "istvan",
+      "silvia"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "hart",
+      "zahir"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "camilo",
+      "lenox"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "camilo",
+      "markus"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "rio",
+      "yumin"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "bernice",
+      "fiora"
+    ],
+    candidate: "eleven",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "kenneth",
       "yuki"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "adina",
+      "fenrir"
+    ],
+    candidate: "eleven",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "camilo",
+      "ian"
+    ],
+    candidate: "eleven",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "justina",
+      "shirin"
+    ],
+    candidate: "eleven",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "rio",
+      "tazia"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "nicky",
+      "yuki"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "justina",
+      "nicky"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "adriana",
+      "yumin"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "rio",
+      "sua"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "fiora",
+      "yan"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "sua",
+      "tsubame"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "luke",
+      "nicky"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "sho",
+      "william"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "fenrir",
+      "lucia"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "blair",
+      "rio"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "chiara",
+      "william"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "emma",
+      "nadine"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "echion",
+      "isaac"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "rozzi",
+      "sua"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "adela",
+      "shirin"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "abigail",
+      "hyejin"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "bernice",
+      "nia"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "shoichi",
+      "tia"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "isaac",
+      "jenny"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "cathy",
+      "luke"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bernice",
+      "camilo"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adela",
+      "rozzi"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "markus",
+      "tsubame"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "garnet",
+      "rio"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "eleven",
+      "kenneth"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "katja",
+      "yan"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "rozzi",
+      "tazia"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "isaac",
+      "magnus"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "justina",
+      "martina"
+    ],
+    candidate: "barbara",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "priya"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "nadine",
+      "theodore"
+    ],
+    candidate: "lenox",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "adela",
+      "aya"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.994
+  },
+  {
+    teammates: [
+      "aiden",
+      "luke"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.994
+  },
+  {
+    teammates: [
+      "rozzi",
+      "silvia"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.994
+  },
+  {
+    teammates: [
+      "chiara",
+      "isaac"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.994
+  },
+  {
+    teammates: [
+      "irem",
+      "luke"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.994
+  },
+  {
+    teammates: [
+      "camilo",
+      "echion"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.994
+  },
+  {
+    teammates: [
+      "mai",
+      "rio"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.994
+  },
+  {
+    teammates: [
+      "bihyung",
+      "rio"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.994
+  },
+  {
+    teammates: [
+      "katja",
+      "leon"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.607
+  },
+  {
+    teammates: [
+      "rio",
+      "yuki"
+    ],
+    candidate: "estelle",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.607
+  },
+  {
+    teammates: [
+      "bianca",
+      "debi_marlene"
+    ],
+    candidate: "chloe",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.607
+  },
+  {
+    teammates: [
+      "felix",
+      "nicky"
+    ],
+    candidate: "chloe",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.607
+  },
+  {
+    teammates: [
+      "bihyung",
+      "lucia"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.607
+  },
+  {
+    teammates: [
+      "blair",
+      "estelle"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.607
+  },
+  {
+    teammates: [
+      "alex",
+      "tia"
+    ],
+    candidate: "chloe",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.607
+  },
+  {
+    teammates: [
+      "johann",
+      "laura"
+    ],
+    candidate: "chloe",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.607
+  },
+  {
+    teammates: [
+      "adriana",
+      "darko"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "li_dailin",
+      "tsubame"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "felix",
+      "katja"
+    ],
+    candidate: "estelle",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "craver",
+      "nadine"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "craver",
+      "katja"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "elena",
+      "fenrir"
+    ],
+    candidate: "aya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "adela",
+      "zahir"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "adina",
+      "camilo"
     ],
     candidate: "markus",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.461
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "rio",
+      "sho"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "martina",
+      "nadine"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "felix",
+      "laura"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "bihyung",
+      "katja"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "alex",
+      "hyejin"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.965
+  },
+  {
+    teammates: [
+      "adriana",
+      "elena"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.965
+  },
+  {
+    teammates: [
+      "emma",
+      "jackie"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.965
+  },
+  {
+    teammates: [
+      "fenrir",
+      "nadine"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.965
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "nia"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.965
+  },
+  {
+    teammates: [
+      "justina",
+      "sho"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.965
+  },
+  {
+    teammates: [
+      "karla",
+      "rozzi"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.824
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "emma"
+    ],
+    candidate: "abigail",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.824
+  },
+  {
+    teammates: [
+      "adela",
+      "darko"
+    ],
+    candidate: "abigail",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.824
+  },
+  {
+    teammates: [
+      "coreline",
+      "piolo"
+    ],
+    candidate: "hyejin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.522
+  },
+  {
+    teammates: [
+      "alex",
+      "leon"
+    ],
+    candidate: "hyejin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.522
+  },
+  {
+    teammates: [
+      "karla",
+      "sho"
+    ],
+    candidate: "hyejin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.522
+  },
+  {
+    teammates: [
+      "sissela",
+      "tsubame"
+    ],
+    candidate: "hyejin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.522
+  },
+  {
+    teammates: [
+      "darko",
+      "haze"
+    ],
+    candidate: "hyejin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.522
+  },
+  {
+    teammates: [
+      "aya",
+      "sua"
+    ],
+    candidate: "hyejin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.522
+  },
+  {
+    teammates: [
+      "abigail",
+      "cathy"
+    ],
+    candidate: "hyejin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.522
+  },
+  {
+    teammates: [
+      "barbara",
+      "laura"
+    ],
+    candidate: "hyejin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.522
+  },
+  {
+    teammates: [
+      "emma",
+      "nathapon"
+    ],
+    candidate: "hyejin",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.522
+  },
+  {
+    teammates: [
+      "irem",
+      "kenneth"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.598
+  },
+  {
+    teammates: [
+      "chiara",
+      "irem"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.598
+  },
+  {
+    teammates: [
+      "alex",
+      "hyejin"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.598
+  },
+  {
+    teammates: [
+      "craver",
+      "nicky"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.598
   },
   {
     teammates: [
       "hyejin",
-      "leon"
+      "laura"
     ],
-    candidate: "markus",
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.598
+  },
+  {
+    teammates: [
+      "chloe",
+      "debi_marlene"
+    ],
+    candidate: "bianca",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.461
+    oneTrickRatio: 0.598
+  },
+  {
+    teammates: [
+      "coreline",
+      "craver"
+    ],
+    candidate: "chloe",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "ian",
+      "markus"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "coreline",
+      "estelle"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "laura",
+      "shoichi"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "eleven",
+      "zahir"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "echion",
+      "nadine"
+    ],
+    candidate: "eleven",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "echion",
+      "nadine"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "istvan",
+      "william"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "istvan",
+      "vanya"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "jackie",
+      "yan"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "luke",
+      "nicky"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "jackie",
+      "shoichi"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "arda",
+      "zahir"
+    ],
+    candidate: "henry",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "priya"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "alex",
+      "markus"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "kenneth",
+      "priya"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "coreline",
+      "darko"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "adela",
+      "istvan"
+    ],
+    candidate: "lenore",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "bihyung",
+      "justina"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "adela",
+      "charlotte"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "charlotte",
+      "nicky"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "hart",
+      "haze"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "eleven",
+      "irem"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "adela",
+      "haze"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "elena",
+      "leon"
+    ],
+    candidate: "adriana",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "aiden",
+      "nicky"
+    ],
+    candidate: "adriana",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "adriana",
+      "garnet"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "adela",
+      "craver"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "hyejin",
+      "nicky"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "aya",
+      "hart"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.981
+  },
+  {
+    teammates: [
+      "hart",
+      "silvia"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.981
+  },
+  {
+    teammates: [
+      "craver",
+      "magnus"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.981
+  },
+  {
+    teammates: [
+      "laura",
+      "vanya"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.981
+  },
+  {
+    teammates: [
+      "adriana",
+      "laura"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.981
+  },
+  {
+    teammates: [
+      "aiden",
+      "zahir"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.981
+  },
+  {
+    teammates: [
+      "eva",
+      "kenneth"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.687
+  },
+  {
+    teammates: [
+      "eva",
+      "sho"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.687
+  },
+  {
+    teammates: [
+      "darko",
+      "tia"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.687
+  },
+  {
+    teammates: [
+      "eva",
+      "sissela"
+    ],
+    candidate: "lenox",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.687
+  },
+  {
+    teammates: [
+      "craver",
+      "vanya"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "coreline",
+      "jackie"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "justina",
+      "mai"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "adriana",
+      "emma"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "garnet",
+      "isol"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "nadine",
+      "nicky"
+    ],
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.701
+  },
+  {
+    teammates: [
+      "garnet",
+      "rozzi"
+    ],
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.701
+  },
+  {
+    teammates: [
+      "lucia",
+      "sua"
+    ],
+    candidate: "li_dailin",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.701
+  },
+  {
+    teammates: [
+      "eleven",
+      "nathapon"
+    ],
+    candidate: "li_dailin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.701
+  },
+  {
+    teammates: [
+      "eleven",
+      "luke"
+    ],
+    candidate: "isol",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.701
+  },
+  {
+    teammates: [
+      "hyejin",
+      "yan"
+    ],
+    candidate: "li_dailin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.701
+  },
+  {
+    teammates: [
+      "hyejin",
+      "jackie"
+    ],
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.701
+  },
+  {
+    teammates: [
+      "hyejin",
+      "hyunwoo"
+    ],
+    candidate: "camilo",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.93
+  },
+  {
+    teammates: [
+      "barbara",
+      "yuki"
+    ],
+    candidate: "camilo",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.93
+  },
+  {
+    teammates: [
+      "blair",
+      "elena"
+    ],
+    candidate: "camilo",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.93
+  },
+  {
+    teammates: [
+      "garnet",
+      "luke"
+    ],
+    candidate: "camilo",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.93
+  },
+  {
+    teammates: [
+      "eleven",
+      "jackie"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.835
+  },
+  {
+    teammates: [
+      "haze",
+      "shoichi"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.835
   },
   {
     teammates: [
@@ -9508,7 +11332,7 @@ export const rankerCompositionStats = [
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.838
+    oneTrickRatio: 0.835
   },
   {
     teammates: [
@@ -9520,7 +11344,7 @@ export const rankerCompositionStats = [
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.838
+    oneTrickRatio: 0.835
   },
   {
     teammates: [
@@ -9532,55 +11356,163 @@ export const rankerCompositionStats = [
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.838
+    oneTrickRatio: 0.835
   },
   {
     teammates: [
-      "fenrir",
-      "fiora"
+      "darko",
+      "tsubame"
     ],
-    candidate: "adriana",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.838
-  },
-  {
-    teammates: [
-      "chiara",
-      "hart"
-    ],
-    candidate: "silvia",
+    candidate: "elena",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.838
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "shoichi",
-      "tazia"
+      "bernice",
+      "zahir"
     ],
-    candidate: "silvia",
+    candidate: "elena",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.838
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "estelle",
-      "rozzi"
+      "barbara",
+      "chloe"
     ],
-    candidate: "haze",
+    candidate: "elena",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.838
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "haze",
+      "isol"
+    ],
+    candidate: "elena",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "kenneth",
+      "piolo"
+    ],
+    candidate: "elena",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "sho",
+      "zahir"
+    ],
+    candidate: "elena",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bernice",
+      "kenneth"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.828
+  },
+  {
+    teammates: [
+      "alex",
+      "echion"
+    ],
+    candidate: "isol",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.828
+  },
+  {
+    teammates: [
+      "katja",
+      "li_dailin"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.828
+  },
+  {
+    teammates: [
+      "istvan",
+      "martina"
+    ],
+    candidate: "isol",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.828
+  },
+  {
+    teammates: [
+      "lucia",
+      "rio"
+    ],
+    candidate: "johann",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.828
+  },
+  {
+    teammates: [
+      "cathy",
+      "william"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.699
+  },
+  {
+    teammates: [
+      "karla",
+      "lucia"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.699
   },
   {
     teammates: [
@@ -9632,1575 +11564,111 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "katja",
-      "sua"
-    ],
-    candidate: "darko",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.699
-  },
-  {
-    teammates: [
-      "adriana",
-      "istvan"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.699
-  },
-  {
-    teammates: [
-      "bianca",
-      "irem"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "luke",
-      "theodore"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "lenox",
-      "rozzi"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "chloe",
-      "eleven"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "rio",
-      "sua"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "mirka",
-      "shirin"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "emma",
-      "jackie"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "adela",
-      "aya"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.994
-  },
-  {
-    teammates: [
-      "aiden",
-      "luke"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.994
-  },
-  {
-    teammates: [
-      "rozzi",
-      "silvia"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.994
-  },
-  {
-    teammates: [
-      "chiara",
-      "isaac"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.994
-  },
-  {
-    teammates: [
-      "irem",
-      "luke"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.994
-  },
-  {
-    teammates: [
-      "camilo",
-      "echion"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.994
-  },
-  {
-    teammates: [
-      "chiara",
-      "echion"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.994
-  },
-  {
-    teammates: [
-      "mai",
-      "rio"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.994
-  },
-  {
-    teammates: [
-      "bihyung",
-      "rio"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.994
-  },
-  {
-    teammates: [
-      "katja",
-      "leon"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.607
-  },
-  {
-    teammates: [
-      "rio",
-      "yuki"
-    ],
-    candidate: "estelle",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.607
-  },
-  {
-    teammates: [
-      "bianca",
-      "debi_marlene"
-    ],
-    candidate: "chloe",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.607
-  },
-  {
-    teammates: [
-      "felix",
-      "nicky"
-    ],
-    candidate: "chloe",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.607
-  },
-  {
-    teammates: [
-      "bihyung",
-      "lucia"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.607
-  },
-  {
-    teammates: [
-      "blair",
-      "estelle"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.607
-  },
-  {
-    teammates: [
-      "johann",
-      "laura"
-    ],
-    candidate: "chloe",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.607
-  },
-  {
-    teammates: [
-      "blair",
-      "isaac"
-    ],
-    candidate: "bihyung",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "echion",
-      "magnus"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "adela",
-      "isaac"
-    ],
-    candidate: "bihyung",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "arda",
-      "fiora"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "justina",
-      "lucia"
-    ],
-    candidate: "bihyung",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "justina",
-      "william"
-    ],
-    candidate: "bihyung",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "garnet",
-      "irem"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "echion",
-      "emma"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "alex",
-      "hyejin"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "adriana",
-      "elena"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "emma",
-      "jackie"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "fenrir",
+      "kenneth",
       "nadine"
     ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "nia"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "justina",
-      "sho"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "adriana",
-      "darko"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.523
-  },
-  {
-    teammates: [
-      "li_dailin",
-      "tsubame"
-    ],
-    candidate: "fiora",
+    candidate: "daniel",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.523
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bianca",
+      "luke"
+    ],
+    candidate: "daniel",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
   },
   {
     teammates: [
       "cathy",
-      "estelle"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.523
-  },
-  {
-    teammates: [
-      "adela",
       "piolo"
     ],
-    candidate: "eleven",
+    candidate: "blair",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.813
-  },
-  {
-    teammates: [
-      "alex",
-      "leon"
-    ],
-    candidate: "eleven",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.813
-  },
-  {
-    teammates: [
-      "laura",
-      "nadine"
-    ],
-    candidate: "eleven",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.813
-  },
-  {
-    teammates: [
-      "bernice",
-      "shoichi"
-    ],
-    candidate: "eleven",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.813
-  },
-  {
-    teammates: [
-      "coreline",
-      "piolo"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.522
-  },
-  {
-    teammates: [
-      "alex",
-      "leon"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.522
-  },
-  {
-    teammates: [
-      "karla",
-      "sho"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.522
-  },
-  {
-    teammates: [
-      "sissela",
-      "tsubame"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.522
-  },
-  {
-    teammates: [
-      "darko",
-      "haze"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.522
-  },
-  {
-    teammates: [
-      "aya",
-      "sua"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.522
-  },
-  {
-    teammates: [
-      "abigail",
-      "cathy"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.522
-  },
-  {
-    teammates: [
-      "barbara",
-      "laura"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.522
-  },
-  {
-    teammates: [
-      "emma",
-      "nathapon"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.522
-  },
-  {
-    teammates: [
-      "irem",
-      "kenneth"
-    ],
-    candidate: "vanya",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.598
-  },
-  {
-    teammates: [
-      "chiara",
-      "irem"
-    ],
-    candidate: "vanya",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.598
-  },
-  {
-    teammates: [
-      "alex",
-      "hyejin"
-    ],
-    candidate: "vanya",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.598
-  },
-  {
-    teammates: [
-      "craver",
-      "nicky"
-    ],
-    candidate: "vanya",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.598
-  },
-  {
-    teammates: [
-      "hyejin",
-      "laura"
-    ],
-    candidate: "vanya",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.598
-  },
-  {
-    teammates: [
-      "chloe",
-      "debi_marlene"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.598
-  },
-  {
-    teammates: [
-      "katja",
-      "yuki"
-    ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.416
-  },
-  {
-    teammates: [
-      "abigail",
-      "katja"
-    ],
-    candidate: "lenore",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.416
-  },
-  {
-    teammates: [
-      "adriana",
-      "jenny"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.416
-  },
-  {
-    teammates: [
-      "adriana",
-      "craver"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.416
-  },
-  {
-    teammates: [
-      "rio",
-      "vanya"
-    ],
-    candidate: "bihyung",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.416
+    oneTrickRatio: 0.926
   },
   {
     teammates: [
       "jackie",
-      "li_dailin"
+      "yumin"
     ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.416
-  },
-  {
-    teammates: [
-      "cathy",
-      "kenneth"
-    ],
-    candidate: "adriana",
+    candidate: "blair",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.416
+    oneTrickRatio: 0.926
   },
   {
     teammates: [
-      "aya",
-      "vanya"
+      "bianca",
+      "echion"
     ],
-    candidate: "bihyung",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.416
-  },
-  {
-    teammates: [
-      "elena",
-      "leon"
-    ],
-    candidate: "adriana",
+    candidate: "blair",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.468
-  },
-  {
-    teammates: [
-      "aiden",
-      "nicky"
-    ],
-    candidate: "adriana",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.468
-  },
-  {
-    teammates: [
-      "adriana",
-      "garnet"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.468
-  },
-  {
-    teammates: [
-      "adela",
-      "craver"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.468
+    oneTrickRatio: 0.926
   },
   {
     teammates: [
       "hyejin",
-      "nicky"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.468
-  },
-  {
-    teammates: [
-      "aya",
-      "hart"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.981
-  },
-  {
-    teammates: [
-      "hart",
       "silvia"
     ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.981
-  },
-  {
-    teammates: [
-      "craver",
-      "magnus"
-    ],
-    candidate: "tia",
+    candidate: "blair",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.981
-  },
-  {
-    teammates: [
-      "laura",
-      "vanya"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.981
-  },
-  {
-    teammates: [
-      "adriana",
-      "laura"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.981
-  },
-  {
-    teammates: [
-      "aiden",
-      "zahir"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.981
-  },
-  {
-    teammates: [
-      "istvan",
-      "nadine"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "istvan",
-      "vanya"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "rio",
-      "sho"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "luke",
-      "yuki"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "blair",
-      "darko"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "camilo",
-      "shirin"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "nadine",
-      "nicky"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.701
-  },
-  {
-    teammates: [
-      "garnet",
-      "rozzi"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.701
-  },
-  {
-    teammates: [
-      "lucia",
-      "sua"
-    ],
-    candidate: "li_dailin",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.701
-  },
-  {
-    teammates: [
-      "eleven",
-      "nathapon"
-    ],
-    candidate: "li_dailin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.701
-  },
-  {
-    teammates: [
-      "eleven",
-      "luke"
-    ],
-    candidate: "isol",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.701
-  },
-  {
-    teammates: [
-      "hyejin",
-      "yan"
-    ],
-    candidate: "li_dailin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.701
-  },
-  {
-    teammates: [
-      "hyejin",
-      "jackie"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.701
-  },
-  {
-    teammates: [
-      "estelle",
-      "markus"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "karla",
-      "katja"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hyejin",
-      "hyunwoo"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.93
-  },
-  {
-    teammates: [
-      "barbara",
-      "yuki"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.93
-  },
-  {
-    teammates: [
-      "blair",
-      "elena"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.93
-  },
-  {
-    teammates: [
-      "garnet",
-      "luke"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.93
-  },
-  {
-    teammates: [
-      "rozzi",
-      "shirin"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "estelle",
-      "shoichi"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "isaac",
-      "karla"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "camilo",
-      "silvia"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "felix",
-      "sissela"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "eleven",
-      "rozzi"
-    ],
-    candidate: "nia",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "charlotte",
-      "jenny"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "emma"
-    ],
-    candidate: "abigail",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "adela",
-      "darko"
-    ],
-    candidate: "abigail",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "craver",
-      "karla"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "aya",
-      "yuki"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "garnet",
-      "katja"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.848
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "sua"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.848
-  },
-  {
-    teammates: [
-      "nicky",
-      "rozzi"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.848
-  },
-  {
-    teammates: [
-      "luke",
-      "nicky"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.848
-  },
-  {
-    teammates: [
-      "alex",
-      "camilo"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.848
+    oneTrickRatio: 0.926
   },
   {
     teammates: [
       "bernice",
-      "kenneth"
-    ],
-    candidate: "arda",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.828
-  },
-  {
-    teammates: [
-      "alex",
-      "echion"
-    ],
-    candidate: "isol",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.828
-  },
-  {
-    teammates: [
-      "katja",
-      "li_dailin"
-    ],
-    candidate: "arda",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.828
-  },
-  {
-    teammates: [
-      "istvan",
-      "martina"
-    ],
-    candidate: "isol",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.828
-  },
-  {
-    teammates: [
-      "lucia",
-      "rio"
-    ],
-    candidate: "johann",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.828
-  },
-  {
-    teammates: [
-      "kenneth",
       "priya"
     ],
-    candidate: "haze",
+    candidate: "blair",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.402
+    oneTrickRatio: 0.926
   },
   {
     teammates: [
-      "coreline",
-      "darko"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.402
-  },
-  {
-    teammates: [
-      "adela",
-      "istvan"
-    ],
-    candidate: "lenore",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.402
-  },
-  {
-    teammates: [
-      "aya",
-      "tsubame"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.402
-  },
-  {
-    teammates: [
-      "adela",
+      "haze",
       "karla"
     ],
-    candidate: "echion",
+    candidate: "blair",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.402
+    oneTrickRatio: 0.926
   },
   {
     teammates: [
-      "celine",
-      "hart"
+      "leni",
+      "shoichi"
     ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.402
-  },
-  {
-    teammates: [
-      "craver",
-      "tsubame"
-    ],
-    candidate: "debi_marlene",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.995
-  },
-  {
-    teammates: [
-      "barbara",
-      "leon"
-    ],
-    candidate: "debi_marlene",
+    candidate: "blair",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.995
-  },
-  {
-    teammates: [
-      "eva",
-      "irem"
-    ],
-    candidate: "debi_marlene",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.995
-  },
-  {
-    teammates: [
-      "aya",
-      "kenneth"
-    ],
-    candidate: "debi_marlene",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.995
-  },
-  {
-    teammates: [
-      "adela",
-      "hart"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.471
+    oneTrickRatio: 0.926
   },
   {
     teammates: [
@@ -11264,51 +11732,111 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "alex",
-      "priya"
+      "justina",
+      "zahir"
     ],
-    candidate: "aiden",
+    candidate: "debi_marlene",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.429
+    oneTrickRatio: 0.995
   },
   {
     teammates: [
-      "darko",
-      "justina"
+      "adela",
+      "yuki"
     ],
-    candidate: "aiden",
+    candidate: "debi_marlene",
     games: 1,
-    avgPlacement: 1,
-    winRate: 1,
+    avgPlacement: 3,
+    winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.429
+    oneTrickRatio: 0.995
   },
   {
     teammates: [
-      "adriana",
-      "nicky"
+      "lenox",
+      "rozzi"
     ],
-    candidate: "aiden",
+    candidate: "debi_marlene",
     games: 1,
-    avgPlacement: 1,
-    winRate: 1,
+    avgPlacement: 2,
+    winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.429
+    oneTrickRatio: 0.995
   },
   {
     teammates: [
-      "nicky",
+      "craver",
       "tsubame"
     ],
-    candidate: "aiden",
+    candidate: "debi_marlene",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.429
+    oneTrickRatio: 0.995
+  },
+  {
+    teammates: [
+      "barbara",
+      "leon"
+    ],
+    candidate: "debi_marlene",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.995
+  },
+  {
+    teammates: [
+      "haze",
+      "nathapon"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.844
+  },
+  {
+    teammates: [
+      "li_dailin",
+      "martina"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.844
+  },
+  {
+    teammates: [
+      "camilo",
+      "johann"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.844
+  },
+  {
+    teammates: [
+      "cathy",
+      "sissela"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.844
   },
   {
     teammates: [
@@ -11420,162 +11948,6 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "barbara",
-      "chloe"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "haze",
-      "isol"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "kenneth",
-      "piolo"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "sho",
-      "zahir"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "alex",
-      "istvan"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "elena",
-      "sua"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "mai",
-      "william"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "alex",
-      "coreline"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "alonso",
-      "martina"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "emma",
-      "hart"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "aya",
-      "henry"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "coreline",
-      "sho"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "adela",
-      "emma"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
       "charlotte",
       "nia"
     ],
@@ -11624,6 +11996,162 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "chiara",
+      "justina"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "darko",
+      "sissela"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "adela",
+      "sua"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "lucia",
+      "mirka"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "bernice",
+      "mirka"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "felix",
+      "leon"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "henry",
+      "lenore"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "markus"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
+      "adriana",
+      "yumin"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
+      "hart",
+      "zahir"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
+      "markus",
+      "priya"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
+      "coreline",
+      "katja"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
+      "emma",
+      "nadine"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
       "mai",
       "tsubame"
     ],
@@ -11648,6 +12176,18 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "magnus",
+      "shoichi"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.423
+  },
+  {
+    teammates: [
       "hyejin",
       "sho"
     ],
@@ -11657,6 +12197,66 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 1,
     oneTrickRatio: 0.423
+  },
+  {
+    teammates: [
+      "hart",
+      "vanya"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.544
+  },
+  {
+    teammates: [
+      "markus",
+      "vanya"
+    ],
+    candidate: "theodore",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.544
+  },
+  {
+    teammates: [
+      "abigail",
+      "bihyung"
+    ],
+    candidate: "theodore",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.544
+  },
+  {
+    teammates: [
+      "lenox",
+      "nadine"
+    ],
+    candidate: "theodore",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.544
+  },
+  {
+    teammates: [
+      "estelle",
+      "tia"
+    ],
+    candidate: "theodore",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.544
   },
   {
     teammates: [
@@ -11840,303 +12440,351 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "craver",
-      "tsubame"
+      "nadine",
+      "sho"
     ],
-    candidate: "nicky",
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.872
+  },
+  {
+    teammates: [
+      "irem",
+      "laura"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.872
+  },
+  {
+    teammates: [
+      "irem",
+      "tia"
+    ],
+    candidate: "vanya",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "eleven"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "sua",
-      "william"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "blair",
-      "william"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "justina",
-      "william"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "echion",
-      "tsubame"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "craver",
-      "nicky"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adina",
-      "vanya"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "coreline",
-      "rio"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "coreline",
-      "hart"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "istvan",
-      "vanya"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "jackie",
-      "yan"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "luke",
-      "nicky"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "jackie",
-      "shoichi"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "aya",
-      "fenrir"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "fenrir",
-      "jackie"
-    ],
-    candidate: "isol",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.433
+    oneTrickRatio: 0.872
   },
   {
     teammates: [
       "emma",
-      "justina"
+      "yuki"
     ],
-    candidate: "nadine",
+    candidate: "vanya",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.433
-  },
-  {
-    teammates: [
-      "aiden",
-      "hyejin"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.433
-  },
-  {
-    teammates: [
-      "markus",
-      "priya"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.433
-  },
-  {
-    teammates: [
-      "alex",
-      "istvan"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.433
-  },
-  {
-    teammates: [
-      "celine",
-      "isaac"
-    ],
-    candidate: "isol",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.433
+    oneTrickRatio: 0.872
   },
   {
     teammates: [
       "craver",
-      "nicky"
+      "lucia"
     ],
-    candidate: "sua",
+    candidate: "vanya",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.449
+    oneTrickRatio: 0.872
   },
   {
     teammates: [
-      "craver",
-      "tia"
+      "aiden",
+      "justina"
     ],
-    candidate: "laura",
+    candidate: "vanya",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.449
+    oneTrickRatio: 0.872
+  },
+  {
+    teammates: [
+      "sissela",
+      "yuki"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.872
   },
   {
     teammates: [
       "bernice",
-      "kenneth"
+      "sho"
     ],
-    candidate: "laura",
+    candidate: "adina",
     games: 1,
-    avgPlacement: 2,
+    avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.449
+    oneTrickRatio: 0.781
   },
   {
     teammates: [
-      "mai",
-      "rio"
+      "hyejin",
+      "jenny"
     ],
-    candidate: "laura",
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.781
+  },
+  {
+    teammates: [
+      "li_dailin",
+      "markus"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.781
+  },
+  {
+    teammates: [
+      "camilo",
+      "piolo"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.781
+  },
+  {
+    teammates: [
+      "elena",
+      "yuki"
+    ],
+    candidate: "adina",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.449
+    oneTrickRatio: 0.781
+  },
+  {
+    teammates: [
+      "alex",
+      "felix"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.781
+  },
+  {
+    teammates: [
+      "adela",
+      "craver"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.781
+  },
+  {
+    teammates: [
+      "alex",
+      "tazia"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.511
+  },
+  {
+    teammates: [
+      "abigail",
+      "markus"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.511
+  },
+  {
+    teammates: [
+      "li_dailin",
+      "lucia"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.511
+  },
+  {
+    teammates: [
+      "yan",
+      "zahir"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.511
+  },
+  {
+    teammates: [
+      "rozzi",
+      "sua"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.511
+  },
+  {
+    teammates: [
+      "shoichi",
+      "silvia"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "elena",
+      "istvan"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "blair",
+      "markus"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "fiora",
+      "vanya"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "fiora",
+      "li_dailin"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "jackie"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "sissela",
+      "vanya"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "adela",
+      "elena"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "chiara",
+      "magnus"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "justina",
+      "markus"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
   },
   {
     teammates: [
@@ -12248,207 +12896,87 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "darko",
-      "hyejin"
+      "emma",
+      "laura"
     ],
-    candidate: "katja",
+    candidate: "bernice",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.443
-  },
-  {
-    teammates: [
-      "sissela",
-      "tazia"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.443
-  },
-  {
-    teammates: [
-      "cathy",
-      "irem"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.443
+    oneTrickRatio: 0.415
   },
   {
     teammates: [
       "chiara",
-      "silvia"
+      "justina"
     ],
-    candidate: "hart",
+    candidate: "bernice",
     games: 1,
-    avgPlacement: 2,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.443
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "katja",
+      "vanya"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.415
   },
   {
     teammates: [
       "alex",
-      "debi_marlene"
+      "bihyung"
     ],
-    candidate: "tsubame",
+    candidate: "sissela",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.443
+    oneTrickRatio: 0.415
   },
   {
     teammates: [
-      "adela",
-      "shirin"
+      "echion",
+      "luke"
     ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.677
-  },
-  {
-    teammates: [
-      "abigail",
-      "hyejin"
-    ],
-    candidate: "alex",
+    candidate: "nathapon",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.677
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
       "bernice",
-      "nia"
+      "yuki"
     ],
-    candidate: "alex",
+    candidate: "nathapon",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.677
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
-      "shoichi",
-      "tia"
+      "aya",
+      "lenox"
     ],
-    candidate: "alex",
+    candidate: "nathapon",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.677
-  },
-  {
-    teammates: [
-      "adela",
-      "nathapon"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "eva",
-      "nadine"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "darko",
-      "zahir"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bianca",
-      "debi_marlene"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chiara",
-      "emma"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "haze",
-      "william"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hyejin",
-      "nadine"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "craver",
-      "yan"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
@@ -12536,243 +13064,183 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "fenrir",
-      "jackie"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.407
-  },
-  {
-    teammates: [
-      "katja",
-      "mai"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.407
-  },
-  {
-    teammates: [
       "debi_marlene",
-      "eleven"
+      "nicky"
     ],
-    candidate: "lucia",
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "jenny",
+      "leni"
+    ],
+    candidate: "jackie",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.407
+    oneTrickRatio: 0.468
   },
   {
     teammates: [
-      "kenneth",
-      "yuki"
+      "istvan",
+      "nicky"
     ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.407
-  },
-  {
-    teammates: [
-      "markus",
-      "zahir"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.407
-  },
-  {
-    teammates: [
-      "alonso",
-      "nia"
-    ],
-    candidate: "adina",
+    candidate: "nadine",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.407
-  },
-  {
-    teammates: [
-      "felix",
-      "vanya"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.806
-  },
-  {
-    teammates: [
-      "ian",
-      "yuki"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.806
-  },
-  {
-    teammates: [
-      "fenrir",
-      "tsubame"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.806
-  },
-  {
-    teammates: [
-      "camilo",
-      "justina"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.806
-  },
-  {
-    teammates: [
-      "kenneth",
-      "lenox"
-    ],
-    candidate: "hisui",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.806
-  },
-  {
-    teammates: [
-      "leni",
-      "yuki"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.806
-  },
-  {
-    teammates: [
-      "blair",
-      "emma"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.806
-  },
-  {
-    teammates: [
-      "justina",
-      "sua"
-    ],
-    candidate: "henry",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.806
-  },
-  {
-    teammates: [
-      "bihyung",
-      "katja"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.391
-  },
-  {
-    teammates: [
-      "alex",
-      "craver"
-    ],
-    candidate: "nia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.391
-  },
-  {
-    teammates: [
-      "martina",
-      "tia"
-    ],
-    candidate: "mai",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.391
-  },
-  {
-    teammates: [
-      "alex",
-      "sissela"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.391
-  },
-  {
-    teammates: [
-      "alonso",
-      "justina"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.391
+    oneTrickRatio: 0.468
   },
   {
     teammates: [
       "adina",
-      "lenox"
+      "mai"
     ],
-    candidate: "theodore",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.391
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "bihyung",
+      "fiora"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "karla"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "isol",
+      "silvia"
+    ],
+    candidate: "lucia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "jackie",
+      "kenneth"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "isol",
+      "istvan"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.717
+  },
+  {
+    teammates: [
+      "blair",
+      "kenneth"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.717
+  },
+  {
+    teammates: [
+      "craver",
+      "echion"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.717
+  },
+  {
+    teammates: [
+      "adina",
+      "felix"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.717
+  },
+  {
+    teammates: [
+      "adriana",
+      "debi_marlene"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.717
+  },
+  {
+    teammates: [
+      "alex",
+      "daniel"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.717
+  },
+  {
+    teammates: [
+      "garnet",
+      "sissela"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.717
   },
   {
     teammates: [
@@ -12860,306 +13328,6 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "justina",
-      "markus"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "adina",
-      "kenneth"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "bianca",
-      "daniel"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "lenox",
-      "yumin"
-    ],
-    candidate: "hisui",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "estelle",
-      "tazia"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "isol"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.546
-  },
-  {
-    teammates: [
-      "elena",
-      "yuki"
-    ],
-    candidate: "adriana",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.546
-  },
-  {
-    teammates: [
-      "li_dailin",
-      "shirin"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.546
-  },
-  {
-    teammates: [
-      "craver",
-      "leon"
-    ],
-    candidate: "yumin",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.546
-  },
-  {
-    teammates: [
-      "abigail",
-      "nicky"
-    ],
-    candidate: "nia",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.59
-  },
-  {
-    teammates: [
-      "haze",
-      "markus"
-    ],
-    candidate: "nia",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.59
-  },
-  {
-    teammates: [
-      "irem",
-      "luke"
-    ],
-    candidate: "nia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.59
-  },
-  {
-    teammates: [
-      "hart",
-      "zahir"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "camilo",
-      "lenox"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "camilo",
-      "markus"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "ian"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "hart",
-      "li_dailin"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "haze",
-      "nia"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "aiden",
-      "shoichi"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "craver",
-      "laura"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "kenneth",
-      "theodore"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "echion",
-      "fenrir"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "celine",
-      "emma"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "adriana",
-      "eleven"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "isaac",
-      "william"
-    ],
-    candidate: "lenore",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
       "cathy",
       "echion"
     ],
@@ -13241,6 +13409,42 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 1,
     oneTrickRatio: 0.473
+  },
+  {
+    teammates: [
+      "abigail",
+      "nicky"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.59
+  },
+  {
+    teammates: [
+      "haze",
+      "markus"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.59
+  },
+  {
+    teammates: [
+      "irem",
+      "luke"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.59
   },
   {
     teammates: [
@@ -13328,63 +13532,171 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "katja",
-      "luke"
-    ],
-    candidate: "irem",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.993
-  },
-  {
-    teammates: [
-      "coreline",
-      "markus"
-    ],
-    candidate: "irem",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.993
-  },
-  {
-    teammates: [
       "eleven",
-      "laura"
+      "tia"
     ],
-    candidate: "irem",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.993
-  },
-  {
-    teammates: [
-      "istvan",
-      "sissela"
-    ],
-    candidate: "irem",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.993
-  },
-  {
-    teammates: [
-      "echion",
-      "markus"
-    ],
-    candidate: "irem",
+    candidate: "alex",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "blair",
+      "craver"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "daniel",
+      "yan"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "garnet",
+      "sissela"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "haze",
+      "lucia"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "coreline",
+      "justina"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "hyejin",
+      "shoichi"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "daniel",
+      "sissela"
+    ],
+    candidate: "luke",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.984
+  },
+  {
+    teammates: [
+      "barbara",
+      "istvan"
+    ],
+    candidate: "luke",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.984
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "justina"
+    ],
+    candidate: "luke",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.984
+  },
+  {
+    teammates: [
+      "estelle",
+      "nia"
+    ],
+    candidate: "luke",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.984
+  },
+  {
+    teammates: [
+      "darko",
+      "nathapon"
+    ],
+    candidate: "luke",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.984
+  },
+  {
+    teammates: [
+      "lucia",
+      "yan"
+    ],
+    candidate: "luke",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.984
+  },
+  {
+    teammates: [
+      "eleven",
+      "nadine"
+    ],
+    candidate: "luke",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.984
   },
   {
     teammates: [
@@ -13460,6 +13772,42 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "istvan",
+      "silvia"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "echion"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
+      "alonso",
+      "tsubame"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
       "li_dailin",
       "tia"
     ],
@@ -13515,18 +13863,6 @@ export const rankerCompositionStats = [
     games: 1,
     avgPlacement: 2,
     winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "craver",
-      "yumin"
-    ],
-    candidate: "lenox",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
     top3Rate: 1,
     oneTrickRatio: 1
   },
@@ -13604,243 +13940,111 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "adela",
-      "jackie"
+      "bernice",
+      "isol"
     ],
-    candidate: "emma",
+    candidate: "aya",
     games: 1,
-    avgPlacement: 3,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.957
+    oneTrickRatio: 0.836
   },
   {
     teammates: [
-      "alex",
-      "hisui"
+      "bihyung",
+      "rio"
     ],
-    candidate: "emma",
+    candidate: "isaac",
     games: 1,
-    avgPlacement: 3,
+    avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.957
+    oneTrickRatio: 0.836
+  },
+  {
+    teammates: [
+      "jackie",
+      "zahir"
+    ],
+    candidate: "magnus",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.836
+  },
+  {
+    teammates: [
+      "adriana",
+      "silvia"
+    ],
+    candidate: "yumin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.836
   },
   {
     teammates: [
       "laura",
       "vanya"
     ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.957
-  },
-  {
-    teammates: [
-      "adela",
-      "coreline"
-    ],
-    candidate: "emma",
+    candidate: "irem",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.957
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
-      "haze",
-      "sho"
+      "tia",
+      "vanya"
     ],
-    candidate: "emma",
+    candidate: "irem",
     games: 1,
-    avgPlacement: 3,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.957
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
-      "lenore",
-      "nathapon"
+      "katja",
+      "luke"
     ],
-    candidate: "emma",
+    candidate: "irem",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.957
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
-      "darko",
+      "coreline",
       "markus"
     ],
-    candidate: "priya",
+    candidate: "irem",
     games: 1,
-    avgPlacement: 3,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.827
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
-      "haze",
-      "kenneth"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.827
-  },
-  {
-    teammates: [
-      "jackie",
+      "eleven",
       "laura"
     ],
-    candidate: "priya",
+    candidate: "irem",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.827
-  },
-  {
-    teammates: [
-      "darko",
-      "debi_marlene"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.827
-  },
-  {
-    teammates: [
-      "fenrir",
-      "yuki"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.827
-  },
-  {
-    teammates: [
-      "hyejin",
-      "markus"
-    ],
-    candidate: "chloe",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.827
-  },
-  {
-    teammates: [
-      "alonso",
-      "justina"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "justina"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "fenrir",
-      "tsubame"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "eva",
-      "hart"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "craver",
-      "nicky"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "fiora",
-      "shirin"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "justina",
-      "katja"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "sho",
-      "zahir"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
@@ -13892,27 +14096,15 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "magnus",
-      "vanya"
+      "laura",
+      "zahir"
     ],
-    candidate: "daniel",
+    candidate: "fiora",
     games: 1,
-    avgPlacement: 2,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "henry",
-      "tia"
-    ],
-    candidate: "daniel",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.875
   },
   {
     teammates: [
@@ -13928,147 +14120,387 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "justina",
-      "mai"
+      "aya",
+      "vanya"
     ],
-    candidate: "william",
+    candidate: "darko",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.424
+    oneTrickRatio: 0.63
   },
   {
     teammates: [
-      "adriana",
-      "emma"
+      "hart",
+      "tia"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.63
+  },
+  {
+    teammates: [
+      "blair",
+      "zahir"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.63
+  },
+  {
+    teammates: [
+      "henry",
+      "isol"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.63
+  },
+  {
+    teammates: [
+      "charlotte",
+      "jenny"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.63
+  },
+  {
+    teammates: [
+      "coreline",
+      "markus"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.41
+  },
+  {
+    teammates: [
+      "celine",
+      "tia"
     ],
     candidate: "hart",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "garnet",
-      "isol"
-    ],
-    candidate: "haze",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "garnet",
-      "lucia"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "justina"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "arda",
-      "daniel"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "elena",
-      "istvan"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.509
-  },
-  {
-    teammates: [
-      "blair",
-      "markus"
-    ],
-    candidate: "leni",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.509
-  },
-  {
-    teammates: [
-      "fiora",
-      "vanya"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.509
-  },
-  {
-    teammates: [
-      "fiora",
-      "li_dailin"
-    ],
-    candidate: "haze",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.509
+    oneTrickRatio: 0.41
   },
   {
     teammates: [
       "debi_marlene",
+      "eva"
+    ],
+    candidate: "sho",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.41
+  },
+  {
+    teammates: [
+      "eva",
       "jackie"
     ],
-    candidate: "leni",
+    candidate: "sho",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.41
+  },
+  {
+    teammates: [
+      "sho",
+      "vanya"
+    ],
+    candidate: "nadine",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.509
+    oneTrickRatio: 0.41
   },
   {
     teammates: [
-      "nadine",
-      "nicky"
+      "abigail",
+      "craver"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.41
+  },
+  {
+    teammates: [
+      "lenox",
+      "tia"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.41
+  },
+  {
+    teammates: [
+      "li_dailin",
+      "rio"
+    ],
+    candidate: "estelle",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "adela",
+      "hisui"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "eva",
+      "jackie"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "lenox",
+      "sissela"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "adina",
+      "sho"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "istvan",
+      "lucia"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "fenrir",
+      "jenny"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "henry",
+      "isol"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "adela",
+      "katja"
+    ],
+    candidate: "eleven",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "coreline",
+      "rio"
+    ],
+    candidate: "eleven",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "echion",
+      "shoichi"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "alonso",
+      "rio"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "markus",
+      "nadine"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "bernice",
+      "bihyung"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.564
+  },
+  {
+    teammates: [
+      "felix",
+      "hyejin"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.564
+  },
+  {
+    teammates: [
+      "bernice",
+      "darko"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.564
+  },
+  {
+    teammates: [
+      "blair",
+      "eleven"
     ],
     candidate: "justina",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.509
+    oneTrickRatio: 0.564
+  },
+  {
+    teammates: [
+      "garnet",
+      "katja"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.564
+  },
+  {
+    teammates: [
+      "haze",
+      "jenny"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.564
+  },
+  {
+    teammates: [
+      "nicky",
+      "rio"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.564
   },
   {
     teammates: [
@@ -14144,63 +14576,159 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "lucia",
-      "mirka"
+      "blair",
+      "eleven"
     ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.421
-  },
-  {
-    teammates: [
-      "bernice",
-      "mirka"
-    ],
-    candidate: "haze",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.421
-  },
-  {
-    teammates: [
-      "felix",
-      "leon"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.421
-  },
-  {
-    teammates: [
-      "henry",
-      "lenore"
-    ],
-    candidate: "nadine",
+    candidate: "vanya",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.421
+    oneTrickRatio: 0.624
   },
   {
     teammates: [
-      "craver",
-      "irem"
+      "alex",
+      "hyunwoo"
     ],
-    candidate: "haze",
+    candidate: "bianca",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.421
+    oneTrickRatio: 0.624
+  },
+  {
+    teammates: [
+      "aya",
+      "hisui"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.624
+  },
+  {
+    teammates: [
+      "jackie",
+      "sissela"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.624
+  },
+  {
+    teammates: [
+      "hisui",
+      "luke"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.624
+  },
+  {
+    teammates: [
+      "ian",
+      "istvan"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.624
+  },
+  {
+    teammates: [
+      "bihyung",
+      "tsubame"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.624
+  },
+  {
+    teammates: [
+      "adela",
+      "craver"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "hart",
+      "isol"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adina",
+      "garnet"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "markus",
+      "sua"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "leon",
+      "yuki"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "priya",
+      "tia"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -14297,6 +14825,102 @@ export const rankerCompositionStats = [
     winRate: 1,
     top3Rate: 1,
     oneTrickRatio: 0.75
+  },
+  {
+    teammates: [
+      "eleven",
+      "leon"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
+      "haze",
+      "markus"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
+      "aiden",
+      "istvan"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
+      "bernice",
+      "garnet"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
+      "darko",
+      "hart"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
+      "estelle",
+      "haze"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
+      "fenrir",
+      "istvan"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
+      "felix",
+      "theodore"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.92
   },
   {
     teammates: [
@@ -14408,291 +15032,483 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "yan",
-      "zahir"
+      "camilo",
+      "tsubame"
     ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.504
-  },
-  {
-    teammates: [
-      "rozzi",
-      "sua"
-    ],
-    candidate: "leni",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.504
-  },
-  {
-    teammates: [
-      "barbara",
-      "tia"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.504
-  },
-  {
-    teammates: [
-      "alex",
-      "hyunwoo"
-    ],
-    candidate: "leni",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.465
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "johann"
-    ],
-    candidate: "priya",
+    candidate: "debi_marlene",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.465
+    oneTrickRatio: 0.604
   },
   {
     teammates: [
-      "abigail",
-      "sua"
-    ],
-    candidate: "leni",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.465
-  },
-  {
-    teammates: [
-      "abigail",
-      "eva"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.465
-  },
-  {
-    teammates: [
-      "estelle",
+      "camilo",
       "rio"
     ],
-    candidate: "priya",
+    candidate: "debi_marlene",
     games: 1,
-    avgPlacement: 2,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.465
+    oneTrickRatio: 0.604
   },
   {
     teammates: [
-      "lenore",
-      "markus"
+      "eva",
+      "karla"
     ],
-    candidate: "leni",
+    candidate: "debi_marlene",
     games: 1,
-    avgPlacement: 3,
-    winRate: 0,
+    avgPlacement: 1,
+    winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.465
+    oneTrickRatio: 0.604
+  },
+  {
+    teammates: [
+      "eva",
+      "sho"
+    ],
+    candidate: "debi_marlene",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.604
   },
   {
     teammates: [
       "craver",
-      "jackie"
+      "kenneth"
     ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.465
-  },
-  {
-    teammates: [
-      "adina",
-      "william"
-    ],
-    candidate: "priya",
+    candidate: "shirin",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.465
+    oneTrickRatio: 0.604
   },
   {
     teammates: [
-      "isaac",
+      "adela",
       "magnus"
+    ],
+    candidate: "hyunwoo",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.604
+  },
+  {
+    teammates: [
+      "estelle",
+      "sissela"
     ],
     candidate: "rozzi",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.51
+    oneTrickRatio: 0.449
   },
   {
     teammates: [
-      "justina",
-      "martina"
+      "alex",
+      "hyejin"
     ],
-    candidate: "barbara",
+    candidate: "rozzi",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "priya"
-    ],
-    candidate: "darko",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.51
+    oneTrickRatio: 0.449
   },
   {
     teammates: [
       "nadine",
-      "theodore"
+      "piolo"
     ],
-    candidate: "lenox",
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.449
+  },
+  {
+    teammates: [
+      "hisui",
+      "luke"
+    ],
+    candidate: "tsubame",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.51
+    oneTrickRatio: 0.449
   },
   {
     teammates: [
-      "fenrir",
-      "markus"
+      "william",
+      "yumin"
     ],
-    candidate: "rozzi",
+    candidate: "mai",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "sho",
+      "shoichi"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "alex",
+      "fenrir"
+    ],
+    candidate: "bernice",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.51
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "echion",
+      "nicky"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "johann",
+      "yuki"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.418
   },
   {
     teammates: [
       "emma",
-      "henry"
+      "sua"
     ],
     candidate: "katja",
     games: 1,
-    avgPlacement: 3,
+    avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.51
+    oneTrickRatio: 0.851
   },
   {
     teammates: [
-      "emma",
-      "rozzi"
+      "garnet",
+      "katja"
     ],
-    candidate: "markus",
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.851
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "sua"
+    ],
+    candidate: "kenneth",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "emma",
-      "li_dailin"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.512
-  },
-  {
-    teammates: [
-      "emma",
-      "tsubame"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.512
+    oneTrickRatio: 0.851
   },
   {
     teammates: [
       "aiden",
-      "bernice"
+      "emma"
     ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.512
-  },
-  {
-    teammates: [
-      "bihyung",
-      "chiara"
-    ],
-    candidate: "coreline",
+    candidate: "yuki",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.512
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "haze",
-      "piolo"
+      "isol",
+      "markus"
     ],
-    candidate: "hyejin",
+    candidate: "yuki",
     games: 1,
-    avgPlacement: 1,
-    winRate: 1,
+    avgPlacement: 2,
+    winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.512
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "eleven",
-      "istvan"
+      "blair",
+      "nadine"
     ],
-    candidate: "katja",
+    candidate: "yuki",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.512
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "estelle",
+      "justina"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "cathy",
+      "emma"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bernice",
+      "tia"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "aya",
+      "coreline"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "aya",
+      "kenneth"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "aya",
+      "sho"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "irem",
+      "jackie"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "bernice",
+      "laura"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "hart",
+      "zahir"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "eva",
+      "piolo"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "jenny",
+      "luke"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "jenny"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "jackie",
+      "sua"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.494
+  },
+  {
+    teammates: [
+      "camilo",
+      "jackie"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.494
+  },
+  {
+    teammates: [
+      "coreline",
+      "vanya"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.494
+  },
+  {
+    teammates: [
+      "fenrir",
+      "shoichi"
+    ],
+    candidate: "debi_marlene",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.494
+  },
+  {
+    teammates: [
+      "jackie",
+      "karla"
+    ],
+    candidate: "debi_marlene",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.494
+  },
+  {
+    teammates: [
+      "bernice",
+      "nicky"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.494
+  },
+  {
+    teammates: [
+      "coreline",
+      "nadine"
+    ],
+    candidate: "debi_marlene",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.494
   },
   {
     teammates: [
@@ -14753,54 +15569,6 @@ export const rankerCompositionStats = [
     winRate: 1,
     top3Rate: 1,
     oneTrickRatio: 0.573
-  },
-  {
-    teammates: [
-      "martina",
-      "yuki"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
-      "bernice",
-      "sua"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
-      "alex",
-      "bernice"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
-      "leni",
-      "rozzi"
-    ],
-    candidate: "yan",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.425
   },
   {
     teammates: [
@@ -14873,6 +15641,210 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 1,
     oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "rio",
+      "sua"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.761
+  },
+  {
+    teammates: [
+      "camilo",
+      "echion"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.761
+  },
+  {
+    teammates: [
+      "alex",
+      "laura"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.761
+  },
+  {
+    teammates: [
+      "eleven",
+      "tsubame"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.761
+  },
+  {
+    teammates: [
+      "alex",
+      "elena"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.761
+  },
+  {
+    teammates: [
+      "martina",
+      "sissela"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.761
+  },
+  {
+    teammates: [
+      "camilo",
+      "tazia"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "justina",
+      "sho"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "bernice",
+      "debi_marlene"
+    ],
+    candidate: "alonso",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "adela",
+      "daniel"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "hyejin",
+      "kenneth"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "blair",
+      "eva"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
+      "adela",
+      "daniel"
+    ],
+    candidate: "isaac",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
+      "garnet",
+      "hart"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
+      "nia",
+      "shoichi"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
+      "daniel",
+      "vanya"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
+      "cathy",
+      "nadine"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.419
   },
   {
     teammates: [
@@ -14996,459 +15968,243 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "adriana",
-      "irem"
+      "coreline",
+      "katja"
     ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "magnus"
-    ],
-    candidate: "fiora",
+    candidate: "emma",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.367
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "eleven",
-      "rio"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "felix",
-      "lenox"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "aya",
-      "emma"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "shoichi",
-      "vanya"
-    ],
-    candidate: "arda",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "katja",
-      "magnus"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "lenox",
-      "lucia"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "darko",
+      "craver",
       "tia"
     ],
-    candidate: "jackie",
+    candidate: "emma",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.687
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "eva",
-      "sissela"
+      "aiden",
+      "yuki"
     ],
-    candidate: "lenox",
+    candidate: "emma",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.687
+    oneTrickRatio: 1
   },
   {
     teammates: [
       "darko",
-      "jackie"
+      "sissela"
     ],
-    candidate: "markus",
+    candidate: "emma",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.687
+    oneTrickRatio: 1
   },
   {
     teammates: [
       "isol",
-      "priya"
+      "justina"
     ],
-    candidate: "jackie",
+    candidate: "emma",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.687
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "irem",
+      "katja",
       "nicky"
     ],
-    candidate: "jackie",
+    candidate: "emma",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.485
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "jackie",
-      "li_dailin"
+      "hart",
+      "henry"
     ],
-    candidate: "haze",
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "echion",
+      "fenrir"
+    ],
+    candidate: "tazia",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.485
+    oneTrickRatio: 0.368
   },
   {
     teammates: [
-      "justina",
-      "vanya"
+      "laura",
+      "martina"
     ],
-    candidate: "shoichi",
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.368
+  },
+  {
+    teammates: [
+      "darko",
+      "rozzi"
+    ],
+    candidate: "tazia",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.485
+    oneTrickRatio: 0.368
   },
   {
     teammates: [
       "blair",
-      "camilo"
+      "leni"
     ],
-    candidate: "haze",
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.368
+  },
+  {
+    teammates: [
+      "alex",
+      "karla"
+    ],
+    candidate: "tazia",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.485
+    oneTrickRatio: 0.368
   },
   {
     teammates: [
-      "emma",
-      "vanya"
+      "alex",
+      "echion"
     ],
-    candidate: "laura",
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.409
+  },
+  {
+    teammates: [
+      "abigail",
+      "kenneth"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.409
+  },
+  {
+    teammates: [
+      "eleven",
+      "li_dailin"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.409
+  },
+  {
+    teammates: [
+      "aiden",
+      "laura"
+    ],
+    candidate: "craver",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.485
-  },
-  {
-    teammates: [
-      "cathy",
-      "shirin"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "cathy",
-      "fiora"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.609
+    oneTrickRatio: 0.409
   },
   {
     teammates: [
       "aya",
+      "zahir"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.409
+  },
+  {
+    teammates: [
+      "haze",
+      "katja"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.409
+  },
+  {
+    teammates: [
+      "irem",
+      "kenneth"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.409
+  },
+  {
+    teammates: [
+      "charlotte",
       "jenny"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "elena",
-      "vanya"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "estelle",
-      "theodore"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "estelle",
-      "shirin"
-    ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "martina"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "adela",
-      "estelle"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "coreline",
-      "isol"
     ],
     candidate: "hart",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "haze",
-      "priya"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "irem",
-      "jackie"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.845
-  },
-  {
-    teammates: [
-      "bernice",
-      "laura"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.845
-  },
-  {
-    teammates: [
-      "hart",
-      "zahir"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.845
-  },
-  {
-    teammates: [
-      "eva",
-      "piolo"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.845
-  },
-  {
-    teammates: [
-      "jenny",
-      "luke"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.845
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "jenny"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.845
-  },
-  {
-    teammates: [
-      "adriana",
-      "yuki"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.964
-  },
-  {
-    teammates: [
-      "alex",
-      "debi_marlene"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.964
-  },
-  {
-    teammates: [
-      "bianca",
-      "tsubame"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.964
-  },
-  {
-    teammates: [
-      "cathy",
-      "chiara"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.964
-  },
-  {
-    teammates: [
-      "jackie",
-      "nicky"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.964
+    oneTrickRatio: 0.409
   },
   {
     teammates: [
@@ -15560,63 +16316,135 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "coreline",
-      "justina"
+      "bernice",
+      "garnet"
     ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.736
-  },
-  {
-    teammates: [
-      "hyejin",
-      "shoichi"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.736
-  },
-  {
-    teammates: [
-      "felix",
-      "sissela"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.736
-  },
-  {
-    teammates: [
-      "felix",
-      "haze"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.736
-  },
-  {
-    teammates: [
-      "bianca",
-      "cathy"
-    ],
-    candidate: "alex",
+    candidate: "irem",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.736
+    oneTrickRatio: 0.537
+  },
+  {
+    teammates: [
+      "alonso",
+      "nia"
+    ],
+    candidate: "irem",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.537
+  },
+  {
+    teammates: [
+      "nia",
+      "tazia"
+    ],
+    candidate: "irem",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.537
+  },
+  {
+    teammates: [
+      "craver",
+      "laura"
+    ],
+    candidate: "irem",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.537
+  },
+  {
+    teammates: [
+      "adela",
+      "adriana"
+    ],
+    candidate: "irem",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.537
+  },
+  {
+    teammates: [
+      "craver",
+      "magnus"
+    ],
+    candidate: "irem",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.537
+  },
+  {
+    teammates: [
+      "adela",
+      "vanya"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "coreline",
+      "debi_marlene"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "leon",
+      "sho"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "emma",
+      "karla"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "haze",
+      "tazia"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.418
   },
   {
     teammates: [
@@ -15656,243 +16484,135 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "jenny",
-      "nicky"
+      "chloe",
+      "craver"
     ],
-    candidate: "charlotte",
+    candidate: "coreline",
     games: 1,
-    avgPlacement: 1,
-    winRate: 1,
+    avgPlacement: 2,
+    winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.795
-  },
-  {
-    teammates: [
-      "felix",
-      "magnus"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.795
+    oneTrickRatio: 0.517
   },
   {
     teammates: [
       "irem",
-      "justina"
+      "mirka"
     ],
-    candidate: "nicky",
+    candidate: "coreline",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.795
+    oneTrickRatio: 0.517
   },
   {
     teammates: [
-      "katja",
-      "sissela"
+      "alex",
+      "echion"
     ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.795
-  },
-  {
-    teammates: [
-      "markus",
-      "rio"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.795
-  },
-  {
-    teammates: [
-      "barbara",
-      "bernice"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.795
-  },
-  {
-    teammates: [
-      "barbara",
-      "lucia"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.795
-  },
-  {
-    teammates: [
-      "bernice",
-      "eleven"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.795
-  },
-  {
-    teammates: [
-      "eleven",
-      "jenny"
-    ],
-    candidate: "chiara",
+    candidate: "sissela",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.795
+    oneTrickRatio: 0.517
   },
   {
     teammates: [
-      "isol",
-      "markus"
+      "elena",
+      "fenrir"
     ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "blair",
-      "nadine"
-    ],
-    candidate: "yuki",
+    candidate: "adriana",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "estelle",
-      "justina"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "cathy",
-      "emma"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.517
   },
   {
     teammates: [
       "bernice",
       "tia"
     ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "aya",
-      "coreline"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "aya",
-      "kenneth"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adela",
-      "darko"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.772
-  },
-  {
-    teammates: [
-      "alonso",
-      "cathy"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.772
-  },
-  {
-    teammates: [
-      "nadine",
-      "priya"
-    ],
-    candidate: "markus",
+    candidate: "coreline",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.772
+    oneTrickRatio: 0.517
   },
   {
     teammates: [
-      "celine",
-      "nicky"
+      "cathy",
+      "justina"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.517
+  },
+  {
+    teammates: [
+      "kenneth",
+      "shirin"
     ],
     candidate: "craver",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.772
+    oneTrickRatio: 0.517
+  },
+  {
+    teammates: [
+      "hisui",
+      "priya"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "felix",
+      "kenneth"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "garnet",
+      "martina"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bihyung",
+      "craver"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -16148,207 +16868,243 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "hart",
-      "katja"
+      "jackie",
+      "sissela"
     ],
-    candidate: "coreline",
+    candidate: "kenneth",
     games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.394
-  },
-  {
-    teammates: [
-      "alonso",
-      "tsubame"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.394
-  },
-  {
-    teammates: [
-      "aya",
-      "coreline"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 2,
+    avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.394
+    oneTrickRatio: 0.445
   },
   {
     teammates: [
-      "cathy",
-      "yuki"
+      "craver",
+      "nicky"
     ],
-    candidate: "jackie",
+    candidate: "sua",
     games: 1,
-    avgPlacement: 2,
+    avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.394
-  },
-  {
-    teammates: [
-      "hyejin",
-      "irem"
-    ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.394
+    oneTrickRatio: 0.445
   },
   {
     teammates: [
       "darko",
-      "nathapon"
+      "katja"
     ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.483
-  },
-  {
-    teammates: [
-      "adriana",
-      "emma"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.483
-  },
-  {
-    teammates: [
-      "istvan",
-      "nadine"
-    ],
-    candidate: "justina",
+    candidate: "yan",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.483
-  },
-  {
-    teammates: [
-      "estelle",
-      "luke"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.483
-  },
-  {
-    teammates: [
-      "hisui",
-      "tsubame"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.483
-  },
-  {
-    teammates: [
-      "justina",
-      "nicky"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.674
-  },
-  {
-    teammates: [
-      "cathy",
-      "jenny"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.674
+    oneTrickRatio: 0.591
   },
   {
     teammates: [
       "hyunwoo",
-      "nia"
+      "shoichi"
     ],
-    candidate: "camilo",
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.591
+  },
+  {
+    teammates: [
+      "rozzi",
+      "yuki"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.591
+  },
+  {
+    teammates: [
+      "emma",
+      "sua"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.591
+  },
+  {
+    teammates: [
+      "echion",
+      "rozzi"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.591
+  },
+  {
+    teammates: [
+      "adina",
+      "kenneth"
+    ],
+    candidate: "felix",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.674
+    oneTrickRatio: 0.479
   },
   {
     teammates: [
-      "bihyung",
-      "martina"
+      "adela",
+      "eleven"
     ],
-    candidate: "camilo",
+    candidate: "felix",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.674
+    oneTrickRatio: 0.479
   },
   {
     teammates: [
-      "irem",
-      "istvan"
+      "cathy",
+      "nicky"
     ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.674
-  },
-  {
-    teammates: [
-      "rio",
-      "vanya"
-    ],
-    candidate: "alonso",
+    candidate: "istvan",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.674
+    oneTrickRatio: 0.479
   },
   {
     teammates: [
-      "adriana",
-      "rozzi"
+      "aiden",
+      "zahir"
     ],
-    candidate: "alonso",
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.479
+  },
+  {
+    teammates: [
+      "karla",
+      "nia"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.479
+  },
+  {
+    teammates: [
+      "jackie",
+      "tia"
+    ],
+    candidate: "istvan",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.674
+    oneTrickRatio: 0.479
+  },
+  {
+    teammates: [
+      "bernice",
+      "isaac"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.479
+  },
+  {
+    teammates: [
+      "bianca",
+      "sua"
+    ],
+    candidate: "felix",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.479
+  },
+  {
+    teammates: [
+      "bianca",
+      "fiora"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "hart",
+      "piolo"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "aiden",
+      "elena"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "charlotte",
+      "jenny"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "hyejin",
+      "katja"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.429
   },
   {
     teammates: [
@@ -16421,6 +17177,78 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 1,
     oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bianca",
+      "istvan"
+    ],
+    candidate: "ian",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.759
+  },
+  {
+    teammates: [
+      "adina",
+      "debi_marlene"
+    ],
+    candidate: "ian",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.759
+  },
+  {
+    teammates: [
+      "irem",
+      "nia"
+    ],
+    candidate: "ian",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.759
+  },
+  {
+    teammates: [
+      "hisui",
+      "mai"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.759
+  },
+  {
+    teammates: [
+      "piolo",
+      "shirin"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.759
+  },
+  {
+    teammates: [
+      "kenneth",
+      "zahir"
+    ],
+    candidate: "ian",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.759
   },
   {
     teammates: [
@@ -16592,6 +17420,30 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "luke",
+      "yuki"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.628
+  },
+  {
+    teammates: [
+      "lenox",
+      "nadine"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.628
+  },
+  {
+    teammates: [
       "alex",
       "debi_marlene"
     ],
@@ -16628,99 +17480,63 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "fiora",
-      "mai"
+      "cathy",
+      "debi_marlene"
     ],
-    candidate: "adela",
+    candidate: "justina",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.876
+    oneTrickRatio: 0.483
   },
   {
     teammates: [
-      "garnet",
-      "yuki"
+      "darko",
+      "nathapon"
     ],
-    candidate: "adela",
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.483
+  },
+  {
+    teammates: [
+      "adriana",
+      "emma"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.483
+  },
+  {
+    teammates: [
+      "istvan",
+      "nadine"
+    ],
+    candidate: "justina",
     games: 1,
     avgPlacement: 1,
     winRate: 1,
     top3Rate: 1,
-    oneTrickRatio: 0.876
+    oneTrickRatio: 0.483
   },
   {
     teammates: [
-      "eleven",
-      "hart"
+      "estelle",
+      "luke"
     ],
-    candidate: "adela",
+    candidate: "justina",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.876
-  },
-  {
-    teammates: [
-      "bianca",
-      "fiora"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "hart",
-      "piolo"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "aiden",
-      "elena"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "charlotte",
-      "jenny"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "hyejin",
-      "katja"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.432
+    oneTrickRatio: 0.483
   },
   {
     teammates: [
@@ -16772,255 +17588,195 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "camilo",
-      "tazia"
+      "eleven",
+      "william"
     ],
-    candidate: "bernice",
+    candidate: "aiden",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "justina",
-      "sho"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "bernice",
-      "debi_marlene"
-    ],
-    candidate: "alonso",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "adela",
-      "daniel"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "hyejin",
-      "kenneth"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "estelle",
-      "felix"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.6
-  },
-  {
-    teammates: [
-      "fiora",
-      "nathapon"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.6
-  },
-  {
-    teammates: [
-      "justina",
-      "kenneth"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.6
-  },
-  {
-    teammates: [
-      "theodore",
-      "zahir"
-    ],
-    candidate: "felix",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.6
+    oneTrickRatio: 0.527
   },
   {
     teammates: [
       "fenrir",
-      "shoichi"
+      "istvan"
     ],
-    candidate: "tsubame",
+    candidate: "daniel",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.6
+    oneTrickRatio: 0.527
   },
   {
     teammates: [
-      "garnet",
-      "zahir"
+      "jackie",
+      "jenny"
     ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.6
-  },
-  {
-    teammates: [
-      "adela",
-      "alonso"
-    ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.6
-  },
-  {
-    teammates: [
-      "lenox",
-      "sissela"
-    ],
-    candidate: "nadine",
+    candidate: "leni",
     games: 1,
     avgPlacement: 3,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.446
+    oneTrickRatio: 0.456
   },
   {
     teammates: [
-      "adina",
-      "sho"
+      "alex",
+      "hyunwoo"
     ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.446
-  },
-  {
-    teammates: [
-      "istvan",
-      "lucia"
-    ],
-    candidate: "tia",
+    candidate: "leni",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.446
-  },
-  {
-    teammates: [
-      "haze",
-      "sho"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.446
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "shoichi"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.585
-  },
-  {
-    teammates: [
-      "rozzi",
-      "yuki"
-    ],
-    candidate: "yan",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.585
-  },
-  {
-    teammates: [
-      "emma",
-      "sua"
-    ],
-    candidate: "yan",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.585
-  },
-  {
-    teammates: [
-      "echion",
-      "rozzi"
-    ],
-    candidate: "yan",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.585
+    oneTrickRatio: 0.456
   },
   {
     teammates: [
       "debi_marlene",
-      "lenore"
+      "johann"
     ],
-    candidate: "markus",
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.456
+  },
+  {
+    teammates: [
+      "abigail",
+      "sua"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.456
+  },
+  {
+    teammates: [
+      "camilo",
+      "nicky"
+    ],
+    candidate: "nia",
     games: 1,
     avgPlacement: 2,
     winRate: 0,
     top3Rate: 1,
-    oneTrickRatio: 0.585
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "alonso",
+      "coreline"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 3,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "alonso",
+      "debi_marlene"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "hart",
+      "hyejin"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "justina",
+      "luke"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.596
+  },
+  {
+    teammates: [
+      "ian",
+      "mirka"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.596
+  },
+  {
+    teammates: [
+      "rozzi",
+      "tazia"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.596
+  },
+  {
+    teammates: [
+      "nia",
+      "yuki"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.596
+  },
+  {
+    teammates: [
+      "hart",
+      "silvia"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.596
+  },
+  {
+    teammates: [
+      "nicky",
+      "tsubame"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 2,
+    winRate: 0,
+    top3Rate: 1,
+    oneTrickRatio: 0.596
   },
   {
     teammates: [
@@ -17120,1059 +17876,63 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "garnet",
-      "tsubame"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "li_dailin",
-      "martina"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "coreline",
-      "nadine"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "justina",
-      "kenneth"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "irem",
-      "justina"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "markus",
-      "sissela"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "hisui",
-      "lucia"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "katja",
-      "lucia"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "markus",
-      "vanya"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
-      "abigail",
-      "bihyung"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
-      "lenox",
-      "nadine"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
-      "estelle",
-      "tia"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
-      "abigail",
-      "craver"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "lenox",
-      "tia"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "alex",
-      "sissela"
-    ],
-    candidate: "felix",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "craver",
-      "echion"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "fiora",
-      "mai"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "istvan",
-      "nadine"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "bihyung",
-      "blair"
-    ],
-    candidate: "isaac",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "adela",
-      "elena"
-    ],
-    candidate: "isaac",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "daniel",
-      "garnet"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
       "cathy",
-      "isol"
+      "lucia"
     ],
-    candidate: "markus",
+    candidate: "aiden",
     games: 1,
-    avgPlacement: 2,
+    avgPlacement: 6,
     winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "adela",
-      "markus"
-    ],
-    candidate: "isaac",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "charlotte",
-      "rio"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "adela",
-      "hyunwoo"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "henry",
-      "katja"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "barbara",
-      "markus"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "lenox",
-      "theodore"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "aya",
-      "craver"
-    ],
-    candidate: "zahir",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "katja",
-      "yuki"
-    ],
-    candidate: "karla",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "alex",
-      "cathy"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "irem",
-      "markus"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "leon",
-      "shirin"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "aya",
-      "nicky"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "charlotte",
-      "chiara"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "estelle",
-      "vanya"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "alex",
-      "bihyung"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "sua",
-      "vanya"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "coreline",
-      "mai"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "justina",
-      "tia"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "martina",
-      "nicky"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "alex",
-      "luke"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "haze",
-      "henry"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "blair",
-      "lenox"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "darko",
-      "henry"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "charlotte",
-      "hisui"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "garnet",
-      "tia"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.732
+    top3Rate: 0,
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
       "adriana",
-      "felix"
-    ],
-    candidate: "darko",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "vanya"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "justina",
-      "tsubame"
-    ],
-    candidate: "darko",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "bernice",
-      "shoichi"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "bernice",
-      "sua"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "elena",
       "luke"
     ],
-    candidate: "nathapon",
+    candidate: "nadine",
     games: 1,
-    avgPlacement: 3,
+    avgPlacement: 7,
     winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "kenneth",
-      "nicky"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "nicky",
-      "vanya"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "vanya"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "bihyung",
-      "chiara"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "lucia",
-      "sua"
-    ],
-    candidate: "yan",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "jackie",
-      "nicky"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "adriana",
-      "markus"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "camilo",
-      "leni"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "henry",
-      "isol"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.901
+    top3Rate: 0,
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
       "adela",
-      "katja"
+      "eva"
     ],
-    candidate: "eleven",
+    candidate: "nadine",
     games: 1,
-    avgPlacement: 3,
+    avgPlacement: 5,
     winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.901
-  },
-  {
-    teammates: [
-      "coreline",
-      "rio"
-    ],
-    candidate: "eleven",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.901
+    top3Rate: 0,
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
       "echion",
-      "shoichi"
+      "felix"
     ],
-    candidate: "blair",
+    candidate: "nadine",
     games: 1,
-    avgPlacement: 3,
+    avgPlacement: 4,
     winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.901
-  },
-  {
-    teammates: [
-      "alonso",
-      "rio"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.901
-  },
-  {
-    teammates: [
-      "markus",
-      "nadine"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.901
-  },
-  {
-    teammates: [
-      "fenrir",
-      "priya"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chiara",
-      "emma"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hyejin",
-      "martina"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "coreline",
-      "laura"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adela",
-      "alex"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "craver",
-      "sho"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bihyung",
-      "craver"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "markus",
-      "shoichi"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hisui",
-      "luke"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "shirin",
-      "sua"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hisui",
-      "lenox"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.514
-  },
-  {
-    teammates: [
-      "eleven",
-      "hyejin"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.514
+    top3Rate: 0,
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
       "eva",
-      "laura"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.514
-  },
-  {
-    teammates: [
-      "bernice",
-      "sho"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 3,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.514
-  },
-  {
-    teammates: [
-      "jackie",
-      "leon"
-    ],
-    candidate: "adriana",
-    games: 1,
-    avgPlacement: 2,
-    winRate: 0,
-    top3Rate: 1,
-    oneTrickRatio: 0.514
-  },
-  {
-    teammates: [
-      "karla",
-      "nathapon"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 1,
-    winRate: 1,
-    top3Rate: 1,
-    oneTrickRatio: 0.514
-  },
-  {
-    teammates: [
-      "isol",
-      "luke"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.526
-  },
-  {
-    teammates: [
-      "charlotte",
-      "istvan"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.526
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "jackie"
+      "silvia"
     ],
     candidate: "nadine",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.526
-  },
-  {
-    teammates: [
-      "silvia",
-      "yuki"
-    ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.526
-  },
-  {
-    teammates: [
-      "aya",
-      "charlotte"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.526
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
@@ -18184,7 +17944,7 @@ export const rankerCompositionStats = [
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.415
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
@@ -18196,43 +17956,67 @@ export const rankerCompositionStats = [
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.415
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
-      "justina",
-      "lenox"
+      "charlotte",
+      "william"
     ],
-    candidate: "rio",
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.488
+  },
+  {
+    teammates: [
+      "garnet",
+      "johann"
+    ],
+    candidate: "jenny",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.415
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
-      "alex",
-      "istvan"
+      "charlotte",
+      "jackie"
     ],
     candidate: "jenny",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.415
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
-      "nicky",
-      "yuki"
+      "johann",
+      "laura"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.488
+  },
+  {
+    teammates: [
+      "alex",
+      "lucia"
     ],
     candidate: "nadine",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.415
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
@@ -18308,6 +18092,18 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "rio",
+      "sho"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.506
+  },
+  {
+    teammates: [
       "coreline",
       "hisui"
     ],
@@ -18368,195 +18164,75 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "alonso",
-      "katja"
+      "bihyung",
+      "nadine"
     ],
-    candidate: "justina",
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.902
+  },
+  {
+    teammates: [
+      "isol",
+      "markus"
+    ],
+    candidate: "cathy",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.506
+    oneTrickRatio: 0.902
   },
   {
     teammates: [
-      "jackie",
-      "karla"
+      "rio",
+      "yan"
     ],
-    candidate: "estelle",
+    candidate: "cathy",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.506
+    oneTrickRatio: 0.902
   },
   {
     teammates: [
-      "kenneth",
-      "sho"
+      "chiara",
+      "yuki"
     ],
-    candidate: "jenny",
+    candidate: "cathy",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.362
+    oneTrickRatio: 0.902
   },
   {
     teammates: [
       "coreline",
-      "nicky"
+      "katja"
     ],
-    candidate: "jenny",
+    candidate: "henry",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.902
+  },
+  {
+    teammates: [
+      "jackie",
+      "justina"
+    ],
+    candidate: "cathy",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.362
-  },
-  {
-    teammates: [
-      "haze",
-      "priya"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.362
-  },
-  {
-    teammates: [
-      "adina",
-      "lenox"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.362
-  },
-  {
-    teammates: [
-      "shirin",
-      "sho"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.362
-  },
-  {
-    teammates: [
-      "laura",
-      "william"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.362
-  },
-  {
-    teammates: [
-      "chiara",
-      "fiora"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.629
-  },
-  {
-    teammates: [
-      "eleven",
-      "isaac"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.629
-  },
-  {
-    teammates: [
-      "shoichi",
-      "vanya"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.629
-  },
-  {
-    teammates: [
-      "kenneth",
-      "nia"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.629
-  },
-  {
-    teammates: [
-      "chiara",
-      "lenox"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.629
-  },
-  {
-    teammates: [
-      "bernice",
-      "lenox"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.629
-  },
-  {
-    teammates: [
-      "chloe",
-      "sissela"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.629
-  },
-  {
-    teammates: [
-      "eleven",
-      "nathapon"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.629
+    oneTrickRatio: 0.902
   },
   {
     teammates: [
@@ -18568,7 +18244,7 @@ export const rankerCompositionStats = [
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.728
+    oneTrickRatio: 0.729
   },
   {
     teammates: [
@@ -18580,7 +18256,19 @@ export const rankerCompositionStats = [
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.728
+    oneTrickRatio: 0.729
+  },
+  {
+    teammates: [
+      "lenox",
+      "tsubame"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.729
   },
   {
     teammates: [
@@ -18592,7 +18280,7 @@ export const rankerCompositionStats = [
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.728
+    oneTrickRatio: 0.729
   },
   {
     teammates: [
@@ -18604,7 +18292,211 @@ export const rankerCompositionStats = [
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.728
+    oneTrickRatio: 0.729
+  },
+  {
+    teammates: [
+      "chiara",
+      "magnus"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "shirin"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "bihyung",
+      "nadine"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "adina",
+      "bihyung"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "alex",
+      "alonso"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "li_dailin"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "adela",
+      "yumin"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "fenrir",
+      "laura"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "darko",
+      "luke"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "aya",
+      "fiora"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "camilo",
+      "lenox"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "mai",
+      "nadine"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "barbara",
+      "sho"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "irem",
+      "yuki"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.635
+  },
+  {
+    teammates: [
+      "hyejin",
+      "rio"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.459
+  },
+  {
+    teammates: [
+      "adriana",
+      "laura"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.459
+  },
+  {
+    teammates: [
+      "garnet",
+      "nathapon"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.459
   },
   {
     teammates: [
@@ -18668,6 +18560,102 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "hisui",
+      "william"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.362
+  },
+  {
+    teammates: [
+      "kenneth",
+      "sho"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.362
+  },
+  {
+    teammates: [
+      "coreline",
+      "nicky"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.362
+  },
+  {
+    teammates: [
+      "haze",
+      "priya"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.362
+  },
+  {
+    teammates: [
+      "craver",
+      "leon"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.57
+  },
+  {
+    teammates: [
+      "bernice",
+      "istvan"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.57
+  },
+  {
+    teammates: [
+      "craver",
+      "kenneth"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.57
+  },
+  {
+    teammates: [
+      "isol",
+      "jackie"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.57
+  },
+  {
+    teammates: [
       "nia",
       "yan"
     ],
@@ -18676,19 +18664,7 @@ export const rankerCompositionStats = [
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.555
-  },
-  {
-    teammates: [
-      "yan",
-      "yuki"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.555
+    oneTrickRatio: 0.57
   },
   {
     teammates: [
@@ -18700,7 +18676,7 @@ export const rankerCompositionStats = [
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.555
+    oneTrickRatio: 0.57
   },
   {
     teammates: [
@@ -18712,7 +18688,7 @@ export const rankerCompositionStats = [
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.555
+    oneTrickRatio: 0.57
   },
   {
     teammates: [
@@ -18724,535 +18700,7 @@ export const rankerCompositionStats = [
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.555
-  },
-  {
-    teammates: [
-      "aya",
-      "isaac"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.555
-  },
-  {
-    teammates: [
-      "fenrir",
-      "garnet"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.555
-  },
-  {
-    teammates: [
-      "hyejin",
-      "rio"
-    ],
-    candidate: "darko",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.459
-  },
-  {
-    teammates: [
-      "adriana",
-      "laura"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.459
-  },
-  {
-    teammates: [
-      "garnet",
-      "nathapon"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.459
-  },
-  {
-    teammates: [
-      "kenneth",
-      "rio"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "lenox",
-      "rio"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "emma",
-      "hart"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "irem",
-      "isol"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "alex",
-      "istvan"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "bianca",
-      "william"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "bianca",
-      "emma"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "echion",
-      "shirin"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.89
-  },
-  {
-    teammates: [
-      "emma",
-      "rio"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "shirin"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "li_dailin",
-      "shoichi"
-    ],
-    candidate: "abigail",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "chiara",
-      "isol"
-    ],
-    candidate: "abigail",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "chiara",
-      "debi_marlene"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "blair",
-      "estelle"
-    ],
-    candidate: "abigail",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.676
-  },
-  {
-    teammates: [
-      "justina",
-      "tia"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "luke",
-      "tia"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "chiara",
-      "henry"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "aya",
-      "ian"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "justina",
-      "katja"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.815
-  },
-  {
-    teammates: [
-      "adina",
-      "nicky"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "emma",
-      "william"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "shirin",
-      "william"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "emma",
-      "luke"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "chiara",
-      "nathapon"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "blair",
-      "leni"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "alex",
-      "alonso"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "li_dailin"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "sissela",
-      "yan"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "celine",
-      "kenneth"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "henry",
-      "shirin"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "rio",
-      "yumin"
-    ],
-    candidate: "estelle",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "adriana",
-      "yumin"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "isol",
-      "lenox"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "nia",
-      "shoichi"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "estelle",
-      "nia"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.767
-  },
-  {
-    teammates: [
-      "alex",
-      "lenox"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "bianca",
-      "tsubame"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "mai",
-      "nadine"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "shoichi"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.86
+    oneTrickRatio: 0.57
   },
   {
     teammates: [
@@ -19340,36 +18788,228 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "bernice",
+      "hyejin"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "bihyung",
+      "blair"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "istvan",
+      "luke"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "blair",
+      "kenneth"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.414
+  },
+  {
+    teammates: [
+      "lenore",
+      "priya"
+    ],
+    candidate: "felix",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "celine",
+      "hart"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "chloe",
+      "fenrir"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "aya",
+      "istvan"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "nicky",
+      "sissela"
+    ],
+    candidate: "felix",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "aiden",
+      "luke"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "charlotte",
+      "echion"
+    ],
+    candidate: "isaac",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "darko",
+      "eva"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "alonso",
+      "tia"
+    ],
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "mai",
+      "rozzi"
+    ],
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "garnet",
+      "yumin"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "adina",
+      "nicky"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "emma",
+      "william"
+    ],
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.428
+  },
+  {
+    teammates: [
+      "aya",
+      "echion"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.435
+  },
+  {
+    teammates: [
       "eva",
       "ian"
     ],
     candidate: "hart",
     games: 1,
     avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.435
-  },
-  {
-    teammates: [
-      "celine",
-      "sho"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.435
-  },
-  {
-    teammates: [
-      "aiden",
-      "markus"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 0.435
@@ -19388,255 +19028,291 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "emma",
+      "isaac",
+      "nia"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.861
+  },
+  {
+    teammates: [
+      "darko",
       "william"
     ],
-    candidate: "hart",
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.861
+  },
+  {
+    teammates: [
+      "aya",
+      "rozzi"
+    ],
+    candidate: "yuki",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.435
-  },
-  {
-    teammates: [
-      "darko",
-      "nia"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.972
-  },
-  {
-    teammates: [
-      "darko",
-      "shoichi"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.972
+    oneTrickRatio: 0.861
   },
   {
     teammates: [
       "alex",
-      "charlotte"
+      "lenox"
     ],
-    candidate: "camilo",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.972
+    oneTrickRatio: 0.861
   },
   {
     teammates: [
-      "blair",
-      "leni"
+      "bianca",
+      "tsubame"
     ],
-    candidate: "camilo",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.972
+    oneTrickRatio: 0.861
   },
   {
     teammates: [
-      "haze",
-      "hyunwoo"
+      "mai",
+      "nadine"
     ],
-    candidate: "camilo",
+    candidate: "jackie",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.972
+    oneTrickRatio: 0.861
   },
   {
     teammates: [
-      "charlotte",
-      "yan"
+      "bianca",
+      "piolo"
     ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.972
-  },
-  {
-    teammates: [
-      "hisui",
-      "william"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.972
-  },
-  {
-    teammates: [
-      "adela",
-      "silvia"
-    ],
-    candidate: "celine",
+    candidate: "aiden",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.445
-  },
-  {
-    teammates: [
-      "laura",
-      "magnus"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.445
-  },
-  {
-    teammates: [
-      "lucia",
-      "rio"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.445
-  },
-  {
-    teammates: [
-      "emma",
-      "nicky"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.445
-  },
-  {
-    teammates: [
-      "coreline",
-      "magnus"
-    ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.445
-  },
-  {
-    teammates: [
-      "nicky",
-      "william"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.445
-  },
-  {
-    teammates: [
-      "rozzi",
-      "sua"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.445
-  },
-  {
-    teammates: [
-      "lenox",
-      "william"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.445
+    oneTrickRatio: 0.678
   },
   {
     teammates: [
       "aiden",
-      "bernice"
+      "nathapon"
     ],
-    candidate: "echion",
+    candidate: "abigail",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.453
+    oneTrickRatio: 0.678
   },
   {
     teammates: [
-      "barbara",
-      "tsubame"
+      "aya",
+      "markus"
     ],
-    candidate: "echion",
+    candidate: "fenrir",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.453
+    oneTrickRatio: 0.678
   },
   {
     teammates: [
-      "sissela",
+      "hart",
       "yan"
     ],
-    candidate: "echion",
+    candidate: "abigail",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.678
+  },
+  {
+    teammates: [
+      "emma",
+      "rio"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.678
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "shirin"
+    ],
+    candidate: "istvan",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.453
+    oneTrickRatio: 0.678
   },
   {
     teammates: [
-      "craver",
-      "william"
+      "li_dailin",
+      "shoichi"
     ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.453
-  },
-  {
-    teammates: [
-      "alex",
-      "martina"
-    ],
-    candidate: "echion",
+    candidate: "abigail",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.453
+    oneTrickRatio: 0.678
+  },
+  {
+    teammates: [
+      "chiara",
+      "isol"
+    ],
+    candidate: "abigail",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.678
+  },
+  {
+    teammates: [
+      "chiara",
+      "luke"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.586
+  },
+  {
+    teammates: [
+      "abigail",
+      "vanya"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.586
+  },
+  {
+    teammates: [
+      "katja",
+      "zahir"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.586
+  },
+  {
+    teammates: [
+      "alonso",
+      "theodore"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.811
+  },
+  {
+    teammates: [
+      "jackie",
+      "laura"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.811
+  },
+  {
+    teammates: [
+      "garnet",
+      "lucia"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.811
+  },
+  {
+    teammates: [
+      "hyejin",
+      "shirin"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.811
+  },
+  {
+    teammates: [
+      "justina",
+      "tia"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.811
+  },
+  {
+    teammates: [
+      "luke",
+      "tia"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.811
+  },
+  {
+    teammates: [
+      "chiara",
+      "henry"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.811
   },
   {
     teammates: [
@@ -19736,411 +19412,351 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "henry",
-      "nia"
+      "hyejin",
+      "markus"
     ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.419
-  },
-  {
-    teammates: [
-      "coreline",
-      "henry"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.419
-  },
-  {
-    teammates: [
-      "aya",
-      "tsubame"
-    ],
-    candidate: "adela",
+    candidate: "fenrir",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.419
+    oneTrickRatio: 0.486
   },
   {
     teammates: [
-      "camilo",
-      "debi_marlene"
+      "arda",
+      "kenneth"
     ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.419
-  },
-  {
-    teammates: [
-      "irem",
-      "sissela"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.419
-  },
-  {
-    teammates: [
-      "aiden",
-      "eva"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.419
-  },
-  {
-    teammates: [
-      "abigail",
-      "vanya"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.576
-  },
-  {
-    teammates: [
-      "katja",
-      "zahir"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.576
-  },
-  {
-    teammates: [
-      "aya",
-      "garnet"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.576
-  },
-  {
-    teammates: [
-      "haze",
-      "lenox"
-    ],
-    candidate: "karla",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.576
-  },
-  {
-    teammates: [
-      "eleven",
-      "shoichi"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.824
-  },
-  {
-    teammates: [
-      "aya",
-      "sua"
-    ],
-    candidate: "mirka",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.824
-  },
-  {
-    teammates: [
-      "camilo",
-      "jackie"
-    ],
-    candidate: "martina",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.824
-  },
-  {
-    teammates: [
-      "istvan",
-      "martina"
-    ],
-    candidate: "justina",
+    candidate: "fenrir",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.824
+    oneTrickRatio: 0.486
   },
   {
     teammates: [
       "alex",
-      "hyunwoo"
+      "henry"
     ],
-    candidate: "debi_marlene",
+    candidate: "fenrir",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.41
+    oneTrickRatio: 0.486
   },
   {
     teammates: [
-      "hyejin",
-      "priya"
+      "markus",
+      "yan"
     ],
-    candidate: "rozzi",
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.486
+  },
+  {
+    teammates: [
+      "nia",
+      "nicky"
+    ],
+    candidate: "fenrir",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.41
+    oneTrickRatio: 0.486
   },
   {
     teammates: [
-      "istvan",
-      "laura"
+      "markus",
+      "nadine"
     ],
-    candidate: "william",
+    candidate: "fenrir",
     games: 1,
-    avgPlacement: 8,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.41
+    oneTrickRatio: 0.486
+  },
+  {
+    teammates: [
+      "lenore",
+      "piolo"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
   },
   {
     teammates: [
       "luke",
-      "vanya"
+      "rio"
     ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.41
-  },
-  {
-    teammates: [
-      "adela",
-      "chloe"
-    ],
-    candidate: "katja",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.41
-  },
-  {
-    teammates: [
-      "eleven",
-      "emma"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.41
-  },
-  {
-    teammates: [
-      "sho",
-      "yumin"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.41
-  },
-  {
-    teammates: [
-      "adela",
-      "echion"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.45
-  },
-  {
-    teammates: [
-      "coreline",
-      "henry"
-    ],
-    candidate: "hart",
+    candidate: "garnet",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.45
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "elena",
-      "isaac"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.45
-  },
-  {
-    teammates: [
-      "aya",
-      "shoichi"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.45
-  },
-  {
-    teammates: [
-      "ian",
-      "yuki"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.45
-  },
-  {
-    teammates: [
-      "isol",
-      "istvan"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.525
-  },
-  {
-    teammates: [
-      "jackie",
-      "nia"
-    ],
-    candidate: "yan",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.525
-  },
-  {
-    teammates: [
-      "garnet",
-      "rozzi"
-    ],
-    candidate: "darko",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.525
-  },
-  {
-    teammates: [
-      "alex",
-      "luke"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.525
-  },
-  {
-    teammates: [
-      "craver",
-      "lenox"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.525
-  },
-  {
-    teammates: [
-      "isaac",
-      "isol"
+      "blair",
+      "sissela"
     ],
     candidate: "garnet",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.525
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "elena",
+      "justina",
+      "yuki"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "haze",
+      "katja"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "shoichi",
+      "william"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "hyejin",
+      "rozzi"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "luke",
+      "piolo"
+    ],
+    candidate: "martina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.832
+  },
+  {
+    teammates: [
+      "fenrir",
+      "fiora"
+    ],
+    candidate: "martina",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.832
+  },
+  {
+    teammates: [
+      "blair",
+      "tia"
+    ],
+    candidate: "martina",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.832
+  },
+  {
+    teammates: [
+      "alex",
+      "echion"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "darko",
+      "jackie"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "justina",
+      "sua"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "laura",
+      "shirin"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "bernice",
+      "markus"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "echion",
+      "estelle"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "coreline",
+      "luke"
+    ],
+    candidate: "felix",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "henry",
       "nicky"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "luke",
+      "william"
     ],
     candidate: "yan",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.525
+    oneTrickRatio: 0.518
   },
   {
     teammates: [
-      "justina",
-      "priya"
+      "aiden",
+      "fenrir"
     ],
-    candidate: "laura",
+    candidate: "arda",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.525
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "hyejin",
+      "yuki"
+    ],
+    candidate: "garnet",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "alex",
+      "blair"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "adela",
+      "fenrir"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
   },
   {
     teammates: [
@@ -20276,6 +19892,66 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "charlotte",
+      "lucia"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "henry",
+      "shirin"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "alex",
+      "henry"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "kenneth",
+      "leon"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "elena",
+      "li_dailin"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
       "echion",
       "emma"
     ],
@@ -20360,6 +20036,90 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "adela",
+      "fenrir"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "blair",
+      "lucia"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adriana",
+      "echion"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "jackie",
+      "priya"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "katja",
+      "piolo"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "craver",
+      "eleven"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bihyung",
+      "rozzi"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
       "bernice",
       "camilo"
     ],
@@ -20420,142 +20180,142 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "chloe",
-      "emma"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.917
-  },
-  {
-    teammates: [
-      "barbara",
-      "vanya"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.917
-  },
-  {
-    teammates: [
-      "adina",
-      "garnet"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.917
-  },
-  {
-    teammates: [
-      "adela",
-      "ian"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.917
-  },
-  {
-    teammates: [
-      "celine",
-      "nicky"
+      "hisui",
+      "yumin"
     ],
     candidate: "chiara",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.917
+    oneTrickRatio: 0.919
   },
   {
     teammates: [
-      "piolo",
-      "tsubame"
+      "sua",
+      "zahir"
     ],
-    candidate: "isaac",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.389
-  },
-  {
-    teammates: [
-      "camilo",
-      "sho"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.389
-  },
-  {
-    teammates: [
-      "camilo",
-      "katja"
-    ],
-    candidate: "piolo",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.389
-  },
-  {
-    teammates: [
-      "adela",
-      "eleven"
-    ],
-    candidate: "nadine",
+    candidate: "chiara",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.389
+    oneTrickRatio: 0.919
   },
   {
     teammates: [
-      "charlotte",
-      "felix"
+      "piolo",
+      "sua"
     ],
-    candidate: "laura",
+    candidate: "chiara",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.389
+    oneTrickRatio: 0.919
   },
   {
     teammates: [
-      "barbara",
-      "mai"
+      "aiden",
+      "elena"
     ],
-    candidate: "rio",
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.919
+  },
+  {
+    teammates: [
+      "kenneth",
+      "nia"
+    ],
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.919
+  },
+  {
+    teammates: [
+      "alex",
+      "rio"
+    ],
+    candidate: "echion",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.389
+    oneTrickRatio: 0.436
   },
   {
     teammates: [
-      "shoichi",
-      "william"
+      "isol",
+      "luke"
     ],
-    candidate: "garnet",
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.436
+  },
+  {
+    teammates: [
+      "cathy",
+      "luke"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.436
+  },
+  {
+    teammates: [
+      "aiden",
+      "bernice"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.436
+  },
+  {
+    teammates: [
+      "barbara",
+      "tsubame"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.436
+  },
+  {
+    teammates: [
+      "sissela",
+      "yan"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.436
+  },
+  {
+    teammates: [
+      "lucia",
+      "nicky"
+    ],
+    candidate: "shirin",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
@@ -20564,10 +20324,82 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "hyejin",
-      "rozzi"
+      "darko",
+      "markus"
     ],
-    candidate: "garnet",
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "celine",
+      "li_dailin"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "estelle",
+      "yumin"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "celine",
+      "jackie"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "alonso",
+      "hisui"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "alonso",
+      "jackie"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "alex",
+      "zahir"
+    ],
+    candidate: "shirin",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
@@ -20577,146 +20409,14 @@ export const rankerCompositionStats = [
   {
     teammates: [
       "istvan",
-      "rozzi"
-    ],
-    candidate: "garnet",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "sissela",
-      "yumin"
-    ],
-    candidate: "garnet",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adina",
-      "tsubame"
-    ],
-    candidate: "garnet",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "lucia",
-      "shirin"
-    ],
-    candidate: "garnet",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bianca",
-      "emma"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.457
-  },
-  {
-    teammates: [
-      "emma",
-      "rozzi"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.457
-  },
-  {
-    teammates: [
-      "justina",
-      "sho"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.457
-  },
-  {
-    teammates: [
-      "bernice",
-      "zahir"
-    ],
-    candidate: "sho",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.457
-  },
-  {
-    teammates: [
-      "markus",
       "shoichi"
     ],
-    candidate: "jackie",
+    candidate: "shirin",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.457
-  },
-  {
-    teammates: [
-      "adina",
-      "karla"
-    ],
-    candidate: "estelle",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.457
-  },
-  {
-    teammates: [
-      "sissela",
-      "tazia"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.457
-  },
-  {
-    teammates: [
-      "elena",
-      "hyejin"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.457
+    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -20804,6 +20504,114 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "adela",
+      "estelle"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "alex",
+      "istvan"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "nicky",
+      "shoichi"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "leni",
+      "shoichi"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "istvan",
+      "laura"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "alonso",
+      "jenny"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adina",
+      "alex"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adina",
+      "henry"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "barbara",
+      "estelle"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
       "fiora",
       "leon"
     ],
@@ -20837,198 +20645,6 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 0.6
-  },
-  {
-    teammates: [
-      "henry",
-      "justina"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "aya",
-      "sho"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "alex",
-      "vanya"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "charlotte",
-      "craver"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "eleven",
-      "luke"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "craver",
-      "debi_marlene"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.377
-  },
-  {
-    teammates: [
-      "aya",
-      "istvan"
-    ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "nicky",
-      "sissela"
-    ],
-    candidate: "felix",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "aiden",
-      "luke"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "charlotte",
-      "echion"
-    ],
-    candidate: "isaac",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "garnet",
-      "justina"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "chiara",
-      "debi_marlene"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "estelle",
-      "william"
-    ],
-    candidate: "haze",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "emma",
-      "sua"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "coreline",
-      "istvan"
-    ],
-    candidate: "felix",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "cathy",
-      "nathapon"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
   },
   {
     teammates: [
@@ -21092,78 +20708,6 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "arda",
-      "luke"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "elena",
-      "haze"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "echion",
-      "sua"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "cathy",
-      "jenny"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "cathy",
-      "henry"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "justina",
-      "piolo"
-    ],
-    candidate: "shirin",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
       "nicky",
       "sua"
     ],
@@ -21212,195 +20756,447 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "rozzi",
-      "shoichi"
+      "jackie",
+      "karla"
     ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.4
-  },
-  {
-    teammates: [
-      "hart",
-      "istvan"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.667
-  },
-  {
-    teammates: [
-      "william",
-      "yuki"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.667
-  },
-  {
-    teammates: [
-      "arda",
-      "hisui"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.667
-  },
-  {
-    teammates: [
-      "bernice",
-      "shirin"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.667
-  },
-  {
-    teammates: [
-      "eleven",
-      "fenrir"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.667
-  },
-  {
-    teammates: [
-      "charlotte",
-      "jenny"
-    ],
-    candidate: "aiden",
+    candidate: "nia",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.667
+    oneTrickRatio: 0.44
+  },
+  {
+    teammates: [
+      "chiara",
+      "estelle"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.44
+  },
+  {
+    teammates: [
+      "jackie",
+      "lucia"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.44
+  },
+  {
+    teammates: [
+      "craver",
+      "luke"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
       "darko",
-      "zahir"
+      "nadine"
     ],
-    candidate: "shoichi",
+    candidate: "lucia",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.734
+    oneTrickRatio: 0.44
   },
   {
     teammates: [
-      "lenox",
-      "zahir"
+      "craver",
+      "rio"
     ],
-    candidate: "william",
+    candidate: "henry",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.44
+  },
+  {
+    teammates: [
+      "adina",
+      "alex"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.44
+  },
+  {
+    teammates: [
+      "adela",
+      "garnet"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.44
+  },
+  {
+    teammates: [
+      "blair",
+      "istvan"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.44
+  },
+  {
+    teammates: [
+      "craver",
+      "nathapon"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "alex",
+      "ian"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "blair",
+      "william"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adela",
+      "ian"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "celine",
+      "nadine"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "darko",
+      "elena"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "markus",
+      "piolo"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "piolo",
+      "rio"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "emma",
+      "jackie"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "bernice",
+      "garnet"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "alex",
+      "fiora"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.338
+  },
+  {
+    teammates: [
+      "eleven",
+      "justina"
+    ],
+    candidate: "shoichi",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.734
+    oneTrickRatio: 1
   },
   {
     teammates: [
       "hyejin",
-      "jackie"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.734
-  },
-  {
-    teammates: [
-      "silvia",
       "william"
     ],
     candidate: "shoichi",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.734
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "jenny",
-      "leni"
+      "echion",
+      "nadine"
     ],
-    candidate: "sua",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.734
-  },
-  {
-    teammates: [
-      "adriana",
-      "blair"
-    ],
-    candidate: "barbara",
+    candidate: "shoichi",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.941
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "adriana",
-      "chloe"
+      "blair",
+      "estelle"
     ],
-    candidate: "barbara",
+    candidate: "shoichi",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.941
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "arda",
-      "bernice"
+      "alonso",
+      "sua"
     ],
-    candidate: "barbara",
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "rozzi",
+      "sua"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "darko",
+      "emma"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "nadine",
+      "yuki"
+    ],
+    candidate: "sissela",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.941
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "hyejin",
-      "zahir"
+      "haze",
+      "nadine"
     ],
-    candidate: "barbara",
+    candidate: "sissela",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.941
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "cathy",
+      "karla"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "celine",
+      "hart"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "darko",
+      "rio"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "magnus",
+      "rozzi"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adela",
+      "rio"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "rio",
+      "sissela"
+    ],
+    candidate: "lenox",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.463
+  },
+  {
+    teammates: [
+      "aiden",
+      "yumin"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.463
+  },
+  {
+    teammates: [
+      "markus",
+      "priya"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.463
   },
   {
     teammates: [
@@ -21476,51 +21272,195 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "adina",
-      "alex"
+      "elena",
+      "eva"
     ],
-    candidate: "william",
+    candidate: "jackie",
     games: 1,
-    avgPlacement: 8,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.863
   },
   {
     teammates: [
-      "adina",
-      "henry"
+      "nicky",
+      "theodore"
     ],
-    candidate: "william",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.863
   },
   {
     teammates: [
-      "barbara",
-      "estelle"
+      "istvan",
+      "yuki"
     ],
-    candidate: "william",
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.863
+  },
+  {
+    teammates: [
+      "adina",
+      "istvan"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.863
+  },
+  {
+    teammates: [
+      "bianca",
+      "jackie"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.863
+  },
+  {
+    teammates: [
+      "eleven",
+      "nadine"
+    ],
+    candidate: "jackie",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.863
   },
   {
     teammates: [
-      "adela",
-      "lenox"
+      "bihyung",
+      "chiara"
     ],
-    candidate: "william",
+    candidate: "jackie",
     games: 1,
-    avgPlacement: 8,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.863
+  },
+  {
+    teammates: [
+      "echion",
+      "nicky"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.863
+  },
+  {
+    teammates: [
+      "adina",
+      "kenneth"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "bihyung",
+      "tsubame"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "jackie"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "emma",
+      "jenny"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.482
+  },
+  {
+    teammates: [
+      "adriana",
+      "blair"
+    ],
+    candidate: "barbara",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.941
+  },
+  {
+    teammates: [
+      "adriana",
+      "chloe"
+    ],
+    candidate: "barbara",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.941
+  },
+  {
+    teammates: [
+      "arda",
+      "bernice"
+    ],
+    candidate: "barbara",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.941
+  },
+  {
+    teammates: [
+      "hyejin",
+      "zahir"
+    ],
+    candidate: "barbara",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.941
   },
   {
     teammates: [
@@ -21560,111 +21500,387 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "jackie",
-      "lenox"
+      "blair",
+      "emma"
     ],
-    candidate: "isol",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.513
-  },
-  {
-    teammates: [
-      "bianca",
-      "shirin"
-    ],
-    candidate: "luke",
+    candidate: "kenneth",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.513
+    oneTrickRatio: 0.766
   },
   {
     teammates: [
-      "darko",
-      "felix"
-    ],
-    candidate: "leni",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.513
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "laura"
-    ],
-    candidate: "leni",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.513
-  },
-  {
-    teammates: [
-      "alex",
-      "coreline"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.513
-  },
-  {
-    teammates: [
-      "craver",
-      "lenox"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.993
-  },
-  {
-    teammates: [
-      "aya",
+      "hisui",
       "magnus"
     ],
-    candidate: "nathapon",
+    candidate: "sua",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.766
   },
   {
     teammates: [
-      "daniel",
-      "yuki"
+      "garnet",
+      "magnus"
     ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.993
-  },
-  {
-    teammates: [
-      "bihyung",
-      "cathy"
-    ],
-    candidate: "nathapon",
+    candidate: "piolo",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.766
+  },
+  {
+    teammates: [
+      "hart",
+      "lucia"
+    ],
+    candidate: "adela",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "katja",
+      "luke"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "camilo",
+      "katja"
+    ],
+    candidate: "lucia",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "bernice",
+      "camilo"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "katja",
+      "tia"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.481
+  },
+  {
+    teammates: [
+      "chiara",
+      "magnus"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "magnus",
+      "yuki"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "adina",
+      "li_dailin"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "elena",
+      "sua"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "emma",
+      "justina"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "felix",
+      "nicky"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.773
+  },
+  {
+    teammates: [
+      "chiara",
+      "estelle"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "craver",
+      "echion"
+    ],
+    candidate: "aya",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "celine",
+      "eleven"
+    ],
+    candidate: "aya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "justina",
+      "lenox"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "jackie",
+      "justina"
+    ],
+    candidate: "bihyung",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "isol",
+      "magnus"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "jackie",
+      "lucia"
+    ],
+    candidate: "camilo",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "jackie"
+    ],
+    candidate: "camilo",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "martina",
+      "yan"
+    ],
+    candidate: "camilo",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.969
+  },
+  {
+    teammates: [
+      "alex",
+      "markus"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "vanya",
+      "yuki"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "lucia",
+      "mirka"
+    ],
+    candidate: "karla",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.389
+  },
+  {
+    teammates: [
+      "alex",
+      "alonso"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.382
+  },
+  {
+    teammates: [
+      "felix",
+      "shirin"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.382
+  },
+  {
+    teammates: [
+      "henry",
+      "kenneth"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.382
+  },
+  {
+    teammates: [
+      "fiora",
+      "sho"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.382
+  },
+  {
+    teammates: [
+      "vanya",
+      "yuki"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.382
+  },
+  {
+    teammates: [
+      "henry",
+      "justina"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.382
   },
   {
     teammates: [
@@ -21764,123 +21980,183 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "debi_marlene",
-      "magnus"
+      "justina",
+      "rio"
     ],
-    candidate: "laura",
+    candidate: "hart",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.443
   },
   {
     teammates: [
-      "bernice",
-      "bihyung"
+      "katja",
+      "mai"
     ],
-    candidate: "laura",
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.443
+  },
+  {
+    teammates: [
+      "eleven",
+      "haze"
+    ],
+    candidate: "rozzi",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.443
   },
   {
     teammates: [
-      "cathy",
-      "tia"
+      "bianca",
+      "fiora"
     ],
-    candidate: "laura",
+    candidate: "tsubame",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.443
   },
   {
     teammates: [
-      "craver",
+      "magnus",
       "shoichi"
     ],
-    candidate: "laura",
+    candidate: "tsubame",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.443
   },
   {
     teammates: [
-      "sissela",
-      "zahir"
+      "fiora",
+      "garnet"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.443
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "william"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.443
+  },
+  {
+    teammates: [
+      "lucia",
+      "sissela"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.437
+  },
+  {
+    teammates: [
+      "garnet",
+      "justina"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.437
+  },
+  {
+    teammates: [
+      "adina",
+      "lenox"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.437
+  },
+  {
+    teammates: [
+      "emma",
+      "katja"
     ],
     candidate: "hart",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.437
   },
   {
     teammates: [
-      "blair",
-      "tia"
+      "emma",
+      "rio"
     ],
-    candidate: "justina",
+    candidate: "kenneth",
     games: 1,
-    avgPlacement: 8,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.437
   },
   {
     teammates: [
-      "hisui",
-      "katja"
+      "istvan",
+      "magnus"
     ],
-    candidate: "justina",
+    candidate: "william",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.437
   },
   {
     teammates: [
-      "hart",
-      "silvia"
+      "nicky",
+      "shoichi"
     ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.502
-  },
-  {
-    teammates: [
-      "sissela",
-      "sua"
-    ],
-    candidate: "karla",
+    candidate: "craver",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.437
   },
   {
     teammates: [
-      "chloe",
-      "luke"
+      "craver",
+      "eva"
     ],
-    candidate: "justina",
+    candidate: "hart",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.437
   },
   {
     teammates: [
@@ -21992,255 +22268,87 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "eleven",
-      "justina"
+      "bernice",
+      "markus"
     ],
-    candidate: "shoichi",
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.762
+  },
+  {
+    teammates: [
+      "sho",
+      "theodore"
+    ],
+    candidate: "chiara",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hyejin",
-      "william"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.762
   },
   {
     teammates: [
       "echion",
-      "nadine"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "blair",
-      "estelle"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "alonso",
-      "sua"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "rozzi",
-      "sua"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bernice",
-      "coreline"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "nia",
-      "yan"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "alex",
-      "emma"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "cathy",
-      "yuki"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "eleven",
-      "fenrir"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "aya",
-      "sissela"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "isol",
-      "william"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "alex",
-      "laura"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.874
-  },
-  {
-    teammates: [
-      "bihyung",
-      "lucia"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "justina",
-      "nicky"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "emma",
-      "henry"
-    ],
-    candidate: "vanya",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "blair",
-      "hart"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "adina",
-      "nicky"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "bihyung",
-      "jenny"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.86
-  },
-  {
-    teammates: [
-      "alex",
       "karla"
     ],
-    candidate: "garnet",
+    candidate: "chiara",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.762
+  },
+  {
+    teammates: [
+      "karla",
+      "shoichi"
+    ],
+    candidate: "bihyung",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.762
+  },
+  {
+    teammates: [
+      "charlotte",
+      "markus"
+    ],
+    candidate: "jenny",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.86
+    oneTrickRatio: 0.551
+  },
+  {
+    teammates: [
+      "charlotte",
+      "fenrir"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.551
+  },
+  {
+    teammates: [
+      "kenneth",
+      "nicky"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.551
   },
   {
     teammates: [
@@ -22424,219 +22532,171 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "charlotte",
-      "fenrir"
+      "daniel",
+      "fiora"
     ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.549
-  },
-  {
-    teammates: [
-      "blair",
-      "charlotte"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.549
-  },
-  {
-    teammates: [
-      "kenneth",
-      "nicky"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.549
-  },
-  {
-    teammates: [
-      "blair",
-      "echion"
-    ],
-    candidate: "jenny",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.549
-  },
-  {
-    teammates: [
-      "alex",
-      "nia"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adriana",
-      "tia"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bihyung",
-      "shirin"
-    ],
-    candidate: "aiden",
+    candidate: "tsubame",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.388
   },
   {
     teammates: [
-      "chloe",
-      "yuki"
+      "coreline",
+      "zahir"
     ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "theodore",
-      "yan"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adina",
-      "alex"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "garnet",
-      "laura"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "piolo"
-    ],
-    candidate: "aiden",
+    candidate: "hart",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.388
   },
   {
     teammates: [
-      "rozzi",
-      "yuki"
+      "emma",
+      "rozzi"
     ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.4
-  },
-  {
-    teammates: [
-      "blair",
-      "craver"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.4
-  },
-  {
-    teammates: [
-      "bihyung",
-      "william"
-    ],
-    candidate: "justina",
+    candidate: "haze",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.4
+    oneTrickRatio: 0.388
   },
   {
     teammates: [
-      "eleven",
-      "shoichi"
+      "aiden",
+      "tsubame"
     ],
-    candidate: "nia",
+    candidate: "laura",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.4
+    oneTrickRatio: 0.388
+  },
+  {
+    teammates: [
+      "piolo",
+      "tsubame"
+    ],
+    candidate: "isaac",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.388
   },
   {
     teammates: [
       "camilo",
-      "garnet"
+      "sho"
     ],
-    candidate: "nia",
+    candidate: "william",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.4
+    oneTrickRatio: 0.388
   },
   {
     teammates: [
-      "aya",
-      "echion"
+      "camilo",
+      "katja"
     ],
-    candidate: "nia",
+    candidate: "piolo",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.4
+    oneTrickRatio: 0.388
+  },
+  {
+    teammates: [
+      "adela",
+      "eleven"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.388
+  },
+  {
+    teammates: [
+      "adela",
+      "priya"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.972
+  },
+  {
+    teammates: [
+      "bianca",
+      "yan"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.972
+  },
+  {
+    teammates: [
+      "hyejin",
+      "lenox"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.972
+  },
+  {
+    teammates: [
+      "abigail",
+      "theodore"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.972
+  },
+  {
+    teammates: [
+      "adela",
+      "fiora"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.972
+  },
+  {
+    teammates: [
+      "cathy",
+      "jackie"
+    ],
+    candidate: "laura",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.972
   },
   {
     teammates: [
@@ -22688,312 +22748,12 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "debi_marlene",
-      "yuki"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "priya",
-      "sho"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "alex",
-      "yuki"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "adina",
-      "william"
-    ],
-    candidate: "sho",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "markus",
-      "priya"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "justina"
-    ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "fenrir",
-      "jackie"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "adina",
-      "fenrir"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "sua",
-      "yuki"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "markus",
-      "yumin"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "felix",
-      "tsubame"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "craver",
-      "emma"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.97
-  },
-  {
-    teammates: [
-      "jackie",
-      "nathapon"
-    ],
-    candidate: "estelle",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "nadine",
-      "piolo"
-    ],
-    candidate: "estelle",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "chiara",
-      "mirka"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "isol",
-      "yuki"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "alex",
-      "vanya"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "jackie",
-      "yumin"
-    ],
-    candidate: "estelle",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "bihyung",
-      "rio"
-    ],
-    candidate: "estelle",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "irem",
-      "mirka"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "jackie",
-      "katja"
-    ],
-    candidate: "estelle",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.644
-  },
-  {
-    teammates: [
-      "blair",
-      "emma"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
-      "hisui",
-      "magnus"
-    ],
-    candidate: "sua",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
-      "garnet",
-      "magnus"
-    ],
-    candidate: "piolo",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.765
-  },
-  {
-    teammates: [
       "aiden",
       "jackie"
     ],
     candidate: "silvia",
     games: 1,
     avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.911
-  },
-  {
-    teammates: [
-      "alex",
-      "rio"
-    ],
-    candidate: "silvia",
-    games: 1,
-    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 0.911
@@ -23045,150 +22805,6 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 0.911
-  },
-  {
-    teammates: [
-      "darko",
-      "elena"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "markus",
-      "piolo"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "piolo",
-      "rio"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "emma",
-      "jackie"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "bernice",
-      "garnet"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "alex",
-      "fiora"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.343
-  },
-  {
-    teammates: [
-      "bernice",
-      "henry"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hart",
-      "isol"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adriana",
-      "garnet"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chloe",
-      "luke"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chloe",
-      "eleven"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adriana",
-      "nicky"
-    ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -23276,123 +22892,327 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "shirin",
-      "sissela"
+      "craver",
+      "hyunwoo"
     ],
-    candidate: "fenrir",
+    candidate: "adriana",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
-      "garnet",
-      "tsubame"
+      "aya",
+      "yuki"
     ],
-    candidate: "irem",
+    candidate: "fenrir",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.488
+  },
+  {
+    teammates: [
+      "barbara",
+      "laura"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.488
   },
   {
     teammates: [
       "emma",
-      "irem"
+      "magnus"
     ],
-    candidate: "hart",
+    candidate: "li_dailin",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.488
+  },
+  {
+    teammates: [
+      "camilo",
+      "william"
+    ],
+    candidate: "fenrir",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.488
+  },
+  {
+    teammates: [
+      "bianca",
+      "shoichi"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.488
+  },
+  {
+    teammates: [
+      "alex",
+      "lucia"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.488
+  },
+  {
+    teammates: [
+      "haze",
+      "irem"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.491
+  },
+  {
+    teammates: [
+      "bernice",
+      "irem"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.491
+  },
+  {
+    teammates: [
+      "priya",
+      "zahir"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.491
+  },
+  {
+    teammates: [
+      "jackie",
+      "nadine"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.491
+  },
+  {
+    teammates: [
+      "echion",
+      "hisui"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.491
+  },
+  {
+    teammates: [
+      "alex",
+      "jackie"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.491
+  },
+  {
+    teammates: [
+      "sissela",
+      "zahir"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.491
   },
   {
     teammates: [
       "katja",
       "magnus"
     ],
-    candidate: "li_dailin",
+    candidate: "istvan",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.502
+    oneTrickRatio: 0.429
   },
   {
     teammates: [
-      "craver",
-      "nicky"
+      "katja",
+      "kenneth"
     ],
-    candidate: "silvia",
+    candidate: "istvan",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.429
   },
   {
     teammates: [
-      "nia",
-      "rio"
+      "darko",
+      "tsubame"
     ],
-    candidate: "alonso",
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "adela",
+      "alex"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "camilo",
+      "ian"
+    ],
+    candidate: "william",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.429
   },
   {
     teammates: [
-      "justina",
-      "rio"
+      "markus",
+      "tsubame"
     ],
-    candidate: "estelle",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "emma",
-      "shoichi"
-    ],
-    candidate: "sissela",
+    candidate: "aiden",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "emma",
-      "isaac"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.429
   },
   {
     teammates: [
       "craver",
-      "tia"
+      "hisui"
     ],
-    candidate: "silvia",
+    candidate: "nicky",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.703
+  },
+  {
+    teammates: [
+      "alonso",
+      "shirin"
+    ],
+    candidate: "hisui",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.703
+  },
+  {
+    teammates: [
+      "priya",
+      "tazia"
+    ],
+    candidate: "hisui",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.703
+  },
+  {
+    teammates: [
+      "laura",
+      "nadine"
+    ],
+    candidate: "hisui",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.703
+  },
+  {
+    teammates: [
+      "bihyung",
+      "tsubame"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.703
+  },
+  {
+    teammates: [
+      "abigail",
+      "arda"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.703
+  },
+  {
+    teammates: [
+      "adela",
+      "emma"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.703
   },
   {
     teammates: [
@@ -23444,267 +23264,639 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "bihyung",
-      "echion"
+      "estelle",
+      "istvan"
     ],
-    candidate: "bernice",
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "sissela"
+    ],
+    candidate: "echion",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "alonso",
-      "lenore"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "fiora",
-      "mirka"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "mirka",
-      "priya"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "haze",
-      "hisui"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "aya",
-      "tsubame"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "alex",
-      "nicky"
-    ],
-    candidate: "lucia",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.838
-  },
-  {
-    teammates: [
-      "barbara",
-      "craver"
-    ],
-    candidate: "silvia",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.838
-  },
-  {
-    teammates: [
-      "aiden",
-      "fiora"
-    ],
-    candidate: "silvia",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.838
-  },
-  {
-    teammates: [
-      "camilo",
-      "echion"
-    ],
-    candidate: "adriana",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.838
-  },
-  {
-    teammates: [
-      "haze",
-      "henry"
-    ],
-    candidate: "lucia",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.838
-  },
-  {
-    teammates: [
-      "blair",
-      "estelle"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.699
-  },
-  {
-    teammates: [
-      "blair",
-      "hart"
-    ],
-    candidate: "darko",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.699
-  },
-  {
-    teammates: [
-      "adriana",
-      "nicky"
-    ],
-    candidate: "darko",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.699
-  },
-  {
-    teammates: [
-      "cathy",
-      "chiara"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.699
-  },
-  {
-    teammates: [
-      "camilo",
-      "garnet"
-    ],
-    candidate: "charlotte",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.699
-  },
-  {
-    teammates: [
-      "jenny",
-      "kenneth"
-    ],
-    candidate: "charlotte",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.699
+    oneTrickRatio: 0.736
   },
   {
     teammates: [
       "bihyung",
-      "shoichi"
+      "theodore"
     ],
-    candidate: "sissela",
+    candidate: "echion",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "coreline",
-      "darko"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.475
+    oneTrickRatio: 0.736
   },
   {
     teammates: [
       "hart",
+      "vanya"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.736
+  },
+  {
+    teammates: [
+      "adina",
+      "priya"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "echion",
+      "yumin"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "hart",
+      "sissela"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "adela",
+      "aya"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "karla",
+      "lenox"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.5
+  },
+  {
+    teammates: [
+      "hart",
+      "isaac"
+    ],
+    candidate: "eleven",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "hyejin",
+      "rozzi"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "eva",
+      "shirin"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "jackie",
+      "rozzi"
+    ],
+    candidate: "eleven",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "vanya",
       "zahir"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "camilo",
+      "kenneth"
+    ],
+    candidate: "eleven",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.809
+  },
+  {
+    teammates: [
+      "henry",
+      "kenneth"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "cathy",
+      "echion"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "hyejin",
+      "laura"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "hisui",
+      "tsubame"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "karla",
+      "lenox"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "bianca",
+      "echion"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "aiden",
+      "hyejin"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "celine",
+      "eleven"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.669
+  },
+  {
+    teammates: [
+      "eva",
+      "justina"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "markus",
+      "shirin"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "aya",
+      "bihyung"
     ],
     candidate: "sissela",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.475
+    oneTrickRatio: 0.516
   },
   {
     teammates: [
-      "sissela",
-      "zahir"
+      "blair",
+      "shoichi"
     ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.475
-  },
-  {
-    teammates: [
-      "mirka",
-      "rozzi"
-    ],
-    candidate: "aya",
+    candidate: "sissela",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.475
+    oneTrickRatio: 0.516
+  },
+  {
+    teammates: [
+      "bihyung",
+      "istvan"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "laura"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "echion",
+      "emma"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "echion",
+      "kenneth"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "justina",
+      "katja"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "echion",
+      "kenneth"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "adina",
+      "estelle"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "alex",
+      "debi_marlene"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.42
+  },
+  {
+    teammates: [
+      "adela",
+      "bernice"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "coreline",
+      "tazia"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "istvan",
+      "nathapon"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "ian",
+      "lenore"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "istvan",
+      "markus"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "bianca",
+      "fenrir"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "shirin",
+      "tia"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.682
+  },
+  {
+    teammates: [
+      "celine",
+      "hart"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "echion",
+      "hart"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "nadine",
+      "priya"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "eva",
+      "nathapon"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "aiden",
+      "yan"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "sua",
+      "tsubame"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "rozzi",
+      "yan"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "fiora",
+      "katja"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "luke",
+      "magnus"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "aiden",
+      "tia"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.51
+  },
+  {
+    teammates: [
+      "chiara",
+      "haze"
+    ],
+    candidate: "fenrir",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.51
   },
   {
     teammates: [
@@ -23792,51 +23984,267 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "echion",
-      "karla"
+      "markus",
+      "theodore"
     ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "karla",
-      "shoichi"
-    ],
-    candidate: "bihyung",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "silvia",
-      "vanya"
-    ],
-    candidate: "chiara",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.777
-  },
-  {
-    teammates: [
-      "hart",
-      "irem"
-    ],
-    candidate: "bihyung",
+    candidate: "shirin",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.777
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "darko",
+      "vanya"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "isol",
+      "yuki"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "hisui",
+      "zahir"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "blair",
+      "hyunwoo"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "adriana",
+      "laura"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "luke",
+      "shirin"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "bernice",
+      "vanya"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.518
+  },
+  {
+    teammates: [
+      "alex",
+      "hyejin"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "istvan",
+      "nathapon"
+    ],
+    candidate: "estelle",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "estelle",
+      "theodore"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "adela",
+      "alex"
+    ],
+    candidate: "estelle",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "luke",
+      "rio"
+    ],
+    candidate: "estelle",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "adriana",
+      "piolo"
+    ],
+    candidate: "estelle",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "alonso",
+      "rozzi"
+    ],
+    candidate: "aya",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "alonso",
+      "nadine"
+    ],
+    candidate: "aya",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.648
+  },
+  {
+    teammates: [
+      "katja",
+      "sho"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "blair",
+      "vanya"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "kenneth",
+      "priya"
+    ],
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "alex",
+      "isol"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "bihyung",
+      "blair"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.404
+  },
+  {
+    teammates: [
+      "barbara",
+      "bihyung"
+    ],
+    candidate: "theodore",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.404
   },
   {
     teammates: [
@@ -23912,183 +24320,111 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "darko",
-      "vanya"
+      "craver",
+      "estelle"
     ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.523
-  },
-  {
-    teammates: [
-      "isol",
-      "yuki"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.523
-  },
-  {
-    teammates: [
-      "hisui",
-      "zahir"
-    ],
-    candidate: "fiora",
+    candidate: "emma",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.523
+    oneTrickRatio: 0.824
   },
   {
     teammates: [
-      "blair",
-      "hyunwoo"
+      "aya",
+      "li_dailin"
     ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.523
-  },
-  {
-    teammates: [
-      "adriana",
-      "laura"
-    ],
-    candidate: "fiora",
+    candidate: "emma",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.523
+    oneTrickRatio: 0.824
   },
   {
     teammates: [
-      "luke",
-      "shirin"
+      "echion",
+      "tsubame"
     ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.523
-  },
-  {
-    teammates: [
-      "bernice",
-      "vanya"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.523
-  },
-  {
-    teammates: [
-      "bernice",
-      "priya"
-    ],
-    candidate: "eleven",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.813
-  },
-  {
-    teammates: [
-      "barbara",
-      "rio"
-    ],
-    candidate: "eleven",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.813
-  },
-  {
-    teammates: [
-      "irem",
-      "tazia"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.813
-  },
-  {
-    teammates: [
-      "adela",
-      "martina"
-    ],
-    candidate: "markus",
+    candidate: "emma",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.813
+    oneTrickRatio: 0.824
   },
   {
     teammates: [
-      "adina",
-      "katja"
+      "bernice",
+      "shoichi"
     ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.813
-  },
-  {
-    teammates: [
-      "arda",
-      "rio"
-    ],
-    candidate: "markus",
+    candidate: "emma",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.813
+    oneTrickRatio: 0.824
+  },
+  {
+    teammates: [
+      "hisui",
+      "tia"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.824
+  },
+  {
+    teammates: [
+      "istvan",
+      "li_dailin"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.824
   },
   {
     teammates: [
       "craver",
-      "hyejin"
+      "tazia"
     ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.813
-  },
-  {
-    teammates: [
-      "felix",
-      "laura"
-    ],
-    candidate: "eleven",
+    candidate: "emma",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.813
+    oneTrickRatio: 0.824
+  },
+  {
+    teammates: [
+      "hart",
+      "katja"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.824
+  },
+  {
+    teammates: [
+      "william",
+      "yuki"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.824
   },
   {
     teammates: [
@@ -24200,51 +24536,291 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "elena",
-      "jackie"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.416
-  },
-  {
-    teammates: [
-      "aya",
-      "eleven"
-    ],
-    candidate: "lenore",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.416
-  },
-  {
-    teammates: [
       "aiden",
-      "mirka"
+      "zahir"
     ],
-    candidate: "lenore",
+    candidate: "bihyung",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.416
+    oneTrickRatio: 0.831
   },
   {
     teammates: [
-      "sua",
-      "yuki"
+      "barbara",
+      "william"
     ],
-    candidate: "adela",
+    candidate: "bihyung",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.416
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "adina",
+      "echion"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "aiden",
+      "ian"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "aiden",
+      "fenrir"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.831
+  },
+  {
+    teammates: [
+      "ian",
+      "rio"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "istvan",
+      "nicky"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "coreline",
+      "shoichi"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "karla",
+      "nathapon"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "hart",
+      "luke"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "estelle",
+      "tsubame"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "blair",
+      "piolo"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "aiden",
+      "darko"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "markus",
+      "theodore"
+    ],
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "bihyung",
+      "daniel"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "chiara",
+      "sho"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "fenrir",
+      "markus"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "adela",
+      "camilo"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.402
+  },
+  {
+    teammates: [
+      "fiora",
+      "luke"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "craver",
+      "nicky"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "istvan",
+      "yuki"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "coreline",
+      "lenox"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "cathy",
+      "nia"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.424
+  },
+  {
+    teammates: [
+      "darko",
+      "elena"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.424
   },
   {
     teammates: [
@@ -24392,63 +24968,171 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "fiora",
-      "jackie"
+      "celine",
+      "katja"
     ],
-    candidate: "arda",
+    candidate: "lenox",
     games: 1,
-    avgPlacement: 7,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.687
   },
   {
     teammates: [
-      "alex",
-      "shoichi"
+      "aya",
+      "vanya"
     ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "alex",
-      "chiara"
-    ],
-    candidate: "adina",
+    candidate: "alex",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.687
   },
   {
     teammates: [
-      "bernice",
-      "nadine"
+      "adela",
+      "yuki"
     ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.778
-  },
-  {
-    teammates: [
-      "alex",
-      "shirin"
-    ],
-    candidate: "adina",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.778
+    oneTrickRatio: 0.687
+  },
+  {
+    teammates: [
+      "aya",
+      "leon"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.687
+  },
+  {
+    teammates: [
+      "bianca",
+      "fiora"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.687
+  },
+  {
+    teammates: [
+      "jenny",
+      "johann"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.687
+  },
+  {
+    teammates: [
+      "arda",
+      "elena"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.687
+  },
+  {
+    teammates: [
+      "magnus",
+      "shirin"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.687
+  },
+  {
+    teammates: [
+      "blair",
+      "chiara"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "istvan",
+      "yumin"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "fenrir",
+      "tia"
+    ],
+    candidate: "aya",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "alonso",
+      "martina"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "estelle",
+      "jackie"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
+  },
+  {
+    teammates: [
+      "camilo",
+      "markus"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.426
   },
   {
     teammates: [
@@ -24509,126 +25193,6 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 0.701
-  },
-  {
-    teammates: [
-      "darko",
-      "rio"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "magnus",
-      "rozzi"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adela",
-      "rio"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "craver",
-      "laura"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "alex",
-      "justina"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "leon",
-      "lucia"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "markus",
-      "nadine"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "markus",
-      "sua"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "rozzi",
-      "yuki"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "kenneth",
-      "sho"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -24704,231 +25268,147 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "katja",
+      "fiora",
       "luke"
     ],
-    candidate: "emma",
+    candidate: "adriana",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "camilo",
-      "katja"
-    ],
-    candidate: "lucia",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "bernice",
-      "camilo"
-    ],
-    candidate: "nia",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "katja",
-      "tia"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "coreline",
-      "lenox"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.488
-  },
-  {
-    teammates: [
-      "hisui",
-      "tia"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "istvan",
-      "li_dailin"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "craver",
-      "tazia"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "hart",
-      "katja"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "william",
-      "yuki"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "adela",
-      "adina"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "rio",
-      "tia"
-    ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.821
-  },
-  {
-    teammates: [
-      "craver",
-      "irem"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.848
-  },
-  {
-    teammates: [
-      "bianca",
-      "blair"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.848
-  },
-  {
-    teammates: [
-      "justina",
-      "markus"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.848
+    oneTrickRatio: 0.835
   },
   {
     teammates: [
       "echion",
-      "sua"
+      "eleven"
     ],
-    candidate: "kenneth",
+    candidate: "haze",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.848
+    oneTrickRatio: 0.835
   },
   {
     teammates: [
-      "nathapon",
-      "shirin"
+      "irem",
+      "isaac"
     ],
-    candidate: "kenneth",
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.835
+  },
+  {
+    teammates: [
+      "adriana",
+      "rio"
+    ],
+    candidate: "alex",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.848
+    oneTrickRatio: 0.835
   },
   {
     teammates: [
-      "istvan",
-      "theodore"
+      "cathy",
+      "piolo"
     ],
-    candidate: "kenneth",
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.835
+  },
+  {
+    teammates: [
+      "alex",
+      "nicky"
+    ],
+    candidate: "lucia",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.848
+    oneTrickRatio: 0.835
   },
   {
     teammates: [
-      "nathapon",
-      "vanya"
+      "alex",
+      "blair"
     ],
-    candidate: "aya",
+    candidate: "elena",
     games: 1,
-    avgPlacement: 8,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.848
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "sho"
+    ],
+    candidate: "elena",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "martina",
+      "sho"
+    ],
+    candidate: "elena",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "hyejin",
+      "laura"
+    ],
+    candidate: "elena",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "piolo",
+      "william"
+    ],
+    candidate: "elena",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bianca",
+      "vanya"
+    ],
+    candidate: "elena",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -25004,171 +25484,255 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "chiara",
-      "sho"
+      "fiora",
+      "william"
     ],
-    candidate: "justina",
+    candidate: "yuki",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.402
-  },
-  {
-    teammates: [
-      "fenrir",
-      "markus"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.402
+    oneTrickRatio: 0.699
   },
   {
     teammates: [
       "adela",
-      "camilo"
+      "shoichi"
     ],
-    candidate: "echion",
+    candidate: "isaac",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.402
-  },
-  {
-    teammates: [
-      "irem",
-      "rozzi"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.402
-  },
-  {
-    teammates: [
-      "markus",
-      "rio"
-    ],
-    candidate: "haze",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.402
-  },
-  {
-    teammates: [
-      "chiara",
-      "fenrir"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.402
-  },
-  {
-    teammates: [
-      "hart",
-      "shirin"
-    ],
-    candidate: "debi_marlene",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.995
-  },
-  {
-    teammates: [
-      "hisui",
-      "theodore"
-    ],
-    candidate: "debi_marlene",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.995
-  },
-  {
-    teammates: [
-      "adriana",
-      "echion"
-    ],
-    candidate: "debi_marlene",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.995
+    oneTrickRatio: 0.699
   },
   {
     teammates: [
       "alex",
-      "nia"
+      "katja"
     ],
-    candidate: "debi_marlene",
+    candidate: "markus",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.995
+    oneTrickRatio: 0.699
   },
   {
     teammates: [
-      "craver",
-      "shirin"
+      "blair",
+      "estelle"
     ],
-    candidate: "debi_marlene",
+    candidate: "craver",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.995
+    oneTrickRatio: 0.699
   },
   {
     teammates: [
-      "craver",
-      "yumin"
+      "blair",
+      "hart"
     ],
-    candidate: "debi_marlene",
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.699
+  },
+  {
+    teammates: [
+      "adriana",
+      "nicky"
+    ],
+    candidate: "darko",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.995
+    oneTrickRatio: 0.699
   },
   {
     teammates: [
-      "hyejin",
-      "katja"
+      "nadine",
+      "tsubame"
     ],
-    candidate: "debi_marlene",
+    candidate: "daniel",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "magnus",
+      "william"
+    ],
+    candidate: "daniel",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "bernice",
+      "debi_marlene"
+    ],
+    candidate: "daniel",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "garnet",
+      "tsubame"
+    ],
+    candidate: "daniel",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "haze",
+      "hyunwoo"
+    ],
+    candidate: "daniel",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.995
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "adina",
-      "camilo"
+      "debi_marlene",
+      "isol"
     ],
-    candidate: "debi_marlene",
+    candidate: "daniel",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "chiara",
+      "estelle"
+    ],
+    candidate: "daniel",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.995
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "estelle",
+      "luke"
+    ],
+    candidate: "daniel",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "estelle",
+      "justina"
+    ],
+    candidate: "daniel",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "aiden",
+      "kenneth"
+    ],
+    candidate: "daniel",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adina",
+      "isaac"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.926
+  },
+  {
+    teammates: [
+      "katja",
+      "nathapon"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.926
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "rio"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.926
+  },
+  {
+    teammates: [
+      "haze",
+      "yuki"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.926
+  },
+  {
+    teammates: [
+      "cathy",
+      "justina"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.926
   },
   {
     teammates: [
@@ -25244,99 +25808,183 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "darko",
-      "tsubame"
+      "adina",
+      "sho"
     ],
-    candidate: "aiden",
+    candidate: "debi_marlene",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.429
+    oneTrickRatio: 0.995
   },
   {
     teammates: [
-      "adela",
-      "alex"
+      "chiara",
+      "echion"
     ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.429
-  },
-  {
-    teammates: [
-      "camilo",
-      "ian"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.429
-  },
-  {
-    teammates: [
-      "markus",
-      "tsubame"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.429
-  },
-  {
-    teammates: [
-      "cathy",
-      "nathapon"
-    ],
-    candidate: "aiden",
+    candidate: "debi_marlene",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.429
+    oneTrickRatio: 0.995
   },
   {
     teammates: [
-      "fenrir",
-      "laura"
+      "justina",
+      "luke"
     ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.429
-  },
-  {
-    teammates: [
-      "martina",
-      "yumin"
-    ],
-    candidate: "mai",
+    candidate: "debi_marlene",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.429
+    oneTrickRatio: 0.995
   },
   {
     teammates: [
-      "kenneth",
-      "martina"
+      "hart",
+      "shirin"
     ],
-    candidate: "tsubame",
+    candidate: "debi_marlene",
     games: 1,
-    avgPlacement: 8,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.429
+    oneTrickRatio: 0.995
+  },
+  {
+    teammates: [
+      "hisui",
+      "theodore"
+    ],
+    candidate: "debi_marlene",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.995
+  },
+  {
+    teammates: [
+      "adriana",
+      "echion"
+    ],
+    candidate: "debi_marlene",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.995
+  },
+  {
+    teammates: [
+      "alex",
+      "nia"
+    ],
+    candidate: "debi_marlene",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.995
+  },
+  {
+    teammates: [
+      "li_dailin",
+      "lucia"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.844
+  },
+  {
+    teammates: [
+      "garnet",
+      "vanya"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.844
+  },
+  {
+    teammates: [
+      "cathy",
+      "lucia"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.844
+  },
+  {
+    teammates: [
+      "markus",
+      "sissela"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.844
+  },
+  {
+    teammates: [
+      "elena",
+      "sissela"
+    ],
+    candidate: "felix",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.844
+  },
+  {
+    teammates: [
+      "elena",
+      "martina"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.844
+  },
+  {
+    teammates: [
+      "alex",
+      "nathapon"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.844
+  },
+  {
+    teammates: [
+      "bernice",
+      "sissela"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.844
   },
   {
     teammates: [
@@ -25373,138 +26021,6 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 0.648
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "sho"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "martina",
-      "sho"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hyejin",
-      "laura"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "piolo",
-      "william"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bianca",
-      "vanya"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "echion",
-      "istvan"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adriana",
-      "istvan"
-    ],
-    candidate: "elena",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "emma",
-      "jenny"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "darko",
-      "emma"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "nicky",
-      "silvia"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "aya",
-      "kenneth"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.51
   },
   {
     teammates: [
@@ -25604,12 +26120,156 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "justina",
+      "luke"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "adriana",
+      "debi_marlene"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "henry",
+      "luke"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "abigail",
+      "alex"
+    ],
+    candidate: "rio",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "craver",
+      "nicky"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "camilo",
+      "zahir"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
+      "eleven",
+      "theodore"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
+      "irem",
+      "lenox"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
+      "adriana",
+      "tsubame"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
+      "aiden",
+      "debi_marlene"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
+      "adriana",
+      "zahir"
+    ],
+    candidate: "darko",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.709
+  },
+  {
+    teammates: [
       "garnet",
       "haze"
     ],
     candidate: "nadine",
     games: 1,
     avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.423
+  },
+  {
+    teammates: [
+      "katja",
+      "sho"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 0.423
@@ -25664,6 +26324,66 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "karla",
+      "markus"
+    ],
+    candidate: "theodore",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.544
+  },
+  {
+    teammates: [
+      "jackie",
+      "lucia"
+    ],
+    candidate: "charlotte",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.544
+  },
+  {
+    teammates: [
+      "hyejin",
+      "silvia"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.544
+  },
+  {
+    teammates: [
+      "alonso",
+      "irem"
+    ],
+    candidate: "theodore",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.544
+  },
+  {
+    teammates: [
+      "bernice",
+      "haze"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.544
+  },
+  {
+    teammates: [
       "celine",
       "fenrir"
     ],
@@ -25706,18 +26426,6 @@ export const rankerCompositionStats = [
     candidate: "irem",
     games: 1,
     avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.924
-  },
-  {
-    teammates: [
-      "eleven",
-      "jackie"
-    ],
-    candidate: "irem",
-    games: 1,
-    avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 0.924
@@ -25904,387 +26612,339 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "celine",
-      "debi_marlene"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "li_dailin",
-      "shoichi"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "sho",
-      "yumin"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "craver",
-      "nadine"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "chiara",
-      "craver"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "karla",
-      "yuki"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "bianca",
-      "yuki"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.965
-  },
-  {
-    teammates: [
-      "markus",
-      "tazia"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "isaac",
-      "shoichi"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "lenox",
-      "shoichi"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "haze",
-      "isol"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "nathapon",
-      "yuki"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "emma",
-      "vanya"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "coreline",
-      "shoichi"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "karla",
-      "nathapon"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "hart",
-      "luke"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "estelle",
-      "tsubame"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "blair",
-      "piolo"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "fenrir",
-      "sua"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "leon",
-      "shoichi"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "aiden",
-      "chiara"
-    ],
-    candidate: "isol",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.433
-  },
-  {
-    teammates: [
-      "lenox",
-      "nia"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.433
-  },
-  {
-    teammates: [
-      "luke",
-      "yuki"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.433
-  },
-  {
-    teammates: [
-      "blair",
-      "markus"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.433
-  },
-  {
-    teammates: [
-      "istvan",
-      "yuki"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.449
-  },
-  {
-    teammates: [
-      "eleven",
-      "shirin"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.449
-  },
-  {
-    teammates: [
-      "nicky",
-      "sissela"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.449
-  },
-  {
-    teammates: [
-      "chloe",
-      "yuki"
-    ],
-    candidate: "sua",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.449
-  },
-  {
-    teammates: [
-      "craver",
-      "zahir"
-    ],
-    candidate: "sua",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.449
-  },
-  {
-    teammates: [
       "irem",
-      "tia"
+      "leni"
     ],
-    candidate: "kenneth",
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.872
+  },
+  {
+    teammates: [
+      "craver",
+      "li_dailin"
+    ],
+    candidate: "vanya",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.449
+    oneTrickRatio: 0.872
   },
   {
     teammates: [
-      "debi_marlene",
-      "leon"
+      "celine",
+      "lucia"
     ],
-    candidate: "laura",
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.872
+  },
+  {
+    teammates: [
+      "abigail",
+      "cathy"
+    ],
+    candidate: "vanya",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.449
+    oneTrickRatio: 0.872
   },
   {
     teammates: [
       "cathy",
-      "tsubame"
+      "debi_marlene"
     ],
-    candidate: "kenneth",
+    candidate: "vanya",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.449
+    oneTrickRatio: 0.872
+  },
+  {
+    teammates: [
+      "bernice",
+      "daniel"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.781
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "yan"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.781
+  },
+  {
+    teammates: [
+      "henry",
+      "hyunwoo"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.781
+  },
+  {
+    teammates: [
+      "blair",
+      "rio"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.781
+  },
+  {
+    teammates: [
+      "aya",
+      "blair"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.511
+  },
+  {
+    teammates: [
+      "kenneth",
+      "nicky"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.511
+  },
+  {
+    teammates: [
+      "tazia",
+      "yumin"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.511
+  },
+  {
+    teammates: [
+      "fenrir",
+      "yan"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.511
+  },
+  {
+    teammates: [
+      "estelle",
+      "magnus"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.511
+  },
+  {
+    teammates: [
+      "echion",
+      "tazia"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "hart",
+      "istvan"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "camilo",
+      "istvan"
+    ],
+    candidate: "adriana",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "aiden",
+      "kenneth"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "camilo",
+      "priya"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "bernice",
+      "markus"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.509
+  },
+  {
+    teammates: [
+      "hisui",
+      "luke"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "rio",
+      "yan"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "emma",
+      "nathapon"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "estelle",
+      "haze"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "haze",
+      "mirka"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "celine",
+      "sissela"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "aiden",
+      "jenny"
+    ],
+    candidate: "charlotte",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "hart",
+      "justina"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
   },
   {
     teammates: [
@@ -26324,219 +26984,207 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "justina",
+      "alex",
+      "laura"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "karla",
       "rio"
     ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.443
-  },
-  {
-    teammates: [
-      "katja",
-      "mai"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.443
-  },
-  {
-    teammates: [
-      "eleven",
-      "haze"
-    ],
-    candidate: "rozzi",
+    candidate: "justina",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.443
+    oneTrickRatio: 0.415
   },
   {
     teammates: [
-      "bianca",
-      "fiora"
+      "bihyung",
+      "priya"
     ],
-    candidate: "tsubame",
+    candidate: "bernice",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.443
+    oneTrickRatio: 0.415
   },
   {
     teammates: [
-      "magnus",
-      "shoichi"
+      "adina",
+      "coreline"
     ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.443
-  },
-  {
-    teammates: [
-      "fiora",
-      "garnet"
-    ],
-    candidate: "tsubame",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.443
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "william"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.443
-  },
-  {
-    teammates: [
-      "adela",
-      "bernice"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.677
-  },
-  {
-    teammates: [
-      "coreline",
-      "tazia"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.677
-  },
-  {
-    teammates: [
-      "istvan",
-      "nathapon"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.677
-  },
-  {
-    teammates: [
-      "ian",
-      "lenore"
-    ],
-    candidate: "alex",
+    candidate: "justina",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.677
+    oneTrickRatio: 0.415
   },
   {
     teammates: [
-      "istvan",
-      "markus"
+      "alex",
+      "shirin"
     ],
-    candidate: "alex",
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.415
+  },
+  {
+    teammates: [
+      "aya",
+      "vanya"
+    ],
+    candidate: "sissela",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.677
+    oneTrickRatio: 0.415
   },
   {
     teammates: [
-      "bianca",
-      "fenrir"
+      "li_dailin",
+      "vanya"
     ],
-    candidate: "alex",
+    candidate: "sissela",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.677
+    oneTrickRatio: 0.415
   },
   {
     teammates: [
-      "shirin",
-      "tia"
+      "fenrir",
+      "tsubame"
     ],
-    candidate: "alex",
+    candidate: "justina",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.677
+    oneTrickRatio: 0.415
   },
   {
     teammates: [
       "aiden",
-      "coreline"
+      "sho"
     ],
-    candidate: "alex",
+    candidate: "nathapon",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.677
-  },
-  {
-    teammates: [
-      "martina",
-      "william"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
       "darko",
-      "sissela"
+      "tsubame"
     ],
-    candidate: "echion",
+    candidate: "nathapon",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
-      "garnet",
-      "jackie"
+      "aiden",
+      "estelle"
     ],
-    candidate: "echion",
+    candidate: "nathapon",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.993
+  },
+  {
+    teammates: [
+      "mirka",
+      "vanya"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.993
+  },
+  {
+    teammates: [
+      "bernice",
+      "eva"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.993
+  },
+  {
+    teammates: [
+      "bihyung",
+      "debi_marlene"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.993
+  },
+  {
+    teammates: [
+      "craver",
+      "istvan"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.993
+  },
+  {
+    teammates: [
+      "craver",
+      "lenox"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.993
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "istvan"
+    ],
+    candidate: "nathapon",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
@@ -26600,183 +27248,123 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "hyunwoo",
-      "irem"
+      "nicky",
+      "rio"
     ],
-    candidate: "celine",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.407
+    oneTrickRatio: 0.468
   },
   {
     teammates: [
-      "garnet",
-      "karla"
+      "nathapon",
+      "yuki"
     ],
-    candidate: "celine",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.407
+    oneTrickRatio: 0.468
+  },
+  {
+    teammates: [
+      "fenrir",
+      "markus"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.468
   },
   {
     teammates: [
       "alex",
-      "sho"
+      "chiara"
     ],
-    candidate: "celine",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.407
-  },
-  {
-    teammates: [
-      "rozzi",
-      "silvia"
-    ],
-    candidate: "tazia",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.407
-  },
-  {
-    teammates: [
-      "camilo",
-      "elena"
-    ],
-    candidate: "lucia",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.407
-  },
-  {
-    teammates: [
-      "adela",
-      "garnet"
-    ],
-    candidate: "hisui",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.806
-  },
-  {
-    teammates: [
-      "jackie",
-      "katja"
-    ],
-    candidate: "hisui",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.806
+    oneTrickRatio: 0.468
   },
   {
     teammates: [
       "emma",
-      "sua"
+      "yumin"
     ],
-    candidate: "shirin",
+    candidate: "laura",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.806
+    oneTrickRatio: 0.717
   },
   {
     teammates: [
-      "katja",
+      "debi_marlene",
       "tia"
     ],
-    candidate: "henry",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.806
-  },
-  {
-    teammates: [
-      "alex",
-      "isol"
-    ],
-    candidate: "nia",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.391
-  },
-  {
-    teammates: [
-      "bihyung",
-      "blair"
-    ],
-    candidate: "nia",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.391
-  },
-  {
-    teammates: [
-      "barbara",
-      "bihyung"
-    ],
-    candidate: "theodore",
+    candidate: "laura",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.391
+    oneTrickRatio: 0.717
   },
   {
     teammates: [
-      "irem",
-      "kenneth"
+      "debi_marlene",
+      "emma"
     ],
-    candidate: "adriana",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.391
+    oneTrickRatio: 0.717
   },
   {
     teammates: [
-      "hart",
-      "tia"
+      "emma",
+      "nicky"
     ],
-    candidate: "lenore",
+    candidate: "craver",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.391
+    oneTrickRatio: 0.717
   },
   {
     teammates: [
-      "istvan",
-      "yuki"
+      "debi_marlene",
+      "nadine"
     ],
-    candidate: "nia",
+    candidate: "markus",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.391
+    oneTrickRatio: 0.717
+  },
+  {
+    teammates: [
+      "theodore",
+      "yumin"
+    ],
+    candidate: "alonso",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.5
   },
   {
     teammates: [
@@ -26828,183 +27416,63 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "laura",
-      "william"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.5
-  },
-  {
-    teammates: [
-      "magnus",
-      "nicky"
+      "aiden",
+      "yuki"
     ],
     candidate: "jackie",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "magnus",
-      "shoichi"
-    ],
-    candidate: "fiora",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "eleven",
-      "shoichi"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "cathy",
-      "istvan"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.903
+    oneTrickRatio: 0.473
   },
   {
     teammates: [
       "adela",
-      "leon"
+      "echion"
     ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "istvan",
-      "rio"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "emma",
-      "felix"
-    ],
-    candidate: "bihyung",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.903
-  },
-  {
-    teammates: [
-      "estelle",
-      "hyunwoo"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.546
-  },
-  {
-    teammates: [
-      "karla",
-      "tia"
-    ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.546
-  },
-  {
-    teammates: [
-      "li_dailin",
-      "nicky"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.546
-  },
-  {
-    teammates: [
-      "li_dailin",
-      "luke"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.546
-  },
-  {
-    teammates: [
-      "karla",
-      "nadine"
-    ],
-    candidate: "coreline",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.546
+    oneTrickRatio: 0.473
+  },
+  {
+    teammates: [
+      "rio",
+      "rozzi"
+    ],
+    candidate: "jackie",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.473
   },
   {
     teammates: [
       "aiden",
-      "justina"
+      "magnus"
     ],
-    candidate: "coreline",
+    candidate: "jackie",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.546
+    oneTrickRatio: 0.473
   },
   {
     teammates: [
-      "hart",
-      "markus"
+      "craver",
+      "laura"
     ],
-    candidate: "sissela",
+    candidate: "jackie",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.546
+    oneTrickRatio: 0.473
   },
   {
     teammates: [
@@ -27116,198 +27584,6 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "adela",
-      "aya"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "karla",
-      "lenox"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "coreline",
-      "rozzi"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "lenox",
-      "rozzi"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "laura",
-      "yuki"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "bernice",
-      "sho"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "irem"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.482
-  },
-  {
-    teammates: [
-      "camilo",
-      "katja"
-    ],
-    candidate: "lenox",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "nia"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "blair",
-      "echion"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "chiara",
-      "fiora"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.807
-  },
-  {
-    teammates: [
-      "aiden",
-      "yuki"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.473
-  },
-  {
-    teammates: [
-      "adela",
-      "echion"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.473
-  },
-  {
-    teammates: [
-      "rio",
-      "rozzi"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.473
-  },
-  {
-    teammates: [
-      "aiden",
-      "magnus"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.473
-  },
-  {
-    teammates: [
-      "craver",
-      "laura"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.473
-  },
-  {
-    teammates: [
       "istvan",
       "justina"
     ],
@@ -27368,75 +27644,123 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "leni",
-      "vanya"
+      "isaac",
+      "rio"
     ],
-    candidate: "irem",
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "echion",
+      "theodore"
+    ],
+    candidate: "alex",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.747
   },
   {
     teammates: [
-      "hart",
-      "justina"
+      "haze",
+      "katja"
     ],
-    candidate: "irem",
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "garnet",
+      "karla"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "bernice",
+      "craver"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.747
+  },
+  {
+    teammates: [
+      "blair",
+      "nicky"
+    ],
+    candidate: "luke",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.984
+  },
+  {
+    teammates: [
+      "irem",
+      "yan"
+    ],
+    candidate: "luke",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.984
   },
   {
     teammates: [
-      "adina",
-      "lenore"
+      "jenny",
+      "lenox"
     ],
-    candidate: "irem",
+    candidate: "charlotte",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.984
+  },
+  {
+    teammates: [
+      "adela",
+      "katja"
+    ],
+    candidate: "luke",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.984
   },
   {
     teammates: [
-      "hyunwoo",
-      "justina"
+      "hisui",
+      "lucia"
     ],
-    candidate: "irem",
+    candidate: "luke",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.993
-  },
-  {
-    teammates: [
-      "coreline",
-      "debi_marlene"
-    ],
-    candidate: "irem",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.993
-  },
-  {
-    teammates: [
-      "rozzi",
-      "shoichi"
-    ],
-    candidate: "irem",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.993
+    oneTrickRatio: 0.984
   },
   {
     teammates: [
@@ -27458,6 +27782,18 @@ export const rankerCompositionStats = [
     candidate: "tsubame",
     games: 1,
     avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.879
+  },
+  {
+    teammates: [
+      "hyejin",
+      "istvan"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 0.879
@@ -27497,6 +27833,114 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 0.879
+  },
+  {
+    teammates: [
+      "bernice",
+      "charlotte"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
+      "adela",
+      "charlotte"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
+      "aiden",
+      "mai"
+    ],
+    candidate: "cathy",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
+      "cathy",
+      "tia"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
+      "felix",
+      "magnus"
+    ],
+    candidate: "adriana",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
+      "aya",
+      "kenneth"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
+      "hart",
+      "henry"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
+      "silvia",
+      "tazia"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.396
+  },
+  {
+    teammates: [
+      "irem",
+      "isol"
+    ],
+    candidate: "lenox",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -27644,159 +28088,171 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "isaac",
-      "sissela"
+      "alonso",
+      "theodore"
     ],
-    candidate: "emma",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.957
-  },
-  {
-    teammates: [
-      "alex",
-      "shoichi"
-    ],
-    candidate: "emma",
+    candidate: "yumin",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.957
+    oneTrickRatio: 0.836
   },
   {
     teammates: [
-      "chiara",
+      "luke",
+      "mai"
+    ],
+    candidate: "yumin",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.836
+  },
+  {
+    teammates: [
+      "aya",
+      "daniel"
+    ],
+    candidate: "leon",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.836
+  },
+  {
+    teammates: [
+      "felix",
       "johann"
     ],
-    candidate: "emma",
+    candidate: "camilo",
     games: 1,
-    avgPlacement: 7,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.957
+    oneTrickRatio: 0.836
   },
   {
     teammates: [
-      "nathapon",
-      "vanya"
+      "hyunwoo",
+      "nathapon"
     ],
-    candidate: "emma",
+    candidate: "istvan",
     games: 1,
-    avgPlacement: 7,
+    avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.957
+    oneTrickRatio: 0.836
   },
   {
     teammates: [
-      "chiara",
-      "isol"
+      "adriana",
+      "camilo"
     ],
-    candidate: "emma",
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.836
+  },
+  {
+    teammates: [
+      "emma",
+      "hyejin"
+    ],
+    candidate: "yumin",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.957
-  },
-  {
-    teammates: [
-      "echion",
-      "william"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.827
+    oneTrickRatio: 0.836
   },
   {
     teammates: [
       "chiara",
-      "hyunwoo"
+      "nicky"
     ],
-    candidate: "priya",
+    candidate: "yumin",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.827
+    oneTrickRatio: 0.836
   },
   {
     teammates: [
-      "rio",
-      "sissela"
+      "cathy",
+      "istvan"
     ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.827
-  },
-  {
-    teammates: [
-      "felix",
-      "martina"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.827
-  },
-  {
-    teammates: [
-      "adela",
-      "markus"
-    ],
-    candidate: "martina",
+    candidate: "irem",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
-      "felix",
-      "priya"
+      "adriana",
+      "piolo"
     ],
-    candidate: "martina",
+    candidate: "irem",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.993
+  },
+  {
+    teammates: [
+      "justina",
+      "kenneth"
+    ],
+    candidate: "irem",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.993
+  },
+  {
+    teammates: [
+      "leni",
+      "vanya"
+    ],
+    candidate: "irem",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
-      "markus",
-      "rio"
+      "hart",
+      "justina"
     ],
-    candidate: "martina",
+    candidate: "irem",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
-      "garnet",
-      "istvan"
+      "adina",
+      "lenore"
     ],
-    candidate: "martina",
+    candidate: "irem",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.993
   },
   {
     teammates: [
@@ -27896,99 +28352,135 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "haze",
-      "hyunwoo"
+      "bianca",
+      "william"
     ],
-    candidate: "daniel",
+    candidate: "fiora",
     games: 1,
-    avgPlacement: 7,
+    avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.875
   },
   {
     teammates: [
-      "debi_marlene",
-      "isol"
+      "istvan",
+      "tsubame"
     ],
-    candidate: "daniel",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chiara",
-      "estelle"
-    ],
-    candidate: "daniel",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "estelle",
-      "luke"
-    ],
-    candidate: "daniel",
+    candidate: "fiora",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.875
   },
   {
     teammates: [
-      "estelle",
-      "justina"
-    ],
-    candidate: "daniel",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "aiden",
+      "eva",
       "kenneth"
     ],
-    candidate: "daniel",
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.875
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "karla"
+    ],
+    candidate: "fiora",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.875
   },
   {
     teammates: [
-      "adela",
-      "henry"
+      "aya",
+      "hyejin"
     ],
-    candidate: "daniel",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chiara",
-      "hisui"
-    ],
-    candidate: "daniel",
+    candidate: "fiora",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.875
+  },
+  {
+    teammates: [
+      "fiora",
+      "garnet"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.875
+  },
+  {
+    teammates: [
+      "sissela",
+      "yan"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.875
+  },
+  {
+    teammates: [
+      "coreline",
+      "vanya"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.875
+  },
+  {
+    teammates: [
+      "echion",
+      "yumin"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.875
+  },
+  {
+    teammates: [
+      "hart",
+      "henry"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.875
+  },
+  {
+    teammates: [
+      "hisui",
+      "nathapon"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.875
   },
   {
     teammates: [
@@ -28124,147 +28616,315 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "alonso",
-      "martina"
+      "isol",
+      "priya"
     ],
-    candidate: "haze",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "estelle",
-      "jackie"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "camilo",
-      "markus"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "blair",
-      "hyejin"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "blair",
-      "nia"
-    ],
-    candidate: "nadine",
+    candidate: "darko",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "alex",
-      "hyejin"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "echion",
-      "tazia"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.509
-  },
-  {
-    teammates: [
-      "hart",
-      "istvan"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.509
-  },
-  {
-    teammates: [
-      "camilo",
-      "istvan"
-    ],
-    candidate: "adriana",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.509
-  },
-  {
-    teammates: [
-      "aiden",
-      "kenneth"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.509
-  },
-  {
-    teammates: [
-      "camilo",
-      "priya"
-    ],
-    candidate: "zahir",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.509
+    oneTrickRatio: 0.63
   },
   {
     teammates: [
       "bernice",
-      "markus"
+      "priya"
     ],
-    candidate: "justina",
+    candidate: "bihyung",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.63
+  },
+  {
+    teammates: [
+      "irem",
+      "shoichi"
+    ],
+    candidate: "magnus",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.63
+  },
+  {
+    teammates: [
+      "shoichi",
+      "yumin"
+    ],
+    candidate: "magnus",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.63
+  },
+  {
+    teammates: [
+      "justina",
+      "yuki"
+    ],
+    candidate: "magnus",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.509
+    oneTrickRatio: 0.63
+  },
+  {
+    teammates: [
+      "fenrir",
+      "piolo"
+    ],
+    candidate: "magnus",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.63
+  },
+  {
+    teammates: [
+      "eleven",
+      "nadine"
+    ],
+    candidate: "bihyung",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.63
+  },
+  {
+    teammates: [
+      "adriana",
+      "echion"
+    ],
+    candidate: "nadine",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.41
+  },
+  {
+    teammates: [
+      "luke",
+      "theodore"
+    ],
+    candidate: "fiora",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.41
+  },
+  {
+    teammates: [
+      "echion",
+      "istvan"
+    ],
+    candidate: "arda",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.41
+  },
+  {
+    teammates: [
+      "adriana",
+      "magnus"
+    ],
+    candidate: "felix",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.41
+  },
+  {
+    teammates: [
+      "elena",
+      "vanya"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "mirka",
+      "tsubame"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "hart",
+      "lenox"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "markus",
+      "shirin"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "isaac",
+      "vanya"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.439
+  },
+  {
+    teammates: [
+      "markus",
+      "tia"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "estelle",
+      "magnus"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "bernice",
+      "echion"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "alex",
+      "echion"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "jackie",
+      "yuki"
+    ],
+    candidate: "blair",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.901
+  },
+  {
+    teammates: [
+      "adina",
+      "cathy"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.564
+  },
+  {
+    teammates: [
+      "alonso",
+      "vanya"
+    ],
+    candidate: "nia",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.564
+  },
+  {
+    teammates: [
+      "isol",
+      "nicky"
+    ],
+    candidate: "haze",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.564
+  },
+  {
+    teammates: [
+      "felix",
+      "kenneth"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.564
+  },
+  {
+    teammates: [
+      "estelle",
+      "nadine"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.564
   },
   {
     teammates: [
@@ -28340,51 +29000,135 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "adriana",
-      "debi_marlene"
+      "barbara",
+      "blair"
     ],
-    candidate: "rio",
+    candidate: "vanya",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.421
+    oneTrickRatio: 0.624
   },
   {
     teammates: [
-      "henry",
-      "luke"
+      "adela",
+      "camilo"
     ],
-    candidate: "rozzi",
+    candidate: "vanya",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.421
+    oneTrickRatio: 0.624
   },
   {
     teammates: [
-      "abigail",
-      "alex"
+      "nathapon",
+      "shirin"
     ],
-    candidate: "rio",
+    candidate: "vanya",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.421
+    oneTrickRatio: 0.624
+  },
+  {
+    teammates: [
+      "estelle",
+      "sissela"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.624
+  },
+  {
+    teammates: [
+      "adela",
+      "emma"
+    ],
+    candidate: "vanya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.624
   },
   {
     teammates: [
       "craver",
-      "nicky"
+      "hart"
     ],
-    candidate: "katja",
+    candidate: "celine",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.421
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "william",
+      "yuki"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "isaac",
+      "sissela"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "alonso",
+      "lucia"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "alonso",
+      "nadine"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "blair",
+      "eva"
+    ],
+    candidate: "celine",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -28436,6 +29180,54 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "chiara",
+      "darko"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
+      "aya",
+      "markus"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
+      "camilo",
+      "darko"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
+      "laura",
+      "sho"
+    ],
+    candidate: "zahir",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.92
+  },
+  {
+    teammates: [
       "charlotte",
       "jenny"
     ],
@@ -28472,255 +29264,531 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "alonso",
-      "eva"
+      "daniel",
+      "hart"
     ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.504
-  },
-  {
-    teammates: [
-      "kenneth",
-      "nicky"
-    ],
-    candidate: "leni",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.504
-  },
-  {
-    teammates: [
-      "tazia",
-      "yumin"
-    ],
-    candidate: "leni",
+    candidate: "shirin",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.504
-  },
-  {
-    teammates: [
-      "fenrir",
-      "yan"
-    ],
-    candidate: "leni",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.504
-  },
-  {
-    teammates: [
-      "estelle",
-      "magnus"
-    ],
-    candidate: "leni",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.504
-  },
-  {
-    teammates: [
-      "istvan",
-      "nicky"
-    ],
-    candidate: "nia",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.504
-  },
-  {
-    teammates: [
-      "coreline",
-      "karla"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.504
-  },
-  {
-    teammates: [
-      "adina",
-      "yuki"
-    ],
-    candidate: "sissela",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.465
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "shirin"
-    ],
-    candidate: "leni",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.465
-  },
-  {
-    teammates: [
-      "markus",
-      "martina"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.465
-  },
-  {
-    teammates: [
-      "yan",
-      "zahir"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.465
-  },
-  {
-    teammates: [
-      "aiden",
-      "tia"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "chiara",
-      "haze"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.51
-  },
-  {
-    teammates: [
-      "bernice",
-      "justina"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.51
+    oneTrickRatio: 0.604
   },
   {
     teammates: [
       "camilo",
-      "martina"
+      "celine"
     ],
-    candidate: "darko",
+    candidate: "debi_marlene",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.51
+    oneTrickRatio: 0.604
   },
   {
     teammates: [
-      "justina",
-      "lenox"
+      "elena",
+      "priya"
     ],
-    candidate: "katja",
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.604
+  },
+  {
+    teammates: [
+      "nicky",
+      "zahir"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.604
+  },
+  {
+    teammates: [
+      "jackie",
+      "justina"
+    ],
+    candidate: "hyunwoo",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.604
+  },
+  {
+    teammates: [
+      "estelle",
+      "nadine"
+    ],
+    candidate: "hyunwoo",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.512
+    oneTrickRatio: 0.604
   },
   {
     teammates: [
-      "garnet",
-      "katja"
+      "darko",
+      "luke"
     ],
-    candidate: "coreline",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.512
-  },
-  {
-    teammates: [
-      "hyunwoo",
-      "martina"
-    ],
-    candidate: "hyejin",
+    candidate: "rozzi",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.512
+    oneTrickRatio: 0.449
   },
   {
     teammates: [
-      "hart",
-      "haze"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.512
-  },
-  {
-    teammates: [
-      "luke",
-      "nicky"
-    ],
-    candidate: "hyejin",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.512
-  },
-  {
-    teammates: [
-      "emma",
-      "sissela"
+      "katja",
+      "tia"
     ],
     candidate: "hart",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.512
+    oneTrickRatio: 0.449
+  },
+  {
+    teammates: [
+      "chiara",
+      "echion"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.449
+  },
+  {
+    teammates: [
+      "alex",
+      "yan"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.449
+  },
+  {
+    teammates: [
+      "craver",
+      "darko"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.449
+  },
+  {
+    teammates: [
+      "kenneth",
+      "li_dailin"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.449
+  },
+  {
+    teammates: [
+      "craver",
+      "daniel"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.449
+  },
+  {
+    teammates: [
+      "eva",
+      "rozzi"
+    ],
+    candidate: "mai",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.449
+  },
+  {
+    teammates: [
+      "lenox",
+      "theodore"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "adela",
+      "hyejin"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "charlotte",
+      "lenox"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "rio",
+      "yan"
+    ],
+    candidate: "charlotte",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "aiden",
+      "justina"
+    ],
+    candidate: "lenox",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "bernice",
+      "lenox"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "adina",
+      "li_dailin"
+    ],
+    candidate: "lenox",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "echion",
+      "martina"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.851
+  },
+  {
+    teammates: [
+      "aya",
+      "shirin"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.851
+  },
+  {
+    teammates: [
+      "istvan",
+      "tia"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.851
+  },
+  {
+    teammates: [
+      "adriana",
+      "isol"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.851
+  },
+  {
+    teammates: [
+      "alex",
+      "craver"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.851
+  },
+  {
+    teammates: [
+      "craver",
+      "irem"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.851
+  },
+  {
+    teammates: [
+      "bianca",
+      "blair"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.851
+  },
+  {
+    teammates: [
+      "justina",
+      "markus"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.851
+  },
+  {
+    teammates: [
+      "echion",
+      "sua"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.851
+  },
+  {
+    teammates: [
+      "darko",
+      "hart"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "kenneth",
+      "sissela"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "emma",
+      "hisui"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "leon",
+      "tia"
+    ],
+    candidate: "yuki",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "adela",
+      "bernice"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "adriana",
+      "luke"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "charlotte",
+      "shoichi"
+    ],
+    candidate: "jenny",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "magnus",
+      "shirin"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "justina",
+      "yuki"
+    ],
+    candidate: "shoichi",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.846
+  },
+  {
+    teammates: [
+      "bernice",
+      "jackie"
+    ],
+    candidate: "debi_marlene",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.494
+  },
+  {
+    teammates: [
+      "isol",
+      "jackie"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.494
+  },
+  {
+    teammates: [
+      "cathy",
+      "celine"
+    ],
+    candidate: "debi_marlene",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.494
+  },
+  {
+    teammates: [
+      "elena",
+      "vanya"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.494
+  },
+  {
+    teammates: [
+      "adina",
+      "yuki"
+    ],
+    candidate: "shirin",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.494
   },
   {
     teammates: [
@@ -28808,102 +29876,6 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "hisui",
-      "martina"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
-      "aya",
-      "elena"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
-      "laura",
-      "sissela"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
-      "hyejin",
-      "shirin"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
-      "darko",
-      "tia"
-    ],
-    candidate: "fenrir",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
-      "craver",
-      "laura"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
-      "echion",
-      "emma"
-    ],
-    candidate: "yan",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
-      "li_dailin",
-      "theodore"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.425
-  },
-  {
-    teammates: [
       "hart",
       "hyejin"
     ],
@@ -28976,6 +29948,210 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
+      "craver",
+      "estelle"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.761
+  },
+  {
+    teammates: [
+      "henry",
+      "tsubame"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.761
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "katja"
+    ],
+    candidate: "silvia",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.761
+  },
+  {
+    teammates: [
+      "hisui",
+      "luke"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.761
+  },
+  {
+    teammates: [
+      "haze",
+      "martina"
+    ],
+    candidate: "alonso",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "estelle",
+      "zahir"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "craver",
+      "markus"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "cathy",
+      "yuki"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "aiden",
+      "emma"
+    ],
+    candidate: "magnus",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "bihyung",
+      "emma"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "shirin",
+      "yuki"
+    ],
+    candidate: "bernice",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.785
+  },
+  {
+    teammates: [
+      "fiora",
+      "istvan"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
+      "jackie",
+      "luke"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
+      "cathy",
+      "echion"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
+      "irem",
+      "luke"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "magnus"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
+      "hisui",
+      "martina"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.419
+  },
+  {
+    teammates: [
       "justina",
       "markus"
     ],
@@ -29000,483 +30176,171 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "alex",
-      "bernice"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "emma",
-      "justina"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "blair",
-      "lenox"
-    ],
-    candidate: "zahir",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "alex",
-      "lenore"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.367
-  },
-  {
-    teammates: [
-      "aya",
-      "vanya"
-    ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.687
-  },
-  {
-    teammates: [
       "adela",
-      "yuki"
+      "katja"
     ],
-    candidate: "jackie",
+    candidate: "emma",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.687
+    oneTrickRatio: 1
   },
   {
     teammates: [
       "bianca",
-      "fiora"
+      "fenrir"
     ],
-    candidate: "jackie",
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "hyejin",
+      "yumin"
+    ],
+    candidate: "emma",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "fenrir",
+      "li_dailin"
+    ],
+    candidate: "emma",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.687
-  },
-  {
-    teammates: [
-      "jenny",
-      "johann"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.687
-  },
-  {
-    teammates: [
-      "arda",
-      "elena"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.687
-  },
-  {
-    teammates: [
-      "magnus",
-      "shirin"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.687
+    oneTrickRatio: 1
   },
   {
     teammates: [
       "alex",
-      "nia"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.687
-  },
-  {
-    teammates: [
-      "blair",
-      "justina"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.485
-  },
-  {
-    teammates: [
-      "lenox",
-      "tsubame"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.485
-  },
-  {
-    teammates: [
-      "felix",
-      "shoichi"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.485
-  },
-  {
-    teammates: [
-      "bihyung",
-      "yan"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.485
-  },
-  {
-    teammates: [
-      "aiden",
-      "magnus"
+      "garnet"
     ],
     candidate: "emma",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.485
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "nia",
-      "shoichi"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.485
-  },
-  {
-    teammates: [
-      "rio",
-      "sho"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "estelle",
-      "felix"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "estelle",
-      "henry"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "hart",
-      "katja"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "haze"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "rozzi",
-      "shoichi"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "isol",
-      "katja"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.609
-  },
-  {
-    teammates: [
-      "barbara",
-      "lenore"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "nadine"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.42
-  },
-  {
-    teammates: [
-      "alex",
+      "leni",
       "markus"
     ],
-    candidate: "william",
+    candidate: "tazia",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.368
+  },
+  {
+    teammates: [
+      "hisui",
+      "priya"
+    ],
+    candidate: "tazia",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.42
+    oneTrickRatio: 0.368
   },
   {
     teammates: [
-      "justina",
-      "li_dailin"
+      "emma",
+      "jackie"
     ],
-    candidate: "tsubame",
+    candidate: "yan",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.42
+    oneTrickRatio: 0.368
+  },
+  {
+    teammates: [
+      "fenrir",
+      "rozzi"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.368
+  },
+  {
+    teammates: [
+      "garnet",
+      "tia"
+    ],
+    candidate: "tsubame",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.368
   },
   {
     teammates: [
       "hyejin",
-      "zahir"
+      "laura"
     ],
-    candidate: "katja",
+    candidate: "craver",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.42
+    oneTrickRatio: 0.368
   },
   {
     teammates: [
-      "adriana",
-      "luke"
+      "fiora",
+      "istvan"
     ],
-    candidate: "jenny",
+    candidate: "karla",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.845
+    oneTrickRatio: 0.368
   },
   {
     teammates: [
-      "charlotte",
-      "shoichi"
+      "alex",
+      "silvia"
     ],
-    candidate: "jenny",
+    candidate: "rio",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.845
-  },
-  {
-    teammates: [
-      "magnus",
-      "shirin"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.845
-  },
-  {
-    teammates: [
-      "justina",
-      "yuki"
-    ],
-    candidate: "shoichi",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.845
+    oneTrickRatio: 0.409
   },
   {
     teammates: [
       "adriana",
-      "shirin"
+      "darko"
     ],
-    candidate: "kenneth",
+    candidate: "rio",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.845
-  },
-  {
-    teammates: [
-      "craver",
-      "yuki"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.845
-  },
-  {
-    teammates: [
-      "leon",
-      "tsubame"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.964
-  },
-  {
-    teammates: [
-      "craver",
-      "piolo"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.964
-  },
-  {
-    teammates: [
-      "markus",
-      "rio"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.964
-  },
-  {
-    teammates: [
-      "cathy",
-      "markus"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.964
-  },
-  {
-    teammates: [
-      "jackie",
-      "sissela"
-    ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.964
+    oneTrickRatio: 0.409
   },
   {
     teammates: [
@@ -29516,87 +30380,159 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "haze",
-      "katja"
+      "sho",
+      "tia"
     ],
-    candidate: "alex",
+    candidate: "irem",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.736
+    oneTrickRatio: 0.537
   },
   {
     teammates: [
-      "garnet",
-      "karla"
+      "chiara",
+      "justina"
     ],
-    candidate: "alex",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.736
-  },
-  {
-    teammates: [
-      "bernice",
-      "craver"
-    ],
-    candidate: "alex",
+    candidate: "irem",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.736
+    oneTrickRatio: 0.537
+  },
+  {
+    teammates: [
+      "alex",
+      "sissela"
+    ],
+    candidate: "irem",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.537
+  },
+  {
+    teammates: [
+      "hyunwoo",
+      "jackie"
+    ],
+    candidate: "hyejin",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.537
   },
   {
     teammates: [
       "irem",
-      "sissela"
+      "theodore"
     ],
-    candidate: "alex",
+    candidate: "markus",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.736
+    oneTrickRatio: 0.537
   },
   {
     teammates: [
-      "chloe",
-      "tia"
+      "camilo",
+      "yan"
     ],
-    candidate: "alex",
+    candidate: "irem",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.736
+    oneTrickRatio: 0.537
   },
   {
     teammates: [
-      "craver",
-      "jackie"
+      "irem",
+      "shoichi"
     ],
     candidate: "alex",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.736
+    oneTrickRatio: 0.418
   },
   {
     teammates: [
-      "debi_marlene",
-      "istvan"
+      "karla",
+      "yan"
     ],
-    candidate: "alex",
+    candidate: "rio",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.736
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "felix",
+      "rozzi"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "tsubame",
+      "yumin"
+    ],
+    candidate: "alex",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "echion",
+      "nicky"
+    ],
+    candidate: "craver",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "echion",
+      "priya"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
+  },
+  {
+    teammates: [
+      "justina",
+      "yuki"
+    ],
+    candidate: "rozzi",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.418
   },
   {
     teammates: [
@@ -29684,195 +30620,147 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "istvan",
-      "jackie"
+      "fiora",
+      "nicky"
     ],
-    candidate: "nicky",
+    candidate: "craver",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.795
+    oneTrickRatio: 0.517
   },
   {
     teammates: [
-      "bihyung",
-      "zahir"
+      "alex",
+      "silvia"
     ],
-    candidate: "nicky",
+    candidate: "sissela",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.795
-  },
-  {
-    teammates: [
-      "fiora",
-      "hart"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.795
-  },
-  {
-    teammates: [
-      "darko",
-      "hart"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "kenneth",
-      "sissela"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "emma",
-      "hisui"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "leon",
-      "tia"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chiara",
-      "hyejin"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "magnus",
-      "yuki"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.772
+    oneTrickRatio: 0.517
   },
   {
     teammates: [
       "adina",
+      "justina"
+    ],
+    candidate: "coreline",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.517
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "katja"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.517
+  },
+  {
+    teammates: [
+      "lenox",
       "li_dailin"
     ],
-    candidate: "istvan",
+    candidate: "adina",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.772
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "elena",
-      "sua"
+      "adela",
+      "debi_marlene"
     ],
-    candidate: "istvan",
+    candidate: "adina",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.772
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "cathy",
+      "mai"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "justina",
+      "priya"
+    ],
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
   },
   {
     teammates: [
       "emma",
-      "justina"
+      "mirka"
     ],
-    candidate: "craver",
+    candidate: "adina",
     games: 1,
-    avgPlacement: 7,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.772
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "felix",
-      "nicky"
+      "ian",
+      "karla"
     ],
-    candidate: "craver",
+    candidate: "adina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "blair",
+      "istvan"
+    ],
+    candidate: "adina",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.772
+    oneTrickRatio: 1
   },
   {
     teammates: [
-      "alex",
-      "echion"
+      "craver",
+      "garnet"
     ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.772
-  },
-  {
-    teammates: [
-      "isaac",
-      "jackie"
-    ],
-    candidate: "craver",
+    candidate: "adina",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.772
-  },
-  {
-    teammates: [
-      "alex",
-      "nicky"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.772
+    oneTrickRatio: 1
   },
   {
     teammates: [
@@ -30056,231 +30944,315 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "hart",
-      "henry"
+      "justina",
+      "william"
     ],
-    candidate: "coreline",
+    candidate: "mai",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.394
+    oneTrickRatio: 0.445
   },
   {
     teammates: [
-      "silvia",
-      "tazia"
+      "echion",
+      "fenrir"
     ],
-    candidate: "rozzi",
+    candidate: "kenneth",
     games: 1,
-    avgPlacement: 4,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.394
+    oneTrickRatio: 0.445
   },
   {
     teammates: [
-      "abigail",
-      "bihyung"
-    ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.394
-  },
-  {
-    teammates: [
-      "luke",
+      "isol",
       "nicky"
     ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.394
-  },
-  {
-    teammates: [
-      "garnet",
-      "lucia"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.394
-  },
-  {
-    teammates: [
-      "hart",
-      "hisui"
-    ],
-    candidate: "cathy",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.394
-  },
-  {
-    teammates: [
-      "alex",
-      "hart"
-    ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.394
-  },
-  {
-    teammates: [
-      "barbara",
-      "celine"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.483
-  },
-  {
-    teammates: [
-      "aiden",
-      "coreline"
-    ],
-    candidate: "justina",
+    candidate: "laura",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.483
+    oneTrickRatio: 0.445
   },
   {
     teammates: [
-      "craver",
-      "laura"
+      "istvan",
+      "yuki"
     ],
-    candidate: "adela",
+    candidate: "laura",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.483
+    oneTrickRatio: 0.445
   },
   {
     teammates: [
-      "darko",
-      "katja"
+      "eleven",
+      "shirin"
     ],
-    candidate: "justina",
+    candidate: "laura",
     games: 1,
-    avgPlacement: 7,
+    avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.483
+    oneTrickRatio: 0.445
   },
   {
     teammates: [
       "nicky",
-      "sua"
+      "sissela"
     ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.483
-  },
-  {
-    teammates: [
-      "rio",
-      "sua"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.483
-  },
-  {
-    teammates: [
-      "hart",
-      "hyejin"
-    ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.483
-  },
-  {
-    teammates: [
-      "martina",
-      "priya"
-    ],
-    candidate: "camilo",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.674
-  },
-  {
-    teammates: [
-      "kenneth",
-      "theodore"
-    ],
-    candidate: "alonso",
+    candidate: "laura",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.674
+    oneTrickRatio: 0.445
   },
   {
     teammates: [
-      "estelle",
-      "fenrir"
+      "chloe",
+      "yuki"
     ],
-    candidate: "camilo",
+    candidate: "sua",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.445
+  },
+  {
+    teammates: [
+      "irem",
+      "tia"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.445
+  },
+  {
+    teammates: [
+      "lenore",
+      "li_dailin"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.591
+  },
+  {
+    teammates: [
+      "aya",
+      "lenox"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.591
+  },
+  {
+    teammates: [
+      "arda",
+      "fiora"
+    ],
+    candidate: "yan",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.591
+  },
+  {
+    teammates: [
+      "felix",
+      "fiora"
+    ],
+    candidate: "echion",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.591
+  },
+  {
+    teammates: [
+      "adriana",
+      "cathy"
+    ],
+    candidate: "echion",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.674
+    oneTrickRatio: 0.591
   },
   {
     teammates: [
-      "kenneth",
-      "leni"
+      "craver",
+      "rio"
     ],
-    candidate: "camilo",
+    candidate: "nicky",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.591
+  },
+  {
+    teammates: [
+      "hart",
+      "sissela"
+    ],
+    candidate: "markus",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.591
+  },
+  {
+    teammates: [
+      "eva",
+      "sho"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.479
+  },
+  {
+    teammates: [
+      "craver",
+      "yuki"
+    ],
+    candidate: "istvan",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.479
+  },
+  {
+    teammates: [
+      "isol",
+      "sissela"
+    ],
+    candidate: "istvan",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.674
+    oneTrickRatio: 0.479
   },
   {
     teammates: [
-      "adela",
-      "hisui"
+      "estelle",
+      "karla"
     ],
-    candidate: "camilo",
+    candidate: "theodore",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.479
+  },
+  {
+    teammates: [
+      "coreline",
+      "karla"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "darko",
+      "justina"
+    ],
+    candidate: "kenneth",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "ian",
+      "jackie"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "camilo",
+      "shoichi"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "abigail",
+      "william"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "adriana",
+      "camilo"
+    ],
+    candidate: "bianca",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.674
+    oneTrickRatio: 0.429
+  },
+  {
+    teammates: [
+      "mirka",
+      "sua"
+    ],
+    candidate: "tia",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.429
   },
   {
     teammates: [
@@ -30353,6 +31325,78 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 1
+  },
+  {
+    teammates: [
+      "hyejin",
+      "katja"
+    ],
+    candidate: "ian",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.759
+  },
+  {
+    teammates: [
+      "adela",
+      "hart"
+    ],
+    candidate: "ian",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.759
+  },
+  {
+    teammates: [
+      "adina",
+      "karla"
+    ],
+    candidate: "ian",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.759
+  },
+  {
+    teammates: [
+      "barbara",
+      "felix"
+    ],
+    candidate: "ian",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.759
+  },
+  {
+    teammates: [
+      "chiara",
+      "zahir"
+    ],
+    candidate: "ian",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.759
+  },
+  {
+    teammates: [
+      "camilo",
+      "yumin"
+    ],
+    candidate: "ian",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.759
   },
   {
     teammates: [
@@ -30560,183 +31604,75 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "hyunwoo",
-      "kenneth"
+      "alex",
+      "eva"
     ],
-    candidate: "chiara",
+    candidate: "justina",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.876
+    oneTrickRatio: 0.483
   },
   {
     teammates: [
       "aya",
-      "nicky"
+      "haze"
     ],
     candidate: "justina",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.876
-  },
-  {
-    teammates: [
-      "katja",
-      "lenox"
-    ],
-    candidate: "karla",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.876
-  },
-  {
-    teammates: [
-      "justina",
-      "rio"
-    ],
-    candidate: "laura",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.876
-  },
-  {
-    teammates: [
-      "bernice",
-      "mirka"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.876
-  },
-  {
-    teammates: [
-      "emma",
-      "eva"
-    ],
-    candidate: "adela",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.876
-  },
-  {
-    teammates: [
-      "adriana",
-      "tsubame"
-    ],
-    candidate: "laura",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.876
+    oneTrickRatio: 0.483
   },
   {
     teammates: [
-      "blair",
-      "yuki"
+      "barbara",
+      "celine"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.483
+  },
+  {
+    teammates: [
+      "aiden",
+      "coreline"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.483
+  },
+  {
+    teammates: [
+      "craver",
+      "laura"
     ],
     candidate: "adela",
     games: 1,
-    avgPlacement: 5,
+    avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.876
-  },
-  {
-    teammates: [
-      "coreline",
-      "karla"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
+    oneTrickRatio: 0.483
   },
   {
     teammates: [
       "darko",
-      "justina"
+      "katja"
     ],
-    candidate: "kenneth",
+    candidate: "justina",
     games: 1,
     avgPlacement: 7,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "ian",
-      "jackie"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "camilo",
-      "shoichi"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "abigail",
-      "william"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "adriana",
-      "camilo"
-    ],
-    candidate: "bianca",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
-  },
-  {
-    teammates: [
-      "mirka",
-      "sua"
-    ],
-    candidate: "tia",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.432
+    oneTrickRatio: 0.483
   },
   {
     teammates: [
@@ -30836,315 +31772,363 @@ export const rankerCompositionStats = [
   },
   {
     teammates: [
-      "haze",
-      "martina"
+      "jackie",
+      "nadine"
     ],
-    candidate: "alonso",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "estelle",
-      "zahir"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "craver",
-      "markus"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "cathy",
-      "yuki"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "aiden",
-      "emma"
-    ],
-    candidate: "magnus",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "bihyung",
-      "emma"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "shirin",
-      "yuki"
-    ],
-    candidate: "bernice",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.787
-  },
-  {
-    teammates: [
-      "istvan",
-      "sua"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.6
-  },
-  {
-    teammates: [
-      "nicky",
-      "tsubame"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.6
-  },
-  {
-    teammates: [
-      "chiara",
-      "mirka"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.6
-  },
-  {
-    teammates: [
-      "lucia",
-      "zahir"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.6
-  },
-  {
-    teammates: [
-      "markus",
-      "shirin"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.446
-  },
-  {
-    teammates: [
-      "isaac",
-      "vanya"
-    ],
-    candidate: "istvan",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.446
-  },
-  {
-    teammates: [
-      "craver",
-      "isol"
-    ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.446
-  },
-  {
-    teammates: [
-      "adriana",
-      "luke"
-    ],
-    candidate: "kenneth",
+    candidate: "luke",
     games: 1,
     avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.446
+    oneTrickRatio: 0.527
   },
   {
     teammates: [
-      "markus",
-      "zahir"
+      "bianca",
+      "hyejin"
     ],
-    candidate: "rio",
+    candidate: "daniel",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.527
+  },
+  {
+    teammates: [
+      "bernice",
+      "mai"
+    ],
+    candidate: "william",
+    games: 1,
+    avgPlacement: 8,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.527
+  },
+  {
+    teammates: [
+      "alex",
+      "rio"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.527
+  },
+  {
+    teammates: [
+      "aya",
+      "darko"
+    ],
+    candidate: "aiden",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.527
+  },
+  {
+    teammates: [
+      "eleven",
+      "katja"
+    ],
+    candidate: "aiden",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.446
+    oneTrickRatio: 0.527
+  },
+  {
+    teammates: [
+      "eleven",
+      "isaac"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.527
+  },
+  {
+    teammates: [
+      "aiden",
+      "nicky"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.527
+  },
+  {
+    teammates: [
+      "hisui",
+      "luke"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.527
+  },
+  {
+    teammates: [
+      "coreline",
+      "yan"
+    ],
+    candidate: "hart",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.527
+  },
+  {
+    teammates: [
+      "chiara",
+      "hyunwoo"
+    ],
+    candidate: "johann",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.456
+  },
+  {
+    teammates: [
+      "laura",
+      "yan"
+    ],
+    candidate: "bianca",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.456
+  },
+  {
+    teammates: [
+      "darko",
+      "isol"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.456
+  },
+  {
+    teammates: [
+      "bernice",
+      "bihyung"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.456
   },
   {
     teammates: [
       "felix",
-      "rozzi"
+      "lenore"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.456
+  },
+  {
+    teammates: [
+      "adina",
+      "yuki"
+    ],
+    candidate: "sissela",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.456
+  },
+  {
+    teammates: [
+      "debi_marlene",
+      "shirin"
+    ],
+    candidate: "leni",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.456
+  },
+  {
+    teammates: [
+      "markus",
+      "martina"
+    ],
+    candidate: "priya",
+    games: 1,
+    avgPlacement: 7,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.456
+  },
+  {
+    teammates: [
+      "justina",
+      "yuki"
+    ],
+    candidate: "katja",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "echion",
+      "hyunwoo"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 6,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "emma",
+      "shirin"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 5,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "jackie",
+      "sho"
+    ],
+    candidate: "justina",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "fenrir",
+      "laura"
+    ],
+    candidate: "elena",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "kenneth",
+      "laura"
+    ],
+    candidate: "aya",
+    games: 1,
+    avgPlacement: 4,
+    winRate: 0,
+    top3Rate: 0,
+    oneTrickRatio: 0.422
+  },
+  {
+    teammates: [
+      "eva",
+      "jenny"
     ],
     candidate: "laura",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.446
+    oneTrickRatio: 0.596
   },
   {
     teammates: [
-      "hyejin",
-      "mai"
+      "daniel",
+      "magnus"
     ],
-    candidate: "katja",
+    candidate: "nadine",
     games: 1,
     avgPlacement: 6,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.446
+    oneTrickRatio: 0.596
   },
   {
     teammates: [
-      "felix",
-      "jackie"
+      "mirka",
+      "nathapon"
     ],
-    candidate: "nicky",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.446
-  },
-  {
-    teammates: [
-      "arda",
-      "fiora"
-    ],
-    candidate: "yan",
+    candidate: "haze",
     games: 1,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.585
+    oneTrickRatio: 0.596
   },
   {
     teammates: [
-      "felix",
-      "fiora"
+      "alex",
+      "nadine"
     ],
-    candidate: "echion",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.585
-  },
-  {
-    teammates: [
-      "adriana",
-      "cathy"
-    ],
-    candidate: "echion",
+    candidate: "haze",
     games: 1,
     avgPlacement: 5,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.585
+    oneTrickRatio: 0.596
   },
   {
     teammates: [
-      "craver",
-      "rio"
+      "coreline",
+      "yuki"
     ],
-    candidate: "nicky",
+    candidate: "laura",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 4,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.585
+    oneTrickRatio: 0.596
   },
   {
     teammates: [
-      "hart",
-      "sissela"
+      "lenox",
+      "yuki"
     ],
-    candidate: "markus",
+    candidate: "haze",
     games: 1,
-    avgPlacement: 6,
+    avgPlacement: 8,
     winRate: 0,
     top3Rate: 0,
-    oneTrickRatio: 0.585
-  },
-  {
-    teammates: [
-      "adela",
-      "adina"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.585
-  },
-  {
-    teammates: [
-      "bernice",
-      "shirin"
-    ],
-    candidate: "markus",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.585
+    oneTrickRatio: 0.596
   },
   {
     teammates: [
@@ -31193,1334 +32177,443 @@ export const rankerCompositionStats = [
     winRate: 0,
     top3Rate: 0,
     oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "emma",
-      "hart"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "garnet",
-      "johann"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "isaac",
-      "william"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "justina",
-      "tsubame"
-    ],
-    candidate: "aiden",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.461
-  },
-  {
-    teammates: [
-      "karla",
-      "markus"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
-      "jackie",
-      "lucia"
-    ],
-    candidate: "charlotte",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
-      "hyejin",
-      "silvia"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
-      "alonso",
-      "irem"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
-      "bernice",
-      "haze"
-    ],
-    candidate: "priya",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
-      "magnus",
-      "shirin"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.548
-  },
-  {
-    teammates: [
-      "johann",
-      "kenneth"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "coreline",
-      "eva"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "fenrir",
-      "martina"
-    ],
-    candidate: "fiora",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "emma",
-      "haze"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "emma",
-      "istvan"
-    ],
-    candidate: "hart",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "nadine",
-      "sua"
-    ],
-    candidate: "mai",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.412
-  },
-  {
-    teammates: [
-      "eleven",
-      "william"
-    ],
-    candidate: "isaac",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "martina",
-      "shoichi"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "adela",
-      "felix"
-    ],
-    candidate: "isaac",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "estelle",
-      "shoichi"
-    ],
-    candidate: "isaac",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "blair",
-      "shirin"
-    ],
-    candidate: "isaac",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "katja",
-      "luke"
-    ],
-    candidate: "darko",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "darko",
-      "li_dailin"
-    ],
-    candidate: "aya",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.587
-  },
-  {
-    teammates: [
-      "lucia",
-      "mirka"
-    ],
-    candidate: "karla",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "barbara",
-      "hart"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "barbara",
-      "emma"
-    ],
-    candidate: "karla",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "haze",
-      "shoichi"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "bernice",
-      "emma"
-    ],
-    candidate: "theodore",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.405
-  },
-  {
-    teammates: [
-      "camilo",
-      "nicky"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "sho",
-      "shoichi"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chiara",
-      "yan"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "garnet",
-      "silvia"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "craver",
-      "silvia"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bihyung",
-      "echion"
-    ],
-    candidate: "jackie",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "echion",
-      "priya"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "justina",
-      "yuki"
-    ],
-    candidate: "rozzi",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "debi_marlene",
-      "sho"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "li_dailin",
-      "tazia"
-    ],
-    candidate: "william",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "coreline",
-      "katja"
-    ],
-    candidate: "nadine",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "adriana",
-      "sissela"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.424
-  },
-  {
-    teammates: [
-      "hart",
-      "sissela"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "nicky",
-      "william"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "charlotte",
-      "kenneth"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "lucia",
-      "yuki"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "lenox",
-      "nadine"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "aya",
-      "garnet"
-    ],
-    candidate: "eva",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.732
-  },
-  {
-    teammates: [
-      "shirin",
-      "vanya"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "laura",
-      "leon"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "bianca",
-      "magnus"
-    ],
-    candidate: "darko",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "justina",
-      "william"
-    ],
-    candidate: "nathapon",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.887
-  },
-  {
-    teammates: [
-      "nicky",
-      "shirin"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "kenneth",
-      "yuki"
-    ],
-    candidate: "craver",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "charlotte",
-      "jenny"
-    ],
-    candidate: "kenneth",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "estelle",
-      "karla"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.745
-  },
-  {
-    teammates: [
-      "markus",
-      "tia"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.901
-  },
-  {
-    teammates: [
-      "estelle",
-      "magnus"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.901
-  },
-  {
-    teammates: [
-      "bernice",
-      "echion"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.901
-  },
-  {
-    teammates: [
-      "alex",
-      "echion"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.901
-  },
-  {
-    teammates: [
-      "jackie",
-      "yuki"
-    ],
-    candidate: "blair",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.901
-  },
-  {
-    teammates: [
-      "fenrir",
-      "karla"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bernice",
-      "cathy"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "cathy",
-      "fiora"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chiara",
-      "isol"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 8,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "bianca",
-      "coreline"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 7,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "justina",
-      "shirin"
-    ],
-    candidate: "yuki",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "emma",
-      "mirka"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "ian",
-      "karla"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "craver",
-      "garnet"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "irem",
-      "lenore"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "craver",
-      "laura"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "coreline",
-      "katja"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "chloe",
-      "justina"
-    ],
-    candidate: "adina",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 1
-  },
-  {
-    teammates: [
-      "adela",
-      "sissela"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 4,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.514
-  },
-  {
-    teammates: [
-      "johann",
-      "piolo"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.514
-  },
-  {
-    teammates: [
-      "estelle",
-      "haze"
-    ],
-    candidate: "rio",
-    games: 1,
-    avgPlacement: 6,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.514
-  },
-  {
-    teammates: [
-      "magnus",
-      "william"
-    ],
-    candidate: "justina",
-    games: 1,
-    avgPlacement: 5,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.514
   }
 ];
 
 export const rankerCandidateStats = {
   justina: {
     games: 92,
-    avgPlacement: 4.2,
+    avgPlacement: 4.33,
     winRate: 0.163,
-    top3Rate: 0.457,
-    oneTrickRatio: 0.511
+    top3Rate: 0.413,
+    oneTrickRatio: 0.508
   },
   jackie: {
     games: 76,
-    avgPlacement: 3.66,
-    winRate: 0.276,
-    top3Rate: 0.526,
-    oneTrickRatio: 0.786
+    avgPlacement: 3.76,
+    winRate: 0.263,
+    top3Rate: 0.487,
+    oneTrickRatio: 0.752
   },
   alex: {
-    games: 72,
-    avgPlacement: 3.35,
-    winRate: 0.222,
-    top3Rate: 0.583,
-    oneTrickRatio: 0.838
+    games: 76,
+    avgPlacement: 3.43,
+    winRate: 0.224,
+    top3Rate: 0.592,
+    oneTrickRatio: 0.829
   },
   adela: {
-    games: 69,
-    avgPlacement: 3.62,
-    winRate: 0.217,
-    top3Rate: 0.536,
-    oneTrickRatio: 0.523
+    games: 63,
+    avgPlacement: 3.43,
+    winRate: 0.222,
+    top3Rate: 0.587,
+    oneTrickRatio: 0.491
   },
   craver: {
-    games: 63,
-    avgPlacement: 3.86,
-    winRate: 0.206,
+    games: 61,
+    avgPlacement: 3.72,
+    winRate: 0.18,
     top3Rate: 0.492,
-    oneTrickRatio: 0.624
+    oneTrickRatio: 0.556
   },
-  echion: {
-    games: 63,
-    avgPlacement: 3.56,
-    winRate: 0.159,
-    top3Rate: 0.571,
-    oneTrickRatio: 0.78
+  istvan: {
+    games: 54,
+    avgPlacement: 4.09,
+    winRate: 0.148,
+    top3Rate: 0.407,
+    oneTrickRatio: 0.667
+  },
+  jenny: {
+    games: 53,
+    avgPlacement: 3.92,
+    winRate: 0.208,
+    top3Rate: 0.453,
+    oneTrickRatio: 0.483
   },
   laura: {
     games: 53,
-    avgPlacement: 3.96,
-    winRate: 0.132,
-    top3Rate: 0.472,
-    oneTrickRatio: 0.734
-  },
-  kenneth: {
-    games: 50,
-    avgPlacement: 4.14,
-    winRate: 0.2,
-    top3Rate: 0.46,
-    oneTrickRatio: 0.724
-  },
-  tia: {
-    games: 50,
-    avgPlacement: 3.86,
-    winRate: 0.22,
-    top3Rate: 0.48,
-    oneTrickRatio: 0.782
-  },
-  rio: {
-    games: 49,
-    avgPlacement: 3.71,
-    winRate: 0.306,
-    top3Rate: 0.531,
-    oneTrickRatio: 0.47
-  },
-  aiden: {
-    games: 49,
-    avgPlacement: 4.14,
-    winRate: 0.286,
-    top3Rate: 0.408,
-    oneTrickRatio: 0.704
-  },
-  shoichi: {
-    games: 49,
-    avgPlacement: 3.65,
-    winRate: 0.204,
-    top3Rate: 0.469,
-    oneTrickRatio: 0.813
-  },
-  katja: {
-    games: 43,
-    avgPlacement: 3.14,
-    winRate: 0.209,
-    top3Rate: 0.651,
-    oneTrickRatio: 0.463
-  },
-  fiora: {
-    games: 43,
-    avgPlacement: 4.02,
-    winRate: 0.209,
-    top3Rate: 0.395,
-    oneTrickRatio: 0.742
-  },
-  markus: {
-    games: 43,
-    avgPlacement: 3.47,
-    winRate: 0.186,
-    top3Rate: 0.605,
-    oneTrickRatio: 0.545
-  },
-  emma: {
-    games: 43,
-    avgPlacement: 3.81,
-    winRate: 0.14,
-    top3Rate: 0.535,
-    oneTrickRatio: 0.718
-  },
-  nadine: {
-    games: 41,
-    avgPlacement: 3.73,
-    winRate: 0.244,
-    top3Rate: 0.488,
-    oneTrickRatio: 0.465
-  },
-  william: {
-    games: 41,
-    avgPlacement: 4.61,
-    winRate: 0.146,
-    top3Rate: 0.39,
-    oneTrickRatio: 0.61
-  },
-  nicky: {
-    games: 41,
-    avgPlacement: 3.8,
-    winRate: 0.146,
-    top3Rate: 0.512,
-    oneTrickRatio: 0.698
-  },
-  jenny: {
-    games: 38,
-    avgPlacement: 3.29,
-    winRate: 0.289,
-    top3Rate: 0.579,
-    oneTrickRatio: 0.512
-  },
-  istvan: {
-    games: 38,
-    avgPlacement: 4.26,
-    winRate: 0.105,
-    top3Rate: 0.342,
-    oneTrickRatio: 0.72
-  },
-  aya: {
-    games: 38,
-    avgPlacement: 4.32,
-    winRate: 0.132,
-    top3Rate: 0.395,
-    oneTrickRatio: 0.846
-  },
-  eva: {
-    games: 38,
-    avgPlacement: 3.61,
-    winRate: 0.289,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.895
-  },
-  bernice: {
-    games: 38,
-    avgPlacement: 3.24,
-    winRate: 0.237,
-    top3Rate: 0.579,
-    oneTrickRatio: 0.673
+    avgPlacement: 3.87,
+    winRate: 0.151,
+    top3Rate: 0.453,
+    oneTrickRatio: 0.746
   },
   irem: {
-    games: 37,
-    avgPlacement: 4.22,
-    winRate: 0.162,
+    games: 47,
+    avgPlacement: 3.98,
+    winRate: 0.17,
+    top3Rate: 0.447,
+    oneTrickRatio: 0.772
+  },
+  echion: {
+    games: 46,
+    avgPlacement: 3.54,
+    winRate: 0.239,
+    top3Rate: 0.543,
+    oneTrickRatio: 0.71
+  },
+  vanya: {
+    games: 45,
+    avgPlacement: 3.73,
+    winRate: 0.267,
+    top3Rate: 0.556,
+    oneTrickRatio: 0.817
+  },
+  fenrir: {
+    games: 44,
+    avgPlacement: 4.36,
+    winRate: 0.114,
+    top3Rate: 0.386,
+    oneTrickRatio: 0.657
+  },
+  blair: {
+    games: 44,
+    avgPlacement: 3.84,
+    winRate: 0.091,
+    top3Rate: 0.477,
+    oneTrickRatio: 0.814
+  },
+  aiden: {
+    games: 43,
+    avgPlacement: 4.72,
+    winRate: 0.186,
+    top3Rate: 0.326,
+    oneTrickRatio: 0.716
+  },
+  kenneth: {
+    games: 43,
+    avgPlacement: 4.37,
+    winRate: 0.186,
+    top3Rate: 0.395,
+    oneTrickRatio: 0.725
+  },
+  katja: {
+    games: 42,
+    avgPlacement: 3.1,
+    winRate: 0.238,
+    top3Rate: 0.619,
+    oneTrickRatio: 0.453
+  },
+  tia: {
+    games: 42,
+    avgPlacement: 3.43,
+    winRate: 0.31,
+    top3Rate: 0.571,
+    oneTrickRatio: 0.835
+  },
+  shoichi: {
+    games: 42,
+    avgPlacement: 4,
+    winRate: 0.143,
     top3Rate: 0.405,
-    oneTrickRatio: 0.826
+    oneTrickRatio: 0.878
+  },
+  tsubame: {
+    games: 41,
+    avgPlacement: 4.2,
+    winRate: 0.171,
+    top3Rate: 0.39,
+    oneTrickRatio: 0.505
+  },
+  markus: {
+    games: 41,
+    avgPlacement: 3.59,
+    winRate: 0.244,
+    top3Rate: 0.585,
+    oneTrickRatio: 0.558
+  },
+  darko: {
+    games: 41,
+    avgPlacement: 3.46,
+    winRate: 0.293,
+    top3Rate: 0.488,
+    oneTrickRatio: 0.737
+  },
+  sissela: {
+    games: 41,
+    avgPlacement: 3.9,
+    winRate: 0.195,
+    top3Rate: 0.488,
+    oneTrickRatio: 0.699
+  },
+  emma: {
+    games: 39,
+    avgPlacement: 3.41,
+    winRate: 0.282,
+    top3Rate: 0.538,
+    oneTrickRatio: 0.759
+  },
+  bernice: {
+    games: 39,
+    avgPlacement: 2.92,
+    winRate: 0.308,
+    top3Rate: 0.667,
+    oneTrickRatio: 0.577
   },
   cathy: {
     games: 36,
     avgPlacement: 3.58,
     winRate: 0.278,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.671
+    top3Rate: 0.528,
+    oneTrickRatio: 0.674
   },
-  sissela: {
+  nadine: {
     games: 35,
-    avgPlacement: 4,
-    winRate: 0.2,
-    top3Rate: 0.4,
-    oneTrickRatio: 0.719
-  },
-  tsubame: {
-    games: 34,
-    avgPlacement: 3.88,
-    winRate: 0.206,
-    top3Rate: 0.471,
-    oneTrickRatio: 0.514
-  },
-  nathapon: {
-    games: 34,
-    avgPlacement: 4.12,
-    winRate: 0.176,
-    top3Rate: 0.471,
-    oneTrickRatio: 0.813
-  },
-  fenrir: {
-    games: 34,
-    avgPlacement: 4.15,
-    winRate: 0.088,
-    top3Rate: 0.441,
-    oneTrickRatio: 0.709
-  },
-  camilo: {
-    games: 34,
-    avgPlacement: 4.15,
-    winRate: 0.206,
-    top3Rate: 0.412,
-    oneTrickRatio: 0.849
-  },
-  yuki: {
-    games: 32,
-    avgPlacement: 4,
-    winRate: 0.125,
-    top3Rate: 0.469,
-    oneTrickRatio: 0.927
-  },
-  hart: {
-    games: 32,
-    avgPlacement: 4.5,
-    winRate: 0.125,
-    top3Rate: 0.344,
-    oneTrickRatio: 0.472
-  },
-  hyejin: {
-    games: 31,
-    avgPlacement: 3.16,
-    winRate: 0.097,
-    top3Rate: 0.645,
-    oneTrickRatio: 0.59
-  },
-  chiara: {
-    games: 28,
-    avgPlacement: 3.07,
-    winRate: 0.357,
-    top3Rate: 0.607,
-    oneTrickRatio: 0.811
-  },
-  coreline: {
-    games: 28,
-    avgPlacement: 3.29,
-    winRate: 0.321,
+    avgPlacement: 3.54,
+    winRate: 0.229,
     top3Rate: 0.571,
-    oneTrickRatio: 0.476
+    oneTrickRatio: 0.485
   },
-  adina: {
-    games: 28,
-    avgPlacement: 3.5,
-    winRate: 0.179,
-    top3Rate: 0.536,
-    oneTrickRatio: 0.78
-  },
-  celine: {
-    games: 27,
-    avgPlacement: 3.7,
-    winRate: 0.148,
-    top3Rate: 0.556,
-    oneTrickRatio: 0.704
-  },
-  rozzi: {
-    games: 27,
-    avgPlacement: 4.22,
-    winRate: 0.185,
-    top3Rate: 0.481,
-    oneTrickRatio: 0.505
-  },
-  adriana: {
-    games: 26,
-    avgPlacement: 3.77,
-    winRate: 0.154,
-    top3Rate: 0.462,
-    oneTrickRatio: 0.615
+  fiora: {
+    games: 35,
+    avgPlacement: 4.46,
+    winRate: 0.171,
+    top3Rate: 0.286,
+    oneTrickRatio: 0.772
   },
   debi_marlene: {
-    games: 26,
-    avgPlacement: 3.85,
-    winRate: 0.308,
-    top3Rate: 0.423,
-    oneTrickRatio: 0.798
-  },
-  darko: {
-    games: 25,
-    avgPlacement: 4.2,
-    winRate: 0.16,
-    top3Rate: 0.36,
-    oneTrickRatio: 0.795
-  },
-  sua: {
-    games: 24,
-    avgPlacement: 3.96,
-    winRate: 0.208,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.728
-  },
-  bianca: {
-    games: 24,
-    avgPlacement: 3.92,
-    winRate: 0.208,
-    top3Rate: 0.458,
-    oneTrickRatio: 0.746
-  },
-  priya: {
-    games: 24,
-    avgPlacement: 3.63,
-    winRate: 0.208,
-    top3Rate: 0.542,
-    oneTrickRatio: 0.633
-  },
-  blair: {
-    games: 24,
-    avgPlacement: 4.08,
-    winRate: 0.125,
-    top3Rate: 0.417,
-    oneTrickRatio: 0.687
+    games: 34,
+    avgPlacement: 3.53,
+    winRate: 0.353,
+    top3Rate: 0.529,
+    oneTrickRatio: 0.748
   },
   silvia: {
-    games: 24,
-    avgPlacement: 3.25,
-    winRate: 0.25,
-    top3Rate: 0.583,
-    oneTrickRatio: 0.848
-  },
-  karla: {
-    games: 23,
-    avgPlacement: 3.91,
-    winRate: 0.13,
-    top3Rate: 0.478,
-    oneTrickRatio: 0.765
-  },
-  shirin: {
-    games: 23,
-    avgPlacement: 3.22,
-    winRate: 0.348,
-    top3Rate: 0.609,
-    oneTrickRatio: 0.857
-  },
-  tazia: {
-    games: 23,
-    avgPlacement: 3.43,
-    winRate: 0.261,
-    top3Rate: 0.522,
-    oneTrickRatio: 0.534
-  },
-  martina: {
-    games: 22,
-    avgPlacement: 2.73,
-    winRate: 0.318,
-    top3Rate: 0.727,
-    oneTrickRatio: 0.92
+    games: 33,
+    avgPlacement: 3.52,
+    winRate: 0.121,
+    top3Rate: 0.576,
+    oneTrickRatio: 0.799
   },
   ian: {
-    games: 22,
-    avgPlacement: 3.09,
-    winRate: 0.364,
-    top3Rate: 0.682,
-    oneTrickRatio: 0.958
+    games: 32,
+    avgPlacement: 3.22,
+    winRate: 0.344,
+    top3Rate: 0.594,
+    oneTrickRatio: 0.896
   },
-  alonso: {
-    games: 21,
-    avgPlacement: 3.52,
-    winRate: 0.286,
-    top3Rate: 0.524,
-    oneTrickRatio: 0.564
+  william: {
+    games: 31,
+    avgPlacement: 4.52,
+    winRate: 0.226,
+    top3Rate: 0.355,
+    oneTrickRatio: 0.665
   },
-  nia: {
-    games: 20,
-    avgPlacement: 5.1,
-    winRate: 0.1,
-    top3Rate: 0.25,
-    oneTrickRatio: 0.507
+  coreline: {
+    games: 31,
+    avgPlacement: 3,
+    winRate: 0.323,
+    top3Rate: 0.613,
+    oneTrickRatio: 0.447
   },
-  theodore: {
-    games: 19,
-    avgPlacement: 3.32,
-    winRate: 0.211,
-    top3Rate: 0.526,
-    oneTrickRatio: 0.491
+  rozzi: {
+    games: 30,
+    avgPlacement: 3.1,
+    winRate: 0.267,
+    top3Rate: 0.6,
+    oneTrickRatio: 0.483
   },
-  haze: {
-    games: 17,
-    avgPlacement: 3.76,
-    winRate: 0.059,
-    top3Rate: 0.588,
+  priya: {
+    games: 30,
+    avgPlacement: 3.5,
+    winRate: 0.2,
+    top3Rate: 0.533,
+    oneTrickRatio: 0.59
+  },
+  rio: {
+    games: 28,
+    avgPlacement: 3.89,
+    winRate: 0.143,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.437
+  },
+  nicky: {
+    games: 28,
+    avgPlacement: 3.64,
+    winRate: 0.107,
+    top3Rate: 0.536,
+    oneTrickRatio: 0.538
+  },
+  bianca: {
+    games: 27,
+    avgPlacement: 3.89,
+    winRate: 0.185,
+    top3Rate: 0.444,
+    oneTrickRatio: 0.726
+  },
+  tazia: {
+    games: 27,
+    avgPlacement: 3.22,
+    winRate: 0.296,
+    top3Rate: 0.593,
     oneTrickRatio: 0.508
   },
-  lenox: {
-    games: 17,
-    avgPlacement: 3.29,
-    winRate: 0.235,
-    top3Rate: 0.529,
-    oneTrickRatio: 0.903
+  hart: {
+    games: 26,
+    avgPlacement: 4.58,
+    winRate: 0.154,
+    top3Rate: 0.269,
+    oneTrickRatio: 0.471
   },
-  estelle: {
-    games: 16,
-    avgPlacement: 4,
+  shirin: {
+    games: 26,
+    avgPlacement: 4.23,
+    winRate: 0.077,
+    top3Rate: 0.308,
+    oneTrickRatio: 0.731
+  },
+  eva: {
+    games: 26,
+    avgPlacement: 3.46,
+    winRate: 0.269,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.971
+  },
+  hyejin: {
+    games: 25,
+    avgPlacement: 3.12,
+    winRate: 0.08,
+    top3Rate: 0.68,
+    oneTrickRatio: 0.617
+  },
+  nathapon: {
+    games: 24,
+    avgPlacement: 4.83,
+    winRate: 0.167,
+    top3Rate: 0.292,
+    oneTrickRatio: 0.806
+  },
+  luke: {
+    games: 24,
+    avgPlacement: 4.21,
+    winRate: 0.125,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.973
+  },
+  adina: {
+    games: 24,
+    avgPlacement: 3.21,
     winRate: 0.25,
-    top3Rate: 0.313,
-    oneTrickRatio: 0.596
+    top3Rate: 0.583,
+    oneTrickRatio: 0.855
+  },
+  sua: {
+    games: 23,
+    avgPlacement: 3.61,
+    winRate: 0.261,
+    top3Rate: 0.565,
+    oneTrickRatio: 0.742
+  },
+  chiara: {
+    games: 23,
+    avgPlacement: 3.39,
+    winRate: 0.217,
+    top3Rate: 0.565,
+    oneTrickRatio: 0.807
+  },
+  adriana: {
+    games: 23,
+    avgPlacement: 4.13,
+    winRate: 0.13,
+    top3Rate: 0.348,
+    oneTrickRatio: 0.615
+  },
+  yan: {
+    games: 23,
+    avgPlacement: 4,
+    winRate: 0.217,
+    top3Rate: 0.522,
+    oneTrickRatio: 0.489
+  },
+  aya: {
+    games: 23,
+    avgPlacement: 4.48,
+    winRate: 0.174,
+    top3Rate: 0.261,
+    oneTrickRatio: 0.831
+  },
+  haze: {
+    games: 22,
+    avgPlacement: 3.91,
+    winRate: 0.136,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.547
+  },
+  nia: {
+    games: 22,
+    avgPlacement: 4.86,
+    winRate: 0.136,
+    top3Rate: 0.318,
+    oneTrickRatio: 0.522
+  },
+  karla: {
+    games: 21,
+    avgPlacement: 3.62,
+    winRate: 0.143,
+    top3Rate: 0.571,
+    oneTrickRatio: 0.764
+  },
+  yuki: {
+    games: 20,
+    avgPlacement: 4.7,
+    winRate: 0.05,
+    top3Rate: 0.4,
+    oneTrickRatio: 0.9
+  },
+  camilo: {
+    games: 20,
+    avgPlacement: 4.3,
+    winRate: 0.15,
+    top3Rate: 0.35,
+    oneTrickRatio: 0.889
+  },
+  arda: {
+    games: 19,
+    avgPlacement: 3.11,
+    winRate: 0.316,
+    top3Rate: 0.684,
+    oneTrickRatio: 0.574
+  },
+  celine: {
+    games: 19,
+    avgPlacement: 4.05,
+    winRate: 0.211,
+    top3Rate: 0.474,
+    oneTrickRatio: 0.826
+  },
+  lenox: {
+    games: 19,
+    avgPlacement: 4.16,
+    winRate: 0.105,
+    top3Rate: 0.368,
+    oneTrickRatio: 0.829
+  },
+  alonso: {
+    games: 18,
+    avgPlacement: 3.78,
+    winRate: 0.278,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.53
+  },
+  magnus: {
+    games: 17,
+    avgPlacement: 4,
+    winRate: 0.235,
+    top3Rate: 0.471,
+    oneTrickRatio: 0.673
   },
   garnet: {
     games: 16,
-    avgPlacement: 4.06,
+    avgPlacement: 4,
     winRate: 0.125,
     top3Rate: 0.375,
-    oneTrickRatio: 0.929
+    oneTrickRatio: 0.925
+  },
+  zahir: {
+    games: 16,
+    avgPlacement: 3,
+    winRate: 0.313,
+    top3Rate: 0.688,
+    oneTrickRatio: 0.826
   },
   barbara: {
     games: 16,
@@ -32531,199 +32624,178 @@ export const rankerCandidateStats = {
   },
   leni: {
     games: 16,
-    avgPlacement: 3.5,
-    winRate: 0.188,
+    avgPlacement: 3.56,
+    winRate: 0.125,
     top3Rate: 0.5,
-    oneTrickRatio: 0.526
+    oneTrickRatio: 0.533
   },
-  isol: {
+  hyunwoo: {
+    games: 15,
+    avgPlacement: 4.2,
+    winRate: 0.2,
+    top3Rate: 0.467,
+    oneTrickRatio: 0.913
+  },
+  theodore: {
     games: 14,
-    avgPlacement: 3.71,
-    winRate: 0.071,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.592
+    avgPlacement: 2.93,
+    winRate: 0.357,
+    top3Rate: 0.643,
+    oneTrickRatio: 0.561
   },
-  isaac: {
-    games: 13,
-    avgPlacement: 3.62,
-    winRate: 0.385,
-    top3Rate: 0.385,
-    oneTrickRatio: 0.609
-  },
-  yan: {
-    games: 13,
-    avgPlacement: 3.15,
-    winRate: 0.308,
-    top3Rate: 0.692,
-    oneTrickRatio: 0.538
-  },
-  luke: {
-    games: 13,
-    avgPlacement: 5,
+  daniel: {
+    games: 14,
+    avgPlacement: 4.5,
     winRate: 0,
-    top3Rate: 0.385,
-    oneTrickRatio: 0.963
+    top3Rate: 0.214,
+    oneTrickRatio: 0.932
+  },
+  estelle: {
+    games: 13,
+    avgPlacement: 3.38,
+    winRate: 0.385,
+    top3Rate: 0.538,
+    oneTrickRatio: 0.576
+  },
+  elena: {
+    games: 13,
+    avgPlacement: 3.54,
+    winRate: 0.231,
+    top3Rate: 0.462,
+    oneTrickRatio: 0.956
+  },
+  bihyung: {
+    games: 12,
+    avgPlacement: 3.83,
+    winRate: 0.25,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.769
   },
   charlotte: {
     games: 12,
-    avgPlacement: 4.5,
-    winRate: 0.333,
-    top3Rate: 0.333,
-    oneTrickRatio: 0.602
-  },
-  magnus: {
-    games: 12,
-    avgPlacement: 3.17,
+    avgPlacement: 4.83,
     winRate: 0.25,
-    top3Rate: 0.583,
-    oneTrickRatio: 0.674
-  },
-  elena: {
-    games: 12,
-    avgPlacement: 3.58,
-    winRate: 0.167,
-    top3Rate: 0.417,
-    oneTrickRatio: 1
-  },
-  daniel: {
-    games: 12,
-    avgPlacement: 4.75,
-    winRate: 0,
     top3Rate: 0.25,
-    oneTrickRatio: 1
+    oneTrickRatio: 0.611
   },
-  hyunwoo: {
-    games: 12,
-    avgPlacement: 4,
-    winRate: 0.25,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.99
-  },
-  arda: {
+  isaac: {
     games: 10,
-    avgPlacement: 2.9,
-    winRate: 0.5,
-    top3Rate: 0.7,
-    oneTrickRatio: 0.655
-  },
-  bihyung: {
-    games: 10,
-    avgPlacement: 2.8,
-    winRate: 0.2,
-    top3Rate: 0.7,
-    oneTrickRatio: 0.737
-  },
-  vanya: {
-    games: 10,
-    avgPlacement: 4.6,
+    avgPlacement: 3.7,
     winRate: 0.3,
     top3Rate: 0.5,
-    oneTrickRatio: 0.662
+    oneTrickRatio: 0.618
+  },
+  martina: {
+    games: 10,
+    avgPlacement: 2.8,
+    winRate: 0.3,
+    top3Rate: 0.7,
+    oneTrickRatio: 0.832
+  },
+  eleven: {
+    games: 10,
+    avgPlacement: 3.3,
+    winRate: 0.3,
+    top3Rate: 0.7,
+    oneTrickRatio: 0.829
+  },
+  isol: {
+    games: 10,
+    avgPlacement: 4,
+    winRate: 0.1,
+    top3Rate: 0.5,
+    oneTrickRatio: 0.648
+  },
+  felix: {
+    games: 9,
+    avgPlacement: 3.33,
+    winRate: 0.222,
+    top3Rate: 0.444,
+    oneTrickRatio: 0.5
   },
   abigail: {
     games: 9,
-    avgPlacement: 3,
-    winRate: 0.222,
-    top3Rate: 0.667,
-    oneTrickRatio: 0.708
-  },
-  eleven: {
-    games: 9,
-    avgPlacement: 3.11,
-    winRate: 0.222,
-    top3Rate: 0.667,
-    oneTrickRatio: 0.832
-  },
-  li_dailin: {
-    games: 7,
-    avgPlacement: 3.71,
-    winRate: 0.143,
-    top3Rate: 0.571,
-    oneTrickRatio: 0.644
-  },
-  chloe: {
-    games: 7,
-    avgPlacement: 2.29,
-    winRate: 0.286,
-    top3Rate: 0.714,
-    oneTrickRatio: 0.67
-  },
-  lucia: {
-    games: 6,
-    avgPlacement: 5.5,
-    winRate: 0,
-    top3Rate: 0.333,
-    oneTrickRatio: 0.636
-  },
-  lenore: {
-    games: 6,
     avgPlacement: 3.33,
-    winRate: 0.167,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.475
+    winRate: 0.333,
+    top3Rate: 0.556,
+    oneTrickRatio: 0.711
   },
   hisui: {
-    games: 5,
-    avgPlacement: 3.4,
-    winRate: 0,
-    top3Rate: 0.6,
-    oneTrickRatio: 0.827
-  },
-  zahir: {
-    games: 5,
-    avgPlacement: 4,
-    winRate: 0.2,
-    top3Rate: 0.6,
-    oneTrickRatio: 0.496
-  },
-  felix: {
-    games: 4,
-    avgPlacement: 3,
+    games: 8,
+    avgPlacement: 3.13,
     winRate: 0.25,
+    top3Rate: 0.625,
+    oneTrickRatio: 0.716
+  },
+  li_dailin: {
+    games: 6,
+    avgPlacement: 4.17,
+    winRate: 0.167,
     top3Rate: 0.5,
-    oneTrickRatio: 0.469
+    oneTrickRatio: 0.666
+  },
+  chloe: {
+    games: 6,
+    avgPlacement: 2.17,
+    winRate: 0.167,
+    top3Rate: 0.833,
+    oneTrickRatio: 0.644
+  },
+  lucia: {
+    games: 5,
+    avgPlacement: 4.4,
+    winRate: 0,
+    top3Rate: 0.4,
+    oneTrickRatio: 0.612
+  },
+  yumin: {
+    games: 5,
+    avgPlacement: 5.4,
+    winRate: 0,
+    top3Rate: 0.2,
+    oneTrickRatio: 0.836
   },
   johann: {
     games: 4,
-    avgPlacement: 3.5,
-    winRate: 0.5,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.686
+    avgPlacement: 4.5,
+    winRate: 0.25,
+    top3Rate: 0.25,
+    oneTrickRatio: 0.671
   },
   mai: {
     games: 4,
     avgPlacement: 4,
     winRate: 0.25,
     top3Rate: 0.25,
-    oneTrickRatio: 0.433
+    oneTrickRatio: 0.453
+  },
+  henry: {
+    games: 3,
+    avgPlacement: 5.67,
+    winRate: 0.333,
+    top3Rate: 0.333,
+    oneTrickRatio: 0.581
   },
   piolo: {
     games: 3,
     avgPlacement: 4,
     winRate: 0,
     top3Rate: 0.333,
-    oneTrickRatio: 0.639
+    oneTrickRatio: 0.64
   },
   sho: {
     games: 3,
-    avgPlacement: 5.33,
-    winRate: 0,
-    top3Rate: 0,
-    oneTrickRatio: 0.587
+    avgPlacement: 2.33,
+    winRate: 0.667,
+    top3Rate: 0.667,
+    oneTrickRatio: 0.549
   },
   mirka: {
     games: 2,
-    avgPlacement: 2.5,
-    winRate: 0.5,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.641
-  },
-  henry: {
-    games: 2,
-    avgPlacement: 3.5,
-    winRate: 0,
-    top3Rate: 0.5,
-    oneTrickRatio: 0.806
+    avgPlacement: 1,
+    winRate: 1,
+    top3Rate: 1,
+    oneTrickRatio: 0.646
   }
 };
 
