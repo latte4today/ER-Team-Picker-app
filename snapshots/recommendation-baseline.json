@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T07:37:21.526Z",
+  "generatedAt": "2026-09-21T11:00:22.868Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3cfe9d4394e4fd5c",
+      "digest": "3d1ce3d6cee9d1f0",
       "results": [
         {
           "rank": 1,
@@ -1111,7 +1111,7 @@
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.93
+          "total": 0.918
         },
         {
           "rank": 6,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "50a11f9f4f2e50ad",
+      "digest": "d413c00095fe86f2",
       "results": [
         {
           "rank": 1,
@@ -1367,7 +1367,7 @@
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.043
+          "total": 1.033
         },
         {
           "rank": 7,
@@ -1408,7 +1408,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e17157fa270ced02",
+      "digest": "e4879ea27da0cf6c",
       "results": [
         {
           "rank": 1,
@@ -1491,7 +1491,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6a6f1784af81e83c",
+      "digest": "01cf4448ab0a0b32",
       "results": [
         {
           "rank": 1,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b22d4a15d426f166",
+      "digest": "3c0db3b9d5e9a921",
       "results": [
         {
           "rank": 1,
@@ -2971,7 +2971,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "25aef318f5ecb7bb",
+      "digest": "2f1d51c6bdf27df3",
       "results": [
         {
           "rank": 1,
@@ -3020,7 +3020,7 @@
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.822
+          "total": 0.811
         },
         {
           "rank": 8,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "004f5a9c02a3aeea",
+      "digest": "2c0be2a3fff0edc3",
       "results": [
         {
           "rank": 1,
@@ -3220,7 +3220,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "50b4c253f354d9e0",
+      "digest": "20405857238fa723",
       "results": [
         {
           "rank": 1,
@@ -3283,7 +3283,7 @@
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.071
+          "total": 1.061
         },
         {
           "rank": 10,
@@ -3303,7 +3303,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c9ddfb3a8c0445f7",
+      "digest": "1c068b2535515417",
       "results": [
         {
           "rank": 1,
@@ -3386,7 +3386,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4ab4f7e80390f9e4",
+      "digest": "1b7da6444da3ad16",
       "results": [
         {
           "rank": 1,
@@ -3635,7 +3635,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cc8f120629790eb2",
+      "digest": "ca920e18a91ebf2d",
       "results": [
         {
           "rank": 1,
@@ -3718,7 +3718,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0d21f9c5c813fcba",
+      "digest": "1725154bf2f6321b",
       "results": [
         {
           "rank": 1,
@@ -4866,7 +4866,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6071bc4e0176bd5c",
+      "digest": "94c7dd42358fe9fb",
       "results": [
         {
           "rank": 1,
@@ -4929,7 +4929,7 @@
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.697
+          "total": 0.685
         },
         {
           "rank": 10,
@@ -5115,7 +5115,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b79d3e8dab44edef",
+      "digest": "3495c9c63bdc5d15",
       "results": [
         {
           "rank": 1,
@@ -5182,10 +5182,10 @@
         },
         {
           "rank": 10,
-          "variantId": "chloe:shuriken",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 0.83
+          "variantId": "li_dailin:glove",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.826
         }
       ]
     },
@@ -5198,7 +5198,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "525a7ff62503e3e9",
+      "digest": "06bfc4648540f856",
       "results": [
         {
           "rank": 1,
@@ -5281,7 +5281,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "deb0217a87e755a6",
+      "digest": "d3a5ea286f7bc6dd",
       "results": [
         {
           "rank": 1,
@@ -5447,7 +5447,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b076724a4b8a9c21",
+      "digest": "e9603dc4f796cedf",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "77642c29167aa47c",
+      "digest": "1e717eb7f712dbfd",
       "results": [
         {
           "rank": 1,
@@ -5655,7 +5655,7 @@
           "variantId": "ian:dagger",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.775
+          "total": 0.765
         },
         {
           "rank": 7,
@@ -6761,7 +6761,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b3e5f38796b187ab",
+      "digest": "dca55ababd541ea3",
       "results": [
         {
           "rank": 1,
@@ -6810,7 +6810,7 @@
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.166
+          "total": 1.154
         },
         {
           "rank": 8,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "891bbed6b3fa4f37",
+      "digest": "a240d5d4f14ccf7a",
       "results": [
         {
           "rank": 1,
@@ -7093,7 +7093,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ef0960b90d0fcf07",
+      "digest": "663beb7e5418b761",
       "results": [
         {
           "rank": 1,
@@ -7176,7 +7176,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d9d6ee9bccbc00ef",
+      "digest": "29e0ee0ef8b3d0cb",
       "results": [
         {
           "rank": 1,
@@ -8988,7 +8988,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "24339b9c0d1a1032",
+      "digest": "c27abad21be02157",
       "results": [
         {
           "rank": 1,
@@ -9071,7 +9071,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "055ed3dfeeff9e07",
+      "digest": "ae477d32ffcab42e",
       "results": [
         {
           "rank": 1,
@@ -9113,7 +9113,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.409
+          "total": 0.417
         },
         {
           "rank": 7,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e095f4e902721f65",
+      "digest": "d3b9f4911f0da7fb",
       "results": [
         {
           "rank": 1,
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b435b48c1bdc4629",
+      "digest": "bc194d4bb08b42f3",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b60f928134ce268e",
+      "digest": "b5bf4a0847dba201",
       "results": [
         {
           "rank": 1,
