@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T01:43:20.850Z",
+  "generatedAt": "2026-09-23T10:22:08.343Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d17799710f3ad66d",
+      "digest": "e571ee147644e744",
       "results": [
         {
           "rank": 1,
@@ -1159,7 +1159,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ddef3ba347408688",
+      "digest": "b94b40ddb93d9bd2",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "43759b230c973df1",
+      "digest": "5e348d2718f6950a",
       "results": [
         {
           "rank": 1,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "75fd2e83a48e1e37",
+      "digest": "7ea99b164103f00d",
       "results": [
         {
           "rank": 1,
@@ -1678,7 +1678,7 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.079
+          "total": 1.087
         },
         {
           "rank": 4,
@@ -1740,21 +1740,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c9f11e5019318f0d",
+      "digest": "a18c39eff442ce47",
       "results": [
         {
           "rank": 1,
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 2.186
+          "total": 2.195
         },
         {
           "rank": 2,
           "variantId": "felix:spear",
           "core": "7100101",
           "coreName": "금강",
-          "total": 2.002
+          "total": 2.011
         },
         {
           "rank": 3,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5725b49764a63719",
+      "digest": "c934e9cd13e9c08e",
       "results": [
         {
           "rank": 1,
@@ -2231,7 +2231,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "994ad0bdbfa433fc",
+      "digest": "aee55c718e6c6bb8",
       "results": [
         {
           "rank": 1,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f9ea4c1640508bad",
+      "digest": "cb3615f21aa50e02",
       "results": [
         {
           "rank": 1,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7d5c211e7ecbc879",
+      "digest": "5b5b6c4225a6f54e",
       "results": [
         {
           "rank": 1,
@@ -3552,7 +3552,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4ffb1193e5cb84db",
+      "digest": "f98014754fd99be4",
       "results": [
         {
           "rank": 1,
@@ -3587,7 +3587,7 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.119
+          "total": 1.127
         },
         {
           "rank": 6,
@@ -3635,7 +3635,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "baf66cb63de9c043",
+      "digest": "451149401bce2d1c",
       "results": [
         {
           "rank": 1,
@@ -3649,7 +3649,7 @@
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 2.104
+          "total": 2.113
         },
         {
           "rank": 3,
@@ -3718,7 +3718,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "072fe5ecd4153dd1",
+      "digest": "82944e8069d0e22c",
       "results": [
         {
           "rank": 1,
@@ -3962,7 +3962,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5beeb192df270e92",
+      "digest": "8e65058ebd6637a2",
       "results": [
         {
           "rank": 1,
@@ -4126,7 +4126,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6d12fa8e2032dee0",
+      "digest": "c818220c9289c9ac",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b351796a24e26a63",
+      "digest": "9c4d0fef8be0035f",
       "results": [
         {
           "rank": 1,
@@ -4846,7 +4846,7 @@
           "variantId": "adela:rapier",
           "core": "7000201",
           "coreName": "취약",
-          "total": 0.574
+          "total": 0.604
         },
         {
           "rank": 10,
@@ -4866,7 +4866,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "16ef46e22d662eb1",
+      "digest": "094a3e9e8e7e3d08",
       "results": [
         {
           "rank": 1,
@@ -4949,7 +4949,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "06b245916dfc2da7",
+      "digest": "f828d1c87243cb66",
       "results": [
         {
           "rank": 1,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0d10230ff7a65576",
+      "digest": "9fdd088820c07b81",
       "results": [
         {
           "rank": 1,
@@ -5447,7 +5447,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "15c4575446ecd242",
+      "digest": "379b2cecbb008630",
       "results": [
         {
           "rank": 1,
@@ -5482,7 +5482,7 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.109
+          "total": 1.117
         },
         {
           "rank": 6,
@@ -5530,14 +5530,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fdd8b63330a0a54a",
+      "digest": "3bba11a39d41f576",
       "results": [
         {
           "rank": 1,
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.505
+          "total": 1.515
         },
         {
           "rank": 2,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "172e0ad3bbd8f48b",
+      "digest": "cb63edfa2af9b681",
       "results": [
         {
           "rank": 1,
@@ -6678,7 +6678,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1b85d3671116cd64",
+      "digest": "233f27712010a2cf",
       "results": [
         {
           "rank": 1,
@@ -6761,7 +6761,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "76d282c3011c2b17",
+      "digest": "b29e3a356d5e67b8",
       "results": [
         {
           "rank": 1,
@@ -6844,7 +6844,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "15a7d38e720d6b9b",
+      "digest": "1c7c51eb952786d4",
       "results": [
         {
           "rank": 1,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "096b7cd73f871fad",
+      "digest": "cbac318af3b2273c",
       "results": [
         {
           "rank": 1,
@@ -7342,7 +7342,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "52171dd1756f9918",
+      "digest": "1f981a17f7cb9b64",
       "results": [
         {
           "rank": 1,
@@ -7425,7 +7425,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0306338a8a5f0d65",
+      "digest": "3a5e326b7374a89e",
       "results": [
         {
           "rank": 1,
@@ -7453,14 +7453,14 @@
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.096
+          "total": 1.105
         },
         {
           "rank": 5,
           "variantId": "felix:spear",
           "core": "7100101",
           "coreName": "금강",
-          "total": 1.073
+          "total": 1.082
         },
         {
           "rank": 6,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9ed63ad0669e6455",
+      "digest": "fe7b332f8a247176",
       "results": [
         {
           "rank": 1,
@@ -7752,7 +7752,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7188cfece444bbe7",
+      "digest": "9b99ed1a6bc36853",
       "results": [
         {
           "rank": 1,
@@ -7916,7 +7916,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8ba6922fb3ff6197",
+      "digest": "9266013a402f0e35",
       "results": [
         {
           "rank": 1,
@@ -8656,7 +8656,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2f8ead8436255fcb",
+      "digest": "a4fd5e267457e117",
       "results": [
         {
           "rank": 1,
@@ -8739,7 +8739,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "585bf4b061de0bfa",
+      "digest": "f2225e8a13c5afe1",
       "results": [
         {
           "rank": 1,
@@ -8757,16 +8757,16 @@
         },
         {
           "rank": 3,
-          "variantId": "bernice:sniper_rifle",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.407
-        },
-        {
-          "rank": 4,
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
+          "total": 0.409
+        },
+        {
+          "rank": 4,
+          "variantId": "bernice:sniper_rifle",
+          "core": "7000401",
+          "coreName": "흡혈마",
           "total": 0.407
         },
         {
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6e4835c3133a67f1",
+      "digest": "dce6c9d6d4b69ff3",
       "results": [
         {
           "rank": 1,
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a3a06264de312a66",
+      "digest": "a72b984b1b8eb19a",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3f52d711e360f899",
+      "digest": "8daa8e040041ce3e",
       "results": [
         {
           "rank": 1,
