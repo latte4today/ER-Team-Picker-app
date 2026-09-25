@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T15:51:48.144Z",
+  "generatedAt": "2026-09-25T10:37:42.449Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -254,7 +254,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "59eeb1c6ef51c86d",
+      "digest": "5a246fd6860fd6f7",
       "results": [
         {
           "rank": 1,
@@ -289,7 +289,7 @@
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.374
+          "total": 1.36
         },
         {
           "rank": 6,
@@ -336,7 +336,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b47d2ded3763479e",
+      "digest": "646eee5dc6ee9632",
       "results": [
         {
           "rank": 1,
@@ -357,14 +357,14 @@
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.534
+          "total": 1.533
         },
         {
           "rank": 4,
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.368
+          "total": 1.337
         },
         {
           "rank": 5,
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e4a9d49069c5983b",
+      "digest": "534471b7edac886e",
       "results": [
         {
           "rank": 1,
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bafe5253c99a7432",
+      "digest": "0545372c2f65ecb2",
       "results": [
         {
           "rank": 1,
@@ -1118,7 +1118,7 @@
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.769
+          "total": 0.744
         },
         {
           "rank": 7,
@@ -1159,7 +1159,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2cfbfb630deb44a1",
+      "digest": "6c24f478444492d7",
       "results": [
         {
           "rank": 1,
@@ -1180,14 +1180,14 @@
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.511
+          "total": 1.455
         },
         {
           "rank": 4,
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.305
+          "total": 1.226
         },
         {
           "rank": 5,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "aeb02a9ca2c9f879",
+      "digest": "70c6b896886c4694",
       "results": [
         {
           "rank": 1,
@@ -1256,7 +1256,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.793
+          "total": 1.802
         },
         {
           "rank": 3,
@@ -1298,14 +1298,14 @@
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.108
+          "total": 1.077
         },
         {
           "rank": 9,
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.925
+          "total": 0.867
         },
         {
           "rank": 10,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5d95c71e7f28756b",
+      "digest": "62deb392d3d4bf99",
       "results": [
         {
           "rank": 1,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "298255e2edd70773",
+      "digest": "586f67d5121e00f4",
       "results": [
         {
           "rank": 1,
@@ -1740,7 +1740,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "70ca1ac6fe2bff62",
+      "digest": "3baef6f34e7cf65b",
       "results": [
         {
           "rank": 1,
@@ -1796,7 +1796,7 @@
           "variantId": "echion:vf_prosthetic",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.797
+          "total": 0.807
         },
         {
           "rank": 9,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bcacff9709ae38ff",
+      "digest": "a0e552ae4d7d7576",
       "results": [
         {
           "rank": 1,
@@ -2067,7 +2067,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e567f599edf00874",
+      "digest": "909ac96d99f59338",
       "results": [
         {
           "rank": 1,
@@ -2231,7 +2231,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bb9add378168e371",
+      "digest": "63d3c4621a49744e",
       "results": [
         {
           "rank": 1,
@@ -2273,7 +2273,7 @@
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.274
+          "total": 1.243
         },
         {
           "rank": 7,
@@ -2888,7 +2888,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "36e4a98f7b9aa4cb",
+      "digest": "f823c009ed418ebb",
       "results": [
         {
           "rank": 1,
@@ -2971,7 +2971,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "547251aeb12ce868",
+      "digest": "433fb9390b0bfd39",
       "results": [
         {
           "rank": 1,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7b06413bda07f9bc",
+      "digest": "32c84c1d83820f71",
       "results": [
         {
           "rank": 1,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1d0d38932edfa115",
+      "digest": "857df5112f47b2e0",
       "results": [
         {
           "rank": 1,
@@ -3165,7 +3165,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.926
+          "total": 1.935
         },
         {
           "rank": 5,
@@ -3193,7 +3193,7 @@
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.135
+          "total": 1.104
         },
         {
           "rank": 9,
@@ -3220,7 +3220,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "438c5c9d4c4d59f4",
+      "digest": "06ab06209b79427b",
       "results": [
         {
           "rank": 1,
@@ -3552,7 +3552,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "02535274e8064c9e",
+      "digest": "032094c0e18fcd21",
       "results": [
         {
           "rank": 1,
@@ -3635,7 +3635,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "27080520077310ce",
+      "digest": "752f9f0f3975b724",
       "results": [
         {
           "rank": 1,
@@ -3691,7 +3691,7 @@
           "variantId": "echion:vf_prosthetic",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.761
+          "total": 0.77
         },
         {
           "rank": 9,
@@ -3718,7 +3718,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a079f33975230136",
+      "digest": "dc4fa516bac66335",
       "results": [
         {
           "rank": 1,
@@ -4044,21 +4044,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c051d4ac9e2d4b41",
+      "digest": "a881a0b1a46642ae",
       "results": [
         {
           "rank": 1,
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 2.362
+          "total": 2.347
         },
         {
           "rank": 2,
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 2.35
+          "total": 2.336
         },
         {
           "rank": 3,
@@ -4126,21 +4126,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5153839317f9aada",
+      "digest": "8ed40e21676aee1f",
       "results": [
         {
           "rank": 1,
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.502
+          "total": 1.472
         },
         {
           "rank": 2,
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.492
+          "total": 1.461
         },
         {
           "rank": 3,
@@ -4866,7 +4866,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "98aeedcc5796d0d8",
+      "digest": "a171ed2ae3c2b038",
       "results": [
         {
           "rank": 1,
@@ -4891,24 +4891,24 @@
         },
         {
           "rank": 4,
-          "variantId": "tia:bat",
-          "core": "7100401",
-          "coreName": "빛의 수호",
-          "total": 0.995
-        },
-        {
-          "rank": 5,
-          "variantId": "tia:bat",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.984
-        },
-        {
-          "rank": 6,
           "variantId": "alex:flex",
           "core": "7300101",
           "coreName": "스텔라 차지",
           "total": 0.934
+        },
+        {
+          "rank": 5,
+          "variantId": "tia:bat",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 0.928
+        },
+        {
+          "rank": 6,
+          "variantId": "tia:bat",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.917
         },
         {
           "rank": 7,
@@ -4949,21 +4949,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "565dac45c666878f",
+      "digest": "39c8290580d916ba",
       "results": [
         {
           "rank": 1,
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.868
+          "total": 1.79
         },
         {
           "rank": 2,
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.854
+          "total": 1.776
         },
         {
           "rank": 3,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dcc7d3e9b839d7d0",
+      "digest": "4903e3d38de0cc15",
       "results": [
         {
           "rank": 1,
@@ -5046,7 +5046,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.765
+          "total": 1.774
         },
         {
           "rank": 3,
@@ -5064,24 +5064,24 @@
         },
         {
           "rank": 5,
-          "variantId": "tia:bat",
-          "core": "7100401",
-          "coreName": "빛의 수호",
-          "total": 1.077
-        },
-        {
-          "rank": 6,
-          "variantId": "tia:bat",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 1.063
-        },
-        {
-          "rank": 7,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 1.054
+        },
+        {
+          "rank": 6,
+          "variantId": "tia:bat",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 1.019
+        },
+        {
+          "rank": 7,
+          "variantId": "tia:bat",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 1.005
         },
         {
           "rank": 8,
@@ -5447,7 +5447,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "be5410d22b2ea613",
+      "digest": "cb8b022357fd632e",
       "results": [
         {
           "rank": 1,
@@ -5530,7 +5530,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a093d74e9d0ba6e5",
+      "digest": "547663ffee59306e",
       "results": [
         {
           "rank": 1,
@@ -5565,7 +5565,7 @@
           "variantId": "echion:vf_prosthetic",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.916
+          "total": 0.925
         },
         {
           "rank": 6,
@@ -5600,7 +5600,7 @@
           "variantId": "echion:vf_prosthetic",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.696
+          "total": 0.705
         }
       ]
     },
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "41c524ff150bc1b4",
+      "digest": "eb0b810713ac41fe",
       "results": [
         {
           "rank": 1,
@@ -5634,7 +5634,7 @@
           "variantId": "adina:arcana",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.102
+          "total": 1.092
         },
         {
           "rank": 4,
@@ -5939,7 +5939,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6e885458424c1236",
+      "digest": "1271e0c2006d2a6c",
       "results": [
         {
           "rank": 1,
@@ -5967,7 +5967,7 @@
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.415
+          "total": 1.399
         },
         {
           "rank": 5,
@@ -6021,7 +6021,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d7e6d2b9684cef51",
+      "digest": "6ac2a9cab5c398ed",
       "results": [
         {
           "rank": 1,
@@ -6042,7 +6042,7 @@
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.526
+          "total": 1.495
         },
         {
           "rank": 4,
@@ -6761,7 +6761,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9c26fb71076387ad",
+      "digest": "927ff519685e089c",
       "results": [
         {
           "rank": 1,
@@ -6844,7 +6844,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ea031dd2d1fbeacc",
+      "digest": "505fabc4c84d09cf",
       "results": [
         {
           "rank": 1,
@@ -6856,16 +6856,16 @@
         {
           "rank": 2,
           "variantId": "tia:bat",
-          "core": "7100401",
-          "coreName": "빛의 수호",
-          "total": 1.407
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 1.343
         },
         {
           "rank": 3,
           "variantId": "tia:bat",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 1.399
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 1.328
         },
         {
           "rank": 4,
@@ -6927,7 +6927,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8c6dbc9d81aa1aba",
+      "digest": "a701f0312c697099",
       "results": [
         {
           "rank": 1,
@@ -6941,7 +6941,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.331
+          "total": 1.34
         },
         {
           "rank": 3,
@@ -6987,17 +6987,17 @@
         },
         {
           "rank": 9,
-          "variantId": "tia:bat",
-          "core": "7100401",
-          "coreName": "빛의 수호",
-          "total": 0.662
-        },
-        {
-          "rank": 10,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.66
+        },
+        {
+          "rank": 10,
+          "variantId": "rio:bow",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.635
         }
       ]
     },
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "98b15fb92c269166",
+      "digest": "1a6f268d4acb6b9e",
       "results": [
         {
           "rank": 1,
@@ -7342,14 +7342,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "916c0ba1eb22942a",
+      "digest": "7472861747ed770f",
       "results": [
         {
           "rank": 1,
           "variantId": "adela:bat",
           "core": "7000201",
           "coreName": "취약",
-          "total": 1.241
+          "total": 1.232
         },
         {
           "rank": 2,
@@ -7425,7 +7425,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7f7d27b32e20184b",
+      "digest": "fadaed0170cb66de",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fb58a6c46c9c8c60",
+      "digest": "1a70e860403a7f04",
       "results": [
         {
           "rank": 1,
@@ -7834,7 +7834,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f9ed9a372db3b979",
+      "digest": "6e6a19653ed3ae2a",
       "results": [
         {
           "rank": 1,
@@ -7916,14 +7916,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7a839eecbf60b4f8",
+      "digest": "4dbd3c6c1f7df2b7",
       "results": [
         {
           "rank": 1,
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.52
+          "total": 1.489
         },
         {
           "rank": 2,
@@ -8739,21 +8739,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ef153caee7b82a7a",
+      "digest": "af0a54172a38a11b",
       "results": [
         {
           "rank": 1,
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.765
+          "total": 0.698
         },
         {
           "rank": 2,
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.579
+          "total": 0.549
         },
         {
           "rank": 3,
@@ -8822,7 +8822,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ea2342b575ae193f",
+      "digest": "1dc531a6c5c74f1a",
       "results": [
         {
           "rank": 1,
@@ -8864,14 +8864,14 @@
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.85
+          "total": 0.771
         },
         {
           "rank": 7,
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.632
+          "total": 0.579
         },
         {
           "rank": 8,
@@ -8905,7 +8905,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7df178d34e44b2e4",
+      "digest": "0d5120e0fde13f86",
       "results": [
         {
           "rank": 1,
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "13e3df612d3c9aca",
+      "digest": "3af0387c3d5ce6e1",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d6ef4a20f07f3a39",
+      "digest": "3daaa17f8bc9dae7",
       "results": [
         {
           "rank": 1,
