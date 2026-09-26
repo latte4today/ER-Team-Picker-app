@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T20:30:49.438Z",
+  "generatedAt": "2026-09-26T10:22:17.219Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cccae28691495129",
+      "digest": "b2e05de22554f722",
       "results": [
         {
           "rank": 1,
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0bf30ab549666f2c",
+      "digest": "6eae298193aebcda",
       "results": [
         {
           "rank": 1,
@@ -1242,14 +1242,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3ccb1ac74b257af3",
+      "digest": "b1fd58bf0392db6e",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.77
+          "total": 1.8
         },
         {
           "rank": 2,
@@ -1277,7 +1277,7 @@
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.578
+          "total": 1.608
         },
         {
           "rank": 6,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1d980d425efaf5c7",
+      "digest": "ecc34be28f6e145c",
       "results": [
         {
           "rank": 1,
@@ -1339,7 +1339,7 @@
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 2.219
+          "total": 2.227
         },
         {
           "rank": 3,
@@ -1353,7 +1353,7 @@
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 2.027
+          "total": 2.034
         },
         {
           "rank": 5,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0cf8160c0d9f6f71",
+      "digest": "ce74e70c950a8e62",
       "results": [
         {
           "rank": 1,
@@ -2888,7 +2888,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6e6fa4a7c5141e7a",
+      "digest": "1e2b6b3fab831b8f",
       "results": [
         {
           "rank": 1,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6007bf2657188526",
+      "digest": "6a5bb175f8c63930",
       "results": [
         {
           "rank": 1,
@@ -3172,14 +3172,14 @@
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.821
+          "total": 1.851
         },
         {
           "rank": 6,
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.571
+          "total": 1.601
         },
         {
           "rank": 7,
@@ -3220,7 +3220,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0709eec036732f1a",
+      "digest": "bd14fa16f465c4ca",
       "results": [
         {
           "rank": 1,
@@ -3234,7 +3234,7 @@
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 2.177
+          "total": 2.185
         },
         {
           "rank": 3,
@@ -3248,7 +3248,7 @@
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.927
+          "total": 1.934
         },
         {
           "rank": 5,
@@ -3718,7 +3718,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1a75e47476f15bb3",
+      "digest": "9cba8e2b26c808f2",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c42a14a7ec54788f",
+      "digest": "f159ebf61e9d79af",
       "results": [
         {
           "rank": 1,
@@ -4825,7 +4825,7 @@
           "variantId": "hyejin:shuriken",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.73
+          "total": 0.775
         },
         {
           "rank": 7,
@@ -4866,7 +4866,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "808a38d1b3fc2372",
+      "digest": "5664a58aa95e1ca6",
       "results": [
         {
           "rank": 1,
@@ -5032,21 +5032,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1389813eac1ecd6d",
+      "digest": "a445d26b0df9bc31",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.852
+          "total": 1.882
         },
         {
           "rank": 2,
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.72
+          "total": 1.75
         },
         {
           "rank": 3,
@@ -5115,14 +5115,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "08eddd054875abfa",
+      "digest": "367d76da35a7646a",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 2.292
+          "total": 2.299
         },
         {
           "rank": 2,
@@ -5136,7 +5136,7 @@
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 2.16
+          "total": 2.167
         },
         {
           "rank": 4,
@@ -5530,7 +5530,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "304068f528213267",
+      "digest": "209cbe6a2a79b870",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "854d1e28498ad8f4",
+      "digest": "ddff0229959a4c1f",
       "results": [
         {
           "rank": 1,
@@ -6678,7 +6678,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2c706d1bdcf22938",
+      "digest": "c406fd795155698c",
       "results": [
         {
           "rank": 1,
@@ -6761,7 +6761,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3103858d6d4bbc9d",
+      "digest": "7698f806ccc5848e",
       "results": [
         {
           "rank": 1,
@@ -6927,7 +6927,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dda562503b7530f4",
+      "digest": "2c394e717e665685",
       "results": [
         {
           "rank": 1,
@@ -6948,7 +6948,7 @@
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.248
+          "total": 1.279
         },
         {
           "rank": 4,
@@ -6969,7 +6969,7 @@
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.008
+          "total": 1.039
         },
         {
           "rank": 7,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2c656a06f3c7c76b",
+      "digest": "59cd094bc542f80a",
       "results": [
         {
           "rank": 1,
@@ -7031,14 +7031,14 @@
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.661
+          "total": 1.669
         },
         {
           "rank": 4,
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.421
+          "total": 1.428
         },
         {
           "rank": 5,
@@ -7176,7 +7176,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dd4084d122a2cc0b",
+      "digest": "0e05d8e4aa28abbc",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a157c2de7309f0e3",
+      "digest": "c4d93aae7c4ce6f4",
       "results": [
         {
           "rank": 1,
@@ -8633,17 +8633,17 @@
         },
         {
           "rank": 9,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.358
+        },
+        {
+          "rank": 10,
           "variantId": "leon:glove",
           "core": "7000701",
           "coreName": "액셀러레이터",
           "total": 0.327
-        },
-        {
-          "rank": 10,
-          "variantId": "hyejin:shuriken",
-          "core": "7200201",
-          "coreName": "증폭 드론",
-          "total": 0.312
         }
       ]
     },
@@ -8656,7 +8656,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8f00bf3933999523",
+      "digest": "0008fb9262db63e8",
       "results": [
         {
           "rank": 1,
@@ -8739,7 +8739,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "34c7854bfaac4bfe",
+      "digest": "cd2ff7d3c28eefd6",
       "results": [
         {
           "rank": 1,
@@ -8822,14 +8822,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c1fcf7f439826492",
+      "digest": "f8f0a1e0edc78909",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.946
+          "total": 1.975
         },
         {
           "rank": 2,
@@ -8850,7 +8850,7 @@
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.663
+          "total": 1.693
         },
         {
           "rank": 5,
@@ -8905,14 +8905,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "febba9731f6f9390",
+      "digest": "0ccd35dff71cbb7c",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.843
+          "total": 1.85
         },
         {
           "rank": 2,
@@ -8933,7 +8933,7 @@
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.56
+          "total": 1.567
         },
         {
           "rank": 5,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0019da8f4dc8f719",
+      "digest": "3642db7e843175a7",
       "results": [
         {
           "rank": 1,
@@ -9304,10 +9304,10 @@
         },
         {
           "rank": 10,
-          "variantId": "laura:whip",
-          "core": "7100101",
-          "coreName": "금강",
-          "total": 0.346
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.349
         }
       ]
     },
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "36c30611d1bd36e2",
+      "digest": "5bc3c48c2caf3dee",
       "results": [
         {
           "rank": 1,
@@ -9387,10 +9387,10 @@
         },
         {
           "rank": 10,
-          "variantId": "emma:shuriken",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.154
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.164
         }
       ]
     },
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9be464caecaa31e6",
+      "digest": "14bff24c2e13584d",
       "results": [
         {
           "rank": 1,
@@ -9435,45 +9435,45 @@
         },
         {
           "rank": 5,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.241
+        },
+        {
+          "rank": 6,
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.223
         },
         {
-          "rank": 6,
+          "rank": 7,
           "variantId": "sissela:shuriken",
           "core": "7000501",
           "coreName": "벽력",
           "total": 0.219
         },
         {
-          "rank": 7,
+          "rank": 8,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.216
         },
         {
-          "rank": 8,
+          "rank": 9,
           "variantId": "bernice:sniper_rifle",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.215
         },
         {
-          "rank": 9,
-          "variantId": "aya:sniper_rifle",
+          "rank": 10,
+          "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.204
-        },
-        {
-          "rank": 10,
-          "variantId": "hyejin:shuriken",
-          "core": "7200201",
-          "coreName": "증폭 드론",
-          "total": 0.188
+          "total": 0.205
         }
       ]
     }
