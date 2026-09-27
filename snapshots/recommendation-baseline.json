@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T07:55:52.985Z",
+  "generatedAt": "2026-09-27T11:01:41.029Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "40f60c171f028bbc",
+      "digest": "d11258dcd9bc686b",
       "results": [
         {
           "rank": 1,
@@ -1028,7 +1028,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.773
+          "total": 0.763
         },
         {
           "rank": 6,
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f6bad5017c36f204",
+      "digest": "08e2ded12da784be",
       "results": [
         {
           "rank": 1,
@@ -1159,7 +1159,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8a61b02a13ff4038",
+      "digest": "78701a4fc452a822",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7cb8c87c9701f7e5",
+      "digest": "1e8b8c086566525d",
       "results": [
         {
           "rank": 1,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dffe81f8cc79ef77",
+      "digest": "65d595f345dc93f2",
       "results": [
         {
           "rank": 1,
@@ -1740,7 +1740,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6c4d6cc5728a6945",
+      "digest": "deff035583612ee4",
       "results": [
         {
           "rank": 1,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "06f250d5d0c08ede",
+      "digest": "800306b9dfa335e3",
       "results": [
         {
           "rank": 1,
@@ -2231,7 +2231,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "37a8273c7dad7e78",
+      "digest": "122b15342d2cb156",
       "results": [
         {
           "rank": 1,
@@ -2888,7 +2888,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c0ff358f96633e4e",
+      "digest": "4482a80687dbff02",
       "results": [
         {
           "rank": 1,
@@ -2909,7 +2909,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.942
+          "total": 0.933
         },
         {
           "rank": 4,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c5a88da3c1af5a8f",
+      "digest": "43713ec73d08bdc5",
       "results": [
         {
           "rank": 1,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9a2715ed32fb62ae",
+      "digest": "2c90e82639fa044c",
       "results": [
         {
           "rank": 1,
@@ -3220,7 +3220,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7936d5f0ac815460",
+      "digest": "34d49b1172c9758c",
       "results": [
         {
           "rank": 1,
@@ -3552,7 +3552,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "88a577edb03f027f",
+      "digest": "f760042562be1169",
       "results": [
         {
           "rank": 1,
@@ -3635,7 +3635,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f363e2b824db5243",
+      "digest": "fefe35f53f1d4392",
       "results": [
         {
           "rank": 1,
@@ -3962,7 +3962,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dc7e76b4371b27f9",
+      "digest": "eddac0c23d9c4fb3",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "333102ec6feb9606",
+      "digest": "7a537b913cf1421b",
       "results": [
         {
           "rank": 1,
@@ -4866,7 +4866,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "da2de4d32a3e19f5",
+      "digest": "04e000463552afc3",
       "results": [
         {
           "rank": 1,
@@ -4949,7 +4949,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8f791de7dcbd4e78",
+      "digest": "6ad14e29e8a8b313",
       "results": [
         {
           "rank": 1,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d4c5b81b305bbb9a",
+      "digest": "83348d6fd2a3a8d4",
       "results": [
         {
           "rank": 1,
@@ -5447,7 +5447,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dc31bec054d5ff6d",
+      "digest": "b9dad5d4227fb07f",
       "results": [
         {
           "rank": 1,
@@ -5530,7 +5530,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "223473f0082949c6",
+      "digest": "4e79160befd0345b",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "af02943a695b06b0",
+      "digest": "c0a5b39e508785d7",
       "results": [
         {
           "rank": 1,
@@ -5638,17 +5638,17 @@
         },
         {
           "rank": 4,
-          "variantId": "adina:arcana",
-          "core": "7300201",
-          "coreName": "도깨비불",
-          "total": 1.032
-        },
-        {
-          "rank": 5,
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 1.018
+        },
+        {
+          "rank": 5,
+          "variantId": "adina:arcana",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.968
         },
         {
           "rank": 6,
@@ -5857,7 +5857,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a8d759228bd2fe5a",
+      "digest": "b2696fec50e2b5d7",
       "results": [
         {
           "rank": 1,
@@ -6678,21 +6678,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a9e98f8766f7bc51",
+      "digest": "c5678a6e07df5cb7",
       "results": [
         {
           "rank": 1,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.38
+          "total": 1.371
         },
         {
           "rank": 2,
           "variantId": "eva:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.3
+          "total": 1.29
         },
         {
           "rank": 3,
@@ -6717,24 +6717,24 @@
         },
         {
           "rank": 6,
-          "variantId": "adina:arcana",
-          "core": "7300201",
-          "coreName": "도깨비불",
-          "total": 0.97
-        },
-        {
-          "rank": 7,
           "variantId": "alex:flex",
           "core": "7300101",
           "coreName": "스텔라 차지",
           "total": 0.941
         },
         {
-          "rank": 8,
+          "rank": 7,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.918
+        },
+        {
+          "rank": 8,
+          "variantId": "adina:arcana",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.906
         },
         {
           "rank": 9,
@@ -6761,7 +6761,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3a5f053c27eb8d84",
+      "digest": "3ae12404d4fb9c6d",
       "results": [
         {
           "rank": 1,
@@ -6844,7 +6844,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "88c93387f05f15f8",
+      "digest": "5ff623b1473af221",
       "results": [
         {
           "rank": 1,
@@ -6897,17 +6897,17 @@
         },
         {
           "rank": 8,
+          "variantId": "hart:guitar",
+          "core": "7000201",
+          "coreName": "취약",
+          "total": 1.102
+        },
+        {
+          "rank": 9,
           "variantId": "nadine:crossbow",
           "core": "7000601",
           "coreName": "아드레날린",
           "total": 1.101
-        },
-        {
-          "rank": 9,
-          "variantId": "hart:guitar",
-          "core": "7000201",
-          "coreName": "취약",
-          "total": 1.09
         },
         {
           "rank": 10,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b86c7a2c8e5a1f1a",
+      "digest": "e387b8aacb90d7d3",
       "results": [
         {
           "rank": 1,
@@ -7176,7 +7176,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bd130bc94dbd4c97",
+      "digest": "44e0dc7805f2fbcf",
       "results": [
         {
           "rank": 1,
@@ -7342,7 +7342,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6952852ba9e5f867",
+      "digest": "9c848b591abedb55",
       "results": [
         {
           "rank": 1,
@@ -7360,24 +7360,24 @@
         },
         {
           "rank": 3,
-          "variantId": "adina:arcana",
-          "core": "7300201",
-          "coreName": "도깨비불",
-          "total": 1.107
-        },
-        {
-          "rank": 4,
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 1.076
         },
         {
-          "rank": 5,
+          "rank": 4,
           "variantId": "adela:bat",
           "core": "7000201",
           "coreName": "취약",
-          "total": 1.066
+          "total": 1.075
+        },
+        {
+          "rank": 5,
+          "variantId": "adina:arcana",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 1.069
         },
         {
           "rank": 6,
@@ -7425,7 +7425,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3814f9aa1998ca3d",
+      "digest": "b627bf9fa6b36ea1",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ebd5e6e9b2187a3d",
+      "digest": "cec4d9cf59cc1b2c",
       "results": [
         {
           "rank": 1,
@@ -7834,7 +7834,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7c0c92bee7181e28",
+      "digest": "a2eab5703e1dd7b4",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ec14c863876dba60",
+      "digest": "91e9b50155798739",
       "results": [
         {
           "rank": 1,
@@ -8615,7 +8615,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.461
+          "total": 0.452
         },
         {
           "rank": 7,
@@ -8739,7 +8739,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2053b7922a7e54a6",
+      "digest": "7a77d723469f7dad",
       "results": [
         {
           "rank": 1,
@@ -8822,7 +8822,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2df0d984f11e4897",
+      "digest": "134b1541e86e087b",
       "results": [
         {
           "rank": 1,
@@ -8905,7 +8905,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "50ddf5ff6d728f1d",
+      "digest": "370244526e8eb1f8",
       "results": [
         {
           "rank": 1,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "db002b23f90bd3b4",
+      "digest": "34d0725f5f4b669d",
       "results": [
         {
           "rank": 1,
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "97dd42252ff3622b",
+      "digest": "f124b0b7450149d8",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "71c92069f4f7b687",
+      "digest": "19ed32beedcbb30b",
       "results": [
         {
           "rank": 1,
