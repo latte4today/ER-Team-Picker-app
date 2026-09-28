@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T12:01:49.292Z",
+  "generatedAt": "2026-09-28T12:03:39.671Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d11258dcd9bc686b",
+      "digest": "a62b8e5efa8e2aa2",
       "results": [
         {
           "rank": 1,
@@ -1028,7 +1028,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.763
+          "total": 0.773
         },
         {
           "rank": 6,
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "08e2ded12da784be",
+      "digest": "9c89ee2932910b30",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1e8b8c086566525d",
+      "digest": "a5255fb0e3a56963",
       "results": [
         {
           "rank": 1,
@@ -1263,7 +1263,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.797
+          "total": 1.788
         },
         {
           "rank": 4,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7e135a572fed76dc",
+      "digest": "894989411594f00e",
       "results": [
         {
           "rank": 1,
@@ -1491,7 +1491,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ac1873375a88e048",
+      "digest": "6a09141ee2f25824",
       "results": [
         {
           "rank": 1,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "65d595f345dc93f2",
+      "digest": "f47cb25bdfabd7bf",
       "results": [
         {
           "rank": 1,
@@ -2888,7 +2888,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4482a80687dbff02",
+      "digest": "c0ff358f96633e4e",
       "results": [
         {
           "rank": 1,
@@ -2909,7 +2909,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.933
+          "total": 0.942
         },
         {
           "rank": 4,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2c90e82639fa044c",
+      "digest": "90e26177b84500d5",
       "results": [
         {
           "rank": 1,
@@ -3155,17 +3155,17 @@
         },
         {
           "rank": 3,
-          "variantId": "aya:assault_rifle",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.955
-        },
-        {
-          "rank": 4,
           "variantId": "aya:sniper_rifle",
           "core": "7000501",
           "coreName": "벽력",
           "total": 1.952
+        },
+        {
+          "rank": 4,
+          "variantId": "aya:assault_rifle",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 1.946
         },
         {
           "rank": 5,
@@ -3386,7 +3386,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5ee8d5bbd8003f39",
+      "digest": "05a2af44c90f1b7a",
       "results": [
         {
           "rank": 1,
@@ -3552,7 +3552,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f760042562be1169",
+      "digest": "cbfd3f3ee70537b6",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7a537b913cf1421b",
+      "digest": "09de6ba85369fa01",
       "results": [
         {
           "rank": 1,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "83348d6fd2a3a8d4",
+      "digest": "7adf6bef9dcb5190",
       "results": [
         {
           "rank": 1,
@@ -5053,7 +5053,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.74
+          "total": 1.73
         },
         {
           "rank": 4,
@@ -5115,7 +5115,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5ffbfc1a300db70c",
+      "digest": "c04ed69de715094f",
       "results": [
         {
           "rank": 1,
@@ -5157,7 +5157,7 @@
           "variantId": "li_dailin:glove",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 1.007
+          "total": 0.996
         },
         {
           "rank": 7,
@@ -5171,7 +5171,7 @@
           "variantId": "li_dailin:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.891
+          "total": 0.879
         },
         {
           "rank": 9,
@@ -5281,7 +5281,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "17b85fcceb3e9fe8",
+      "digest": "e0c39f900ef38e0b",
       "results": [
         {
           "rank": 1,
@@ -6678,21 +6678,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c5678a6e07df5cb7",
+      "digest": "91e94db97e9e3bc8",
       "results": [
         {
           "rank": 1,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.371
+          "total": 1.38
         },
         {
           "rank": 2,
           "variantId": "eva:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.29
+          "total": 1.3
         },
         {
           "rank": 3,
@@ -6761,7 +6761,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3ae12404d4fb9c6d",
+      "digest": "ce8b09ac407e728a",
       "results": [
         {
           "rank": 1,
@@ -6844,7 +6844,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5ff623b1473af221",
+      "digest": "3d81d245bd3c1a1a",
       "results": [
         {
           "rank": 1,
@@ -6927,7 +6927,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b3fa9eede4689abc",
+      "digest": "7b5b140eef48c033",
       "results": [
         {
           "rank": 1,
@@ -6948,7 +6948,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.415
+          "total": 1.406
         },
         {
           "rank": 4,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e387b8aacb90d7d3",
+      "digest": "66241ce53e40342e",
       "results": [
         {
           "rank": 1,
@@ -7045,14 +7045,14 @@
           "variantId": "li_dailin:glove",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 1.158
+          "total": 1.147
         },
         {
           "rank": 6,
           "variantId": "li_dailin:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.916
+          "total": 0.905
         },
         {
           "rank": 7,
@@ -7176,7 +7176,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "44e0dc7805f2fbcf",
+      "digest": "58120928439b0020",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "91e9b50155798739",
+      "digest": "0bed802686a8b160",
       "results": [
         {
           "rank": 1,
@@ -8615,7 +8615,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.452
+          "total": 0.461
         },
         {
           "rank": 7,
@@ -8822,7 +8822,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "134b1541e86e087b",
+      "digest": "d7b8acd8c1602c29",
       "results": [
         {
           "rank": 1,
@@ -8905,7 +8905,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "370244526e8eb1f8",
+      "digest": "83f430f8b6024ca2",
       "results": [
         {
           "rank": 1,
@@ -9071,7 +9071,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "88a318837db5c63d",
+      "digest": "c7460aa3ae440a0b",
       "results": [
         {
           "rank": 1,
@@ -9106,7 +9106,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.416
+          "total": 0.408
         },
         {
           "rank": 6,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "34d0725f5f4b669d",
+      "digest": "8a18ebf11bc28829",
       "results": [
         {
           "rank": 1,
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f124b0b7450149d8",
+      "digest": "e42fc59723c32f3f",
       "results": [
         {
           "rank": 1,
