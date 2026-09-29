@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T08:36:49.301Z",
+  "generatedAt": "2026-09-29T11:44:24.386Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e76aa0fe9b91cb08",
+      "digest": "5738b4b2caf3010e",
       "results": [
         {
           "rank": 1,
@@ -1028,7 +1028,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.822
+          "total": 0.812
         },
         {
           "rank": 6,
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "21fd3da6614b713a",
+      "digest": "fed834c49127d8b4",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9a073fcef7546c27",
+      "digest": "cbb894a52d0df549",
       "results": [
         {
           "rank": 1,
@@ -1740,7 +1740,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "49a0e6600a58e50c",
+      "digest": "7cb0a1271aac1448",
       "results": [
         {
           "rank": 1,
@@ -2888,7 +2888,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a40ccfa09a428b71",
+      "digest": "954ec3fa3236008c",
       "results": [
         {
           "rank": 1,
@@ -2909,7 +2909,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.924
+          "total": 0.914
         },
         {
           "rank": 4,
@@ -3635,7 +3635,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fd9d3eb343f039a5",
+      "digest": "7f43691a053934b7",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dc62d07bc2446f4f",
+      "digest": "3a44eaa39a8231c4",
       "results": [
         {
           "rank": 1,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ebd176ef40294a3a",
+      "digest": "ed63c2c1afddb09c",
       "results": [
         {
           "rank": 1,
@@ -5530,7 +5530,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ae21a06be58c94d0",
+      "digest": "cf216e7d33eaaccd",
       "results": [
         {
           "rank": 1,
@@ -5579,7 +5579,7 @@
           "variantId": "jackie:dual_swords",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.785
+          "total": 0.795
         },
         {
           "rank": 8,
@@ -6678,21 +6678,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "555000d7658a2473",
+      "digest": "125b5f2b0826d696",
       "results": [
         {
           "rank": 1,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.657
+          "total": 1.647
         },
         {
           "rank": 2,
           "variantId": "eva:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.546
+          "total": 1.537
         },
         {
           "rank": 3,
@@ -6761,7 +6761,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "be88cbdb1bee76a0",
+      "digest": "5bda3a1581e52585",
       "results": [
         {
           "rank": 1,
@@ -6927,7 +6927,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "274dbd9855b7d88a",
+      "digest": "e537d63eeca73382",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1622e007c8ad1033",
+      "digest": "981ff63344618e4e",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0d9a37283f7d0812",
+      "digest": "cea6f4f75b1765e6",
       "results": [
         {
           "rank": 1,
@@ -8615,7 +8615,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.457
+          "total": 0.448
         },
         {
           "rank": 7,
