@@ -611,6 +611,7 @@ export const zhHant = {
   "char.priya": "普里亞",
   "char.rio": "莉央",
   "char.rozzi": "洛茲",
+  "char.seres": "塞莉絲",
   "char.shirin": "雪琳",
   "char.sho": "秀凱",
   "char.shoichi": "彰一",
