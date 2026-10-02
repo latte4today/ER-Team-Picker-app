@@ -611,6 +611,7 @@ export const ja = {
   "char.priya": "プリヤ",
   "char.rio": "リオ",
   "char.rozzi": "ロジー",
+  "char.seres": "セレス",
   "char.shirin": "シリン",
   "char.sho": "ショウ",
   "char.shoichi": "ショウイチ",
