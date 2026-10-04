@@ -611,6 +611,7 @@ export const zhHans = {
   "char.priya": "普里娅",
   "char.rio": "莉央",
   "char.rozzi": "洛兹",
+  "char.seres": "塞莉丝",
   "char.shirin": "雪琳",
   "char.sho": "秀凯",
   "char.shoichi": "彰一",
