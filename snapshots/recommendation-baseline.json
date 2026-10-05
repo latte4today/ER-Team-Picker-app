@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T20:35:02.597Z",
+  "generatedAt": "2026-10-05T12:34:57.122Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -172,7 +172,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8ec6bdce110fc0ea",
+      "digest": "d48ca3101c4e3eef",
       "results": [
         {
           "rank": 1,
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0156e9cac6b94132",
+      "digest": "827820f7a25a5563",
       "results": [
         {
           "rank": 1,
@@ -1028,7 +1028,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.714
+          "total": 0.704
         },
         {
           "rank": 6,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4cec2f99b57c57a2",
+      "digest": "0afe68c9052197b9",
       "results": [
         {
           "rank": 1,
@@ -1740,7 +1740,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f893c4478c1300b1",
+      "digest": "c8635add855d34a2",
       "results": [
         {
           "rank": 1,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d9c9bd093dbe6429",
+      "digest": "f679f8d9e77eab92",
       "results": [
         {
           "rank": 1,
@@ -2067,7 +2067,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f92ff5def5d7d802",
+      "digest": "3825382b3f16b547",
       "results": [
         {
           "rank": 1,
@@ -2149,7 +2149,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "94fdd420e079764d",
+      "digest": "7984121cfa8524bd",
       "results": [
         {
           "rank": 1,
@@ -2888,7 +2888,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7038a2f1fd2a0f9a",
+      "digest": "5dcbfd51be218687",
       "results": [
         {
           "rank": 1,
@@ -2971,7 +2971,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9d2a6745a9f533cc",
+      "digest": "20396b2bdc34ff72",
       "results": [
         {
           "rank": 1,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8d9deb6e93c1a90e",
+      "digest": "87352f397d4a990f",
       "results": [
         {
           "rank": 1,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dcd2702610c4d1e2",
+      "digest": "3ca4b1979ea42c47",
       "results": [
         {
           "rank": 1,
@@ -3635,7 +3635,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "940d95b1fbc54bcc",
+      "digest": "24afc5dd37db2c8a",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6a5c2cd0af4b0394",
+      "digest": "97dc2f182fba96d6",
       "results": [
         {
           "rank": 1,
@@ -4811,7 +4811,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.032
+          "total": 1.022
         },
         {
           "rank": 5,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "24afa588feb9a050",
+      "digest": "610f67070a52c99f",
       "results": [
         {
           "rank": 1,
@@ -5530,7 +5530,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "27a193a7a0b50b45",
+      "digest": "8b492123ff0bc38d",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "206aee7cf42aab49",
+      "digest": "c13459f39ace296f",
       "results": [
         {
           "rank": 1,
@@ -6678,7 +6678,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f284247ed539bf33",
+      "digest": "5e4b0e5df10ce329",
       "results": [
         {
           "rank": 1,
@@ -6741,7 +6741,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.661
+          "total": 0.652
         },
         {
           "rank": 10,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "343f1dc781952a7d",
+      "digest": "78bc335df229af24",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c8957278f491efb7",
+      "digest": "b5ccb6f476661290",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e624946645a2fbb3",
+      "digest": "770d88c2d2c3d7b5",
       "results": [
         {
           "rank": 1,
@@ -8608,7 +8608,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.464
+          "total": 0.454
         },
         {
           "rank": 6,
@@ -8822,7 +8822,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "07f53a62993828c9",
+      "digest": "88370d10d5b5476b",
       "results": [
         {
           "rank": 1,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3f18bd05f0a08225",
+      "digest": "c67dcf67afb15dc9",
       "results": [
         {
           "rank": 1,
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6915f38869ee0fb4",
+      "digest": "6fd93a21f20e3bfa",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e38654c3faa733b1",
+      "digest": "c9a57fbc0cc9312e",
       "results": [
         {
           "rank": 1,
