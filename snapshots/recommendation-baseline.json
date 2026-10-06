@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T03:50:05.773Z",
+  "generatedAt": "2026-10-06T12:16:00.748Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -172,7 +172,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9897b9c5641c9cd1",
+      "digest": "9e4f5a7e7b924b17",
       "results": [
         {
           "rank": 1,
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e578f882e483658c",
+      "digest": "df7e9170ce8676c2",
       "results": [
         {
           "rank": 1,
@@ -1021,7 +1021,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.748
+          "total": 0.757
         },
         {
           "rank": 5,
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "91a5f03098dbd93f",
+      "digest": "9bc3444f0d8b629f",
       "results": [
         {
           "rank": 1,
@@ -1132,7 +1132,7 @@
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.652
+          "total": 0.641
         },
         {
           "rank": 9,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fd513d62db50c5f4",
+      "digest": "72d6f9905a808083",
       "results": [
         {
           "rank": 1,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0ce86bfa53edd076",
+      "digest": "44753b6d636470c4",
       "results": [
         {
           "rank": 1,
@@ -1374,7 +1374,7 @@
           "variantId": "rio:bow",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.815
+          "total": 0.825
         },
         {
           "rank": 8,
@@ -1657,14 +1657,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b98f419cabfc8953",
+      "digest": "6b9936f5aa6b38bd",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.918
+          "total": 1.926
         },
         {
           "rank": 2,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9f8aa6950e58268b",
+      "digest": "32f9c9f005010435",
       "results": [
         {
           "rank": 1,
@@ -2067,7 +2067,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d376c87ad8c0c9a3",
+      "digest": "7cd681d16dda82b1",
       "results": [
         {
           "rank": 1,
@@ -2149,7 +2149,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "51a274a2d7988903",
+      "digest": "2d632d16e40b8343",
       "results": [
         {
           "rank": 1,
@@ -2888,7 +2888,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0bcead906cdfd327",
+      "digest": "6ed5ea7477d06bb0",
       "results": [
         {
           "rank": 1,
@@ -2971,7 +2971,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6d8ed6c6b92240a7",
+      "digest": "f7333764698cd2bd",
       "results": [
         {
           "rank": 1,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8ee16f8c3fb1f169",
+      "digest": "3795809cc5752430",
       "results": [
         {
           "rank": 1,
@@ -3220,7 +3220,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d8953b8fb96736a3",
+      "digest": "bdcfa09dca662c14",
       "results": [
         {
           "rank": 1,
@@ -3552,14 +3552,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fcde1dca83dcb557",
+      "digest": "b931272e5ca13520",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.777
+          "total": 1.785
         },
         {
           "rank": 2,
@@ -3635,7 +3635,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6b031e00e439a45e",
+      "digest": "c2b5290f126aec90",
       "results": [
         {
           "rank": 1,
@@ -3880,7 +3880,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "84119437831aaf89",
+      "digest": "450952d20fd0b953",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "332ac798b733c794",
+      "digest": "e6e8e4c8ea83ac50",
       "results": [
         {
           "rank": 1,
@@ -4811,7 +4811,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.908
+          "total": 0.918
         },
         {
           "rank": 5,
@@ -4866,7 +4866,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fd4ad6ab4fea01dc",
+      "digest": "bc57c88cf2ef0d5c",
       "results": [
         {
           "rank": 1,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1de99e98b6d80315",
+      "digest": "9a57e4294d2465b2",
       "results": [
         {
           "rank": 1,
@@ -5115,7 +5115,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "66ae5b7c62c6ebac",
+      "digest": "2e7c265faaf636a7",
       "results": [
         {
           "rank": 1,
@@ -5157,7 +5157,7 @@
           "variantId": "rio:bow",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.03
+          "total": 1.04
         },
         {
           "rank": 7,
@@ -5447,14 +5447,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5242253e9ce2a032",
+      "digest": "d287c405ce29774a",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.631
+          "total": 1.639
         },
         {
           "rank": 2,
@@ -5530,7 +5530,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "05663e0f397a6813",
+      "digest": "4c872beb14cc9570",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fa549f70d499534c",
+      "digest": "0d58bcb10f459401",
       "results": [
         {
           "rank": 1,
@@ -5683,7 +5683,7 @@
           "variantId": "li_dailin:nunchaku",
           "core": "7000201",
           "coreName": "취약",
-          "total": 0.65
+          "total": 0.661
         }
       ]
     },
@@ -5775,7 +5775,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7e390794f4e10a85",
+      "digest": "fbea22bd54ac1107",
       "results": [
         {
           "rank": 1,
@@ -5857,7 +5857,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fe8a4f3bc9381cfa",
+      "digest": "c4e4faf6b062cfd4",
       "results": [
         {
           "rank": 1,
@@ -6678,7 +6678,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "08aa8242dfab4710",
+      "digest": "78010dc59964f69c",
       "results": [
         {
           "rank": 1,
@@ -6727,7 +6727,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.863
+          "total": 0.872
         },
         {
           "rank": 8,
@@ -6761,7 +6761,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "727946362e27eb89",
+      "digest": "13a7993f97a22c62",
       "results": [
         {
           "rank": 1,
@@ -6831,7 +6831,7 @@
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.996
+          "total": 0.985
         }
       ]
     },
@@ -6844,7 +6844,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fec4170ad5b07cd3",
+      "digest": "cb17b94b15593f55",
       "results": [
         {
           "rank": 1,
@@ -6927,7 +6927,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a3647d35a18039b4",
+      "digest": "4b489d2094987cba",
       "results": [
         {
           "rank": 1,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3a26fb971642b2f0",
+      "digest": "6af7af4786733eb5",
       "results": [
         {
           "rank": 1,
@@ -7342,7 +7342,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "34318b98ab16df0f",
+      "digest": "521801a3b7e3146b",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "818dab9e5f386d3d",
+      "digest": "ba52de7b832074bd",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fa8501e7ae4f5f1e",
+      "digest": "b5b8989e0f337ebe",
       "results": [
         {
           "rank": 1,
@@ -8608,7 +8608,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.452
+          "total": 0.462
         },
         {
           "rank": 6,
@@ -8905,7 +8905,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5082bee7b4715e9e",
+      "digest": "ca5dff6ed06085c5",
       "results": [
         {
           "rank": 1,
@@ -8940,7 +8940,7 @@
           "variantId": "rio:bow",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.894
+          "total": 0.904
         },
         {
           "rank": 6,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "db35f30a0ebf768b",
+      "digest": "234e41df6e312dc8",
       "results": [
         {
           "rank": 1,
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8303ef5d3c44e3bb",
+      "digest": "b79845756a3cd2db",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "42c8c1283443433a",
+      "digest": "7ce9b60b3da7beed",
       "results": [
         {
           "rank": 1,
