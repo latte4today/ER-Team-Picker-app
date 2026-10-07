@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T08:31:39.970Z",
+  "generatedAt": "2026-10-07T12:05:14.237Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -172,7 +172,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "587b66d20b000099",
+      "digest": "b0fa78c8e807d260",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bdf0b72e63c8b011",
+      "digest": "d7609f41ceebf346",
       "results": [
         {
           "rank": 1,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dd1405acb226a69d",
+      "digest": "16b63afdb5e5b7d9",
       "results": [
         {
           "rank": 1,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dfbd1dece290bcdb",
+      "digest": "200ed9940355dcb5",
       "results": [
         {
           "rank": 1,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0b28aefb5788e2b2",
+      "digest": "73f88a7a42b681ad",
       "results": [
         {
           "rank": 1,
@@ -2067,7 +2067,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1949bb997a5105c1",
+      "digest": "77f3ceb665d0ffcf",
       "results": [
         {
           "rank": 1,
@@ -2149,7 +2149,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "61f225b1d568601d",
+      "digest": "03ef14a24c73b2d6",
       "results": [
         {
           "rank": 1,
@@ -2971,7 +2971,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b18df32390534c30",
+      "digest": "4aa14a77ed6e6621",
       "results": [
         {
           "rank": 1,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "05e46f156bc1088e",
+      "digest": "ad3b96b6bbc8588c",
       "results": [
         {
           "rank": 1,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "05862ad1c55b2c52",
+      "digest": "50dcf5e923d3ba3d",
       "results": [
         {
           "rank": 1,
@@ -3552,7 +3552,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "86bdb609d8040414",
+      "digest": "f614f00e880e6c4d",
       "results": [
         {
           "rank": 1,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "85fc11bdb3c6fa56",
+      "digest": "53993d99741fc7ff",
       "results": [
         {
           "rank": 1,
@@ -5115,7 +5115,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5b627d17286c1489",
+      "digest": "21db28555d0b2a7f",
       "results": [
         {
           "rank": 1,
@@ -5281,7 +5281,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "94a8f5142acafbc2",
+      "digest": "55b62f6625114d52",
       "results": [
         {
           "rank": 1,
@@ -5447,7 +5447,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "868375a08acc40d3",
+      "digest": "d0b84da9aee7efb7",
       "results": [
         {
           "rank": 1,
@@ -5530,7 +5530,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ede9716e132d1f47",
+      "digest": "272e208ba5688eee",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "748808b645b2ff16",
+      "digest": "1ec1e1ab08574c54",
       "results": [
         {
           "rank": 1,
@@ -5775,7 +5775,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dddb735537421f2e",
+      "digest": "b75cb6a88c598ea5",
       "results": [
         {
           "rank": 1,
@@ -6844,7 +6844,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c2ece41561d42c74",
+      "digest": "eb166637f32a75a4",
       "results": [
         {
           "rank": 1,
@@ -6914,7 +6914,7 @@
           "variantId": "priya:guitar",
           "core": "7300101",
           "coreName": "스텔라 차지",
-          "total": 0.951
+          "total": 0.943
         }
       ]
     },
@@ -6927,7 +6927,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3aab816b1a33dae7",
+      "digest": "f0663a6ac9a52711",
       "results": [
         {
           "rank": 1,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0f1ad4231c5d685e",
+      "digest": "e0924788017a4f35",
       "results": [
         {
           "rank": 1,
@@ -7342,7 +7342,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4d8a7be898721544",
+      "digest": "676c9fbe99877eb0",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "30e2d4a3f1affe1e",
+      "digest": "265d0e03f4e51217",
       "results": [
         {
           "rank": 1,
@@ -8822,7 +8822,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cdb66cfa9314f67d",
+      "digest": "cf517787ca9c9e06",
       "results": [
         {
           "rank": 1,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ac4a793600211185",
+      "digest": "22a301d68551d0e4",
       "results": [
         {
           "rank": 1,
@@ -9307,7 +9307,7 @@
           "variantId": "hyejin:shuriken",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.331
+          "total": 0.337
         }
       ]
     },
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9adf0340b9548224",
+      "digest": "a3c088d445f821e4",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "109165829a1e8995",
+      "digest": "81ec067318f1721a",
       "results": [
         {
           "rank": 1,
