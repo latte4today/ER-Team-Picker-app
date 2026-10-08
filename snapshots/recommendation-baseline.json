@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T08:36:26.005Z",
+  "generatedAt": "2026-10-08T12:21:09.134Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -172,7 +172,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5c98a63fb3d31069",
+      "digest": "40c5b22bf54ea74a",
       "results": [
         {
           "rank": 1,
@@ -336,7 +336,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4784fab625978c68",
+      "digest": "1d0e5cae7d01376e",
       "results": [
         {
           "rank": 1,
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0462e6255a166bf1",
+      "digest": "47c19e8f961dcd13",
       "results": [
         {
           "rank": 1,
@@ -1159,7 +1159,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f5a6aaabc41f6373",
+      "digest": "a23964d8694bfb70",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f18ad8ec81306b11",
+      "digest": "e05d0bdc46e798d3",
       "results": [
         {
           "rank": 1,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6cb0d8ff849e5c09",
+      "digest": "ac3ccc5aa591cda7",
       "results": [
         {
           "rank": 1,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "db5da0f5994637c2",
+      "digest": "18bdd28e596430bc",
       "results": [
         {
           "rank": 1,
@@ -2067,7 +2067,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bac72a160baf1352",
+      "digest": "f63245170688dd41",
       "results": [
         {
           "rank": 1,
@@ -2149,7 +2149,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "468e50b214d8984f",
+      "digest": "84ca5ca732aaa4fb",
       "results": [
         {
           "rank": 1,
@@ -2231,7 +2231,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2fcfbf701437edb1",
+      "digest": "e6776db2bf00c0bd",
       "results": [
         {
           "rank": 1,
@@ -2971,7 +2971,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a098dda9236a491b",
+      "digest": "2e05eda80b5ea66f",
       "results": [
         {
           "rank": 1,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bb556c96c7a2d19c",
+      "digest": "9f85d497d2ae81d5",
       "results": [
         {
           "rank": 1,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "86bca855540c5b22",
+      "digest": "2c7fb829ca2699bb",
       "results": [
         {
           "rank": 1,
@@ -3197,17 +3197,17 @@
         },
         {
           "rank": 9,
+          "variantId": "adela:rapier",
+          "core": "7000201",
+          "coreName": "취약",
+          "total": 0.87
+        },
+        {
+          "rank": 10,
           "variantId": "rio:bow",
           "core": "7000601",
           "coreName": "아드레날린",
           "total": 0.864
-        },
-        {
-          "rank": 10,
-          "variantId": "arda:arcana",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.858
         }
       ]
     },
@@ -3220,7 +3220,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f056421fd2828409",
+      "digest": "fdb8d1c34b6266c6",
       "results": [
         {
           "rank": 1,
@@ -4044,7 +4044,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3c00fa4d8979b5cf",
+      "digest": "2c8980c539b02269",
       "results": [
         {
           "rank": 1,
@@ -4126,7 +4126,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7a52a53f58fb4747",
+      "digest": "0f5afc482f757bef",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0fd08db8b0e4cb79",
+      "digest": "377cf79b54618350",
       "results": [
         {
           "rank": 1,
@@ -4866,7 +4866,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b2eeb54673106f18",
+      "digest": "be58a2f1afc9bf11",
       "results": [
         {
           "rank": 1,
@@ -4949,7 +4949,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a5b39d387867408d",
+      "digest": "546fdf912140258d",
       "results": [
         {
           "rank": 1,
@@ -5032,7 +5032,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a8856931698e4ccf",
+      "digest": "ac9008ef2ad4f139",
       "results": [
         {
           "rank": 1,
@@ -5281,7 +5281,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "aa0ca22f7689abe0",
+      "digest": "3f5e306b7ea8354e",
       "results": [
         {
           "rank": 1,
@@ -5447,7 +5447,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e5eda8519ea11d4b",
+      "digest": "8aad50ec2639222c",
       "results": [
         {
           "rank": 1,
@@ -5530,7 +5530,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "400b1f135aa276b3",
+      "digest": "65877c9a46b6c123",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9a2ad70d884868da",
+      "digest": "683029e659af2186",
       "results": [
         {
           "rank": 1,
@@ -5775,7 +5775,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "52ed9cc33adf87a1",
+      "digest": "b84fb6cc4b5c0e49",
       "results": [
         {
           "rank": 1,
@@ -6678,7 +6678,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a195d28dd8499eb5",
+      "digest": "5114da394658dba1",
       "results": [
         {
           "rank": 1,
@@ -6727,7 +6727,7 @@
           "variantId": "adina:arcana",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 0.948
+          "total": 0.938
         },
         {
           "rank": 8,
@@ -6927,7 +6927,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "984c1c03e3a1bc44",
+      "digest": "60682f927e7eb1a8",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9300fb657d4994a3",
+      "digest": "e198a134fa3b14d3",
       "results": [
         {
           "rank": 1,
@@ -7752,7 +7752,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0d8c77e4697ea3f2",
+      "digest": "a5a510937df5b1da",
       "results": [
         {
           "rank": 1,
@@ -7916,7 +7916,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7b0681401f22f702",
+      "digest": "e926ebde901c870f",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b38668564da561e7",
+      "digest": "45acc0a31d1be881",
       "results": [
         {
           "rank": 1,
@@ -8656,7 +8656,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "61762c43aa02a155",
+      "digest": "642965b7d3ccd3ae",
       "results": [
         {
           "rank": 1,
@@ -8739,7 +8739,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bdd999d3143162cc",
+      "digest": "903286fa6ff06720",
       "results": [
         {
           "rank": 1,
@@ -8905,7 +8905,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3248b6720d0a1428",
+      "digest": "6c5245c14d0cdf43",
       "results": [
         {
           "rank": 1,
@@ -9237,7 +9237,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9cd2b5c48359ae0d",
+      "digest": "027a8e828e08a143",
       "results": [
         {
           "rank": 1,
@@ -9320,7 +9320,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6b5a894ca47ba885",
+      "digest": "ec288bfbc9f8a67e",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f32426033f5afa83",
+      "digest": "0d6c7783206b1901",
       "results": [
         {
           "rank": 1,
