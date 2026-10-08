@@ -611,6 +611,7 @@ export const en = {
   "char.priya": "Priya",
   "char.rio": "Rio",
   "char.rozzi": "Rozzi",
+  "char.seres": "Seres",
   "char.shirin": "Xuelin",
   "char.sho": "Xiukai",
   "char.shoichi": "Shoichi",
