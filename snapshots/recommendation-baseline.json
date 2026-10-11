@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T08:00:30.581Z",
+  "generatedAt": "2026-10-11T11:46:38.490Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9ba7545109e3f4dd",
+      "digest": "38aa99001a1295f5",
       "results": [
         {
           "rank": 1,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fbad28022d551bde",
+      "digest": "12f750bd320d0249",
       "results": [
         {
           "rank": 1,
@@ -1574,7 +1574,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d38c2fe155214cae",
+      "digest": "821754b5d53ef7c9",
       "results": [
         {
           "rank": 1,
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c63446a2bcaef744",
+      "digest": "990e3d0d5e96c69e",
       "results": [
         {
           "rank": 1,
@@ -3220,7 +3220,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4d3edd5d5fbbca54",
+      "digest": "21149e982f27c02e",
       "results": [
         {
           "rank": 1,
@@ -3469,7 +3469,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6652af4cd0e7e358",
+      "digest": "dcaf6b17aa258978",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c60d456b9505c9da",
+      "digest": "1f0fa8cb6cac2b89",
       "results": [
         {
           "rank": 1,
@@ -4949,7 +4949,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4f90a1dadda03af2",
+      "digest": "9de6dd6faf9f8320",
       "results": [
         {
           "rank": 1,
@@ -5364,7 +5364,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e47ff2af9a6e8046",
+      "digest": "118c9417b8aea981",
       "results": [
         {
           "rank": 1,
@@ -6761,7 +6761,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f00f4b0f3d97df2f",
+      "digest": "aa6c6e9be5aa064e",
       "results": [
         {
           "rank": 1,
@@ -6817,7 +6817,7 @@
           "variantId": "hisui:two_handed_sword",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.962
+          "total": 0.953
         },
         {
           "rank": 9,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "68a66354456876c6",
+      "digest": "86444b30044bba9f",
       "results": [
         {
           "rank": 1,
@@ -7259,7 +7259,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "40078e6d745dddb7",
+      "digest": "be1b664a9594b292",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a125bf1a8ba093cc",
+      "digest": "dde370bf1f444bdb",
       "results": [
         {
           "rank": 1,
@@ -8656,7 +8656,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d4b046df5961706d",
+      "digest": "680b42ae78dba313",
       "results": [
         {
           "rank": 1,
@@ -8905,7 +8905,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4bc3e34f54dfb43c",
+      "digest": "2200e9b0fc7585bb",
       "results": [
         {
           "rank": 1,
@@ -9154,7 +9154,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "504b133777a10e46",
+      "digest": "b85c5b1645d14ebe",
       "results": [
         {
           "rank": 1,
