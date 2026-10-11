@@ -615,6 +615,7 @@ export const ko = {
   "char.priya": "프리야",
   "char.rio": "리오",
   "char.rozzi": "로지",
+  "char.seres": "세레스",
   "char.shirin": "슈린",
   "char.sho": "쇼우",
   "char.shoichi": "쇼이치",
