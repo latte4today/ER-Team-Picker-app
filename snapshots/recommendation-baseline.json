@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T21:41:45.802Z",
+  "generatedAt": "2026-10-12T13:17:21.336Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -172,7 +172,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "33a5c283739960f6",
+      "digest": "428f291095ee66d2",
       "results": [
         {
           "rank": 1,
@@ -254,7 +254,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "da50de7acb197791",
+      "digest": "3dd266847a6c7a31",
       "results": [
         {
           "rank": 1,
@@ -293,17 +293,17 @@
         },
         {
           "rank": 6,
+          "variantId": "adela:bat",
+          "core": "7000201",
+          "coreName": "취약",
+          "total": 1.248
+        },
+        {
+          "rank": 7,
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
           "total": 1.234
-        },
-        {
-          "rank": 7,
-          "variantId": "adela:bat",
-          "core": "7000201",
-          "coreName": "취약",
-          "total": 1.232
         },
         {
           "rank": 8,
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "60d2ce06f60d5de1",
+      "digest": "28460b2c5bbc5503",
       "results": [
         {
           "rank": 1,
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "661e371a8866c8e6",
+      "digest": "0826183b02636c78",
       "results": [
         {
           "rank": 1,
@@ -1104,7 +1104,7 @@
           "variantId": "alex:flex",
           "core": "7300101",
           "coreName": "스텔라 차지",
-          "total": 1.004
+          "total": 0.993
         },
         {
           "rank": 5,
@@ -1115,24 +1115,24 @@
         },
         {
           "rank": 6,
+          "variantId": "adela:bat",
+          "core": "7000201",
+          "coreName": "취약",
+          "total": 0.767
+        },
+        {
+          "rank": 7,
           "variantId": "echion:vf_prosthetic",
           "core": "7100401",
           "coreName": "빛의 수호",
           "total": 0.756
         },
         {
-          "rank": 7,
+          "rank": 8,
           "variantId": "fiora:spear",
           "core": "7100401",
           "coreName": "빛의 수호",
           "total": 0.726
-        },
-        {
-          "rank": 8,
-          "variantId": "adela:bat",
-          "core": "7000201",
-          "coreName": "취약",
-          "total": 0.7
         },
         {
           "rank": 9,
@@ -1159,7 +1159,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fe55d11870e6b957",
+      "digest": "03d3f45a9fb6d0f2",
       "results": [
         {
           "rank": 1,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1f6d31470dfe359b",
+      "digest": "1b8d249425921216",
       "results": [
         {
           "rank": 1,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f872dedaab089579",
+      "digest": "093d634a484d15e3",
       "results": [
         {
           "rank": 1,
@@ -2149,7 +2149,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b60177237e08d904",
+      "digest": "479511ad19d80858",
       "results": [
         {
           "rank": 1,
@@ -2219,7 +2219,7 @@
           "variantId": "adela:bat",
           "core": "7000201",
           "coreName": "취약",
-          "total": 1.128
+          "total": 1.144
         }
       ]
     },
@@ -2231,7 +2231,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d718d4565f765bb2",
+      "digest": "547219cee8d68f64",
       "results": [
         {
           "rank": 1,
@@ -2888,7 +2888,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ea12ccd5ef716725",
+      "digest": "fe9306a7a890e641",
       "results": [
         {
           "rank": 1,
@@ -2971,7 +2971,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "73f190a44f439f1f",
+      "digest": "a6dbdb251b6006e8",
       "results": [
         {
           "rank": 1,
@@ -2992,7 +2992,7 @@
           "variantId": "alex:flex",
           "core": "7300101",
           "coreName": "스텔라 차지",
-          "total": 1.576
+          "total": 1.565
         },
         {
           "rank": 4,
@@ -3054,7 +3054,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "752fe58b7a4b3423",
+      "digest": "d1ef222092a702d0",
       "results": [
         {
           "rank": 1,
@@ -3093,38 +3093,38 @@
         },
         {
           "rank": 6,
+          "variantId": "adela:bat",
+          "core": "7000201",
+          "coreName": "취약",
+          "total": 0.783
+        },
+        {
+          "rank": 7,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
           "total": 0.779
         },
         {
-          "rank": 7,
+          "rank": 8,
           "variantId": "cathy:dual_swords",
           "core": "7100201",
           "coreName": "불괴",
           "total": 0.774
         },
         {
-          "rank": 8,
+          "rank": 9,
           "variantId": "aya:sniper_rifle",
           "core": "7000501",
           "coreName": "벽력",
           "total": 0.755
         },
         {
-          "rank": 9,
+          "rank": 10,
           "variantId": "arda:arcana",
           "core": "7000501",
           "coreName": "벽력",
           "total": 0.716
-        },
-        {
-          "rank": 10,
-          "variantId": "leon:glove",
-          "core": "7000201",
-          "coreName": "취약",
-          "total": 0.705
         }
       ]
     },
@@ -3137,7 +3137,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1d238ab29ff59d8c",
+      "digest": "2a209d1777575d4f",
       "results": [
         {
           "rank": 1,
@@ -3220,7 +3220,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5fc8b8122d5a7bf6",
+      "digest": "7206dcc5aac21359",
       "results": [
         {
           "rank": 1,
@@ -3962,7 +3962,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f3c1000848249390",
+      "digest": "072b86c5a72cce91",
       "results": [
         {
           "rank": 1,
@@ -4044,7 +4044,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c40ec01f5529485c",
+      "digest": "7baddd9c7c958fd2",
       "results": [
         {
           "rank": 1,
@@ -4783,7 +4783,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cfdbc138c3655694",
+      "digest": "a90f2c31b33a6713",
       "results": [
         {
           "rank": 1,
@@ -4866,7 +4866,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7c9f11b8713a403f",
+      "digest": "36e969a85cf3836f",
       "results": [
         {
           "rank": 1,
@@ -4908,7 +4908,7 @@
           "variantId": "alex:flex",
           "core": "7300101",
           "coreName": "스텔라 차지",
-          "total": 0.962
+          "total": 0.951
         },
         {
           "rank": 7,
@@ -4926,17 +4926,17 @@
         },
         {
           "rank": 9,
+          "variantId": "adela:bat",
+          "core": "7000201",
+          "coreName": "취약",
+          "total": 0.826
+        },
+        {
+          "rank": 10,
           "variantId": "fiora:spear",
           "core": "7100401",
           "coreName": "빛의 수호",
           "total": 0.791
-        },
-        {
-          "rank": 10,
-          "variantId": "lenore:guitar",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.787
         }
       ]
     },
@@ -4949,7 +4949,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f7feafe650e436f7",
+      "digest": "ba14cfd63989a9a6",
       "results": [
         {
           "rank": 1,
@@ -5281,7 +5281,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bb259f38060ac618",
+      "digest": "5740c5ce104c0722",
       "results": [
         {
           "rank": 1,
@@ -5613,7 +5613,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "73876632ccc5bce5",
+      "digest": "b7e51e7cd3506802",
       "results": [
         {
           "rank": 1,
@@ -5641,7 +5641,7 @@
           "variantId": "li_dailin:nunchaku",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.862
+          "total": 0.851
         },
         {
           "rank": 5,
@@ -5673,16 +5673,16 @@
         },
         {
           "rank": 9,
-          "variantId": "li_dailin:nunchaku",
-          "core": "7000201",
-          "coreName": "취약",
-          "total": 0.726
-        },
-        {
-          "rank": 10,
           "variantId": "yumin:arcana",
           "core": "7300201",
           "coreName": "도깨비불",
+          "total": 0.722
+        },
+        {
+          "rank": 10,
+          "variantId": "tazia:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
           "total": 0.722
         }
       ]
@@ -5939,7 +5939,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e8bdbeb97e10e65d",
+      "digest": "2d2a397ad84d930e",
       "results": [
         {
           "rank": 1,
@@ -6678,7 +6678,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d79b205c02f346cb",
+      "digest": "94e6145f7b375b40",
       "results": [
         {
           "rank": 1,
@@ -6761,7 +6761,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0364d6b7c17f6c57",
+      "digest": "6aa9e9571039739c",
       "results": [
         {
           "rank": 1,
@@ -6817,7 +6817,7 @@
           "variantId": "hisui:two_handed_sword",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.898
+          "total": 0.907
         },
         {
           "rank": 9,
@@ -6844,7 +6844,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "59e5abd4202b153e",
+      "digest": "2ac1995e2215dd0a",
       "results": [
         {
           "rank": 1,
@@ -6927,7 +6927,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e27387f13c00e6b7",
+      "digest": "3aa4fcdf5d34cf36",
       "results": [
         {
           "rank": 1,
@@ -7010,7 +7010,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7c4aad2298807ae5",
+      "digest": "70b3bbb5ced2ea4e",
       "results": [
         {
           "rank": 1,
@@ -7342,7 +7342,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d45cb31fe55aa74c",
+      "digest": "ac98fabba247ac7c",
       "results": [
         {
           "rank": 1,
@@ -7508,7 +7508,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4e69673f305644ad",
+      "digest": "f2a5275895f798c3",
       "results": [
         {
           "rank": 1,
@@ -7834,7 +7834,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "87778c07527dfc33",
+      "digest": "8b5263b753a788e8",
       "results": [
         {
           "rank": 1,
@@ -8573,7 +8573,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "281ab112feb59a35",
+      "digest": "1617360efe0ad6b7",
       "results": [
         {
           "rank": 1,
@@ -8656,7 +8656,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5619468b28966d89",
+      "digest": "a880c341ef99c8e6",
       "results": [
         {
           "rank": 1,
@@ -8677,7 +8677,7 @@
           "variantId": "alex:flex",
           "core": "7300101",
           "coreName": "스텔라 차지",
-          "total": 0.997
+          "total": 0.986
         },
         {
           "rank": 4,
@@ -8739,7 +8739,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "988da5e3b74a065f",
+      "digest": "34ffc4eda85304af",
       "results": [
         {
           "rank": 1,
@@ -8822,7 +8822,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "739256c2d33fc43b",
+      "digest": "fb8f03ced088c61b",
       "results": [
         {
           "rank": 1,
@@ -9403,7 +9403,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c4c5253e9acc820f",
+      "digest": "b3ee09f68c1c432c",
       "results": [
         {
           "rank": 1,
