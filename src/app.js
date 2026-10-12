@@ -386,6 +386,7 @@ let recommendationCacheResults = null;
 // Lazy computation caches
 let _fullTeamState = { status: "idle", compositions: [], anchorId: null };
 let _unionComboCache = [];
+let _unionResultKey = "";
 const unionParticipatingPlayers = new Set([0, 1, 2]);
 const savedUnionRosters = JSON.parse(localStorage.getItem(unionStorageKey) ?? "[]");
 const unionRosters = Array.from({ length: 4 }, (_, index) => new Set(savedUnionRosters[index] ?? []));
@@ -1609,12 +1610,12 @@ function variantById(variantId) {
   return characterVariants.find((character) => character.variantId === variantId);
 }
 
-function unionComboScore(combo) {
+function unionComboScore(combo, context) {
   const [first, second, third] = combo;
   const evaluations = [
-    evaluateCandidate([second.variantId, third.variantId], first.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows()),
-    evaluateCandidate([first.variantId, third.variantId], second.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows()),
-    evaluateCandidate([first.variantId, second.variantId], third.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows()),
+    evaluateCandidate([second.variantId, third.variantId], first.variantId, context.tier, context.feedback, context.relationships),
+    evaluateCandidate([first.variantId, third.variantId], second.variantId, context.tier, context.feedback, context.relationships),
+    evaluateCandidate([first.variantId, second.variantId], third.variantId, context.tier, context.feedback, context.relationships),
   ].filter(Boolean);
   const average = evaluations.reduce((sum, evaluation) => sum + evaluation.score, 0) / evaluations.length;
   return {
@@ -1769,10 +1770,11 @@ function updateUnionCalculateButton() {
 async function buildUnionCombos(players, rosters) {
   // Pre-rank each player's roster by individual score (solo evaluate), keep top 12
   const tier = tierSelect.value;
+  const context = { tier, feedback: remoteFeedback, relationships: currentRelationshipRows() };
   const ranked = rosters.map((roster) => {
     if (roster.length <= 12) return roster;
     const scored = roster.map((character) => {
-      const ev = evaluateCandidate([], character.variantId, tier, remoteFeedback, currentRelationshipRows());
+      const ev = evaluateCandidate([], character.variantId, tier, context.feedback, context.relationships);
       return { character, score: ev?.score ?? 0 };
     });
     scored.sort((a, b) => b.score - a.score);
@@ -1789,7 +1791,7 @@ async function buildUnionCombos(players, rosters) {
         if (checked % 200 === 0) await yieldToUi();
         const uniqueCharacters = new Set([first.characterId, second.characterId, third.characterId]);
         if (uniqueCharacters.size < 3) continue;
-        const scoreInfo = unionComboScore([first, second, third]);
+        const scoreInfo = unionComboScore([first, second, third], context);
         combos.push({ players, combo: [first, second, third], ...scoreInfo });
       }
     }
@@ -1886,12 +1888,26 @@ function renderUnionResultPrecheck() {
   return true;
 }
 
+function unionRecommendationKey() {
+  const players = activeUnionPlayers();
+  return JSON.stringify({
+    players,
+    rosters: players.map((player) => [...unionRosters[player]].sort()),
+    tier: tierSelect.value,
+    language: getLanguage(),
+    stats: officialStatsVersion,
+    feedback: dataSignature(remoteFeedback),
+    relationships: dataSignature(currentRelationshipRows()),
+  });
+}
+
 async function renderUnionResults() {
   if (isUnionCalculating) return;
   if (!renderUnionResultPrecheck()) return;
 
   const players = activeUnionPlayers();
   const rosters = players.map((player) => [...unionRosters[player]].map(variantById).filter(Boolean));
+  const inputKey = unionRecommendationKey();
 
   isUnionCalculating = true;
   unionComboLimit = 5;
@@ -1903,7 +1919,17 @@ async function renderUnionResults() {
 
   try {
     await yieldToUi();
-    _unionComboCache = await buildUnionCombos(players, rosters);
+    const combos = await buildUnionCombos(players, rosters);
+    if (unionRecommendationKey() !== inputKey) {
+      _unionResultKey = "";
+      unionSummary.removeAttribute("data-state");
+      unionSummary.textContent = t("union.waiting");
+      unionResults.innerHTML = "";
+      renderUnionResultPrecheck();
+      return;
+    }
+    _unionComboCache = combos;
+    _unionResultKey = inputKey;
     renderUnionComboResults();
   } finally {
     isUnionCalculating = false;
@@ -1915,6 +1941,13 @@ function renderUnion() {
   renderUnionPlayers();
   renderUnionRoleFilters();
   renderUnionCharacters();
+  if (_unionResultKey && _unionResultKey !== unionRecommendationKey() && !isUnionCalculating) {
+    _unionResultKey = "";
+    _unionComboCache = [];
+    unionSummary.textContent = t("union.waiting");
+    unionResults.innerHTML = "";
+    renderUnionResultPrecheck();
+  }
 }
 
 function savePlayableCharacters() {
@@ -2864,11 +2897,25 @@ function renderHomeDashboard() {
   `;
 }
 
+function fullTeamRecommendationKey(anchorId) {
+  return JSON.stringify({
+    anchorId,
+    language: getLanguage(),
+    tier: tierSelect.value,
+    playable: [...playableVariantIds].sort(),
+    cores: selectedCoresMap(),
+    stats: officialStatsVersion,
+    feedback: dataSignature(remoteFeedback),
+    relationships: dataSignature(currentRelationshipRows()),
+  });
+}
+
 async function renderFullTeamRecommendations() {
   const anchorId = chosenPickId;
+  const inputKey = fullTeamRecommendationKey(anchorId);
 
-  // Re-use cache: same anchor already computing or done — just re-render
-  if (_fullTeamState.anchorId === anchorId && _fullTeamState.status !== "idle") {
+  // Re-use the result only while all recommendation inputs still match.
+  if (_fullTeamState.inputKey === inputKey && _fullTeamState.status !== "idle") {
     if (_fullTeamState.status === "done" && recommendations.querySelector(".full-team-section-header")) return;
     if (_fullTeamState.status === "computing") return;
     _renderFullTeamCards();
@@ -2876,9 +2923,11 @@ async function renderFullTeamRecommendations() {
   }
 
   // Fresh computation
-  _fullTeamState = { status: "computing", compositions: [], anchorId };
+  const state = { status: "computing", compositions: [], anchorId, inputKey };
+  _fullTeamState = state;
   _renderFullTeamCards();
   await yieldToUi();
+  if (_fullTeamState !== state || fullTeamRecommendationKey(chosenPickId) !== inputKey) return;
 
   const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
   const tier = tierSelect.value;
@@ -2887,9 +2936,11 @@ async function renderFullTeamRecommendations() {
 
   for (const r1 of slot1Results) {
     await yieldToUi();
-    if (_fullTeamState.anchorId !== anchorId) return; // anchor changed — abort
+    if (_fullTeamState !== state || fullTeamRecommendationKey(chosenPickId) !== inputKey) return;
 
-    const slot2Results = recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap()).slice(0, 3);
+    const comboCores = { ...selectedCoresMap() };
+    if (r1.recommendedCore?.core) comboCores[r1.character.variantId] = r1.recommendedCore.core;
+    const slot2Results = recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, currentRelationshipRows(), comboCores).slice(0, 3);
     for (const r2 of slot2Results) {
       const pairKey = [r1.character.characterId, r2.character.characterId].sort().join("+");
       if (seen.has(pairKey)) continue;
@@ -2951,7 +3002,7 @@ function _renderFullTeamCards() {
             <div class="full-team-member-info">
               <strong>${t(`char.${c1.id}`)}</strong>
               <small>${characterSubtitle(c1)}</small>
-              ${traitChip(c1.variantId, tierSelect.value)}
+              ${traitChip(c1.variantId, tierSelect.value, teammate1.recommendedCore)}
               <div class="recommendation-tags">${reasons1}</div>
             </div>
           </div>
@@ -2963,7 +3014,7 @@ function _renderFullTeamCards() {
             <div class="full-team-member-info">
               <strong>${t(`char.${c2.id}`)}</strong>
               <small>${characterSubtitle(c2)}</small>
-              ${traitChip(c2.variantId, tierSelect.value)}
+              ${traitChip(c2.variantId, tierSelect.value, teammate2.recommendedCore)}
               <div class="recommendation-tags">${reasons2}</div>
             </div>
           </div>
@@ -2979,7 +3030,9 @@ function _renderFullTeamCards() {
         </details>
         <div class="full-team-actions">
           <button class="feedback-button" type="button"
-            data-apply-combo="${teammate1.character.variantId}|${teammate2.character.variantId}">
+            data-apply-combo="${teammate1.character.variantId}|${teammate2.character.variantId}"
+            data-combo-core1="${teammate1.recommendedCore?.core ?? ""}"
+            data-combo-core2="${teammate2.recommendedCore?.core ?? ""}">
             ${t("fullTeam.applyCombo")}
           </button>
         </div>
@@ -3761,6 +3814,7 @@ presetSelect.addEventListener("change", () => {
 });
 renderPresetSelect();
 tierSelect.addEventListener("change", () => {
+  if (activeView === "union") renderUnion();
   scheduleRenderRecommendations();
   refreshRemoteFeedbackIfNeeded();
 });
@@ -3832,6 +3886,8 @@ recommendations.addEventListener("click", (event) => {
     const [v1, v2] = applyComboButton.dataset.applyCombo.split("|");
     assignSlot(1, v1);
     assignSlot(2, v2);
+    slotCores[1] = applyComboButton.dataset.comboCore1 || null;
+    slotCores[2] = applyComboButton.dataset.comboCore2 || null;
     renderDetectedTeam();
     render();
     return;
