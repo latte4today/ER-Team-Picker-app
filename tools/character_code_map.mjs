@@ -100,6 +100,7 @@ export const FALLBACK_CHARACTER_CODE_TO_ID = {
   88: "bihyung",
   89: "craver",
   90: "lucia",
+  91: "seres",
 };
 
 export const characterIdForCode = (code) => FALLBACK_CHARACTER_CODE_TO_ID[String(code)] ?? null;
