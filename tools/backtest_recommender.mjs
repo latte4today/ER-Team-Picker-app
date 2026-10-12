@@ -314,6 +314,7 @@ async function sampleGames() {
 }
 
 function runConcordance({ games, vtop3, scanned, eligibleGames, totalGames }) {
+  if (games.length === 0) throw new Error("No eligible games for concordance validation");
   console.log(`# backtest  metric=concordance  data=${DATA.split(/[\\/]/).pop()}`);
   console.log(`# scanned=${scanned} totalGames=${totalGames} eligibleGames(>=${MIN_TEAMS}팀)=${eligibleGames} sampledGames=${games.length} teamTier=${TEAM_TIER ?? "all"} seed=${SEED}`);
   const dist = {}; for (const g of games) dist[g.tier] = (dist[g.tier] ?? 0) + 1;
@@ -332,7 +333,10 @@ function runConcordance({ games, vtop3, scanned, eligibleGames, totalGames }) {
       const tier = tierForConfig(n, g.tier);
       const scores = g.teams.map((tm) => n === "control"
         ? tm.ids.reduce((s, id) => s + (vtop3.get(id) ?? 0), 0) / 3
-        : computeTeamScore(tm.ids, tier));
+        : computeTeamScore(tm.ids, tier).total);
+      if (!scores.every(Number.isFinite)) {
+        throw new Error(`Non-finite concordance score for ${n}; validation cannot continue`);
+      }
       const A = acc[n];
       const T = A.tier[g.tier] ?? (A.tier[g.tier] = { c: 0, p: 0 });
       const G = { c: 0, p: 0, tier: g.tier };
@@ -355,6 +359,7 @@ function runConcordance({ games, vtop3, scanned, eligibleGames, totalGames }) {
   console.log("   매치업·로비강약·서클RNG가 쌍비교에서 상쇄됨. config 간 델타로 조합로직 기여를 봄.\n");
   for (const n of names) {
     const A = acc[n];
+    if (A.all.p === 0) throw new Error(`No comparable placement pairs for ${n}`);
     console.log(`■ ${n}`);
     console.log(`   overall          conc=${f3(A.all.p ? A.all.c / A.all.p : 0.5)}  pairs=${A.all.p}`);
     const tiers = Object.keys(A.tier).sort((a, b) => (TIER_ORDER.indexOf(a) + 1 || 99) - (TIER_ORDER.indexOf(b) + 1 || 99));

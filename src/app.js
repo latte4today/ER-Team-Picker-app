@@ -2864,11 +2864,25 @@ function renderHomeDashboard() {
   `;
 }
 
+function fullTeamRecommendationKey(anchorId) {
+  return JSON.stringify({
+    anchorId,
+    language: getLanguage(),
+    tier: tierSelect.value,
+    playable: [...playableVariantIds].sort(),
+    cores: selectedCoresMap(),
+    stats: officialStatsVersion,
+    feedback: dataSignature(remoteFeedback),
+    relationships: dataSignature(currentRelationshipRows()),
+  });
+}
+
 async function renderFullTeamRecommendations() {
   const anchorId = chosenPickId;
+  const inputKey = fullTeamRecommendationKey(anchorId);
 
-  // Re-use cache: same anchor already computing or done — just re-render
-  if (_fullTeamState.anchorId === anchorId && _fullTeamState.status !== "idle") {
+  // Re-use the result only while all recommendation inputs still match.
+  if (_fullTeamState.inputKey === inputKey && _fullTeamState.status !== "idle") {
     if (_fullTeamState.status === "done" && recommendations.querySelector(".full-team-section-header")) return;
     if (_fullTeamState.status === "computing") return;
     _renderFullTeamCards();
@@ -2876,9 +2890,11 @@ async function renderFullTeamRecommendations() {
   }
 
   // Fresh computation
-  _fullTeamState = { status: "computing", compositions: [], anchorId };
+  const state = { status: "computing", compositions: [], anchorId, inputKey };
+  _fullTeamState = state;
   _renderFullTeamCards();
   await yieldToUi();
+  if (_fullTeamState !== state || fullTeamRecommendationKey(chosenPickId) !== inputKey) return;
 
   const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
   const tier = tierSelect.value;
@@ -2887,9 +2903,11 @@ async function renderFullTeamRecommendations() {
 
   for (const r1 of slot1Results) {
     await yieldToUi();
-    if (_fullTeamState.anchorId !== anchorId) return; // anchor changed — abort
+    if (_fullTeamState !== state || fullTeamRecommendationKey(chosenPickId) !== inputKey) return;
 
-    const slot2Results = recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap()).slice(0, 3);
+    const comboCores = { ...selectedCoresMap() };
+    if (r1.recommendedCore?.core) comboCores[r1.character.variantId] = r1.recommendedCore.core;
+    const slot2Results = recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, currentRelationshipRows(), comboCores).slice(0, 3);
     for (const r2 of slot2Results) {
       const pairKey = [r1.character.characterId, r2.character.characterId].sort().join("+");
       if (seen.has(pairKey)) continue;
@@ -2951,7 +2969,7 @@ function _renderFullTeamCards() {
             <div class="full-team-member-info">
               <strong>${t(`char.${c1.id}`)}</strong>
               <small>${characterSubtitle(c1)}</small>
-              ${traitChip(c1.variantId, tierSelect.value)}
+              ${traitChip(c1.variantId, tierSelect.value, teammate1.recommendedCore)}
               <div class="recommendation-tags">${reasons1}</div>
             </div>
           </div>
@@ -2963,7 +2981,7 @@ function _renderFullTeamCards() {
             <div class="full-team-member-info">
               <strong>${t(`char.${c2.id}`)}</strong>
               <small>${characterSubtitle(c2)}</small>
-              ${traitChip(c2.variantId, tierSelect.value)}
+              ${traitChip(c2.variantId, tierSelect.value, teammate2.recommendedCore)}
               <div class="recommendation-tags">${reasons2}</div>
             </div>
           </div>
@@ -2979,7 +2997,9 @@ function _renderFullTeamCards() {
         </details>
         <div class="full-team-actions">
           <button class="feedback-button" type="button"
-            data-apply-combo="${teammate1.character.variantId}|${teammate2.character.variantId}">
+            data-apply-combo="${teammate1.character.variantId}|${teammate2.character.variantId}"
+            data-combo-core1="${teammate1.recommendedCore?.core ?? ""}"
+            data-combo-core2="${teammate2.recommendedCore?.core ?? ""}">
             ${t("fullTeam.applyCombo")}
           </button>
         </div>
@@ -3832,6 +3852,8 @@ recommendations.addEventListener("click", (event) => {
     const [v1, v2] = applyComboButton.dataset.applyCombo.split("|");
     assignSlot(1, v1);
     assignSlot(2, v2);
+    slotCores[1] = applyComboButton.dataset.comboCore1 || null;
+    slotCores[2] = applyComboButton.dataset.comboCore2 || null;
     renderDetectedTeam();
     render();
     return;

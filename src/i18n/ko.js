@@ -458,7 +458,7 @@ export const ko = {
   "recommend.individualScore": "개인",
   "recommend.details": "상세 설명",
   "recommend.mostPlayedCore": "가장 많이 쓰는 특성",
-  "recommend.top3Rate": "3등 확률",
+  "recommend.top3Rate": "TOP3 비율",
   "recommend.pickShare": "픽률",
   "recommend.fitsTeam": "팀에 맞음",
   "recommend.styleCeiling": "고점",
