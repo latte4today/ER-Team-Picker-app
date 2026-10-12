@@ -3,7 +3,12 @@ name: Collect Tier Seeds
 on:
   schedule:
     - cron: '0 */6 * * *' # 6시간마다 실행 (KST 09:00, 15:00, 21:00, 03:00)
-  workflow_dispatch:       # GitHub UI에서 수동 실행 가능
+  workflow_dispatch:
+    inputs:
+      rebuild_only:
+        description: Rebuild statistics from the saved archive without collecting new games
+        type: boolean
+        default: false
 
 concurrency:
   group: collect-tier-seeds-${{ github.ref }}
@@ -92,12 +97,14 @@ jobs:
           echo '${{ secrets.TIER_SEEDS }}' > data/official-tier-seeds.json
 
       - name: Prepare cross-run game index
+        if: inputs.rebuild_only != true
         run: |
           node tools/build_archive_seen_games.mjs \
             --archive-dir "$DURABLE_ARCHIVE_DIR" \
             --out "$DURABLE_ARCHIVE_DIR/seen-game-ids.txt"
 
       - name: Collect seed-tier match data
+        if: inputs.rebuild_only != true
         run: |
           node tools/official_seed_collector.mjs \
             --games-per-user 20 \
@@ -113,6 +120,7 @@ jobs:
             --retry-429-ms 60000
 
       - name: Accumulate match data
+        if: inputs.rebuild_only != true
         run: |
           node tools/merge_match_input.mjs \
             --accumulated data/official-match-input-accumulated.json \
@@ -140,12 +148,14 @@ jobs:
           fi
 
       - name: Append to ML corpus (unbounded JSONL)
+        if: inputs.rebuild_only != true
         run: |
           node tools/append_ml_corpus.mjs \
             --corpus data/ml-training/corpus.jsonl \
             --new data/official-match-input-accumulated.json
 
       - name: Archive official match shard
+        if: inputs.rebuild_only != true
         run: |
           node tools/archive_official_matches.mjs \
             --in data/official-match-input-seeded.json \
@@ -170,7 +180,7 @@ jobs:
       # archive. Twice. Collection is expensive and irreplaceable; the analysis on
       # top of it is neither. The push goes first now.
       - name: Push archive shard to data repo
-        if: steps.data_archive.outputs.ready == 'true'
+        if: steps.data_archive.outputs.ready == 'true' && inputs.rebuild_only != true
         continue-on-error: true
         run: |
           cd data-repo
@@ -236,6 +246,7 @@ jobs:
             --top 60
 
       - name: Export ML training artifact
+        if: inputs.rebuild_only != true
         env:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
