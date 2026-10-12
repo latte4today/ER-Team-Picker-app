@@ -611,6 +611,8 @@ export const en = {
   "char.priya": "Priya",
   "char.rio": "Rio",
   "char.rozzi": "Rozzi",
+  "char.seres": "Seres",
+  "union.plan.shieldGuardBackline": "Keep the tank near ranged allies to protect them with damage sharing and shields, and use crowd control to push approaching enemies away. Engage briefly when your allies can attack together.",
   "char.shirin": "Xuelin",
   "char.sho": "Xiukai",
   "char.shoichi": "Shoichi",

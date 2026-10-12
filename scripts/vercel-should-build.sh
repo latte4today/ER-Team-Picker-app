@@ -32,19 +32,23 @@ DATA_ONLY=(
 )
 
 # Only these ever reach the browser.
-DEPLOYED=(index.html src assets vercel.json .vercelignore)
+DEPLOYED=(index.html src assets scripts vercel.json .vercelignore)
 
-if ! git rev-parse --verify --quiet HEAD^ >/dev/null; then
-  echo "no parent commit to compare against; building"
+# Compare against the last successful deployment, not the immediate parent.
+# A pushed batch can end with a stats/CI commit after an app change; HEAD^ would
+# then skip the app change even though it has never reached the deployment.
+DEPLOY_BASE="${VERCEL_GIT_PREVIOUS_SHA:-}"
+if [ -z "$DEPLOY_BASE" ] || ! git cat-file -e "$DEPLOY_BASE^{commit}" 2>/dev/null; then
+  echo "no available successful deployment to compare against; building"
   exit 1
 fi
 
-if git diff --quiet HEAD^ HEAD -- "${DEPLOYED[@]}" "${DATA_ONLY[@]}"; then
+if git diff --quiet "$DEPLOY_BASE" HEAD -- "${DEPLOYED[@]}" "${DATA_ONLY[@]}"; then
   echo "only collected data changed; skipping deployment"
   echo "(the app fetches stats from raw.githubusercontent.com, so main is already live)"
   exit 0
 fi
 
 echo "app files changed; building"
-git diff --name-only HEAD^ HEAD -- "${DEPLOYED[@]}" "${DATA_ONLY[@]}" | sed 's/^/  /'
+git diff --name-only "$DEPLOY_BASE" HEAD -- "${DEPLOYED[@]}" "${DATA_ONLY[@]}" | sed 's/^/  /'
 exit 1

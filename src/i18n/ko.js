@@ -615,6 +615,8 @@ export const ko = {
   "char.priya": "프리야",
   "char.rio": "리오",
   "char.rozzi": "로지",
+  "char.seres": "세레스",
+  "union.plan.shieldGuardBackline": "탱커가 원거리 아군 곁에서 피해 분담과 보호막으로 보호하고, 제어기로 접근하는 적을 밀어내세요. 아군이 함께 공격할 수 있을 때 짧게 진입하세요.",
   "char.shirin": "슈린",
   "char.sho": "쇼우",
   "char.shoichi": "쇼이치",

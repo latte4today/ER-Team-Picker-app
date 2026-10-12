@@ -611,6 +611,8 @@ export const zhHans = {
   "char.priya": "普里娅",
   "char.rio": "莉央",
   "char.rozzi": "洛兹",
+  "char.seres": "塞莉丝",
+  "union.plan.shieldGuardBackline": "坦克应留在远程队友身边，通过分担伤害和护盾保护队友，并用控制技能推开接近的敌人。队友能够一同输出时再进行短距离开战。",
   "char.shirin": "雪琳",
   "char.sho": "秀凯",
   "char.shoichi": "彰一",

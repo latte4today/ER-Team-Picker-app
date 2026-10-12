@@ -611,6 +611,8 @@ export const ja = {
   "char.priya": "プリヤ",
   "char.rio": "リオ",
   "char.rozzi": "ロジー",
+  "char.seres": "セレス",
+  "union.plan.shieldGuardBackline": "タンクは遠距離の味方のそばでダメージ分担とシールドで守り、行動妨害で接近する敵を押し返しましょう。味方が同時に攻撃できるときに短く仕掛けましょう。",
   "char.shirin": "シリン",
   "char.sho": "ショウ",
   "char.shoichi": "ショウイチ",

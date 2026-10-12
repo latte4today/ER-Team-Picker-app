@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T13:17:21.336Z",
+  "generatedAt": "2026-10-12T13:19:46.501Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -1408,7 +1408,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0185e7bc824325ab",
+      "digest": "bcb1ca738e668484",
       "results": [
         {
           "rank": 1,
@@ -1491,7 +1491,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b1545375fc734b18",
+      "digest": "79328664674704dc",
       "results": [
         {
           "rank": 1,
@@ -1894,6 +1894,337 @@
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.772
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/all/seres:two_handed_sword",
+      "tier": "all",
+      "selected": [
+        "seres:two_handed_sword"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "61b33d3bdcc40cac",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.397
+        },
+        {
+          "rank": 2,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.373
+        },
+        {
+          "rank": 3,
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.34
+        },
+        {
+          "rank": 4,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.338
+        },
+        {
+          "rank": 5,
+          "variantId": "aya:pistol",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.319
+        },
+        {
+          "rank": 6,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.292
+        },
+        {
+          "rank": 7,
+          "variantId": "henry:shuriken",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.276
+        },
+        {
+          "rank": 8,
+          "variantId": "adriana:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.269
+        },
+        {
+          "rank": 9,
+          "variantId": "chloe:shuriken",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.268
+        },
+        {
+          "rank": 10,
+          "variantId": "isol:pistol",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.26
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/all/seres:two_handed_sword+lucia:sniper_rifle",
+      "tier": "all",
+      "selected": [
+        "seres:two_handed_sword",
+        "lucia:sniper_rifle"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "a375eba102acfc4b",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.671
+        },
+        {
+          "rank": 2,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.574
+        },
+        {
+          "rank": 3,
+          "variantId": "henry:shuriken",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.571
+        },
+        {
+          "rank": 4,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.491
+        },
+        {
+          "rank": 5,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.487
+        },
+        {
+          "rank": 6,
+          "variantId": "nadine:bow",
+          "core": "7000701",
+          "coreName": "액셀러레이터",
+          "total": 0.414
+        },
+        {
+          "rank": 7,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.386
+        },
+        {
+          "rank": 8,
+          "variantId": "sissela:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.381
+        },
+        {
+          "rank": 9,
+          "variantId": "adriana:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.374
+        },
+        {
+          "rank": 10,
+          "variantId": "nadine:bow",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.339
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/all/seres:two_handed_sword+rio:bow",
+      "tier": "all",
+      "selected": [
+        "seres:two_handed_sword",
+        "rio:bow"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "e50572f41fec22f2",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 1.544
+        },
+        {
+          "rank": 2,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 1.176
+        },
+        {
+          "rank": 3,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 1.066
+        },
+        {
+          "rank": 4,
+          "variantId": "sissela:shuriken",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.994
+        },
+        {
+          "rank": 5,
+          "variantId": "daniel:dagger",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.954
+        },
+        {
+          "rank": 6,
+          "variantId": "daniel:dagger",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 0.872
+        },
+        {
+          "rank": 7,
+          "variantId": "alex:flex",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.838
+        },
+        {
+          "rank": 8,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.825
+        },
+        {
+          "rank": 9,
+          "variantId": "henry:shuriken",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.786
+        },
+        {
+          "rank": 10,
+          "variantId": "adriana:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.781
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/all/lucia:sniper_rifle+rio:bow",
+      "tier": "all",
+      "selected": [
+        "lucia:sniper_rifle",
+        "rio:bow"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "1e048f90c5ab9497",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "johann:arcana",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.923
+        },
+        {
+          "rank": 2,
+          "variantId": "sho:dagger",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.899
+        },
+        {
+          "rank": 3,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.843
+        },
+        {
+          "rank": 4,
+          "variantId": "johann:arcana",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.796
+        },
+        {
+          "rank": 5,
+          "variantId": "sho:dagger",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.755
+        },
+        {
+          "rank": 6,
+          "variantId": "daniel:dagger",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.683
+        },
+        {
+          "rank": 7,
+          "variantId": "sho:spear",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.681
+        },
+        {
+          "rank": 8,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.674
+        },
+        {
+          "rank": 9,
+          "variantId": "daniel:dagger",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 0.602
+        },
+        {
+          "rank": 10,
+          "variantId": "alex:flex",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.58
         }
       ]
     },
@@ -3303,7 +3634,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f8f04f312f6f1320",
+      "digest": "854451b21d0268bd",
       "results": [
         {
           "rank": 1,
@@ -3789,6 +4120,337 @@
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.671
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/iron_gold/seres:two_handed_sword",
+      "tier": "iron_gold",
+      "selected": [
+        "seres:two_handed_sword"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "809a14da086a13ae",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.414
+        },
+        {
+          "rank": 2,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.392
+        },
+        {
+          "rank": 3,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.392
+        },
+        {
+          "rank": 4,
+          "variantId": "isol:pistol",
+          "core": "7211301",
+          "coreName": "폭발 선인장",
+          "total": 0.356
+        },
+        {
+          "rank": 5,
+          "variantId": "aya:pistol",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.355
+        },
+        {
+          "rank": 6,
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.345
+        },
+        {
+          "rank": 7,
+          "variantId": "cathy:dual_swords",
+          "core": "7100201",
+          "coreName": "불괴",
+          "total": 0.341
+        },
+        {
+          "rank": 8,
+          "variantId": "yuki:two_handed_sword",
+          "core": "7100101",
+          "coreName": "금강",
+          "total": 0.322
+        },
+        {
+          "rank": 9,
+          "variantId": "yuki:two_handed_sword",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 0.312
+        },
+        {
+          "rank": 10,
+          "variantId": "arda:arcana",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.298
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/iron_gold/seres:two_handed_sword+lucia:sniper_rifle",
+      "tier": "iron_gold",
+      "selected": [
+        "seres:two_handed_sword",
+        "lucia:sniper_rifle"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "c498b93ee5df2dd1",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.758
+        },
+        {
+          "rank": 2,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.629
+        },
+        {
+          "rank": 3,
+          "variantId": "isol:assault_rifle",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.604
+        },
+        {
+          "rank": 4,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.581
+        },
+        {
+          "rank": 5,
+          "variantId": "sissela:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.546
+        },
+        {
+          "rank": 6,
+          "variantId": "adriana:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.525
+        },
+        {
+          "rank": 7,
+          "variantId": "nadine:bow",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.432
+        },
+        {
+          "rank": 8,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.423
+        },
+        {
+          "rank": 9,
+          "variantId": "sho:dagger",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.392
+        },
+        {
+          "rank": 10,
+          "variantId": "nathapon:camera",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 0.377
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/iron_gold/seres:two_handed_sword+rio:bow",
+      "tier": "iron_gold",
+      "selected": [
+        "seres:two_handed_sword",
+        "rio:bow"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "166aaded572be1a7",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 1.469
+        },
+        {
+          "rank": 2,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 1.298
+        },
+        {
+          "rank": 3,
+          "variantId": "daniel:dagger",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 1.021
+        },
+        {
+          "rank": 4,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.93
+        },
+        {
+          "rank": 5,
+          "variantId": "daniel:dagger",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 0.908
+        },
+        {
+          "rank": 6,
+          "variantId": "alex:flex",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.902
+        },
+        {
+          "rank": 7,
+          "variantId": "nathapon:camera",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 0.879
+        },
+        {
+          "rank": 8,
+          "variantId": "sho:dagger",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.871
+        },
+        {
+          "rank": 9,
+          "variantId": "sho:dagger",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.862
+        },
+        {
+          "rank": 10,
+          "variantId": "aya:pistol",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.797
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/iron_gold/lucia:sniper_rifle+rio:bow",
+      "tier": "iron_gold",
+      "selected": [
+        "lucia:sniper_rifle",
+        "rio:bow"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "96de14c676bebe7c",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "sho:dagger",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 1.465
+        },
+        {
+          "rank": 2,
+          "variantId": "sho:dagger",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 1.388
+        },
+        {
+          "rank": 3,
+          "variantId": "johann:arcana",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 1.277
+        },
+        {
+          "rank": 4,
+          "variantId": "johann:arcana",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 1.157
+        },
+        {
+          "rank": 5,
+          "variantId": "alex:flex",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.762
+        },
+        {
+          "rank": 6,
+          "variantId": "cathy:dual_swords",
+          "core": "7100201",
+          "coreName": "불괴",
+          "total": 0.752
+        },
+        {
+          "rank": 7,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.736
+        },
+        {
+          "rank": 8,
+          "variantId": "daniel:dagger",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.734
+        },
+        {
+          "rank": 9,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.683
+        },
+        {
+          "rank": 10,
+          "variantId": "johann:arcana",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.66
         }
       ]
     },
@@ -5198,7 +5860,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "694cb51b66820d69",
+      "digest": "fbbd4ef9115e95ba",
       "results": [
         {
           "rank": 1,
@@ -5684,6 +6346,337 @@
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.722
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/platinum_diamond/seres:two_handed_sword",
+      "tier": "platinum_diamond",
+      "selected": [
+        "seres:two_handed_sword"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "ceded67dd704b1cd",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.434
+        },
+        {
+          "rank": 2,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.376
+        },
+        {
+          "rank": 3,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.322
+        },
+        {
+          "rank": 4,
+          "variantId": "aya:pistol",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.306
+        },
+        {
+          "rank": 5,
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.306
+        },
+        {
+          "rank": 6,
+          "variantId": "henry:shuriken",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.286
+        },
+        {
+          "rank": 7,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.276
+        },
+        {
+          "rank": 8,
+          "variantId": "adriana:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.271
+        },
+        {
+          "rank": 9,
+          "variantId": "chloe:shuriken",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.259
+        },
+        {
+          "rank": 10,
+          "variantId": "isol:pistol",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.251
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/platinum_diamond/seres:two_handed_sword+lucia:sniper_rifle",
+      "tier": "platinum_diamond",
+      "selected": [
+        "seres:two_handed_sword",
+        "lucia:sniper_rifle"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "11ee5906432e4e3e",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "henry:shuriken",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.696
+        },
+        {
+          "rank": 2,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.662
+        },
+        {
+          "rank": 3,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.626
+        },
+        {
+          "rank": 4,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.603
+        },
+        {
+          "rank": 5,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.551
+        },
+        {
+          "rank": 6,
+          "variantId": "haze:assault_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.383
+        },
+        {
+          "rank": 7,
+          "variantId": "henry:shuriken",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.375
+        },
+        {
+          "rank": 8,
+          "variantId": "sissela:shuriken",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.341
+        },
+        {
+          "rank": 9,
+          "variantId": "nadine:bow",
+          "core": "7000701",
+          "coreName": "액셀러레이터",
+          "total": 0.34
+        },
+        {
+          "rank": 10,
+          "variantId": "celine:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.34
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/platinum_diamond/seres:two_handed_sword+rio:bow",
+      "tier": "platinum_diamond",
+      "selected": [
+        "seres:two_handed_sword",
+        "rio:bow"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "797c976d9c4db932",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 1.365
+        },
+        {
+          "rank": 2,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 1.041
+        },
+        {
+          "rank": 3,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 1.014
+        },
+        {
+          "rank": 4,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.96
+        },
+        {
+          "rank": 5,
+          "variantId": "aya:assault_rifle",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.954
+        },
+        {
+          "rank": 6,
+          "variantId": "daniel:dagger",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.945
+        },
+        {
+          "rank": 7,
+          "variantId": "sissela:shuriken",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.886
+        },
+        {
+          "rank": 8,
+          "variantId": "alex:flex",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.823
+        },
+        {
+          "rank": 9,
+          "variantId": "daniel:dagger",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 0.811
+        },
+        {
+          "rank": 10,
+          "variantId": "henry:shuriken",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.807
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/platinum_diamond/lucia:sniper_rifle+rio:bow",
+      "tier": "platinum_diamond",
+      "selected": [
+        "lucia:sniper_rifle",
+        "rio:bow"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "8a14b4f0232fe914",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "daniel:dagger",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.771
+        },
+        {
+          "rank": 2,
+          "variantId": "sho:spear",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.74
+        },
+        {
+          "rank": 3,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.685
+        },
+        {
+          "rank": 4,
+          "variantId": "daniel:dagger",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 0.637
+        },
+        {
+          "rank": 5,
+          "variantId": "sho:spear",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.615
+        },
+        {
+          "rank": 6,
+          "variantId": "sho:dagger",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.592
+        },
+        {
+          "rank": 7,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.533
+        },
+        {
+          "rank": 8,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.527
+        },
+        {
+          "rank": 9,
+          "variantId": "henry:shuriken",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.439
+        },
+        {
+          "rank": 10,
+          "variantId": "leon:tonfa",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.434
         }
       ]
     },
@@ -7093,7 +8086,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f2010b31a377e9ed",
+      "digest": "0929635ea56ff714",
       "results": [
         {
           "rank": 1,
@@ -7579,6 +8572,337 @@
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.741
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/meteor_mithril/seres:two_handed_sword",
+      "tier": "meteor_mithril",
+      "selected": [
+        "seres:two_handed_sword"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "0f0e12b645ea77e9",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.365
+        },
+        {
+          "rank": 2,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.36
+        },
+        {
+          "rank": 3,
+          "variantId": "eva:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.359
+        },
+        {
+          "rank": 4,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.341
+        },
+        {
+          "rank": 5,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.29
+        },
+        {
+          "rank": 6,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.289
+        },
+        {
+          "rank": 7,
+          "variantId": "emma:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.274
+        },
+        {
+          "rank": 8,
+          "variantId": "aya:pistol",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.271
+        },
+        {
+          "rank": 9,
+          "variantId": "chloe:shuriken",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.254
+        },
+        {
+          "rank": 10,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.252
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/meteor_mithril/seres:two_handed_sword+lucia:sniper_rifle",
+      "tier": "meteor_mithril",
+      "selected": [
+        "seres:two_handed_sword",
+        "lucia:sniper_rifle"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "a2245b475ac840cd",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "sho:spear",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.868
+        },
+        {
+          "rank": 2,
+          "variantId": "nadine:crossbow",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.825
+        },
+        {
+          "rank": 3,
+          "variantId": "silvia:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.657
+        },
+        {
+          "rank": 4,
+          "variantId": "henry:shuriken",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.651
+        },
+        {
+          "rank": 5,
+          "variantId": "tazia:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.636
+        },
+        {
+          "rank": 6,
+          "variantId": "sho:spear",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.634
+        },
+        {
+          "rank": 7,
+          "variantId": "henry:shuriken",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.548
+        },
+        {
+          "rank": 8,
+          "variantId": "vanya:arcana",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.535
+        },
+        {
+          "rank": 9,
+          "variantId": "emma:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.513
+        },
+        {
+          "rank": 10,
+          "variantId": "adina:arcana",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.485
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/meteor_mithril/seres:two_handed_sword+rio:bow",
+      "tier": "meteor_mithril",
+      "selected": [
+        "seres:two_handed_sword",
+        "rio:bow"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "47b3ad0120aba9cd",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "mirka:hammer",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 1.294
+        },
+        {
+          "rank": 2,
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 1.196
+        },
+        {
+          "rank": 3,
+          "variantId": "mirka:hammer",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 1.186
+        },
+        {
+          "rank": 4,
+          "variantId": "aya:sniper_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 1.13
+        },
+        {
+          "rank": 5,
+          "variantId": "mai:whip",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 1.08
+        },
+        {
+          "rank": 6,
+          "variantId": "sissela:shuriken",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.939
+        },
+        {
+          "rank": 7,
+          "variantId": "haze:assault_rifle",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.907
+        },
+        {
+          "rank": 8,
+          "variantId": "celine:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.892
+        },
+        {
+          "rank": 9,
+          "variantId": "daniel:dagger",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 0.88
+        },
+        {
+          "rank": 10,
+          "variantId": "daniel:dagger",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.846
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/meteor_mithril/lucia:sniper_rifle+rio:bow",
+      "tier": "meteor_mithril",
+      "selected": [
+        "lucia:sniper_rifle",
+        "rio:bow"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "e221ae3c9eed269e",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "mai:whip",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 1.463
+        },
+        {
+          "rank": 2,
+          "variantId": "sho:spear",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 1.383
+        },
+        {
+          "rank": 3,
+          "variantId": "sho:spear",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 1.111
+        },
+        {
+          "rank": 4,
+          "variantId": "johann:arcana",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.727
+        },
+        {
+          "rank": 5,
+          "variantId": "alex:flex",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.675
+        },
+        {
+          "rank": 6,
+          "variantId": "silvia:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.641
+        },
+        {
+          "rank": 7,
+          "variantId": "markus:hammer",
+          "core": "7100501",
+          "coreName": "응징",
+          "total": 0.518
+        },
+        {
+          "rank": 8,
+          "variantId": "laura:whip",
+          "core": "7100101",
+          "coreName": "금강",
+          "total": 0.493
+        },
+        {
+          "rank": 9,
+          "variantId": "daniel:dagger",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 0.39
+        },
+        {
+          "rank": 10,
+          "variantId": "johann:arcana",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.359
         }
       ]
     },
@@ -8988,7 +10312,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7982e45ca1ed645a",
+      "digest": "2769b1425a4659ec",
       "results": [
         {
           "rank": 1,
@@ -9071,7 +10395,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1b3916a09cfd81ea",
+      "digest": "1197e59de36bfbd0",
       "results": [
         {
           "rank": 1,
@@ -9154,7 +10478,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "210c6d5be0478392",
+      "digest": "3779d9555a7018e8",
       "results": [
         {
           "rank": 1,
@@ -9474,6 +10798,337 @@
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.184
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/demigod_eternity/seres:two_handed_sword",
+      "tier": "demigod_eternity",
+      "selected": [
+        "seres:two_handed_sword"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "e255d1673d858657",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.39
+        },
+        {
+          "rank": 2,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.377
+        },
+        {
+          "rank": 3,
+          "variantId": "aya:pistol",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.306
+        },
+        {
+          "rank": 4,
+          "variantId": "emma:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.299
+        },
+        {
+          "rank": 5,
+          "variantId": "charlotte:arcana",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.297
+        },
+        {
+          "rank": 6,
+          "variantId": "sho:dagger",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.277
+        },
+        {
+          "rank": 7,
+          "variantId": "adriana:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.277
+        },
+        {
+          "rank": 8,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.272
+        },
+        {
+          "rank": 9,
+          "variantId": "sissela:shuriken",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.268
+        },
+        {
+          "rank": 10,
+          "variantId": "nadine:bow",
+          "core": "7000701",
+          "coreName": "액셀러레이터",
+          "total": 0.266
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/demigod_eternity/seres:two_handed_sword+lucia:sniper_rifle",
+      "tier": "demigod_eternity",
+      "selected": [
+        "seres:two_handed_sword",
+        "lucia:sniper_rifle"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "37217ab7b249f61a",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.39
+        },
+        {
+          "rank": 2,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.377
+        },
+        {
+          "rank": 3,
+          "variantId": "aya:pistol",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.306
+        },
+        {
+          "rank": 4,
+          "variantId": "emma:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.299
+        },
+        {
+          "rank": 5,
+          "variantId": "adriana:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.277
+        },
+        {
+          "rank": 6,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.272
+        },
+        {
+          "rank": 7,
+          "variantId": "sissela:shuriken",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.268
+        },
+        {
+          "rank": 8,
+          "variantId": "nadine:bow",
+          "core": "7000701",
+          "coreName": "액셀러레이터",
+          "total": 0.266
+        },
+        {
+          "rank": 9,
+          "variantId": "zahir:shuriken",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.265
+        },
+        {
+          "rank": 10,
+          "variantId": "celine:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.259
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/demigod_eternity/seres:two_handed_sword+rio:bow",
+      "tier": "demigod_eternity",
+      "selected": [
+        "seres:two_handed_sword",
+        "rio:bow"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "4808a8a52f55e4b5",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "daniel:dagger",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.844
+        },
+        {
+          "rank": 2,
+          "variantId": "alex:flex",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.782
+        },
+        {
+          "rank": 3,
+          "variantId": "barbara:pistol",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.78
+        },
+        {
+          "rank": 4,
+          "variantId": "daniel:dagger",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 0.709
+        },
+        {
+          "rank": 5,
+          "variantId": "barbara:pistol",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.692
+        },
+        {
+          "rank": 6,
+          "variantId": "barbara:pistol",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.52
+        },
+        {
+          "rank": 7,
+          "variantId": "sissela:shuriken",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.381
+        },
+        {
+          "rank": 8,
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.357
+        },
+        {
+          "rank": 9,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.302
+        },
+        {
+          "rank": 10,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.298
+        }
+      ]
+    },
+    {
+      "name": "seres-profile/demigod_eternity/lucia:sniper_rifle+rio:bow",
+      "tier": "demigod_eternity",
+      "selected": [
+        "lucia:sniper_rifle",
+        "rio:bow"
+      ],
+      "cores": {},
+      "count": 48,
+      "digest": "c16e0afc2230997a",
+      "results": [
+        {
+          "rank": 1,
+          "variantId": "daniel:dagger",
+          "core": "7300201",
+          "coreName": "도깨비불",
+          "total": 0.939
+        },
+        {
+          "rank": 2,
+          "variantId": "alex:flex",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.845
+        },
+        {
+          "rank": 3,
+          "variantId": "daniel:dagger",
+          "core": "7300301",
+          "coreName": "와류",
+          "total": 0.803
+        },
+        {
+          "rank": 4,
+          "variantId": "johann:arcana",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.456
+        },
+        {
+          "rank": 5,
+          "variantId": "sho:spear",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.363
+        },
+        {
+          "rank": 6,
+          "variantId": "sho:dagger",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.341
+        },
+        {
+          "rank": 7,
+          "variantId": "priya:guitar",
+          "core": "7300101",
+          "coreName": "스텔라 차지",
+          "total": 0.305
+        },
+        {
+          "rank": 8,
+          "variantId": "priya:guitar",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.296
+        },
+        {
+          "rank": 9,
+          "variantId": "estelle:axe",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.295
+        },
+        {
+          "rank": 10,
+          "variantId": "sho:spear",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.292
         }
       ]
     }

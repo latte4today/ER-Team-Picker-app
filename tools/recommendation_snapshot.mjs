@@ -68,6 +68,15 @@ for (const tier of TIERS) {
     if (a.split(":")[0] === b.split(":")[0]) continue;
     cases.push({ name: `two-pick/${tier}/${a}+${b}`, tier, selected: [a, b], cores: {} });
   }
+  // Keep the original cyclic pairs stable when extending roster coverage.
+  for (const selected of [
+    ["seres:two_handed_sword"],
+    ["seres:two_handed_sword", "lucia:sniper_rifle"],
+    ["seres:two_handed_sword", "rio:bow"],
+    ["lucia:sniper_rifle", "rio:bow"],
+  ]) {
+    cases.push({ name: `seres-profile/${tier}/${selected.join("+")}`, tier, selected, cores: {} });
+  }
 }
 
 function summarizeResult(row, index) {
