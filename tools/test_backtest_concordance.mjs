@@ -21,11 +21,20 @@ try {
   const tied = run();
   assert.equal(tied.status, 0, tied.stderr);
   assert.match(tied.stdout, /overall\s+conc=0\.500\s+pairs=6/);
+  const samePlacement = (await fs.readFile(input, 'utf8')).split('\n').map(line => {
+    const row = JSON.parse(line);
+    row.result.placement = 1;
+    return JSON.stringify(row);
+  }).join('\n');
+  await fs.writeFile(input, samePlacement);
+  const incomparable = run();
+  assert.notEqual(incomparable.status, 0);
+  assert.match(incomparable.stderr, /No comparable placement pairs/);
   await fs.writeFile(input, '');
   const empty = run();
   assert.notEqual(empty.status, 0);
   assert.match(empty.stderr, /No eligible games/);
-  console.log('Concordance regression passed: numeric ties count as 0.5; empty input fails validation.');
+  console.log('Concordance regression passed: numeric ties count as 0.5; empty and incomparable inputs fail validation.');
 } finally {
   await fs.rm(scratch, { recursive: true, force: true });
 }
