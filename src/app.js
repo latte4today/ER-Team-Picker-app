@@ -386,6 +386,7 @@ let recommendationCacheResults = null;
 // Lazy computation caches
 let _fullTeamState = { status: "idle", compositions: [], anchorId: null };
 let _unionComboCache = [];
+let _unionResultKey = "";
 const unionParticipatingPlayers = new Set([0, 1, 2]);
 const savedUnionRosters = JSON.parse(localStorage.getItem(unionStorageKey) ?? "[]");
 const unionRosters = Array.from({ length: 4 }, (_, index) => new Set(savedUnionRosters[index] ?? []));
@@ -1609,12 +1610,12 @@ function variantById(variantId) {
   return characterVariants.find((character) => character.variantId === variantId);
 }
 
-function unionComboScore(combo) {
+function unionComboScore(combo, context) {
   const [first, second, third] = combo;
   const evaluations = [
-    evaluateCandidate([second.variantId, third.variantId], first.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows()),
-    evaluateCandidate([first.variantId, third.variantId], second.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows()),
-    evaluateCandidate([first.variantId, second.variantId], third.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows()),
+    evaluateCandidate([second.variantId, third.variantId], first.variantId, context.tier, context.feedback, context.relationships),
+    evaluateCandidate([first.variantId, third.variantId], second.variantId, context.tier, context.feedback, context.relationships),
+    evaluateCandidate([first.variantId, second.variantId], third.variantId, context.tier, context.feedback, context.relationships),
   ].filter(Boolean);
   const average = evaluations.reduce((sum, evaluation) => sum + evaluation.score, 0) / evaluations.length;
   return {
@@ -1769,10 +1770,11 @@ function updateUnionCalculateButton() {
 async function buildUnionCombos(players, rosters) {
   // Pre-rank each player's roster by individual score (solo evaluate), keep top 12
   const tier = tierSelect.value;
+  const context = { tier, feedback: remoteFeedback, relationships: currentRelationshipRows() };
   const ranked = rosters.map((roster) => {
     if (roster.length <= 12) return roster;
     const scored = roster.map((character) => {
-      const ev = evaluateCandidate([], character.variantId, tier, remoteFeedback, currentRelationshipRows());
+      const ev = evaluateCandidate([], character.variantId, tier, context.feedback, context.relationships);
       return { character, score: ev?.score ?? 0 };
     });
     scored.sort((a, b) => b.score - a.score);
@@ -1789,7 +1791,7 @@ async function buildUnionCombos(players, rosters) {
         if (checked % 200 === 0) await yieldToUi();
         const uniqueCharacters = new Set([first.characterId, second.characterId, third.characterId]);
         if (uniqueCharacters.size < 3) continue;
-        const scoreInfo = unionComboScore([first, second, third]);
+        const scoreInfo = unionComboScore([first, second, third], context);
         combos.push({ players, combo: [first, second, third], ...scoreInfo });
       }
     }
@@ -1886,12 +1888,26 @@ function renderUnionResultPrecheck() {
   return true;
 }
 
+function unionRecommendationKey() {
+  const players = activeUnionPlayers();
+  return JSON.stringify({
+    players,
+    rosters: players.map((player) => [...unionRosters[player]].sort()),
+    tier: tierSelect.value,
+    language: getLanguage(),
+    stats: officialStatsVersion,
+    feedback: dataSignature(remoteFeedback),
+    relationships: dataSignature(currentRelationshipRows()),
+  });
+}
+
 async function renderUnionResults() {
   if (isUnionCalculating) return;
   if (!renderUnionResultPrecheck()) return;
 
   const players = activeUnionPlayers();
   const rosters = players.map((player) => [...unionRosters[player]].map(variantById).filter(Boolean));
+  const inputKey = unionRecommendationKey();
 
   isUnionCalculating = true;
   unionComboLimit = 5;
@@ -1903,7 +1919,17 @@ async function renderUnionResults() {
 
   try {
     await yieldToUi();
-    _unionComboCache = await buildUnionCombos(players, rosters);
+    const combos = await buildUnionCombos(players, rosters);
+    if (unionRecommendationKey() !== inputKey) {
+      _unionResultKey = "";
+      unionSummary.removeAttribute("data-state");
+      unionSummary.textContent = t("union.waiting");
+      unionResults.innerHTML = "";
+      renderUnionResultPrecheck();
+      return;
+    }
+    _unionComboCache = combos;
+    _unionResultKey = inputKey;
     renderUnionComboResults();
   } finally {
     isUnionCalculating = false;
@@ -1915,6 +1941,13 @@ function renderUnion() {
   renderUnionPlayers();
   renderUnionRoleFilters();
   renderUnionCharacters();
+  if (_unionResultKey && _unionResultKey !== unionRecommendationKey() && !isUnionCalculating) {
+    _unionResultKey = "";
+    _unionComboCache = [];
+    unionSummary.textContent = t("union.waiting");
+    unionResults.innerHTML = "";
+    renderUnionResultPrecheck();
+  }
 }
 
 function savePlayableCharacters() {
@@ -3781,6 +3814,7 @@ presetSelect.addEventListener("change", () => {
 });
 renderPresetSelect();
 tierSelect.addEventListener("change", () => {
+  if (activeView === "union") renderUnion();
   scheduleRenderRecommendations();
   refreshRemoteFeedbackIfNeeded();
 });
