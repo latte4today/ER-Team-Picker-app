@@ -180,6 +180,7 @@ jobs:
       # archive. Twice. Collection is expensive and irreplaceable; the analysis on
       # top of it is neither. The push goes first now.
       - name: Push archive shard to data repo
+        id: push_archive
         if: steps.data_archive.outputs.ready == 'true' && inputs.rebuild_only != true
         continue-on-error: true
         run: |
@@ -255,8 +256,30 @@ jobs:
             --out-dir data/ml-training \
             --patch "$CURRENT_PATCH"
 
-      - name: Upload collected data artifact
+      # The durable data repo is the source of truth. Keep small diagnostics for
+      # seven days instead of uploading the entire multi-GB corpus every six hours.
+      - name: Upload collection diagnostics
         if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: collected-official-summary
+          retention-days: 7
+          path: |
+            data/ml-training/*.manifest.json
+            data/official-archive/manifest.json
+            data/official-archive/officialMatchSummary.json
+            data-repo/official-archive/manifest.json
+            data-repo/official-archive/officialMatchSummary.json
+            reports/empirical-spectrum-report.json
+            reports/empirical-spectrum-report.md
+            reports/officialMatchSummary.json
+            data/official-next-seeds.json
+          if-no-files-found: ignore
+
+      # A failed/missing archive push must still preserve newly collected games.
+      # Rebuild-only runs with an accessible archive have no new games to rescue.
+      - name: Upload unarchived data recovery artifact
+        if: always() && (steps.data_archive.outputs.ready != 'true' || (inputs.rebuild_only != true && steps.push_archive.outcome != 'success'))
         uses: actions/upload-artifact@v6
         with:
           name: collected-official-data
@@ -270,6 +293,7 @@ jobs:
             data/official-archive/manifest.json
             data/official-archive/officialMatchSummary.json
             data/official-archive/summary-state.json
+            data-repo/official-archive/*.jsonl.gz
             data-repo/official-archive/seen-game-ids.txt
             data-repo/official-archive/manifest.json
             data-repo/official-archive/officialMatchSummary.json
