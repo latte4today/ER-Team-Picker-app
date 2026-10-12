@@ -4259,6 +4259,9 @@ if (recoveredFeedbackCount > 0) {
       clearRecommendationCache();
       console.log(`[stats] remote stats loaded (${url.split("/").pop()}):`, data.source?.generatedAt ?? "ok");
       render(); // re-render with fresh data
+      // A pick can be made before the remote tables arrive. Refresh its core
+      // chips too, so new-roster cores appear without reselecting the character.
+      if (activeSlot === null) renderDetectedTeam();
       return;
     } catch (e) {
       console.log(`[stats] fetch failed (${url.split("/").pop()}):`, e.message);
