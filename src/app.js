@@ -27,6 +27,7 @@ import {
   isCounterOnlyRanged,
   isFirstEngageStyle,
   isGuardOnly,
+  isGuardSometimesEngage,
   isPokeThenEngage,
   likesDiveFollow,
 } from "./combatProfiles.js";
@@ -528,7 +529,7 @@ function positionWalkthroughSpotlight(target) {
 function positionWalkthroughCard(target, avoidTarget = target, placement = "auto") {
   if (!walkthroughCard || !target) return;
   positionWalkthroughSpotlight(target);
-  const rect = avoidTarget.getBoundingClientRect();
+  const rect = (avoidTarget ?? target).getBoundingClientRect();
   const margin = 14;
   const cardWidth = Math.min(360, window.innerWidth - margin * 2);
   walkthroughCard.style.width = `${cardWidth}px`;
@@ -699,6 +700,7 @@ function refreshWalkthroughStep() {
   updateWalkthroughControls();
 
   requestAnimationFrame(() => {
+    if (!walkthroughActive || walkthroughSteps[walkthroughIndex] !== step) return;
     const { target, avoidTarget } = walkthroughTargetInfo(step);
     if (!target) {
       positionWalkthroughCardFallback();
@@ -714,6 +716,7 @@ function refreshWalkthroughStep() {
       target.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
     }
     requestAnimationFrame(() => {
+      if (!walkthroughActive || walkthroughSteps[walkthroughIndex] !== step) return;
       positionWalkthroughCard(target, walkthroughAvoidTarget, step.placement);
       updateWalkthroughControls();
     });
@@ -1682,6 +1685,15 @@ function unionComboPlan(combo) {
   const pokeThenEngage = combo.filter(isPokeThenEngage);
   const guardOnly = combo.filter(isGuardOnly);
 
+  // Shield/utility tanks can open a fight, but with two ranged allies the plan
+  // should emphasize protection instead of telling them to dive immediately.
+  const protectionTank = combo.some((character) => character.role === "frontline"
+    && isGuardSometimesEngage(character) && character.tags.includes("shield")
+    && character.tags.includes("utility"));
+  if (protectionTank && backlineCount >= 2) {
+    return t("union.plan.shieldGuardBackline");
+  }
+
   if (hasLeni && meleeCount >= 2 && (hasInitiate || hasPeel || total.crowdControl >= 6)) {
     return t("union.plan.leniFrontball");
   }
@@ -1789,7 +1801,7 @@ async function buildUnionCombos(players, rosters) {
 function renderUnionComboResults() {
   const combos = _unionComboCache;
   unionSummary.removeAttribute("data-state");
-  unionSummary.textContent = "";
+  unionSummary.textContent = t("union.comboCount", { count: combos.length });
   if (combos.length === 0) {
     unionResults.innerHTML = `<p class="empty-state">${t("union.noCombo")}</p>`;
     return;

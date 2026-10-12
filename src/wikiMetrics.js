@@ -1,6 +1,13 @@
 export const WIKI_METRICS_SOURCE = {
   name: "NamuWiki Eternal Return character overview",
   note: "Values are 1-5 overview metrics: difficulty, damage, defense, crowdControl, mobility, utility.",
+  overrides: {
+    seres: {
+      name: "App assessment from official 12.5 skills and 12.5b hotfix",
+      urls: ["https://playeternalreturn.com/posts/news/3867", "https://playeternalreturn.com/posts/news/3882"],
+      note: "Curated 1-5 estimates, not official or NamuWiki ratings. See docs/seres-profile.md.",
+    },
+  },
 };
 
 export const wikiMetrics = {
@@ -78,6 +85,7 @@ export const wikiMetrics = {
   priya: { difficulty: 3, damage: 1, defense: 2, crowdControl: 5, mobility: 1, utility: 5 },
   rio: { difficulty: 2, damage: 5, defense: 1, crowdControl: 3, mobility: 2, utility: 1 },
   rozzi: { difficulty: 4, damage: 5, defense: 2, crowdControl: 1, mobility: 4, utility: 1 },
+  seres: { difficulty: 3, damage: 2, defense: 5, crowdControl: 3, mobility: 3, utility: 5 },
   shirin: { difficulty: 2, damage: 4, defense: 4, crowdControl: 3, mobility: 4, utility: 1 },
   sho: { difficulty: 2, damage: 2, defense: 4, crowdControl: 4, mobility: 3, utility: 4 },
   shoichi: { difficulty: 5, damage: 5, defense: 1, crowdControl: 1, mobility: 5, utility: 1 },

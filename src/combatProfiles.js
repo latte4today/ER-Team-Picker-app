@@ -82,6 +82,7 @@ const byCharacter = {
   alonso: "guardSometimesEngage",
   darko: "guardSometimesEngage",
   garnet: "guardSometimesEngage",
+  seres: "guardSometimesEngage",
 
   lenox: "guardOnly",
 };

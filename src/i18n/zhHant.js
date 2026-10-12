@@ -612,6 +612,7 @@ export const zhHant = {
   "char.rio": "莉央",
   "char.rozzi": "洛茲",
   "char.seres": "塞莉絲",
+  "union.plan.shieldGuardBackline": "坦克應留在遠程隊友身邊，透過分擔傷害和護盾保護隊友，並用控制技能推開接近的敵人。隊友能夠一同輸出時再進行短距離開戰。",
   "char.shirin": "雪琳",
   "char.sho": "秀凱",
   "char.shoichi": "彰一",

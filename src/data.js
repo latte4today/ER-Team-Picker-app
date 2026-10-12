@@ -73,7 +73,7 @@ export const characters = [
   c("bianca", "비앙카", "mage", ["burst", "zone", "sustain"], "skill", 4),
   c("bihyung", "비형", "bruiser", ["burst", "dive", "mobility", "focus"], "skill", 4),
   c("charlotte", "샬럿", "support", ["healing", "shield", "peel"], "skill", 2),
-  c("seres", "세레스", "frontline", ["initiate", "cc", "durable"], "skill", 3),
+  c("seres", "세레스", "frontline", ["peel", "shield", "utility", "cc", "durable", "mobility"], "skill", 3),
   c("celine", "셀린", "mage", ["burst", "zone", "poke"], "skill", 5),
   c("sho", "쇼우", "frontline", ["durable", "peel", "sustained"], "hybrid", 3),
   c("shoichi", "쇼이치", "assassin", ["burst", "dive", "mobility", "hyperCarry"], "skill", 5),
@@ -245,6 +245,10 @@ function cc(profile) {
 }
 
 export const ccProfiles = {
+  // Q2: directional stun (5m x 1.3m). W: radial knockback + slow (3.75m).
+  // Count W once; its slow and displacement share a cast. E targets an ally,
+  // and R shields allies, so neither is targeted enemy CC.
+  seres: cc({ nonTarget: 2, narrow: 1, medium: 1 }),
   garnet: cc({ nonTarget: 3, medium: 1, single: 2 }),
   nathapon: cc({ nonTarget: 3, medium: 2, single: 1 }),
   nia: cc({ nonTarget: 2, narrow: 2 }),
@@ -324,6 +328,7 @@ export const ccProfiles = {
 // 이니시에이터 강도 (0–5): 높을수록 먼저 교전을 열 수 있는 능력이 강함
 // 2 이상이면 "initiate" 태그가 자동으로 추가됨
 const initiateStrengths = {
+  seres: 2, // Short Q dash + Q2 stun; primarily protects allies with W/E/R.
   lenox: 5,
   garnet: 4, alonso: 4, elena: 4,
   nicky: 3, darko: 3, markus: 3, magnus: 3, mirka: 3, eleven: 3, laura: 3, hyunwoo: 3,
@@ -364,6 +369,7 @@ function deriveRangeScore(role, weapon, characterId) {
 }
 
 const tankVariantIds = new Set([
+  "seres:two_handed_sword",
   "estelle:axe",
   "alonso:glove",
   "sho:dagger",
