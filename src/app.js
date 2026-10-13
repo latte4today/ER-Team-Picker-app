@@ -1689,6 +1689,13 @@ function unionComboReason(combo, reasons) {
   }
   return reasons[0] ?? t("union.reason.default");
 }
+function unionSubjectName(character) {
+  const name = t(`char.${character.id}`);
+  if (getLanguage() !== "ko") return name;
+  const finalCode = name.charCodeAt(name.length - 1) - 0xac00;
+  return name + (finalCode >= 0 && finalCode <= 11171 && finalCode % 28 !== 0 ? "이" : "가");
+}
+
 function unionComboPlan(combo) {
   const tags = new Set(combo.flatMap((character) => character.tags));
   const { total, average } = teamMetricProfile(combo);
@@ -1726,16 +1733,16 @@ function unionComboPlan(combo) {
     return t("union.plan.leniFrontball");
   }
   if (firstEngagers.length >= 1 && meleeCount >= 2) {
-    return t("union.plan.meleeEngage", { first: t(`char.${firstEngagers[0].id}`) });
+    return t("union.plan.meleeEngage", { first: unionSubjectName(firstEngagers[0]) });
   }
   if (firstEngagers.length >= 1 && rangedHelpers.length >= 1) {
-    return t("union.plan.engageWithRanged", { first: t(`char.${firstEngagers[0].id}`), ranged: t(`char.${rangedHelpers[0].id}`) });
+    return t("union.plan.engageWithRanged", { first: unionSubjectName(firstEngagers[0]), ranged: unionSubjectName(rangedHelpers[0]) });
   }
   if (firstEngagers.length >= 1 && diveFollowers.length >= 1) {
-    return t("union.plan.engageWithDive", { first: t(`char.${firstEngagers[0].id}`) });
+    return t("union.plan.engageWithDive", { first: unionSubjectName(firstEngagers[0]) });
   }
   if (guardOnly.length >= 1 && backlineCount >= 2) {
-    return t("union.plan.guardBackline", { guard: t(`char.${guardOnly[0].id}`) });
+    return t("union.plan.guardBackline", { guard: unionSubjectName(guardOnly[0]) });
   }
   if (counterOnly.length >= 2 || (counterOnly.length >= 1 && pokeThenEngage.length >= 1)) {
     return t("union.plan.counterOnly");
