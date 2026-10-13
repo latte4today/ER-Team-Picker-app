@@ -698,4 +698,6 @@ export const zhHans = {
   "concept.support.chainControl": "衔接控制技能",
   "concept.support.recovery": "轮流使用治疗与保护",
   "recommender.reason.metricCapabilities": "火力以外的交战特征：{reason}",
+  "preset.sharedHint": "阵容配置与联合组队共享预设。保存或删除会同步更新两个列表。",
+  "union.presetTooLarge": "联合组队每位玩家最多选择15项。请将此预设缩减到15项以内并保存后再加载。",
 };

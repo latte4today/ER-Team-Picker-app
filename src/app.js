@@ -17,6 +17,7 @@ import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effect
 import { tournamentBuilds as bundledTournamentBuilds } from "./tournamentMeta.js";
 import { matchupGuidance } from "./matchupGuidance.js";
 import { teamCombatPlan } from "./teamConcepts.js";
+import { loadRosterPresets, saveRosterPresets, escapePresetName } from "./rosterPresets.js";
 import {
   officialCandidateStatsByTier as bundledOfficialCandidateStatsByTier,
   officialCompositionStatsByTier as bundledOfficialCompositionStatsByTier,
@@ -361,9 +362,7 @@ const walkthroughStorageKey = "er-team-picker-walkthrough-seen";
 const walkthroughDisabledStorageKey = "er-team-picker-walkthrough-disabled";
 const legacyPlayableStorageKey = "er-team-picker-playable-characters";
 const playableStorageKey = "er-team-picker-playable-variants";
-const presetStorageKey = "er-team-picker-playable-presets";
 const unionStorageKey = "er-team-picker-union-rosters";
-const unionPresetStorageKey = "er-team-picker-union-presets";
 const savedPlayableVariants = JSON.parse(localStorage.getItem(playableStorageKey) ?? "[]");
 const savedPlayableCharacters = JSON.parse(localStorage.getItem(legacyPlayableStorageKey) ?? "[]");
 const playableVariantIds = new Set(savedPlayableVariants.length > 0
@@ -372,9 +371,9 @@ const playableVariantIds = new Set(savedPlayableVariants.length > 0
     .filter((character) => savedPlayableCharacters.includes(character.characterId))
     .map((character) => character.variantId));
 let playableEditMode = false;
-let playablePresets = JSON.parse(localStorage.getItem(presetStorageKey) ?? "[]");
-// unionPresets: Array<{ name: string, variants: string[] }>
-let unionPresets = normalizeUnionPresetStorage(JSON.parse(localStorage.getItem(unionPresetStorageKey) ?? "[]"));
+const playablePresets = loadRosterPresets(localStorage, characterVariants.map(c => c.variantId));
+// Both screens edit the same collection; applying a preset remains screen-specific.
+const unionPresets = playablePresets;
 let activeView = appMain?.dataset.view ?? "setup";
 const navigationRenderer = createViewScheduler();
 let translatedLanguage = null;
@@ -2067,40 +2066,16 @@ function savePlayableCharacters() {
 }
 
 function savePresetsToStorage() {
-  localStorage.setItem(presetStorageKey, JSON.stringify(playablePresets));
+  saveRosterPresets(localStorage, playablePresets);
+  renderPresetSelect();
+  updateUnionPresetDropdowns();
 }
 
 // ── Union presets ──────────────────────────────────────────
 let _unionPresetSaveTimer = null;
 
-function normalizeUnionPresetStorage(value) {
-  const source = Array.isArray(value)
-    ? value
-    : Object.values(value ?? {}).flat();
-  const byName = new Map();
-  source.forEach((preset) => {
-    if (!preset?.name || !Array.isArray(preset.variants)) return;
-    const variants = [...new Set(preset.variants)];
-    const samePreset = [...byName.values()].some((saved) =>
-      saved.name === preset.name &&
-      saved.variants.length === variants.length &&
-      saved.variants.every((id, index) => id === variants[index])
-    );
-    if (samePreset) return;
-
-    let name = preset.name;
-    let suffix = 2;
-    while (byName.has(name)) {
-      name = `${preset.name} ${suffix}`;
-      suffix += 1;
-    }
-    byName.set(name, { name, variants });
-  });
-  return [...byName.values()];
-}
-
 function saveUnionPresetsToStorage() {
-  localStorage.setItem(unionPresetStorageKey, JSON.stringify(unionPresets));
+  savePresetsToStorage();
 }
 
 function getUnionAutoPresetName() {
@@ -2111,7 +2086,7 @@ function getUnionAutoPresetName() {
 }
 
 function buildUnionPresetDropdownHTML() {
-  const items = unionPresets.map((p, i) => `<button class="updd-item" type="button" data-preset-index="${i}">${p.name}</button>`).join("");
+  const items = unionPresets.map((p, i) => `<button class="updd-item" type="button" data-preset-index="${i}">${escapePresetName(p.name)}</button>`).join("");
   const isEmpty = unionPresets.length === 0;
   const displayText = isEmpty ? t("preset.empty") : t("preset.selectPlaceholder");
   return `
@@ -2137,6 +2112,7 @@ function renderUnionPresetPanel() {
   `).join("");
 
   unionPresetPanel.innerHTML = `
+    <p class="preset-shared-hint">${t("preset.sharedHint")}</p>
     <div class="union-preset-save-row">
       <input id="union-preset-name-input" type="text" maxlength="18" placeholder="${t("preset.namePlaceholder")}">
       <button class="ghost-button union-preset-save-btn" type="button">${t("button.save")}</button>
@@ -2157,6 +2133,8 @@ function ensureUnionPresetPanel() {
 }
 
 function updateUnionPresetDropdowns() {
+  const hint = unionPresetPanel.querySelector(".preset-shared-hint");
+  if (hint) hint.textContent = t("preset.sharedHint");
   const nameInput = unionPresetPanel.querySelector("#union-preset-name-input");
   if (nameInput) nameInput.placeholder = t("preset.namePlaceholder");
   unionPresetPanel.querySelector(".union-preset-save-btn")?.replaceChildren(document.createTextNode(t("button.save")));
@@ -2173,9 +2151,11 @@ function updateUnionPresetDropdowns() {
     const deleteBtn = row.querySelector(".union-preset-delete-btn");
     if (!dropdown) return;
 
-    const prevIndex = dropdown.dataset.selectedIndex;
+    const previousName = dropdown.dataset.selectedIndex === "" ? null : dropdown.querySelector(".updd-value").textContent;
+    const matchedIndex = unionPresets.findIndex(p => p.name === previousName);
+    const prevIndex = matchedIndex >= 0 ? String(matchedIndex) : "";
     const list = dropdown.querySelector(".updd-list");
-    list.innerHTML = unionPresets.map((p, i) => `<button class="updd-item" type="button" data-preset-index="${i}">${p.name}</button>`).join("");
+    list.innerHTML = unionPresets.map((p, i) => `<button class="updd-item" type="button" data-preset-index="${i}">${escapePresetName(p.name)}</button>`).join("");
 
     const trigger = dropdown.querySelector(".updd-trigger");
     const valueEl = dropdown.querySelector(".updd-value");
@@ -2201,7 +2181,9 @@ function updateUnionPresetDropdowns() {
 }
 
 function renderPresetSelect() {
-  const currentValue = presetSelect.value;
+  const previousName = presetSelect.value === "" ? null : presetSelect.selectedOptions[0]?.textContent;
+  const matchedIndex = playablePresets.findIndex(p => p.name === previousName);
+  const currentValue = matchedIndex >= 0 ? String(matchedIndex) : "";
   // 기존 동적 option만 제거 (value="" 인 기본 option 유지)
   while (presetSelect.options.length > 1) {
     presetSelect.remove(1);
@@ -2229,7 +2211,8 @@ function getAutoPresetName() {
 function savePreset() {
   const rawName = presetNameInput.value.trim();
   const name = rawName || getAutoPresetName();
-  const variants = [...playableVariantIds];
+  // An empty setup filter means all variants, whereas an empty Union roster means none.
+  const variants = playableVariantIds.size ? [...playableVariantIds] : characterVariants.map(c => c.variantId);
   // 동일 이름이 있으면 덮어쓰기
   const existing = playablePresets.findIndex((p) => p.name === name);
   if (existing >= 0) {
@@ -4410,6 +4393,14 @@ unionPresetPanel.addEventListener("click", (event) => {
     const index = Number(selectedIndex);
     const preset = unionPresets[index];
     if (!preset) return;
+    if (preset.variants.length > 15) {
+      const msgEl = unionPresetPanel.querySelector("#union-preset-saved-msg");
+      if (msgEl) {
+        clearTimeout(_unionPresetSaveTimer);
+        msgEl.textContent = t("union.presetTooLarge");
+      }
+      return;
+    }
     unionRosters[playerIndex].clear();
     preset.variants.forEach((id) => unionRosters[playerIndex].add(id));
     saveUnionRosters();

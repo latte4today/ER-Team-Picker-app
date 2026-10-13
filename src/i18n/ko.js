@@ -780,4 +780,6 @@ export const ko = {
   "concept.support.chainControl": "제어기 이어 쓰기",
   "concept.support.recovery": "회복·보호 번갈아 쓰기",
   "recommender.reason.metricCapabilities": "화력 외 교전 특성: {reason}",
+  "preset.sharedHint": "조합 구성·유니온이 같은 프리셋 목록을 사용합니다. 저장·삭제가 함께 반영됩니다.",
+  "union.presetTooLarge": "유니온은 플레이어당 최대 15개까지 선택할 수 있습니다. 이 프리셋을 15개 이하로 줄여 저장한 뒤 불러오세요.",
 };

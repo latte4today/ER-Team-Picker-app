@@ -4115,3 +4115,4 @@ h2 {
 .team-concepts p { margin: 5px 0; line-height: 1.6; font-weight: 400; }
 .team-concept-plan summary { cursor: pointer; color: var(--muted); }
 .team-concept-support { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin: 6px 0; color: var(--muted); }
+.preset-shared-hint { color: var(--muted); font-size: 12px; margin: 6px 0; }

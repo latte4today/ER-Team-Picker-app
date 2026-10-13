@@ -698,4 +698,6 @@ export const en = {
   "concept.support.chainControl": "Chain crowd control",
   "concept.support.recovery": "Rotate healing and protection",
   "recommender.reason.metricCapabilities": "Other combat traits: {reason}",
+  "preset.sharedHint": "Team Setup and Union share presets. Saving or deleting updates both lists.",
+  "union.presetTooLarge": "Union allows up to 15 picks per player. Save a version of this preset with 15 or fewer picks before loading it.",
 };

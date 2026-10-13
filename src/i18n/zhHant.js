@@ -698,4 +698,6 @@ export const zhHant = {
   "concept.support.chainControl": "銜接控制技能",
   "concept.support.recovery": "輪流使用治療與保護",
   "recommender.reason.metricCapabilities": "火力以外的交戰特徵：{reason}",
+  "preset.sharedHint": "陣容配置與聯合組隊共用預設。儲存或刪除會同步更新兩個列表。",
+  "union.presetTooLarge": "聯合組隊每位玩家最多選擇15項。請將此預設縮減到15項以內並儲存後再載入。",
 };
