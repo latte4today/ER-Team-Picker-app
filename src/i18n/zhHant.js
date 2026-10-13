@@ -496,6 +496,7 @@ export const zhHant = {
   "comp.peelRanged": "兼具保護友方和遠程輸出能力，適合反打型交戰。",
   "comp.mixedRange": "近戰與遠程角色混合，交戰距離選擇靈活。",
   "comp.userFeedback": "在用戶賽後評價中獲得好評的陣容。",
+  "comp.officialObserved": "官方對局記錄中出現的陣容。請結合樣本數量查看前三名比例。",
   "comp.rankerTop": "排位記錄中上位結束比例高，穩定性經過驗證。",
   "comp.rankerFrequent": "在排位記錄中反複出現，值得參考。",
   "compact.frontlineNeeded": "需要前排",

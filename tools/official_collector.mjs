@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireEnv } from "./env.mjs";
+import { encounterStats } from "./encounter_stats.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -279,6 +280,7 @@ function weaponOf(row) {
 
 function compactStatFields(row) {
   return {
+    ...encounterStats(row),
     kills: Number(firstValue(row, ["playerKill", "player_kill", "kills"]) ?? 0),
     assists: Number(firstValue(row, ["playerAssistant", "player_assistant", "assists"]) ?? 0),
     teamKills: Number(firstValue(row, ["teamKill", "team_kill"]) ?? 0),

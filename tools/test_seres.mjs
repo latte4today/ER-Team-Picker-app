@@ -96,7 +96,7 @@ try {
   const teams = [1, 2].map((n) => ({
     gameId: n, teamKey: `fixture-${n}`, matchingMode: 3, seasonId: 41, rank: n,
     tierBucket: "iron_gold", players: [
-      { character: 91, weapon: 9001 },
+      { character: 91, weapon: 9001, stats: { killDetails: { "90": 2 }, deathDetails: { "31": 1 } } },
       { character: 90, weapon: 9002 },
       { character: 31, weapon: 9003 },
     ],
@@ -114,6 +114,8 @@ try {
   const rows = (await fs.readFile(exportOut, "utf8")).trim().split("\n").map(JSON.parse);
   assert.equal(rows.length, 2);
   assert.ok(rows.every((row) => row.members.some((m) => m.variantId === id)));
+  assert.ok(rows.every((row) => row.members.find((m) => m.variantId === id).stats.killDetails["90"] === 2));
+  assert.ok(rows.every((row) => row.members.find((m) => m.variantId === id).stats.deathDetails["31"] === 1));
   const manifest = JSON.parse(await fs.readFile(exportOut.replace(".jsonl", ".manifest.json"), "utf8"));
   assert.equal(manifest.skippedTeams.unknownCharacter, 0);
 } finally {

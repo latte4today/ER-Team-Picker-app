@@ -496,6 +496,7 @@ export const zhHans = {
   "comp.peelRanged": "兼具保护友方和远程输出能力，适合反打型交战。",
   "comp.mixedRange": "近战与远程角色混合，交战距离选择灵活。",
   "comp.userFeedback": "在用户赛后评价中获得好评的阵容。",
+  "comp.officialObserved": "官方对局记录中出现的阵容。请结合样本数量查看前三名比例。",
   "comp.rankerTop": "排位记录中上位结束比例高，稳定性经过验证。",
   "comp.rankerFrequent": "在排位记录中反复出现，值得参考。",
   "compact.frontlineNeeded": "需要前排",

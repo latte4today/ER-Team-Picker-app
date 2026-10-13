@@ -498,6 +498,7 @@ export const ko = {
   "comp.peelRanged": "아군 보호 능력과 원거리 딜이 함께 있어 받아치는 교전에 강점이 있습니다.",
   "comp.mixedRange": "근거리와 원거리 역할이 섞여 있어 교전 거리 선택지가 넓습니다.",
   "comp.userFeedback": "사용자 평가에서 실제 경기 후 반응이 좋았던 조합입니다.",
+  "comp.officialObserved": "공식 전적에서 관측된 조합입니다. 표본 수와 TOP3 비율을 함께 확인하세요.",
   "comp.rankerTop": "랭커 전적에서 상위권으로 마무리한 비율이 높아 안정성이 확인된 조합입니다.",
   "comp.rankerFrequent": "랭커 전적에서 반복적으로 등장해 참고할 만한 조합입니다.",
   "compact.frontlineNeeded": "앞라인 보완",

@@ -34,6 +34,7 @@ import {
 import { applyTranslations, getLanguage, hasStoredLanguage, setLanguage, t } from "./i18n/index.js";
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
 import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.9";
+import { createViewScheduler } from "./viewScheduler.js";
 
 const isElectron = /electron/i.test(navigator.userAgent);
 
@@ -372,6 +373,25 @@ let playablePresets = JSON.parse(localStorage.getItem(presetStorageKey) ?? "[]")
 // unionPresets: Array<{ name: string, variants: string[] }>
 let unionPresets = normalizeUnionPresetStorage(JSON.parse(localStorage.getItem(unionPresetStorageKey) ?? "[]"));
 let activeView = appMain?.dataset.view ?? "setup";
+const navigationRenderer = createViewScheduler();
+let translatedLanguage = null;
+let recommendationSurfaceView = "setup";
+const recommendationSurfaces = new Map();
+
+function selectRecommendationSurface(view) {
+  if (view === "union" || view === recommendationSurfaceView) return;
+  const scrollTop = recommendations.scrollTop;
+  const previous = document.createDocumentFragment();
+  while (recommendations.firstChild) previous.appendChild(recommendations.firstChild);
+  recommendationSurfaces.set(recommendationSurfaceView, { fragment: previous, scrollTop });
+  const next = recommendationSurfaces.get(view);
+  recommendations.replaceChildren(next?.fragment ?? document.createDocumentFragment());
+  recommendations.scrollTop = next?.scrollTop ?? 0;
+  recommendationSurfaceView = view;
+  if (!recommendations.childElementCount) {
+    recommendations.innerHTML = `<div class="show-more-loading" role="status">${t("recommend.calculating")}</div>`;
+  }
+}
 let activeUnionPlayer = 0;
 let activeUnionRole = "all";
 let isUnionCalculating = false;
@@ -848,8 +868,15 @@ function characterName(characterIdOrVariantId) {
 
 function characterById(characterIdOrVariantId) {
   const normalized = baseFeedbackVariantId(characterIdOrVariantId);
-  return characterVariants.find((character) => character.variantId === normalized) ??
-    characterVariants.find((character) => character.characterId === normalized);
+  // Static roster: preserve the first weapon fallback for character-only IDs.
+  if (!characterById.index) {
+    characterById.index = new Map();
+    for (const character of characterVariants) {
+      if (!characterById.index.has(character.characterId)) characterById.index.set(character.characterId, character);
+      characterById.index.set(character.variantId, character);
+    }
+  }
+  return characterById.index.get(normalized);
 }
 
 function characterRolesById(characterIdOrVariantId) {
@@ -2584,40 +2611,44 @@ function rankerCompositionRows() {
     .slice(0, 16);
 }
 
+const officialCompositionRowsCache = new Map();
+
 function officialCompositionRows() {
   const bucket = officialBucketForTier(tierSelect.value);
-  const sourceRows = [
-    ...(officialCompositionStatsByTier?.[bucket] ?? []),
-    ...(bucket === "all" ? [] : officialCompositionStatsByTier?.all ?? []),
-  ];
+  const bucketRows = officialCompositionStatsByTier?.[bucket];
+  const allRows = officialCompositionStatsByTier?.all;
+  const cached = officialCompositionRowsCache.get(bucket);
+  if (cached && cached.bucketRows === bucketRows && cached.allRows === allRows) return cached.rows;
+  const sourceRows = bucket === "all" ? bucketRows ?? [] : [...(bucketRows ?? []), ...(allRows ?? [])];
 
   const rows = new Map();
   sourceRows.forEach((row) => {
     if (!row?.candidate || !row?.teammates?.length) return;
-    const teamKey = [...row.teammates].sort().join("+");
-    const key = compositionCanonicalKey({ teamKey, candidateId: row.candidate });
+    const key = compositionCanonicalKey(row);
     if (!key) return;
     const previous = rows.get(key);
     if (!previous || (row.games ?? 0) > (previous.games ?? 0)) {
-      rows.set(key, {
-        ...row,
-        teamKey,
-        candidateId: row.candidate,
-        source: "official",
-      });
+      rows.set(key, row);
     }
   });
 
-  return [...rows.values()]
-    .map((row) => {
-      const confidence = rankingConfidence(row.games ?? 0, 80);
-      return {
-        ...row,
-        score: placementRankingScore(row) * confidence + Math.min(14, (row.games ?? 0) * 0.35),
-      };
-    })
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 16);
+  // Keep only the 16 rows actually displayed, without copying/sorting every row.
+  // Insert after equal scores to preserve the previous stable sorting order.
+  const top = [];
+  for (const row of rows.values()) {
+    const score = placementRankingScore(row) * rankingConfidence(row.games ?? 0, 80)
+      + Math.min(14, (row.games ?? 0) * 0.35);
+    if (top.length === 16 && score <= top[15].score) continue;
+    let index = top.findIndex((entry) => entry.score < score);
+    if (index < 0) index = top.length;
+    top.splice(index, 0, { row, score });
+    if (top.length > 16) top.pop();
+  }
+  const result = top.map(({ row, score }) => ({
+    ...row, score, teamKey: [...row.teammates].sort().join("+"), candidateId: row.candidate, source: "official",
+  }));
+  officialCompositionRowsCache.set(bucket, { bucketRows, allRows, rows: result });
+  return result;
 }
 
 function combinedCompositionRows(sortMode = "overall") {
@@ -2761,6 +2792,7 @@ function compositionReason(row, isUserFeedback) {
   }
 
   const top3 = Math.round((row.top3Rate ?? 0) * 100);
+  if (row.source === "official") return t("comp.officialObserved");
   if (isUserFeedback) return t("comp.userFeedback");
   if (top3 >= 70) return t("comp.rankerTop");
   return t("comp.rankerFrequent");
@@ -2800,7 +2832,13 @@ function renderCharacterFace(characterId) {
   `;
 }
 
+let dashboardRenderKey = "";
+
 function renderHomeDashboard() {
+  const key = JSON.stringify([getLanguage(), tierSelect.value, officialStatsVersion,
+    activeRankRole, activeRankDetailId, dataSignature(popularFeedback)]);
+  if (key === dashboardRenderKey && recommendations.querySelector(".recommendation-hub")) return;
+  dashboardRenderKey = key;
   const overallComps = combinedCompositionRows("overall");
   const recentComps = combinedCompositionRows("recent");
   const fallbackComps = rankerCompositionRows();
@@ -2916,7 +2954,6 @@ async function renderFullTeamRecommendations() {
 
   // Re-use the result only while all recommendation inputs still match.
   if (_fullTeamState.inputKey === inputKey && _fullTeamState.status !== "idle") {
-    if (_fullTeamState.status === "done" && recommendations.querySelector(".full-team-section-header")) return;
     if (_fullTeamState.status === "computing") return;
     _renderFullTeamCards();
     return;
@@ -2959,6 +2996,10 @@ async function renderFullTeamRecommendations() {
 }
 
 function _renderFullTeamCards() {
+  if (activeView !== "setup") {
+    setupRecommendationRenderKey = "";
+    return;
+  }
   const { compositions, status } = _fullTeamState;
   const header = `
     <div class="full-team-section-header">
@@ -3051,6 +3092,7 @@ function _renderFullTeamCards() {
 }
 
 function renderRecommendations() {
+  if (activeView === "union") return;
   if (activeView === "recommendations") {
     setupRecommendationRenderKey = "";
     renderHomeDashboard();
@@ -3444,26 +3486,13 @@ async function refreshPopularFeedback() {
   if (selectedIds.size === 0) renderRecommendations();
 }
 
-function render() {
+function renderViewChrome() {
   appMain.dataset.view = activeView;
-  applyTranslations();
+  selectRecommendationSurface(activeView);
   recommendTitle.textContent = activeView === "recommendations" ? t("nav.recommendations") : t("section.recommendation.title");
   sideTabs.forEach((button) => {
     button.classList.toggle("active", button.dataset.view === activeView);
   });
-  renderRoleFilters();
-  renderCharacters();
-  renderPlayableTools();
-  renderSelectedTeam();
-  renderMatchFeedback();
-  renderRecommendations();
-  if (activeView === "union") {
-    renderUnion();
-    ensureUnionPresetPanel();
-  }
-  renderManualSlots();
-  updateUnionCalculateButton();
-
   if (activeView === "union") {
     topbarEyebrow.textContent = t("section.union.kicker");
     topbarTitle.textContent = t("topbar.title.union");
@@ -3472,7 +3501,33 @@ function render() {
   } else {
     topbarEyebrow.textContent = activeView === "recommendations" ? "Meta Dashboard" : "Squad Draft Assistant";
     topbarTitle.textContent = activeView === "recommendations" ? t("topbar.title.recommendations") : t("topbar.title.setup");
+    selectedCount.textContent = selectedIds.size;
     selectedCount.nextElementSibling.textContent = t("topbar.selectedSuffix");
+  }
+}
+
+function render() {
+  navigationRenderer.cancel();
+  if (translatedLanguage !== getLanguage()) {
+    applyTranslations();
+    translatedLanguage = getLanguage();
+  }
+  renderViewChrome();
+  if (activeView === "union") {
+    renderUnion();
+    ensureUnionPresetPanel();
+    updateUnionCalculateButton();
+    selectedCount.textContent = unionParticipatingPlayers.size;
+  } else if (activeView === "recommendations") {
+    renderRecommendations();
+  } else {
+    renderRoleFilters();
+    renderCharacters();
+    renderPlayableTools();
+    renderSelectedTeam();
+    renderMatchFeedback();
+    renderRecommendations();
+    renderManualSlots();
   }
   refreshRemoteFeedbackIfNeeded();
   refreshPopularFeedback();
@@ -3644,12 +3699,10 @@ clearButton.addEventListener("click", () => {
 
 sideTabs.forEach((button) => {
   button.addEventListener("click", () => {
-    if (activeView !== button.dataset.view) {
-      setupRecommendationRenderKey = "";
-      matchFeedbackRenderKey = "";
-    }
+    if (activeView === button.dataset.view) return;
     activeView = button.dataset.view;
-    render();
+    renderViewChrome();
+    navigationRenderer.schedule(render);
   });
 });
 

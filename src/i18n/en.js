@@ -496,6 +496,7 @@ export const en = {
   "comp.peelRanged": "Has both protection and ranged damage — strong in counter-engage situations.",
   "comp.mixedRange": "Mix of melee and ranged roles provides flexible fight range options.",
   "comp.userFeedback": "A composition that received positive post-game ratings from users.",
+  "comp.officialObserved": "Observed in official match records. Consider the sample size alongside the TOP3 rate.",
   "comp.rankerTop": "Ranker records show a high rate of top placements — confirmed stability.",
   "comp.rankerFrequent": "Appears repeatedly in ranker records — worth referencing.",
   "compact.frontlineNeeded": "Frontline needed",
