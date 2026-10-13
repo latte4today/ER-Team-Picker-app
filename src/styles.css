@@ -4099,3 +4099,18 @@ h2 {
 .matchup-guidance p { margin: 5px 0; line-height: 1.6; }
 .matchup-guidance small, .matchup-basis, .matchup-source { opacity: .8; line-height: 1.5; }
 .matchup-core { width: 18px; height: 18px; vertical-align: middle; object-fit: contain; }
+
+.recommendation-tags span.tag-negative {
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 60%, var(--line));
+  background: color-mix(in srgb, var(--danger) 12%, var(--surface));
+}
+.recommendation-tags span.tag-concept {
+  color: var(--ok);
+  border-color: color-mix(in srgb, var(--ok) 38%, var(--line));
+  background: color-mix(in srgb, var(--ok) 9%, var(--surface));
+}
+.team-concepts { margin: 9px 0; font-size: 12px; }
+.team-concepts > strong { display: block; margin-bottom: 6px; }
+.team-concepts p { margin: 5px 0; line-height: 1.6; font-weight: 400; }
+.team-concept-plan summary { cursor: pointer; color: var(--muted); }
