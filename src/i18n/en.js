@@ -670,9 +670,9 @@ export const en = {
 
   "matchup.title": "Opponent composition check",
   "matchup.basis": "Tactical expectations from skill, weapon and core structure; not validated fight win rates or the current lobby distribution.",
-  "matchup.caution": "Caution if common",
-  "matchup.opportunity": "Conditions to exploit",
-  "matchup.example": "Tournament example: {names} · this build observed {count} times",
+  "matchup.caution": "Unfavorable",
+  "matchup.opportunity": "Favorable",
+  "matchup.example": "Opposing team: {names}",
   "matchup.source": "Reference: {games} collected tournament matches · latest match {date}. Gear, skill and fight location matter.",
   "matchup.insufficient": "No clear opponent-specific condition identified for this team.",
   "matchup.exposedBackline": "Multiple successive melee divers can expose our poorly protected backline even after the first engage is stopped.",

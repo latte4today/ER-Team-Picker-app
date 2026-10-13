@@ -670,9 +670,9 @@ export const zhHant = {
 
   "matchup.title": "對手陣容檢查",
   "matchup.basis": "根據技能、武器和核心結構作出的戰術預期，並非已驗證的交戰勝率或目前大廳分布。",
-  "matchup.caution": "常見時需注意",
-  "matchup.opportunity": "有利發揮的條件",
-  "matchup.example": "賽事例子：{names} · 該配置觀測{count}次",
+  "matchup.caution": "不利",
+  "matchup.opportunity": "有利",
+  "matchup.example": "對方陣容：{names}",
   "matchup.source": "參考：已收集{games}場賽事 · 最近對局{date}。裝備、熟練度及交戰位置都會影響結果。",
   "matchup.insufficient": "此陣容暫無明確的對手條件。",
   "matchup.exposedBackline": "連續突進的近戰陣容較多時需注意。後排保護不足，即使阻止第一次突進，也可能被下一次切入。",

@@ -670,9 +670,9 @@ export const ja = {
 
   "matchup.title": "相手編成チェック",
   "matchup.basis": "スキル・武器・コア構造からの戦術的な予想です。検証済みの交戦勝率や現在のロビー分布ではありません。",
-  "matchup.caution": "多い場合は注意",
-  "matchup.opportunity": "有利に運ぶ条件",
-  "matchup.example": "大会例：{names} · このビルドを{count}回観測",
+  "matchup.caution": "不利",
+  "matchup.opportunity": "有利",
+  "matchup.example": "相手編成：{names}",
   "matchup.source": "参考：収集済み大会{games}試合 · 最新試合{date}。装備・熟練度・交戦位置で変わります。",
   "matchup.insufficient": "この編成に明確な相手条件は見つかりませんでした。",
   "matchup.exposedBackline": "連続して突入する近接編成が多い場合は注意。後衛保護が不足すると最初の突入を止めても次に狙われます。",
