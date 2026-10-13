@@ -16,6 +16,7 @@ import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effectiveCombatTeam, updateTournamentStats } from "./recommender.js";
 import { tournamentBuilds as bundledTournamentBuilds, tournamentTotalGames as bundledTournamentTotalGames, tournamentLatestMatchAt as bundledTournamentLatestMatchAt } from "./tournamentMeta.js";
 import { matchupGuidance } from "./matchupGuidance.js";
+import { teamConcepts } from "./teamConcepts.js";
 import {
   officialCandidateStatsByTier as bundledOfficialCandidateStatsByTier,
   officialCompositionStatsByTier as bundledOfficialCompositionStatsByTier,
@@ -1141,16 +1142,41 @@ function compactReasonLabels(reasons = []) {
   };
 
   if (/앞라인|탱커|진입|받아치|front.?line|\btank\b|initiat|counter.fight/i.test(joined)) add(t("compact.frontlineNeeded"));
-  if (/마무리|킬캐치|화력|데미지|딜러 자리|damage|firepower|dealer/.test(joined)) add(/부족|모자|감점|low.damage|firepower.*short|penalty|below.average/.test(joined) ? t("compact.damageLow") : t("compact.damageNeeded"));
+  // A CC/engage shortage in another reason is not a damage shortage.
+  const damageShortage = reasons.some(reason =>
+    !/화력을 채워|데미지 기여가 충분|fills.*(?:firepower|damage)/i.test(reason)
+    && /(?:마무리\s*화력|화력|데미지(?:\s*기여)?).{0,16}(?:부족|모자|낮)|low[ .-]damage|(?:damage|firepower).{0,18}(?:short|insufficient)|lacks?.{0,12}damage|(?:傷害|伤害|火力|ダメージ).{0,12}不足/i.test(reason));
+  if (/마무리|킬캐치|화력|데미지|딜러 자리|damage|firepower|dealer/.test(joined)) add(damageShortage ? t("compact.damageLow") : t("compact.damageNeeded"));
   if (/CC|이니시|교전 시작|진입각|initiat|engage/.test(joined)) add(t("compact.initiateNeeded"));
   if (/보호|세이브|받아치|안정|protect|peel|alive|stable|counter.fight/.test(joined)) add(t("compact.peelNeeded"));
   if (/사거리|포킹|대치|poke|standoff|range/.test(joined)) add(t("compact.pokeNeeded"));
   if (/데미지 기여가 충분|화력을 보탤|화력을 채워|high.damage|fills.*firepower|fills.*damage/.test(joined)) add(t("compact.damageOk"));
-  if (/데미지 기여가 부족|화력 총량이 부족|화력이 부족|low.damage|lacks.*damage|firepower.*shortage/.test(joined)) add(t("compact.damageCaution"));
+  if (damageShortage) add(t("compact.damageCaution"));
   if (/평가 데이터|좋게 기록|랭커|전적|feedback.*data|ranker|tournament|good synergy/.test(joined)) add(t("compact.dataOk"));
   if (/감점|낮게 잡힐|위험|penalty|drag.*score|lower.*score/.test(joined)) add(t("compact.caution"));
 
   return labels.slice(0, 3);
+}
+
+function renderReasonTag(label) {
+  const negativeKeys = ['compact.damageLow', 'compact.damageCaution', 'compact.caution',
+    'metric.tag.damageLow', 'metric.tag.defenseLow', 'metric.tag.ccLow', 'metric.tag.mobilityLow'];
+  const negative = negativeKeys.some(key => t(key) === label);
+  return `<span class="${negative ? 'tag-negative' : 'tag-neutral'}">${label}</span>`;
+}
+
+function renderTeamConcepts(team, cores = {}) {
+  if (team.length !== 3) return '';
+  const tier = tierSelect.value;
+  const ownCores = Object.fromEntries(team.map(character => [character.variantId,
+    cores[character.variantId] ?? defaultCoreForVariant(character.variantId, tier)?.core]));
+  const concepts = teamConcepts(effectiveCombatTeam(team, ownCores, tier));
+  if (!concepts.length) return '';
+  return `<section class="team-concepts" aria-label="${t('concept.title')}">
+    <strong>${t('concept.title')}</strong>
+    <div class="recommendation-tags">${concepts.map(key => `<span class="tag-concept">${t(`concept.${key}.label`)}</span>`).join('')}</div>
+    <details class="team-concept-plan"><summary>${t("concept.planTitle")}</summary>
+    ${concepts.map(key => `<p>${t(`concept.${key}.plan`)}</p>`).join('')}</details></section>`;
 }
 
 function compactReasonText(reasons = []) {
@@ -1908,6 +1934,7 @@ function renderUnionComboResults() {
               .join("")}
           </div>
           <p>${unionComboPlan(item.combo)}</p>
+          ${renderTeamConcepts(item.combo)}
           ${renderMatchupGuidance(item.combo)}
         </article>
       `;
@@ -3074,8 +3101,8 @@ function _renderFullTeamCards() {
   const cards = visible.map(({ teammate1, teammate2, combinedScore }, index) => {
     const c1 = teammate1.character;
     const c2 = teammate2.character;
-    const reasons1 = compactReasonLabels(teammate1.reasons).slice(0, 2).map((l) => `<span>${l}</span>`).join("");
-    const reasons2 = compactReasonLabels(teammate2.reasons).slice(0, 2).map((l) => `<span>${l}</span>`).join("");
+    const reasons1 = compactReasonLabels(teammate1.reasons).slice(0, 2).map(renderReasonTag).join("");
+    const reasons2 = compactReasonLabels(teammate2.reasons).slice(0, 2).map(renderReasonTag).join("");
     const detailList1 = teammate1.reasons.map((r) => `<li>${r}</li>`).join("");
     const detailList2 = teammate2.reasons.map((r) => `<li>${r}</li>`).join("");
     return `
@@ -3119,6 +3146,9 @@ function _renderFullTeamCards() {
             <ul>${detailList2}</ul>
           </div>
         </details>
+        ${renderTeamConcepts([characterById(chosenPickId), c1, c2].filter(Boolean), {
+          ...selectedCoresMap(), [c1.variantId]: teammate1.recommendedCore?.core, [c2.variantId]: teammate2.recommendedCore?.core,
+        })}
         ${renderMatchupGuidance([characterById(chosenPickId), c1, c2].filter(Boolean), {
           ...selectedCoresMap(), [c1.variantId]: teammate1.recommendedCore?.core, [c2.variantId]: teammate2.recommendedCore?.core,
         })}
@@ -3245,7 +3275,7 @@ function renderRecommendations() {
       const result = shown;
       const reasonList = result.reasons.map((reason) => `<li>${reason}</li>`).join("");
       const compactLabels = compactReasonLabels(result.reasons)
-        .map((label) => `<span>${label}</span>`)
+        .map(renderReasonTag)
         .join("");
       const compactText = compactReasonText(result.reasons);
       const arch = result.archetype;
@@ -3285,6 +3315,9 @@ function renderRecommendations() {
             ${scoreAxisChips(result.scoreAxes)}
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
+            ${renderTeamConcepts([...selectedIds].map(characterById).filter(Boolean).concat(result.character), {
+              ...selectedCoresMap(), [result.character.variantId]: core?.core,
+            })}
             <ul class="rec-reasons">${reasonList}</ul>
             ${renderMatchupGuidance([...selectedIds].map(characterById).filter(Boolean).concat(result.character), {
               ...selectedCoresMap(), [result.character.variantId]: core?.core,
@@ -3347,7 +3380,7 @@ function renderMatchFeedback() {
   const evaluation = evaluateCandidate([...selectedIds], chosen.variantId, tierSelect.value, remoteFeedback, currentRelationshipRows(), matchFeedbackCoresMap());
   const reasonList = evaluation?.reasons.map((reason) => `<li>${reason}</li>`).join("") ?? "";
   const compactLabels = compactReasonLabels(evaluation?.reasons ?? [])
-    .map((label) => `<span>${label}</span>`)
+    .map(renderReasonTag)
     .join("");
   const compactText = compactReasonText(evaluation?.reasons ?? []);
   const score = canRateMatch && evaluation ? qualityBadge(evaluation.score, { compact: true }) : "";
@@ -3440,6 +3473,7 @@ function renderMatchFeedback() {
         <p>${compactText}</p>
       </div>
       <div class="recommendation-tags">${compactLabels}</div>
+      ${renderTeamConcepts([...selectedIds].map(characterById).filter(Boolean).concat(chosen), matchFeedbackCoresMap())}
       <details class="recommendation-details">
         <summary>${t("recommend.details")}</summary>
         <ul>${reasonList}</ul>
