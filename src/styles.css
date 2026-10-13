@@ -1134,10 +1134,19 @@ h2 {
 }
 
 .character-panel {
-  display: grid;
-  grid-template-rows: auto auto auto auto auto minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   min-height: 0;
   overflow: hidden;
+}
+
+.character-panel > :not(.character-grid) {
+  flex-shrink: 0;
+}
+
+.character-panel > .character-grid {
+  flex: 1 1 0;
+  align-content: start;
 }
 
 .app-main[data-view="setup"] .character-grid {
@@ -1282,6 +1291,7 @@ h2 {
 
 .recommendations {
   display: grid;
+  align-content: start;
   gap: 10px;
   max-height: none;
   min-height: 0;
@@ -3691,6 +3701,7 @@ h2 {
 
   /* ── Mobile order: character grid → recommendations → team slots ── */
   .character-panel   { order: 1; display: flex; flex-direction: column; overflow: visible; }
+  .character-panel > .character-grid { flex: 0 0 auto; }
   .result-panel      { order: 2; }
   .roster-panel      { order: 3; }
   .feedback-panel    { display: none !important; }
