@@ -1143,10 +1143,15 @@ function compactReasonLabels(reasons = []) {
 
   if (/앞라인|탱커|진입|받아치|front.?line|\btank\b|initiat|counter.fight/i.test(joined)) add(t("compact.frontlineNeeded"));
   // A CC/engage shortage in another reason is not a damage shortage.
+  const warningTemplates = ['tankLowDamageWithAvg', 'tankLowDamage', 'utilityOverDamage',
+    'aggravatesDamageLack', 'tankLowDamagePenalty', 'supporterLowDamage'].map(key =>
+    t(`recommender.reason.${key}`, { name: '__name__', nameSubject: '__name__', nameObject: '__name__', avgDamage: '__value__' })
+      .split(/__name__|__value__/).filter(part => part.trim()));
   const damageShortage = reasons.some(reason =>
-    !/화력을 채워|데미지 기여가 충분|fills.*(?:firepower|damage)/i.test(reason)
-    && /(?:마무리\s*화력|화력|데미지(?:\s*기여)?).{0,16}(?:부족|모자|낮)|low[ .-]damage|(?:damage|firepower).{0,18}(?:short|insufficient)|lacks?.{0,12}damage|(?:傷害|伤害|火力|ダメージ).{0,12}不足/i.test(reason));
-  if (/마무리|킬캐치|화력|데미지|딜러 자리|damage|firepower|dealer/.test(joined)) add(damageShortage ? t("compact.damageLow") : t("compact.damageNeeded"));
+    warningTemplates.some(parts => parts.length && parts.every(part => reason.includes(part)))
+    || (!/화력을 채워|데미지 기여가 충분|fills.*(?:firepower|damage)/i.test(reason)
+      && /(?:마무리\s*화력|화력|데미지(?:\s*기여)?).{0,16}(?:부족|모자|낮)|low[ .-]damage|(?:damage|firepower).{0,18}(?:short|insufficient)|lacks?.{0,12}damage/i.test(reason)));
+  if (damageShortage || /마무리|킬캐치|화력|데미지|딜러 자리|damage|firepower|dealer/.test(joined)) add(damageShortage ? t("compact.damageLow") : t("compact.damageNeeded"));
   if (/CC|이니시|교전 시작|진입각|initiat|engage/.test(joined)) add(t("compact.initiateNeeded"));
   if (/보호|세이브|받아치|안정|protect|peel|alive|stable|counter.fight/.test(joined)) add(t("compact.peelNeeded"));
   if (/사거리|포킹|대치|poke|standoff|range/.test(joined)) add(t("compact.pokeNeeded"));

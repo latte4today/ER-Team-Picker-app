@@ -29,6 +29,9 @@ assert.ok(!positive.includes(t('compact.damageLow'))&&!positive.includes(t('comp
 assert.ok(context.compactReasonLabels(['후보의 데미지 기여가 부족합니다.']).includes(t('compact.damageLow')));
 for(const locale of ['ko','en','ja','zhHans','zhHant']){
   setLanguage(locale);
+  const warning=t('recommender.reason.tankLowDamageWithAvg',{nameSubject:'Sample',avgDamage:'10,000'});
+  assert.ok(context.compactReasonLabels([warning]).includes(t('compact.damageLow')),
+    'localized model damage warnings retain their meaning in every language');
   for(const key of ['compact.damageLow','compact.damageCaution','compact.caution'])assert.ok(context.renderReasonTag(t(key)).includes('tag-negative'));
   assert.ok(context.renderReasonTag(t('compact.damageOk')).includes('tag-neutral'));
   for(const concept of ['attrition','controlFocus','protectCarry','engageFollow','pokeZone'])
