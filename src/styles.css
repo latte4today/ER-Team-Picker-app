@@ -4092,12 +4092,12 @@ h2 {
 .rec-body-role { margin: 6px 0 0; color: var(--muted); font-size: 11px; }
 
 .matchup-guidance { margin: 10px 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; }
-.matchup-guidance summary { cursor: pointer; font-weight: 700; }
+.matchup-guidance > strong { display: block; font-weight: 700; }
 .matchup-guidance ul { list-style: none; padding: 0; margin: 10px 0; }
 .matchup-guidance li { margin: 10px 0; padding-left: 10px; border-left: 3px solid #d9a64b; }
 .matchup-guidance .matchup-opportunity { border-left-color: #58b7a7; }
 .matchup-guidance p { margin: 5px 0; line-height: 1.6; }
-.matchup-guidance small, .matchup-basis, .matchup-source { opacity: .8; line-height: 1.5; }
+.matchup-guidance small { opacity: .8; line-height: 1.5; }
 .matchup-core { width: 18px; height: 18px; vertical-align: middle; object-fit: contain; }
 
 .recommendation-tags span.tag-negative {

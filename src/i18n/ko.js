@@ -752,9 +752,9 @@ export const ko = {
 
   "matchup.title": "상대 조합 체크",
   "matchup.basis": "스킬·무기·코어 구조로 본 전술적 예상입니다. 상대별 교전 승률이나 현재 로비의 분포를 뜻하지 않습니다.",
-  "matchup.caution": "많으면 주의",
-  "matchup.opportunity": "유리하게 운영할 조건",
-  "matchup.example": "대회 예시: {names} · 해당 빌드 {count}회 관측",
+  "matchup.caution": "불리",
+  "matchup.opportunity": "유리",
+  "matchup.example": "상대 조합: {names}",
   "matchup.source": "참고: 수집된 대회 {games}경기 · 최근 경기 {date}. 장비·숙련도·교전 위치에 따라 달라집니다.",
   "matchup.insufficient": "이 조합에서는 뚜렷한 상대 조건을 찾지 못했습니다.",
   "matchup.exposedBackline": "연속 진입하는 근접 조합이 많다면 주의하세요. 우리 후방 보호가 부족해 한 번의 진입을 막아도 다음 진입에 노출될 수 있습니다.",

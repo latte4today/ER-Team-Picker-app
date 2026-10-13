@@ -670,9 +670,9 @@ export const zhHans = {
 
   "matchup.title": "对手阵容检查",
   "matchup.basis": "根据技能、武器和核心结构作出的战术预期，并非已验证的交战胜率或当前大厅分布。",
-  "matchup.caution": "常见时需注意",
-  "matchup.opportunity": "有利发挥的条件",
-  "matchup.example": "赛事示例：{names} · 该配置观测{count}次",
+  "matchup.caution": "不利",
+  "matchup.opportunity": "有利",
+  "matchup.example": "对方阵容：{names}",
   "matchup.source": "参考：已收集{games}场赛事 · 最近对局{date}。装备、熟练度和交战位置都会影响结果。",
   "matchup.insufficient": "此阵容暂无明确的对手条件。",
   "matchup.exposedBackline": "连续突进的近战阵容较多时需注意。后排保护不足，即使阻止第一次突进，也可能被下一次切入。",

@@ -14,7 +14,7 @@ import {
 import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effectiveCombatTeam, updateTournamentStats } from "./recommender.js";
-import { tournamentBuilds as bundledTournamentBuilds, tournamentTotalGames as bundledTournamentTotalGames, tournamentLatestMatchAt as bundledTournamentLatestMatchAt } from "./tournamentMeta.js";
+import { tournamentBuilds as bundledTournamentBuilds } from "./tournamentMeta.js";
 import { matchupGuidance } from "./matchupGuidance.js";
 import { teamCombatPlan } from "./teamConcepts.js";
 import {
@@ -404,8 +404,6 @@ let unionComboLimit = 5;
 let officialStatsVersion = "bundled";
 let tournamentStatsVersion = "bundled";
 let tournamentBuilds = bundledTournamentBuilds;
-let tournamentTotalGames = bundledTournamentTotalGames;
-let tournamentLatestMatchAt = bundledTournamentLatestMatchAt;
 let recommendationDebounceTimer = 0;
 let recommendationCacheKey = "";
 let recommendationCacheResults = null;
@@ -1758,12 +1756,10 @@ function renderMatchupGuidance(team, cores = {}) {
       return `${t(`char.${character.id}`)} (${t(`weapon.${character.weapon}`)})${core}`;
     }).join(" + ");
     return `<li class="matchup-${row.kind}"><strong>${t(`matchup.${row.kind}`)}</strong>
-      <p>${t(`matchup.${row.reason}`)}</p><small>${t("matchup.example", { names, count: example.appearances })}</small></li>`;
+      <p>${t(`matchup.${row.reason}`)}</p><small>${t("matchup.example", { names })}</small></li>`;
   }).join("");
-  return `<details class="matchup-guidance"><summary>${t("matchup.title")}</summary>
-    <p class="matchup-basis">${t("matchup.basis")}</p>
-    ${items ? `<ul>${items}</ul>` : `<p>${t("matchup.insufficient")}</p>`}
-    <p class="matchup-source">${t("matchup.source", { games: tournamentTotalGames, date: tournamentLatestMatchAt?.slice(0, 10) ?? "—" })}</p></details>`;
+  return `<section class="matchup-guidance" aria-label="${t("matchup.title")}"><strong>${t("matchup.title")}</strong>
+    ${items ? `<ul>${items}</ul>` : `<p>${t("matchup.insufficient")}</p>`}</section>`;
 }
 
 function unionSubjectName(character) {
@@ -3490,8 +3486,8 @@ function renderMatchFeedback() {
       <details class="recommendation-details">
         <summary>${t("recommend.details")}</summary>
         <ul>${reasonList}</ul>
-        ${renderMatchupGuidance([...selectedIds].map(characterById).filter(Boolean).concat(chosen), matchFeedbackCoresMap())}
       </details>
+      ${renderMatchupGuidance([...selectedIds].map(characterById).filter(Boolean).concat(chosen), matchFeedbackCoresMap())}
     </div>
   `;
 }
@@ -4497,8 +4493,6 @@ async function refreshTournamentData() {
     if (data.generatedAt === tournamentStatsVersion || !updateTournamentStats(data)) return;
     const refreshUnion = activeView === "union" && _unionComboCache.length > 0 && !isUnionCalculating;
     tournamentBuilds = data.builds;
-    tournamentTotalGames = data.totalGames;
-    tournamentLatestMatchAt = data.latestMatchAt;
     tournamentStatsVersion = data.generatedAt ?? JSON.stringify([data.season, data.totalGames]);
     matchupReferenceCache.clear();
     clearRecommendationCache();
