@@ -496,6 +496,7 @@ export const ja = {
   "comp.peelRanged": "味方保護能力と遠距離ダメージを兼ね備え、カウンター交戦に強みがあります。",
   "comp.mixedRange": "近・遠距離の役割が混在しており、交戦距離の選択肢が広いです。",
   "comp.userFeedback": "ユーザーの試合後評価で好評だった編成です。",
+  "comp.officialObserved": "公式対戦記録で観測された編成です。サンプル数とTOP3率を併せて確認してください。",
   "comp.rankerTop": "ランカー戦績で上位終了率が高く、安定性が確認された編成です。",
   "comp.rankerFrequent": "ランカー戦績に繰り返し登場する参考になる編成です。",
   "compact.frontlineNeeded": "フロントライン補強",

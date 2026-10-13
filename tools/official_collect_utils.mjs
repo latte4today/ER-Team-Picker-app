@@ -5,6 +5,7 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
+import { encounterStats } from "./encounter_stats.mjs";
 
 // ── HTTP client ──────────────────────────────────────────────────────────────
 
@@ -237,6 +238,7 @@ function traitInfoOf(row) {
 
 function compactStats(row) {
   return {
+    ...encounterStats(row),
     kills:            Number(firstValue(row, ["playerKill", "kills"]) ?? 0),
     assists:          Number(firstValue(row, ["playerAssistant", "assists"]) ?? 0),
     teamKills:        Number(firstValue(row, ["teamKill"]) ?? 0),

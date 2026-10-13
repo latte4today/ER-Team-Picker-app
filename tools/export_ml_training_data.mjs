@@ -12,6 +12,7 @@ import readline from "node:readline";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { characters, characterVariants } from "../src/data.js";
+import { encounterStats } from "./encounter_stats.mjs";
 import { FALLBACK_CHARACTER_CODE_TO_ID as CHARACTER_CODE_TO_ID } from "./character_code_map.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -126,6 +127,7 @@ function compactPlayer(player, weaponCodeToId) {
     tags: variant?.tags ?? character?.tags ?? [],
     traits: player.traits ?? {},
     stats: {
+      ...encounterStats(stats),
       kills: numeric(stats.kills),
       assists: numeric(stats.assists),
       teamKills: numeric(stats.teamKills),
