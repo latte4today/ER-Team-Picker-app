@@ -698,4 +698,6 @@ export const ja = {
   "concept.support.chainControl": "CCを順につなぐ",
   "concept.support.recovery": "回復・保護を交互に使う",
   "recommender.reason.metricCapabilities": "火力以外の戦闘特性：{reason}",
+  "preset.sharedHint": "編成設定とユニオンはプリセットを共有します。保存・削除は両方に反映されます。",
+  "union.presetTooLarge": "ユニオンは一人につき最大15枠です。15枠以下のプリセットを保存してから読み込んでください。",
 };
