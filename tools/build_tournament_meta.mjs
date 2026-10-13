@@ -44,7 +44,7 @@ function parseArgs() {
 
 async function main() {
   const args = parseArgs();
-  const { characters } = await import(`file://${path.join(ROOT, "src", "data.js").replace(/\\/g, "/")}`);
+  const { characters, characterVariants } = await import(`file://${path.join(ROOT, "src", "data.js").replace(/\\/g, "/")}`);
 
   // The collector stores official character codes; the app keys everything by local
   // id, so the same code map the stats pipeline uses has to be applied here too.
@@ -88,9 +88,23 @@ async function main() {
   const gameIds = new Set(records.map((r) => r.gameId));
   const charStats = {};
   const compMap = new Map();
+  const buildMap = new Map();
+  const weaponEvidence = new Map();
+  for (const row of records) for (const player of row.players ?? []) {
+    const character = characters.find(c => c.id === idOf(player.characterNum));
+    if (character?.weapons.length !== 1 || character.weapons[0] === "flex" || player.weaponCode === undefined) continue;
+    const code = String(player.weaponCode);
+    const weapons = weaponEvidence.get(code) ?? new Set();
+    weapons.add(character.weapons[0]); weaponEvidence.set(code, weapons);
+  }
+  const weaponByCode = new Map([...weaponEvidence].filter(([,weapons]) => weapons.size === 1).map(([code,weapons]) => [code,[...weapons][0]]));
+  const seenTeams = new Set();
   let dropped = 0;
 
   for (const r of records) {
+    const teamKey = `${r.gameId}:${r.teamNumber}`;
+    if (seenTeams.has(teamKey)) continue;
+    seenTeams.add(teamKey);
     const ids = (r.characterNums ?? []).map(idOf);
     if (ids.length !== 3 || ids.some((x) => !x)) { dropped += 1; continue; }
     for (const id of ids) {
@@ -106,6 +120,18 @@ async function main() {
     comp.ts += r.rankScore ?? 0;
     comp.ks += r.killScore ?? 0;
     compMap.set(key, comp);
+    const builds = (r.players ?? []).map(player => {
+      const characterId = idOf(player.characterNum);
+      const weapon = weaponByCode.get(String(player.weaponCode));
+      const variant = characterVariants.find(v => v.characterId === characterId && v.weapon === weapon);
+      return variant && Number.isSafeInteger(player.core) ? { variantId: variant.variantId, core: player.core } : null;
+    });
+    if (builds.length === 3 && builds.every(Boolean)) {
+      builds.sort((a,b) => a.variantId.localeCompare(b.variantId));
+      const buildKey = builds.map(b => `${b.variantId}#${b.core}`).join('|');
+      const previous = buildMap.get(buildKey) ?? { members: builds, appearances: 0 };
+      previous.appearances += 1; buildMap.set(buildKey, previous);
+    }
   }
 
   const round = (v, d = 2) => Math.round(v * 10 ** d) / 10 ** d;
@@ -121,6 +147,7 @@ async function main() {
     .sort((a, b) => b.appearances - a.appearances || a.rank - b.rank);
 
   console.log(`games ${gameIds.size} | team rows ${records.length} | unmapped dropped ${dropped}`);
+  if (dropped) throw new Error('Invalid/unmapped tournament teams; refusing to publish incomplete data');
   console.log(`characters ${Object.keys(charStats).length} | compositions (>=${args.minAppearances}) ${compositions.length}`);
 
   const missing = characters.filter((c) => !charStats[c.id]).map((c) => c.id);
@@ -136,6 +163,9 @@ async function main() {
     `// ${compositions.length} compositions with ${args.minAppearances}+ appearances`,
     "",
     `export const tournamentTotalGames = ${gameIds.size};`,
+    `export const tournamentSeason = ${JSON.stringify(resolvedSeason)};`,
+    `export const tournamentLatestMatchAt = ${JSON.stringify(records.map(r => r.startDtm).filter(Boolean).sort().at(-1) ?? null)};`,
+    `export const tournamentBuilds = ${JSON.stringify([...buildMap.values()].sort((a,b) => b.appearances-a.appearances), null, 2)};`,
     "",
     "// Per-character pick/win/top3 counts (string IDs matching characterVariants)",
     `export const tournamentCharStats = ${JSON.stringify(charStats, null, 2)};`,
@@ -147,6 +177,12 @@ async function main() {
   ].join("\n");
 
   await fs.writeFile(args.out, body, "utf8");
+  await fs.writeFile(args.out.replace(/\.js$/, ".compact.json"), JSON.stringify({
+    totalGames: gameIds.size, season: resolvedSeason,
+    generatedAt: new Date().toISOString(),
+    latestMatchAt: records.map(r => r.startDtm).filter(Boolean).sort().at(-1) ?? null,
+    compositions, builds: [...buildMap.values()].sort((a,b) => b.appearances-a.appearances),
+  }), "utf8");
   console.log(`wrote ${path.relative(ROOT, args.out)}`);
 }
 

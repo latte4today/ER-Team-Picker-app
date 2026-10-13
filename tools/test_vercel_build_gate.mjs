@@ -34,6 +34,9 @@ try {
   await fs.writeFile(path.join(scratch,'src/metaData.js'),'new statistics');
   commit();
   check(batch,0); // Only statistics changed since the successful deployment.
+  await fs.writeFile(path.join(scratch,'src/tournamentMeta.compact.json'),'new tournament data');
+  commit();
+  check(batch,0); // Tournament data is refreshed by the running app.
   check(null,1);
   check('0000000000000000000000000000000000000000',1);
   await fs.appendFile(path.join(scratch,'scripts/vercel-should-build.sh'),'\n# changed gate\n');

@@ -9,7 +9,7 @@ let calls = 0;
 let mutateOnYield = null;
 const state = {
   chosenPickId: 'seres:two_handed_sword', tierSelect: { value: 'all' },
-  playableVariantIds: new Set(), officialStatsVersion: 'one', remoteFeedback: {},
+  playableVariantIds: new Set(), officialStatsVersion: 'one', tournamentStatsVersion: 'one', remoteFeedback: {},
   relationships: [], cores: {}, _fullTeamState: { status: 'idle' },
   language: 'ko', getLanguage: () => state.language,
   recommendations: { querySelector: () => true },
@@ -36,6 +36,7 @@ for (const change of [
   () => { state.playableVariantIds.add('rio:bow'); },
   () => { state.cores = { 'seres:two_handed_sword': '7200301' }; },
   () => { state.officialStatsVersion = 'two'; },
+  () => { state.tournamentStatsVersion = 'two'; },
   () => { state.remoteFeedback = { 'rio:bow': 1 }; },
   () => { state.relationships = [{ candidateId: 'rio:bow' }]; },
   () => { state.language = 'en'; },
@@ -50,4 +51,4 @@ mutateOnYield = () => { state.chosenPickId = 'lucia:sniper_rifle'; };
 const before = calls;
 await state.renderFullTeamRecommendations();
 assert.equal(calls, before, 'obsolete async computation must stop before scoring');
-console.log('Full-team cache regression passed: 7 input changes recompute; unchanged inputs reuse; obsolete computation stops.');
+console.log('Full-team cache regression passed: 8 input changes recompute; unchanged inputs reuse; obsolete computation stops.');

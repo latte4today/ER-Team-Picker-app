@@ -28,6 +28,7 @@ DATA_ONLY=(
   ':(exclude)src/pairSynergyLift.js'
   ':(exclude)src/dakggRealtimeStats.js'
   ':(exclude)src/tournamentMeta.js'
+  ':(exclude)src/tournamentMeta.compact.json'
   ':(exclude)src/compModel.json'
 )
 

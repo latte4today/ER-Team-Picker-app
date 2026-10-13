@@ -5,19 +5,14 @@ name: Collect Tournament Games
 # know the current dak.gg game-id range and type it in, so nobody ran it, and
 # src/tournamentMeta.js sat on 22 games while seasons rolled over.
 #
-# --auto resumes from the highest id already collected and walks forward, so this
-# needs no arguments and no maintenance. Daily is generous for a schedule that
-# publishes a handful of games a week; it just means new ones land within a day.
+# --auto pages through the published current-season listing. Gaps in tournament
+# IDs cannot hide later events. Known games are reused; incomplete legacy rows
+# are enriched once. Empty/changed listings fail without replacing existing data.
 
 on:
   schedule:
     - cron: '15 6 * * *' # 06:15 UTC / 15:15 KST - clear of the other two workflows
   workflow_dispatch:
-    inputs:
-      gap:
-        description: Consecutive missing ids that end the forward scan
-        required: false
-        default: '25'
 
 concurrency:
   group: collect-tournament-${{ github.ref }}
@@ -40,15 +35,21 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Scan forward for new tournament games
+      - name: Discover published tournament games
+        id: collect
         run: |
           node tools/tournament_collector.mjs \
             --auto \
             --out data/tournament_s41.json \
-            --delay 800 \
-            --gap "${{ github.event.inputs.gap || '25' }}"
+            --delay 800
+          if git diff --quiet -- data/tournament_s41.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Rebuild tournament meta
+        if: steps.collect.outputs.changed == 'true'
         run: node tools/build_tournament_meta.mjs --in data/tournament_s41.json
 
       - name: Verify the module is not empty
@@ -57,6 +58,10 @@ jobs:
           # for everyone, exactly like the pair-role table did.
           node --input-type=module -e '
             const { tournamentTotalGames, tournamentCharStats } = await import("./src/tournamentMeta.js");
+            const { validTournamentData } = await import("./src/tournamentData.js");
+            const { readFile } = await import("node:fs/promises");
+            const compact = JSON.parse(await readFile("src/tournamentMeta.compact.json", "utf8"));
+            if (!validTournamentData(compact)) throw new Error("Invalid tournament runtime data");
             const chars = Object.keys(tournamentCharStats ?? {}).length;
             if (!tournamentTotalGames || chars < 20) {
               console.error(`::error title=Tournament meta collapsed::games=${tournamentTotalGames} characters=${chars}`);
@@ -66,13 +71,15 @@ jobs:
           '
 
       - name: Refresh recommendation baseline
+        if: steps.collect.outputs.changed == 'true'
         run: node tools/recommendation_snapshot.mjs --update
 
       - name: Commit results
+        if: steps.collect.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/tournament_s41.json src/tournamentMeta.js snapshots/recommendation-baseline.json 2>/dev/null || true
+          git add data/tournament_s41.json src/tournamentMeta.js src/tournamentMeta.compact.json snapshots/recommendation-baseline.json
           if git diff --staged --quiet; then
             echo "No new tournament games"
           else
@@ -80,14 +87,14 @@ jobs:
             pushed=0
             for attempt in 1 2 3; do
               git fetch origin main
-              git rebase -X theirs origin/main || { git rebase --abort 2>/dev/null || true; }
+              git rebase origin/main || { git rebase --abort; exit 1; }
               # The baseline was generated against the code this run checked out, which
               # can be older than what it now sits on: c97f17a landed a baseline built
               # with officialV2Weight 0 on top of a main that had already moved it to
               # 0.4, so the committed baseline did not match the committed code.
               # Regenerate after the rebase, when the tree is the tree that ships.
-              node tools/recommendation_snapshot.mjs --update || true
-              git add snapshots/recommendation-baseline.json 2>/dev/null || true
+              node tools/recommendation_snapshot.mjs --update
+              git add snapshots/recommendation-baseline.json
               git diff --staged --quiet || git commit --amend --no-edit
               if git push origin main; then pushed=1; break; fi
               echo "push attempt $attempt failed; retrying..."
