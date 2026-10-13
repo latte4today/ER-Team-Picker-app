@@ -666,5 +666,19 @@ export const zhHant = {
   "tutorial.step7.title": "查看排行榜",
   "tutorial.step7.body": "排行榜分頁會結合官方戰績資料與使用者評價，顯示實驗體排行、熱門陣容和最近評價的陣容。",
   "tutorial.step8.title": "使用聯盟分頁",
-  "tutorial.step8.body": "聯盟分頁可登錄多名玩家的實驗體池，並以實際出戰的3人為基準計算最佳陣容。"
+  "tutorial.step8.body": "聯盟分頁可登錄多名玩家的實驗體池，並以實際出戰的3人為基準計算最佳陣容。",
+
+  "matchup.title": "對手陣容檢查",
+  "matchup.basis": "根據技能、武器和核心結構作出的戰術預期，並非已驗證的交戰勝率或目前大廳分布。",
+  "matchup.caution": "常見時需注意",
+  "matchup.opportunity": "有利發揮的條件",
+  "matchup.example": "賽事例子：{names} · 該配置觀測{count}次",
+  "matchup.source": "參考：已收集{games}場賽事 · 最近對局{date}。裝備、熟練度及交戰位置都會影響結果。",
+  "matchup.insufficient": "此陣容暫無明確的對手條件。",
+  "matchup.exposedBackline": "連續突進的近戰陣容較多時需注意。後排保護不足，即使阻止第一次突進，也可能被下一次切入。",
+  "matchup.deniedEngage": "面對打斷突進後反打的陣容，先誘出控制，再從不同角度進入，不要全部跟隨一名先手。",
+  "matchup.approachUnderFire": "面對遠程消耗及區域控制，先取得視野與繞後路線，避免正面走過傷害區域。",
+  "matchup.protectAndCounter": "面對正面接近的近戰陣容，可以保留保護與控制技能反打。後排分離或保護技能不可用時優勢會消失。",
+  "matchup.catchBackline": "面對保護不足的遠程陣容，可以同步突進集火一人。進入前先確認對方位移及控制技能。",
+  "matchup.holdRange": "面對先手手段有限的近戰陣容，可以保持距離與狹窄入口進行消耗。側翼切入或空曠近戰會削弱這個機會。",
 };

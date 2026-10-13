@@ -666,5 +666,19 @@ export const zhHans = {
   "tutorial.step7.title": "查看排行榜",
   "tutorial.step7.body": "排行榜标签页会结合官方战绩数据与用户评价，显示实验体排行、热门阵容和最近评价的阵容。",
   "tutorial.step8.title": "使用联盟标签页",
-  "tutorial.step8.body": "联盟标签页可登记多名玩家的实验体池，并以实际出战的3人为基准计算最佳阵容。"
+  "tutorial.step8.body": "联盟标签页可登记多名玩家的实验体池，并以实际出战的3人为基准计算最佳阵容。",
+
+  "matchup.title": "对手阵容检查",
+  "matchup.basis": "根据技能、武器和核心结构作出的战术预期，并非已验证的交战胜率或当前大厅分布。",
+  "matchup.caution": "常见时需注意",
+  "matchup.opportunity": "有利发挥的条件",
+  "matchup.example": "赛事示例：{names} · 该配置观测{count}次",
+  "matchup.source": "参考：已收集{games}场赛事 · 最近对局{date}。装备、熟练度和交战位置都会影响结果。",
+  "matchup.insufficient": "此阵容暂无明确的对手条件。",
+  "matchup.exposedBackline": "连续突进的近战阵容较多时需注意。后排保护不足，即使阻止第一次突进，也可能被下一次切入。",
+  "matchup.deniedEngage": "面对打断突进后反打的阵容，先诱出控制，再从不同角度进入，不要全部跟随一名先手。",
+  "matchup.approachUnderFire": "面对远程消耗和区域控制，先 获取视野与绕后路线，避免正面走过伤害区域。",
+  "matchup.protectAndCounter": "面对正面接近的近战阵容，可以保留保护和控制技能反打。后排分离或保护技能不可用时优势会消失。",
+  "matchup.catchBackline": "面对保护不足的远程阵容，可以同步突进集火一人。进入前先确认对方位移与控制技能。",
+  "matchup.holdRange": "面对先手手段有限的近战阵容，可以保持距离与狭窄入口进行消耗。侧翼切入或空旷近战会削弱这一机会。",
 };

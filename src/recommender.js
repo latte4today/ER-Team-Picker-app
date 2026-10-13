@@ -101,7 +101,9 @@ export function updateOfficialStats(remote) {
   _globalWinRateCache = new Map();
   _needsNormalizer = null;
 }
-import { tournamentCompositions } from "./tournamentMeta.js";
+import { tournamentCompositions as bundledTournamentCompositions } from "./tournamentMeta.js";
+import { validTournamentData } from "./tournamentData.js";
+let tournamentCompositions = bundledTournamentCompositions;
 import {
   cannotStartEngage,
   helpsMeleeEngage,
@@ -156,11 +158,24 @@ for (const row of tournamentCompositions) {
 }
 
 // Pre-resolved tournament row teams for tournamentArchetypeScore (avoids repeated .find calls)
-const _tournamentCompositionTeams = tournamentCompositions.map((row) => ({
+let _tournamentCompositionTeams = tournamentCompositions.map((row) => ({
   row,
   team: (row.members ?? []).map((id) => _firstByCharacterId.get(id)).filter(Boolean),
   memberSet: new Set(row.members ?? []),
 }));
+
+export function updateTournamentStats(data) {
+  if (!validTournamentData(data)) return false;
+  tournamentCompositions = data.compositions;
+  _tournamentCompositionByCandidate.clear();
+  for (const row of tournamentCompositions) for (const id of row.members) {
+    if (!_tournamentCompositionByCandidate.has(id)) _tournamentCompositionByCandidate.set(id, []);
+    _tournamentCompositionByCandidate.get(id).push(row);
+  }
+  _tournamentCompositionTeams = tournamentCompositions.map(row => ({ row,
+    team: row.members.map(id => _firstByCharacterId.get(id)), memberSet: new Set(row.members) }));
+  return true;
+}
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -3482,6 +3497,10 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
       : null,
     reasons: explain(effectiveCandidate, effectiveSelected, scores, tier),
   };
+}
+
+export function effectiveCombatTeam(team, cores = {}, tier = "all") {
+  return effectiveTeamFor(team, cores, tier);
 }
 
 export function debugCoreRoleProfile(selectedIds = [], cores = {}, tier = "all") {

@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import { characterVariants } from '../src/data.js';
+import { compareMatchup, matchupGuidance } from '../src/matchupGuidance.js';
+import { tournamentBuilds } from '../src/tournamentMeta.js';
+globalThis.localStorage={getItem:()=>null,setItem:()=>{}};
+const { setLanguage,t }=await import('../src/i18n/index.js');
+const { effectiveCombatTeam }=await import('../src/recommender.js');
+globalThis.document={documentElement:{}};
+const team=ids=>ids.map(id=>characterVariants.find(c=>c.variantId===id));
+const ranged=team(['rio:bow','katja:sniper_rifle','adriana:throw']);
+const dive=team(['yuki:two_handed_sword','yan:glove','aiden:two_handed_sword']);
+const protectedTeam=team(['seres:two_handed_sword','rio:bow','lucia:sniper_rifle']);
+assert.equal(compareMatchup(ranged,dive).reason,'exposedBackline');
+assert.equal(compareMatchup(protectedTeam,dive).reason,'protectAndCounter');
+const lukeTeam=team(['luke:bat','rio:bow','lucia:sniper_rifle']);
+assert.equal(compareMatchup(effectiveCombatTeam(lukeTeam,{'luke:bat':'7200301'}),dive).reason,'protectAndCounter');
+assert.equal(compareMatchup(effectiveCombatTeam(lukeTeam,{'luke:bat':'7100501'}),dive).reason,'exposedBackline',
+  'the actual selected core can change protection and the opponent advice');
+assert.equal(compareMatchup(dive,team(['rozzi:pistol','chloe:shuriken','craver:pistol'])).kind,'opportunity');
+assert.equal(compareMatchup(ranged.slice(0,2),dive),null);
+assert.deepEqual(matchupGuidance([ranged[0],ranged[0],ranged[1]],[],()=>[]),[]);
+const refs=tournamentBuilds;
+const resolve=row=>team(row.members.map(m=>m.variantId));
+const rows=matchupGuidance(protectedTeam,refs,resolve);
+assert.ok(rows.length>0);
+for(const row of rows)assert.ok(row.examples.every(e=>refs.some(r=>r.members===e.members)), 'examples must be actual observed builds');
+const languages=['ko','en','ja','zhHans','zhHant'];
+let language='ko';globalThis.localStorage={getItem:()=>language,setItem:(_,value)=>{language=value;}};
+for(const lang of languages){setLanguage(lang);for(const key of ['title','basis','caution','opportunity','example','source','exposedBackline','deniedEngage','approachUnderFire','protectAndCounter','catchBackline','holdRange'])assert.notEqual(t('matchup.'+key),'matchup.'+key);}
+console.log('Matchup guidance: real three-build comparisons, protection changes advice, observed examples and five locales passed.');

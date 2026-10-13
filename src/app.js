@@ -13,13 +13,15 @@ import {
 } from "./feedback.js";
 import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
-import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats } from "./recommender.js";
+import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effectiveCombatTeam, updateTournamentStats } from "./recommender.js";
+import { tournamentBuilds as bundledTournamentBuilds, tournamentTotalGames as bundledTournamentTotalGames, tournamentLatestMatchAt as bundledTournamentLatestMatchAt } from "./tournamentMeta.js";
+import { matchupGuidance } from "./matchupGuidance.js";
 import {
   officialCandidateStatsByTier as bundledOfficialCandidateStatsByTier,
   officialCompositionStatsByTier as bundledOfficialCompositionStatsByTier,
   officialTraitBuildStatsByTier as bundledOfficialTraitBuildStatsByTier,
 } from "./officialMatchStats.js";
-import { coreIconPath, topCoreRowsForVariant } from "./traitMeta.js";
+import { coreIconPath, topCoreRowsForVariant, normalizeCoreName } from "./traitMeta.js";
 import { officialPairSynergyLift } from "./pairSynergyLift.js";
 import { teamMetricProfile, teamMetricTags } from "./characterMetrics.js";
 import {
@@ -399,6 +401,10 @@ let recommendLimit = 12;
 let fullTeamLimit = 5;
 let unionComboLimit = 5;
 let officialStatsVersion = "bundled";
+let tournamentStatsVersion = "bundled";
+let tournamentBuilds = bundledTournamentBuilds;
+let tournamentTotalGames = bundledTournamentTotalGames;
+let tournamentLatestMatchAt = bundledTournamentLatestMatchAt;
 let recommendationDebounceTimer = 0;
 let recommendationCacheKey = "";
 let recommendationCacheResults = null;
@@ -1689,6 +1695,40 @@ function unionComboReason(combo, reasons) {
   }
   return reasons[0] ?? t("union.reason.default");
 }
+const matchupReferenceCache = new Map();
+function renderMatchupGuidance(team, cores = {}) {
+  if (team.length !== 3) return "";
+  const tier = tierSelect.value;
+  if (!matchupReferenceCache.has(tier)) {
+    const resolved = new Map(tournamentBuilds.map(row => {
+      const members = row.members.map(member => characterById(member.variantId)).filter(Boolean);
+      const coreMap = Object.fromEntries(row.members.map(member => [member.variantId, member.core]));
+      return [row, effectiveCombatTeam(members, coreMap, tier)];
+    }));
+    matchupReferenceCache.set(tier, resolved);
+  }
+  const ownCores = Object.fromEntries(team.map(character => [character.variantId,
+    cores[character.variantId] ?? defaultCoreForVariant(character.variantId, tier)?.core]));
+  const rows = matchupGuidance(effectiveCombatTeam(team, ownCores, tier), tournamentBuilds,
+    row => matchupReferenceCache.get(tier).get(row));
+  const items = rows.map(row => {
+    const example = row.examples[0];
+    const names = example.members.map(member => {
+      const character = characterById(member.variantId);
+      const coreName = normalizeCoreName(member.core);
+      const icon = coreIconPath(coreName);
+      const core = icon ? ` <img class="matchup-core" src="${icon}" alt="${coreName}" title="${coreName}" loading="lazy">` : "";
+      return `${t(`char.${character.id}`)} (${t(`weapon.${character.weapon}`)})${core}`;
+    }).join(" + ");
+    return `<li class="matchup-${row.kind}"><strong>${t(`matchup.${row.kind}`)}</strong>
+      <p>${t(`matchup.${row.reason}`)}</p><small>${t("matchup.example", { names, count: example.appearances })}</small></li>`;
+  }).join("");
+  return `<details class="matchup-guidance"><summary>${t("matchup.title")}</summary>
+    <p class="matchup-basis">${t("matchup.basis")}</p>
+    ${items ? `<ul>${items}</ul>` : `<p>${t("matchup.insufficient")}</p>`}
+    <p class="matchup-source">${t("matchup.source", { games: tournamentTotalGames, date: tournamentLatestMatchAt?.slice(0, 10) ?? "—" })}</p></details>`;
+}
+
 function unionSubjectName(character) {
   const name = t(`char.${character.id}`);
   if (getLanguage() !== "ko") return name;
@@ -1868,6 +1908,7 @@ function renderUnionComboResults() {
               .join("")}
           </div>
           <p>${unionComboPlan(item.combo)}</p>
+          ${renderMatchupGuidance(item.combo)}
         </article>
       `;
     })
@@ -1930,6 +1971,7 @@ function unionRecommendationKey() {
     tier: tierSelect.value,
     language: getLanguage(),
     stats: officialStatsVersion,
+    tournament: tournamentStatsVersion,
     feedback: dataSignature(remoteFeedback),
     relationships: dataSignature(currentRelationshipRows()),
   });
@@ -2950,6 +2992,7 @@ function fullTeamRecommendationKey(anchorId) {
     playable: [...playableVariantIds].sort(),
     cores: selectedCoresMap(),
     stats: officialStatsVersion,
+    tournament: tournamentStatsVersion,
     feedback: dataSignature(remoteFeedback),
     relationships: dataSignature(currentRelationshipRows()),
   });
@@ -3076,6 +3119,9 @@ function _renderFullTeamCards() {
             <ul>${detailList2}</ul>
           </div>
         </details>
+        ${renderMatchupGuidance([characterById(chosenPickId), c1, c2].filter(Boolean), {
+          ...selectedCoresMap(), [c1.variantId]: teammate1.recommendedCore?.core, [c2.variantId]: teammate2.recommendedCore?.core,
+        })}
         <div class="full-team-actions">
           <button class="feedback-button" type="button"
             data-apply-combo="${teammate1.character.variantId}|${teammate2.character.variantId}"
@@ -3119,6 +3165,7 @@ function renderRecommendations() {
     popularFeedback: dataSignature(popularFeedback),
     relationshipRows: dataSignature(currentRelationshipRows()),
     stats: officialStatsVersion,
+    tournament: tournamentStatsVersion,
   });
   if (recommendationKey === setupRecommendationRenderKey && recommendations.childElementCount > 0) return;
   setupRecommendationRenderKey = recommendationKey;
@@ -3148,6 +3195,7 @@ function renderRecommendations() {
     popularFeedback: dataSignature(popularFeedback),
     relationshipRows: dataSignature(currentRelationshipRows()),
     stats: officialStatsVersion,
+    tournament: tournamentStatsVersion,
   });
   const results = recommendationInputKey === recommendationCacheKey && recommendationCacheResults
     ? recommendationCacheResults
@@ -3238,6 +3286,9 @@ function renderRecommendations() {
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
             <ul class="rec-reasons">${reasonList}</ul>
+            ${renderMatchupGuidance([...selectedIds].map(characterById).filter(Boolean).concat(result.character), {
+              ...selectedCoresMap(), [result.character.variantId]: core?.core,
+            })}
             ${altCoreChips(group, tierSelect.value)}
             <div class="feedback-row">
               <button class="feedback-button" type="button" data-choose-pick="${shown.character.variantId}" data-choose-core="${core?.core ?? ""}">${t("recommend.choosePick")}</button>
@@ -3273,6 +3324,8 @@ function renderMatchFeedback() {
     slotCores,
     matchFeedbackCore,
     tier: tierSelect.value,
+    stats: officialStatsVersion,
+    tournament: tournamentStatsVersion,
     submitted: submittedFeedbackKeys.size,
     feedbackBuckets: Object.keys(remoteFeedback ?? {}).length,
     popularCount: popularFeedback.length,
@@ -3390,6 +3443,7 @@ function renderMatchFeedback() {
       <details class="recommendation-details">
         <summary>${t("recommend.details")}</summary>
         <ul>${reasonList}</ul>
+        ${renderMatchupGuidance([...selectedIds].map(characterById).filter(Boolean).concat(chosen), matchFeedbackCoresMap())}
       </details>
     </div>
   `;
@@ -4368,6 +4422,7 @@ if (recoveredFeedbackCount > 0) {
       if (!res.ok) continue;
       const data = await res.json();
       updateOfficialStats(data);
+      matchupReferenceCache.clear();
       if (data.officialCandidateStatsByTier) officialCandidateStatsByTier = data.officialCandidateStatsByTier;
       if (data.officialCompositionStatsByTier) officialCompositionStatsByTier = data.officialCompositionStatsByTier;
       if (data.officialTraitBuildStatsByTier) officialTraitBuildStatsByTier = data.officialTraitBuildStatsByTier;
@@ -4385,6 +4440,27 @@ if (recoveredFeedbackCount > 0) {
   }
   console.log("[stats] using bundled stats (all remote fetches failed)");
 })();
+
+// Data-only tournament updates reach existing deployments without another build.
+async function refreshTournamentData() {
+  try {
+    const response = await fetch("https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/tournamentMeta.compact.json", { cache: "no-store", signal: AbortSignal.timeout(15000) });
+    if (!response.ok) return;
+    const data = await response.json();
+    if (data.generatedAt === tournamentStatsVersion || !updateTournamentStats(data)) return;
+    const refreshUnion = activeView === "union" && _unionComboCache.length > 0 && !isUnionCalculating;
+    tournamentBuilds = data.builds;
+    tournamentTotalGames = data.totalGames;
+    tournamentLatestMatchAt = data.latestMatchAt;
+    tournamentStatsVersion = data.generatedAt ?? JSON.stringify([data.season, data.totalGames]);
+    matchupReferenceCache.clear();
+    clearRecommendationCache();
+    render();
+    if (refreshUnion) renderUnionResults();
+  } catch { /* Keep the validated bundled tournament data when offline. */ }
+}
+refreshTournamentData();
+window.setInterval(refreshTournamentData, 4 * 60 * 60 * 1000);
 
 setupErUpdater();
 render();

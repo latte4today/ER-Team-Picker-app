@@ -666,5 +666,19 @@ export const en = {
   "recommender.reason.specNeedsEngage": "This team lacks a reliable opener, making {name}'s engage and control especially valuable.",
   "recommender.reason.specNeedsFollowup": "The team can already start fights, so {name}'s follow-up damage and catch potential fit well.",
   "recommender.reason.specNeedsPeel": "The backline needs protection, so {name}'s peel and sustain are useful here.",
-  "recommender.reason.specNeedsRange": "The team leans short-range, so {name}'s range and poke help round it out."
+  "recommender.reason.specNeedsRange": "The team leans short-range, so {name}'s range and poke help round it out.",
+
+  "matchup.title": "Opponent composition check",
+  "matchup.basis": "Tactical expectations from skill, weapon and core structure; not validated fight win rates or the current lobby distribution.",
+  "matchup.caution": "Caution if common",
+  "matchup.opportunity": "Conditions to exploit",
+  "matchup.example": "Tournament example: {names} · this build observed {count} times",
+  "matchup.source": "Reference: {games} collected tournament matches · latest match {date}. Gear, skill and fight location matter.",
+  "matchup.insufficient": "No clear opponent-specific condition identified for this team.",
+  "matchup.exposedBackline": "Multiple successive melee divers can expose our poorly protected backline even after the first engage is stopped.",
+  "matchup.deniedEngage": "Against teams that interrupt engages and counter, bait control skills and approach from different angles rather than following one initiator.",
+  "matchup.approachUnderFire": "Against ranged poke plus area control, secure vision and a flank rather than walking straight through their damage.",
+  "matchup.protectAndCounter": "Against frontal melee teams, save protection and control to counter their approach. This advantage disappears if the backline separates or protection is unavailable.",
+  "matchup.catchBackline": "Against an unprotected ranged team, coordinate a catch on one target. Check their movement and control skills before committing.",
+  "matchup.holdRange": "Against melee teams with limited initiation, maintain distance and narrow entrances to poke. Flanks or open-space brawls reduce this opportunity.",
 };

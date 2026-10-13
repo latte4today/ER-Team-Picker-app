@@ -749,4 +749,18 @@ export const ko = {
   "recommender.reason.specNeedsFollowup": "이미 싸움을 열 수 있어 {nameSubject} 후속 화력·캐치가 잘 맞습니다.",
   "recommender.reason.specNeedsPeel": "후방 딜러를 살릴 보호가 필요해 {nameSubject} 보호·유지력이 유효합니다.",
   "recommender.reason.specNeedsRange": "근접 성향이 강해 {nameSubject} 사거리·포킹 보완 가치가 있습니다.",
+
+  "matchup.title": "상대 조합 체크",
+  "matchup.basis": "스킬·무기·코어 구조로 본 전술적 예상입니다. 상대별 교전 승률이나 현재 로비의 분포를 뜻하지 않습니다.",
+  "matchup.caution": "많으면 주의",
+  "matchup.opportunity": "유리하게 운영할 조건",
+  "matchup.example": "대회 예시: {names} · 해당 빌드 {count}회 관측",
+  "matchup.source": "참고: 수집된 대회 {games}경기 · 최근 경기 {date}. 장비·숙련도·교전 위치에 따라 달라집니다.",
+  "matchup.insufficient": "이 조합에서는 뚜렷한 상대 조건을 찾지 못했습니다.",
+  "matchup.exposedBackline": "연속 진입하는 근접 조합이 많다면 주의하세요. 우리 후방 보호가 부족해 한 번의 진입을 막아도 다음 진입에 노출될 수 있습니다.",
+  "matchup.deniedEngage": "진입을 끊고 받아치는 조합이 많다면 주의하세요. 선진입 한 명에 몰아 들어가기보다 제어기를 빼고 서로 다른 각으로 진입하세요.",
+  "matchup.approachUnderFire": "원거리 견제와 지역 장악이 겹친 조합이 많다면 접근 과정에 주의하세요. 정면으로 걸어가기보다 시야와 우회 경로를 확보하세요.",
+  "matchup.protectAndCounter": "정면으로 붙는 근접 조합이 많다면 보호와 제어를 남기고 받아칠 여지가 있습니다. 후방 딜러가 분리되거나 보호기 전에 싸우면 이 이점은 사라집니다.",
+  "matchup.catchBackline": "보호가 부족한 원거리 조합이 많다면 함께 진입해 한 대상을 잡을 여지가 있습니다. 상대 이동기와 제어기를 먼저 확인하고 진입 타이밍을 맞추세요.",
+  "matchup.holdRange": "진입 수단이 적은 근접 조합이 많다면 거리와 좁은 입구를 유지하며 견제할 여지가 있습니다. 측면 진입을 허용하거나 열린 공간에서 붙으면 이 이점은 줄어듭니다.",
 };

@@ -15,6 +15,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { discoverTournamentGames } from './tournament_discovery.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -31,46 +32,35 @@ const rangeArg = getArg('--range');
 const autoMode = args.includes('--auto');
 const outArg = getArg('--out') ?? 'data/tournament_compositions.json';
 const delayMs = parseInt(getArg('--delay') ?? '800', 10);
-// How many consecutive 404s end an --auto scan. Tournament ids are not perfectly
-// dense - the season-41 set skips 7691, 7694, 7696-7697 and so on - so stopping at
-// the first miss would truncate the scan almost immediately.
-const gapTolerance = parseInt(getArg('--gap') ?? '25', 10);
-
 const outPathResolved = path.resolve(ROOT, outArg);
 let existing = [];
 if (fs.existsSync(outPathResolved)) {
-  try { existing = JSON.parse(fs.readFileSync(outPathResolved, 'utf8')); } catch { existing = []; }
-  if (!Array.isArray(existing)) existing = [];
+  existing = JSON.parse(fs.readFileSync(outPathResolved, 'utf8'));
+  if (!Array.isArray(existing)) throw new Error('Existing tournament data is not an array; refusing to replace it');
 }
 const knownIds = new Set(existing.map(r => r.gameId));
 
 let gameIds = [];
-let autoStart = null;
 
 if (idsArg) {
   gameIds = idsArg.split(',').map(s => parseInt(s.trim(), 10)).filter(Boolean);
 } else if (rangeArg) {
   const [start, end] = rangeArg.split('-').map(Number);
   for (let i = start; i <= end; i++) gameIds.push(i);
-} else if (autoMode) {
-  // Resume from one past the highest id already collected and walk forward until
-  // the ids run out. Nobody has to know or remember the current range.
-  autoStart = (knownIds.size ? Math.max(...knownIds) : parseInt(getArg('--from') ?? '7690', 10) - 1) + 1;
-} else {
+} else if (!autoMode) {
   console.error('Usage: node tools/tournament_collector.mjs --auto | --ids 6960,6961 | --range 6950-6980');
   process.exit(1);
-}
-
-if (autoMode) {
-  console.log(`Auto scan from ${autoStart} (have ${knownIds.size} games, ${existing.length} team rows), stopping after ${gapTolerance} consecutive misses`);
-} else {
-  console.log(`Fetching ${gameIds.length} game(s): ${gameIds.join(', ')}`);
 }
 
 // ── Fetch ────────────────────────────────────────────────────────────────────
 async function fetchGame(id) {
   const url = `https://er.dakgg.io/api/v1/tournament/games?id=${id}`;
+  return fetchJson(url);
+}
+
+async function fetchJson(url) {
   const res = await fetch(url, {
+    signal: AbortSignal.timeout(30000),
     headers: {
       'Accept': 'application/json',
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
@@ -78,7 +68,7 @@ async function fetchGame(id) {
   });
   if (!res.ok) {
     if (res.status === 404) return null;
-    throw new Error(`HTTP ${res.status} for game ${id}`);
+    throw new Error(`HTTP ${res.status} from tournament source`);
   }
   return res.json();
 }
@@ -112,6 +102,8 @@ function extractCompositions(data) {
       userNum: p.userNum,
       nickname: p.nickname,
       characterNum: p.characterNum,
+      bestWeapon: p.bestWeapon,
+      traitFirstCore: p.traitFirstCore,
       playerKill: p.playerKill,
       playerAssistant: p.playerAssistant,
       gameRank: p.gameRank,
@@ -150,6 +142,8 @@ function extractCompositions(data) {
       players: team.players.map(p => ({
         nickname: p.nickname,
         characterNum: p.characterNum,
+        weaponCode: p.bestWeapon,
+        core: p.traitFirstCore,
         kills: p.playerKill,
         assists: p.playerAssistant,
       })),
@@ -157,42 +151,39 @@ function extractCompositions(data) {
   }
 
   // Sort by placement
+  if (!compositions.length || compositions.some(row => row.players.length !== 3
+    || new Set(row.characterNums).size !== 3 || !Number.isSafeInteger(row.placement)
+    || row.placement < 1 || row.placement > 8)) throw new Error('Invalid tournament squad results');
   compositions.sort((a, b) => a.placement - b.placement);
   return compositions;
 }
 
 // ── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
+  if (autoMode) {
+    const discovered = await discoverTournamentGames(async url => {
+      const data = await fetchJson(url);
+      if (delayMs > 0) await sleep(delayMs);
+      return data;
+    }, new Set(existing.filter(row => row.players?.length === 3 && row.players.every(p => p.weaponCode !== undefined && p.core !== undefined)).map(row => row.gameId)));
+    gameIds = discovered.games.map(row => row.gameId);
+    console.log(`Tournament listing: season ${discovered.season}, ${gameIds.length} uncollected games`);
+  }
   const allResults = [];
   let fetched = 0;
   let skipped = 0;
   let errors = 0;
 
-  // In --auto mode the list is not known up front: walk forward until the misses
-  // pile up past the gap tolerance.
-  let cursor = autoStart;
-  let consecutiveMisses = 0;
-  const idQueue = autoMode ? null : gameIds;
-
-  for (let index = 0; ; index += 1) {
-    let id;
-    if (idQueue) {
-      if (index >= idQueue.length) break;
-      id = idQueue[index];
-    } else {
-      if (consecutiveMisses >= gapTolerance) break;
-      id = cursor;
-      cursor += 1;
-    }
+  for (const id of gameIds) {
     process.stdout.write(`  Game ${id} ... `);
     try {
       const data = await fetchGame(id);
       if (!data) {
         console.log('not found (skipped)');
         skipped++;
-        consecutiveMisses += 1;
+
       } else {
-        consecutiveMisses = 0;
+
         const comps = extractCompositions(data);
         if (!comps) {
           console.log('no game data (skipped)');
@@ -213,6 +204,7 @@ async function main() {
 
   console.log(`\nSummary: ${fetched} games fetched, ${skipped} skipped, ${errors} errors`);
   console.log(`Total team records: ${allResults.length}`);
+  if (errors) throw new Error(`${errors} tournament requests failed; previous data retained, retry on the next run`);
 
   // Print preview table
   if (allResults.length > 0) {
@@ -229,7 +221,9 @@ async function main() {
   // run would be pointless traffic and would lose games the API has since dropped.
   const outPath = outPathResolved;
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  const merged = autoMode ? [...existing, ...allResults.filter(r => !knownIds.has(r.gameId))] : allResults;
+  const mergedByTeam = new Map((autoMode ? existing : []).map(row => [`${row.gameId}:${row.teamNumber}`, row]));
+  for (const row of allResults) mergedByTeam.set(`${row.gameId}:${row.teamNumber}`, row);
+  const merged = [...mergedByTeam.values()];
   merged.sort((a, b) => (a.gameId - b.gameId) || (a.placement - b.placement));
   fs.writeFileSync(outPath, JSON.stringify(merged, null, 2), "utf8");
   const gamesSaved = new Set(merged.map(r => r.gameId)).size;
