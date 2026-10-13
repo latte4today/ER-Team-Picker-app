@@ -115,11 +115,11 @@ function computeTeamMetricProfile(team) {
   return { total, average };
 }
 
-export function teamMetricTags(team) {
+export function teamMetricTags(team, { omitDamage = false } = {}) {
   const { total, average } = teamMetricProfile(team);
   const tags = [];
-  if (total.damage >= 11) tags.push(t("metric.tag.damageHigh"));
-  if (total.damage <= 9) tags.push(t("metric.tag.damageLow"));
+  if (!omitDamage && total.damage >= 11) tags.push(t("metric.tag.damageHigh"));
+  if (!omitDamage && total.damage <= 9) tags.push(t("metric.tag.damageLow"));
   if (total.defense >= 9) tags.push(t("metric.tag.defenseHigh"));
   if (total.defense <= 6) tags.push(t("metric.tag.defenseLow"));
   if (total.crowdControl >= 9) tags.push(t("metric.tag.ccHigh"));
@@ -130,8 +130,9 @@ export function teamMetricTags(team) {
   return tags;
 }
 
-export function metricCompositionReason(team) {
-  const tags = teamMetricTags(team);
+export function metricCompositionReason(team, options = {}) {
+  const tags = teamMetricTags(team, options);
+  if (options.omitDamage && tags.length === 0) return '';
   if (tags.length === 0) return t("metric.reason.balanced");
   return t("metric.reason.tags", { tags: tags.slice(0, 3).join(" · ") });
 }

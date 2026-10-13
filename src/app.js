@@ -16,7 +16,7 @@ import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effectiveCombatTeam, updateTournamentStats } from "./recommender.js";
 import { tournamentBuilds as bundledTournamentBuilds, tournamentTotalGames as bundledTournamentTotalGames, tournamentLatestMatchAt as bundledTournamentLatestMatchAt } from "./tournamentMeta.js";
 import { matchupGuidance } from "./matchupGuidance.js";
-import { teamConcepts } from "./teamConcepts.js";
+import { teamCombatPlan } from "./teamConcepts.js";
 import {
   officialCandidateStatsByTier as bundledOfficialCandidateStatsByTier,
   officialCompositionStatsByTier as bundledOfficialCompositionStatsByTier,
@@ -1144,7 +1144,8 @@ function compactReasonLabels(reasons = []) {
   if (/앞라인|탱커|진입|받아치|front.?line|\btank\b|initiat|counter.fight/i.test(joined)) add(t("compact.frontlineNeeded"));
   // A CC/engage shortage in another reason is not a damage shortage.
   const warningTemplates = ['tankLowDamageWithAvg', 'tankLowDamage', 'utilityOverDamage',
-    'aggravatesDamageLack', 'tankLowDamagePenalty', 'supporterLowDamage'].map(key =>
+    'aggravatesDamageLack', 'tankLowDamagePenalty', 'supporterLowDamage',
+    'allLowDamage', 'tooManyLowDamage', 'notEnoughDamageDealer', 'tankSupportNoDamage'].map(key =>
     t(`recommender.reason.${key}`, { name: '__name__', nameSubject: '__name__', nameObject: '__name__', avgDamage: '__value__' })
       .split(/__name__|__value__/).filter(part => part.trim()));
   const damageShortage = reasons.some(reason =>
@@ -1155,7 +1156,7 @@ function compactReasonLabels(reasons = []) {
   if (/CC|이니시|교전 시작|진입각|initiat|engage/.test(joined)) add(t("compact.initiateNeeded"));
   if (/보호|세이브|받아치|안정|protect|peel|alive|stable|counter.fight/.test(joined)) add(t("compact.peelNeeded"));
   if (/사거리|포킹|대치|poke|standoff|range/.test(joined)) add(t("compact.pokeNeeded"));
-  if (/데미지 기여가 충분|화력을 보탤|화력을 채워|high.damage|fills.*firepower|fills.*damage/.test(joined)) add(t("compact.damageOk"));
+  if (!damageShortage && /데미지 기여가 충분|화력을 보탤|화력을 채워|high.damage|fills.*firepower|fills.*damage/.test(joined)) add(t("compact.damageOk"));
   if (damageShortage) add(t("compact.damageCaution"));
   if (/평가 데이터|좋게 기록|랭커|전적|feedback.*data|ranker|tournament|good synergy/.test(joined)) add(t("compact.dataOk"));
   if (/감점|낮게 잡힐|위험|penalty|drag.*score|lower.*score/.test(joined)) add(t("compact.caution"));
@@ -1170,18 +1171,23 @@ function renderReasonTag(label) {
   return `<span class="${negative ? 'tag-negative' : 'tag-neutral'}">${label}</span>`;
 }
 
-function renderTeamConcepts(team, cores = {}) {
-  if (team.length !== 3) return '';
+function displayCombatTeam(team, cores = {}) {
   const tier = tierSelect.value;
   const ownCores = Object.fromEntries(team.map(character => [character.variantId,
     cores[character.variantId] ?? defaultCoreForVariant(character.variantId, tier)?.core]));
-  const concepts = teamConcepts(effectiveCombatTeam(team, ownCores, tier));
-  if (!concepts.length) return '';
+  return effectiveCombatTeam(team, ownCores, tier);
+}
+
+function renderTeamConcepts(team, cores = {}) {
+  if (team.length !== 3) return '';
+  const { primary, supports } = teamCombatPlan(displayCombatTeam(team, cores));
+  if (!primary) return '';
   return `<section class="team-concepts" aria-label="${t('concept.title')}">
     <strong>${t('concept.title')}</strong>
-    <div class="recommendation-tags">${concepts.map(key => `<span class="tag-concept">${t(`concept.${key}.label`)}</span>`).join('')}</div>
+    <div class="recommendation-tags"><span class="tag-concept">${t(`concept.${primary}.label`)}</span></div>
+    ${supports.length ? `<div class="team-concept-support"><span>${t('concept.supportTitle')}</span> ${supports.map(key => `<span class="tag-neutral">${t(`concept.support.${key}`)}</span>`).join(' ')}</div>` : ''}
     <details class="team-concept-plan"><summary>${t("concept.planTitle")}</summary>
-    ${concepts.map(key => `<p>${t(`concept.${key}.plan`)}</p>`).join('')}</details></section>`;
+    <p>${t(`concept.${primary}.plan`)}</p></details></section>`;
 }
 
 function compactReasonText(reasons = []) {
@@ -1694,14 +1700,14 @@ function unionComboScore(combo, context) {
 function unionComboReason(combo, reasons) {
   const rolesInCombo = new Set(combo.map((character) => character.role));
   const tags = new Set(combo.flatMap((character) => character.tags));
-  const metricTags = teamMetricTags(combo);
+  const metricTags = teamMetricTags(combo, { omitDamage: true });
   const backlineCount = combo.filter((character) => character.role === "ranged" || character.role === "mage").length;
   const meleeCount = combo.filter((character) => character.role === "bruiser" || character.role === "assassin" || character.role === "frontline").length;
   const hasLeni = combo.some((character) => character.characterId === "leni");
   const hasInitiate = tags.has("initiate");
   const hasCc = tags.has("cc") || metricTags.includes(t("metric.tag.ccHigh"));
   const hasPeel = tags.has("peel") || tags.has("shield") || tags.has("healing") || metricTags.includes(t("metric.tag.utilityHigh"));
-  const hasDamage = metricTags.includes(t("metric.tag.damageHigh"));
+  const hasDamage = teamMetricTags(combo).includes(t("metric.tag.damageHigh"));
 
   if (hasLeni && meleeCount >= 2 && (hasInitiate || hasCc || hasPeel)) {
     return t("union.reason.leniSustain");
@@ -1768,6 +1774,8 @@ function unionSubjectName(character) {
 }
 
 function unionComboPlan(combo) {
+  const { primary } = teamCombatPlan(displayCombatTeam(combo));
+  if (primary) return t(`concept.${primary}.plan`);
   const tags = new Set(combo.flatMap((character) => character.tags));
   const { total, average } = teamMetricProfile(combo);
   const backlineCount = combo.filter((character) => character.role === "ranged" || character.role === "mage").length;

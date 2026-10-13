@@ -2700,12 +2700,10 @@ function explain(candidate, selected, scores, explainTier = "all") {
     }
   }
 
-  if (scores.metricBalance >= 0.65) {
-    reasons.push(t("recommender.reason.metricPositive", { reason: metricCompositionReason([...selected, candidate]) }));
-  }
-
-  if (scores.metricBalance <= -0.75) {
-    reasons.push(t("recommender.reason.metricNegative", { reason: metricCompositionReason([...selected, candidate]) }));
+  if (scores.metricBalance >= 0.65 || scores.metricBalance <= -0.75) {
+    // Skill ratings describe tools; leave damage claims to the core-adjusted budget.
+    const reason = metricCompositionReason([...selected, candidate], { omitDamage: true });
+    if (reason) reasons.push(t("recommender.reason.metricCapabilities", { reason }));
   }
 
   if (scores.compositionGuide >= 0.75) {
