@@ -2908,7 +2908,7 @@ function openDashboardDetails(card, body) {
   dashboardDetailOwner = card;
   const title = card.dataset.dashboardCharacter
     ? card.querySelector('.rank-card-main strong').textContent
-    : [...card.querySelectorAll('.combo-face strong')].map(node => node.textContent).join(' + ');
+    : [...card.querySelector('summary').querySelectorAll('.combo-face strong')].map(node => node.textContent).join(' + ');
   document.querySelector('#dashboard-detail-title').textContent = title;
   const content = document.querySelector('#dashboard-detail-content');
   content.innerHTML = body.innerHTML;
@@ -2960,46 +2960,71 @@ function renderDashboardCharacterDetails(id) {
     DamageTaken: row.avgDamageFromPlayer ? Math.round(row.avgDamageFromPlayer).toLocaleString() : '—',
     Cc: Number.isFinite(row.avgCcTime) ? `${Math.round(row.avgCcTime)}s` : '—', Votes: row.votes,
   };
-  return `<p>${characterSubtitle(character)}</p>
-    ${signature !== signatureKey ? `<p>${signature}</p>` : ''}
-    <div class="dashboard-core"><strong>${t('rank.coreTitle')}</strong> ${traitChip(character.variantId, tierSelect.value)}</div>
-    <dl class="rank-detail-stats">${Object.entries(values).map(([key, value]) => `<div><dt>${t(`rank.detail${key}`)}</dt><dd>${value}</dd></div>`).join('')}</dl>
-    ${cores.length ? `<h3>${t('rank.coreComparison')}</h3><table class="dashboard-core-table"><thead><tr>
+  const overview = `<div class="detail-identity"><img src="${character.image}" alt=""><div><strong>${roleLabel(character.role)}</strong><small>${t(`weapon.${character.weapon}`)}</small></div>
+    <div class="detail-identity-core">${traitChip(character.variantId, tierSelect.value)}</div></div>
+    ${signature !== signatureKey ? `<p class="detail-brief">${signature}</p>` : ''}
+    <dl class="detail-stat-grid">${Object.entries(values).map(([key, value]) => `<div><dt>${t(`rank.detail${key}`)}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
+  const coreDetails = `${cores.length ? `<table class="dashboard-core-table"><thead><tr>
       <th>${t('rank.coreName')}</th><th>${t('rank.detailGames')}</th><th>${t('rank.detailTop3')}</th><th>${t('rank.detailWin')}</th>
       </tr></thead><tbody>${cores.map(core => `<tr><td>${traitChip(character.variantId, tierSelect.value, core)}</td>
       <td>${core.games.toLocaleString()}</td><td>${(core.top3Rate*100).toFixed(1)}%</td><td>${(core.winRate*100).toFixed(1)}%</td></tr>`).join('')}</tbody></table>` : ''}
-    <h3>${t('rank.observedTeams')}</h3>
-    ${observed.length ? observed.map(row => {
+    <p class="detail-section-note">${t('rank.coreComparison')}</p>`;
+  const teams = `${observed.length ? observed.map(row => {
       const members = compositionMembers(row);
       return `<details class="dashboard-observed-team" data-dashboard-team="${members.join('|')}" data-dashboard-inline="true"><summary>
         <div class="combo-members">${members.map(renderCharacterFace).join('')}</div>
         <p>${compositionDetailText({ ...row, source: 'official' })}</p>
-        <span class="dashboard-expand-hint">${t('rank.teamDetails')} <span aria-hidden="true">⌄</span></span>
+        <span class="dashboard-expand-hint">${t('detail.plan')} <span aria-hidden="true">⌄</span></span>
         </summary><div class="dashboard-detail-body"></div></details>`;
     }).join('') : `<p>${t('rank.noObservedTeams')}</p>`}`;
+  return renderDetailPages([
+    {label:t('detail.overview'),html:overview}, {label:t('detail.cores'),html:coreDetails},
+    {label:t('detail.teams'),html:teams},
+  ]);
 }
 
-function renderDashboardTeamDetails(ids) {
+function renderDetailPages(pages) {
+  return `<div class="detail-pages"><nav class="detail-page-nav" aria-label="${t('recommend.details')}">
+    ${pages.map((page,index)=>`<button type="button" data-detail-page="${index}" aria-pressed="${index===0}">${page.label}</button>`).join('')}</nav>
+    ${pages.map((page,index)=>`<section class="detail-page" aria-label="${page.label}" data-detail-panel="${index}"${index ? ' hidden' : ''}>${page.html}</section>`).join('')}</div>`;
+}
+
+dashboardDetailDialog.addEventListener('click', event => {
+  const button = event.target.closest('[data-detail-page]');
+  if (!button) return;
+  const pages = button.closest('.detail-pages');
+  pages.querySelectorAll('.detail-page-nav button').forEach(tab => tab.setAttribute('aria-pressed', String(tab===button)));
+  pages.querySelectorAll('.detail-page').forEach(panel => { panel.hidden = panel.dataset.detailPanel !== button.dataset.detailPage; });
+});
+
+function renderDashboardTeamDetails(ids, { inline = false } = {}) {
   const team = ids.map(characterById).filter(Boolean);
   if (team.length !== 3) return '';
   const cores = Object.fromEntries(team.map(c => [c.variantId, defaultCoreForVariant(c.variantId, tierSelect.value)?.core]));
   const evaluation = evaluateCandidate(ids.slice(0, 2), ids[2], tierSelect.value,
     remoteFeedback, currentRelationshipRows(), cores);
   const reasons = evaluation?.reasons ?? [];
-  return `${renderTeamConcepts(team, cores)}
-    <p class="dashboard-team-plan">${unionComboPlan(team)}</p>
-    <strong>${t('rank.memberRoles')}</strong>
-    <div class="dashboard-member-roles">${team.map(c => {
+  const plan = teamCombatPlan(displayCombatTeam(team, cores));
+  const overview = `<div class="detail-plan-banner"><span>${t('concept.title')}</span>
+    ${plan.primary ? `<h3>${t(`concept.${plan.primary}.label`)}</h3>` : ''}
+    <p>${plan.primary ? t(`concept.${plan.primary}.plan`) : unionComboPlan(team)}</p></div>
+    ${plan.supports.length ? `<div class="detail-support-strip">${plan.supports.map(key=>`<span>${t(`concept.support.${key}`)}</span>`).join('')}</div>` : ''}
+    <div class="detail-diagnosis"><strong>${t('feedback.diagnosis')}</strong>
+    <div class="recommendation-tags">${compactReasonLabels(reasons).map(renderReasonTag).join('')}</div></div>
+    <details class="detail-evidence"><summary>${t('recommend.details')}</summary>
+    <ul class="dashboard-team-reasons">${reasons.slice(0,6).map(reason=>`<li>${reason}</li>`).join('')}</ul></details>`;
+  const roles = `<div class="detail-role-list">${team.map(c => {
       const key = `recommender.signatureReasons.${c.characterId}`;
       const signature = t(key);
-      return `<div><strong>${t(`char.${c.id}`)} · ${t(`weapon.${c.weapon}`)}</strong>
-      <p>${characterSubtitle(c)}</p>${signature !== key ? `<p>${signature}</p>` : ''}
-      <div class="dashboard-core"><span>${t('rank.coreTitle')}</span> ${traitChip(c.variantId, tierSelect.value)}</div></div>`;
-    }).join('')}</div>
-    <strong>${t('feedback.diagnosis')}</strong>
-    <div class="recommendation-tags">${compactReasonLabels(reasons).map(renderReasonTag).join('')}</div>
-    <ul class="dashboard-team-reasons">${reasons.slice(0, 6).map(reason => `<li>${reason}</li>`).join('')}</ul>
-    ${renderMatchupGuidance(team, cores)}`;
+      return `<article class="detail-role-card"><div class="detail-role-head"><img src="${c.image}" alt=""><div><strong>${t(`char.${c.id}`)}</strong><small>${characterSubtitle(c)}</small></div>${traitChip(c.variantId,tierSelect.value)}</div>
+      ${signature !== key ? `<p>${signature}</p>` : ''}</article>`;
+    }).join('')}</div>`;
+  const matchup = renderMatchupGuidance(team, cores);
+  if (inline) return overview + roles + matchup;
+  return `<div class="detail-team-roster">${ids.map(renderCharacterFace).join('')}</div>` + renderDetailPages([
+    {label:t('detail.plan'),html:overview}, {label:t('detail.roles'),html:roles},
+    {label:t('detail.matchups'),html:matchup},
+  ]);
 }
 
 function renderHomeDashboard() {
@@ -4127,7 +4152,7 @@ dashboardDetailDialog.addEventListener("toggle", (event) => {
   if (!card.open || card.dataset.dashboardInline !== 'true') return;
   const body = card.querySelector('.dashboard-detail-body');
   if (!body || body.childElementCount) return;
-  body.innerHTML = renderDashboardTeamDetails(card.dataset.dashboardTeam.split('|'));
+  body.innerHTML = renderDashboardTeamDetails(card.dataset.dashboardTeam.split('|'), { inline: true });
 }, true);
 recommendations.addEventListener("pointerdown", trackDetailsSummaryPointer, true);
 recommendations.addEventListener("click", handleDetailsSummaryClick, true);

@@ -708,4 +708,10 @@ export const zhHans = {
   "rank.coreName": "核心",
   "rank.observedTeams": "使用此武器的实战阵容",
   "rank.noObservedTeams": "当前段位没有足够样本的阵容。",
+  "detail.overview": "概览",
+  "detail.cores": "核心",
+  "detail.teams": "阵容",
+  "detail.plan": "打法",
+  "detail.roles": "职责",
+  "detail.matchups": "对阵",
 };

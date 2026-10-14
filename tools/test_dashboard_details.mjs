@@ -45,11 +45,23 @@ assert.ok(state.isDashboardBackdrop({target:state.dashboardDetailDialog,clientX:
 assert.ok(!state.isDashboardBackdrop({target:state.dashboardDetailDialog,clientX:900,clientY:200}),
   'blank space inside the panel is not the backdrop');
 assert.ok(!state.isDashboardBackdrop({target:{},clientX:900,clientY:200}));
+let switchPage;
+state.dashboardDetailDialog={addEventListener:(_,handler)=>{switchPage=handler;}};
+const pageHandlerStart=source.indexOf("dashboardDetailDialog.addEventListener('click'",source.indexOf('function renderDetailPages('));
+vm.runInContext(source.slice(pageHandlerStart,source.indexOf('function renderDashboardTeamDetails(',pageHandlerStart)),state);
+const tabs=Array.from({length:3},(_,index)=>({dataset:{detailPage:String(index)},setAttribute:(_,value)=>{tabs[index].pressed=value;}}));
+const panels=Array.from({length:3},(_,index)=>({dataset:{detailPanel:String(index)},hidden:index!==0}));
+const pages={querySelectorAll:selector=>selector.includes('button')?tabs:panels};
+tabs[2].closest=()=>pages;
+switchPage({target:{closest:()=>tabs[2]}});
+assert.deepEqual(panels.map(panel=>panel.hidden),[true,true,false]);
+assert.deepEqual(tabs.map(tab=>tab.pressed),['false','false','true']);
 globalThis.localStorage={getItem:()=>null,setItem:()=>{}};globalThis.document={documentElement:{}};
 const {setLanguage,t}=await import('../src/i18n/index.js');
 for(const lang of ['ko','en','ja','zhHans','zhHant']){
   setLanguage(lang);
   for(const key of ['rank.characterDetails','rank.teamDetails','rank.coreTitle','rank.memberRoles',
-    'rank.coreComparison','rank.coreName','rank.observedTeams','rank.noObservedTeams'])assert.notEqual(t(key),key);
+    'rank.coreComparison','rank.coreName','rank.observedTeams','rank.noObservedTeams',
+    'detail.overview','detail.cores','detail.teams','detail.plan','detail.roles','detail.matchups'])assert.notEqual(t(key),key);
 }
 console.log('Dashboard detail regression passed: lazy open, exact weapon variants, cached reopen, nested disclosure isolation and five locales.');

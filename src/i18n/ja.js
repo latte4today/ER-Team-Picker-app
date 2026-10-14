@@ -708,4 +708,10 @@ export const ja = {
   "rank.coreName": "コア",
   "rank.observedTeams": "この武器で使われた編成",
   "rank.noObservedTeams": "このティアでは十分な試合数の編成が見つかりませんでした。",
+  "detail.overview": "概要",
+  "detail.cores": "コア",
+  "detail.teams": "編成",
+  "detail.plan": "立ち回り",
+  "detail.roles": "役割",
+  "detail.matchups": "相性",
 };
