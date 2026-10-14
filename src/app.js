@@ -2970,9 +2970,12 @@ function renderDashboardCharacterDetails(id) {
       <td>${core.games.toLocaleString()}</td><td>${(core.top3Rate*100).toFixed(1)}%</td><td>${(core.winRate*100).toFixed(1)}%</td></tr>`).join('')}</tbody></table>` : ''}
     <h3>${t('rank.observedTeams')}</h3>
     ${observed.length ? observed.map(row => {
-      const members = compositionMembers(row), team = members.map(characterById);
-      return `<section class="dashboard-observed-team"><div class="combo-members">${members.map(renderCharacterFace).join('')}</div>
-        <p>${compositionDetailText({ ...row, source: 'official' })}</p><p>${unionComboPlan(team)}</p></section>`;
+      const members = compositionMembers(row);
+      return `<details class="dashboard-observed-team" data-dashboard-team="${members.join('|')}" data-dashboard-inline="true"><summary>
+        <div class="combo-members">${members.map(renderCharacterFace).join('')}</div>
+        <p>${compositionDetailText({ ...row, source: 'official' })}</p>
+        <span class="dashboard-expand-hint">${t('rank.teamDetails')} <span aria-hidden="true">⌄</span></span>
+        </summary><div class="dashboard-detail-body"></div></details>`;
     }).join('') : `<p>${t('rank.noObservedTeams')}</p>`}`;
 }
 
@@ -4108,6 +4111,7 @@ recommendations.addEventListener("click", (event) => {
 });
 recommendations.addEventListener("toggle", (event) => {
   const card = event.target;
+  if (card.dataset.dashboardInline === 'true') return;
   if (!card.open || (!card.dataset.dashboardCharacter && !card.dataset.dashboardTeam)) return;
   const body = card.querySelector('.dashboard-detail-body');
   if (!body) return;
@@ -4117,6 +4121,13 @@ recommendations.addEventListener("toggle", (event) => {
       : renderDashboardTeamDetails(card.dataset.dashboardTeam.split('|'));
   }
   openDashboardDetails(card, body);
+}, true);
+dashboardDetailDialog.addEventListener("toggle", (event) => {
+  const card = event.target;
+  if (!card.open || card.dataset.dashboardInline !== 'true') return;
+  const body = card.querySelector('.dashboard-detail-body');
+  if (!body || body.childElementCount) return;
+  body.innerHTML = renderDashboardTeamDetails(card.dataset.dashboardTeam.split('|'));
 }, true);
 recommendations.addEventListener("pointerdown", trackDetailsSummaryPointer, true);
 recommendations.addEventListener("click", handleDetailsSummaryClick, true);

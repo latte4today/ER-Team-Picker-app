@@ -3,10 +3,12 @@ import fs from 'node:fs/promises';
 import vm from 'node:vm';
 const source=await fs.readFile(new URL('../src/app.js',import.meta.url),'utf8');
 let onToggle;
+let onInlineToggle;
 const calls=[];
 let opens=0;
 const state={
   recommendations:{addEventListener:(type,handler,capture)=>{assert.equal(type,'toggle');assert.equal(capture,true);onToggle=handler;}},
+  dashboardDetailDialog:{addEventListener:(type,handler,capture)=>{assert.equal(type,'toggle');assert.equal(capture,true);onInlineToggle=handler;}},
   renderDashboardCharacterDetails:id=>{calls.push(id);return '<p>Character</p>';},
   renderDashboardTeamDetails:ids=>{calls.push(ids);return '<p>Team</p>';},
   openDashboardDetails:()=>{opens++;},
@@ -23,6 +25,12 @@ assert.equal(opens,2,'cached details still open the separate reader each time');
 body.childElementCount=0;card.dataset={dashboardTeam:'rio:bow|seres:two_handed_sword|lucia:sniper_rifle'};
 onToggle({target:card});assert.deepEqual(Array.from(calls[1]),['rio:bow','seres:two_handed_sword','lucia:sniper_rifle']);
 card.dataset={};onToggle({target:card});assert.equal(calls.length,2,'nested concept disclosures do not trigger ranking analysis');
+body.childElementCount=0;
+card.dataset={dashboardInline:'true',dashboardTeam:'rio:bow|seres:two_handed_sword|lucia:sniper_rifle'};
+onInlineToggle({target:card});
+assert.equal(calls.length,3);
+assert.equal(opens,3,'inline team analysis does not open another drawer');
+onInlineToggle({target:card});assert.equal(calls.length,3,'inline reopen reuses the team explanation');
 let focused=false,closed=false;
 const owner={open:true,querySelector:()=>({focus:options=>{focused=options.preventScroll;}})};
 state.dashboardDetailOwner=owner;
