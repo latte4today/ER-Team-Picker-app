@@ -49,19 +49,25 @@ let switchPage;
 state.dashboardDetailDialog={addEventListener:(_,handler)=>{switchPage=handler;}};
 const pageHandlerStart=source.indexOf("dashboardDetailDialog.addEventListener('click'",source.indexOf('function renderDetailPages('));
 vm.runInContext(source.slice(pageHandlerStart,source.indexOf('function renderDashboardTeamDetails(',pageHandlerStart)),state);
-const tabs=Array.from({length:3},(_,index)=>({dataset:{detailPage:String(index)},setAttribute:(_,value)=>{tabs[index].pressed=value;}}));
-const panels=Array.from({length:3},(_,index)=>({dataset:{detailPanel:String(index)},hidden:index!==0}));
+const tabs=Array.from({length:4},(_,index)=>({dataset:{detailPage:String(index)},setAttribute:(_,value)=>{tabs[index].pressed=value;}}));
+const panels=Array.from({length:4},(_,index)=>({dataset:{detailPanel:String(index)},hidden:index!==0}));
 const pages={querySelectorAll:selector=>selector.includes('button')?tabs:panels};
 tabs[2].closest=()=>pages;
 switchPage({target:{closest:()=>tabs[2]}});
-assert.deepEqual(panels.map(panel=>panel.hidden),[true,true,false]);
-assert.deepEqual(tabs.map(tab=>tab.pressed),['false','false','true']);
-globalThis.localStorage={getItem:()=>null,setItem:()=>{}};globalThis.document={documentElement:{}};
+assert.deepEqual(panels.map(panel=>panel.hidden),[true,true,false,true]);
+assert.deepEqual(tabs.map(tab=>tab.pressed),['false','false','true','false']);
+tabs[3].closest=()=>pages;
+switchPage({target:{closest:()=>tabs[3]}});
+assert.deepEqual(panels.map(panel=>panel.hidden),[true,true,true,false]);
+const languageStorage=new Map();
+globalThis.localStorage={getItem:key=>languageStorage.get(key)??null,setItem:(key,value)=>languageStorage.set(key,value)};globalThis.document={documentElement:{}};
 const {setLanguage,t}=await import('../src/i18n/index.js');
 for(const lang of ['ko','en','ja','zhHans','zhHant']){
   setLanguage(lang);
   for(const key of ['rank.characterDetails','rank.teamDetails','rank.coreTitle','rank.memberRoles',
     'rank.coreComparison','rank.coreName','rank.observedTeams','rank.noObservedTeams',
-    'detail.overview','detail.cores','detail.teams','detail.plan','detail.roles','detail.matchups'])assert.notEqual(t(key),key);
+    'detail.overview','detail.cores','detail.teams','detail.plan','detail.roles','detail.matchups',
+    'detail.synergies','rank.synergyBasis','rank.synergyPositive','rank.synergyNegative',
+    'rank.synergyImprovement','rank.synergyDecline','rank.synergySamples','rank.noSynergy'])assert.notEqual(t(key),key);
 }
 console.log('Dashboard detail regression passed: lazy open, exact weapon variants, cached reopen, nested disclosure isolation and five locales.');

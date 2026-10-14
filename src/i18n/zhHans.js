@@ -728,4 +728,12 @@ export const zhHans = {
   "detail.roleDescription.assassin": "队友吸引敌人注意后，抓住空隙集火关键目标。",
   "detail.roleDescription.support": "与需要保护的队友一起行动，配合敌人的攻击时机提供支援。",
   "detail.roleDescription.generic": "与队友统一攻击目标，保持能够相互配合的距离。",
+  "detail.synergies": "协同",
+  "rank.synergyBasis": "同队对局数据 · 角色级别 · 全段位",
+  "rank.synergyPositive": "正向协同角色",
+  "rank.synergyNegative": "负向协同角色",
+  "rank.synergyImprovement": "平均排名改善 {value}",
+  "rank.synergyDecline": "平均排名下降 {value}",
+  "rank.synergySamples": "样本 {count}",
+  "rank.noSynergy": "暂无已确认的关系。",
 };

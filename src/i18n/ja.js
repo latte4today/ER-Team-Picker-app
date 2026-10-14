@@ -728,4 +728,12 @@ export const ja = {
   "detail.roleDescription.assassin": "味方が敵の注意を引いた隙に、重要な敵を集中攻撃しましょう。",
   "detail.roleDescription.support": "守る味方と一緒に動き、敵の攻撃に合わせて支援能力を使いましょう。",
   "detail.roleDescription.generic": "味方と攻撃対象を合わせ、互いに支援できる距離を保ちましょう。",
+  "detail.synergies": "シナジー",
+  "rank.synergyBasis": "同じチームでの戦績 · キャラクター単位 · 全ティア",
+  "rank.synergyPositive": "相性の良い実験体",
+  "rank.synergyNegative": "相性の悪い実験体",
+  "rank.synergyImprovement": "平均順位が{value}改善",
+  "rank.synergyDecline": "平均順位が{value}悪化",
+  "rank.synergySamples": "標本 {count}",
+  "rank.noSynergy": "確認された関係はありません。",
 };

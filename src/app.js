@@ -17,6 +17,8 @@ import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effect
 import { tournamentBuilds as bundledTournamentBuilds } from "./tournamentMeta.js";
 import { matchupGuidance } from "./matchupGuidance.js";
 import { teamCombatPlan } from "./teamConcepts.js";
+import { characterSynergies } from "./characterSynergies.js";
+import { pairSynergyLiftMeta } from "./pairSynergyLift.js";
 import { characterDescription } from "./characterDescriptions.js";
 import { observedCharacterCompositions } from "./characterCompositions.js";
 import { loadRosterPresets, saveRosterPresets, escapePresetName } from "./rosterPresets.js";
@@ -2980,7 +2982,24 @@ function renderDashboardCharacterDetails(id) {
   return renderDetailPages([
     {label:t('detail.overview'),html:overview}, {label:t('detail.cores'),html:coreDetails},
     {label:t('detail.teams'),html:teams},
+    {label:t('detail.synergies'),html:renderCharacterSynergies(character)},
   ]);
+}
+
+function renderCharacterSynergies(character) {
+  const characters = new Map(characterVariants.map(c => [c.characterId,c]));
+  const groups = characterSynergies(character.characterId, officialPairSynergyLift,
+    new Set(characters.keys()), { minSamples: pairSynergyLiftMeta.minSamples });
+  return `<p class="detail-section-note">${t('rank.synergyBasis')}</p>` +
+    ['positive','negative'].map(kind => `<section class="detail-synergy-group ${kind}">
+      <h3>${t(kind === 'positive' ? 'rank.synergyPositive' : 'rank.synergyNegative')}</h3>
+      ${groups[kind].length ? `<ul>${groups[kind].map(row => {
+        const partner = characters.get(row.characterId);
+        return `<li><img src="${partner.image}" alt="" loading="lazy"><div><strong>${t(`char.${partner.id}`)}</strong>
+          <small>${t(kind === 'positive' ? 'rank.synergyImprovement' : 'rank.synergyDecline',
+            {value:Math.abs(row.lift).toFixed(2)})} · ${t('rank.synergySamples',{count:row.games.toLocaleString()})}</small></div></li>`;
+      }).join('')}</ul>` : `<p>${t('rank.noSynergy')}</p>`}
+    </section>`).join('');
 }
 
 function renderDetailPages(pages) {
