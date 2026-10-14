@@ -1356,15 +1356,26 @@ h2 {
 
 .combo-section { grid-template-rows: auto minmax(0, 1fr); }
 .combo-card > summary, .rank-card > summary { list-style: none; cursor: pointer; }
+details.combo-card, details.rank-card { display: block; }
 .combo-card > summary::-webkit-details-marker, .rank-card > summary::-webkit-details-marker { display: none; }
 .combo-card > summary:focus-visible, .rank-card > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .dashboard-expand-hint { display: block; margin-top: 5px; font-size: 11px; color: var(--accent-strong); }
 .dashboard-expand-hint > span { display: inline-block; }
 details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg); }
-.rank-card[open] { grid-column: 1 / -1; border-color: var(--accent); }
+.rank-card[open] { border-color: var(--accent); }
 .rank-card, .combo-card { align-self: start; }
 .dashboard-detail-body { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px; font-size: 12px; line-height: 1.6; }
 .dashboard-detail-body:empty { display: none; }
+.rank-card > .dashboard-detail-body, .combo-card > .dashboard-detail-body { display: none; }
+.dashboard-detail-dialog { position: fixed; inset: 0 0 0 auto; width: min(680px, 100vw); max-width: 100vw; height: 100dvh; max-height: 100dvh; margin: 0; padding: 20px; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-radius: 12px 0 0 12px; overflow: hidden; box-shadow: -12px 0 45px rgba(0,0,0,.35); }
+.dashboard-detail-dialog[open] { display: flex; flex-direction: column; animation: dashboard-slide-in 180ms ease-out; }
+@keyframes dashboard-slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .dashboard-detail-dialog[open] { animation: none; } }
+.dashboard-detail-dialog::backdrop { background: rgba(2,4,10,.65); }
+.dashboard-modal-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; }
+.dashboard-modal-header h2 { margin: 0; font-size: 18px; line-height: 1.4; }
+.dashboard-modal-header button { flex-shrink: 0; }
+.dashboard-modal-content { min-height: 0; overflow: auto; padding-right: 8px; }
 .dashboard-detail-body p { margin: 6px 0; }
 .dashboard-core { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; }
 .dashboard-member-roles { display: grid; gap: 8px; margin: 8px 0 12px; }
@@ -1519,7 +1530,7 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
   gap: 8px;
   align-content: start;
   align-items: stretch;
-  grid-auto-rows: minmax(70px, auto);
+  grid-auto-rows: max-content;
   min-height: 0;
   overflow: auto;
   padding-right: 4px;
