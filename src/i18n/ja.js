@@ -704,4 +704,8 @@ export const ja = {
   "rank.teamDetails": "立ち回り・詳細分析を見る",
   "rank.coreTitle": "推奨コア",
   "rank.memberRoles": "各メンバーの役割",
+  "rank.coreComparison": "コア別の戦績",
+  "rank.coreName": "コア",
+  "rank.observedTeams": "この武器で使われた編成",
+  "rank.noObservedTeams": "このティアでは十分な試合数の編成が見つかりませんでした。",
 };

@@ -786,4 +786,8 @@ export const ko = {
   "rank.teamDetails": "조합 운영·상세 분석 보기",
   "rank.coreTitle": "추천 코어",
   "rank.memberRoles": "캐릭터별 역할",
+  "rank.coreComparison": "코어별 전적",
+  "rank.coreName": "코어",
+  "rank.observedTeams": "이 무기로 함께 쓰인 조합",
+  "rank.noObservedTeams": "현재 티어에서 충분한 표본이 있는 조합을 찾지 못했습니다.",
 };

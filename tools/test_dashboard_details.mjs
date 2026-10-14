@@ -31,10 +31,17 @@ vm.runInContext(source.slice(source.indexOf('function closeDashboardDetails('),s
 state.closeDashboardDetails();
 assert.ok(closed&&focused&&!owner.open);
 assert.equal(state.dashboardDetailOwner,null,'close restores the originating card and focus without scrolling');
+state.dashboardDetailDialog.getBoundingClientRect=()=>({left:680,right:1366,top:0,bottom:768});
+vm.runInContext(source.slice(source.indexOf('function isDashboardBackdrop('),source.indexOf("dashboardDetailDialog.addEventListener('pointerdown'")),state);
+assert.ok(state.isDashboardBackdrop({target:state.dashboardDetailDialog,clientX:300,clientY:200}));
+assert.ok(!state.isDashboardBackdrop({target:state.dashboardDetailDialog,clientX:900,clientY:200}),
+  'blank space inside the panel is not the backdrop');
+assert.ok(!state.isDashboardBackdrop({target:{},clientX:900,clientY:200}));
 globalThis.localStorage={getItem:()=>null,setItem:()=>{}};globalThis.document={documentElement:{}};
 const {setLanguage,t}=await import('../src/i18n/index.js');
 for(const lang of ['ko','en','ja','zhHans','zhHant']){
   setLanguage(lang);
-  for(const key of ['rank.characterDetails','rank.teamDetails','rank.coreTitle','rank.memberRoles'])assert.notEqual(t(key),key);
+  for(const key of ['rank.characterDetails','rank.teamDetails','rank.coreTitle','rank.memberRoles',
+    'rank.coreComparison','rank.coreName','rank.observedTeams','rank.noObservedTeams'])assert.notEqual(t(key),key);
 }
 console.log('Dashboard detail regression passed: lazy open, exact weapon variants, cached reopen, nested disclosure isolation and five locales.');
