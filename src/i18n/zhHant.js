@@ -700,4 +700,8 @@ export const zhHant = {
   "recommender.reason.metricCapabilities": "火力以外的交戰特徵：{reason}",
   "preset.sharedHint": "陣容配置與聯合組隊共用預設。儲存或刪除會同步更新兩個列表。",
   "union.presetTooLarge": "聯合組隊每位玩家最多選擇15項。請將此預設縮減到15項以內並儲存後再載入。",
+  "rank.characterDetails": "查看定位、核心與戰績",
+  "rank.teamDetails": "查看打法與詳細分析",
+  "rank.coreTitle": "推薦核心",
+  "rank.memberRoles": "各角色職責",
 };

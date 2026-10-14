@@ -1354,6 +1354,24 @@ h2 {
   min-height: 0;
 }
 
+.combo-section { grid-template-rows: auto minmax(0, 1fr); }
+.combo-card > summary, .rank-card > summary { list-style: none; cursor: pointer; }
+.combo-card > summary::-webkit-details-marker, .rank-card > summary::-webkit-details-marker { display: none; }
+.combo-card > summary:focus-visible, .rank-card > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.dashboard-expand-hint { display: block; margin-top: 5px; font-size: 11px; color: var(--accent-strong); }
+.dashboard-expand-hint > span { display: inline-block; }
+details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg); }
+.rank-card[open] { grid-column: 1 / -1; border-color: var(--accent); }
+.rank-card, .combo-card { align-self: start; }
+.dashboard-detail-body { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px; font-size: 12px; line-height: 1.6; }
+.dashboard-detail-body:empty { display: none; }
+.dashboard-detail-body p { margin: 6px 0; }
+.dashboard-core { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; }
+.dashboard-member-roles { display: grid; gap: 8px; margin: 8px 0 12px; }
+.dashboard-member-roles > div { padding: 8px; background: var(--subtle-tile); border-radius: 6px; }
+.dashboard-team-reasons { padding-left: 18px; margin: 8px 0; }
+.dashboard-team-reasons li { margin: 6px 0; }
+
 .combo-section h3,
 .rank-section h3 {
   color: var(--ink);

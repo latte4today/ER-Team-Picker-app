@@ -700,4 +700,8 @@ export const zhHans = {
   "recommender.reason.metricCapabilities": "火力以外的交战特征：{reason}",
   "preset.sharedHint": "阵容配置与联合组队共享预设。保存或删除会同步更新两个列表。",
   "union.presetTooLarge": "联合组队每位玩家最多选择15项。请将此预设缩减到15项以内并保存后再加载。",
+  "rank.characterDetails": "查看定位、核心与战绩",
+  "rank.teamDetails": "查看打法与详细分析",
+  "rank.coreTitle": "推荐核心",
+  "rank.memberRoles": "各角色职责",
 };
