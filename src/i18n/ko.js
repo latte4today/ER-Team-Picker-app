@@ -790,4 +790,10 @@ export const ko = {
   "rank.coreName": "코어",
   "rank.observedTeams": "이 무기로 함께 쓰인 조합",
   "rank.noObservedTeams": "현재 티어에서 충분한 표본이 있는 조합을 찾지 못했습니다.",
+  "detail.overview": "요약",
+  "detail.cores": "코어",
+  "detail.teams": "조합",
+  "detail.plan": "운영",
+  "detail.roles": "역할",
+  "detail.matchups": "상성",
 };

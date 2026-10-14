@@ -708,4 +708,10 @@ export const en = {
   "rank.coreName": "Core",
   "rank.observedTeams": "Observed teams with this weapon",
   "rank.noObservedTeams": "No teams with enough games were found for this tier.",
+  "detail.overview": "Overview",
+  "detail.cores": "Cores",
+  "detail.teams": "Teams",
+  "detail.plan": "Game plan",
+  "detail.roles": "Roles",
+  "detail.matchups": "Matchups",
 };

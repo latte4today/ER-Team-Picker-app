@@ -708,4 +708,10 @@ export const zhHant = {
   "rank.coreName": "核心",
   "rank.observedTeams": "使用此武器的實戰陣容",
   "rank.noObservedTeams": "目前段位沒有足夠樣本的陣容。",
+  "detail.overview": "概覽",
+  "detail.cores": "核心",
+  "detail.teams": "陣容",
+  "detail.plan": "打法",
+  "detail.roles": "職責",
+  "detail.matchups": "對陣",
 };
