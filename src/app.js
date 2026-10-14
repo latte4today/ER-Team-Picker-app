@@ -17,6 +17,7 @@ import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effect
 import { tournamentBuilds as bundledTournamentBuilds } from "./tournamentMeta.js";
 import { matchupGuidance } from "./matchupGuidance.js";
 import { teamCombatPlan } from "./teamConcepts.js";
+import { characterDescription } from "./characterDescriptions.js";
 import { observedCharacterCompositions } from "./characterCompositions.js";
 import { loadRosterPresets, saveRosterPresets, escapePresetName } from "./rosterPresets.js";
 import {
@@ -2947,8 +2948,7 @@ function renderDashboardCharacterDetails(id) {
   const row = rankerCharacterRows(activeRankRole).find(row => row.characterId === id);
   const character = characterById(id);
   if (!row || !character) return '';
-  const signatureKey = `recommender.signatureReasons.${character.characterId}`;
-  const signature = t(signatureKey);
+  const signature = characterDescription(character, t);
   const cores = topCoresForVariant(character.variantId, tierSelect.value);
   const bucket = officialBucketForTier(tierSelect.value);
   const observed = observedCharacterCompositions(officialCompositionStatsByTier?.[bucket] ?? [], character.variantId)
@@ -2962,7 +2962,7 @@ function renderDashboardCharacterDetails(id) {
   };
   const overview = `<div class="detail-identity"><img src="${character.image}" alt=""><div><strong>${roleLabel(character.role)}</strong><small>${t(`weapon.${character.weapon}`)}</small></div>
     <div class="detail-identity-core">${traitChip(character.variantId, tierSelect.value)}</div></div>
-    ${signature !== signatureKey ? `<p class="detail-brief">${signature}</p>` : ''}
+    ${signature ? `<p class="detail-brief">${signature}</p>` : ''}
     <dl class="detail-stat-grid">${Object.entries(values).map(([key, value]) => `<div><dt>${t(`rank.detail${key}`)}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
   const coreDetails = `${cores.length ? `<table class="dashboard-core-table"><thead><tr>
       <th>${t('rank.coreName')}</th><th>${t('rank.detailGames')}</th><th>${t('rank.detailTop3')}</th><th>${t('rank.detailWin')}</th>
@@ -3014,10 +3014,9 @@ function renderDashboardTeamDetails(ids, { inline = false } = {}) {
     <details class="detail-evidence"><summary>${t('recommend.details')}</summary>
     <ul class="dashboard-team-reasons">${reasons.slice(0,6).map(reason=>`<li>${reason}</li>`).join('')}</ul></details>`;
   const roles = `<div class="detail-role-list">${team.map(c => {
-      const key = `recommender.signatureReasons.${c.characterId}`;
-      const signature = t(key);
+      const signature = characterDescription(c, t);
       return `<article class="detail-role-card"><div class="detail-role-head"><img src="${c.image}" alt=""><div><strong>${t(`char.${c.id}`)}</strong><small>${characterSubtitle(c)}</small></div>${traitChip(c.variantId,tierSelect.value)}</div>
-      ${signature !== key ? `<p>${signature}</p>` : ''}</article>`;
+      ${signature ? `<p>${signature}</p>` : ''}</article>`;
     }).join('')}</div>`;
   const matchup = renderMatchupGuidance(team, cores);
   if (inline) return overview + roles + matchup;
