@@ -1,6 +1,6 @@
 // Observed teams, not predicted matchups: keep weapons distinct and do not sum
 // the three candidate perspectives of the same composition into inflated games.
-export function observedCharacterCompositions(rows, variantId, limit = 3) {
+export function observedCharacterCompositions(rows, variantId, limit = 8) {
   const byTeam = new Map();
   for (const row of rows) {
     const members = [...(row.teammates ?? []), row.candidate].filter(Boolean);

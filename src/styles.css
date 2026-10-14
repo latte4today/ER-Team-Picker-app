@@ -4213,3 +4213,14 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
 .dashboard-modal-content .matchup-guidance li { margin: 10px 0; }
 .dashboard-modal-content .dashboard-observed-team .combo-members { grid-template-columns: repeat(3,minmax(0,1fr)); }
 .detail-team-roster .combo-face strong, .dashboard-observed-team .combo-face strong { white-space: normal; }
+
+.detail-synergy-group { margin-top: 14px; }
+.detail-synergy-group h3 { margin: 0 0 8px; font-size: 12px; color: var(--accent-strong); }
+.detail-synergy-group.negative h3 { color: #f08080; }
+.detail-synergy-group ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.detail-synergy-group li { display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 5px; background: var(--surface-2); }
+.detail-synergy-group.negative li { border-left-color: #d75b64; }
+.detail-synergy-group li img { width: 30px; height: 30px; border-radius: 4px; }
+.detail-synergy-group li div { min-width: 0; display: grid; gap: 2px; }
+.detail-synergy-group li small { color: var(--muted); font-size: 10px; }
+.detail-synergy-group.negative li strong { color: #f08080; }

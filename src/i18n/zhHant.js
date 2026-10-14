@@ -728,4 +728,12 @@ export const zhHant = {
   "detail.roleDescription.assassin": "隊友吸引敵人注意後，抓住空隙集火關鍵目標。",
   "detail.roleDescription.support": "與需要保護的隊友一起行動，配合敵人的攻擊時機提供支援。",
   "detail.roleDescription.generic": "與隊友統一攻擊目標，保持能夠相互配合的距離。",
+  "detail.synergies": "協同",
+  "rank.synergyBasis": "同隊對局資料 · 角色級別 · 全段位",
+  "rank.synergyPositive": "正向協同角色",
+  "rank.synergyNegative": "負向協同角色",
+  "rank.synergyImprovement": "平均排名改善 {value}",
+  "rank.synergyDecline": "平均排名下降 {value}",
+  "rank.synergySamples": "樣本 {count}",
+  "rank.noSynergy": "暫無已確認的關係。",
 };

@@ -728,4 +728,12 @@ export const en = {
   "detail.roleDescription.assassin": "Exploit openings after allies draw attention and focus a priority target.",
   "detail.roleDescription.support": "Stay with the ally you protect and time support abilities against enemy attacks.",
   "detail.roleDescription.generic": "Coordinate targets with allies and stay within supporting distance.",
+  "detail.synergies": "Synergy",
+  "rank.synergyBasis": "Allied team results · Character-level · All tiers",
+  "rank.synergyPositive": "Positive synergy",
+  "rank.synergyNegative": "Negative synergy",
+  "rank.synergyImprovement": "Average placement improves by {value}",
+  "rank.synergyDecline": "Average placement worsens by {value}",
+  "rank.synergySamples": "{count} samples",
+  "rank.noSynergy": "No established relationship.",
 };

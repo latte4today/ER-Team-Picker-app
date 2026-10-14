@@ -810,4 +810,12 @@ export const ko = {
   "detail.roleDescription.assassin": "아군이 상대의 주의를 끈 뒤 빈틈을 노려 핵심 대상을 집중 공격하세요.",
   "detail.roleDescription.support": "보호할 아군과 함께 움직이며 상대의 공격에 맞춰 지원 능력을 사용하세요.",
   "detail.roleDescription.generic": "아군과 공격 대상을 맞추고, 서로 호응할 수 있는 거리를 유지하세요.",
+  "detail.synergies": "시너지",
+  "rank.synergyBasis": "함께 쓴 경기 기준 · 캐릭터 단위 · 전체 티어",
+  "rank.synergyPositive": "시너지 있는 실험체",
+  "rank.synergyNegative": "역시너지 있는 실험체",
+  "rank.synergyImprovement": "평균 순위 {value} 개선",
+  "rank.synergyDecline": "평균 순위 {value} 하락",
+  "rank.synergySamples": "표본 {count}",
+  "rank.noSynergy": "확인된 관계가 없습니다.",
 };
