@@ -2900,6 +2900,35 @@ function renderCharacterFace(characterId) {
 }
 
 let dashboardRenderKey = "";
+const dashboardDetailDialog = document.querySelector('#dashboard-detail-dialog');
+let dashboardDetailOwner = null;
+
+function openDashboardDetails(card, body) {
+  dashboardDetailOwner = card;
+  const title = card.dataset.dashboardCharacter
+    ? card.querySelector('.rank-card-main strong').textContent
+    : [...card.querySelectorAll('.combo-face strong')].map(node => node.textContent).join(' + ');
+  document.querySelector('#dashboard-detail-title').textContent = title;
+  const content = document.querySelector('#dashboard-detail-content');
+  content.innerHTML = body.innerHTML;
+  content.scrollTop = 0;
+  if (!dashboardDetailDialog.open) dashboardDetailDialog.showModal();
+}
+
+function closeDashboardDetails() {
+  const owner = dashboardDetailOwner;
+  dashboardDetailOwner = null;
+  dashboardDetailDialog.close();
+  if (owner) {
+    owner.open = false;
+    owner.querySelector('summary')?.focus({ preventScroll: true });
+  }
+}
+document.querySelector('#dashboard-detail-close').addEventListener('click', closeDashboardDetails);
+dashboardDetailDialog.addEventListener('cancel', (event) => {
+  event.preventDefault();
+  closeDashboardDetails();
+});
 
 function renderDashboardCharacterDetails(id) {
   const row = rankerCharacterRows(activeRankRole).find(row => row.characterId === id);
@@ -4054,10 +4083,13 @@ recommendations.addEventListener("toggle", (event) => {
   const card = event.target;
   if (!card.open || (!card.dataset.dashboardCharacter && !card.dataset.dashboardTeam)) return;
   const body = card.querySelector('.dashboard-detail-body');
-  if (!body || body.childElementCount) return;
-  body.innerHTML = card.dataset.dashboardCharacter
-    ? renderDashboardCharacterDetails(card.dataset.dashboardCharacter)
-    : renderDashboardTeamDetails(card.dataset.dashboardTeam.split('|'));
+  if (!body) return;
+  if (!body.childElementCount) {
+    body.innerHTML = card.dataset.dashboardCharacter
+      ? renderDashboardCharacterDetails(card.dataset.dashboardCharacter)
+      : renderDashboardTeamDetails(card.dataset.dashboardTeam.split('|'));
+  }
+  openDashboardDetails(card, body);
 }, true);
 recommendations.addEventListener("pointerdown", trackDetailsSummaryPointer, true);
 recommendations.addEventListener("click", handleDetailsSummaryClick, true);
