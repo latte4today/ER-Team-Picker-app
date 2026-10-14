@@ -704,4 +704,8 @@ export const zhHant = {
   "rank.teamDetails": "查看打法與詳細分析",
   "rank.coreTitle": "推薦核心",
   "rank.memberRoles": "各角色職責",
+  "rank.coreComparison": "各核心戰績",
+  "rank.coreName": "核心",
+  "rank.observedTeams": "使用此武器的實戰陣容",
+  "rank.noObservedTeams": "目前段位沒有足夠樣本的陣容。",
 };

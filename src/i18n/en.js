@@ -704,4 +704,8 @@ export const en = {
   "rank.teamDetails": "View game plan and analysis",
   "rank.coreTitle": "Suggested core",
   "rank.memberRoles": "Member responsibilities",
+  "rank.coreComparison": "Results by core",
+  "rank.coreName": "Core",
+  "rank.observedTeams": "Observed teams with this weapon",
+  "rank.noObservedTeams": "No teams with enough games were found for this tier.",
 };

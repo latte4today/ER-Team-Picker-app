@@ -17,6 +17,7 @@ import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effect
 import { tournamentBuilds as bundledTournamentBuilds } from "./tournamentMeta.js";
 import { matchupGuidance } from "./matchupGuidance.js";
 import { teamCombatPlan } from "./teamConcepts.js";
+import { observedCharacterCompositions } from "./characterCompositions.js";
 import { loadRosterPresets, saveRosterPresets, escapePresetName } from "./rosterPresets.js";
 import {
   officialCandidateStatsByTier as bundledOfficialCandidateStatsByTier,
@@ -2929,6 +2930,18 @@ dashboardDetailDialog.addEventListener('cancel', (event) => {
   event.preventDefault();
   closeDashboardDetails();
 });
+let dashboardBackdropPress = false;
+function isDashboardBackdrop(event) {
+  if (event.target !== dashboardDetailDialog) return false;
+  const box = dashboardDetailDialog.getBoundingClientRect();
+  return event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom;
+}
+dashboardDetailDialog.addEventListener('pointerdown', event => { dashboardBackdropPress = isDashboardBackdrop(event); });
+dashboardDetailDialog.addEventListener('click', event => {
+  const dismiss = dashboardBackdropPress && isDashboardBackdrop(event);
+  dashboardBackdropPress = false;
+  if (dismiss) closeDashboardDetails();
+});
 
 function renderDashboardCharacterDetails(id) {
   const row = rankerCharacterRows(activeRankRole).find(row => row.characterId === id);
@@ -2936,6 +2949,10 @@ function renderDashboardCharacterDetails(id) {
   if (!row || !character) return '';
   const signatureKey = `recommender.signatureReasons.${character.characterId}`;
   const signature = t(signatureKey);
+  const cores = topCoresForVariant(character.variantId, tierSelect.value);
+  const bucket = officialBucketForTier(tierSelect.value);
+  const observed = observedCharacterCompositions(officialCompositionStatsByTier?.[bucket] ?? [], character.variantId)
+    .filter(row => compositionMembers(row).every(characterById));
   const values = {
     Games: row.games, Top3: `${Math.round(row.top3Rate * 100)}%`, Win: `${Math.round(row.winRate * 100)}%`,
     Placement: Number.isFinite(row.avgPlacement) ? row.avgPlacement.toFixed(2) : '—',
@@ -2946,7 +2963,17 @@ function renderDashboardCharacterDetails(id) {
   return `<p>${characterSubtitle(character)}</p>
     ${signature !== signatureKey ? `<p>${signature}</p>` : ''}
     <div class="dashboard-core"><strong>${t('rank.coreTitle')}</strong> ${traitChip(character.variantId, tierSelect.value)}</div>
-    <dl class="rank-detail-stats">${Object.entries(values).map(([key, value]) => `<div><dt>${t(`rank.detail${key}`)}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
+    <dl class="rank-detail-stats">${Object.entries(values).map(([key, value]) => `<div><dt>${t(`rank.detail${key}`)}</dt><dd>${value}</dd></div>`).join('')}</dl>
+    ${cores.length ? `<h3>${t('rank.coreComparison')}</h3><table class="dashboard-core-table"><thead><tr>
+      <th>${t('rank.coreName')}</th><th>${t('rank.detailGames')}</th><th>${t('rank.detailTop3')}</th><th>${t('rank.detailWin')}</th>
+      </tr></thead><tbody>${cores.map(core => `<tr><td>${traitChip(character.variantId, tierSelect.value, core)}</td>
+      <td>${core.games.toLocaleString()}</td><td>${(core.top3Rate*100).toFixed(1)}%</td><td>${(core.winRate*100).toFixed(1)}%</td></tr>`).join('')}</tbody></table>` : ''}
+    <h3>${t('rank.observedTeams')}</h3>
+    ${observed.length ? observed.map(row => {
+      const members = compositionMembers(row), team = members.map(characterById);
+      return `<section class="dashboard-observed-team"><div class="combo-members">${members.map(renderCharacterFace).join('')}</div>
+        <p>${compositionDetailText({ ...row, source: 'official' })}</p><p>${unionComboPlan(team)}</p></section>`;
+    }).join('') : `<p>${t('rank.noObservedTeams')}</p>`}`;
 }
 
 function renderDashboardTeamDetails(ids) {
