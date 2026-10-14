@@ -45,7 +45,6 @@ const isElectron = /electron/i.test(navigator.userAgent);
 const selectedIds = new Set();
 let activeRole = "all";
 let activeRankRole = "all";
-let activeRankDetailId = null;
 let officialCandidateStatsByTier = bundledOfficialCandidateStatsByTier;
 let officialCompositionStatsByTier = bundledOfficialCompositionStatsByTier;
 let officialTraitBuildStatsByTier = bundledOfficialTraitBuildStatsByTier;
@@ -2902,9 +2901,52 @@ function renderCharacterFace(characterId) {
 
 let dashboardRenderKey = "";
 
+function renderDashboardCharacterDetails(id) {
+  const row = rankerCharacterRows(activeRankRole).find(row => row.characterId === id);
+  const character = characterById(id);
+  if (!row || !character) return '';
+  const signatureKey = `recommender.signatureReasons.${character.characterId}`;
+  const signature = t(signatureKey);
+  const values = {
+    Games: row.games, Top3: `${Math.round(row.top3Rate * 100)}%`, Win: `${Math.round(row.winRate * 100)}%`,
+    Placement: Number.isFinite(row.avgPlacement) ? row.avgPlacement.toFixed(2) : '—',
+    Damage: row.avgDamageToPlayer ? Math.round(row.avgDamageToPlayer).toLocaleString() : '—',
+    DamageTaken: row.avgDamageFromPlayer ? Math.round(row.avgDamageFromPlayer).toLocaleString() : '—',
+    Cc: Number.isFinite(row.avgCcTime) ? `${Math.round(row.avgCcTime)}s` : '—', Votes: row.votes,
+  };
+  return `<p>${characterSubtitle(character)}</p>
+    ${signature !== signatureKey ? `<p>${signature}</p>` : ''}
+    <div class="dashboard-core"><strong>${t('rank.coreTitle')}</strong> ${traitChip(character.variantId, tierSelect.value)}</div>
+    <dl class="rank-detail-stats">${Object.entries(values).map(([key, value]) => `<div><dt>${t(`rank.detail${key}`)}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
+}
+
+function renderDashboardTeamDetails(ids) {
+  const team = ids.map(characterById).filter(Boolean);
+  if (team.length !== 3) return '';
+  const cores = Object.fromEntries(team.map(c => [c.variantId, defaultCoreForVariant(c.variantId, tierSelect.value)?.core]));
+  const evaluation = evaluateCandidate(ids.slice(0, 2), ids[2], tierSelect.value,
+    remoteFeedback, currentRelationshipRows(), cores);
+  const reasons = evaluation?.reasons ?? [];
+  return `${renderTeamConcepts(team, cores)}
+    <p class="dashboard-team-plan">${unionComboPlan(team)}</p>
+    <strong>${t('rank.memberRoles')}</strong>
+    <div class="dashboard-member-roles">${team.map(c => {
+      const key = `recommender.signatureReasons.${c.characterId}`;
+      const signature = t(key);
+      return `<div><strong>${t(`char.${c.id}`)} · ${t(`weapon.${c.weapon}`)}</strong>
+      <p>${characterSubtitle(c)}</p>${signature !== key ? `<p>${signature}</p>` : ''}
+      <div class="dashboard-core"><span>${t('rank.coreTitle')}</span> ${traitChip(c.variantId, tierSelect.value)}</div></div>`;
+    }).join('')}</div>
+    <strong>${t('feedback.diagnosis')}</strong>
+    <div class="recommendation-tags">${compactReasonLabels(reasons).map(renderReasonTag).join('')}</div>
+    <ul class="dashboard-team-reasons">${reasons.slice(0, 6).map(reason => `<li>${reason}</li>`).join('')}</ul>
+    ${renderMatchupGuidance(team, cores)}`;
+}
+
 function renderHomeDashboard() {
   const key = JSON.stringify([getLanguage(), tierSelect.value, officialStatsVersion,
-    activeRankRole, activeRankDetailId, dataSignature(popularFeedback)]);
+    activeRankRole, dataSignature(popularFeedback), tournamentStatsVersion,
+    dataSignature(remoteFeedback), dataSignature(currentRelationshipRows())]);
   if (key === dashboardRenderKey && recommendations.querySelector(".recommendation-hub")) return;
   dashboardRenderKey = key;
   const overallComps = combinedCompositionRows("overall");
@@ -2917,14 +2959,17 @@ function renderHomeDashboard() {
       const members = compositionMembers(row);
       const detail = compositionDetailText(row);
       return `
-        <article class="combo-card">
+        <details class="combo-card" data-dashboard-team="${members.join('|')}">
+          <summary>
           <div class="combo-card-head">
             <span class="recommendation-rank">${titlePrefix} ${index + 1}</span>
             <strong>${detail}</strong>
           </div>
           <div class="combo-members">${members.map(renderCharacterFace).join("")}</div>
           <p>${compositionReason(row, isUserFeedback)}</p>
-        </article>
+          <span class="dashboard-expand-hint">${t('rank.teamDetails')} <span aria-hidden="true">⌄</span></span>
+          </summary><div class="dashboard-detail-body"></div>
+        </details>
       `;
     })
     .join("");
@@ -2938,36 +2983,19 @@ function renderHomeDashboard() {
     .map((row, index) => {
       const character = characterBrief(row.characterId);
       const top3 = Math.round(row.top3Rate * 100);
-      const win = Math.round(row.winRate * 100);
-      const damage = row.avgDamageToPlayer ? Math.round(row.avgDamageToPlayer).toLocaleString() : "-";
-      const damageTaken = row.avgDamageFromPlayer ? Math.round(row.avgDamageFromPlayer).toLocaleString() : "-";
-      const placement = Number.isFinite(row.avgPlacement) ? row.avgPlacement.toFixed(2) : "-";
-      const ccTime = Number.isFinite(row.avgCcTime) ? `${Math.round(row.avgCcTime)}s` : "-";
-      const expanded = activeRankDetailId === row.characterId;
       return `
-        <article class="rank-card ${expanded ? "rank-card-open" : ""}" data-rank-detail-id="${row.characterId}" role="button" tabindex="0" aria-expanded="${expanded}">
-          <div class="rank-card-summary">
+        <details class="rank-card" data-dashboard-character="${row.characterId}">
+          <summary class="rank-card-summary">
             <span class="rank-number">${index + 1}</span>
             <span class="rank-tier rank-tier-${row.tierLabel.toLowerCase()}">${row.tierLabel}</span>
             ${character.image ? `<img src="${character.image}" alt="">` : ""}
             <span class="rank-card-main">
               <strong>${[character.name, character.weapon].filter(Boolean).join(" · ")}</strong>
               <small>${t("rank.scoreDetail", { count: row.games, top3 })}</small>
+              <span class="dashboard-expand-hint">${t('rank.characterDetails')} <span aria-hidden="true">⌄</span></span>
             </span>
-          </div>
-          ${expanded ? `
-            <dl class="rank-detail-stats">
-              <div><dt>${t("rank.detailGames")}</dt><dd>${row.games}</dd></div>
-              <div><dt>${t("rank.detailTop3")}</dt><dd>${top3}%</dd></div>
-              <div><dt>${t("rank.detailWin")}</dt><dd>${win}%</dd></div>
-              <div><dt>${t("rank.detailPlacement")}</dt><dd>${placement}</dd></div>
-              <div><dt>${t("rank.detailDamage")}</dt><dd>${damage}</dd></div>
-              <div><dt>${t("rank.detailDamageTaken")}</dt><dd>${damageTaken}</dd></div>
-              <div><dt>${t("rank.detailCc")}</dt><dd>${ccTime}</dd></div>
-              <div><dt>${t("rank.detailVotes")}</dt><dd>${row.votes}</dd></div>
-            </dl>
-          ` : ""}
-        </article>
+          </summary><div class="dashboard-detail-body"></div>
+        </details>
       `;
     })
     .join("");
@@ -3328,16 +3356,6 @@ function renderRecommendations() {
     ? `<button class="show-more-button" type="button" data-show-more-recommendations>${t("recommend.showMore", { remaining: results.length - recommendLimit })}</button>`
     : "";
   recommendations.innerHTML = feedbackCTABanner() + recommendationStageNotice() + list + showMoreBtn;
-}
-
-function renderRecommendationsPreservingRankScroll() {
-  const rankGrid = recommendations.querySelector(".rank-grid");
-  const scrollTop = rankGrid?.scrollTop ?? 0;
-  renderRecommendations();
-  requestAnimationFrame(() => {
-    const nextRankGrid = recommendations.querySelector(".rank-grid");
-    if (nextRankGrid) nextRankGrid.scrollTop = scrollTop;
-  });
 }
 
 function renderMatchFeedback() {
@@ -3977,17 +3995,7 @@ recommendations.addEventListener("click", (event) => {
   const rankRoleButton = event.target.closest("[data-rank-role]");
   if (rankRoleButton) {
     activeRankRole = rankRoleButton.dataset.rankRole;
-    activeRankDetailId = null;
     renderRecommendations();
-    return;
-  }
-
-  const rankCard = event.target.closest("[data-rank-detail-id]");
-  if (rankCard) {
-    activeRankDetailId = activeRankDetailId === rankCard.dataset.rankDetailId
-      ? null
-      : rankCard.dataset.rankDetailId;
-    renderRecommendationsPreservingRankScroll();
     return;
   }
 
@@ -4042,16 +4050,15 @@ recommendations.addEventListener("click", (event) => {
   renderDetectedTeam();
   render();
 });
-recommendations.addEventListener("keydown", (event) => {
-  if (event.key !== "Enter" && event.key !== " ") return;
-  const rankCard = event.target.closest("[data-rank-detail-id]");
-  if (!rankCard) return;
-  event.preventDefault();
-  activeRankDetailId = activeRankDetailId === rankCard.dataset.rankDetailId
-    ? null
-    : rankCard.dataset.rankDetailId;
-  renderRecommendationsPreservingRankScroll();
-});
+recommendations.addEventListener("toggle", (event) => {
+  const card = event.target;
+  if (!card.open || (!card.dataset.dashboardCharacter && !card.dataset.dashboardTeam)) return;
+  const body = card.querySelector('.dashboard-detail-body');
+  if (!body || body.childElementCount) return;
+  body.innerHTML = card.dataset.dashboardCharacter
+    ? renderDashboardCharacterDetails(card.dataset.dashboardCharacter)
+    : renderDashboardTeamDetails(card.dataset.dashboardTeam.split('|'));
+}, true);
 recommendations.addEventListener("pointerdown", trackDetailsSummaryPointer, true);
 recommendations.addEventListener("click", handleDetailsSummaryClick, true);
 

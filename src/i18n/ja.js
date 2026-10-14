@@ -700,4 +700,8 @@ export const ja = {
   "recommender.reason.metricCapabilities": "火力以外の戦闘特性：{reason}",
   "preset.sharedHint": "編成設定とユニオンはプリセットを共有します。保存・削除は両方に反映されます。",
   "union.presetTooLarge": "ユニオンは一人につき最大15枠です。15枠以下のプリセットを保存してから読み込んでください。",
+  "rank.characterDetails": "役割・コア・戦績を見る",
+  "rank.teamDetails": "立ち回り・詳細分析を見る",
+  "rank.coreTitle": "推奨コア",
+  "rank.memberRoles": "各メンバーの役割",
 };
