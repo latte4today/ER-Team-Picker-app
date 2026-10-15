@@ -1,3 +1,4 @@
+import { metaTrends as bundledMetaTrends } from "./metaTrends.js";
 import { characterVariants, roleNames, roles } from "./data.js";
 import {
   feedbackWindowKey,
@@ -49,6 +50,8 @@ const isElectron = /electron/i.test(navigator.userAgent);
 const selectedIds = new Set();
 let activeRole = "all";
 let activeRankRole = "all";
+let activeTrendSize = 2;
+let metaTrends = bundledMetaTrends;
 let officialCandidateStatsByTier = bundledOfficialCandidateStatsByTier;
 let officialCompositionStatsByTier = bundledOfficialCompositionStatsByTier;
 let officialTraitBuildStatsByTier = bundledOfficialTraitBuildStatsByTier;
@@ -159,10 +162,10 @@ function coreButtonsForSlot(slotIndex, variant, tier, extraClass = "", selectedC
   return `<span class="${className}">${cores
     .map((core) => {
       const img = traitImage(core.name);
-      const active = core.core === selectedCore ? " active" : "";
+      const active = String(core.core) === String(selectedCore) ? " active" : "";
       const title = core.name ?? "";
-      const inner = img ? `<img src="${img}" alt="${title}">` : title;
-      return `<button type="button" class="chip-core-icon${active}" data-core-slot="${slotIndex}" data-core="${core.core}" title="${title}">${inner}</button>`;
+      const inner = `${img ? `<img src="${img}" alt="">` : ""}<span>${title}</span>`;
+      return `<button type="button" class="chip-core-icon${active}" data-core-slot="${slotIndex}" data-core="${core.core}" aria-pressed="${Boolean(active)}" aria-label="${title}" title="${title}">${inner}</button>`;
     })
     .join("")}</span>`;
 }
@@ -238,7 +241,6 @@ let popularFeedbackLoaded = false;
 let lastRemoteFeedbackKey = "";
 let lastPromptedUpdateVersion = null;
 let chosenPickId = null;
-let matchFeedbackCore = null; // rating-only core; does not affect recommendation sorting
 const submittedFeedbackKeys = new Set();
 const slotAssignments = [null, null, null];
 const slotCores = [null, null, null]; // per-slot chosen core code; null = use the meta default
@@ -246,18 +248,16 @@ const slotCores = [null, null, null]; // per-slot chosen core code; null = use t
 function selectSlotCoreButton(button) {
   const slotIndex = Number(button.dataset.coreSlot);
   if (!Number.isInteger(slotIndex) || slotIndex < 0 || slotIndex >= slotCores.length) return;
-  slotCores[slotIndex] = button.dataset.core;
-  if (slotIndex === 0) matchFeedbackCore = null;
+  const variantId = slotAssignments[slotIndex];
+  const core = String(button.dataset.core);
+  if (!variantId || !topCoresForVariant(variantId, tierSelect.value, {limit:6,minGames:0}).some(row=>String(row.core)===core)) return;
+  const scope = button.closest('#match-feedback') ? matchFeedback : detectedTeam;
+  slotCores[slotIndex] = core;
   completeWalkthroughAction("trait");
   renderDetectedTeam();
   renderMatchFeedback();
   scheduleRenderRecommendations();
-}
-
-function selectMatchFeedbackCore(button) {
-  matchFeedbackCore = button.dataset.core || null;
-  completeWalkthroughAction("trait");
-  renderMatchFeedback();
+  scope.querySelector(`[data-core-slot="${slotIndex}"][data-core="${core}"]`)?.focus({preventScroll:true});
 }
 
 detectedTeam.addEventListener("click", (event) => {
@@ -294,13 +294,7 @@ function feedbackCandidateIdForSlot(slotIndex) {
 }
 
 function coreInfoForMatchFeedback() {
-  const variantId = slotAssignments[0];
-  if (!variantId) return null;
-  const tier = tierSelect?.value ?? "all";
-  const core = matchFeedbackCore ?? slotCores[0] ?? defaultCoreForVariant(variantId, tier)?.core ?? null;
-  if (!core) return null;
-  return topCoresForVariant(variantId, tier, { limit: 6, minGames: 0 })
-    .find((row) => String(row.core) === String(core)) ?? { core, name: String(core) };
+  return coreInfoForSlot(0);
 }
 
 function feedbackCandidateIdForMatchFeedback() {
@@ -349,11 +343,7 @@ function scheduleRenderRecommendations(delay = 180) {
 }
 
 function matchFeedbackCoresMap() {
-  const map = selectedCoresMap();
-  if (slotAssignments[0] && coreInfoForMatchFeedback()?.core) {
-    map[slotAssignments[0]] = coreInfoForMatchFeedback().core;
-  }
-  return map;
+  return selectedCoresMap();
 }
 
 function baseFeedbackVariantId(id) {
@@ -657,7 +647,6 @@ function resetWalkthroughTeamState() {
   slotAssignments.fill(null);
   slotCores.fill(null);
   chosenPickId = null;
-  matchFeedbackCore = null;
   activeSlot = null;
 }
 
@@ -2300,20 +2289,17 @@ function assignSlot(slotIndex, id) {
     if (slotAssignments[index]?.split(":")[0] === characterId) {
       slotAssignments[index] = null;
       slotCores[index] = null;
-      if (index === 0) matchFeedbackCore = null;
     }
   }
 
   slotAssignments[slotIndex] = id;
   slotCores[slotIndex] = null;
-  if (slotIndex === 0) matchFeedbackCore = null;
   syncSelectedFromSlots();
 }
 
 function clearSlot(slotIndex) {
   slotAssignments[slotIndex] = null;
   slotCores[slotIndex] = null;
-  if (slotIndex === 0) matchFeedbackCore = null;
   syncSelectedFromSlots();
 }
 
@@ -2369,10 +2355,7 @@ function renderDetectedTeam(matches = [], status = "") {
     return;
   }
 
-  // When teammates are chosen (recommending my pick), show only teammates at the
-  // bottom to save space; the self pick is hidden. With only the self pick, show it.
-  const hasTeammates = Boolean(slotAssignments[1] || slotAssignments[2]);
-  const shown = hasTeammates ? assigned.filter((item) => item.slotIndex !== 0) : assigned;
+  const shown = assigned;
 
   const manualChips = shown
     .map(({ slotIndex, variant }) => {
@@ -2947,7 +2930,7 @@ dashboardDetailDialog.addEventListener('click', event => {
 });
 
 function renderDashboardCharacterDetails(id) {
-  const row = rankerCharacterRows(activeRankRole).find(row => row.characterId === id);
+  const row = rankerCharacterRows("all").find(row => row.characterId === id);
   const character = characterById(id);
   if (!row || !character) return '';
   const signature = characterDescription(character, t);
@@ -2986,6 +2969,21 @@ function renderDashboardCharacterDetails(id) {
   ]);
 }
 
+function renderTrendDetails(ids) {
+  if (ids.length === 1) return renderDashboardCharacterDetails(ids[0]);
+  if (ids.length === 3) return renderDashboardTeamDetails(ids);
+  const seen = new Set();
+  const completions = recommend(ids,tierSelect.value,remoteFeedback,undefined,currentRelationshipRows())
+    .filter(row=>{const id=row.character.characterId;if(seen.has(id))return false;seen.add(id);return true;}).slice(0,3);
+  return `<div class="detail-team-roster">${ids.map(renderCharacterFace).join('')}</div>
+    <h3 class="detail-completion-title">${t('trend.complete')}</h3>` + completions.map(row=>{
+      const members=[...ids,row.character.variantId];
+      return `<details class="dashboard-observed-team" data-dashboard-team="${members.join('|')}" data-dashboard-core="${row.character.variantId}#${row.recommendedCore?.core??''}" data-dashboard-inline="true">
+        <summary>${renderCharacterFace(row.character.variantId)}${traitChip(row.character.variantId,tierSelect.value,row.recommendedCore)}
+        <span class="dashboard-expand-hint">${t('rank.teamDetails')} ⌄</span></summary><div class="dashboard-detail-body"></div></details>`;
+    }).join('');
+}
+
 function renderCharacterSynergies(character) {
   const characters = new Map(characterVariants.map(c => [c.characterId,c]));
   const groups = characterSynergies(character.characterId, officialPairSynergyLift,
@@ -3016,10 +3014,10 @@ dashboardDetailDialog.addEventListener('click', event => {
   pages.querySelectorAll('.detail-page').forEach(panel => { panel.hidden = panel.dataset.detailPanel !== button.dataset.detailPage; });
 });
 
-function renderDashboardTeamDetails(ids, { inline = false } = {}) {
+function renderDashboardTeamDetails(ids, { inline = false, coreOverrides = {} } = {}) {
   const team = ids.map(characterById).filter(Boolean);
   if (team.length !== 3) return '';
-  const cores = Object.fromEntries(team.map(c => [c.variantId, defaultCoreForVariant(c.variantId, tierSelect.value)?.core]));
+  const cores = {...Object.fromEntries(team.map(c => [c.variantId, defaultCoreForVariant(c.variantId, tierSelect.value)?.core])), ...coreOverrides};
   const evaluation = evaluateCandidate(ids.slice(0, 2), ids[2], tierSelect.value,
     remoteFeedback, currentRelationshipRows(), cores);
   const reasons = evaluation?.reasons ?? [];
@@ -3034,7 +3032,7 @@ function renderDashboardTeamDetails(ids, { inline = false } = {}) {
     <ul class="dashboard-team-reasons">${reasons.slice(0,6).map(reason=>`<li>${reason}</li>`).join('')}</ul></details>`;
   const roles = `<div class="detail-role-list">${team.map(c => {
       const signature = characterDescription(c, t);
-      return `<article class="detail-role-card"><div class="detail-role-head"><img src="${c.image}" alt=""><div><strong>${t(`char.${c.id}`)}</strong><small>${characterSubtitle(c)}</small></div>${traitChip(c.variantId,tierSelect.value)}</div>
+      return `<article class="detail-role-card"><div class="detail-role-head"><img src="${c.image}" alt=""><div><strong>${t(`char.${c.id}`)}</strong><small>${characterSubtitle(c)}</small></div>${traitChip(c.variantId,tierSelect.value,{core:cores[c.variantId],name:normalizeCoreName(cores[c.variantId])})}</div>
       ${signature ? `<p>${signature}</p>` : ''}</article>`;
     }).join('')}</div>`;
   const matchup = renderMatchupGuidance(team, cores);
@@ -3047,39 +3045,21 @@ function renderDashboardTeamDetails(ids, { inline = false } = {}) {
 
 function renderHomeDashboard() {
   const key = JSON.stringify([getLanguage(), tierSelect.value, officialStatsVersion,
-    activeRankRole, dataSignature(popularFeedback), tournamentStatsVersion,
+    activeRankRole, activeTrendSize, metaTrends.generatedAt, dataSignature(popularFeedback), tournamentStatsVersion,
     dataSignature(remoteFeedback), dataSignature(currentRelationshipRows())]);
   if (key === dashboardRenderKey && recommendations.querySelector(".recommendation-hub")) return;
   dashboardRenderKey = key;
-  const overallComps = combinedCompositionRows("overall");
-  const recentComps = combinedCompositionRows("recent");
-  const fallbackComps = rankerCompositionRows();
-
-  function renderComboCards(rows, titlePrefix, isUserFeedback) {
-    return rows
-    .map((row, index) => {
-      const members = compositionMembers(row);
-      const detail = compositionDetailText(row);
-      return `
-        <details class="combo-card" data-dashboard-team="${members.join('|')}">
-          <summary>
-          <div class="combo-card-head">
-            <span class="recommendation-rank">${titlePrefix} ${index + 1}</span>
-            <strong>${detail}</strong>
-          </div>
-          <div class="combo-members">${members.map(renderCharacterFace).join("")}</div>
-          <p>${compositionReason(row, isUserFeedback)}</p>
-          <span class="dashboard-expand-hint">${t('rank.teamDetails')} <span aria-hidden="true">⌄</span></span>
-          </summary><div class="dashboard-detail-body"></div>
-        </details>
-      `;
-    })
-    .join("");
-  }
-
-  const overallItems = renderComboCards(overallComps.length > 0 ? overallComps : fallbackComps, t("rank.overallPrefix"), true);
-  const recentItems = renderComboCards(recentComps.length > 0 ? recentComps : fallbackComps.slice(0, 14), t("rank.recentPrefix"), true);
-
+  const trendBucket = officialBucketForTier(tierSelect.value);
+  const stale = !metaTrends.end || !metaTrends.latestMatchAt || Date.now()-Date.parse(metaTrends.latestMatchAt)>4*86400000;
+  const trendRows = stale ? [] : (metaTrends.byTier?.[trendBucket]?.rows ?? [])
+    .filter(row=>row.members.length===activeTrendSize && row.members.every(characterById));
+  const trendItems = trendRows.map((row,index)=>`<details class="combo-card trend-card" data-dashboard-trend="${row.members.join('|')}">
+    <summary><div class="combo-card-head"><strong>${t('trend.rising')} ${index+1}</strong><span class="trend-rise">↑ ${row.ratio.toFixed(1)}×</span></div>
+    <div class="combo-members">${row.members.map(renderCharacterFace).join('')}</div>
+    <div class="trend-metrics"><strong>${t('trend.share',{before:(row.previousShare*100).toFixed(2),after:(row.recentShare*100).toFixed(2)})}</strong>
+    <span>${t('trend.results',{games:row.games,top3:(row.top3Rate*100).toFixed(0)})}</span></div>
+    <span class="dashboard-expand-hint">${t(activeTrendSize===2?'trend.complete':activeTrendSize===1?'rank.characterDetails':'rank.teamDetails')} ⌄</span>
+    </summary><div class="dashboard-detail-body"></div></details>`).join('');
   const rankRows = rankerCharacterRows(activeRankRole);
   const rankItems = rankRows
     .map((row, index) => {
@@ -3105,21 +3085,11 @@ function renderHomeDashboard() {
 
   recommendations.innerHTML = `
     <div class="recommendation-hub">
-      <section class="combo-section">
-        <div class="section-title-row">
-          <h3>${t("rank.compositionTitle")}</h3>
-        <span>${t("rank.compositionBasis")}</span>
-        </div>
-        <div class="combo-split">
-          <div>
-            <h4>${t("rank.overallTop")}</h4>
-            <div class="combo-grid">${overallItems}</div>
-          </div>
-          <div>
-            <h4>${t("rank.recentTop")}</h4>
-            <div class="combo-grid">${recentItems}</div>
-          </div>
-        </div>
+      <section class="combo-section trend-section">
+        <div class="section-title-row"><h3>${t('trend.title')}</h3></div>
+        <p class="trend-period">${t('trend.period',{from:metaTrends.recentStart?new Date(metaTrends.recentStart).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—',to:metaTrends.end?new Date(Date.parse(metaTrends.end)-86400000).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—'})}</p>
+        <div class="trend-filters" aria-label="${t('trend.title')}">${[1,2,3].map(size=>`<button type="button" data-trend-size="${size}" aria-pressed="${size===activeTrendSize}">${t(`trend.size${size}`)}</button>`).join('')}</div>
+        <div class="combo-grid trend-grid">${trendItems||`<p class="empty-state">${t(stale?'trend.stale':'trend.empty')}</p>`}</div>
       </section>
       <section class="rank-section">
         <div class="section-title-row">
@@ -3311,7 +3281,6 @@ function renderRecommendations() {
     tier: tierSelect.value,
     playable: [...playableVariantIds].sort(),
     cores: selectedCoresMap(),
-    matchCore: matchFeedbackCore,
     limit: recommendLimit,
     remoteFeedback: dataSignature(remoteFeedback),
     popularFeedback: dataSignature(popularFeedback),
@@ -3467,7 +3436,6 @@ function renderMatchFeedback() {
     selected: [...selectedIds].sort(),
     slotAssignments,
     slotCores,
-    matchFeedbackCore,
     tier: tierSelect.value,
     stats: officialStatsVersion,
     tournament: tournamentStatsVersion,
@@ -3890,7 +3858,6 @@ clearButton.addEventListener("click", () => {
   selectedIds.clear();
   slotAssignments.fill(null);
   slotCores.fill(null);
-  matchFeedbackCore = null;
   activeSlot = null;
   chosenPickId = null;
   renderDetectedTeam();
@@ -4086,6 +4053,14 @@ recommendations.addEventListener("click", (event) => {
     return;
   }
 
+  const trendTab = event.target.closest('[data-trend-size]');
+  if (trendTab) {
+    activeTrendSize = Number(trendTab.dataset.trendSize);
+    renderHomeDashboard();
+    recommendations.querySelector(`[data-trend-size="${activeTrendSize}"]`)?.focus({preventScroll:true});
+    return;
+  }
+
   const ctaButton = event.target.closest("[data-feedback-cta-goto]");
   if (ctaButton) {
     matchFeedback.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -4148,18 +4123,19 @@ recommendations.addEventListener("click", (event) => {
 
   assignSlot(0, button.dataset.choosePick);
   slotCores[0] = button.dataset.chooseCore || null;
-  matchFeedbackCore = null;
   renderDetectedTeam();
   render();
 });
 recommendations.addEventListener("toggle", (event) => {
   const card = event.target;
   if (card.dataset.dashboardInline === 'true') return;
-  if (!card.open || (!card.dataset.dashboardCharacter && !card.dataset.dashboardTeam)) return;
+  if (!card.open || (!card.dataset.dashboardCharacter && !card.dataset.dashboardTeam && !card.dataset.dashboardTrend)) return;
   const body = card.querySelector('.dashboard-detail-body');
   if (!body) return;
   if (!body.childElementCount) {
-    body.innerHTML = card.dataset.dashboardCharacter
+    body.innerHTML = card.dataset.dashboardTrend
+      ? renderTrendDetails(card.dataset.dashboardTrend.split('|'))
+      : card.dataset.dashboardCharacter
       ? renderDashboardCharacterDetails(card.dataset.dashboardCharacter)
       : renderDashboardTeamDetails(card.dataset.dashboardTeam.split('|'));
   }
@@ -4170,7 +4146,8 @@ dashboardDetailDialog.addEventListener("toggle", (event) => {
   if (!card.open || card.dataset.dashboardInline !== 'true') return;
   const body = card.querySelector('.dashboard-detail-body');
   if (!body || body.childElementCount) return;
-  body.innerHTML = renderDashboardTeamDetails(card.dataset.dashboardTeam.split('|'), { inline: true });
+  const [variant,core] = (card.dataset.dashboardCore??'').split('#');
+  body.innerHTML = renderDashboardTeamDetails(card.dataset.dashboardTeam.split('|'), { inline: true, coreOverrides:variant&&core?{[variant]:core}:{} });
 }, true);
 recommendations.addEventListener("pointerdown", trackDetailsSummaryPointer, true);
 recommendations.addEventListener("click", handleDetailsSummaryClick, true);
@@ -4186,7 +4163,7 @@ matchFeedback.addEventListener("click", (event) => {
   if (coreButton) {
     event.preventDefault();
     event.stopPropagation();
-    selectMatchFeedbackCore(coreButton);
+    selectSlotCoreButton(coreButton);
     return;
   }
 
@@ -4560,6 +4537,19 @@ if (recoveredFeedbackCount > 0) {
   syncStatus.textContent = t("sync.localPending", { count: recoveredFeedbackCount });
   syncStatus.dataset.state = "loading";
 }
+
+// Small trend summaries refresh independently from the large scoring tables.
+(async () => {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/metaTrends.json', {cache:'no-store',signal:AbortSignal.timeout(15000)});
+    if (!response.ok) return;
+    const data = await response.json();
+    if (data.schemaVersion!==1 || !data.byTier || !Number.isFinite(Date.parse(data.end))) return;
+    if (Date.parse(data.generatedAt)<=Date.parse(metaTrends.generatedAt)) return;
+    metaTrends=data;
+    if (activeView==='recommendations') renderHomeDashboard();
+  } catch { /* The bundled summary remains usable offline. */ }
+})();
 
 // ── Remote stats auto-update ─────────────────────────────────────────────────
 // compact(소용량, 추천 결과 동일) 우선 → full → 둘 다 실패 시 번들 fallback.

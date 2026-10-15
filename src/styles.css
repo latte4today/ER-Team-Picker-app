@@ -4224,3 +4224,33 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
 .detail-synergy-group li div { min-width: 0; display: grid; gap: 2px; }
 .detail-synergy-group li small { color: var(--muted); font-size: 10px; }
 .detail-synergy-group.negative li strong { color: #f08080; }
+
+/* Named trait choices are usable without hovering over tiny icons. */
+.chip-core-row { flex-wrap: wrap; gap: 6px; }
+.chip-core-icon { width: auto; min-width: 44px; height: 34px; padding: 4px 9px; gap: 5px; border-radius: 6px; overflow: visible; opacity: .8; font-size: 11px; line-height: 1.3; white-space: nowrap; }
+.chip-core-icon img { width: 24px; height: 24px; flex: 0 0 24px; }
+.chip-core-icon.active { box-shadow: inset 0 -2px #f5b338; font-weight: 700; }
+.chip-core-icon:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.detected-chip { flex-wrap: wrap; }
+.detected-chip .chip-core-row { flex-basis: 100%; }
+.trend-section { grid-template-rows: auto auto auto minmax(0,1fr); }
+.trend-period { margin: 0; font-size: 11px; color: var(--muted); }
+.trend-filters { display: flex; gap: 6px; }
+.trend-filters button { padding: 7px 12px; font: inherit; font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 5px; background: var(--surface-2); cursor: pointer; }
+.trend-filters button[aria-pressed="true"] { color: var(--accent-strong); border-color: var(--accent); background: var(--accent-soft); }
+.trend-grid { grid-template-columns: repeat(2,minmax(0,1fr)); align-content: start; }
+.trend-card .combo-members { grid-template-columns: repeat(auto-fit,minmax(100px,1fr)); }
+.trend-metrics { display: grid; gap: 4px; margin: 10px 0; font-size: 11px; }
+.trend-metrics span { color: var(--muted); }
+.trend-rise { color: var(--accent-strong); font-weight: 700; }
+.detail-completion-title { font-size: 13px; }
+@media(max-width:1100px) { .trend-grid { grid-template-columns: minmax(0,1fr); } }
+
+#team-section .selected-team { display: none; }
+#team-section .detected-team { display: flex !important; }
+#team-section .detected-chip { flex: 1 1 240px; min-width: 0; }
+#team-section .detected-team:empty { display: none !important; }
+@media(max-width:599px) {
+  #team-section .detected-team { display: flex !important; }
+  #team-section .detected-chip { flex-basis: 100%; }
+}
