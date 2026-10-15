@@ -229,6 +229,7 @@ jobs:
       - name: Build emerging meta summary
         run: |
           node tools/test_meta_trends.mjs
+          node tools/test_meta_movement.mjs
           node tools/build_meta_trends.mjs --in data/ml-training/corpus.jsonl --out src/metaTrends.json
 
       - name: Refresh recommendation baseline
