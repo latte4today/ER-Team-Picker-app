@@ -1,3 +1,4 @@
+import { metaMovementRows, movementBar } from "./metaMovement.js";
 import { hasFullRankedBaseline } from "./characterAvailability.js";
 import { metaTrends as bundledMetaTrends } from "./metaTrends.js";
 import { characterVariants, roleNames, roles } from "./data.js";
@@ -3052,18 +3053,25 @@ function renderHomeDashboard() {
   dashboardRenderKey = key;
   const trendBucket = officialBucketForTier(tierSelect.value);
   const stale = !metaTrends.end || !metaTrends.latestMatchAt || Date.now()-Date.parse(metaTrends.latestMatchAt)>4*86400000;
-  const trendRows = stale ? [] : (metaTrends.byTier?.[trendBucket]?.rows ?? [])
+  const eligibleTrendRows = stale ? [] : (metaTrends.byTier?.[trendBucket]?.rows ?? [])
     .filter(row=>row.members.length===activeTrendSize && row.members.every(characterById) && row.members.every(id=>hasFullRankedBaseline(id.split(':')[0],metaTrends.previousStart)));
   const newCharacterNames = (metaTrends.excludedCharacters??[])
     .filter(row=>row.reason==='new-character' && characterById(row.characterId))
     .map(row=>t(`char.${characterById(row.characterId).id}`));
-  const trendItems = trendRows.map((row,index)=>`<details class="combo-card trend-card" data-dashboard-trend="${row.members.join('|')}">
-    <summary><div class="combo-card-head"><strong>${t('trend.rising')} ${index+1}</strong><span class="trend-rise">↑ ${row.ratio.toFixed(1)}×</span></div>
-    <div class="combo-members">${row.members.map(renderCharacterFace).join('')}</div>
-    <div class="trend-metrics"><strong>${t('trend.share',{before:(row.previousShare*100).toFixed(2),after:(row.recentShare*100).toFixed(2)})}</strong>
+  const trendRows = metaMovementRows(eligibleTrendRows,activeTrendSize);
+  const trendScale = Math.max(...trendRows.map(row=>Math.abs(row.delta)),0);
+  const trendItems = trendRows.map(row=>{
+    const down = row.delta<0;
+    const bar = movementBar(row.delta,trendScale);
+    const change = `${down?'':'+'}${(row.delta*100).toFixed(2)}${t('trend.pointUnit')}`;
+    return `<details class="combo-card trend-card trend-chart-row ${down?'trend-down':'trend-up'}" data-dashboard-trend="${row.members.join('|')}">
+    <summary><div class="trend-chart-label"><div class="combo-members">${row.members.map(renderCharacterFace).join('')}</div>
+      <strong class="trend-change">${down?'▼':'▲'} ${change} <span aria-hidden="true">⌄</span></strong></div>
+    <div class="trend-chart-track" aria-hidden="true"><span class="trend-chart-bar" style="left:${bar.left}%;width:${bar.width}%"></span></div>
+    <div class="trend-chart-stats"><span>${t('trend.share',{before:(row.previousShare*100).toFixed(2),after:(row.recentShare*100).toFixed(2)})}</span>
     <span>${t('trend.results',{games:row.games,top3:(row.top3Rate*100).toFixed(0)})}</span></div>
-    <span class="dashboard-expand-hint">${t(activeTrendSize===2?'trend.complete':activeTrendSize===1?'rank.characterDetails':'rank.teamDetails')} ⌄</span>
-    </summary><div class="dashboard-detail-body"></div></details>`).join('');
+    </summary><div class="dashboard-detail-body"></div></details>`;
+  }).join('');
   const overallItems = officialCompositionRows().slice(0,14)
     .filter(row=>compositionMembers(row).length===3 && compositionMembers(row).every(characterById))
     .map((row,index)=>{
@@ -3112,7 +3120,10 @@ function renderHomeDashboard() {
         <div class="section-title-row"><h4>${t('trend.title')}</h4></div>
         <div class="trend-period"><p>${t('trend.period',{from:metaTrends.recentStart?new Date(metaTrends.recentStart).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—',to:metaTrends.end?new Date(Date.parse(metaTrends.end)-86400000).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—'})}</p>${newCharacterNames.length?`<p class="trend-new-character">${t('trend.newCharacterHold',{names:newCharacterNames.join(', ')})}</p>`:''}</div>
         <div class="trend-filters" aria-label="${t('trend.title')}">${[1,2,3].map(size=>`<button type="button" data-trend-size="${size}" aria-pressed="${size===activeTrendSize}">${t(`trend.size${size}`)}</button>`).join('')}</div>
-        <div class="combo-grid trend-grid">${trendItems||`<p class="empty-state">${t(stale?'trend.stale':'trend.empty')}</p>`}</div>
+        <div class="trend-chart" role="group" aria-label="${t('trend.title')}">
+          <div class="trend-chart-axis"><span>${t('trend.decrease')} ← ${trendScale?'-'+(trendScale*100).toFixed(2):''}</span><span>0 · ${t('trend.unit')}</span><span>${trendScale?'+'+(trendScale*100).toFixed(2):''} → ${t('trend.increase')}</span></div>
+          <div class="combo-grid trend-grid">${trendItems||`<p class="empty-state">${t(stale?'trend.stale':'trend.empty')}</p>`}</div>
+        </div>
           </section>
         </div>
       </section>
@@ -4569,7 +4580,7 @@ if (recoveredFeedbackCount > 0) {
     const response = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/metaTrends.json', {cache:'no-store',signal:AbortSignal.timeout(15000)});
     if (!response.ok) return;
     const data = await response.json();
-    if (data.schemaVersion!==2 || !data.byTier || !Number.isFinite(Date.parse(data.end))) return;
+    if (data.schemaVersion!==3 || !data.byTier || !Number.isFinite(Date.parse(data.end))) return;
     if (Date.parse(data.generatedAt)<=Date.parse(metaTrends.generatedAt)) return;
     metaTrends=data;
     if (activeView==='recommendations') renderHomeDashboard();

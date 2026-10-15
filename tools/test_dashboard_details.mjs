@@ -80,6 +80,6 @@ for(const lang of ['ko','en','ja','zhHans','zhHant']){
     'detail.synergies','rank.synergyBasis','rank.synergyPositive','rank.synergyNegative',
     'rank.synergyImprovement','rank.synergyDecline','rank.synergySamples','rank.noSynergy',
     'trend.title','trend.period','trend.size1','trend.size2','trend.size3','trend.rising',
-    'trend.share','trend.results','trend.complete','trend.empty','trend.stale','trend.newCharacterHold'])assert.notEqual(t(key),key);
+    'trend.share','trend.results','trend.complete','trend.empty','trend.stale','trend.newCharacterHold','trend.increase','trend.decrease','trend.unit','trend.pointUnit'])assert.notEqual(t(key),key);
 }
 console.log('Dashboard detail regression passed: lazy open, exact weapon variants, cached reopen, nested disclosure isolation and five locales.');

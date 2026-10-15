@@ -4268,3 +4268,26 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
 
 .trend-period > p { margin: 0; }
 .trend-period .trend-new-character { margin-top: 5px; color: var(--muted); }
+
+.trend-chart { display: grid; grid-template-rows: auto minmax(0,1fr); min-height: 0; gap: 6px; }
+.trend-chart-axis { display: grid; grid-template-columns: 1fr auto 1fr; gap: 4px; font-size: 10px; color: var(--muted); padding: 0 8px; }
+.trend-chart-axis span:first-child { color: #f08080; }
+.trend-chart-axis span:last-child { text-align: right; color: var(--accent-strong); }
+.trend-chart-label { display: flex; gap: 6px; align-items: center; justify-content: space-between; }
+.trend-chart-label .combo-members { flex: 1; min-width: 0; grid-template-columns: repeat(auto-fit,minmax(100px,1fr)); }
+.trend-chart-row .combo-face { grid-template-columns: 24px minmax(0,1fr); gap: 4px; padding: 2px; background: transparent; }
+.trend-chart-row .combo-face img { width: 24px; height: 24px; }
+.trend-chart-row .combo-face strong { font-size: 11px; }
+.trend-chart-row .combo-face small { font-size: 10px; white-space: normal; }
+.trend-change { flex-shrink: 0; font-size: 11px; color: var(--accent-strong); }
+.trend-down .trend-change { color: #f08080; }
+.trend-chart-track { position: relative; height: 12px; margin: 7px 0; background: var(--subtle-tile); border-radius: 2px; }
+.trend-chart-track::after { content: ''; position: absolute; top: -3px; bottom: -3px; left: 50%; width: 1px; background: var(--muted); }
+.trend-chart-bar { position: absolute; top: 0; height: 100%; background: var(--accent); min-width: 1px; border-radius: 2px; }
+.trend-down .trend-chart-bar { background: #d75b64; }
+.trend-chart-stats { display: flex; gap: 4px 10px; flex-wrap: wrap; justify-content: space-between; font-size: 10px; color: var(--muted); }
+.trend-chart-row .dashboard-expand-hint { font-size: 10px; margin-top: 4px; }
+
+.trend-chart-row { padding: 6px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; }
+.trend-chart-row .trend-chart-track { height: 8px; margin: 4px 0; }
+.trend-chart-row .trend-chart-stats { font-size: 10px; }

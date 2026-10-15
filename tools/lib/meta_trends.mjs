@@ -64,9 +64,9 @@ export function createTrendAccumulator({asOf=new Date().toISOString(), days=7, m
             }
             const size=members.length, delta=recent-previous, ratio=(recent+1/totals[1])/(previous+1/totals[0]);
             const z=variance>0?delta/Math.sqrt(variance):0;
-            // Keep all tested increases in the correction family; apply practical thresholds afterwards.
+            // One two-sided correction family: rises and falls have identical evidence thresholds.
             candidates.push({members,games,previousGames,recentShare:recent,previousShare:previous,delta,ratio,
-              top3Rate:top3/games,avgPlacement:placement/games,p:delta>0?tail(z):1,z,size});
+              direction:delta>0?'up':'down',top3Rate:top3/games,avgPlacement:placement/games,p:Math.min(1,2*tail(Math.abs(z))),z,size});
           }
         }
         candidates.sort((a,b)=>a.p-b.p);
@@ -74,12 +74,13 @@ export function createTrendAccumulator({asOf=new Date().toISOString(), days=7, m
         candidates.forEach((r,i)=>{if(r.p<=0.1*(i+1)/candidates.length)cutoff=i;});
         const qualified=candidates.slice(0,cutoff+1).filter(r=>r.games>=({1:60,2:40,3:20}[r.size]) &&
           r.previousGames>=({1:60,2:40,3:20}[r.size]) &&
-          r.ratio>=1.5&&r.delta>=0.0001&&r.z>=2.58);
+          Math.max(r.ratio,1/r.ratio)>=1.5&&Math.abs(r.delta)>=0.0001&&Math.abs(r.z)>=2.58);
         byTier[tier]={previousTeams:totals[0],recentTeams:totals[1],
-          rows:[1,2,3].flatMap(size=>qualified.filter(r=>r.size===size).sort((a,b)=>b.z-a.z||b.delta-a.delta)
-            .slice(0,10).map(({p,z,size,...r})=>r))};
+          rows:[1,2,3].flatMap(size=>['up','down'].flatMap(direction=>qualified.filter(r=>r.size===size&&r.direction===direction)
+            .sort((a,b)=>Math.abs(b.z)-Math.abs(a.z)||Math.abs(b.delta)-Math.abs(a.delta))
+            .slice(0,10).map(({p,z,size,...r})=>r)))};
       }
-      return {schemaVersion:2,generatedAt:new Date().toISOString(),days,timeZone:'Asia/Seoul',
+      return {schemaVersion:3,generatedAt:new Date().toISOString(),days,timeZone:'Asia/Seoul',
         excludedCharacters:[...observedCharacters].filter(id=>!hasFullRankedBaseline(id,new Date(start).toISOString(),availability))
           .map(characterId=>({characterId,reason:'new-character'})),
         previousStart:new Date(start).toISOString(),recentStart:new Date(middle).toISOString(),end:new Date(end).toISOString(),
