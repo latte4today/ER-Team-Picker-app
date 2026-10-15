@@ -3124,7 +3124,6 @@ function renderHomeDashboard() {
         <div class="trend-period"><p>${t('trend.period',{from:metaTrends.recentStart?new Date(metaTrends.recentStart).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—',to:metaTrends.end?new Date(Date.parse(metaTrends.end)-86400000).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—'})}</p>${newCharacterNames.length?`<p class="trend-new-character">${t('trend.newCharacterHold',{names:newCharacterNames.join(', ')})}</p>`:''}</div>
         <div class="trend-filters" aria-label="${t('trend.title')}">${[1,2,3].map(size=>`<button type="button" data-trend-size="${size}" aria-pressed="${size===activeTrendSize}">${t(`trend.size${size}`)}</button>`).join('')}</div>
         <div class="trend-chart" role="group" aria-label="${t('trend.title')}">
-          <div class="trend-chart-axis"><span>${t('trend.decrease')} ← ${trendScale?'-'+(trendScale*100).toFixed(trendDigits):''}</span><span>0 · ${t('trend.unit')}</span><span>${trendScale?'+'+(trendScale*100).toFixed(trendDigits):''} → ${t('trend.increase')}</span></div>
           <div class="combo-grid trend-grid">${trendItems||`<p class="empty-state">${t(stale?'trend.stale':'trend.empty')}</p>`}</div>
         </div>
           </section>
@@ -4583,7 +4582,7 @@ if (recoveredFeedbackCount > 0) {
     const response = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/metaTrends.json', {cache:'no-store',signal:AbortSignal.timeout(15000)});
     if (!response.ok) return;
     const data = await response.json();
-    if (data.schemaVersion!==4 || !data.byTier || !Number.isFinite(Date.parse(data.end))) return;
+    if (data.schemaVersion!==5 || !data.byTier || !Number.isFinite(Date.parse(data.end))) return;
     if (Date.parse(data.generatedAt)<=Date.parse(metaTrends.generatedAt)) return;
     metaTrends=data;
     if (activeView==='recommendations') renderHomeDashboard();
