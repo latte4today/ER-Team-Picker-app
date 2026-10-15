@@ -4270,6 +4270,8 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
 .trend-period .trend-new-character { margin-top: 5px; color: var(--muted); }
 
 .trend-chart { display: grid; grid-template-rows: auto minmax(0,1fr); min-height: 0; gap: 6px; }
+.trend-direction-heading { margin: 0; padding: 7px 6px 3px; font-size: 11px; color: var(--accent-strong); }
+.trend-direction-heading.trend-direction-down { color: #f08080; }
 .trend-chart-axis { display: grid; grid-template-columns: 1fr auto 1fr; gap: 4px; font-size: 10px; color: var(--muted); padding: 0 8px; }
 .trend-chart-axis span:first-child { color: #f08080; }
 .trend-chart-axis span:last-child { text-align: right; color: var(--accent-strong); }
