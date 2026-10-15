@@ -3060,6 +3060,17 @@ function renderHomeDashboard() {
     <span>${t('trend.results',{games:row.games,top3:(row.top3Rate*100).toFixed(0)})}</span></div>
     <span class="dashboard-expand-hint">${t(activeTrendSize===2?'trend.complete':activeTrendSize===1?'rank.characterDetails':'rank.teamDetails')} ⌄</span>
     </summary><div class="dashboard-detail-body"></div></details>`).join('');
+  const overallItems = officialCompositionRows().slice(0,14)
+    .filter(row=>compositionMembers(row).length===3 && compositionMembers(row).every(characterById))
+    .map((row,index)=>{
+      const members = compositionMembers(row);
+      return `<details class="combo-card overall-composition-card" data-dashboard-team="${members.join('|')}">
+        <summary><div class="combo-card-head"><span class="recommendation-rank">${index+1}</span><strong>${compositionDetailText(row)}</strong></div>
+        <div class="combo-members">${members.map(renderCharacterFace).join('')}</div>
+        <p>${compositionReason(row,false)}</p>
+        <span class="dashboard-expand-hint">${t('rank.teamDetails')} ⌄</span></summary>
+        <div class="dashboard-detail-body"></div></details>`;
+    }).join('');
   const rankRows = rankerCharacterRows(activeRankRole);
   const rankItems = rankRows
     .map((row, index) => {
@@ -3085,11 +3096,21 @@ function renderHomeDashboard() {
 
   recommendations.innerHTML = `
     <div class="recommendation-hub">
-      <section class="combo-section trend-section">
-        <div class="section-title-row"><h3>${t('trend.title')}</h3></div>
+      <section class="combo-section composition-overview">
+        <div class="section-title-row"><h3>${t('rank.compositionTitle')}</h3></div>
+        <div class="combo-split">
+          <section class="overall-compositions">
+            <h4>${t('rank.overallTop')}</h4>
+            <p class="trend-period">${t('rank.overallBasis')}</p>
+            <div class="combo-grid overall-composition-grid">${overallItems||`<p class="empty-state">${t('rank.noData')}</p>`}</div>
+          </section>
+          <section class="trend-section">
+        <div class="section-title-row"><h4>${t('trend.title')}</h4></div>
         <p class="trend-period">${t('trend.period',{from:metaTrends.recentStart?new Date(metaTrends.recentStart).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—',to:metaTrends.end?new Date(Date.parse(metaTrends.end)-86400000).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—'})}</p>
         <div class="trend-filters" aria-label="${t('trend.title')}">${[1,2,3].map(size=>`<button type="button" data-trend-size="${size}" aria-pressed="${size===activeTrendSize}">${t(`trend.size${size}`)}</button>`).join('')}</div>
         <div class="combo-grid trend-grid">${trendItems||`<p class="empty-state">${t(stale?'trend.stale':'trend.empty')}</p>`}</div>
+          </section>
+        </div>
       </section>
       <section class="rank-section">
         <div class="section-title-row">

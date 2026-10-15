@@ -747,4 +747,5 @@ export const en = {
   "trend.complete": "Complete this duo",
   "trend.empty": "No clear rising picks or teams in this tier yet.",
   "trend.stale": "Waiting for recent match data.",
+  "rank.overallBasis": "Cumulative match results · Sample size and performance",
 };

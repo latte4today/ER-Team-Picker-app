@@ -4254,3 +4254,14 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
   #team-section .detected-team { display: flex !important; }
   #team-section .detected-chip { flex-basis: 100%; }
 }
+
+.composition-overview .combo-split > section { display: grid; gap: 8px; min-height: 0; min-width: 0; }
+.overall-compositions { grid-template-rows: auto auto minmax(0,1fr); }
+.composition-overview h4 { margin: 0; font-size: 13px; }
+.composition-overview .combo-grid { grid-template-columns: minmax(0,1fr); }
+.composition-overview .overall-compositions > .combo-grid { grid-row: 3; }
+
+.overall-composition-card .combo-members { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.overall-composition-card .combo-face { grid-template-columns: 28px minmax(0,1fr); gap: 5px; }
+.overall-composition-card .combo-face img { width: 28px; height: 28px; }
+.overall-composition-card .combo-face small { white-space: normal; }
