@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {createTrendAccumulator} from './lib/meta_trends.mjs';
-const options={asOf:'2026-10-15T12:00:00Z'};
+import {hasFullRankedBaseline} from '../src/characterAvailability.js';
+const options={asOf:'2026-10-15T12:00:00Z',availability:{}};
 let serial=0;
 function populate(tracker,tier,period,total,rate) {
   for(let day=0;day<7;day++)for(let i=0;i<total;i++)tracker.add({gameId:++serial,teamKey:1,
@@ -26,4 +27,19 @@ populate(mix,'platinum_diamond',0,900,.9);populate(mix,'platinum_diamond',1,100,
 assert.equal(mix.finish().byTier.all.rows.length,0,'a changing tier mix cannot create a rise');
 const sparse=createTrendAccumulator(options);sparse.add(duplicate);
 assert.equal(sparse.finish().byTier.all.rows.length,0,'insufficient coverage has no verdict');
+const launch=createTrendAccumulator({asOf:options.asOf});
+populate(launch,'iron_gold',0,200,.05);populate(launch,'iron_gold',1,200,.25);
+assert.ok(launch.finish().byTier.all.rows.every(r=>r.members.every(id=>!id.startsWith('seres:'))),'known launch eligibility blocks the character and every containing pair/trio');
+assert.equal(launch.finish().excludedCharacters[0].characterId,'seres');
+assert.ok(!hasFullRankedBaseline('seres','2026-10-06T00:00:00+09:00'));
+assert.ok(hasFullRankedBaseline('seres','2026-10-07T00:00:00+09:00'),'eligible again when both complete comparison windows are after ranked availability');
+const tinyBaseline=createTrendAccumulator(options);
+populate(tinyBaseline,'iron_gold',0,200,.005);populate(tinyBaseline,'iron_gold',1,200,.25);
+assert.equal(tinyBaseline.finish().byTier.all.rows.length,0,'tiny old sample cannot manufacture a huge growth ratio');
+const lateRegistration=createTrendAccumulator(options);
+for(let period=0;period<2;period++)for(let day=0;day<7;day++)for(let i=0;i<200;i++)lateRegistration.add({
+  gameId:++serial,teamKey:1,startedAt:`2026-10-${String((period?8:1)+day).padStart(2,'0')}T12:00:00Z`,
+  tierBucket:'iron_gold',placement:2,members:(period||day>=2)&&i<100?['future:a','rio:bow','mai:whip']:['luke:bat','sho:spear','lenox:whip'],
+});
+assert.ok(lateRegistration.finish().byTier.all.rows.every(r=>r.members.every(id=>!id.startsWith('future:'))),'unknown future releases need all seven observed days in both windows');
 console.log('Meta trends: real growth, complete KST windows, dedup, valid trios, volume normalization, fixed tier mix and insufficient coverage passed.');

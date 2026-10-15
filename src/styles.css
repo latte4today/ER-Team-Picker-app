@@ -4265,3 +4265,6 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
 .overall-composition-card .combo-face { grid-template-columns: 28px minmax(0,1fr); gap: 5px; }
 .overall-composition-card .combo-face img { width: 28px; height: 28px; }
 .overall-composition-card .combo-face small { white-space: normal; }
+
+.trend-period > p { margin: 0; }
+.trend-period .trend-new-character { margin-top: 5px; color: var(--muted); }

@@ -748,4 +748,5 @@ export const en = {
   "trend.empty": "No clear rising picks or teams in this tier yet.",
   "trend.stale": "Waiting for recent match data.",
   "rank.overallBasis": "Cumulative match results · Sample size and performance",
+  "trend.newCharacterHold": "{names}: New release · Comparison pending",
 };

@@ -830,4 +830,5 @@ export const ko = {
   "trend.empty": "현재 티어에서 뚜렷하게 상승한 픽·조합이 아직 없습니다.",
   "trend.stale": "최근 전적 갱신을 기다리고 있습니다.",
   "rank.overallBasis": "장기 누적 전적 · 표본과 성적 반영",
+  "trend.newCharacterHold": "{names}: 신캐 · 비교 보류",
 };
