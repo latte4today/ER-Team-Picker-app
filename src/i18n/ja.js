@@ -748,4 +748,5 @@ export const ja = {
   "trend.empty": "このティアで明確に上昇したピック・編成はまだありません。",
   "trend.stale": "最新戦績の更新を待っています。",
   "rank.overallBasis": "長期累積戦績 · 標本数と成績を反映",
+  "trend.newCharacterHold": "{names}: 新実験体 · 比較保留",
 };

@@ -748,4 +748,5 @@ export const zhHant = {
   "trend.empty": "目前段位暫無明顯上升的角色或陣容。",
   "trend.stale": "正在等待近期戰績更新。",
   "rank.overallBasis": "長期累計戰績 · 綜合樣本與成績",
+  "trend.newCharacterHold": "{names}：新角色 · 暫緩比較",
 };

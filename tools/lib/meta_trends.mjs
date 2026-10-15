@@ -1,14 +1,16 @@
 const DAY = 86400000;
+import {RANKED_AVAILABILITY,hasFullRankedBaseline} from '../../src/characterAvailability.js';
 export const TREND_TIERS = ['iron_gold','platinum_diamond','meteor_mithril','demigod_eternity'];
 function tail(z) {
   const t=1/(1+0.2316419*z);
   return Math.exp(-z*z/2)/Math.sqrt(2*Math.PI)*t*(0.31938153+t*(-0.356563782+t*(1.781477937+t*(-1.821255978+t*1.330274429))));
 }
-export function createTrendAccumulator({asOf=new Date().toISOString(), days=7, minTeams=1000}={}) {
+export function createTrendAccumulator({asOf=new Date().toISOString(), days=7, minTeams=1000, availability=RANKED_AVAILABILITY}={}) {
   const end=Math.floor((Date.parse(asOf)+9*3600000)/DAY)*DAY-9*3600000, start=end-2*days*DAY, middle=end-days*DAY;
   if (!Number.isFinite(end)) throw new Error('Invalid trend cutoff');
-  const buckets=Object.fromEntries(TREND_TIERS.map(t=>[t,[{total:0,dates:new Set(),rows:new Map()},{total:0,dates:new Set(),rows:new Map()}]]));
+  const buckets=Object.fromEntries(TREND_TIERS.map(t=>[t,[0,1].map(()=>({total:0,dates:new Set(),characterDays:new Map(),rows:new Map()}))]));
   const seen=new Set();
+  const observedCharacters=new Set();
   let latest=null;
   return {
     add({gameId,teamKey,startedAt,tierBucket,members,placement}) {
@@ -21,7 +23,13 @@ export function createTrendAccumulator({asOf=new Date().toISOString(), days=7, m
       seen.add(key);
       latest=Math.max(latest??0,time);
       const period=bucket[time<middle?0:1];
-      period.total++; period.dates.add(Math.floor(time/DAY));
+      const calendarDay=Math.floor((time+9*3600000)/DAY);
+      period.total++; period.dates.add(calendarDay);
+      for (const id of members.map(v=>v.split(':')[0])) {
+        observedCharacters.add(id);
+        if(!period.characterDays.has(id))period.characterDays.set(id,new Set());
+        period.characterDays.get(id).add(calendarDay);
+      }
       const ids=[...members].sort();
       const groups=[...ids.map(id=>[id]),[ids[0],ids[1]],[ids[0],ids[2]],[ids[1],ids[2]],ids];
       for (const group of groups) {
@@ -39,8 +47,13 @@ export function createTrendAccumulator({asOf=new Date().toISOString(), days=7, m
         const totals=[0,1].map(i=>sources.reduce((n,p)=>n+p[i].total,0));
         const combined=totals[0]+totals[1], candidates=[];
         if (Math.min(...totals)>=minTeams) {
+          const eligibleCharacters=new Set([...observedCharacters].filter(id=>hasFullRankedBaseline(id,new Date(start).toISOString(),availability)&&
+            [0,1].every(i=>new Set(sources.flatMap(p=>[...(p[i].characterDays.get(id)??[])])).size>=days)));
           const keys=new Set(sources.flatMap(p=>[...p[0].rows.keys(),...p[1].rows.keys()]));
           for (const key of keys) {
+            const characterIds=key.split('|').map(v=>v.split(':')[0]);
+            // Unknown future releases and late data registration also need both full weeks of observations.
+            if(characterIds.some(id=>!eligibleCharacters.has(id)))continue;
             let previous=0,recent=0,variance=0,games=0,previousGames=0,top3=0,placement=0,members;
             for (const p of sources) {
               const old=p[0].rows.get(key), row=p[1].rows.get(key), weight=(p[0].total+p[1].total)/combined;
@@ -60,12 +73,15 @@ export function createTrendAccumulator({asOf=new Date().toISOString(), days=7, m
         let cutoff=-1;
         candidates.forEach((r,i)=>{if(r.p<=0.1*(i+1)/candidates.length)cutoff=i;});
         const qualified=candidates.slice(0,cutoff+1).filter(r=>r.games>=({1:60,2:40,3:20}[r.size]) &&
+          r.previousGames>=({1:60,2:40,3:20}[r.size]) &&
           r.ratio>=1.5&&r.delta>=0.0001&&r.z>=2.58);
         byTier[tier]={previousTeams:totals[0],recentTeams:totals[1],
           rows:[1,2,3].flatMap(size=>qualified.filter(r=>r.size===size).sort((a,b)=>b.z-a.z||b.delta-a.delta)
             .slice(0,10).map(({p,z,size,...r})=>r))};
       }
-      return {schemaVersion:1,generatedAt:new Date().toISOString(),days,timeZone:'Asia/Seoul',
+      return {schemaVersion:2,generatedAt:new Date().toISOString(),days,timeZone:'Asia/Seoul',
+        excludedCharacters:[...observedCharacters].filter(id=>!hasFullRankedBaseline(id,new Date(start).toISOString(),availability))
+          .map(characterId=>({characterId,reason:'new-character'})),
         previousStart:new Date(start).toISOString(),recentStart:new Date(middle).toISOString(),end:new Date(end).toISOString(),
         latestMatchAt:latest?new Date(latest).toISOString():null,byTier};
     },

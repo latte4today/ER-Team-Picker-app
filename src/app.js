@@ -1,3 +1,4 @@
+import { hasFullRankedBaseline } from "./characterAvailability.js";
 import { metaTrends as bundledMetaTrends } from "./metaTrends.js";
 import { characterVariants, roleNames, roles } from "./data.js";
 import {
@@ -3052,7 +3053,10 @@ function renderHomeDashboard() {
   const trendBucket = officialBucketForTier(tierSelect.value);
   const stale = !metaTrends.end || !metaTrends.latestMatchAt || Date.now()-Date.parse(metaTrends.latestMatchAt)>4*86400000;
   const trendRows = stale ? [] : (metaTrends.byTier?.[trendBucket]?.rows ?? [])
-    .filter(row=>row.members.length===activeTrendSize && row.members.every(characterById));
+    .filter(row=>row.members.length===activeTrendSize && row.members.every(characterById) && row.members.every(id=>hasFullRankedBaseline(id.split(':')[0],metaTrends.previousStart)));
+  const newCharacterNames = (metaTrends.excludedCharacters??[])
+    .filter(row=>row.reason==='new-character' && characterById(row.characterId))
+    .map(row=>t(`char.${characterById(row.characterId).id}`));
   const trendItems = trendRows.map((row,index)=>`<details class="combo-card trend-card" data-dashboard-trend="${row.members.join('|')}">
     <summary><div class="combo-card-head"><strong>${t('trend.rising')} ${index+1}</strong><span class="trend-rise">↑ ${row.ratio.toFixed(1)}×</span></div>
     <div class="combo-members">${row.members.map(renderCharacterFace).join('')}</div>
@@ -3106,7 +3110,7 @@ function renderHomeDashboard() {
           </section>
           <section class="trend-section">
         <div class="section-title-row"><h4>${t('trend.title')}</h4></div>
-        <p class="trend-period">${t('trend.period',{from:metaTrends.recentStart?new Date(metaTrends.recentStart).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—',to:metaTrends.end?new Date(Date.parse(metaTrends.end)-86400000).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—'})}</p>
+        <div class="trend-period"><p>${t('trend.period',{from:metaTrends.recentStart?new Date(metaTrends.recentStart).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—',to:metaTrends.end?new Date(Date.parse(metaTrends.end)-86400000).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—'})}</p>${newCharacterNames.length?`<p class="trend-new-character">${t('trend.newCharacterHold',{names:newCharacterNames.join(', ')})}</p>`:''}</div>
         <div class="trend-filters" aria-label="${t('trend.title')}">${[1,2,3].map(size=>`<button type="button" data-trend-size="${size}" aria-pressed="${size===activeTrendSize}">${t(`trend.size${size}`)}</button>`).join('')}</div>
         <div class="combo-grid trend-grid">${trendItems||`<p class="empty-state">${t(stale?'trend.stale':'trend.empty')}</p>`}</div>
           </section>
@@ -4565,7 +4569,7 @@ if (recoveredFeedbackCount > 0) {
     const response = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/metaTrends.json', {cache:'no-store',signal:AbortSignal.timeout(15000)});
     if (!response.ok) return;
     const data = await response.json();
-    if (data.schemaVersion!==1 || !data.byTier || !Number.isFinite(Date.parse(data.end))) return;
+    if (data.schemaVersion!==2 || !data.byTier || !Number.isFinite(Date.parse(data.end))) return;
     if (Date.parse(data.generatedAt)<=Date.parse(metaTrends.generatedAt)) return;
     metaTrends=data;
     if (activeView==='recommendations') renderHomeDashboard();
