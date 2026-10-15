@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {createTrendAccumulator} from './lib/meta_trends.mjs';
+import {createTrendAccumulator,qualifyTrioTrends} from './lib/meta_trends.mjs';
 import {hasFullRankedBaseline} from '../src/characterAvailability.js';
 const options={asOf:'2026-10-15T12:00:00Z',availability:{}};
 let serial=0;
@@ -49,3 +49,9 @@ for(let period=0;period<2;period++)for(let day=0;day<7;day++)for(let i=0;i<200;i
 });
 assert.ok(lateRegistration.finish().byTier.all.rows.every(r=>r.members.every(id=>!id.startsWith('future:'))),'unknown future releases need all seven observed days in both windows');
 console.log('Meta trends: real growth, complete KST windows, dedup, valid trios, volume normalization, fixed tier mix and insufficient coverage passed.');
+const trio={members:['a:x','b:y','c:z'],size:3,games:60,previousGames:30,ratio:2,delta:.00008,z:3,p:.0027};
+const rare=Array.from({length:120000},()=>({...trio,games:1,previousGames:1,p:1,z:0}));
+assert.deepEqual(qualifyTrioTrends([trio,...rare]),[trio],'unsupported rare combinations cannot swamp the trio correction family');
+assert.deepEqual(qualifyTrioTrends([{...trio,delta:-.00008,z:-3,ratio:.5}]).map(r=>r.z),[-3],'same evidence rule in both directions');
+assert.equal(qualifyTrioTrends([{...trio,games:19,previousGames:100}]).length,0,'retain both-period sample protection');
+assert.equal(qualifyTrioTrends([{...trio,delta:.00001}]).length,0,'trio-specific effect floor still rejects negligible changes');
