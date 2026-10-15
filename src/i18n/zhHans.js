@@ -747,4 +747,5 @@ export const zhHans = {
   "trend.complete": "第三名队友推荐",
   "trend.empty": "当前段位暂无明显上升的角色或阵容。",
   "trend.stale": "正在等待近期战绩更新。",
+  "rank.overallBasis": "长期累计战绩 · 综合样本与成绩",
 };
