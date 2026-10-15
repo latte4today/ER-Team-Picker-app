@@ -5,12 +5,14 @@ const source=await fs.readFile(new URL('../src/app.js',import.meta.url),'utf8');
 let onToggle;
 let onInlineToggle;
 const calls=[];
+const coreOptions=[];
 let opens=0;
 const state={
   recommendations:{addEventListener:(type,handler,capture)=>{assert.equal(type,'toggle');assert.equal(capture,true);onToggle=handler;}},
   dashboardDetailDialog:{addEventListener:(type,handler,capture)=>{assert.equal(type,'toggle');assert.equal(capture,true);onInlineToggle=handler;}},
   renderDashboardCharacterDetails:id=>{calls.push(id);return '<p>Character</p>';},
-  renderDashboardTeamDetails:ids=>{calls.push(ids);return '<p>Team</p>';},
+  renderDashboardTeamDetails:(ids,options)=>{calls.push(ids);coreOptions.push(options);return '<p>Team</p>';},
+  renderTrendDetails:ids=>{calls.push(ids);return '<p>Trend</p>';},
   openDashboardDetails:()=>{opens++;},
 };
 vm.createContext(state);
@@ -31,6 +33,14 @@ onInlineToggle({target:card});
 assert.equal(calls.length,3);
 assert.equal(opens,3,'inline team analysis does not open another drawer');
 onInlineToggle({target:card});assert.equal(calls.length,3,'inline reopen reuses the team explanation');
+body.childElementCount=0;
+card.dataset.dashboardCore='rio:bow#7000601';
+onInlineToggle({target:card});
+assert.equal(coreOptions.at(-1).coreOverrides['rio:bow'],'7000601','completion keeps the recommended trait when expanded');
+body.childElementCount=0;
+card.dataset={dashboardTrend:'rio:bow|seres:two_handed_sword'};
+onToggle({target:card});
+assert.deepEqual(Array.from(calls.at(-1)),['rio:bow','seres:two_handed_sword'],'duo trends open the completion reader');
 let focused=false,closed=false;
 const owner={open:true,querySelector:()=>({focus:options=>{focused=options.preventScroll;}})};
 state.dashboardDetailOwner=owner;
@@ -68,6 +78,8 @@ for(const lang of ['ko','en','ja','zhHans','zhHant']){
     'rank.coreComparison','rank.coreName','rank.observedTeams','rank.noObservedTeams',
     'detail.overview','detail.cores','detail.teams','detail.plan','detail.roles','detail.matchups',
     'detail.synergies','rank.synergyBasis','rank.synergyPositive','rank.synergyNegative',
-    'rank.synergyImprovement','rank.synergyDecline','rank.synergySamples','rank.noSynergy'])assert.notEqual(t(key),key);
+    'rank.synergyImprovement','rank.synergyDecline','rank.synergySamples','rank.noSynergy',
+    'trend.title','trend.period','trend.size1','trend.size2','trend.size3','trend.rising',
+    'trend.share','trend.results','trend.complete','trend.empty','trend.stale'])assert.notEqual(t(key),key);
 }
 console.log('Dashboard detail regression passed: lazy open, exact weapon variants, cached reopen, nested disclosure isolation and five locales.');
