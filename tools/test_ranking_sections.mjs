@@ -25,7 +25,7 @@ assert.match(state.recommendations.innerHTML,/1000 official games/);
 assert.match(state.recommendations.innerHTML,/old:a/);
 assert.match(state.recommendations.innerHTML,/new:a/);
 assert.match(state.recommendations.innerHTML,/fall:a/);
-assert.match(state.recommendations.innerHTML,/trend-chart-axis/);
+assert.ok(!state.recommendations.innerHTML.includes('trend-chart-axis'),'hide the maximum-value axis labels');
 assert.match(state.recommendations.innerHTML,/trend-direction-heading [^"]*">▲ trend.increase/);
 assert.match(state.recommendations.innerHTML,/trend-direction-down">▼ trend.decrease/);
 assert.ok(state.recommendations.innerHTML.indexOf('▲ trend.increase')<state.recommendations.innerHTML.indexOf('new:a'));

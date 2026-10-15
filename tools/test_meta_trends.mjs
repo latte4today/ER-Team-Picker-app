@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {createTrendAccumulator,qualifyTrioTrends} from './lib/meta_trends.mjs';
+import {createTrendAccumulator,qualifyTrioTrends,hasMeaningfulTrendEffect} from './lib/meta_trends.mjs';
 import {hasFullRankedBaseline} from '../src/characterAvailability.js';
 const options={asOf:'2026-10-15T12:00:00Z',availability:{}};
 let serial=0;
@@ -41,7 +41,7 @@ assert.ok(!hasFullRankedBaseline('seres','2026-10-06T00:00:00+09:00'));
 assert.ok(hasFullRankedBaseline('seres','2026-10-07T00:00:00+09:00'),'eligible again when both complete comparison windows are after ranked availability');
 const tinyBaseline=createTrendAccumulator(options);
 populate(tinyBaseline,'iron_gold',0,200,.005);populate(tinyBaseline,'iron_gold',1,200,.25);
-assert.equal(tinyBaseline.finish().byTier.all.rows.length,0,'tiny old sample cannot manufacture a huge growth ratio');
+assert.ok(tinyBaseline.finish().byTier.all.rows.every(r=>!r.members.includes('aya:pistol')),'tiny old sample cannot manufacture a huge growth ratio');
 const lateRegistration=createTrendAccumulator(options);
 for(let period=0;period<2;period++)for(let day=0;day<7;day++)for(let i=0;i<200;i++)lateRegistration.add({
   gameId:++serial,teamKey:1,startedAt:`2026-10-${String((period?8:1)+day).padStart(2,'0')}T12:00:00Z`,
@@ -55,3 +55,15 @@ assert.deepEqual(qualifyTrioTrends([trio,...rare]),[trio],'unsupported rare comb
 assert.deepEqual(qualifyTrioTrends([{...trio,delta:-.00008,z:-3,ratio:.5}]).map(r=>r.z),[-3],'same evidence rule in both directions');
 assert.equal(qualifyTrioTrends([{...trio,games:19,previousGames:100}]).length,0,'retain both-period sample protection');
 assert.equal(qualifyTrioTrends([{...trio,delta:.00001}]).length,0,'trio-specific effect floor still rejects negligible changes');
+const modest=createTrendAccumulator(options);
+populate(modest,'iron_gold',0,1000,.5);populate(modest,'iron_gold',1,1000,.4);
+const picks=modest.finish().byTier.all.rows.filter(r=>r.members.length===1);
+assert.ok(picks.some(r=>r.direction==='down'&&r.members.includes('aya:pistol')),'well-supported 20% pick decline remains visible');
+assert.ok(picks.some(r=>r.direction==='up'&&r.members.includes('luke:bat')),'same pick policy allows comparable rises');
+const pick={size:1,games:1000,previousGames:1200,ratio:1/1.2,delta:-.003,z:-4};
+assert.ok(hasMeaningfulTrendEffect(pick));
+assert.ok(hasMeaningfulTrendEffect({...pick,ratio:1.2,delta:.003,z:4}));
+assert.ok(!hasMeaningfulTrendEffect({...pick,previousGames:59}));
+assert.ok(!hasMeaningfulTrendEffect({...pick,delta:-.001}),'reject negligible absolute changes');
+assert.ok(!hasMeaningfulTrendEffect({...pick,z:-2}),'retain statistical evidence threshold');
+assert.ok(!hasMeaningfulTrendEffect({...pick,size:2}),'duo effect rules stay unchanged');

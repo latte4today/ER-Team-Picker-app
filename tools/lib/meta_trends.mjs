@@ -1,6 +1,12 @@
 const DAY = 86400000;
 import {RANKED_AVAILABILITY,hasFullRankedBaseline} from '../../src/characterAvailability.js';
 export const TREND_TIERS = ['iron_gold','platinum_diamond','meteor_mithril','demigod_eternity'];
+export const PICK_TREND_POLICY = {minPeriodGames:60,minRelativeChange:1.15,minShareDelta:0.0025,minZ:2.58,fdr:0.1};
+export function hasMeaningfulTrendEffect(row) {
+  const policy=row.size===1?PICK_TREND_POLICY:{minPeriodGames:40,minRelativeChange:1.5,minShareDelta:0.0001,minZ:2.58};
+  return row.games>=policy.minPeriodGames&&row.previousGames>=policy.minPeriodGames&&
+    Math.max(row.ratio,1/row.ratio)>=policy.minRelativeChange&&Math.abs(row.delta)>=policy.minShareDelta&&Math.abs(row.z)>=policy.minZ;
+}
 function tail(z) {
   const t=1/(1+0.2316419*z);
   return Math.exp(-z*z/2)/Math.sqrt(2*Math.PI)*t*(0.31938153+t*(-0.356563782+t*(1.781477937+t*(-1.821255978+t*1.330274429))));
@@ -82,16 +88,14 @@ export function createTrendAccumulator({asOf=new Date().toISOString(), days=7, m
         if(diagnostics)diagnosticsByTier[tier]=candidates;
         let cutoff=-1;
         candidates.forEach((r,i)=>{if(r.p<=0.1*(i+1)/candidates.length)cutoff=i;});
-        const globalQualified=candidates.slice(0,cutoff+1).filter(r=>r.games>=({1:60,2:40,3:20}[r.size]) &&
-          r.previousGames>=({1:60,2:40,3:20}[r.size]) &&
-          Math.max(r.ratio,1/r.ratio)>=1.5&&Math.abs(r.delta)>=0.0001&&Math.abs(r.z)>=2.58);
+        const globalQualified=candidates.slice(0,cutoff+1).filter(hasMeaningfulTrendEffect);
         const qualified=[...globalQualified.filter(r=>r.size!==3),...qualifyTrioTrends(candidates)];
         byTier[tier]={previousTeams:totals[0],recentTeams:totals[1],
           rows:[1,2,3].flatMap(size=>['up','down'].flatMap(direction=>qualified.filter(r=>r.size===size&&r.direction===direction)
             .sort((a,b)=>Math.abs(b.z)-Math.abs(a.z)||Math.abs(b.delta)-Math.abs(a.delta))
             .slice(0,10).map(({p,z,size,...r})=>r)))};
       }
-      return {schemaVersion:4,generatedAt:new Date().toISOString(),days,timeZone:'Asia/Seoul',
+      return {schemaVersion:5,generatedAt:new Date().toISOString(),days,timeZone:'Asia/Seoul',pickPolicy:PICK_TREND_POLICY,
         trioPolicy:{minPeriodGames:20,minCombinedGames:60,minRelativeChange:1.5,minShareDelta:0.00003,minZ:2.58,fdr:0.1},
         ...(diagnostics?{diagnostics:diagnosticsByTier}:{}),
         excludedCharacters:[...observedCharacters].filter(id=>!hasFullRankedBaseline(id,new Date(start).toISOString(),availability))
