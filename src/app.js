@@ -3061,11 +3061,13 @@ function renderHomeDashboard() {
   const trendRows = metaMovementRows(eligibleTrendRows,activeTrendSize);
   const trendScale = Math.max(...trendRows.map(row=>Math.abs(row.delta)),0);
   const trendDigits = activeTrendSize===3 ? 3 : 2;
-  const trendItems = trendRows.map(row=>{
+  const trendItems = trendRows.map((row,index)=>{
     const down = row.delta<0;
+    const heading = index===0 || down!==(trendRows[index-1].delta<0)
+      ? `<h5 class="trend-direction-heading ${down?'trend-direction-down':''}">${down?'▼':'▲'} ${t(down?'trend.decrease':'trend.increase')}</h5>` : '';
     const bar = movementBar(row.delta,trendScale);
     const change = `${down?'':'+'}${(row.delta*100).toFixed(trendDigits)}${t('trend.pointUnit')}`;
-    return `<details class="combo-card trend-card trend-chart-row ${down?'trend-down':'trend-up'}" data-dashboard-trend="${row.members.join('|')}">
+    return `${heading}<details class="combo-card trend-card trend-chart-row ${down?'trend-down':'trend-up'}" data-dashboard-trend="${row.members.join('|')}">
     <summary><div class="trend-chart-label"><div class="combo-members">${row.members.map(renderCharacterFace).join('')}</div>
       <strong class="trend-change">${down?'▼':'▲'} ${change} <span aria-hidden="true">⌄</span></strong></div>
     <div class="trend-chart-track" aria-hidden="true"><span class="trend-chart-bar" style="left:${bar.left}%;width:${bar.width}%"></span></div>
