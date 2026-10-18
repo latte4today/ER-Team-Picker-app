@@ -44718,5 +44718,3789 @@
         "assists": 3
       }
     ]
+  },
+  {
+    "gameId": 8085,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T19:37:38.038+0900",
+    "teamNumber": 2,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      6,
+      53,
+      54
+    ],
+    "rankScore": 10,
+    "killScore": 14,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 54,
+        "weaponCode": 8,
+        "core": 7000701,
+        "kills": 2,
+        "assists": 7
+      },
+      {
+        "nickname": "DTS_Taegyung",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 5,
+        "assists": 6
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 6,
+        "weaponCode": 8,
+        "core": 7000601,
+        "kills": 9,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 8085,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T19:37:38.038+0900",
+    "teamNumber": 7,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      8,
+      19,
+      87
+    ],
+    "rankScore": 7,
+    "killScore": 9,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 87,
+        "weaponCode": 24,
+        "core": 7300201,
+        "kills": 4,
+        "assists": 5
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 19,
+        "weaponCode": 6,
+        "core": 7300101,
+        "kills": 4,
+        "assists": 4
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 8,
+        "weaponCode": 22,
+        "core": 7000201,
+        "kills": 2,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 8085,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T19:37:38.038+0900",
+    "teamNumber": 8,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      3,
+      27,
+      81
+    ],
+    "rankScore": 5,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "GSL_Xboy",
+        "characterNum": 3,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 1
+      },
+      {
+        "nickname": "GSL_Makotya",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "GSL_Cruiser",
+        "characterNum": 27,
+        "weaponCode": 16,
+        "core": 7211301,
+        "kills": 1,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 8085,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T19:37:38.038+0900",
+    "teamNumber": 4,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 4,
+    "killScore": 11.5,
+    "players": [
+      {
+        "nickname": "BS_Romatic",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 7,
+        "assists": 5
+      },
+      {
+        "nickname": "BS_Hare",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 2,
+        "assists": 11
+      },
+      {
+        "nickname": "BS_SeoEunSeol",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 5,
+        "assists": 9
+      }
+    ]
+  },
+  {
+    "gameId": 8085,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T19:37:38.038+0900",
+    "teamNumber": 3,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      38,
+      44,
+      66
+    ],
+    "rankScore": 3,
+    "killScore": 1,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 44,
+        "weaponCode": 25,
+        "core": 7100501,
+        "kills": 1,
+        "assists": 0
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7000501,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "ROX_Narvic",
+        "characterNum": 38,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8085,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T19:37:38.038+0900",
+    "teamNumber": 5,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      24,
+      33
+    ],
+    "rankScore": 2,
+    "killScore": 2.5,
+    "players": [
+      {
+        "nickname": "JNE_JUMO",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "JNE_nemuri",
+        "characterNum": 21,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "JNE_Siko",
+        "characterNum": 24,
+        "weaponCode": 21,
+        "core": 7000201,
+        "kills": 1,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8085,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T19:37:38.038+0900",
+    "teamNumber": 1,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      79,
+      87
+    ],
+    "rankScore": 1,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 0,
+        "assists": 7
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 21,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 5,
+        "assists": 1
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 87,
+        "weaponCode": 24,
+        "core": 7300201,
+        "kills": 2,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8085,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T19:37:38.038+0900",
+    "teamNumber": 6,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      1,
+      35,
+      81
+    ],
+    "rankScore": 0,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "CNJ_KCW",
+        "characterNum": 35,
+        "weaponCode": 2,
+        "core": 7300101,
+        "kills": 4,
+        "assists": 0
+      },
+      {
+        "nickname": "CNJ_100Soo",
+        "characterNum": 1,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 1,
+        "assists": 0
+      },
+      {
+        "nickname": "CNJ_Beobeo",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 0,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8086,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:18:55.055+0900",
+    "teamNumber": 7,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 10,
+    "killScore": 13,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 7,
+        "assists": 7
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 2,
+        "assists": 13
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 7,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 8086,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:18:55.055+0900",
+    "teamNumber": 2,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      31,
+      43,
+      68
+    ],
+    "rankScore": 7,
+    "killScore": 16,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 43,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 4,
+        "assists": 10
+      },
+      {
+        "nickname": "DTS_Cnema",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7000201,
+        "kills": 5,
+        "assists": 10
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 8,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 8086,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:18:55.055+0900",
+    "teamNumber": 6,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      19,
+      33,
+      86
+    ],
+    "rankScore": 5,
+    "killScore": 4.5,
+    "players": [
+      {
+        "nickname": "CNJ_KCW",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 3,
+        "assists": 1
+      },
+      {
+        "nickname": "CNJ_100Soo",
+        "characterNum": 86,
+        "weaponCode": 1,
+        "core": 7100201,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "CNJ_Beobeo",
+        "characterNum": 19,
+        "weaponCode": 6,
+        "core": 7300101,
+        "kills": 1,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8086,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:18:55.055+0900",
+    "teamNumber": 4,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      33,
+      66,
+      71
+    ],
+    "rankScore": 4,
+    "killScore": 8,
+    "players": [
+      {
+        "nickname": "BS_Romatic",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7000501,
+        "kills": 2,
+        "assists": 6
+      },
+      {
+        "nickname": "BS_Hare",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "BS_Nizika",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 5,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8086,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:18:55.055+0900",
+    "teamNumber": 1,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      79,
+      87
+    ],
+    "rankScore": 3,
+    "killScore": 11.5,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 3,
+        "assists": 9
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 21,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 6
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 87,
+        "weaponCode": 24,
+        "core": 7300201,
+        "kills": 5,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 8086,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:18:55.055+0900",
+    "teamNumber": 3,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      27,
+      56,
+      89
+    ],
+    "rankScore": 2,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 89,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 0
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 56,
+        "weaponCode": 20,
+        "core": 7100101,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "ROX_Belzer",
+        "characterNum": 27,
+        "weaponCode": 16,
+        "core": 7300101,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8086,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:18:55.055+0900",
+    "teamNumber": 5,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      31,
+      43,
+      68
+    ],
+    "rankScore": 1,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "JNE_JUMO",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7000201,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "JNE_nemuri",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 3,
+        "assists": 0
+      },
+      {
+        "nickname": "JNE_Siko",
+        "characterNum": 43,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 1,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8086,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:18:55.055+0900",
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      33,
+      42,
+      71
+    ],
+    "rankScore": 0,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "GSL_Xboy",
+        "characterNum": 42,
+        "weaponCode": 24,
+        "core": 7200201,
+        "kills": 4,
+        "assists": 4
+      },
+      {
+        "nickname": "GSL_Makotya",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "GSL_Cruiser",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 2,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8087,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:50:48.048+0900",
+    "teamNumber": 7,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 10,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 1,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8087,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:50:48.048+0900",
+    "teamNumber": 1,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      66,
+      71,
+      84
+    ],
+    "rankScore": 7,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7200501,
+        "kills": 0,
+        "assists": 7
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 84,
+        "weaponCode": 18,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8087,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:50:48.048+0900",
+    "teamNumber": 6,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      1,
+      35,
+      81
+    ],
+    "rankScore": 5,
+    "killScore": 14.5,
+    "players": [
+      {
+        "nickname": "CNJ_KCW",
+        "characterNum": 35,
+        "weaponCode": 2,
+        "core": 7300101,
+        "kills": 5,
+        "assists": 11
+      },
+      {
+        "nickname": "CNJ_100Soo",
+        "characterNum": 1,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 7,
+        "assists": 8
+      },
+      {
+        "nickname": "CNJ_Beobeo",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 7,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8087,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:50:48.048+0900",
+    "teamNumber": 3,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      33,
+      51,
+      71
+    ],
+    "rankScore": 4,
+    "killScore": 9.5,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 6,
+        "assists": 4
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 51,
+        "weaponCode": 22,
+        "core": 7200501,
+        "kills": 3,
+        "assists": 9
+      },
+      {
+        "nickname": "ROX_Belzer",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 3,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 8087,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:50:48.048+0900",
+    "teamNumber": 8,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      33,
+      42,
+      71
+    ],
+    "rankScore": 3,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "GSL_Xboy",
+        "characterNum": 42,
+        "weaponCode": 24,
+        "core": 7200201,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "GSL_Makotya",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "GSL_Cruiser",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 1,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8087,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:50:48.048+0900",
+    "teamNumber": 5,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      3,
+      42,
+      70
+    ],
+    "rankScore": 2,
+    "killScore": 8.5,
+    "players": [
+      {
+        "nickname": "JNE_JUMO",
+        "characterNum": 42,
+        "weaponCode": 24,
+        "core": 7200201,
+        "kills": 1,
+        "assists": 8
+      },
+      {
+        "nickname": "JNE_nemuri",
+        "characterNum": 70,
+        "weaponCode": 6,
+        "core": 7000601,
+        "kills": 9,
+        "assists": 2
+      },
+      {
+        "nickname": "JNE_Siko",
+        "characterNum": 3,
+        "weaponCode": 21,
+        "core": 7100201,
+        "kills": 1,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 8087,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:50:48.048+0900",
+    "teamNumber": 2,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      58,
+      68
+    ],
+    "rankScore": 1,
+    "killScore": 0.5,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 58,
+        "weaponCode": 10,
+        "core": 7000501,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "DTS_Cnema",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7000201,
+        "kills": 0,
+        "assists": 1
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 6,
+        "weaponCode": 8,
+        "core": 7000601,
+        "kills": 1,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 8087,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T20:50:48.048+0900",
+    "teamNumber": 4,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      33,
+      66,
+      71
+    ],
+    "rankScore": 0,
+    "killScore": 0,
+    "players": [
+      {
+        "nickname": "BS_Romatic",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7000501,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "BS_Hare",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "BS_Nizika",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 0,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 8088,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T21:33:41.041+0900",
+    "teamNumber": 2,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      31,
+      43,
+      55
+    ],
+    "rankScore": 10,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 43,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "DTS_Cnema",
+        "characterNum": 55,
+        "weaponCode": 14,
+        "core": 7200301,
+        "kills": 0,
+        "assists": 6
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 5,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8088,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T21:33:41.041+0900",
+    "teamNumber": 8,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 7,
+    "killScore": 13,
+    "players": [
+      {
+        "nickname": "GSL_Xboy",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 8,
+        "assists": 7
+      },
+      {
+        "nickname": "GSL_Makotya",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 4,
+        "assists": 9
+      },
+      {
+        "nickname": "GSL_Cruiser",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 3,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8088,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T21:33:41.041+0900",
+    "teamNumber": 6,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      10,
+      66,
+      80
+    ],
+    "rankScore": 5,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "CNJ_KCW",
+        "characterNum": 80,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 7,
+        "assists": 3
+      },
+      {
+        "nickname": "CNJ_100Soo",
+        "characterNum": 10,
+        "weaponCode": 1,
+        "core": 7100201,
+        "kills": 2,
+        "assists": 7
+      },
+      {
+        "nickname": "CNJ_Beobeo",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7200501,
+        "kills": 1,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 8088,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T21:33:41.041+0900",
+    "teamNumber": 1,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      3,
+      24,
+      33
+    ],
+    "rankScore": 4,
+    "killScore": 14,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 24,
+        "weaponCode": 21,
+        "core": 7000201,
+        "kills": 6,
+        "assists": 9
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 3,
+        "weaponCode": 19,
+        "core": 7000401,
+        "kills": 6,
+        "assists": 9
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 4,
+        "assists": 11
+      }
+    ]
+  },
+  {
+    "gameId": 8088,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T21:33:41.041+0900",
+    "teamNumber": 7,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      8,
+      19,
+      87
+    ],
+    "rankScore": 3,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 87,
+        "weaponCode": 24,
+        "core": 7300201,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 19,
+        "weaponCode": 6,
+        "core": 7300101,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 8,
+        "weaponCode": 22,
+        "core": 7000201,
+        "kills": 3,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8088,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T21:33:41.041+0900",
+    "teamNumber": 3,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      27,
+      56,
+      89
+    ],
+    "rankScore": 2,
+    "killScore": 11.5,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 89,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 6,
+        "assists": 3
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 56,
+        "weaponCode": 20,
+        "core": 7100101,
+        "kills": 6,
+        "assists": 7
+      },
+      {
+        "nickname": "ROX_Belzer",
+        "characterNum": 27,
+        "weaponCode": 16,
+        "core": 7300101,
+        "kills": 3,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8088,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T21:33:41.041+0900",
+    "teamNumber": 5,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      3,
+      42,
+      70
+    ],
+    "rankScore": 1,
+    "killScore": 8.5,
+    "players": [
+      {
+        "nickname": "JNE_JUMO",
+        "characterNum": 42,
+        "weaponCode": 24,
+        "core": 7200201,
+        "kills": 3,
+        "assists": 6
+      },
+      {
+        "nickname": "JNE_nemuri",
+        "characterNum": 70,
+        "weaponCode": 6,
+        "core": 7000601,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "JNE_Siko",
+        "characterNum": 3,
+        "weaponCode": 21,
+        "core": 7100201,
+        "kills": 4,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8088,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T21:33:41.041+0900",
+    "teamNumber": 4,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      45,
+      56
+    ],
+    "rankScore": 0,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "BS_Romatic",
+        "characterNum": 6,
+        "weaponCode": 8,
+        "core": 7000601,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "BS_Hare",
+        "characterNum": 45,
+        "weaponCode": 4,
+        "core": 7200301,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "BS_Nizika",
+        "characterNum": 56,
+        "weaponCode": 20,
+        "core": 7100101,
+        "kills": 2,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8089,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T22:06:39.039+0900",
+    "teamNumber": 2,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 10,
+    "killScore": 21,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 6,
+        "assists": 17
+      },
+      {
+        "nickname": "DTS_Cnema",
+        "characterNum": 13,
+        "weaponCode": 15,
+        "core": 7200201,
+        "kills": 2,
+        "assists": 16
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 15,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8089,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T22:06:39.039+0900",
+    "teamNumber": 7,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      53,
+      69,
+      71
+    ],
+    "rankScore": 7,
+    "killScore": 10.5,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7200501,
+        "kills": 1,
+        "assists": 9
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 53,
+        "weaponCode": 13,
+        "core": 7100501,
+        "kills": 5,
+        "assists": 4
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 5,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 8089,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T22:06:39.039+0900",
+    "teamNumber": 1,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      3,
+      24,
+      33
+    ],
+    "rankScore": 5,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 24,
+        "weaponCode": 21,
+        "core": 7000201,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 3,
+        "weaponCode": 19,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 1,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 8089,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T22:06:39.039+0900",
+    "teamNumber": 3,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      33,
+      51,
+      71
+    ],
+    "rankScore": 4,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 3,
+        "assists": 7
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 51,
+        "weaponCode": 22,
+        "core": 7200501,
+        "kills": 4,
+        "assists": 7
+      },
+      {
+        "nickname": "ROX_Belzer",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 4,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8089,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T22:06:39.039+0900",
+    "teamNumber": 6,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      10,
+      66,
+      80
+    ],
+    "rankScore": 3,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "CNJ_KCW",
+        "characterNum": 80,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 5,
+        "assists": 1
+      },
+      {
+        "nickname": "CNJ_100Soo",
+        "characterNum": 10,
+        "weaponCode": 1,
+        "core": 7100201,
+        "kills": 2,
+        "assists": 4
+      },
+      {
+        "nickname": "CNJ_Beobeo",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7200501,
+        "kills": 1,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8089,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T22:06:39.039+0900",
+    "teamNumber": 4,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      45,
+      56
+    ],
+    "rankScore": 2,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "BS_Romatic",
+        "characterNum": 6,
+        "weaponCode": 8,
+        "core": 7000601,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "BS_Hare",
+        "characterNum": 45,
+        "weaponCode": 4,
+        "core": 7200301,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "BS_Nizika",
+        "characterNum": 56,
+        "weaponCode": 20,
+        "core": 7100101,
+        "kills": 1,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8089,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T22:06:39.039+0900",
+    "teamNumber": 8,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 1,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "GSL_Xboy",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "GSL_Makotya",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 0,
+        "assists": 3
+      },
+      {
+        "nickname": "GSL_Cruiser",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 2,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 8089,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-17T22:06:39.039+0900",
+    "teamNumber": 5,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      68,
+      81
+    ],
+    "rankScore": 0,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "JNE_JUMO",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7000201,
+        "kills": 3,
+        "assists": 7
+      },
+      {
+        "nickname": "JNE_nemuri",
+        "characterNum": 6,
+        "weaponCode": 8,
+        "core": 7000601,
+        "kills": 2,
+        "assists": 9
+      },
+      {
+        "nickname": "JNE_Siko",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 6,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8104,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T14:37:50.050+0900",
+    "teamNumber": 6,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      8,
+      19,
+      87
+    ],
+    "rankScore": 10,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 87,
+        "weaponCode": 24,
+        "core": 7300201,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 19,
+        "weaponCode": 6,
+        "core": 7300101,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 8,
+        "weaponCode": 22,
+        "core": 7000201,
+        "kills": 4,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8104,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T14:37:50.050+0900",
+    "teamNumber": 4,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      65,
+      69,
+      74
+    ],
+    "rankScore": 7,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "GBA_tlasi",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7200501,
+        "kills": 2,
+        "assists": 11
+      },
+      {
+        "nickname": "GBA_0su",
+        "characterNum": 65,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 5,
+        "assists": 7
+      },
+      {
+        "nickname": "GBA_Furze",
+        "characterNum": 74,
+        "weaponCode": 3,
+        "core": 7100101,
+        "kills": 6,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8104,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T14:37:50.050+0900",
+    "teamNumber": 7,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      33,
+      71,
+      81
+    ],
+    "rankScore": 5,
+    "killScore": 16.5,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 10,
+        "assists": 5
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 10,
+        "assists": 7
+      },
+      {
+        "nickname": "ROX_Belzer",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 1,
+        "assists": 15
+      }
+    ]
+  },
+  {
+    "gameId": 8104,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T14:37:50.050+0900",
+    "teamNumber": 2,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      53,
+      66,
+      71
+    ],
+    "rankScore": 4,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "GNS_DINA",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": "GNS_Luminal",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7200501,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": "GNS_Preme",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 0,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8104,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T14:37:50.050+0900",
+    "teamNumber": 8,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      53,
+      69,
+      71
+    ],
+    "rankScore": 3,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7200501,
+        "kills": 0,
+        "assists": 8
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 5,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8104,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T14:37:50.050+0900",
+    "teamNumber": 5,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      53,
+      54
+    ],
+    "rankScore": 2,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 54,
+        "weaponCode": 8,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "DTS_Taegyung",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 21,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 5,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8104,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T14:37:50.050+0900",
+    "teamNumber": 1,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      3,
+      42,
+      54
+    ],
+    "rankScore": 1,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "INW_Blaster",
+        "characterNum": 54,
+        "weaponCode": 8,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "INW_Senaphine",
+        "characterNum": 42,
+        "weaponCode": 24,
+        "core": 7200201,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "INW_Min",
+        "characterNum": 3,
+        "weaponCode": 21,
+        "core": 7100201,
+        "kills": 2,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 8104,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T14:37:50.050+0900",
+    "teamNumber": 3,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      71,
+      81,
+      88
+    ],
+    "rankScore": 0,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "YJS_BoBmalsa",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": "YJS_fana",
+        "characterNum": 88,
+        "weaponCode": 3,
+        "core": 7100501,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "YJS_Scarlett",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8105,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:12:04.004+0900",
+    "teamNumber": 8,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      21,
+      79,
+      87
+    ],
+    "rankScore": 10,
+    "killScore": 9,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 21,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 5,
+        "assists": 6
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 87,
+        "weaponCode": 24,
+        "core": 7300201,
+        "kills": 3,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8105,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:12:04.004+0900",
+    "teamNumber": 7,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      33,
+      71,
+      81
+    ],
+    "rankScore": 7,
+    "killScore": 16,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 8,
+        "assists": 7
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 6,
+        "assists": 9
+      },
+      {
+        "nickname": "ROX_Belzer",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 4,
+        "assists": 11
+      }
+    ]
+  },
+  {
+    "gameId": 8105,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:12:04.004+0900",
+    "teamNumber": 2,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      53,
+      66,
+      71
+    ],
+    "rankScore": 5,
+    "killScore": 11.5,
+    "players": [
+      {
+        "nickname": "GNS_DINA",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 5,
+        "assists": 8
+      },
+      {
+        "nickname": "GNS_Luminal",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7200501,
+        "kills": 4,
+        "assists": 9
+      },
+      {
+        "nickname": "GNS_Preme",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 5,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8105,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:12:04.004+0900",
+    "teamNumber": 1,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      3,
+      42,
+      54
+    ],
+    "rankScore": 4,
+    "killScore": 12.5,
+    "players": [
+      {
+        "nickname": "INW_Blaster",
+        "characterNum": 54,
+        "weaponCode": 8,
+        "core": 7000401,
+        "kills": 8,
+        "assists": 6
+      },
+      {
+        "nickname": "INW_Senaphine",
+        "characterNum": 42,
+        "weaponCode": 24,
+        "core": 7200201,
+        "kills": 4,
+        "assists": 9
+      },
+      {
+        "nickname": "INW_Min",
+        "characterNum": 3,
+        "weaponCode": 21,
+        "core": 7100201,
+        "kills": 3,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 8105,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:12:04.004+0900",
+    "teamNumber": 3,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      71,
+      81,
+      88
+    ],
+    "rankScore": 3,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "YJS_BoBmalsa",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 4,
+        "assists": 4
+      },
+      {
+        "nickname": "YJS_fana",
+        "characterNum": 88,
+        "weaponCode": 3,
+        "core": 7100501,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "YJS_Scarlett",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8105,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:12:04.004+0900",
+    "teamNumber": 5,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      53,
+      54
+    ],
+    "rankScore": 2,
+    "killScore": 1,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 54,
+        "weaponCode": 8,
+        "core": 7000401,
+        "kills": 1,
+        "assists": 0
+      },
+      {
+        "nickname": "DTS_Taegyung",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 21,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 1,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8105,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:12:04.004+0900",
+    "teamNumber": 6,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      8,
+      19,
+      87
+    ],
+    "rankScore": 1,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 87,
+        "weaponCode": 24,
+        "core": 7300201,
+        "kills": 2,
+        "assists": 0
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 19,
+        "weaponCode": 6,
+        "core": 7300101,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 8,
+        "weaponCode": 22,
+        "core": 7000201,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8105,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:12:04.004+0900",
+    "teamNumber": 4,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      33,
+      51,
+      71
+    ],
+    "rankScore": 0,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "GBA_tlasi",
+        "characterNum": 51,
+        "weaponCode": 22,
+        "core": 7200501,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "GBA_0su",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "GBA_Furze",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 3,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8106,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:53:39.039+0900",
+    "teamNumber": 2,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      6,
+      62,
+      68
+    ],
+    "rankScore": 10,
+    "killScore": 10,
+    "players": [
+      {
+        "nickname": "GNS_DINA",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7200301,
+        "kills": 4,
+        "assists": 7
+      },
+      {
+        "nickname": "GNS_Luminal",
+        "characterNum": 62,
+        "weaponCode": 11,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 7
+      },
+      {
+        "nickname": "GNS_Preme",
+        "characterNum": 6,
+        "weaponCode": 8,
+        "core": 7000601,
+        "kills": 4,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 8106,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:53:39.039+0900",
+    "teamNumber": 1,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      28,
+      53,
+      81
+    ],
+    "rankScore": 7,
+    "killScore": 13,
+    "players": [
+      {
+        "nickname": "INW_Bear",
+        "characterNum": 28,
+        "weaponCode": 3,
+        "core": 7300301,
+        "kills": 5,
+        "assists": 7
+      },
+      {
+        "nickname": "INW_Blaster",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 2,
+        "assists": 9
+      },
+      {
+        "nickname": "INW_Senaphine",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 8,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8106,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:53:39.039+0900",
+    "teamNumber": 3,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      19,
+      36,
+      40
+    ],
+    "rankScore": 5,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "YJS_fana",
+        "characterNum": 40,
+        "weaponCode": 6,
+        "core": 7000601,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "YJS_Scarlett",
+        "characterNum": 19,
+        "weaponCode": 6,
+        "core": 7300101,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "YJS_stormchaser",
+        "characterNum": 36,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 3,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8106,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:53:39.039+0900",
+    "teamNumber": 7,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      27,
+      56,
+      89
+    ],
+    "rankScore": 4,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 89,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 5
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 56,
+        "weaponCode": 20,
+        "core": 7100101,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "ROX_Belzer",
+        "characterNum": 27,
+        "weaponCode": 16,
+        "core": 7300101,
+        "kills": 2,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 8106,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:53:39.039+0900",
+    "teamNumber": 5,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      8,
+      58,
+      87
+    ],
+    "rankScore": 3,
+    "killScore": 8,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 87,
+        "weaponCode": 24,
+        "core": 7300201,
+        "kills": 4,
+        "assists": 4
+      },
+      {
+        "nickname": "DTS_Cnema",
+        "characterNum": 58,
+        "weaponCode": 10,
+        "core": 7000501,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 8,
+        "weaponCode": 22,
+        "core": 7000201,
+        "kills": 3,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8106,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:53:39.039+0900",
+    "teamNumber": 6,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      31,
+      58,
+      68
+    ],
+    "rankScore": 2,
+    "killScore": 0,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 58,
+        "weaponCode": 10,
+        "core": 7000501,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7200301,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 0,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 8106,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:53:39.039+0900",
+    "teamNumber": 8,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      44,
+      66,
+      71
+    ],
+    "rankScore": 1,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 44,
+        "weaponCode": 25,
+        "core": 7100501,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7200501,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 3,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8106,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T15:53:39.039+0900",
+    "teamNumber": 4,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      45,
+      78,
+      81
+    ],
+    "rankScore": 0,
+    "killScore": 0.5,
+    "players": [
+      {
+        "nickname": "GBA_Gsxg",
+        "characterNum": 78,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 0,
+        "assists": 1
+      },
+      {
+        "nickname": "GBA_tlasi",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 1,
+        "assists": 0
+      },
+      {
+        "nickname": "GBA_0su",
+        "characterNum": 45,
+        "weaponCode": 4,
+        "core": 7200301,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8107,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T16:25:57.057+0900",
+    "teamNumber": 5,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      8,
+      58,
+      87
+    ],
+    "rankScore": 10,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 87,
+        "weaponCode": 24,
+        "core": 7300201,
+        "kills": 5,
+        "assists": 4
+      },
+      {
+        "nickname": "DTS_Cnema",
+        "characterNum": 58,
+        "weaponCode": 10,
+        "core": 7000501,
+        "kills": 5,
+        "assists": 3
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 8,
+        "weaponCode": 22,
+        "core": 7000201,
+        "kills": 2,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 8107,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T16:25:57.057+0900",
+    "teamNumber": 8,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      3,
+      24,
+      33
+    ],
+    "rankScore": 7,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 24,
+        "weaponCode": 21,
+        "core": 7000201,
+        "kills": 5,
+        "assists": 2
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 3,
+        "weaponCode": 19,
+        "core": 7000401,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 1,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8107,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T16:25:57.057+0900",
+    "teamNumber": 3,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      19,
+      36,
+      40
+    ],
+    "rankScore": 5,
+    "killScore": 10.5,
+    "players": [
+      {
+        "nickname": "YJS_fana",
+        "characterNum": 40,
+        "weaponCode": 6,
+        "core": 7000601,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "YJS_Scarlett",
+        "characterNum": 19,
+        "weaponCode": 6,
+        "core": 7300101,
+        "kills": 4,
+        "assists": 7
+      },
+      {
+        "nickname": "YJS_stormchaser",
+        "characterNum": 36,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 5,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 8107,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T16:25:57.057+0900",
+    "teamNumber": 2,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      62,
+      68
+    ],
+    "rankScore": 4,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "GNS_DINA",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7200301,
+        "kills": 1,
+        "assists": 7
+      },
+      {
+        "nickname": "GNS_Luminal",
+        "characterNum": 62,
+        "weaponCode": 11,
+        "core": 7000201,
+        "kills": 6,
+        "assists": 4
+      },
+      {
+        "nickname": "GNS_Preme",
+        "characterNum": 6,
+        "weaponCode": 8,
+        "core": 7000601,
+        "kills": 8,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8107,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T16:25:57.057+0900",
+    "teamNumber": 6,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      3,
+      42,
+      70
+    ],
+    "rankScore": 3,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 42,
+        "weaponCode": 24,
+        "core": 7200201,
+        "kills": 3,
+        "assists": 5
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 3,
+        "weaponCode": 21,
+        "core": 7100201,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 70,
+        "weaponCode": 6,
+        "core": 7000601,
+        "kills": 2,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8107,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T16:25:57.057+0900",
+    "teamNumber": 4,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      45,
+      78,
+      81
+    ],
+    "rankScore": 2,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "GBA_Gsxg",
+        "characterNum": 78,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "GBA_tlasi",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "GBA_0su",
+        "characterNum": 45,
+        "weaponCode": 4,
+        "core": 7200301,
+        "kills": 0,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8107,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T16:25:57.057+0900",
+    "teamNumber": 1,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      28,
+      53,
+      81
+    ],
+    "rankScore": 1,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "INW_Bear",
+        "characterNum": 28,
+        "weaponCode": 3,
+        "core": 7300301,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "INW_Blaster",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "INW_Senaphine",
+        "characterNum": 81,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8107,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T16:25:57.057+0900",
+    "teamNumber": 7,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      27,
+      56,
+      89
+    ],
+    "rankScore": 0,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 89,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 1
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 56,
+        "weaponCode": 20,
+        "core": 7100101,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "ROX_Belzer",
+        "characterNum": 27,
+        "weaponCode": 9,
+        "core": 7300101,
+        "kills": 2,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8108,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T17:29:56.056+0900",
+    "teamNumber": 6,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      53,
+      69,
+      71
+    ],
+    "rankScore": 10,
+    "killScore": 13,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7200501,
+        "kills": 2,
+        "assists": 13
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 53,
+        "weaponCode": 13,
+        "core": 7100501,
+        "kills": 5,
+        "assists": 10
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 8,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8108,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T17:29:56.056+0900",
+    "teamNumber": 8,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      3,
+      24,
+      33
+    ],
+    "rankScore": 7,
+    "killScore": 16.5,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 24,
+        "weaponCode": 21,
+        "core": 7000201,
+        "kills": 6,
+        "assists": 8
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 3,
+        "weaponCode": 19,
+        "core": 7000401,
+        "kills": 9,
+        "assists": 8
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100101,
+        "kills": 3,
+        "assists": 13
+      }
+    ]
+  },
+  {
+    "gameId": 8108,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T17:29:56.056+0900",
+    "teamNumber": 5,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 5,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "DTS_Cnema",
+        "characterNum": 13,
+        "weaponCode": 15,
+        "core": 7200201,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 6,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8108,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T17:29:56.056+0900",
+    "teamNumber": 4,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      53,
+      66,
+      84
+    ],
+    "rankScore": 4,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "GBA_Gsxg",
+        "characterNum": 84,
+        "weaponCode": 18,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 5
+      },
+      {
+        "nickname": "GBA_tlasi",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7200501,
+        "kills": 0,
+        "assists": 7
+      },
+      {
+        "nickname": "GBA_Furze",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 5,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8108,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T17:29:56.056+0900",
+    "teamNumber": 1,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      38,
+      44,
+      69
+    ],
+    "rankScore": 3,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "INW_Blaster",
+        "characterNum": 44,
+        "weaponCode": 25,
+        "core": 7100501,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "INW_Senaphine",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7200501,
+        "kills": 0,
+        "assists": 5
+      },
+      {
+        "nickname": "INW_Min",
+        "characterNum": 38,
+        "weaponCode": 9,
+        "core": 7000601,
+        "kills": 3,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8108,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T17:29:56.056+0900",
+    "teamNumber": 2,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 2,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "GNS_DINA",
+        "characterNum": 13,
+        "weaponCode": 15,
+        "core": 7200201,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "GNS_Luminal",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "GNS_Preme",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 1,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8108,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T17:29:56.056+0900",
+    "teamNumber": 7,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      11,
+      53,
+      62
+    ],
+    "rankScore": 1,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 0,
+        "assists": 3
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 62,
+        "weaponCode": 11,
+        "core": 7000201,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "ROX_Belzer",
+        "characterNum": 11,
+        "weaponCode": 16,
+        "core": 7100101,
+        "kills": 3,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8108,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T17:29:56.056+0900",
+    "teamNumber": 3,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      68,
+      72,
+      79
+    ],
+    "rankScore": 0,
+    "killScore": 0.5,
+    "players": [
+      {
+        "nickname": "YJS_BoBmalsa",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7000201,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "YJS_fana",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 0,
+        "assists": 0
+      },
+      {
+        "nickname": "YJS_stormchaser",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 1,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 8109,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T18:02:21.021+0900",
+    "teamNumber": 5,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      31,
+      43,
+      68
+    ],
+    "rankScore": 10,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "DTS_OneCircle",
+        "characterNum": 43,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "DTS_Cnema",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7000201,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "DTS_Fable",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 5,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8109,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T18:02:21.021+0900",
+    "teamNumber": 6,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      53,
+      69,
+      71
+    ],
+    "rankScore": 7,
+    "killScore": 13.5,
+    "players": [
+      {
+        "nickname": "NRG_RIOORI",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7200501,
+        "kills": 3,
+        "assists": 10
+      },
+      {
+        "nickname": "NRG_Revolu",
+        "characterNum": 53,
+        "weaponCode": 13,
+        "core": 7100501,
+        "kills": 5,
+        "assists": 8
+      },
+      {
+        "nickname": "NRG_insane",
+        "characterNum": 71,
+        "weaponCode": 14,
+        "core": 7100101,
+        "kills": 7,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8109,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T18:02:21.021+0900",
+    "teamNumber": 3,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      53,
+      66,
+      80
+    ],
+    "rankScore": 5,
+    "killScore": 9,
+    "players": [
+      {
+        "nickname": "YJS_BoBmalsa",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 3,
+        "assists": 7
+      },
+      {
+        "nickname": "YJS_fana",
+        "characterNum": 80,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 7,
+        "assists": 4
+      },
+      {
+        "nickname": "YJS_stormchaser",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7000501,
+        "kills": 2,
+        "assists": 10
+      }
+    ]
+  },
+  {
+    "gameId": 8109,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T18:02:21.021+0900",
+    "teamNumber": 7,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      49,
+      53,
+      69
+    ],
+    "rankScore": 4,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "ROX_Cadmus",
+        "characterNum": 53,
+        "weaponCode": 13,
+        "core": 7100501,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "ROX_HyangGi",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7200501,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "ROX_Belzer",
+        "characterNum": 49,
+        "weaponCode": 19,
+        "core": 7000601,
+        "kills": 0,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8109,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T18:02:21.021+0900",
+    "teamNumber": 1,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      38,
+      44,
+      66
+    ],
+    "rankScore": 3,
+    "killScore": 5.5,
+    "players": [
+      {
+        "nickname": "INW_Blaster",
+        "characterNum": 44,
+        "weaponCode": 25,
+        "core": 7100501,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "INW_Senaphine",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7000501,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "INW_Min",
+        "characterNum": 38,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8109,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T18:02:21.021+0900",
+    "teamNumber": 2,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 2,
+    "killScore": 1.5,
+    "players": [
+      {
+        "nickname": "GNS_DINA",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 0,
+        "assists": 2
+      },
+      {
+        "nickname": "GNS_Luminal",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 2,
+        "assists": 0
+      },
+      {
+        "nickname": "GNS_Preme",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 0,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8109,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T18:02:21.021+0900",
+    "teamNumber": 4,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      53,
+      66,
+      84
+    ],
+    "rankScore": 1,
+    "killScore": 9,
+    "players": [
+      {
+        "nickname": "GBA_Gsxg",
+        "characterNum": 84,
+        "weaponCode": 18,
+        "core": 7000401,
+        "kills": 7,
+        "assists": 3
+      },
+      {
+        "nickname": "GBA_tlasi",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7200501,
+        "kills": 0,
+        "assists": 8
+      },
+      {
+        "nickname": "GBA_Furze",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 4,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 8109,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-18T18:02:21.021+0900",
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      53,
+      66,
+      84
+    ],
+    "rankScore": 0,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "FN_Bum",
+        "characterNum": 53,
+        "weaponCode": 14,
+        "core": 7100501,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "FN_E8",
+        "characterNum": 66,
+        "weaponCode": 24,
+        "core": 7200501,
+        "kills": 0,
+        "assists": 5
+      },
+      {
+        "nickname": "FN_Daehu",
+        "characterNum": 84,
+        "weaponCode": 18,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 4
+      }
+    ]
   }
 ]
