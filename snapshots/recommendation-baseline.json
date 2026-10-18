@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T07:20:05.731Z",
+  "generatedAt": "2026-10-18T09:53:03.392Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -172,7 +172,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fafd904d360b91af",
+      "digest": "472808f25473c3e6",
       "results": [
         {
           "rank": 1,
@@ -254,7 +254,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d47223e182173597",
+      "digest": "fd1bd256df7714b0",
       "results": [
         {
           "rank": 1,
@@ -336,7 +336,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cc4cead328158e6c",
+      "digest": "6e301ccb3f9a0048",
       "results": [
         {
           "rank": 1,
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7169c81bfba1c1f3",
+      "digest": "e3e4381050706622",
       "results": [
         {
           "rank": 1,
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5e3cf2edf41d42e8",
+      "digest": "decc4b6d66deff31",
       "results": [
         {
           "rank": 1,
@@ -1143,10 +1143,10 @@
         },
         {
           "rank": 10,
-          "variantId": "chloe:shuriken",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 0.599
+          "variantId": "echion:vf_prosthetic",
+          "core": "7100401",
+          "coreName": "빛의 수호",
+          "total": 0.597
         }
       ]
     },
@@ -1159,7 +1159,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "318ffd1f6042598c",
+      "digest": "1ac61ec9b3cb9b70",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0f1ff8eb0a299d92",
+      "digest": "38f894a858ae723e",
       "results": [
         {
           "rank": 1,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5f5f19ea963035b4",
+      "digest": "fddf74a3d623bc0e",
       "results": [
         {
           "rank": 1,
@@ -1657,14 +1657,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "37b32ac37e6ca5e7",
+      "digest": "dfccf4130765e87f",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.502
+          "total": 1.51
         },
         {
           "rank": 2,
@@ -1740,7 +1740,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2ef360af52337d31",
+      "digest": "f96f146c431e8b20",
       "results": [
         {
           "rank": 1,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ea5f9c2373cd1cfe",
+      "digest": "22497133ef59d7b7",
       "results": [
         {
           "rank": 1,
@@ -1851,7 +1851,7 @@
           "variantId": "lenore:guitar",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.096
+          "total": 1.128
         },
         {
           "rank": 5,
@@ -1988,7 +1988,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f0a81c1c96c52ac3",
+      "digest": "79bd8ab43c3479b8",
       "results": [
         {
           "rank": 1,
@@ -2071,14 +2071,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "377f1bbf120f2d16",
+      "digest": "c1934e40731d11ec",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.527
+          "total": 1.537
         },
         {
           "rank": 2,
@@ -2398,7 +2398,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0ea7f2879110b9d0",
+      "digest": "c9d840166e1ceaea",
       "results": [
         {
           "rank": 1,
@@ -2562,7 +2562,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e3b59a924a790258",
+      "digest": "e383deb1eedaefee",
       "results": [
         {
           "rank": 1,
@@ -3219,7 +3219,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4b1f04ecaf15d42b",
+      "digest": "7f0580f70ec713f6",
       "results": [
         {
           "rank": 1,
@@ -3302,7 +3302,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "68872d0bed4d7b17",
+      "digest": "1fd0af24c7e45ec4",
       "results": [
         {
           "rank": 1,
@@ -3385,7 +3385,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b912b227f7e33444",
+      "digest": "62ce25095ceb9379",
       "results": [
         {
           "rank": 1,
@@ -3468,7 +3468,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1d96e4f795966099",
+      "digest": "7f7fd907765dace0",
       "results": [
         {
           "rank": 1,
@@ -3551,7 +3551,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2c43e9520de0df26",
+      "digest": "1d2f7bbd797d9733",
       "results": [
         {
           "rank": 1,
@@ -3883,14 +3883,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9f4a86f15ebd3399",
+      "digest": "bbc9b2a0f4f9cab5",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.605
+          "total": 1.613
         },
         {
           "rank": 2,
@@ -3966,7 +3966,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b622cb6de89ed7f3",
+      "digest": "e37636a2b35ffeb5",
       "results": [
         {
           "rank": 1,
@@ -4049,7 +4049,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "236655d6ab8478bf",
+      "digest": "fde647ee46824bbe",
       "results": [
         {
           "rank": 1,
@@ -4067,17 +4067,17 @@
         },
         {
           "rank": 3,
+          "variantId": "lenore:guitar",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 1.029
+        },
+        {
+          "rank": 4,
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
           "total": 1.016
-        },
-        {
-          "rank": 4,
-          "variantId": "lenore:guitar",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.998
         },
         {
           "rank": 5,
@@ -4214,7 +4214,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b3a51867297a9b98",
+      "digest": "1632c3ddc1e3be74",
       "results": [
         {
           "rank": 1,
@@ -4297,7 +4297,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0fccb4f77e7b27a7",
+      "digest": "35fe236366370adf",
       "results": [
         {
           "rank": 1,
@@ -4332,7 +4332,7 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.324
+          "total": 1.333
         },
         {
           "rank": 6,
@@ -4624,7 +4624,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "180445770472ba47",
+      "digest": "412e26d8bd4cd9ec",
       "results": [
         {
           "rank": 1,
@@ -4706,7 +4706,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2098d84e8d0301b5",
+      "digest": "4b3b0d159a90576b",
       "results": [
         {
           "rank": 1,
@@ -5445,7 +5445,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e67e7de0039b8d0d",
+      "digest": "faf534a3803fa459",
       "results": [
         {
           "rank": 1,
@@ -5528,7 +5528,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e37b791ab5cdb300",
+      "digest": "6fe862cf9f491630",
       "results": [
         {
           "rank": 1,
@@ -5611,7 +5611,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c94284ed389393ce",
+      "digest": "b4a25d337ad41a72",
       "results": [
         {
           "rank": 1,
@@ -5943,7 +5943,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "365e3302bdb9137b",
+      "digest": "cba409d00fc8498a",
       "results": [
         {
           "rank": 1,
@@ -6109,7 +6109,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bb375671a843d05f",
+      "digest": "3aa7cebbb07b6437",
       "results": [
         {
           "rank": 1,
@@ -6137,7 +6137,7 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.141
+          "total": 1.149
         },
         {
           "rank": 5,
@@ -6192,7 +6192,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "faa4321d2d66acaf",
+      "digest": "9b4f88e27ca97692",
       "results": [
         {
           "rank": 1,
@@ -6275,7 +6275,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "973616bebb841950",
+      "digest": "10f1b62bf88cbac5",
       "results": [
         {
           "rank": 1,
@@ -6303,7 +6303,7 @@
           "variantId": "lenore:guitar",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.923
+          "total": 0.954
         },
         {
           "rank": 5,
@@ -6440,7 +6440,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "856ab2a1f77a7b69",
+      "digest": "6a55a3c39743c456",
       "results": [
         {
           "rank": 1,
@@ -6523,7 +6523,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5225b0e5606460d5",
+      "digest": "5d0e752a5435c7c7",
       "results": [
         {
           "rank": 1,
@@ -6558,7 +6558,7 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.189
+          "total": 1.199
         },
         {
           "rank": 6,
@@ -6850,7 +6850,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "01e143fac48665a0",
+      "digest": "d39347d1878f9781",
       "results": [
         {
           "rank": 1,
@@ -7671,7 +7671,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a85bcc5d20b8143d",
+      "digest": "b0f8db4fb8ff9a9d",
       "results": [
         {
           "rank": 1,
@@ -7754,7 +7754,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e1bde82ed4091c45",
+      "digest": "2582d387aaca4667",
       "results": [
         {
           "rank": 1,
@@ -7837,7 +7837,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "38f4a51ec504facc",
+      "digest": "4ec909f9cb89dd41",
       "results": [
         {
           "rank": 1,
@@ -7858,7 +7858,7 @@
           "variantId": "hart:guitar",
           "core": "7000201",
           "coreName": "취약",
-          "total": 1.412
+          "total": 1.401
         },
         {
           "rank": 4,
@@ -7920,7 +7920,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7d47ca4d453c2ab5",
+      "digest": "db9d66e430fa739a",
       "results": [
         {
           "rank": 1,
@@ -8169,7 +8169,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bb5c34dffec9b087",
+      "digest": "da05429a3e9980e9",
       "results": [
         {
           "rank": 1,
@@ -8201,17 +8201,17 @@
         },
         {
           "rank": 5,
+          "variantId": "charlotte:arcana",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.932
+        },
+        {
+          "rank": 6,
           "variantId": "priya:guitar",
           "core": "7200501",
           "coreName": "헌신",
           "total": 0.923
-        },
-        {
-          "rank": 6,
-          "variantId": "charlotte:arcana",
-          "core": "7200301",
-          "coreName": "치유 드론",
-          "total": 0.922
         },
         {
           "rank": 7,
@@ -8232,7 +8232,7 @@
           "variantId": "charlotte:arcana",
           "core": "7200501",
           "coreName": "헌신",
-          "total": 0.858
+          "total": 0.868
         },
         {
           "rank": 10,
@@ -8335,7 +8335,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1292db34f1ed1617",
+      "digest": "f9c794f20002d9ce",
       "results": [
         {
           "rank": 1,
@@ -8418,7 +8418,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9a15df050470d603",
+      "digest": "9f3b56abae468f15",
       "results": [
         {
           "rank": 1,
@@ -8481,7 +8481,7 @@
           "variantId": "yuki:dual_swords",
           "core": "7100101",
           "coreName": "금강",
-          "total": 0.797
+          "total": 0.808
         },
         {
           "rank": 10,
@@ -8501,7 +8501,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ce0e5da43cbb4ff4",
+      "digest": "e11adcc5a160f60d",
       "results": [
         {
           "rank": 1,
@@ -8666,7 +8666,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e897dcca6a806740",
+      "digest": "baa49c6b74185054",
       "results": [
         {
           "rank": 1,
@@ -8715,7 +8715,7 @@
           "variantId": "ian:dagger",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.792
+          "total": 0.782
         },
         {
           "rank": 8,
@@ -8733,10 +8733,10 @@
         },
         {
           "rank": 10,
-          "variantId": "jenny:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.698
+          "variantId": "lenore:guitar",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.737
         }
       ]
     },
@@ -8749,7 +8749,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "08841cb2f72245d8",
+      "digest": "6faa7e5e7b230f6e",
       "results": [
         {
           "rank": 1,
@@ -8832,7 +8832,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "83c22b548a569cba",
+      "digest": "fd1a81d86bb02977",
       "results": [
         {
           "rank": 1,
@@ -8895,7 +8895,7 @@
           "variantId": "lenore:guitar",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.507
+          "total": 0.526
         },
         {
           "rank": 10,
@@ -9897,7 +9897,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "19f0060461c631cf",
+      "digest": "16e5f84b2c61fb80",
       "results": [
         {
           "rank": 1,
@@ -10063,7 +10063,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b03905b45ccad8ef",
+      "digest": "f2b7d2d347a04b00",
       "results": [
         {
           "rank": 1,
@@ -10395,7 +10395,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5dfbe23ab5f1e691",
+      "digest": "6f1b09070f355125",
       "results": [
         {
           "rank": 1,
@@ -10455,17 +10455,17 @@
         },
         {
           "rank": 9,
+          "variantId": "charlotte:arcana",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.306
+        },
+        {
+          "rank": 10,
           "variantId": "sho:spear",
           "core": "7200301",
           "coreName": "치유 드론",
           "total": 0.299
-        },
-        {
-          "rank": 10,
-          "variantId": "charlotte:arcana",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.297
         }
       ]
     },
@@ -10561,7 +10561,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5628bb7b63c31ed9",
+      "digest": "30c78fa8bc6c91f6",
       "results": [
         {
           "rank": 1,
@@ -10644,7 +10644,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "95b27d3bca940910",
+      "digest": "35d932f08daa22c8",
       "results": [
         {
           "rank": 1,
@@ -10727,7 +10727,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7c78a8ebad166bb4",
+      "digest": "0fc046ffe7b7d9e6",
       "results": [
         {
           "rank": 1,
@@ -10892,7 +10892,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e2d0641f29cfb79e",
+      "digest": "23551b4e71b6db4e",
       "results": [
         {
           "rank": 1,
@@ -10975,7 +10975,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8053129604a7c010",
+      "digest": "7a49e86e413002e1",
       "results": [
         {
           "rank": 1,
@@ -11058,7 +11058,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "adaeb1719d348beb",
+      "digest": "ab2dda9f81a94114",
       "results": [
         {
           "rank": 1,
