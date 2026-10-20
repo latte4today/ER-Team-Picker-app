@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T07:41:44.507Z",
+  "generatedAt": "2026-10-20T10:22:59.482Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4b8efc6b744ecb2e",
+      "digest": "f50db0601c941530",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "caca5a287395b004",
+      "digest": "8b1f9e3fa7006686",
       "results": [
         {
           "rank": 1,
@@ -3219,7 +3219,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5c02b7b45fb49a85",
+      "digest": "ff286ab32f124c9f",
       "results": [
         {
           "rank": 1,
@@ -3302,7 +3302,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "aaa95a8ad500c437",
+      "digest": "323613b35b933cae",
       "results": [
         {
           "rank": 1,
@@ -3385,7 +3385,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "70980146a5b0dbe4",
+      "digest": "6efb2103cc2c6b56",
       "results": [
         {
           "rank": 1,
@@ -3966,7 +3966,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "71d43f3a8f213b24",
+      "digest": "ba91b867fceddbdc",
       "results": [
         {
           "rank": 1,
@@ -5445,7 +5445,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c9c71dc2867a3257",
+      "digest": "57f56667a8986b87",
       "results": [
         {
           "rank": 1,
@@ -5501,7 +5501,7 @@
           "variantId": "fiora:spear",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.551
+          "total": 0.542
         },
         {
           "rank": 9,
@@ -6523,7 +6523,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a954b7e9c2954c65",
+      "digest": "584c4aeaf688399f",
       "results": [
         {
           "rank": 1,
@@ -7671,14 +7671,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2112fec1623e7433",
+      "digest": "cd0267a104479ec4",
       "results": [
         {
           "rank": 1,
           "variantId": "adina:arcana",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.199
+          "total": 1.209
         },
         {
           "rank": 2,
@@ -8418,7 +8418,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "08846f90680ae6bc",
+      "digest": "54b6619cc1e3b4df",
       "results": [
         {
           "rank": 1,
@@ -8749,7 +8749,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "35ca21c2ce140729",
+      "digest": "39cc10256adadffd",
       "results": [
         {
           "rank": 1,
@@ -8832,7 +8832,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4b9e198b40046625",
+      "digest": "abfd2ff7764458b1",
       "results": [
         {
           "rank": 1,
@@ -9897,7 +9897,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1da1d8daea7ccbff",
+      "digest": "5b7e1c3c88bd9cdd",
       "results": [
         {
           "rank": 1,
@@ -10644,7 +10644,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7c9a82fa3251d792",
+      "digest": "45905a9967a87ea6",
       "results": [
         {
           "rank": 1,
@@ -10683,31 +10683,31 @@
         },
         {
           "rank": 6,
-          "variantId": "celine:throw",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.164
-        },
-        {
-          "rank": 7,
           "variantId": "emma:shuriken",
           "core": "7000201",
           "coreName": "취약",
           "total": 0.161
         },
         {
-          "rank": 8,
+          "rank": 7,
           "variantId": "hyejin:shuriken",
           "core": "7200201",
           "coreName": "증폭 드론",
           "total": 0.16
         },
         {
-          "rank": 9,
+          "rank": 8,
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.156
+        },
+        {
+          "rank": 9,
+          "variantId": "celine:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.154
         },
         {
           "rank": 10,
@@ -10727,7 +10727,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "893632287ecee831",
+      "digest": "c3ddddd257dd0724",
       "results": [
         {
           "rank": 1,
@@ -10892,7 +10892,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7cc2c9e178f3833f",
+      "digest": "cead737e761efded",
       "results": [
         {
           "rank": 1,
@@ -11058,7 +11058,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1b3e962049fc7513",
+      "digest": "3ff8f1474b96cca5",
       "results": [
         {
           "rank": 1,
