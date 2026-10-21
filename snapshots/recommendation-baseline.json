@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T10:22:59.482Z",
+  "generatedAt": "2026-10-21T10:23:01.433Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f50db0601c941530",
+      "digest": "130fe95cbd77595e",
       "results": [
         {
           "rank": 1,
@@ -1491,7 +1491,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "558f57cf550a8244",
+      "digest": "7b25f7a7f8229811",
       "results": [
         {
           "rank": 1,
@@ -1740,7 +1740,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4a4b030ecd6234eb",
+      "digest": "678744c1b9193a14",
       "results": [
         {
           "rank": 1,
@@ -1775,7 +1775,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.004
+          "total": 0.995
         },
         {
           "rank": 6,
@@ -1789,7 +1789,7 @@
           "variantId": "camilo:rapier",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.706
+          "total": 0.697
         },
         {
           "rank": 8,
@@ -3219,7 +3219,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ff286ab32f124c9f",
+      "digest": "1f042a9ea65dee9d",
       "results": [
         {
           "rank": 1,
@@ -3385,7 +3385,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6efb2103cc2c6b56",
+      "digest": "a3fb6b360dfd2fc5",
       "results": [
         {
           "rank": 1,
@@ -3966,7 +3966,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ba91b867fceddbdc",
+      "digest": "5bde5063d620f572",
       "results": [
         {
           "rank": 1,
@@ -4001,7 +4001,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.103
+          "total": 1.093
         },
         {
           "rank": 6,
@@ -4022,7 +4022,7 @@
           "variantId": "camilo:rapier",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.716
+          "total": 0.706
         },
         {
           "rank": 9,
@@ -5445,7 +5445,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "57f56667a8986b87",
+      "digest": "5b8c6ee24926a5cc",
       "results": [
         {
           "rank": 1,
@@ -5501,7 +5501,7 @@
           "variantId": "fiora:spear",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.542
+          "total": 0.551
         },
         {
           "rank": 9,
@@ -6192,7 +6192,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dbc3512ffa4b9686",
+      "digest": "4549c23cbbcee48a",
       "results": [
         {
           "rank": 1,
@@ -6255,7 +6255,7 @@
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.825
+          "total": 0.816
         },
         {
           "rank": 10,
@@ -6523,7 +6523,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "584c4aeaf688399f",
+      "digest": "a954b7e9c2954c65",
       "results": [
         {
           "rank": 1,
@@ -7754,7 +7754,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bd65e0c5c7da16d3",
+      "digest": "6dd2415326fe8b58",
       "results": [
         {
           "rank": 1,
@@ -8418,7 +8418,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "54b6619cc1e3b4df",
+      "digest": "d1bfe061ab7045f7",
       "results": [
         {
           "rank": 1,
@@ -8457,17 +8457,17 @@
         },
         {
           "rank": 6,
-          "variantId": "jenny:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.874
-        },
-        {
-          "rank": 7,
           "variantId": "bihyung:bat",
           "core": "7100501",
           "coreName": "응징",
           "total": 0.871
+        },
+        {
+          "rank": 7,
+          "variantId": "jenny:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.865
         },
         {
           "rank": 8,
@@ -8749,7 +8749,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "39cc10256adadffd",
+      "digest": "a93657345b635f17",
       "results": [
         {
           "rank": 1,
@@ -10644,14 +10644,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "45905a9967a87ea6",
+      "digest": "0531af9c5e7e4905",
       "results": [
         {
           "rank": 1,
           "variantId": "jenny:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.421
+          "total": 0.412
         },
         {
           "rank": 2,
@@ -10727,7 +10727,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c3ddddd257dd0724",
+      "digest": "893632287ecee831",
       "results": [
         {
           "rank": 1,
@@ -11058,7 +11058,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3ff8f1474b96cca5",
+      "digest": "1b3e962049fc7513",
       "results": [
         {
           "rank": 1,
