@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T10:23:01.433Z",
+  "generatedAt": "2026-10-22T10:27:39.378Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "130fe95cbd77595e",
+      "digest": "26f5711602183979",
       "results": [
         {
           "rank": 1,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a49a105a9bf85ef6",
+      "digest": "f5fae994b42c5a0d",
       "results": [
         {
           "rank": 1,
@@ -1491,7 +1491,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7b25f7a7f8229811",
+      "digest": "558f57cf550a8244",
       "results": [
         {
           "rank": 1,
@@ -3219,7 +3219,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1f042a9ea65dee9d",
+      "digest": "efd16257b3c1201d",
       "results": [
         {
           "rank": 1,
@@ -3385,7 +3385,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a3fb6b360dfd2fc5",
+      "digest": "6efb2103cc2c6b56",
       "results": [
         {
           "rank": 1,
@@ -3551,7 +3551,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ddf10121b8097716",
+      "digest": "d65c5ddd67173b50",
       "results": [
         {
           "rank": 1,
@@ -5445,7 +5445,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5b8c6ee24926a5cc",
+      "digest": "29d17a01493525aa",
       "results": [
         {
           "rank": 1,
@@ -5501,7 +5501,7 @@
           "variantId": "fiora:spear",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.551
+          "total": 0.542
         },
         {
           "rank": 9,
@@ -5611,7 +5611,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dcf41bbb31fe17da",
+      "digest": "045185e440b2fb79",
       "results": [
         {
           "rank": 1,
@@ -5777,7 +5777,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8e4cdd610430f5eb",
+      "digest": "a5231302361191ea",
       "results": [
         {
           "rank": 1,
@@ -6523,7 +6523,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a954b7e9c2954c65",
+      "digest": "584c4aeaf688399f",
       "results": [
         {
           "rank": 1,
@@ -7671,14 +7671,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cd0267a104479ec4",
+      "digest": "cb1a003ae0a38567",
       "results": [
         {
           "rank": 1,
           "variantId": "adina:arcana",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 1.209
+          "total": 1.199
         },
         {
           "rank": 2,
@@ -7754,7 +7754,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6dd2415326fe8b58",
+      "digest": "c99f02e988dfe618",
       "results": [
         {
           "rank": 1,
@@ -7775,7 +7775,7 @@
           "variantId": "hisui:two_handed_sword",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.457
+          "total": 1.447
         },
         {
           "rank": 4,
@@ -8003,7 +8003,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a7c56542cbcd5155",
+      "digest": "71990219cdebba3b",
       "results": [
         {
           "rank": 1,
@@ -8666,7 +8666,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cf84f109bd445f75",
+      "digest": "5430c9c0a5dea265",
       "results": [
         {
           "rank": 1,
@@ -8749,7 +8749,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a93657345b635f17",
+      "digest": "39cc10256adadffd",
       "results": [
         {
           "rank": 1,
@@ -8832,7 +8832,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "abfd2ff7764458b1",
+      "digest": "15db5e81e104ee70",
       "results": [
         {
           "rank": 1,
@@ -9897,7 +9897,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5b7e1c3c88bd9cdd",
+      "digest": "a10f62865f3575de",
       "results": [
         {
           "rank": 1,
@@ -10229,7 +10229,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2cae04bc99863a4e",
+      "digest": "cedcc4ad8c093c10",
       "results": [
         {
           "rank": 1,
@@ -10727,7 +10727,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "893632287ecee831",
+      "digest": "c3ddddd257dd0724",
       "results": [
         {
           "rank": 1,
@@ -11058,7 +11058,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1b3e962049fc7513",
+      "digest": "84b7f2f7974b6cec",
       "results": [
         {
           "rank": 1,
