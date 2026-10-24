@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T10:17:01.167Z",
+  "generatedAt": "2026-10-24T09:57:28.237Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b6744a1c9136262e",
+      "digest": "a380981f5368fc7e",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "966dfbf85807aec5",
+      "digest": "1017f155682a1a9c",
       "results": [
         {
           "rank": 1,
@@ -1263,7 +1263,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.622
+          "total": 1.631
         },
         {
           "rank": 4,
@@ -1657,14 +1657,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1a48334b3e746a81",
+      "digest": "ae9fe2c84d66f32a",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.488
+          "total": 1.496
         },
         {
           "rank": 2,
@@ -1740,14 +1740,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6a086086ea733d0e",
+      "digest": "0f30596673b1c054",
       "results": [
         {
           "rank": 1,
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.723
+          "total": 1.733
         },
         {
           "rank": 2,
@@ -1803,7 +1803,7 @@
           "variantId": "ian:dagger",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.653
+          "total": 0.662
         },
         {
           "rank": 10,
@@ -2071,14 +2071,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6f5f45205c021c92",
+      "digest": "3530d6b9e558ff9b",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.568
+          "total": 1.578
         },
         {
           "rank": 2,
@@ -2154,7 +2154,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "09b00a19d39ebbee",
+      "digest": "b5df74628c3b514c",
       "results": [
         {
           "rank": 1,
@@ -2398,7 +2398,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5f470fd87d5d9f87",
+      "digest": "4e875bce853aa31c",
       "results": [
         {
           "rank": 1,
@@ -3219,7 +3219,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a77379851fdf4824",
+      "digest": "56a2490faf25ff14",
       "results": [
         {
           "rank": 1,
@@ -3468,14 +3468,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "24d068edc8345aa8",
+      "digest": "469f8e5a7423bddb",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.943
+          "total": 1.952
         },
         {
           "rank": 2,
@@ -3883,14 +3883,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "49a4ed052114afb1",
+      "digest": "89bf95c325b348f9",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.487
+          "total": 1.495
         },
         {
           "rank": 2,
@@ -3966,21 +3966,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ceb0bacdea84b600",
+      "digest": "44de3b0aad6754d9",
       "results": [
         {
           "rank": 1,
+          "variantId": "felix:spear",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 1.647
+        },
+        {
+          "rank": 2,
           "variantId": "jackie:two_handed_sword",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 1.642
-        },
-        {
-          "rank": 2,
-          "variantId": "felix:spear",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.637
         },
         {
           "rank": 3,
@@ -4015,7 +4015,7 @@
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.73
+          "total": 0.741
         },
         {
           "rank": 8,
@@ -4297,7 +4297,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2566b0973336a4d1",
+      "digest": "53b0098410c3bb68",
       "results": [
         {
           "rank": 1,
@@ -4353,7 +4353,7 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.258
+          "total": 1.267
         },
         {
           "rank": 9,
@@ -5445,7 +5445,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3737b06ddc6d4201",
+      "digest": "03b480766a8a9c6a",
       "results": [
         {
           "rank": 1,
@@ -5508,7 +5508,7 @@
           "variantId": "fiora:spear",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.499
+          "total": 0.508
         },
         {
           "rank": 10,
@@ -5694,7 +5694,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c44be72c5a636078",
+      "digest": "6c1a0f9e41cd4252",
       "results": [
         {
           "rank": 1,
@@ -5722,7 +5722,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.436
+          "total": 1.445
         },
         {
           "rank": 5,
@@ -6109,7 +6109,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a6f257de7c85567d",
+      "digest": "ef9aa5aa7c85fef6",
       "results": [
         {
           "rank": 1,
@@ -6123,7 +6123,7 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.203
+          "total": 1.211
         },
         {
           "rank": 3,
@@ -6192,7 +6192,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "82f8e3cb75091310",
+      "digest": "c72dceb0f664ac8d",
       "results": [
         {
           "rank": 1,
@@ -6206,7 +6206,7 @@
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.185
+          "total": 1.194
         },
         {
           "rank": 3,
@@ -6248,7 +6248,7 @@
           "variantId": "ian:dagger",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.749
+          "total": 0.759
         },
         {
           "rank": 9,
@@ -6523,7 +6523,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9a9454edf0ce091d",
+      "digest": "220727199b04f606",
       "results": [
         {
           "rank": 1,
@@ -6572,7 +6572,7 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.069
+          "total": 1.079
         },
         {
           "rank": 8,
@@ -6606,7 +6606,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c4df3314bcefae85",
+      "digest": "6a3bd9f1efcaa870",
       "results": [
         {
           "rank": 1,
@@ -7754,7 +7754,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ae9d89f5d24eea48",
+      "digest": "91e9785ea013536c",
       "results": [
         {
           "rank": 1,
@@ -7775,7 +7775,7 @@
           "variantId": "hisui:two_handed_sword",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.402
+          "total": 1.392
         },
         {
           "rank": 4,
@@ -7837,7 +7837,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f5a4d6760ef5b399",
+      "digest": "60a0d6841357b805",
       "results": [
         {
           "rank": 1,
@@ -7920,7 +7920,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "04b7a5e80fe4b92c",
+      "digest": "68cafc3ff655cbed",
       "results": [
         {
           "rank": 1,
@@ -7941,7 +7941,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.67
+          "total": 1.679
         },
         {
           "rank": 4,
@@ -8335,7 +8335,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bd8402e7b269cbb8",
+      "digest": "2da1ef426cb68bb4",
       "results": [
         {
           "rank": 1,
@@ -8418,21 +8418,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f45d9140637343e5",
+      "digest": "3a13ce264d5ce69b",
       "results": [
         {
           "rank": 1,
           "variantId": "felix:spear",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.377
+          "total": 1.387
         },
         {
           "rank": 2,
           "variantId": "felix:spear",
           "core": "7100101",
           "coreName": "금강",
-          "total": 1.301
+          "total": 1.311
         },
         {
           "rank": 3,
@@ -8453,7 +8453,7 @@
           "variantId": "ian:dagger",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.833
+          "total": 0.843
         },
         {
           "rank": 6,
@@ -8501,7 +8501,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f11a4dae10a2255b",
+      "digest": "0bb7b8627de6dcb8",
       "results": [
         {
           "rank": 1,
@@ -8666,7 +8666,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c8700d0d2c01fb14",
+      "digest": "6a351f7455ba999e",
       "results": [
         {
           "rank": 1,
@@ -8749,7 +8749,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4f0b1c74541bcfb3",
+      "digest": "11cbe30171b2781c",
       "results": [
         {
           "rank": 1,
@@ -8791,7 +8791,7 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.071
+          "total": 1.08
         },
         {
           "rank": 7,
@@ -8832,7 +8832,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "34aafab4f65a9980",
+      "digest": "ccab730ab3a61b2f",
       "results": [
         {
           "rank": 1,
@@ -10561,7 +10561,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a2ed1a62e4c9929f",
+      "digest": "ee541025627215e0",
       "results": [
         {
           "rank": 1,
@@ -10644,7 +10644,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4203dc2a4174ee29",
+      "digest": "2504cf702b7c2569",
       "results": [
         {
           "rank": 1,
@@ -10727,7 +10727,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "97f6d1ce02404cb3",
+      "digest": "9e8095986d09b702",
       "results": [
         {
           "rank": 1,
@@ -10892,7 +10892,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1c7fffa3d51db308",
+      "digest": "36dd5cae1e03bdaa",
       "results": [
         {
           "rank": 1,
@@ -10975,7 +10975,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fd2076e1711f8348",
+      "digest": "06710b0bb04bb899",
       "results": [
         {
           "rank": 1,
@@ -11058,7 +11058,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5ba4321b4a06f7ec",
+      "digest": "79d80287947d2023",
       "results": [
         {
           "rank": 1,
