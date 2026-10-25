@@ -49190,5 +49190,1725 @@
         "assists": 3
       }
     ]
+  },
+  {
+    "gameId": 8123,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:20:49.049+0900",
+    "teamNumber": 5,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      69,
+      76,
+      77
+    ],
+    "rankScore": 10,
+    "killScore": 14.5,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7211301,
+        "kills": 0,
+        "assists": 12
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "weaponCode": 24,
+        "core": 7000401,
+        "kills": 11,
+        "assists": 5
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 76,
+        "weaponCode": 3,
+        "core": 7200301,
+        "kills": 5,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 8123,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:20:49.049+0900",
+    "teamNumber": 3,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      14,
+      41,
+      78
+    ],
+    "rankScore": 7,
+    "killScore": 8,
+    "players": [
+      {
+        "nickname": "Uni_Choun",
+        "characterNum": 78,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "UnI_AngelPururu",
+        "characterNum": 14,
+        "weaponCode": 21,
+        "core": 7200201,
+        "kills": 7,
+        "assists": 3
+      },
+      {
+        "nickname": "Uni_Imnotyohan",
+        "characterNum": 41,
+        "weaponCode": 24,
+        "core": 7200301,
+        "kills": 1,
+        "assists": 9
+      }
+    ]
+  },
+  {
+    "gameId": 8123,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:20:49.049+0900",
+    "teamNumber": 7,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      59,
+      65,
+      91
+    ],
+    "rankScore": 5,
+    "killScore": 9,
+    "players": [
+      {
+        "nickname": "RR_Sebi",
+        "characterNum": 65,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 6
+      },
+      {
+        "nickname": "RR_JIN",
+        "characterNum": 91,
+        "weaponCode": 16,
+        "core": 7200301,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "RR_Sasek",
+        "characterNum": 59,
+        "weaponCode": 2,
+        "core": 7100501,
+        "kills": 4,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 8123,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:20:49.049+0900",
+    "teamNumber": 1,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      13,
+      35,
+      62
+    ],
+    "rankScore": 4,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "GBW_Himekawa",
+        "characterNum": 62,
+        "weaponCode": 11,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 3
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "weaponCode": 1,
+        "core": 7100201,
+        "kills": 3,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8123,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:20:49.049+0900",
+    "teamNumber": 4,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      20,
+      31,
+      43
+    ],
+    "rankScore": 3,
+    "killScore": 12.5,
+    "players": [
+      {
+        "nickname": "NT_BluePeriod",
+        "characterNum": 43,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 10,
+        "assists": 6
+      },
+      {
+        "nickname": "NT_Tae0",
+        "characterNum": 20,
+        "weaponCode": 4,
+        "core": 7200301,
+        "kills": 3,
+        "assists": 12
+      },
+      {
+        "nickname": "NT_DenimGirl",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 4,
+        "assists": 10
+      }
+    ]
+  },
+  {
+    "gameId": 8123,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:20:49.049+0900",
+    "teamNumber": 6,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      8,
+      19
+    ],
+    "rankScore": 2,
+    "killScore": 5,
+    "players": [
+      {
+        "nickname": "Yoi_Rosner",
+        "characterNum": 6,
+        "weaponCode": 7,
+        "core": 7000701,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "Yoi_Magician",
+        "characterNum": 19,
+        "weaponCode": 24,
+        "core": 7300101,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "Yoi_MarShall",
+        "characterNum": 8,
+        "weaponCode": 22,
+        "core": 7000201,
+        "kills": 2,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8123,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:20:49.049+0900",
+    "teamNumber": 2,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      16,
+      28,
+      80
+    ],
+    "rankScore": 1,
+    "killScore": 4,
+    "players": [
+      {
+        "nickname": "HD_Toxic",
+        "characterNum": 80,
+        "weaponCode": 19,
+        "core": 7300301,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "HD_TOPSUN",
+        "characterNum": 28,
+        "weaponCode": 3,
+        "core": 7000401,
+        "kills": 6,
+        "assists": 1
+      },
+      {
+        "nickname": "HD_NoGyang",
+        "characterNum": 16,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 0,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8123,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:20:49.049+0900",
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      35,
+      45
+    ],
+    "rankScore": 0,
+    "killScore": 1.5,
+    "players": [
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 45,
+        "weaponCode": 4,
+        "core": 7200301,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "DIT_Seobin",
+        "characterNum": 35,
+        "weaponCode": 1,
+        "core": 7100201,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "DIT_Masuhana",
+        "characterNum": 21,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8125,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:53:07.007+0900",
+    "teamNumber": 5,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      69,
+      76,
+      77
+    ],
+    "rankScore": 10,
+    "killScore": 12.5,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7211301,
+        "kills": 0,
+        "assists": 13
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "weaponCode": 24,
+        "core": 7000401,
+        "kills": 9,
+        "assists": 4
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 76,
+        "weaponCode": 3,
+        "core": 7200301,
+        "kills": 4,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8125,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:53:07.007+0900",
+    "teamNumber": 7,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      59,
+      65,
+      91
+    ],
+    "rankScore": 7,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "RR_Sebi",
+        "characterNum": 65,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 6,
+        "assists": 3
+      },
+      {
+        "nickname": "RR_JIN",
+        "characterNum": 91,
+        "weaponCode": 16,
+        "core": 7200301,
+        "kills": 1,
+        "assists": 8
+      },
+      {
+        "nickname": "RR_Sasek",
+        "characterNum": 59,
+        "weaponCode": 2,
+        "core": 7100501,
+        "kills": 2,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8125,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:53:07.007+0900",
+    "teamNumber": 4,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      20,
+      31,
+      43
+    ],
+    "rankScore": 5,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "NT_BluePeriod",
+        "characterNum": 43,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "NT_Tae0",
+        "characterNum": 20,
+        "weaponCode": 4,
+        "core": 7200301,
+        "kills": 3,
+        "assists": 3
+      },
+      {
+        "nickname": "NT_DenimGirl",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 3,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8125,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:53:07.007+0900",
+    "teamNumber": 3,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      14,
+      33,
+      41
+    ],
+    "rankScore": 4,
+    "killScore": 2.5,
+    "players": [
+      {
+        "nickname": "Uni_Choun",
+        "characterNum": 33,
+        "weaponCode": 1,
+        "core": 7100201,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "UnI_AngelPururu",
+        "characterNum": 14,
+        "weaponCode": 21,
+        "core": 7200201,
+        "kills": 2,
+        "assists": 2
+      },
+      {
+        "nickname": "Uni_Imnotyohan",
+        "characterNum": 41,
+        "weaponCode": 24,
+        "core": 7200301,
+        "kills": 0,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8125,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:53:07.007+0900",
+    "teamNumber": 8,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      31,
+      58,
+      68
+    ],
+    "rankScore": 3,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7000201,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "DIT_Seobin",
+        "characterNum": 58,
+        "weaponCode": 10,
+        "core": 7000501,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "DIT_Masuhana",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 1,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8125,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:53:07.007+0900",
+    "teamNumber": 2,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      16,
+      28,
+      80
+    ],
+    "rankScore": 2,
+    "killScore": 2,
+    "players": [
+      {
+        "nickname": "HD_Toxic",
+        "characterNum": 80,
+        "weaponCode": 19,
+        "core": 7300301,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "HD_TOPSUN",
+        "characterNum": 28,
+        "weaponCode": 3,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "HD_NoGyang",
+        "characterNum": 16,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8125,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:53:07.007+0900",
+    "teamNumber": 6,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      8,
+      19
+    ],
+    "rankScore": 1,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "Yoi_Rosner",
+        "characterNum": 6,
+        "weaponCode": 7,
+        "core": 7000701,
+        "kills": 5,
+        "assists": 1
+      },
+      {
+        "nickname": "Yoi_Magician",
+        "characterNum": 19,
+        "weaponCode": 24,
+        "core": 7300101,
+        "kills": 0,
+        "assists": 6
+      },
+      {
+        "nickname": "Yoi_MarShall",
+        "characterNum": 8,
+        "weaponCode": 22,
+        "core": 7000201,
+        "kills": 3,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8125,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T17:53:07.007+0900",
+    "teamNumber": 1,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      13,
+      35,
+      62
+    ],
+    "rankScore": 0,
+    "killScore": 4.5,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 0,
+        "assists": 5
+      },
+      {
+        "nickname": "GBW_Himekawa",
+        "characterNum": 62,
+        "weaponCode": 11,
+        "core": 7000401,
+        "kills": 5,
+        "assists": 1
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "weaponCode": 1,
+        "core": 7100201,
+        "kills": 1,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8126,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T18:37:19.019+0900",
+    "teamNumber": 5,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      69,
+      76,
+      77
+    ],
+    "rankScore": 10,
+    "killScore": 15,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7211301,
+        "kills": 0,
+        "assists": 17
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "weaponCode": 24,
+        "core": 7000401,
+        "kills": 9,
+        "assists": 9
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 76,
+        "weaponCode": 3,
+        "core": 7200301,
+        "kills": 9,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8126,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T18:37:19.019+0900",
+    "teamNumber": 6,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 7,
+    "killScore": 8.5,
+    "players": [
+      {
+        "nickname": "Yoi_Rosner",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "Yoi_Magician",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 5,
+        "assists": 5
+      },
+      {
+        "nickname": "Yoi_MarShall",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 4,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8126,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T18:37:19.019+0900",
+    "teamNumber": 1,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      13,
+      35,
+      62
+    ],
+    "rankScore": 5,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "GBW_Himekawa",
+        "characterNum": 62,
+        "weaponCode": 11,
+        "core": 7000401,
+        "kills": 1,
+        "assists": 6
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "weaponCode": 1,
+        "core": 7100201,
+        "kills": 3,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8126,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T18:37:19.019+0900",
+    "teamNumber": 8,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      31,
+      58,
+      68
+    ],
+    "rankScore": 4,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7000201,
+        "kills": 0,
+        "assists": 5
+      },
+      {
+        "nickname": "DIT_Seobin",
+        "characterNum": 58,
+        "weaponCode": 10,
+        "core": 7000501,
+        "kills": 5,
+        "assists": 2
+      },
+      {
+        "nickname": "DIT_Masuhana",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 2,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8126,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T18:37:19.019+0900",
+    "teamNumber": 3,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      14,
+      41,
+      78
+    ],
+    "rankScore": 3,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "Uni_Choun",
+        "characterNum": 78,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "UnI_AngelPururu",
+        "characterNum": 14,
+        "weaponCode": 21,
+        "core": 7200201,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "Uni_Imnotyohan",
+        "characterNum": 41,
+        "weaponCode": 24,
+        "core": 7200301,
+        "kills": 0,
+        "assists": 7
+      }
+    ]
+  },
+  {
+    "gameId": 8126,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T18:37:19.019+0900",
+    "teamNumber": 7,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      59,
+      65,
+      91
+    ],
+    "rankScore": 2,
+    "killScore": 2.5,
+    "players": [
+      {
+        "nickname": "RR_Sebi",
+        "characterNum": 65,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "RR_JIN",
+        "characterNum": 91,
+        "weaponCode": 16,
+        "core": 7200301,
+        "kills": 1,
+        "assists": 4
+      },
+      {
+        "nickname": "RR_Sasek",
+        "characterNum": 59,
+        "weaponCode": 2,
+        "core": 7100501,
+        "kills": 4,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8126,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T18:37:19.019+0900",
+    "teamNumber": 2,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      16,
+      28,
+      80
+    ],
+    "rankScore": 1,
+    "killScore": 7.5,
+    "players": [
+      {
+        "nickname": "HD_Toxic",
+        "characterNum": 80,
+        "weaponCode": 19,
+        "core": 7300301,
+        "kills": 5,
+        "assists": 5
+      },
+      {
+        "nickname": "HD_TOPSUN",
+        "characterNum": 28,
+        "weaponCode": 3,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "HD_NoGyang",
+        "characterNum": 16,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 8126,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T18:37:19.019+0900",
+    "teamNumber": 4,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      20,
+      31,
+      43
+    ],
+    "rankScore": 0,
+    "killScore": 1,
+    "players": [
+      {
+        "nickname": "NT_BluePeriod",
+        "characterNum": 43,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "NT_Tae0",
+        "characterNum": 20,
+        "weaponCode": 4,
+        "core": 7200301,
+        "kills": 1,
+        "assists": 1
+      },
+      {
+        "nickname": "NT_DenimGirl",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 0,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8127,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:07:23.023+0900",
+    "teamNumber": 1,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      13,
+      35,
+      62
+    ],
+    "rankScore": 10,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 0,
+        "assists": 7
+      },
+      {
+        "nickname": "GBW_Himekawa",
+        "characterNum": 62,
+        "weaponCode": 11,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "weaponCode": 1,
+        "core": 7100201,
+        "kills": 4,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8127,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:07:23.023+0900",
+    "teamNumber": 8,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      58,
+      68,
+      72
+    ],
+    "rankScore": 7,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7200301,
+        "kills": 5,
+        "assists": 3
+      },
+      {
+        "nickname": "DIT_Seobin",
+        "characterNum": 58,
+        "weaponCode": 10,
+        "core": 7000501,
+        "kills": 2,
+        "assists": 8
+      },
+      {
+        "nickname": "DIT_Masuhana",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 4,
+        "assists": 6
+      }
+    ]
+  },
+  {
+    "gameId": 8127,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:07:23.023+0900",
+    "teamNumber": 2,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      16,
+      28,
+      80
+    ],
+    "rankScore": 5,
+    "killScore": 11,
+    "players": [
+      {
+        "nickname": "HD_Toxic",
+        "characterNum": 80,
+        "weaponCode": 19,
+        "core": 7300301,
+        "kills": 3,
+        "assists": 7
+      },
+      {
+        "nickname": "HD_TOPSUN",
+        "characterNum": 28,
+        "weaponCode": 3,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 9
+      },
+      {
+        "nickname": "HD_NoGyang",
+        "characterNum": 16,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 7,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8127,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:07:23.023+0900",
+    "teamNumber": 5,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      69,
+      76,
+      77
+    ],
+    "rankScore": 4,
+    "killScore": 8,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7211301,
+        "kills": 0,
+        "assists": 7
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "weaponCode": 24,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 3
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 76,
+        "weaponCode": 3,
+        "core": 7200301,
+        "kills": 5,
+        "assists": 4
+      }
+    ]
+  },
+  {
+    "gameId": 8127,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:07:23.023+0900",
+    "teamNumber": 3,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      14,
+      41,
+      78
+    ],
+    "rankScore": 3,
+    "killScore": 12,
+    "players": [
+      {
+        "nickname": "Uni_Choun",
+        "characterNum": 78,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 9,
+        "assists": 2
+      },
+      {
+        "nickname": "UnI_AngelPururu",
+        "characterNum": 14,
+        "weaponCode": 21,
+        "core": 7200201,
+        "kills": 5,
+        "assists": 6
+      },
+      {
+        "nickname": "Uni_Imnotyohan",
+        "characterNum": 41,
+        "weaponCode": 24,
+        "core": 7200301,
+        "kills": 0,
+        "assists": 14
+      }
+    ]
+  },
+  {
+    "gameId": 8127,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:07:23.023+0900",
+    "teamNumber": 4,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      20,
+      31,
+      43
+    ],
+    "rankScore": 2,
+    "killScore": 3.5,
+    "players": [
+      {
+        "nickname": "NT_BluePeriod",
+        "characterNum": 43,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "NT_Tae0",
+        "characterNum": 20,
+        "weaponCode": 4,
+        "core": 7200301,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "NT_DenimGirl",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 4,
+        "assists": 0
+      }
+    ]
+  },
+  {
+    "gameId": 8127,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:07:23.023+0900",
+    "teamNumber": 6,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      13,
+      72,
+      79
+    ],
+    "rankScore": 1,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "Yoi_Rosner",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 1,
+        "assists": 2
+      },
+      {
+        "nickname": "Yoi_Magician",
+        "characterNum": 79,
+        "weaponCode": 8,
+        "core": 7000501,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "Yoi_MarShall",
+        "characterNum": 72,
+        "weaponCode": 11,
+        "core": 7000601,
+        "kills": 1,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8127,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:07:23.023+0900",
+    "teamNumber": 7,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      59,
+      65,
+      91
+    ],
+    "rankScore": 0,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "RR_Sebi",
+        "characterNum": 65,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 1,
+        "assists": 3
+      },
+      {
+        "nickname": "RR_JIN",
+        "characterNum": 91,
+        "weaponCode": 16,
+        "core": 7200301,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "RR_Sasek",
+        "characterNum": 59,
+        "weaponCode": 2,
+        "core": 7100501,
+        "kills": 5,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8128,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:46:26.026+0900",
+    "teamNumber": 3,
+    "placement": 1,
+    "win": 1,
+    "top3": 1,
+    "characterNums": [
+      14,
+      41,
+      78
+    ],
+    "rankScore": 10,
+    "killScore": 11.5,
+    "players": [
+      {
+        "nickname": "Uni_Choun",
+        "characterNum": 78,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 4,
+        "assists": 7
+      },
+      {
+        "nickname": "UnI_AngelPururu",
+        "characterNum": 14,
+        "weaponCode": 21,
+        "core": 7200201,
+        "kills": 5,
+        "assists": 5
+      },
+      {
+        "nickname": "Uni_Imnotyohan",
+        "characterNum": 41,
+        "weaponCode": 24,
+        "core": 7200301,
+        "kills": 3,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 8128,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:46:26.026+0900",
+    "teamNumber": 4,
+    "placement": 2,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      20,
+      31,
+      43
+    ],
+    "rankScore": 7,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "NT_BluePeriod",
+        "characterNum": 43,
+        "weaponCode": 5,
+        "core": 7000501,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "NT_Tae0",
+        "characterNum": 20,
+        "weaponCode": 4,
+        "core": 7200301,
+        "kills": 0,
+        "assists": 3
+      },
+      {
+        "nickname": "NT_DenimGirl",
+        "characterNum": 31,
+        "weaponCode": 7,
+        "core": 7000601,
+        "kills": 1,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8128,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:46:26.026+0900",
+    "teamNumber": 7,
+    "placement": 3,
+    "win": 0,
+    "top3": 1,
+    "characterNums": [
+      59,
+      65,
+      91
+    ],
+    "rankScore": 5,
+    "killScore": 13,
+    "players": [
+      {
+        "nickname": "RR_Sebi",
+        "characterNum": 65,
+        "weaponCode": 16,
+        "core": 7000401,
+        "kills": 6,
+        "assists": 6
+      },
+      {
+        "nickname": "RR_JIN",
+        "characterNum": 91,
+        "weaponCode": 16,
+        "core": 7200301,
+        "kills": 3,
+        "assists": 12
+      },
+      {
+        "nickname": "RR_Sasek",
+        "characterNum": 59,
+        "weaponCode": 2,
+        "core": 7100501,
+        "kills": 6,
+        "assists": 8
+      }
+    ]
+  },
+  {
+    "gameId": 8128,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:46:26.026+0900",
+    "teamNumber": 2,
+    "placement": 4,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      16,
+      28,
+      80
+    ],
+    "rankScore": 4,
+    "killScore": 7,
+    "players": [
+      {
+        "nickname": "HD_Toxic",
+        "characterNum": 80,
+        "weaponCode": 19,
+        "core": 7300301,
+        "kills": 4,
+        "assists": 4
+      },
+      {
+        "nickname": "HD_TOPSUN",
+        "characterNum": 28,
+        "weaponCode": 3,
+        "core": 7300101,
+        "kills": 3,
+        "assists": 4
+      },
+      {
+        "nickname": "HD_NoGyang",
+        "characterNum": 16,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 5
+      }
+    ]
+  },
+  {
+    "gameId": 8128,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:46:26.026+0900",
+    "teamNumber": 6,
+    "placement": 5,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      6,
+      8,
+      19
+    ],
+    "rankScore": 3,
+    "killScore": 6,
+    "players": [
+      {
+        "nickname": "Yoi_Rosner",
+        "characterNum": 6,
+        "weaponCode": 7,
+        "core": 7000701,
+        "kills": 4,
+        "assists": 2
+      },
+      {
+        "nickname": "Yoi_Magician",
+        "characterNum": 19,
+        "weaponCode": 24,
+        "core": 7300101,
+        "kills": 1,
+        "assists": 5
+      },
+      {
+        "nickname": "Yoi_MarShall",
+        "characterNum": 8,
+        "weaponCode": 22,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 2
+      }
+    ]
+  },
+  {
+    "gameId": 8128,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:46:26.026+0900",
+    "teamNumber": 1,
+    "placement": 6,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      13,
+      35,
+      62
+    ],
+    "rankScore": 2,
+    "killScore": 6.5,
+    "players": [
+      {
+        "nickname": "GBW_Pied",
+        "characterNum": 13,
+        "weaponCode": 19,
+        "core": 7200201,
+        "kills": 2,
+        "assists": 6
+      },
+      {
+        "nickname": "GBW_Himekawa",
+        "characterNum": 62,
+        "weaponCode": 11,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 6
+      },
+      {
+        "nickname": "GBW_Hectopascal",
+        "characterNum": 35,
+        "weaponCode": 1,
+        "core": 7100201,
+        "kills": 4,
+        "assists": 3
+      }
+    ]
+  },
+  {
+    "gameId": 8128,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:46:26.026+0900",
+    "teamNumber": 5,
+    "placement": 7,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      69,
+      76,
+      77
+    ],
+    "rankScore": 1,
+    "killScore": 3,
+    "players": [
+      {
+        "nickname": "MIQ_Complex",
+        "characterNum": 69,
+        "weaponCode": 9,
+        "core": 7211301,
+        "kills": 0,
+        "assists": 4
+      },
+      {
+        "nickname": "MIQ_Yeohi",
+        "characterNum": 77,
+        "weaponCode": 24,
+        "core": 7000401,
+        "kills": 2,
+        "assists": 1
+      },
+      {
+        "nickname": "MIQ_Meonpick",
+        "characterNum": 76,
+        "weaponCode": 3,
+        "core": 7200301,
+        "kills": 2,
+        "assists": 1
+      }
+    ]
+  },
+  {
+    "gameId": 8128,
+    "seasonId": 41,
+    "matchingMode": 4,
+    "startDtm": "2026-10-25T19:46:26.026+0900",
+    "teamNumber": 8,
+    "placement": 8,
+    "win": 0,
+    "top3": 0,
+    "characterNums": [
+      21,
+      58,
+      68
+    ],
+    "rankScore": 0,
+    "killScore": 4.5,
+    "players": [
+      {
+        "nickname": "DIT_NoDunAl",
+        "characterNum": 68,
+        "weaponCode": 1,
+        "core": 7200301,
+        "kills": 0,
+        "assists": 5
+      },
+      {
+        "nickname": "DIT_Seobin",
+        "characterNum": 58,
+        "weaponCode": 10,
+        "core": 7000501,
+        "kills": 3,
+        "assists": 2
+      },
+      {
+        "nickname": "DIT_Masuhana",
+        "characterNum": 21,
+        "weaponCode": 9,
+        "core": 7000401,
+        "kills": 3,
+        "assists": 2
+      }
+    ]
   }
 ]
