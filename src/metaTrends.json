@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "generatedAt": "2026-10-25T00:28:37.363Z",
+  "generatedAt": "2026-10-27T02:55:39.010Z",
   "days": 7,
   "timeZone": "Asia/Seoul",
   "pickPolicy": {
@@ -19,2187 +19,1884 @@
     "fdr": 0.1
   },
   "excludedCharacters": [],
-  "previousStart": "2026-10-10T15:00:00.000Z",
-  "recentStart": "2026-10-17T15:00:00.000Z",
-  "end": "2026-10-24T15:00:00.000Z",
-  "latestMatchAt": "2026-10-24T14:59:24.024Z",
+  "previousStart": "2026-10-12T15:00:00.000Z",
+  "recentStart": "2026-10-19T15:00:00.000Z",
+  "end": "2026-10-26T15:00:00.000Z",
+  "latestMatchAt": "2026-10-26T14:59:58.058Z",
   "byTier": {
     "all": {
-      "previousTeams": 270928,
-      "recentTeams": 211139,
+      "previousTeams": 270049,
+      "recentTeams": 218384,
       "rows": [
         {
           "members": [
-            "lucia:sniper_rifle"
+            "echion:vf_prosthetic"
           ],
-          "games": 17341,
-          "previousGames": 17495,
-          "recentShare": 0.08232297123414906,
-          "previousShare": 0.06434590800947017,
-          "delta": 0.017977063224678888,
-          "ratio": 1.279381825145783,
+          "games": 6587,
+          "previousGames": 5455,
+          "recentShare": 0.02953666315724236,
+          "previousShare": 0.02051929959783402,
+          "delta": 0.00901736355940834,
+          "ratio": 1.4394210623358765,
           "direction": "up",
-          "top3Rate": 0.3773138803990543,
-          "avgPlacement": 4.401303269707629
+          "top3Rate": 0.37862456353423407,
+          "avgPlacement": 4.400182177015333
         },
         {
           "members": [
             "elena:rapier"
           ],
-          "games": 4481,
-          "previousGames": 3811,
-          "recentShare": 0.021127606313487163,
-          "previousShare": 0.014134015222206501,
-          "delta": 0.006993591091280662,
-          "ratio": 1.4947504334545187,
+          "games": 5071,
+          "previousGames": 4154,
+          "recentShare": 0.023049765927373542,
+          "previousShare": 0.015531491325028231,
+          "delta": 0.007518274602345311,
+          "ratio": 1.4840075050283186,
           "direction": "up",
-          "top3Rate": 0.41754072751617943,
-          "avgPlacement": 4.205088149966525
-        },
-        {
-          "members": [
-            "echion:vf_prosthetic"
-          ],
-          "games": 5710,
-          "previousGames": 5417,
-          "recentShare": 0.026631023661926566,
-          "previousShare": 0.020196076643053815,
-          "delta": 0.0064349470188727505,
-          "ratio": 1.318617140845375,
-          "direction": "up",
-          "top3Rate": 0.3880910683012259,
-          "avgPlacement": 4.353239929947461
+          "top3Rate": 0.41372510352987574,
+          "avgPlacement": 4.232695720765135
         },
         {
           "members": [
             "fiora:spear"
           ],
-          "games": 4099,
-          "previousGames": 3835,
-          "recentShare": 0.01905169691280079,
-          "previousShare": 0.014390863771692915,
-          "delta": 0.004660833141107875,
-          "ratio": 1.3238640172102767,
+          "games": 4708,
+          "previousGames": 3902,
+          "recentShare": 0.021064872166648214,
+          "previousShare": 0.014882040519482307,
+          "delta": 0.006182831647165907,
+          "ratio": 1.4154114091974652,
           "direction": "up",
-          "top3Rate": 0.40522078555745306,
-          "avgPlacement": 4.267382288363016
-        },
-        {
-          "members": [
-            "darko:bat"
-          ],
-          "games": 12544,
-          "previousGames": 14092,
-          "recentShare": 0.05990078046691662,
-          "previousShare": 0.051696746760599245,
-          "delta": 0.008204033706317372,
-          "ratio": 1.1587042442544508,
-          "direction": "up",
-          "top3Rate": 0.3950095663265306,
-          "avgPlacement": 4.3286033163265305
-        },
-        {
-          "members": [
-            "li_dailin:nunchaku"
-          ],
-          "games": 3508,
-          "previousGames": 3349,
-          "recentShare": 0.016598846246333843,
-          "previousShare": 0.01237330906906261,
-          "delta": 0.004225537177271232,
-          "ratio": 1.3414868180160064,
-          "direction": "up",
-          "top3Rate": 0.4170467502850627,
-          "avgPlacement": 4.217217787913341
+          "top3Rate": 0.41163976210705183,
+          "avgPlacement": 4.24553950722175
         },
         {
           "members": [
             "yumin:arcana"
           ],
-          "games": 12284,
-          "previousGames": 13647,
-          "recentShare": 0.05809515870156688,
-          "previousShare": 0.05030375113376966,
-          "delta": 0.007791407567797219,
-          "ratio": 1.154896620329977,
+          "games": 13338,
+          "previousGames": 13639,
+          "recentShare": 0.06113814373256431,
+          "previousShare": 0.05042272421978996,
+          "delta": 0.010715419512774348,
+          "ratio": 1.2125134806340034,
           "direction": "up",
-          "top3Rate": 0.3910778248127646,
-          "avgPlacement": 4.3380006512536635
+          "top3Rate": 0.39436197330934175,
+          "avgPlacement": 4.329209776578198
         },
         {
           "members": [
             "cathy:dagger"
           ],
-          "games": 3491,
-          "previousGames": 3485,
-          "recentShare": 0.01648074318348874,
-          "previousShare": 0.012900254173484855,
-          "delta": 0.003580489010003886,
-          "ratio": 1.2775534269458522,
+          "games": 3699,
+          "previousGames": 3644,
+          "recentShare": 0.016899846033700518,
+          "previousShare": 0.013535543854374638,
+          "delta": 0.00336430217932588,
+          "ratio": 1.2485498836102307,
           "direction": "up",
-          "top3Rate": 0.4081924949871097,
-          "avgPlacement": 4.238327126897737
+          "top3Rate": 0.4006488240064882,
+          "avgPlacement": 4.286293592862936
         },
         {
           "members": [
-            "alex:flex"
+            "jackie:dual_swords"
           ],
-          "games": 5925,
-          "previousGames": 6142,
-          "recentShare": 0.027591878388381674,
-          "previousShare": 0.022925094322718574,
-          "delta": 0.0046667840656631,
-          "ratio": 1.2035794393501416,
+          "games": 3149,
+          "previousGames": 3066,
+          "recentShare": 0.014273516325896973,
+          "previousShare": 0.011361349409786236,
+          "delta": 0.0029121669161107366,
+          "ratio": 1.2563158409947608,
           "direction": "up",
-          "top3Rate": 0.4156962025316456,
-          "avgPlacement": 4.187172995780591
-        },
-        {
-          "members": [
-            "coreline:arcana"
-          ],
-          "games": 7527,
-          "previousGames": 8166,
-          "recentShare": 0.03534601164763927,
-          "previousShare": 0.03021320286223721,
-          "delta": 0.005132808785402062,
-          "ratio": 1.1699001229151615,
-          "direction": "up",
-          "top3Rate": 0.38554537000132855,
-          "avgPlacement": 4.347415969177627
+          "top3Rate": 0.3982216576691013,
+          "avgPlacement": 4.355350905049222
         },
         {
           "members": [
             "kenneth:axe"
           ],
-          "games": 6396,
-          "previousGames": 15986,
-          "recentShare": 0.030087064125843763,
-          "previousShare": 0.05974859374747807,
-          "delta": -0.029661529621634306,
-          "ratio": 0.5036092002273908,
+          "games": 6773,
+          "previousGames": 12710,
+          "recentShare": 0.030574826057140465,
+          "previousShare": 0.04785460712631186,
+          "delta": -0.017279781069171392,
+          "ratio": 0.6389570598343062,
           "direction": "down",
-          "top3Rate": 0.3786741713570982,
-          "avgPlacement": 4.382426516572858
+          "top3Rate": 0.3757566809390226,
+          "avgPlacement": 4.406614498745017
         },
         {
           "members": [
             "seres:two_handed_sword"
           ],
-          "games": 14997,
-          "previousGames": 29038,
-          "recentShare": 0.07214120580367643,
-          "previousShare": 0.10643450315547565,
-          "delta": -0.034293297351799215,
-          "ratio": 0.6778200492844636,
+          "games": 14629,
+          "previousGames": 24855,
+          "recentShare": 0.06844949620587863,
+          "previousShare": 0.09082830660249276,
+          "delta": -0.02237881039661413,
+          "ratio": 0.7536338298759176,
           "direction": "down",
-          "top3Rate": 0.39374541574981664,
-          "avgPlacement": 4.336467293458692
+          "top3Rate": 0.39688290382117714,
+          "avgPlacement": 4.314922414382391
+        },
+        {
+          "members": [
+            "sua:bat"
+          ],
+          "games": 11165,
+          "previousGames": 19124,
+          "recentShare": 0.05131218410782133,
+          "previousShare": 0.07035004721083567,
+          "delta": -0.019037863103014335,
+          "ratio": 0.7294104865906493,
+          "direction": "down",
+          "top3Rate": 0.38746081504702196,
+          "avgPlacement": 4.3691894312583965
         },
         {
           "members": [
             "bihyung:bat"
           ],
-          "games": 14993,
-          "previousGames": 24268,
-          "recentShare": 0.0722008190708204,
-          "previousShare": 0.08873548664657248,
-          "delta": -0.016534667575752074,
-          "ratio": 0.8136829435196338,
+          "games": 15473,
+          "previousGames": 22995,
+          "recentShare": 0.07258944555310853,
+          "previousShare": 0.08384553668452131,
+          "delta": -0.01125609113141278,
+          "ratio": 0.8657684302071503,
           "direction": "down",
-          "top3Rate": 0.4010538251183886,
-          "avgPlacement": 4.292269725872074
+          "top3Rate": 0.40218445033283784,
+          "avgPlacement": 4.2903767853680606
         },
         {
           "members": [
-            "henry:shuriken"
+            "sua:hammer"
           ],
-          "games": 10667,
-          "previousGames": 16716,
-          "recentShare": 0.050679669474872124,
-          "previousShare": 0.061741061941840036,
-          "delta": -0.011061392466967912,
-          "ratio": 0.8208698433799259,
+          "games": 1048,
+          "previousGames": 2300,
+          "recentShare": 0.0049631884218930035,
+          "previousShare": 0.008286037117900167,
+          "delta": -0.003322848696007163,
+          "ratio": 0.5992669760815842,
           "direction": "down",
-          "top3Rate": 0.41998687541014346,
-          "avgPlacement": 4.181119340020625
+          "top3Rate": 0.37213740458015265,
+          "avgPlacement": 4.483778625954199
+        },
+        {
+          "members": [
+            "blair:dual_swords"
+          ],
+          "games": 9140,
+          "previousGames": 12969,
+          "recentShare": 0.04150526658818861,
+          "previousShare": 0.04864994868764772,
+          "delta": -0.007144682099459114,
+          "ratio": 0.8531701981528511,
+          "direction": "down",
+          "top3Rate": 0.3822757111597374,
+          "avgPlacement": 4.369693654266959
         },
         {
           "members": [
             "aya:assault_rifle"
           ],
-          "games": 4932,
-          "previousGames": 8272,
-          "recentShare": 0.023513982690808812,
-          "previousShare": 0.030341463744676257,
-          "delta": -0.006827481053867445,
-          "ratio": 0.7750403348253508,
+          "games": 4950,
+          "previousGames": 7299,
+          "recentShare": 0.022864849402576125,
+          "previousShare": 0.026797402111536896,
+          "delta": -0.003932552708960771,
+          "ratio": 0.8533016967180619,
           "direction": "down",
-          "top3Rate": 0.3933495539334955,
-          "avgPlacement": 4.3154906731549065
+          "top3Rate": 0.39676767676767677,
+          "avgPlacement": 4.29030303030303
         },
         {
           "members": [
-            "darko:bat",
-            "lucia:sniper_rifle"
+            "echion:vf_prosthetic",
+            "katja:sniper_rifle"
           ],
-          "games": 896,
-          "previousGames": 762,
-          "recentShare": 0.004273814588431267,
-          "previousShare": 0.0027849961499074745,
-          "delta": 0.0014888184385237926,
-          "ratio": 1.5342526959644847,
+          "games": 403,
+          "previousGames": 284,
+          "recentShare": 0.0018466283832332838,
+          "previousShare": 0.0010467148930702235,
+          "delta": 0.0007999134901630603,
+          "ratio": 1.7623532783208655,
           "direction": "up",
-          "top3Rate": 0.36607142857142855,
-          "avgPlacement": 4.506696428571429
+          "top3Rate": 0.38461538461538464,
+          "avgPlacement": 4.3399503722084365
         },
         {
           "members": [
             "elena:rapier",
-            "lucia:sniper_rifle"
-          ],
-          "games": 273,
-          "previousGames": 156,
-          "recentShare": 0.0012886366876841656,
-          "previousShare": 0.0005734440414825237,
-          "delta": 0.0007151926462016419,
-          "ratio": 2.2410229354312596,
-          "direction": "up",
-          "top3Rate": 0.4139194139194139,
-          "avgPlacement": 4.406593406593407
-        },
-        {
-          "members": [
-            "darko:bat",
             "yumin:arcana"
           ],
-          "games": 671,
-          "previousGames": 580,
-          "recentShare": 0.0031951506753260645,
-          "previousShare": 0.002125099168548508,
-          "delta": 0.0010700515067775564,
-          "ratio": 1.503148085078403,
+          "games": 304,
+          "previousGames": 197,
+          "recentShare": 0.0013930131864303473,
+          "previousShare": 0.000728480337113122,
+          "delta": 0.0006645328493172253,
+          "ratio": 1.9088009043314886,
           "direction": "up",
-          "top3Rate": 0.3889716840536513,
-          "avgPlacement": 4.360655737704918
-        },
-        {
-          "members": [
-            "lucia:sniper_rifle",
-            "shirin:rapier"
-          ],
-          "games": 428,
-          "previousGames": 347,
-          "recentShare": 0.002048291919537752,
-          "previousShare": 0.0012630993652167975,
-          "delta": 0.0007851925543209547,
-          "ratio": 1.6206533961021599,
-          "direction": "up",
-          "top3Rate": 0.37149532710280375,
-          "avgPlacement": 4.450934579439252
-        },
-        {
-          "members": [
-            "istvan:spear",
-            "lucia:sniper_rifle"
-          ],
-          "games": 406,
-          "previousGames": 325,
-          "recentShare": 0.0019128694171863484,
-          "previousShare": 0.001198222001943253,
-          "delta": 0.0007146474152430954,
-          "ratio": 1.5954612376504567,
-          "direction": "up",
-          "top3Rate": 0.4039408866995074,
-          "avgPlacement": 4.293103448275862
-        },
-        {
-          "members": [
-            "aya:sniper_rifle",
-            "elena:rapier"
-          ],
-          "games": 170,
-          "previousGames": 103,
-          "recentShare": 0.0008109059110459399,
-          "previousShare": 0.0003828652543659358,
-          "delta": 0.0004280406566800041,
-          "ratio": 2.11002171417662,
-          "direction": "up",
-          "top3Rate": 0.4470588235294118,
-          "avgPlacement": 4.0588235294117645
+          "top3Rate": 0.40460526315789475,
+          "avgPlacement": 4.217105263157895
         },
         {
           "members": [
             "elena:rapier",
             "katja:sniper_rifle"
           ],
-          "games": 344,
-          "previousGames": 279,
-          "recentShare": 0.0016525583822196196,
-          "previousShare": 0.0010138466029818369,
-          "delta": 0.0006387117792377827,
-          "ratio": 1.6287305404947066,
+          "games": 389,
+          "previousGames": 299,
+          "recentShare": 0.0018176004814987106,
+          "previousShare": 0.0010858091679270376,
+          "delta": 0.000731791313571673,
+          "ratio": 1.6724728481356024,
           "direction": "up",
-          "top3Rate": 0.3691860465116279,
-          "avgPlacement": 4.468023255813954
+          "top3Rate": 0.38303341902313626,
+          "avgPlacement": 4.4524421593830334
         },
         {
           "members": [
-            "lucia:sniper_rifle",
-            "sho:dagger"
+            "echion:vf_prosthetic",
+            "yumin:arcana"
           ],
-          "games": 157,
-          "previousGames": 92,
-          "recentShare": 0.0007429092637719393,
-          "previousShare": 0.00034137928401192525,
-          "delta": 0.0004015299797600141,
-          "ratio": 2.1666468451101935,
+          "games": 312,
+          "previousGames": 213,
+          "recentShare": 0.001411901132447644,
+          "previousShare": 0.0007979789389548771,
+          "delta": 0.0006139221934927668,
+          "ratio": 1.766885466294318,
           "direction": "up",
-          "top3Rate": 0.3248407643312102,
-          "avgPlacement": 4.528662420382165
+          "top3Rate": 0.358974358974359,
+          "avgPlacement": 4.535256410256411
         },
         {
           "members": [
             "elena:rapier",
+            "lucia:sniper_rifle"
+          ],
+          "games": 312,
+          "previousGames": 221,
+          "recentShare": 0.0014186529584198633,
+          "previousShare": 0.0008151463748696749,
+          "delta": 0.0006035065835501884,
+          "ratio": 1.738087659456102,
+          "direction": "up",
+          "top3Rate": 0.4166666666666667,
+          "avgPlacement": 4.362179487179487
+        },
+        {
+          "members": [
+            "echion:vf_prosthetic",
+            "lucia:sniper_rifle"
+          ],
+          "games": 352,
+          "previousGames": 253,
+          "recentShare": 0.0015886892466821835,
+          "previousShare": 0.000952869412330067,
+          "delta": 0.0006358198343521165,
+          "ratio": 1.6656013318338048,
+          "direction": "up",
+          "top3Rate": 0.3693181818181818,
+          "avgPlacement": 4.426136363636363
+        },
+        {
+          "members": [
+            "aiden:two_handed_sword",
+            "echion:vf_prosthetic"
+          ],
+          "games": 181,
+          "previousGames": 110,
+          "recentShare": 0.0008025194029197171,
+          "previousShare": 0.00041460008212034383,
+          "delta": 0.0003879193207993733,
+          "ratio": 1.929458486803304,
+          "direction": "up",
+          "top3Rate": 0.4143646408839779,
+          "avgPlacement": 4.3535911602209945
+        },
+        {
+          "members": [
+            "bianca:arcana",
+            "echion:vf_prosthetic"
+          ],
+          "games": 188,
+          "previousGames": 118,
+          "recentShare": 0.0008392858880461175,
+          "previousShare": 0.0004419041509116573,
+          "delta": 0.00039738173713446017,
+          "ratio": 1.8937418674369373,
+          "direction": "up",
+          "top3Rate": 0.30851063829787234,
+          "avgPlacement": 4.622340425531915
+        },
+        {
+          "members": [
+            "debi_marlene:two_handed_sword",
+            "echion:vf_prosthetic"
+          ],
+          "games": 369,
+          "previousGames": 291,
+          "recentShare": 0.001673530786953777,
+          "previousShare": 0.0010935905393913829,
+          "delta": 0.0005799402475623941,
+          "ratio": 1.529317150168581,
+          "direction": "up",
+          "top3Rate": 0.39295392953929537,
+          "avgPlacement": 4.249322493224932
+        },
+        {
+          "members": [
+            "cathy:dagger",
             "yumin:arcana"
           ],
+          "games": 184,
+          "previousGames": 121,
+          "recentShare": 0.0008410253515303086,
+          "previousShare": 0.0004466169597241292,
+          "delta": 0.00039440839180617936,
+          "ratio": 1.877785702899504,
+          "direction": "up",
+          "top3Rate": 0.3641304347826087,
+          "avgPlacement": 4.538043478260869
+        },
+        {
+          "members": [
+            "bihyung:bat",
+            "kenneth:axe"
+          ],
+          "games": 176,
+          "previousGames": 610,
+          "recentShare": 0.0008128881569696759,
+          "previousShare": 0.0022630996978809798,
+          "delta": -0.0014502115409113039,
+          "ratio": 0.3606256673134052,
+          "direction": "down",
+          "top3Rate": 0.3806818181818182,
+          "avgPlacement": 4.420454545454546
+        },
+        {
+          "members": [
+            "kenneth:axe",
+            "seres:two_handed_sword"
+          ],
+          "games": 176,
+          "previousGames": 577,
+          "recentShare": 0.000818903035944338,
+          "previousShare": 0.002165621034121755,
+          "delta": -0.001346717998177417,
+          "ratio": 0.3796030934116067,
+          "direction": "down",
+          "top3Rate": 0.3465909090909091,
+          "avgPlacement": 4.551136363636363
+        },
+        {
+          "members": [
+            "aya:assault_rifle",
+            "seres:two_handed_sword"
+          ],
+          "games": 508,
+          "previousGames": 1134,
+          "recentShare": 0.002403300651439167,
+          "previousShare": 0.004141573067469682,
+          "delta": -0.0017382724160305146,
+          "ratio": 0.5808731876704063,
+          "direction": "down",
+          "top3Rate": 0.4015748031496063,
+          "avgPlacement": 4.297244094488189
+        },
+        {
+          "members": [
+            "seres:two_handed_sword",
+            "sua:bat"
+          ],
+          "games": 402,
+          "previousGames": 910,
+          "recentShare": 0.0018804886954828387,
+          "previousShare": 0.003315024526798406,
+          "delta": -0.0014345358313155672,
+          "ratio": 0.5680092000064241,
+          "direction": "down",
+          "top3Rate": 0.4079601990049751,
+          "avgPlacement": 4.300995024875622
+        },
+        {
+          "members": [
+            "debi_marlene:two_handed_sword",
+            "sua:bat"
+          ],
+          "games": 575,
+          "previousGames": 1167,
+          "recentShare": 0.0026566313794154825,
+          "previousShare": 0.004275886443094223,
+          "delta": -0.0016192550636787407,
+          "ratio": 0.6218377919541129,
+          "direction": "down",
+          "top3Rate": 0.39652173913043476,
+          "avgPlacement": 4.292173913043478
+        },
+        {
+          "members": [
+            "henry:shuriken",
+            "kenneth:axe"
+          ],
+          "games": 218,
+          "previousGames": 541,
+          "recentShare": 0.0010015942931558932,
+          "previousShare": 0.0020328630834075085,
+          "delta": -0.0010312687902516153,
+          "ratio": 0.4940538761540887,
+          "direction": "down",
+          "top3Rate": 0.3944954128440367,
+          "avgPlacement": 4.339449541284404
+        },
+        {
+          "members": [
+            "nicky:glove",
+            "sua:bat"
+          ],
+          "games": 361,
+          "previousGames": 802,
+          "recentShare": 0.0016969949725873503,
+          "previousShare": 0.0029211049756199914,
+          "delta": -0.001224110003032641,
+          "ratio": 0.5817729089869409,
+          "direction": "down",
+          "top3Rate": 0.39335180055401664,
+          "avgPlacement": 4.390581717451523
+        },
+        {
+          "members": [
+            "bihyung:bat",
+            "sua:bat"
+          ],
+          "games": 465,
+          "previousGames": 979,
+          "recentShare": 0.002194002166193593,
+          "previousShare": 0.0035564046818299016,
+          "delta": -0.0013624025156363084,
+          "ratio": 0.617560319284319,
+          "direction": "down",
+          "top3Rate": 0.3720430107526882,
+          "avgPlacement": 4.468817204301075
+        },
+        {
+          "members": [
+            "blair:dual_swords",
+            "seres:two_handed_sword"
+          ],
+          "games": 552,
+          "previousGames": 1028,
+          "recentShare": 0.002515999044290052,
+          "previousShare": 0.0038645254840783457,
+          "delta": -0.0013485264397882935,
+          "ratio": 0.6516104527098565,
+          "direction": "down",
+          "top3Rate": 0.3894927536231884,
+          "avgPlacement": 4.367753623188406
+        },
+        {
+          "members": [
+            "craver:pistol",
+            "kenneth:axe"
+          ],
+          "games": 511,
+          "previousGames": 921,
+          "recentShare": 0.0022717511995325457,
+          "previousShare": 0.0035325539712250725,
+          "delta": -0.0012608027716925268,
+          "ratio": 0.6437117799161298,
+          "direction": "down",
+          "top3Rate": 0.3796477495107632,
+          "avgPlacement": 4.37573385518591
+        },
+        {
+          "members": [
+            "abigail:axe",
+            "debi_marlene:two_handed_sword",
+            "lucia:sniper_rifle"
+          ],
+          "games": 42,
+          "previousGames": 24,
+          "recentShare": 0.00020131843013226035,
+          "previousShare": 0.00008764055616595402,
+          "delta": 0.00011367787396630632,
+          "ratio": 2.254099330329429,
+          "direction": "up",
+          "top3Rate": 0.4523809523809524,
+          "avgPlacement": 4.190476190476191
+        },
+        {
+          "members": [
+            "lucia:sniper_rifle",
+            "seres:two_handed_sword",
+            "sua:bat"
+          ],
+          "games": 47,
+          "previousGames": 112,
+          "recentShare": 0.0002220733346984206,
+          "previousShare": 0.00040290008476585214,
+          "delta": -0.00018082675006743154,
+          "ratio": 0.5574291380923874,
+          "direction": "down",
+          "top3Rate": 0.3829787234042553,
+          "avgPlacement": 4.1063829787234045
+        },
+        {
+          "members": [
+            "aya:assault_rifle",
+            "haze:assault_rifle",
+            "seres:two_handed_sword"
+          ],
+          "games": 22,
+          "previousGames": 61,
+          "recentShare": 0.0001023492076856763,
+          "previousShare": 0.00022609697739128543,
+          "delta": -0.00012374776970560912,
+          "ratio": 0.46531024156505435,
+          "direction": "down",
+          "top3Rate": 0.5454545454545454,
+          "avgPlacement": 3.5454545454545454
+        }
+      ]
+    },
+    "iron_gold": {
+      "previousTeams": 46489,
+      "recentTeams": 28841,
+      "rows": [
+        {
+          "members": [
+            "fiora:spear"
+          ],
+          "games": 439,
+          "previousGames": 375,
+          "recentShare": 0.01522138622100482,
+          "previousShare": 0.008066424315429456,
+          "delta": 0.007154961905575364,
+          "ratio": 1.8862737518323134,
+          "direction": "up",
+          "top3Rate": 0.4510250569476082,
+          "avgPlacement": 4.075170842824601
+        },
+        {
+          "members": [
+            "elena:rapier"
+          ],
+          "games": 628,
+          "previousGames": 630,
+          "recentShare": 0.021774557054193684,
+          "previousShare": 0.013551592849921487,
+          "delta": 0.008222964204272197,
+          "ratio": 1.6067976062647653,
+          "direction": "up",
+          "top3Rate": 0.40605095541401276,
+          "avgPlacement": 4.31687898089172
+        },
+        {
+          "members": [
+            "echion:vf_prosthetic"
+          ],
+          "games": 562,
+          "previousGames": 575,
+          "recentShare": 0.01948614819181027,
+          "previousShare": 0.0123685172836585,
+          "delta": 0.007117630908151771,
+          "ratio": 1.5755268228293826,
+          "direction": "up",
+          "top3Rate": 0.36298932384341637,
+          "avgPlacement": 4.448398576512456
+        },
+        {
+          "members": [
+            "leon:glove"
+          ],
+          "games": 1403,
+          "previousGames": 1880,
+          "recentShare": 0.04864602475642315,
+          "previousShare": 0.04043967390135301,
+          "delta": 0.00820635085507014,
+          "ratio": 1.2031456414471091,
+          "direction": "up",
+          "top3Rate": 0.4390591589451176,
+          "avgPlacement": 4.19672131147541
+        },
+        {
+          "members": [
+            "darko:bat"
+          ],
+          "games": 2085,
+          "previousGames": 2902,
+          "recentShare": 0.07229291633438507,
+          "previousShare": 0.06242336896900342,
+          "delta": 0.009869547365381655,
+          "ratio": 1.1582629328728502,
+          "direction": "up",
+          "top3Rate": 0.37985611510791367,
+          "avgPlacement": 4.409592326139089
+        },
+        {
+          "members": [
+            "eleven:hammer"
+          ],
+          "games": 816,
+          "previousGames": 1061,
+          "recentShare": 0.028293055025831283,
+          "previousShare": 0.022822603196455075,
+          "delta": 0.005470451829376208,
+          "ratio": 1.2400449545730012,
+          "direction": "up",
+          "top3Rate": 0.4068627450980392,
+          "avgPlacement": 4.267156862745098
+        },
+        {
+          "members": [
+            "sua:bat"
+          ],
+          "games": 1576,
+          "previousGames": 3495,
+          "recentShare": 0.05464442980479179,
+          "previousShare": 0.07517907461980253,
+          "delta": -0.020534644815010737,
+          "ratio": 0.7271100697527524,
+          "direction": "down",
+          "top3Rate": 0.38071065989847713,
+          "avgPlacement": 4.447969543147208
+        },
+        {
+          "members": [
+            "seres:two_handed_sword"
+          ],
+          "games": 3031,
+          "previousGames": 5806,
+          "recentShare": 0.10509344336188066,
+          "previousShare": 0.12488975886768913,
+          "delta": -0.019796315505808473,
+          "ratio": 0.8416223514914977,
+          "direction": "down",
+          "top3Rate": 0.39359947212141205,
+          "avgPlacement": 4.331573738040251
+        },
+        {
+          "members": [
+            "kenneth:axe"
+          ],
+          "games": 745,
+          "previousGames": 1629,
+          "recentShare": 0.02583128185569155,
+          "previousShare": 0.03504054722622556,
+          "delta": -0.009209265370534007,
+          "ratio": 0.737719244693191,
+          "direction": "down",
+          "top3Rate": 0.3503355704697987,
+          "avgPlacement": 4.579865771812081
+        },
+        {
+          "members": [
+            "sua:hammer"
+          ],
+          "games": 267,
+          "previousGames": 704,
+          "recentShare": 0.009257654034187442,
+          "previousShare": 0.015143367248166234,
+          "delta": -0.005885713213978792,
+          "ratio": 0.6127531702921938,
+          "direction": "down",
+          "top3Rate": 0.32209737827715357,
+          "avgPlacement": 4.782771535580524
+        },
+        {
+          "members": [
+            "aya:assault_rifle"
+          ],
+          "games": 761,
+          "previousGames": 1482,
+          "recentShare": 0.02638604764051177,
+          "previousShare": 0.03187850889457721,
+          "delta": -0.005492461254065439,
+          "ratio": 0.8282352497777535,
+          "direction": "down",
+          "top3Rate": 0.38501971090670173,
+          "avgPlacement": 4.433639947437582
+        },
+        {
+          "members": [
+            "hisui:two_handed_sword",
+            "mirka:hammer"
+          ],
+          "games": 71,
+          "previousGames": 54,
+          "recentShare": 0.0024617731701397317,
+          "previousShare": 0.0011615651014218417,
+          "delta": 0.00130020806871789,
+          "ratio": 2.1101323557687763,
+          "direction": "up",
+          "top3Rate": 0.4225352112676056,
+          "avgPlacement": 4.422535211267606
+        },
+        {
+          "members": [
+            "abigail:axe",
+            "sua:bat"
+          ],
+          "games": 68,
+          "previousGames": 214,
+          "recentShare": 0.00235775458548594,
+          "previousShare": 0.004603239476005077,
+          "delta": -0.0022454848905191366,
+          "ratio": 0.5173095794665701,
+          "direction": "down",
+          "top3Rate": 0.3382352941176471,
+          "avgPlacement": 4.617647058823529
+        },
+        {
+          "members": [
+            "bihyung:bat",
+            "seres:two_handed_sword"
+          ],
+          "games": 81,
+          "previousGames": 235,
+          "recentShare": 0.0028085017856523697,
+          "previousShare": 0.005054959237669126,
+          "delta": -0.0022464574520167564,
+          "ratio": 0.5600692634485157,
+          "direction": "down",
+          "top3Rate": 0.345679012345679,
+          "avgPlacement": 4.666666666666667
+        },
+        {
+          "members": [
+            "lucia:sniper_rifle",
+            "sua:bat"
+          ],
+          "games": 84,
+          "previousGames": 234,
+          "recentShare": 0.002912520370306161,
+          "previousShare": 0.005033448772827981,
+          "delta": -0.0021209284025218195,
+          "ratio": 0.5830300687481695,
+          "direction": "down",
+          "top3Rate": 0.39285714285714285,
+          "avgPlacement": 4.5476190476190474
+        }
+      ]
+    },
+    "platinum_diamond": {
+      "previousTeams": 162838,
+      "recentTeams": 126572,
+      "rows": [
+        {
+          "members": [
+            "elena:rapier"
+          ],
+          "games": 2764,
+          "previousGames": 2361,
+          "recentShare": 0.02183737319470341,
+          "previousShare": 0.01449907269801889,
+          "delta": 0.007338300496684521,
+          "ratio": 1.5060290859207948,
+          "direction": "up",
+          "top3Rate": 0.41027496382054995,
+          "avgPlacement": 4.23986975397974
+        },
+        {
+          "members": [
+            "yumin:arcana"
+          ],
+          "games": 8274,
+          "previousGames": 8656,
+          "recentShare": 0.06536990803653257,
+          "previousShare": 0.053157125486680015,
+          "delta": 0.012212782549852558,
+          "ratio": 1.2297552973915553,
+          "direction": "up",
+          "top3Rate": 0.39557650471356054,
+          "avgPlacement": 4.317621464829586
+        },
+        {
+          "members": [
+            "fiora:spear"
+          ],
+          "games": 2348,
+          "previousGames": 2015,
+          "recentShare": 0.01855070631735297,
+          "previousShare": 0.01237426153600511,
+          "delta": 0.006176444781347861,
+          "ratio": 1.4990309722078006,
+          "direction": "up",
+          "top3Rate": 0.40545144804088584,
+          "avgPlacement": 4.283219761499148
+        },
+        {
+          "members": [
+            "echion:vf_prosthetic"
+          ],
+          "games": 3488,
+          "previousGames": 3273,
+          "recentShare": 0.02755743766393831,
+          "previousShare": 0.02009973102101475,
+          "delta": 0.00745770664292356,
+          "ratio": 1.3710093338381764,
+          "direction": "up",
+          "top3Rate": 0.3844610091743119,
+          "avgPlacement": 4.372993119266055
+        },
+        {
+          "members": [
+            "cathy:dagger"
+          ],
+          "games": 2294,
+          "previousGames": 2352,
+          "recentShare": 0.01812407167461998,
+          "previousShare": 0.01444380304351564,
+          "delta": 0.0036802686311043394,
+          "ratio": 1.2548126255918282,
+          "direction": "up",
+          "top3Rate": 0.3927637314734089,
+          "avgPlacement": 4.297297297297297
+        },
+        {
+          "members": [
+            "magnus:bat"
+          ],
+          "games": 1851,
+          "previousGames": 1935,
+          "recentShare": 0.014624087475903044,
+          "previousShare": 0.011882975718198454,
+          "delta": 0.0027411117577045892,
+          "ratio": 1.2307043807163756,
+          "direction": "up",
+          "top3Rate": 0.3835764451647758,
+          "avgPlacement": 4.3625067531064285
+        },
+        {
+          "members": [
+            "sissela:shuriken"
+          ],
+          "games": 2540,
+          "previousGames": 2780,
+          "recentShare": 0.02006762949151471,
+          "previousShare": 0.017072182168781244,
+          "delta": 0.0029954473227334667,
+          "ratio": 1.1754977259277508,
+          "direction": "up",
+          "top3Rate": 0.40669291338582675,
+          "avgPlacement": 4.205118110236221
+        },
+        {
+          "members": [
+            "camilo:dual_swords"
+          ],
+          "games": 2588,
+          "previousGames": 2855,
+          "recentShare": 0.020446860285055147,
+          "previousShare": 0.01753276262297498,
+          "delta": 0.002914097662080166,
+          "ratio": 1.1662508262477638,
+          "direction": "up",
+          "top3Rate": 0.38253477588871715,
+          "avgPlacement": 4.365146831530139
+        },
+        {
+          "members": [
+            "sua:bat"
+          ],
+          "games": 6550,
+          "previousGames": 12084,
+          "recentShare": 0.051749202035205256,
+          "previousShare": 0.07420872277969516,
+          "delta": -0.022459520744489904,
+          "ratio": 0.6973953732457224,
+          "direction": "down",
+          "top3Rate": 0.3899236641221374,
+          "avgPlacement": 4.35618320610687
+        },
+        {
+          "members": [
+            "seres:two_handed_sword"
+          ],
+          "games": 8486,
+          "previousGames": 14814,
+          "recentShare": 0.06704484404133616,
+          "previousShare": 0.09097385131234724,
+          "delta": -0.023929007271011077,
+          "ratio": 0.7370053890427879,
+          "direction": "down",
+          "top3Rate": 0.39111477728022626,
+          "avgPlacement": 4.339028988922932
+        },
+        {
+          "members": [
+            "kenneth:axe"
+          ],
+          "games": 3560,
+          "previousGames": 7077,
+          "recentShare": 0.028126283854248965,
+          "previousShare": 0.043460371657721174,
+          "delta": -0.015334087803472209,
+          "ratio": 0.6472611380226045,
+          "direction": "down",
+          "top3Rate": 0.36657303370786515,
+          "avgPlacement": 4.4230337078651685
+        },
+        {
+          "members": [
+            "sua:hammer"
+          ],
+          "games": 598,
+          "previousGames": 1327,
+          "recentShare": 0.004724583636191259,
+          "previousShare": 0.008149203502867882,
+          "delta": -0.003424619866676623,
+          "ratio": 0.5802923756143938,
+          "direction": "down",
+          "top3Rate": 0.3879598662207358,
+          "avgPlacement": 4.357859531772576
+        },
+        {
+          "members": [
+            "aya:assault_rifle"
+          ],
+          "games": 2954,
+          "previousGames": 4474,
+          "recentShare": 0.023338495085800968,
+          "previousShare": 0.02747515936083715,
+          "delta": -0.004136664275036183,
+          "ratio": 0.849537516748036,
+          "direction": "down",
+          "top3Rate": 0.4096140825998646,
+          "avgPlacement": 4.207176709546378
+        },
+        {
+          "members": [
+            "adina:arcana"
+          ],
+          "games": 1777,
+          "previousGames": 2774,
+          "recentShare": 0.014039440002528205,
+          "previousShare": 0.017035335732445745,
+          "delta": -0.0029958957299175398,
+          "ratio": 0.8243030110981948,
+          "direction": "down",
+          "top3Rate": 0.4209341586944288,
+          "avgPlacement": 4.155317951603827
+        },
+        {
+          "members": [
+            "echion:vf_prosthetic",
+            "yumin:arcana"
+          ],
+          "games": 194,
+          "previousGames": 133,
+          "recentShare": 0.0015327244572259267,
+          "previousShare": 0.0008167626721035631,
+          "delta": 0.0007159617851223636,
+          "ratio": 1.87218141665342,
+          "direction": "up",
+          "top3Rate": 0.3556701030927835,
+          "avgPlacement": 4.592783505154639
+        },
+        {
+          "members": [
+            "echion:vf_prosthetic",
+            "katja:sniper_rifle"
+          ],
           "games": 252,
-          "previousGames": 181,
-          "recentShare": 0.0011936576035672976,
-          "previousShare": 0.0006656308458518552,
-          "delta": 0.0005280267577154424,
-          "ratio": 1.7904596959091894,
+          "previousGames": 190,
+          "recentShare": 0.0019909616660872863,
+          "previousShare": 0.0011668038172908044,
+          "delta": 0.0008241578487964819,
+          "ratio": 1.704140002346201,
           "direction": "up",
           "top3Rate": 0.40476190476190477,
           "avgPlacement": 4.25
         },
         {
           "members": [
-            "lucia:sniper_rifle",
+            "cathy:dagger",
             "yumin:arcana"
           ],
-          "games": 435,
-          "previousGames": 370,
-          "recentShare": 0.0020588161430798303,
-          "previousShare": 0.0013594968703695533,
-          "delta": 0.000699319272710277,
-          "ratio": 1.5137695821746635,
+          "games": 119,
+          "previousGames": 69,
+          "recentShare": 0.0009401763423189963,
+          "previousShare": 0.00042373401785823946,
+          "delta": 0.0005164423244607569,
+          "ratio": 2.2054708556620515,
           "direction": "up",
-          "top3Rate": 0.38620689655172413,
-          "avgPlacement": 4.305747126436781
+          "top3Rate": 0.3277310924369748,
+          "avgPlacement": 4.6722689075630255
         },
         {
           "members": [
-            "kenneth:axe",
-            "seres:two_handed_sword"
+            "elena:rapier",
+            "leon:glove"
           ],
-          "games": 184,
-          "previousGames": 841,
-          "recentShare": 0.000880877480450324,
-          "previousShare": 0.0031403880199582642,
-          "delta": -0.0022595105395079402,
-          "ratio": 0.2816766647129935,
-          "direction": "down",
-          "top3Rate": 0.391304347826087,
-          "avgPlacement": 4.489130434782608
+          "games": 101,
+          "previousGames": 56,
+          "recentShare": 0.000797964794741333,
+          "previousShare": 0.00034390007246465815,
+          "delta": 0.0004540647222766749,
+          "ratio": 2.3022020335419655,
+          "direction": "up",
+          "top3Rate": 0.43564356435643564,
+          "avgPlacement": 4.306930693069307
         },
         {
           "members": [
-            "bihyung:bat",
-            "kenneth:axe"
-          ],
-          "games": 177,
-          "previousGames": 779,
-          "recentShare": 0.000848507108541588,
-          "previousShare": 0.002879877153406884,
-          "delta": -0.0020313700448652957,
-          "ratio": 0.29589844053786896,
-          "direction": "down",
-          "top3Rate": 0.3954802259887006,
-          "avgPlacement": 4.389830508474576
-        },
-        {
-          "members": [
-            "aya:assault_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 565,
-          "previousGames": 1515,
-          "recentShare": 0.0027230781363623956,
-          "previousShare": 0.005548527148453574,
-          "delta": -0.0028254490120911786,
-          "ratio": 0.49130172324569243,
-          "direction": "down",
-          "top3Rate": 0.3787610619469027,
-          "avgPlacement": 4.380530973451328
-        },
-        {
-          "members": [
-            "craver:pistol",
-            "kenneth:axe"
-          ],
-          "games": 455,
-          "previousGames": 1150,
-          "recentShare": 0.0021137019758385263,
-          "previousShare": 0.004342236312581977,
-          "delta": -0.0022285343367434507,
-          "ratio": 0.4874536620945644,
-          "direction": "down",
-          "top3Rate": 0.35824175824175825,
-          "avgPlacement": 4.4483516483516485
-        },
-        {
-          "members": [
-            "henry:shuriken",
-            "kenneth:axe"
-          ],
-          "games": 228,
-          "previousGames": 723,
-          "recentShare": 0.0010863336528378533,
-          "previousShare": 0.002699570846720775,
-          "delta": -0.0016132371938829219,
-          "ratio": 0.40361234835918286,
-          "direction": "down",
-          "top3Rate": 0.42105263157894735,
-          "avgPlacement": 4.302631578947368
-        },
-        {
-          "members": [
-            "haze:assault_rifle",
-            "kenneth:axe"
-          ],
-          "games": 164,
-          "previousGames": 559,
-          "recentShare": 0.0007802999516980103,
-          "previousShare": 0.0020892241346020394,
-          "delta": -0.001308924182904029,
-          "ratio": 0.37509220921870656,
-          "direction": "down",
-          "top3Rate": 0.4146341463414634,
-          "avgPlacement": 4.170731707317073
-        },
-        {
-          "members": [
-            "debi_marlene:two_handed_sword",
-            "kenneth:axe"
-          ],
-          "games": 309,
-          "previousGames": 801,
-          "recentShare": 0.001444723509372046,
-          "previousShare": 0.0029919887471523176,
-          "delta": -0.0015472652377802715,
-          "ratio": 0.4838500239184283,
-          "direction": "down",
-          "top3Rate": 0.39805825242718446,
-          "avgPlacement": 4.326860841423948
-        },
-        {
-          "members": [
-            "haze:assault_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 686,
-          "previousGames": 1476,
-          "recentShare": 0.003287643366418551,
-          "previousShare": 0.005426241979987427,
-          "delta": -0.002138598613568876,
-          "ratio": 0.6063388966943214,
-          "direction": "down",
-          "top3Rate": 0.3965014577259475,
-          "avgPlacement": 4.360058309037901
-        },
-        {
-          "members": [
-            "bihyung:bat",
-            "seres:two_handed_sword"
-          ],
-          "games": 223,
-          "previousGames": 689,
-          "recentShare": 0.001100980918172217,
-          "previousShare": 0.0024734022384140827,
-          "delta": -0.0013724213202418658,
-          "ratio": 0.4463768701241768,
-          "direction": "down",
-          "top3Rate": 0.38565022421524664,
-          "avgPlacement": 4.349775784753363
-        },
-        {
-          "members": [
-            "isol:assault_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 638,
-          "previousGames": 1377,
-          "recentShare": 0.00305236347992229,
-          "previousShare": 0.005074768568747096,
-          "delta": -0.0020224050888248057,
-          "ratio": 0.6019738159585667,
-          "direction": "down",
-          "top3Rate": 0.44200626959247646,
-          "avgPlacement": 4.167711598746082
-        },
-        {
-          "members": [
-            "katja:sniper_rifle",
-            "lenox:whip",
+            "elena:rapier",
             "yumin:arcana"
           ],
-          "games": 70,
-          "previousGames": 39,
-          "recentShare": 0.00033020462704948407,
-          "previousShare": 0.00014225942525513186,
-          "delta": 0.00018794520179435221,
-          "ratio": 2.294894328936253,
+          "games": 186,
+          "previousGames": 135,
+          "recentShare": 0.0014695193249691875,
+          "previousShare": 0.0008290448175487294,
+          "delta": 0.0006404745074204581,
+          "ratio": 1.7689714154789369,
           "direction": "up",
-          "top3Rate": 0.32857142857142857,
-          "avgPlacement": 4.714285714285714
+          "top3Rate": 0.42473118279569894,
+          "avgPlacement": 4.129032258064516
         },
         {
           "members": [
-            "abigail:axe",
-            "darko:bat",
-            "katja:sniper_rifle"
-          ],
-          "games": 48,
-          "previousGames": 33,
-          "recentShare": 0.0002375416199344785,
-          "previousShare": 0.00011876256712812853,
-          "delta": 0.00011877905280634997,
-          "ratio": 1.9785279215615,
-          "direction": "up",
-          "top3Rate": 0.3958333333333333,
-          "avgPlacement": 4.3125
-        },
-        {
-          "members": [
-            "darko:bat",
-            "hisui:two_handed_sword",
-            "katja:sniper_rifle"
-          ],
-          "games": 46,
-          "previousGames": 35,
-          "recentShare": 0.00023147467728123488,
-          "previousShare": 0.00012575097945661552,
-          "delta": 0.00010572369782461935,
-          "ratio": 1.8248396902751451,
-          "direction": "up",
-          "top3Rate": 0.34782608695652173,
-          "avgPlacement": 4.804347826086956
-        },
-        {
-          "members": [
-            "darko:bat",
-            "debi_marlene:two_handed_sword",
-            "katja:sniper_rifle"
-          ],
-          "games": 78,
-          "previousGames": 68,
-          "recentShare": 0.000381468563875329,
-          "previousShare": 0.0002464683004330907,
-          "delta": 0.00013500026344223832,
-          "ratio": 1.5438352783783087,
-          "direction": "up",
-          "top3Rate": 0.4230769230769231,
-          "avgPlacement": 4.141025641025641
-        },
-        {
-          "members": [
-            "haze:assault_rifle",
-            "rio:bow",
-            "seres:two_handed_sword"
-          ],
-          "games": 55,
-          "previousGames": 144,
-          "recentShare": 0.0002586621742182134,
-          "previousShare": 0.0005347523647978009,
-          "delta": -0.0002760901905795875,
-          "ratio": 0.489184934358152,
-          "direction": "down",
-          "top3Rate": 0.38181818181818183,
-          "avgPlacement": 4.490909090909091
-        },
-        {
-          "members": [
-            "katja:sniper_rifle",
-            "lenore:guitar",
-            "seres:two_handed_sword"
-          ],
-          "games": 43,
-          "previousGames": 125,
-          "recentShare": 0.0002091380727221673,
-          "previousShare": 0.0004526695195242929,
-          "delta": -0.00024353144680212558,
-          "ratio": 0.46865202351691404,
-          "direction": "down",
-          "top3Rate": 0.37209302325581395,
-          "avgPlacement": 4.3023255813953485
-        },
-        {
-          "members": [
-            "haze:assault_rifle",
-            "isol:assault_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 20,
-          "previousGames": 67,
-          "recentShare": 0.00009116842542637585,
-          "previousShare": 0.0002485830351365328,
-          "delta": -0.00015741460971015696,
-          "ratio": 0.38016054697309415,
-          "direction": "down",
-          "top3Rate": 0.6,
-          "avgPlacement": 3.4
-        },
-        {
-          "members": [
-            "henry:shuriken",
-            "katja:sniper_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 51,
-          "previousGames": 131,
-          "recentShare": 0.0002490494260076998,
-          "previousShare": 0.00047533666969777323,
-          "delta": -0.00022628724369007342,
-          "ratio": 0.5297932649726482,
-          "direction": "down",
-          "top3Rate": 0.5490196078431373,
-          "avgPlacement": 3.450980392156863
-        },
-        {
-          "members": [
-            "aya:assault_rifle",
-            "haze:assault_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 25,
-          "previousGames": 78,
-          "recentShare": 0.00011993911995070877,
-          "previousShare": 0.000288761233395177,
-          "delta": -0.00016882211344446823,
-          "ratio": 0.42631005908930625,
-          "direction": "down",
-          "top3Rate": 0.56,
-          "avgPlacement": 3.4
-        },
-        {
-          "members": [
-            "bihyung:bat",
-            "henry:shuriken",
-            "katja:sniper_rifle"
-          ],
-          "games": 43,
-          "previousGames": 113,
-          "recentShare": 0.00021076827745165295,
-          "previousShare": 0.00041417933766357254,
-          "delta": -0.0002034110602119196,
-          "ratio": 0.5157209435758106,
-          "direction": "down",
-          "top3Rate": 0.4418604651162791,
-          "avgPlacement": 4.255813953488372
-        },
-        {
-          "members": [
-            "bihyung:bat",
-            "katja:sniper_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 29,
-          "previousGames": 88,
-          "recentShare": 0.00014497996352524895,
-          "previousShare": 0.0003087072859697652,
-          "delta": -0.00016372732244451625,
-          "ratio": 0.4792477368458284,
-          "direction": "down",
-          "top3Rate": 0.4482758620689655,
-          "avgPlacement": 4.448275862068965
-        },
-        {
-          "members": [
-            "craver:pistol",
-            "rio:bow",
-            "seres:two_handed_sword"
-          ],
-          "games": 23,
-          "previousGames": 60,
-          "recentShare": 0.00010782624934581009,
-          "previousShare": 0.00022395219435866428,
-          "delta": -0.00011612594501285419,
-          "ratio": 0.49446879980855307,
-          "direction": "down",
-          "top3Rate": 0.4782608695652174,
-          "avgPlacement": 4.086956521739131
-        },
-        {
-          "members": [
-            "rio:bow",
-            "seres:two_handed_sword",
-            "tia:bat"
-          ],
-          "games": 20,
-          "previousGames": 54,
-          "recentShare": 0.0000927447583287286,
-          "previousShare": 0.0001996631655250573,
-          "delta": -0.0001069184071963287,
-          "ratio": 0.4793654759677338,
-          "direction": "down",
-          "top3Rate": 0.3,
-          "avgPlacement": 4.4
-        },
-        {
-          "members": [
-            "henry:shuriken",
-            "rio:bow",
-            "seres:two_handed_sword"
-          ],
-          "games": 57,
-          "previousGames": 117,
-          "recentShare": 0.00027237831363903135,
-          "previousShare": 0.00043378635182871874,
-          "delta": -0.0001614080381896874,
-          "ratio": 0.6334374060656774,
-          "direction": "down",
-          "top3Rate": 0.40350877192982454,
-          "avgPlacement": 4.052631578947368
-        }
-      ]
-    },
-    "iron_gold": {
-      "previousTeams": 45409,
-      "recentTeams": 28669,
-      "rows": [
-        {
-          "members": [
-            "lucia:sniper_rifle"
-          ],
-          "games": 2587,
-          "previousGames": 3358,
-          "recentShare": 0.09023684118734522,
-          "previousShare": 0.07395009799819419,
-          "delta": 0.016286743189151034,
-          "ratio": 1.2203479093293546,
-          "direction": "up",
-          "top3Rate": 0.375724777734828,
-          "avgPlacement": 4.450715114031697
-        },
-        {
-          "members": [
-            "elena:rapier"
-          ],
-          "games": 545,
-          "previousGames": 602,
-          "recentShare": 0.01901008057483693,
-          "previousShare": 0.013257283798365964,
-          "delta": 0.005752796776470967,
-          "ratio": 1.434183507104333,
-          "direction": "up",
-          "top3Rate": 0.3963302752293578,
-          "avgPlacement": 4.363302752293578
-        },
-        {
-          "members": [
-            "li_dailin:nunchaku"
-          ],
-          "games": 529,
-          "previousGames": 630,
-          "recentShare": 0.018451986466217866,
-          "previousShare": 0.013873901649452751,
-          "delta": 0.004578084816765115,
-          "ratio": 1.330380601276751,
-          "direction": "up",
-          "top3Rate": 0.4158790170132325,
-          "avgPlacement": 4.277882797731569
-        },
-        {
-          "members": [
+            "adriana:throw",
             "fiora:spear"
-          ],
-          "games": 339,
-          "previousGames": 375,
-          "recentShare": 0.011824618926366458,
-          "previousShare": 0.008258274791340923,
-          "delta": 0.003566344135025535,
-          "ratio": 1.4322553903949926,
-          "direction": "up",
-          "top3Rate": 0.44837758112094395,
-          "avgPlacement": 4.094395280235989
-        },
-        {
-          "members": [
-            "aya:sniper_rifle"
-          ],
-          "games": 1244,
-          "previousGames": 1673,
-          "recentShare": 0.043391816945132375,
-          "previousShare": 0.03684291660243564,
-          "delta": 0.006548900342696735,
-          "ratio": 1.177994576835519,
-          "direction": "up",
-          "top3Rate": 0.43890675241157556,
-          "avgPlacement": 4.132636655948553
-        },
-        {
-          "members": [
-            "seres:two_handed_sword"
-          ],
-          "games": 3167,
-          "previousGames": 6251,
-          "recentShare": 0.11046775262478635,
-          "previousShare": 0.13765993525512563,
-          "delta": -0.027192182630339276,
-          "ratio": 0.8025934236884303,
-          "direction": "down",
-          "top3Rate": 0.3905904641616672,
-          "avgPlacement": 4.363751184085886
-        },
-        {
-          "members": [
-            "kenneth:axe"
-          ],
-          "games": 789,
-          "previousGames": 1800,
-          "recentShare": 0.027521015731277687,
-          "previousShare": 0.039639718998436435,
-          "delta": -0.012118703267158748,
-          "ratio": 0.6947727425334431,
-          "direction": "down",
-          "top3Rate": 0.33713561470215464,
-          "avgPlacement": 4.6210392902408115
-        },
-        {
-          "members": [
-            "aya:assault_rifle"
-          ],
-          "games": 815,
-          "previousGames": 1653,
-          "recentShare": 0.028427918657783668,
-          "previousShare": 0.036402475280230794,
-          "delta": -0.007974556622447126,
-          "ratio": 0.7814191440703997,
-          "direction": "down",
-          "top3Rate": 0.3619631901840491,
-          "avgPlacement": 4.5177914110429445
-        },
-        {
-          "members": [
-            "bihyung:bat",
-            "seres:two_handed_sword"
           ],
           "games": 82,
-          "previousGames": 282,
-          "recentShare": 0.0028602323066727127,
-          "previousShare": 0.006210222643088375,
-          "delta": -0.003349990336415662,
-          "ratio": 0.46453779072383006,
-          "direction": "down",
-          "top3Rate": 0.3902439024390244,
-          "avgPlacement": 4.512195121951219
-        },
-        {
-          "members": [
-            "lenore:guitar",
-            "seres:two_handed_sword"
-          ],
-          "games": 116,
-          "previousGames": 308,
-          "recentShare": 0.004046182287488227,
-          "previousShare": 0.006782796361954679,
-          "delta": -0.0027366140744664513,
-          "ratio": 0.5997313833452933,
-          "direction": "down",
-          "top3Rate": 0.3879310344827586,
-          "avgPlacement": 4.353448275862069
-        },
-        {
-          "members": [
-            "aya:assault_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 116,
-          "previousGames": 298,
-          "recentShare": 0.004046182287488227,
-          "previousShare": 0.006562575700852254,
-          "delta": -0.0025163934133640266,
-          "ratio": 0.6197892891427947,
-          "direction": "down",
-          "top3Rate": 0.3275862068965517,
-          "avgPlacement": 4.560344827586207
-        }
-      ]
-    },
-    "platinum_diamond": {
-      "previousTeams": 165660,
-      "recentTeams": 128175,
-      "rows": [
-        {
-          "members": [
-            "lucia:sniper_rifle"
-          ],
-          "games": 10426,
-          "previousGames": 10643,
-          "recentShare": 0.08134191535010728,
-          "previousShare": 0.06424604611855608,
-          "delta": 0.017095869231551195,
-          "ratio": 1.2661024190741195,
+          "previousGames": 41,
+          "recentShare": 0.0006478526056315773,
+          "previousShare": 0.00025178398162591044,
+          "delta": 0.00039606862400566687,
+          "ratio": 2.542417791943753,
           "direction": "up",
-          "top3Rate": 0.37588720506426243,
-          "avgPlacement": 4.395070017264531
-        },
-        {
-          "members": [
-            "elena:rapier"
-          ],
-          "games": 2639,
-          "previousGames": 2162,
-          "recentShare": 0.02058903842402965,
-          "previousShare": 0.013050826995050103,
-          "delta": 0.007538211428979546,
-          "ratio": 1.5774722871247837,
-          "direction": "up",
-          "top3Rate": 0.41417203486169,
-          "avgPlacement": 4.2239484653277755
-        },
-        {
-          "members": [
-            "darko:bat"
-          ],
-          "games": 8098,
-          "previousGames": 8884,
-          "recentShare": 0.06317924712307392,
-          "previousShare": 0.053627912592056015,
-          "delta": 0.009551334531017905,
-          "ratio": 1.1781166606791875,
-          "direction": "up",
-          "top3Rate": 0.3962706841195357,
-          "avgPlacement": 4.314892566065695
-        },
-        {
-          "members": [
-            "yumin:arcana"
-          ],
-          "games": 7904,
-          "previousGames": 8728,
-          "recentShare": 0.06166569143748781,
-          "previousShare": 0.05268622479777858,
-          "delta": 0.008979466639709228,
-          "ratio": 1.1704468891351114,
-          "direction": "up",
-          "top3Rate": 0.3930921052631579,
-          "avgPlacement": 4.327302631578948
-        },
-        {
-          "members": [
-            "echion:vf_prosthetic"
-          ],
-          "games": 3256,
-          "previousGames": 3335,
-          "recentShare": 0.025402769650867955,
-          "previousShare": 0.02013159483279005,
-          "delta": 0.005271174818077904,
-          "ratio": 1.2618451055422486,
-          "direction": "up",
-          "top3Rate": 0.39097051597051596,
-          "avgPlacement": 4.347051597051597
-        },
-        {
-          "members": [
-            "li_dailin:nunchaku"
-          ],
-          "games": 1956,
-          "previousGames": 1862,
-          "recentShare": 0.015260386190754828,
-          "previousShare": 0.011239888929131957,
-          "delta": 0.0040204972616228705,
-          "ratio": 1.3576639978994096,
-          "direction": "up",
-          "top3Rate": 0.4125766871165644,
-          "avgPlacement": 4.215746421267894
-        },
-        {
-          "members": [
-            "fiora:spear"
-          ],
-          "games": 2121,
-          "previousGames": 2046,
-          "recentShare": 0.016547688706846107,
-          "previousShare": 0.012350597609561753,
-          "delta": 0.004197091097284354,
-          "ratio": 1.3398058441144514,
-          "direction": "up",
-          "top3Rate": 0.4012258368694012,
-          "avgPlacement": 4.297029702970297
-        },
-        {
-          "members": [
-            "cathy:dagger"
-          ],
-          "games": 2293,
-          "previousGames": 2328,
-          "recentShare": 0.017889604056953383,
-          "previousShare": 0.01405287939152481,
-          "delta": 0.003836724665428573,
-          "ratio": 1.2730288792619378,
-          "direction": "up",
-          "top3Rate": 0.3929350196249455,
-          "avgPlacement": 4.288268643698212
-        },
-        {
-          "members": [
-            "laura:whip"
-          ],
-          "games": 2303,
-          "previousGames": 2401,
-          "recentShare": 0.017967622391261946,
-          "previousShare": 0.014493540987564892,
-          "delta": 0.0034740814036970536,
-          "ratio": 1.2397205566455494,
-          "direction": "up",
-          "top3Rate": 0.3829787234042553,
-          "avgPlacement": 4.379504993486757
-        },
-        {
-          "members": [
-            "arda:arcana"
-          ],
-          "games": 2721,
-          "previousGames": 3056,
-          "recentShare": 0.02122878876535986,
-          "previousShare": 0.018447422431486178,
-          "delta": 0.0027813663338736826,
-          "ratio": 1.1508189723898168,
-          "direction": "up",
-          "top3Rate": 0.42778390297684676,
-          "avgPlacement": 4.213156927600147
-        },
-        {
-          "members": [
-            "kenneth:axe"
-          ],
-          "games": 3562,
-          "previousGames": 8903,
-          "recentShare": 0.027790130680709967,
-          "previousShare": 0.053742605336230834,
-          "delta": -0.025952474655520866,
-          "ratio": 0.5171839061424719,
-          "direction": "down",
-          "top3Rate": 0.3773161145423919,
-          "avgPlacement": 4.360752386299832
-        },
-        {
-          "members": [
-            "seres:two_handed_sword"
-          ],
-          "games": 9061,
-          "previousGames": 17588,
-          "recentShare": 0.07069241271698849,
-          "previousShare": 0.10616926234456114,
-          "delta": -0.03547684962757265,
-          "ratio": 0.6658819456718671,
-          "direction": "down",
-          "top3Rate": 0.38649155722326456,
-          "avgPlacement": 4.360556229996689
-        },
-        {
-          "members": [
-            "bihyung:bat"
-          ],
-          "games": 9439,
-          "previousGames": 14758,
-          "recentShare": 0.07364150575385216,
-          "previousShare": 0.0890860799227333,
-          "delta": -0.015444574168881148,
-          "ratio": 0.8266646991604651,
-          "direction": "down",
-          "top3Rate": 0.407352473779002,
-          "avgPlacement": 4.246318465939188
-        },
-        {
-          "members": [
-            "aya:assault_rifle"
-          ],
-          "games": 3019,
-          "previousGames": 5196,
-          "recentShare": 0.02355373512775502,
-          "previousShare": 0.03136544730170228,
-          "delta": -0.007811712173947258,
-          "ratio": 0.751049492589966,
-          "direction": "down",
-          "top3Rate": 0.40311361377939714,
-          "avgPlacement": 4.2464392182842
-        },
-        {
-          "members": [
-            "henry:shuriken"
-          ],
-          "games": 6610,
-          "previousGames": 10205,
-          "recentShare": 0.05157011897795982,
-          "previousShare": 0.06160207654231559,
-          "delta": -0.010031957564355765,
-          "ratio": 0.8371936470326259,
-          "direction": "down",
-          "top3Rate": 0.42254160363086235,
-          "avgPlacement": 4.161270801815431
-        },
-        {
-          "members": [
-            "adina:arcana"
-          ],
-          "games": 1848,
-          "previousGames": 3010,
-          "recentShare": 0.014417788180222352,
-          "previousShare": 0.01816974526137873,
-          "delta": -0.003751957081156377,
-          "ratio": 0.7936709537236101,
-          "direction": "down",
-          "top3Rate": 0.4161255411255411,
-          "avgPlacement": 4.18073593073593
-        },
-        {
-          "members": [
-            "debi_marlene:two_handed_sword",
-            "lucia:sniper_rifle"
-          ],
-          "games": 733,
-          "previousGames": 631,
-          "recentShare": 0.005718743904817632,
-          "previousShare": 0.003809006398647833,
-          "delta": 0.0019097375061697995,
-          "ratio": 1.5010436186681086,
-          "direction": "up",
-          "top3Rate": 0.37789904502046384,
-          "avgPlacement": 4.377899045020464
-        },
-        {
-          "members": [
-            "darko:bat",
-            "lucia:sniper_rifle"
-          ],
-          "games": 574,
-          "previousGames": 474,
-          "recentShare": 0.004478252389311488,
-          "previousShare": 0.00286128214415067,
-          "delta": 0.001616970245160818,
-          "ratio": 1.5645468263989408,
-          "direction": "up",
-          "top3Rate": 0.35714285714285715,
-          "avgPlacement": 4.545296167247387
-        },
-        {
-          "members": [
-            "abigail:axe",
-            "lucia:sniper_rifle"
-          ],
-          "games": 487,
-          "previousGames": 405,
-          "recentShare": 0.0037994928808269945,
-          "previousShare": 0.0024447663889894966,
-          "delta": 0.001354726491837498,
-          "ratio": 1.5534887742954573,
-          "direction": "up",
-          "top3Rate": 0.38809034907597534,
-          "avgPlacement": 4.268993839835729
-        },
-        {
-          "members": [
-            "elena:rapier",
-            "lucia:sniper_rifle"
-          ],
-          "games": 165,
-          "previousGames": 98,
-          "recentShare": 0.0012873025160912814,
-          "previousShare": 0.0005915731015332609,
-          "delta": 0.0006957294145580205,
-          "ratio": 2.1671412782003765,
-          "direction": "up",
-          "top3Rate": 0.41818181818181815,
-          "avgPlacement": 4.460606060606061
-        },
-        {
-          "members": [
-            "aya:sniper_rifle",
-            "elena:rapier"
-          ],
-          "games": 118,
-          "previousGames": 60,
-          "recentShare": 0.0009206163448410376,
-          "previousShare": 0.0003621876131836291,
-          "delta": 0.0005584287316574085,
-          "ratio": 2.5213402526642943,
-          "direction": "up",
-          "top3Rate": 0.4491525423728814,
-          "avgPlacement": 4.101694915254237
-        },
-        {
-          "members": [
-            "lucia:sniper_rifle",
-            "yumin:arcana"
-          ],
-          "games": 291,
-          "previousGames": 230,
-          "recentShare": 0.0022703335283791692,
-          "previousShare": 0.001388385850537245,
-          "delta": 0.0008819476778419242,
-          "ratio": 1.6337485023266183,
-          "direction": "up",
-          "top3Rate": 0.39862542955326463,
-          "avgPlacement": 4.25085910652921
-        },
-        {
-          "members": [
-            "lucia:sniper_rifle",
-            "luke:bat"
-          ],
-          "games": 352,
-          "previousGames": 294,
-          "recentShare": 0.0027462453676614005,
-          "previousShare": 0.0017747193045997826,
-          "delta": 0.0009715260630616179,
-          "ratio": 1.546560879094723,
-          "direction": "up",
-          "top3Rate": 0.34375,
-          "avgPlacement": 4.517045454545454
-        },
-        {
-          "members": [
-            "elena:rapier",
-            "yumin:arcana"
-          ],
-          "games": 164,
-          "previousGames": 114,
-          "recentShare": 0.0012795006826604252,
-          "previousShare": 0.0006881564650488953,
-          "delta": 0.0005913442176115299,
-          "ratio": 1.8543872592667971,
-          "direction": "up",
-          "top3Rate": 0.4024390243902439,
-          "avgPlacement": 4.274390243902439
+          "top3Rate": 0.5,
+          "avgPlacement": 3.6951219512195124
         },
         {
           "members": [
             "echion:vf_prosthetic",
-            "yumin:arcana"
+            "lucia:sniper_rifle"
           ],
-          "games": 176,
-          "previousGames": 128,
-          "recentShare": 0.0013731226838307002,
-          "previousShare": 0.0007726669081250754,
-          "delta": 0.0006004557757056248,
-          "ratio": 1.7733639963530965,
+          "games": 190,
+          "previousGames": 141,
+          "recentShare": 0.001501121891097557,
+          "previousShare": 0.0008658912538842285,
+          "delta": 0.0006352306372133286,
+          "ratio": 1.7304662758334286,
           "direction": "up",
-          "top3Rate": 0.36363636363636365,
-          "avgPlacement": 4.630681818181818
+          "top3Rate": 0.3631578947368421,
+          "avgPlacement": 4.478947368421053
         },
         {
           "members": [
-            "istvan:spear",
-            "lucia:sniper_rifle"
+            "debi_marlene:two_handed_sword",
+            "echion:vf_prosthetic"
           ],
-          "games": 234,
-          "previousGames": 186,
-          "recentShare": 0.0018256290228203628,
-          "previousShare": 0.0011227816008692502,
-          "delta": 0.0007028474219511127,
-          "ratio": 1.6242040408907858,
+          "games": 221,
+          "previousGames": 176,
+          "recentShare": 0.0017460417785924217,
+          "previousShare": 0.00108082879917464,
+          "delta": 0.0006652129794177818,
+          "ratio": 1.6136072079561332,
           "direction": "up",
-          "top3Rate": 0.3888888888888889,
-          "avgPlacement": 4.299145299145299
+          "top3Rate": 0.4253393665158371,
+          "avgPlacement": 4.122171945701357
+        },
+        {
+          "members": [
+            "elena:rapier",
+            "hisui:two_handed_sword"
+          ],
+          "games": 161,
+          "previousGames": 118,
+          "recentShare": 0.0012720032866668774,
+          "previousShare": 0.0007246465812648154,
+          "delta": 0.000547356705402062,
+          "ratio": 1.7514033265551583,
+          "direction": "up",
+          "top3Rate": 0.391304347826087,
+          "avgPlacement": 4.3229813664596275
+        },
+        {
+          "members": [
+            "alonso:glove",
+            "yumin:arcana"
+          ],
+          "games": 264,
+          "previousGames": 226,
+          "recentShare": 0.0020857693644723953,
+          "previousShare": 0.0013878824353037989,
+          "delta": 0.0006978869291685964,
+          "ratio": 1.5018900283601708,
+          "direction": "up",
+          "top3Rate": 0.4128787878787879,
+          "avgPlacement": 4.200757575757576
         },
         {
           "members": [
             "aya:assault_rifle",
             "seres:two_handed_sword"
           ],
-          "games": 363,
-          "previousGames": 992,
-          "recentShare": 0.002832065535400819,
-          "previousShare": 0.005988168537969335,
-          "delta": -0.003156103002568516,
-          "ratio": 0.47376880999058946,
+          "games": 307,
+          "previousGames": 722,
+          "recentShare": 0.0024254969503523685,
+          "previousShare": 0.004433854505705057,
+          "delta": -0.0020083575553526884,
+          "ratio": 0.5480630664831007,
           "direction": "down",
-          "top3Rate": 0.39118457300275483,
-          "avgPlacement": 4.311294765840221
+          "top3Rate": 0.42996742671009774,
+          "avgPlacement": 4.159609120521172
+        },
+        {
+          "members": [
+            "bihyung:bat",
+            "kenneth:axe"
+          ],
+          "games": 101,
+          "previousGames": 339,
+          "recentShare": 0.000797964794741333,
+          "previousShare": 0.002081823652955698,
+          "delta": -0.0012838588582143652,
+          "ratio": 0.385957399740859,
+          "direction": "down",
+          "top3Rate": 0.39603960396039606,
+          "avgPlacement": 4.366336633663367
         },
         {
           "members": [
             "kenneth:axe",
             "seres:two_handed_sword"
           ],
-          "games": 95,
-          "previousGames": 441,
-          "recentShare": 0.0007411741759313439,
-          "previousShare": 0.002662078956899674,
-          "delta": -0.0019209047809683301,
-          "ratio": 0.28071349708357934,
+          "games": 86,
+          "previousGames": 302,
+          "recentShare": 0.0006794551717599469,
+          "previousShare": 0.0018546039622201207,
+          "delta": -0.0011751487904601739,
+          "ratio": 0.36939817136913894,
           "direction": "down",
-          "top3Rate": 0.42105263157894735,
-          "avgPlacement": 4.389473684210526
-        },
-        {
-          "members": [
-            "bihyung:bat",
-            "kenneth:axe"
-          ],
-          "games": 103,
-          "previousGames": 432,
-          "recentShare": 0.0008035888433781938,
-          "previousShare": 0.0026077508149221296,
-          "delta": -0.0018041619715439359,
-          "ratio": 0.3104272044346126,
-          "direction": "down",
-          "top3Rate": 0.42718446601941745,
-          "avgPlacement": 4.233009708737864
-        },
-        {
-          "members": [
-            "haze:assault_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 421,
-          "previousGames": 928,
-          "recentShare": 0.003284571874390482,
-          "previousShare": 0.005601835083906797,
-          "delta": -0.002317263209516315,
-          "ratio": 0.5870986312569246,
-          "direction": "down",
-          "top3Rate": 0.4156769596199525,
-          "avgPlacement": 4.332541567695962
-        },
-        {
-          "members": [
-            "haze:assault_rifle",
-            "kenneth:axe"
-          ],
-          "games": 89,
-          "previousGames": 328,
-          "recentShare": 0.0006943631753462063,
-          "previousShare": 0.0019799589520705057,
-          "delta": -0.0012855957767242995,
-          "ratio": 0.35355822296051126,
-          "direction": "down",
-          "top3Rate": 0.4157303370786517,
-          "avgPlacement": 4.044943820224719
-        },
-        {
-          "members": [
-            "craver:pistol",
-            "kenneth:axe"
-          ],
-          "games": 214,
-          "previousGames": 567,
-          "recentShare": 0.0016695923542032378,
-          "previousShare": 0.0034226729445852953,
-          "delta": -0.0017530805903820574,
-          "ratio": 0.48922028366807047,
-          "direction": "down",
-          "top3Rate": 0.35514018691588783,
-          "avgPlacement": 4.359813084112149
-        },
-        {
-          "members": [
-            "isol:assault_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 378,
-          "previousGames": 851,
-          "recentShare": 0.002949093036863663,
-          "previousShare": 0.005137027646987806,
-          "delta": -0.002187934610124143,
-          "ratio": 0.5749286434424767,
-          "direction": "down",
-          "top3Rate": 0.43915343915343913,
-          "avgPlacement": 4.171957671957672
-        },
-        {
-          "members": [
-            "katja:sniper_rifle",
-            "kenneth:axe"
-          ],
-          "games": 251,
-          "previousGames": 621,
-          "recentShare": 0.001958260191144919,
-          "previousShare": 0.0037486417964505614,
-          "delta": -0.0017903816053056422,
-          "ratio": 0.523629959792963,
-          "direction": "down",
-          "top3Rate": 0.3665338645418327,
-          "avgPlacement": 4.426294820717131
-        },
-        {
-          "members": [
-            "henry:shuriken",
-            "kenneth:axe"
-          ],
-          "games": 137,
-          "previousGames": 407,
-          "recentShare": 0.0010688511800273064,
-          "previousShare": 0.002456839309428951,
-          "delta": -0.0013879881294016445,
-          "ratio": 0.43715278972911575,
-          "direction": "down",
-          "top3Rate": 0.43795620437956206,
-          "avgPlacement": 4.175182481751825
+          "top3Rate": 0.313953488372093,
+          "avgPlacement": 4.790697674418604
         },
         {
           "members": [
             "debi_marlene:two_handed_sword",
-            "kenneth:axe"
+            "sua:bat"
           ],
-          "games": 188,
-          "previousGames": 484,
-          "recentShare": 0.0014667446850009753,
-          "previousShare": 0.0029216467463479417,
-          "delta": -0.0014549020613469665,
-          "ratio": 0.5036564458627159,
+          "games": 371,
+          "previousGames": 794,
+          "recentShare": 0.0029311380084062824,
+          "previousShare": 0.004876011741731046,
+          "delta": -0.0019448737333247635,
+          "ratio": 0.6019964473945473,
           "direction": "down",
-          "top3Rate": 0.3829787234042553,
-          "avgPlacement": 4.303191489361702
+          "top3Rate": 0.3881401617250674,
+          "avgPlacement": 4.269541778975741
         },
         {
           "members": [
-            "katja:sniper_rifle",
-            "lenox:whip",
-            "yumin:arcana"
-          ],
-          "games": 48,
-          "previousGames": 29,
-          "recentShare": 0.00037448800468110004,
-          "previousShare": 0.0001750573463720874,
-          "delta": 0.00019943065830901264,
-          "ratio": 2.1110044860542225,
-          "direction": "up",
-          "top3Rate": 0.375,
-          "avgPlacement": 4.354166666666667
-        },
-        {
-          "members": [
-            "darko:bat",
-            "debi_marlene:two_handed_sword",
-            "katja:sniper_rifle"
-          ],
-          "games": 49,
-          "previousGames": 36,
-          "recentShare": 0.0003822898381119563,
-          "previousShare": 0.00021731256791017748,
-          "delta": 0.00016497727020177883,
-          "ratio": 1.7465563866968197,
-          "direction": "up",
-          "top3Rate": 0.4489795918367347,
-          "avgPlacement": 4.040816326530612
-        },
-        {
-          "members": [
-            "henry:shuriken",
-            "katja:sniper_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 27,
-          "previousGames": 91,
-          "recentShare": 0.00021064950263311878,
-          "previousShare": 0.0005493178799951708,
-          "delta": -0.00033866837736205207,
-          "ratio": 0.39335487317780543,
-          "direction": "down",
-          "top3Rate": 0.5555555555555556,
-          "avgPlacement": 3.4074074074074074
-        },
-        {
-          "members": [
-            "haze:assault_rifle",
-            "rio:bow",
-            "seres:two_handed_sword"
-          ],
-          "games": 35,
-          "previousGames": 89,
-          "recentShare": 0.00027306417007996877,
-          "previousShare": 0.0005372449595557165,
-          "delta": -0.0002641807894757478,
-          "ratio": 0.5169806904622586,
-          "direction": "down",
-          "top3Rate": 0.34285714285714286,
-          "avgPlacement": 4.6
-        },
-        {
-          "members": [
-            "katja:sniper_rifle",
-            "lenore:guitar",
-            "seres:two_handed_sword"
-          ],
-          "games": 32,
-          "previousGames": 83,
-          "recentShare": 0.00024965866978740006,
-          "previousShare": 0.0005010261982373536,
-          "delta": -0.00025136752844995356,
-          "ratio": 0.5077488924182898,
-          "direction": "down",
-          "top3Rate": 0.40625,
-          "avgPlacement": 4.3125
-        },
-        {
-          "members": [
-            "bihyung:bat",
-            "henry:shuriken",
-            "katja:sniper_rifle"
-          ],
-          "games": 26,
-          "previousGames": 65,
-          "recentShare": 0.00020284766920226254,
-          "previousShare": 0.00039236991428226486,
-          "delta": -0.00018952224508000232,
-          "ratio": 0.5287302516091282,
-          "direction": "down",
-          "top3Rate": 0.5384615384615384,
-          "avgPlacement": 3.8846153846153846
-        },
-        {
-          "members": [
-            "aya:assault_rifle",
-            "lucia:sniper_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 31,
-          "previousGames": 72,
-          "recentShare": 0.0002418568363565438,
-          "previousShare": 0.00043462513582035497,
-          "delta": -0.00019276829946381118,
-          "ratio": 0.5665541813285027,
-          "direction": "down",
-          "top3Rate": 0.45161290322580644,
-          "avgPlacement": 4.032258064516129
-        },
-        {
-          "members": [
-            "hisui:two_handed_sword",
-            "rio:bow",
-            "seres:two_handed_sword"
-          ],
-          "games": 22,
-          "previousGames": 56,
-          "recentShare": 0.00017164033547883753,
-          "previousShare": 0.0003380417723047205,
-          "delta": -0.000166401436825883,
-          "ratio": 0.5215156087996469,
-          "direction": "down",
-          "top3Rate": 0.5,
-          "avgPlacement": 3.772727272727273
-        },
-        {
-          "members": [
-            "blair:dual_swords",
-            "lucia:sniper_rifle",
-            "seres:two_handed_sword"
-          ],
-          "games": 29,
-          "previousGames": 67,
-          "recentShare": 0.00022625316949483127,
-          "previousShare": 0.0004044428347217192,
-          "delta": -0.0001781896652268879,
-          "ratio": 0.5701992909510205,
-          "direction": "down",
-          "top3Rate": 0.3103448275862069,
-          "avgPlacement": 5.0344827586206895
-        },
-        {
-          "members": [
-            "rio:bow",
             "seres:two_handed_sword",
-            "yumin:arcana"
+            "sua:bat"
           ],
-          "games": 47,
-          "previousGames": 96,
-          "recentShare": 0.0003666861712502438,
-          "previousShare": 0.0005795001810938066,
-          "delta": -0.00021281400984356273,
-          "ratio": 0.639563740778052,
+          "games": 223,
+          "previousGames": 534,
+          "recentShare": 0.0017618430616566066,
+          "previousShare": 0.0032793328338594184,
+          "delta": -0.0015174897722028118,
+          "ratio": 0.5386570563361521,
           "direction": "down",
-          "top3Rate": 0.3829787234042553,
-          "avgPlacement": 4.468085106382978
+          "top3Rate": 0.3542600896860987,
+          "avgPlacement": 4.582959641255606
+        },
+        {
+          "members": [
+            "bihyung:bat",
+            "sua:bat"
+          ],
+          "games": 278,
+          "previousGames": 610,
+          "recentShare": 0.002196378345921689,
+          "previousShare": 0.0037460543607757404,
+          "delta": -0.0015496760148540514,
+          "ratio": 0.5874637999328951,
+          "direction": "down",
+          "top3Rate": 0.42805755395683454,
+          "avgPlacement": 4.205035971223022
+        },
+        {
+          "members": [
+            "nicky:glove",
+            "sua:bat"
+          ],
+          "games": 237,
+          "previousGames": 524,
+          "recentShare": 0.0018724520431059003,
+          "previousShare": 0.0032179221066335867,
+          "delta": -0.0013454700635276865,
+          "ratio": 0.5832245151639647,
+          "direction": "down",
+          "top3Rate": 0.4092827004219409,
+          "avgPlacement": 4.3544303797468356
+        },
+        {
+          "members": [
+            "lucia:sniper_rifle",
+            "sua:bat"
+          ],
+          "games": 375,
+          "previousGames": 744,
+          "recentShare": 0.0029627405745346522,
+          "previousShare": 0.004568958105601886,
+          "delta": -0.001606217531067234,
+          "ratio": 0.649306408512586,
+          "direction": "down",
+          "top3Rate": 0.3413333333333333,
+          "avgPlacement": 4.632
+        },
+        {
+          "members": [
+            "henry:shuriken",
+            "sua:bat"
+          ],
+          "games": 198,
+          "previousGames": 453,
+          "recentShare": 0.0015643270233542963,
+          "previousShare": 0.0027819059433301808,
+          "delta": -0.0012175789199758845,
+          "ratio": 0.5639171993276867,
+          "direction": "down",
+          "top3Rate": 0.4292929292929293,
+          "avgPlacement": 4.2272727272727275
+        },
+        {
+          "members": [
+            "luke:bat",
+            "sua:bat"
+          ],
+          "games": 159,
+          "previousGames": 380,
+          "recentShare": 0.0012562020036026925,
+          "previousShare": 0.0023336076345816087,
+          "delta": -0.0010774056309789163,
+          "ratio": 0.5402728255340108,
+          "direction": "down",
+          "top3Rate": 0.4088050314465409,
+          "avgPlacement": 4.333333333333333
+        },
+        {
+          "members": [
+            "katja:sniper_rifle",
+            "lucia:sniper_rifle",
+            "seres:two_handed_sword"
+          ],
+          "games": 108,
+          "previousGames": 218,
+          "recentShare": 0.0008532692854659799,
+          "previousShare": 0.0013387538535231335,
+          "delta": -0.0004854845680571536,
+          "ratio": 0.640325061974941,
+          "direction": "down",
+          "top3Rate": 0.4074074074074074,
+          "avgPlacement": 4.314814814814815
+        },
+        {
+          "members": [
+            "lucia:sniper_rifle",
+            "seres:two_handed_sword",
+            "sua:bat"
+          ],
+          "games": 28,
+          "previousGames": 71,
+          "recentShare": 0.00022121796289858737,
+          "previousShare": 0.00043601616330340585,
+          "delta": -0.00021479820040481849,
+          "ratio": 0.5181835459483755,
+          "direction": "down",
+          "top3Rate": 0.2857142857142857,
+          "avgPlacement": 4.392857142857143
         }
       ]
     },
     "meteor_mithril": {
-      "previousTeams": 59859,
-      "recentTeams": 54295,
+      "previousTeams": 60722,
+      "recentTeams": 62971,
       "rows": [
-        {
-          "members": [
-            "lucia:sniper_rifle"
-          ],
-          "games": 4328,
-          "previousGames": 3494,
-          "recentShare": 0.07971268072566534,
-          "previousShare": 0.058370504017775104,
-          "delta": 0.021342176707890237,
-          "ratio": 1.365557605941473,
-          "direction": "up",
-          "top3Rate": 0.38170055452865065,
-          "avgPlacement": 4.386783733826248
-        },
         {
           "members": [
             "echion:vf_prosthetic"
           ],
-          "games": 2009,
-          "previousGames": 1538,
-          "recentShare": 0.03700156552168708,
-          "previousShare": 0.025693713560199803,
-          "delta": 0.01130785196148728,
-          "ratio": 1.4398825131712236,
+          "games": 2537,
+          "previousGames": 1607,
+          "recentShare": 0.04028838671769545,
+          "previousShare": 0.026464872698527715,
+          "delta": 0.013823514019167732,
+          "ratio": 1.5219873777481558,
           "direction": "up",
-          "top3Rate": 0.38576406172224986,
-          "avgPlacement": 4.353409656545545
+          "top3Rate": 0.37406385494678757,
+          "avgPlacement": 4.42688214426488
+        },
+        {
+          "members": [
+            "katja:sniper_rifle"
+          ],
+          "games": 5288,
+          "previousGames": 4030,
+          "recentShare": 0.08397516317034825,
+          "previousShare": 0.06636803794341425,
+          "delta": 0.017607125226934,
+          "ratio": 1.2652205763277147,
+          "direction": "up",
+          "top3Rate": 0.3973146747352496,
+          "avgPlacement": 4.305975794251134
+        },
+        {
+          "members": [
+            "tia:bat"
+          ],
+          "games": 1961,
+          "previousGames": 1387,
+          "recentShare": 0.031141319019866286,
+          "previousShare": 0.022841803629656467,
+          "delta": 0.00829951539020982,
+          "ratio": 1.36306012872583,
+          "direction": "up",
+          "top3Rate": 0.4038755736868944,
+          "avgPlacement": 4.279959204487507
+        },
+        {
+          "members": [
+            "elena:rapier"
+          ],
+          "games": 1679,
+          "previousGames": 1163,
+          "recentShare": 0.02666306712613743,
+          "previousShare": 0.01915286057771483,
+          "delta": 0.0075102065484225974,
+          "ratio": 1.3917517587460895,
+          "direction": "up",
+          "top3Rate": 0.42227516378796903,
+          "avgPlacement": 4.189398451459202
+        },
+        {
+          "members": [
+            "jackie:dual_swords"
+          ],
+          "games": 1078,
+          "previousGames": 691,
+          "recentShare": 0.0171189912817011,
+          "previousShare": 0.011379730575409242,
+          "delta": 0.005739260706291858,
+          "ratio": 1.5035602221887072,
+          "direction": "up",
+          "top3Rate": 0.37755102040816324,
+          "avgPlacement": 4.438775510204081
         },
         {
           "members": [
             "coreline:arcana"
           ],
-          "games": 2250,
-          "previousGames": 1796,
-          "recentShare": 0.041440279952113454,
-          "previousShare": 0.030003842362886116,
-          "delta": 0.011436437589227338,
-          "ratio": 1.3810106816145828,
+          "games": 2551,
+          "previousGames": 1947,
+          "recentShare": 0.04051071127979546,
+          "previousShare": 0.03206416125951056,
+          "delta": 0.008446550020284903,
+          "ratio": 1.2632729442910016,
           "direction": "up",
-          "top3Rate": 0.3857777777777778,
-          "avgPlacement": 4.326222222222222
-        },
-        {
-          "members": [
-            "alex:flex"
-          ],
-          "games": 2222,
-          "previousGames": 1852,
-          "recentShare": 0.04092457869048716,
-          "previousShare": 0.030939374196027332,
-          "delta": 0.009985204494459825,
-          "ratio": 1.3226156681282875,
-          "direction": "up",
-          "top3Rate": 0.4090909090909091,
-          "avgPlacement": 4.219171917191719
-        },
-        {
-          "members": [
-            "shirin:rapier"
-          ],
-          "games": 1804,
-          "previousGames": 1520,
-          "recentShare": 0.03322589557049452,
-          "previousShare": 0.02539300689954727,
-          "delta": 0.007832888670947249,
-          "ratio": 1.3083309402774999,
-          "direction": "up",
-          "top3Rate": 0.3514412416851441,
-          "avgPlacement": 4.529379157427938
-        },
-        {
-          "members": [
-            "elena:rapier"
-          ],
-          "games": 1297,
-          "previousGames": 1047,
-          "recentShare": 0.02388801915461829,
-          "previousShare": 0.017491104094622362,
-          "delta": 0.006396915059995928,
-          "ratio": 1.3654727249848686,
-          "direction": "up",
-          "top3Rate": 0.433307632999229,
-          "avgPlacement": 4.1002313030069395
+          "top3Rate": 0.39435515484123873,
+          "avgPlacement": 4.314778518228146
         },
         {
           "members": [
             "yumin:arcana"
           ],
-          "games": 2973,
-          "previousGames": 2699,
-          "recentShare": 0.054756423243392575,
-          "previousShare": 0.045089293172288214,
-          "delta": 0.009667130071104361,
-          "ratio": 1.214358228197808,
+          "games": 3526,
+          "previousGames": 2807,
+          "recentShare": 0.05599402899747503,
+          "previousShare": 0.046227067619643625,
+          "delta": 0.009766961377831403,
+          "ratio": 1.2111943425683083,
           "direction": "up",
-          "top3Rate": 0.37975109317188027,
-          "avgPlacement": 4.386478304742684
+          "top3Rate": 0.3876914350538854,
+          "avgPlacement": 4.366420873511061
         },
         {
           "members": [
-            "fiora:spear"
+            "lucia:sniper_rifle"
           ],
-          "games": 1639,
-          "previousGames": 1414,
-          "recentShare": 0.030186941707339533,
-          "previousShare": 0.023622178786815683,
-          "delta": 0.00656476292052385,
-          "ratio": 1.2777827709310836,
+          "games": 5037,
+          "previousGames": 4160,
+          "recentShare": 0.07998920137841228,
+          "previousShare": 0.06850894239320181,
+          "delta": 0.011480258985210476,
+          "ratio": 1.1675242901338816,
           "direction": "up",
-          "top3Rate": 0.40146430750457596,
-          "avgPlacement": 4.264795607077486
-        },
-        {
-          "members": [
-            "katja:sniper_rifle"
-          ],
-          "games": 4203,
-          "previousGames": 4015,
-          "recentShare": 0.07741044295054793,
-          "previousShare": 0.06707429125110677,
-          "delta": 0.01033615169944116,
-          "ratio": 1.1540871966595356,
-          "direction": "up",
-          "top3Rate": 0.4004282655246253,
-          "avgPlacement": 4.289079229122056
+          "top3Rate": 0.37919396466150485,
+          "avgPlacement": 4.372443915028787
         },
         {
           "members": [
             "luke:bat"
           ],
-          "games": 2412,
-          "previousGames": 2216,
-          "recentShare": 0.04442398010866562,
-          "previousShare": 0.03702033111144523,
-          "delta": 0.007403648997220388,
-          "ratio": 1.199944746293397,
+          "games": 2944,
+          "previousGames": 2385,
+          "recentShare": 0.046751679344460145,
+          "previousShare": 0.03927736240571786,
+          "delta": 0.007474316938742287,
+          "ratio": 1.1902010722135123,
           "direction": "up",
-          "top3Rate": 0.37645107794361526,
-          "avgPlacement": 4.3681592039801
+          "top3Rate": 0.37771739130434784,
+          "avgPlacement": 4.404551630434782
+        },
+        {
+          "members": [
+            "jackie:axe"
+          ],
+          "games": 561,
+          "previousGames": 353,
+          "recentShare": 0.00890886280986486,
+          "previousShare": 0.005813379005961595,
+          "delta": 0.003095483803903264,
+          "ratio": 1.530870770304365,
+          "direction": "up",
+          "top3Rate": 0.39037433155080214,
+          "avgPlacement": 4.3458110516934045
         },
         {
           "members": [
             "kenneth:axe"
           ],
-          "games": 2045,
-          "previousGames": 5283,
-          "recentShare": 0.037664610000920896,
-          "previousShare": 0.08825740490151857,
-          "delta": -0.05059279490059767,
-          "ratio": 0.42688651916218207,
+          "games": 2468,
+          "previousGames": 4004,
+          "recentShare": 0.03919264423305966,
+          "previousShare": 0.06593985705345674,
+          "delta": -0.026747212820397083,
+          "ratio": 0.5944619296546766,
           "direction": "down",
-          "top3Rate": 0.39706601466992664,
-          "avgPlacement": 4.328117359413203
+          "top3Rate": 0.396677471636953,
+          "avgPlacement": 4.330632090761751
         },
         {
           "members": [
             "seres:two_handed_sword"
           ],
-          "games": 2769,
-          "previousGames": 5199,
-          "recentShare": 0.050999171194400957,
-          "previousShare": 0.08685410715180675,
-          "delta": -0.03585493595740579,
-          "ratio": 0.5872811280256717,
+          "games": 3112,
+          "previousGames": 4235,
+          "recentShare": 0.04941957408966032,
+          "previousShare": 0.06974407957577156,
+          "delta": -0.020324505486111234,
+          "ratio": 0.7086448685126263,
           "direction": "down",
-          "top3Rate": 0.4210906464427591,
-          "avgPlacement": 4.226435536294691
-        },
-        {
-          "members": [
-            "bihyung:bat"
-          ],
-          "games": 2459,
-          "previousGames": 3938,
-          "recentShare": 0.04528962151210977,
-          "previousShare": 0.0657879349805376,
-          "delta": -0.02049831346842783,
-          "ratio": 0.6885234656768786,
-          "direction": "down",
-          "top3Rate": 0.38552257015046765,
-          "avgPlacement": 4.361529076860513
-        },
-        {
-          "members": [
-            "henry:shuriken"
-          ],
-          "games": 2503,
-          "previousGames": 3775,
-          "recentShare": 0.046100009208951104,
-          "previousShare": 0.06306486910907298,
-          "delta": -0.01696485990012188,
-          "ratio": 0.7310918772368777,
-          "direction": "down",
-          "top3Rate": 0.4015181781861766,
-          "avgPlacement": 4.278465840990811
+          "top3Rate": 0.4158097686375321,
+          "avgPlacement": 4.232969151670951
         },
         {
           "members": [
             "blair:dual_swords"
           ],
-          "games": 2967,
-          "previousGames": 3945,
-          "recentShare": 0.05464591583018694,
-          "previousShare": 0.06590487645968025,
-          "delta": -0.01125896062949331,
-          "ratio": 0.8292327300778018,
+          "games": 3024,
+          "previousGames": 3876,
+          "recentShare": 0.048022105413603085,
+          "previousShare": 0.06383188959520437,
+          "delta": -0.01580978418160129,
+          "ratio": 0.7523762110064323,
           "direction": "down",
-          "top3Rate": 0.3855746545331985,
-          "avgPlacement": 4.34546680148298
+          "top3Rate": 0.39451058201058203,
+          "avgPlacement": 4.314153439153439
         },
         {
           "members": [
-            "hyejin:shuriken"
+            "bihyung:bat"
           ],
-          "games": 325,
-          "previousGames": 606,
-          "recentShare": 0.005985818215305277,
-          "previousShare": 0.010123790908635293,
-          "delta": -0.004137972693330016,
-          "ratio": 0.5921047277723305,
+          "games": 2858,
+          "previousGames": 3667,
+          "recentShare": 0.04538597132013149,
+          "previousShare": 0.06038997397977669,
+          "delta": -0.015004002659645202,
+          "ratio": 0.7516061165889192,
           "direction": "down",
-          "top3Rate": 0.4523076923076923,
-          "avgPlacement": 4.107692307692307
-        },
-        {
-          "members": [
-            "adriana:throw"
-          ],
-          "games": 1514,
-          "previousGames": 2068,
-          "recentShare": 0.02788470393222212,
-          "previousShare": 0.03454785412385773,
-          "delta": -0.006663150191635613,
-          "ratio": 0.8072754808539051,
-          "direction": "down",
-          "top3Rate": 0.4141347424042272,
-          "avgPlacement": 4.274768824306473
-        },
-        {
-          "members": [
-            "bernice:sniper_rifle"
-          ],
-          "games": 1354,
-          "previousGames": 1854,
-          "recentShare": 0.02493783958007183,
-          "previousShare": 0.030972786047210946,
-          "delta": -0.006034946467139115,
-          "ratio": 0.8053135399630004,
-          "direction": "down",
-          "top3Rate": 0.39586410635155095,
-          "avgPlacement": 4.401772525849335
+          "top3Rate": 0.40097970608817357,
+          "avgPlacement": 4.2753673897830655
         },
         {
           "members": [
             "abigail:axe"
           ],
-          "games": 1831,
-          "previousGames": 2346,
-          "recentShare": 0.033723178929919884,
-          "previousShare": 0.03919210143838019,
-          "delta": -0.00546892250846031,
-          "ratio": 0.8605616722513507,
+          "games": 1891,
+          "previousGames": 2434,
+          "recentShare": 0.030029696209366217,
+          "previousShare": 0.040084318698330096,
+          "delta": -0.010054622488963879,
+          "ratio": 0.749251539372594,
           "direction": "down",
-          "top3Rate": 0.3604587657018023,
-          "avgPlacement": 4.4904423812124525
+          "top3Rate": 0.3722897937599154,
+          "avgPlacement": 4.424643046007404
         },
         {
           "members": [
-            "karla:crossbow"
+            "henry:shuriken"
           ],
-          "games": 1104,
-          "previousGames": 1440,
-          "recentShare": 0.020333364029837,
-          "previousShare": 0.024056532852202675,
-          "delta": -0.0037231688223656745,
-          "ratio": 0.8454110441844962,
+          "games": 2811,
+          "previousGames": 3361,
+          "recentShare": 0.044639596004510014,
+          "previousShare": 0.05535061427489213,
+          "delta": -0.010711018270382115,
+          "ratio": 0.8065347512590686,
           "direction": "down",
-          "top3Rate": 0.4166666666666667,
-          "avgPlacement": 4.202898550724638
+          "top3Rate": 0.39238705087157594,
+          "avgPlacement": 4.300249021700463
+        },
+        {
+          "members": [
+            "sua:bat"
+          ],
+          "games": 3039,
+          "previousGames": 3545,
+          "recentShare": 0.04826031030156739,
+          "previousShare": 0.0583808174961299,
+          "delta": -0.010120507194562513,
+          "ratio": 0.8266855181271592,
+          "direction": "down",
+          "top3Rate": 0.38565317538664035,
+          "avgPlacement": 4.356367226061204
+        },
+        {
+          "members": [
+            "hyejin:bow"
+          ],
+          "games": 795,
+          "previousGames": 1088,
+          "recentShare": 0.012624859062107955,
+          "previousShare": 0.017917723395145087,
+          "delta": -0.005292864333037132,
+          "ratio": 0.7048401993723145,
+          "direction": "down",
+          "top3Rate": 0.3937106918238994,
+          "avgPlacement": 4.283018867924528
+        },
+        {
+          "members": [
+            "yuki:dual_swords"
+          ],
+          "games": 2379,
+          "previousGames": 2743,
+          "recentShare": 0.03777929523113814,
+          "previousShare": 0.04517308389051744,
+          "delta": -0.0073937886593792995,
+          "ratio": 0.8363697704709553,
+          "direction": "down",
+          "top3Rate": 0.3883984867591425,
+          "avgPlacement": 4.335014712063892
+        },
+        {
+          "members": [
+            "craver:pistol"
+          ],
+          "games": 3059,
+          "previousGames": 3403,
+          "recentShare": 0.04857791681885312,
+          "previousShare": 0.056042291097131186,
+          "delta": -0.007464374278278063,
+          "ratio": 0.8668368243894039,
+          "direction": "down",
+          "top3Rate": 0.378228179143511,
+          "avgPlacement": 4.391304347826087
+        },
+        {
+          "members": [
+            "adina:arcana",
+            "katja:sniper_rifle"
+          ],
+          "games": 110,
+          "previousGames": 42,
+          "recentShare": 0.001746835845071541,
+          "previousShare": 0.0006916768222390567,
+          "delta": 0.0010551590228324841,
+          "ratio": 2.489201193757333,
+          "direction": "up",
+          "top3Rate": 0.42727272727272725,
+          "avgPlacement": 4.209090909090909
         },
         {
           "members": [
             "katja:sniper_rifle",
-            "lucia:sniper_rifle"
+            "yumin:arcana"
           ],
-          "games": 254,
-          "previousGames": 144,
-          "recentShare": 0.004678147159038586,
-          "previousShare": 0.0024056532852202678,
-          "delta": 0.002272493873818318,
-          "ratio": 1.938839227591288,
+          "games": 270,
+          "previousGames": 155,
+          "recentShare": 0.004287687983357418,
+          "previousShare": 0.002552616843977471,
+          "delta": 0.0017350711393799472,
+          "ratio": 1.6751363773882073,
           "direction": "up",
-          "top3Rate": 0.4094488188976378,
-          "avgPlacement": 4.374015748031496
+          "top3Rate": 0.4,
+          "avgPlacement": 4.207407407407407
         },
         {
           "members": [
-            "magnus:hammer",
-            "yumin:arcana"
+            "elena:rapier",
+            "lucia:sniper_rifle"
           ],
-          "games": 98,
-          "previousGames": 47,
-          "recentShare": 0.0018049544156920527,
-          "previousShare": 0.0007851785028149485,
-          "delta": 0.0010197759128771043,
-          "ratio": 2.2738592411824294,
+          "games": 110,
+          "previousGames": 43,
+          "recentShare": 0.001746835845071541,
+          "previousShare": 0.0007081453180066533,
+          "delta": 0.0010386905270648875,
+          "ratio": 2.432628439353757,
           "direction": "up",
-          "top3Rate": 0.3979591836734694,
-          "avgPlacement": 4.3061224489795915
+          "top3Rate": 0.4090909090909091,
+          "avgPlacement": 4.463636363636364
+        },
+        {
+          "members": [
+            "estelle:axe",
+            "katja:sniper_rifle"
+          ],
+          "games": 224,
+          "previousGames": 123,
+          "recentShare": 0.003557192993600229,
+          "previousShare": 0.0020256249794143805,
+          "delta": 0.0015315680141858483,
+          "ratio": 1.749710952455841,
+          "direction": "up",
+          "top3Rate": 0.4642857142857143,
+          "avgPlacement": 4.017857142857143
         },
         {
           "members": [
             "alonso:glove",
             "katja:sniper_rifle"
           ],
-          "games": 127,
-          "previousGames": 70,
-          "recentShare": 0.002339073579519293,
-          "previousShare": 0.001169414791426519,
-          "delta": 0.0011696587880927738,
-          "ratio": 1.9875645437224134,
+          "games": 169,
+          "previousGames": 84,
+          "recentShare": 0.0026837750710644584,
+          "previousShare": 0.0013833536444781134,
+          "delta": 0.001300421426586345,
+          "ratio": 1.9285702942624383,
           "direction": "up",
-          "top3Rate": 0.31496062992125984,
-          "avgPlacement": 4.582677165354331
+          "top3Rate": 0.3254437869822485,
+          "avgPlacement": 4.65680473372781
         },
         {
           "members": [
-            "darko:bat",
+            "katja:sniper_rifle",
             "lucia:sniper_rifle"
           ],
-          "games": 182,
-          "previousGames": 116,
-          "recentShare": 0.003352058200570955,
-          "previousShare": 0.00193788736864966,
-          "delta": 0.001414170831921295,
-          "ratio": 1.7243874276566054,
+          "games": 297,
+          "previousGames": 182,
+          "recentShare": 0.004716456781693161,
+          "previousShare": 0.002997266229702579,
+          "delta": 0.0017191905519905815,
+          "ratio": 1.5702566876781598,
           "direction": "up",
-          "top3Rate": 0.34065934065934067,
-          "avgPlacement": 4.56043956043956
+          "top3Rate": 0.4006734006734007,
+          "avgPlacement": 4.333333333333333
         },
         {
           "members": [
-            "alex:flex",
-            "debi_marlene:two_handed_sword"
+            "katja:sniper_rifle",
+            "lenore:guitar"
           ],
-          "games": 120,
-          "previousGames": 66,
-          "recentShare": 0.0022101482641127177,
-          "previousShare": 0.0011025910890592892,
-          "delta": 0.0011075571750534285,
-          "ratio": 1.9910409276025252,
+          "games": 132,
+          "previousGames": 64,
+          "recentShare": 0.002096203014085849,
+          "previousShare": 0.0010539837291261816,
+          "delta": 0.0010422192849596672,
+          "ratio": 1.9730757625915711,
           "direction": "up",
-          "top3Rate": 0.35,
-          "avgPlacement": 4.4
-        },
-        {
-          "members": [
-            "hisui:two_handed_sword",
-            "lucia:sniper_rifle"
-          ],
-          "games": 157,
-          "previousGames": 96,
-          "recentShare": 0.002891610645547472,
-          "previousShare": 0.0016037688568135118,
-          "delta": 0.0012878417887339602,
-          "ratio": 1.7957876169038363,
-          "direction": "up",
-          "top3Rate": 0.3057324840764331,
-          "avgPlacement": 4.579617834394904
-        },
-        {
-          "members": [
-            "lucia:sniper_rifle",
-            "shirin:rapier"
-          ],
-          "games": 96,
-          "previousGames": 51,
-          "recentShare": 0.001768118611290174,
-          "previousShare": 0.0008520022051821781,
-          "delta": 0.0009161164061079959,
-          "ratio": 2.0565440223281644,
-          "direction": "up",
-          "top3Rate": 0.34375,
-          "avgPlacement": 4.5625
+          "top3Rate": 0.45454545454545453,
+          "avgPlacement": 4.090909090909091
         },
         {
           "members": [
             "echion:vf_prosthetic",
             "luke:bat"
           ],
-          "games": 81,
-          "previousGames": 40,
-          "recentShare": 0.0014918500782760843,
-          "previousShare": 0.0006682370236722966,
-          "delta": 0.0008236130546037877,
-          "ratio": 2.2049544156920526,
+          "games": 96,
+          "previousGames": 43,
+          "recentShare": 0.0015245112829715265,
+          "previousShare": 0.0007081453180066533,
+          "delta": 0.0008163659649648732,
+          "ratio": 2.125810437993824,
           "direction": "up",
-          "top3Rate": 0.38271604938271603,
-          "avgPlacement": 4.407407407407407
+          "top3Rate": 0.3854166666666667,
+          "avgPlacement": 4.416666666666667
         },
         {
           "members": [
-            "darko:bat",
-            "yumin:arcana"
+            "katja:sniper_rifle",
+            "tia:bat"
           ],
-          "games": 135,
-          "previousGames": 84,
-          "recentShare": 0.0024864167971268072,
-          "previousShare": 0.0014032977497118228,
-          "delta": 0.0010831190474149845,
-          "ratio": 1.763963532553642,
+          "games": 151,
+          "previousGames": 82,
+          "recentShare": 0.002397929205507297,
+          "previousShare": 0.0013504166529429201,
+          "delta": 0.0010475125525643769,
+          "ratio": 1.7659197875174133,
           "direction": "up",
-          "top3Rate": 0.32592592592592595,
-          "avgPlacement": 4.725925925925926
+          "top3Rate": 0.4370860927152318,
+          "avgPlacement": 4.185430463576159
         },
         {
           "members": [
-            "alex:flex",
-            "lucia:sniper_rifle"
+            "echion:vf_prosthetic",
+            "katja:sniper_rifle"
           ],
-          "games": 154,
-          "previousGames": 100,
-          "recentShare": 0.002836356938944654,
-          "previousShare": 0.0016705925591807415,
-          "delta": 0.0011657643797639127,
-          "ratio": 1.6919204674864758,
+          "games": 106,
+          "previousGames": 51,
+          "recentShare": 0.001683314541614394,
+          "previousShare": 0.0008398932841474259,
+          "delta": 0.000843421257466968,
+          "ratio": 1.9842021296738548,
           "direction": "up",
-          "top3Rate": 0.42207792207792205,
-          "avgPlacement": 4.1688311688311686
+          "top3Rate": 0.330188679245283,
+          "avgPlacement": 4.613207547169812
         },
         {
           "members": [
             "kenneth:axe",
             "seres:two_handed_sword"
           ],
-          "games": 48,
-          "previousGames": 287,
-          "recentShare": 0.000884059305645087,
-          "previousShare": 0.004794600644848728,
-          "delta": -0.003910541339203641,
-          "ratio": 0.18757424716824753,
+          "games": 49,
+          "previousGames": 181,
+          "recentShare": 0.00077813596735005,
+          "previousShare": 0.0029807977339349825,
+          "delta": -0.0022026617665849325,
+          "ratio": 0.2649135019591261,
           "direction": "down",
-          "top3Rate": 0.3541666666666667,
-          "avgPlacement": 4.645833333333333
-        },
-        {
-          "members": [
-            "craver:pistol",
-            "kenneth:axe"
-          ],
-          "games": 196,
-          "previousGames": 495,
-          "recentShare": 0.0036099088313841054,
-          "previousShare": 0.00826943316794467,
-          "delta": -0.004659524336560564,
-          "ratio": 0.4378790523098129,
-          "direction": "down",
-          "top3Rate": 0.37244897959183676,
-          "avgPlacement": 4.479591836734694
+          "top3Rate": 0.4489795918367347,
+          "avgPlacement": 4.142857142857143
         },
         {
           "members": [
             "blair:dual_swords",
             "kenneth:axe"
           ],
-          "games": 68,
-          "previousGames": 263,
-          "recentShare": 0.0012524173496638732,
-          "previousShare": 0.00439365843064535,
-          "delta": -0.003141241080981477,
-          "ratio": 0.28814745205066594,
+          "games": 69,
+          "previousGames": 194,
+          "recentShare": 0.0010957424846357847,
+          "previousShare": 0.003194888178913738,
+          "delta": -0.002099145694277953,
+          "ratio": 0.3461536425599248,
           "direction": "down",
-          "top3Rate": 0.3235294117647059,
-          "avgPlacement": 4.632352941176471
+          "top3Rate": 0.42028985507246375,
+          "avgPlacement": 4.3478260869565215
+        },
+        {
+          "members": [
+            "bihyung:bat",
+            "kenneth:axe"
+          ],
+          "games": 46,
+          "previousGames": 153,
+          "recentShare": 0.0007304949897571898,
+          "previousShare": 0.0025196798524422777,
+          "delta": -0.001789184862685088,
+          "ratio": 0.2942948176309565,
+          "direction": "down",
+          "top3Rate": 0.34782608695652173,
+          "avgPlacement": 4.456521739130435
         },
         {
           "members": [
             "henry:shuriken",
             "kenneth:axe"
           ],
-          "games": 53,
-          "previousGames": 232,
-          "recentShare": 0.0009761488166497836,
-          "previousShare": 0.00387577473729932,
-          "delta": -0.002899625920649536,
-          "ratio": 0.2555097391574482,
+          "games": 59,
+          "previousGames": 165,
+          "recentShare": 0.0009369392259929173,
+          "previousShare": 0.002717301801653437,
+          "delta": -0.0017803625756605194,
+          "ratio": 0.3485368001679105,
           "direction": "down",
-          "top3Rate": 0.33962264150943394,
-          "avgPlacement": 4.7924528301886795
+          "top3Rate": 0.3220338983050847,
+          "avgPlacement": 4.677966101694915
+        },
+        {
+          "members": [
+            "craver:pistol",
+            "kenneth:axe"
+          ],
+          "games": 232,
+          "previousGames": 394,
+          "recentShare": 0.0036842356005145228,
+          "previousShare": 0.0064885873324330556,
+          "delta": -0.002804351731918533,
+          "ratio": 0.56880617539639,
+          "direction": "down",
+          "top3Rate": 0.38362068965517243,
+          "avgPlacement": 4.405172413793103
         },
         {
           "members": [
             "blair:dual_swords",
             "seres:two_handed_sword"
           ],
-          "games": 185,
-          "previousGames": 412,
-          "recentShare": 0.003407311907173773,
-          "previousShare": 0.006882841343824654,
-          "delta": -0.0034755294366508815,
-          "ratio": 0.49651515898150334,
+          "games": 183,
+          "previousGames": 329,
+          "recentShare": 0.0029060996331644723,
+          "previousShare": 0.005418135107539277,
+          "delta": -0.0025120354743748048,
+          "ratio": 0.5376620214307404,
           "direction": "down",
-          "top3Rate": 0.4486486486486487,
-          "avgPlacement": 4.097297297297297
-        },
-        {
-          "members": [
-            "haze:assault_rifle",
-            "kenneth:axe"
-          ],
-          "games": 45,
-          "previousGames": 176,
-          "recentShare": 0.0008288055990422691,
-          "previousShare": 0.0029402429041581048,
-          "delta": -0.0021114373051158357,
-          "ratio": 0.28651950034416507,
-          "direction": "down",
-          "top3Rate": 0.4888888888888889,
-          "avgPlacement": 3.911111111111111
-        },
-        {
-          "members": [
-            "kenneth:axe",
-            "shoichi:dagger"
-          ],
-          "games": 81,
-          "previousGames": 230,
-          "recentShare": 0.0014918500782760843,
-          "previousShare": 0.0038423628861157053,
-          "delta": -0.002350512807839621,
-          "ratio": 0.39135554564231234,
-          "direction": "down",
-          "top3Rate": 0.37037037037037035,
-          "avgPlacement": 4.3580246913580245
+          "top3Rate": 0.4644808743169399,
+          "avgPlacement": 4.027322404371585
         },
         {
           "members": [
             "rio:bow",
             "seres:two_handed_sword"
           ],
-          "games": 378,
-          "previousGames": 664,
-          "recentShare": 0.0069619670319550605,
-          "previousShare": 0.011092734592960124,
-          "delta": -0.004130767561005063,
-          "ratio": 0.6283291154490888,
+          "games": 380,
+          "previousGames": 562,
+          "recentShare": 0.006034523828428959,
+          "previousShare": 0.009255294621389283,
+          "delta": -0.0032207707929603237,
+          "ratio": 0.652562417507983,
           "direction": "down",
-          "top3Rate": 0.455026455026455,
-          "avgPlacement": 4.108465608465608
-        },
-        {
-          "members": [
-            "kenneth:axe",
-            "nia:pistol"
-          ],
-          "games": 49,
-          "previousGames": 166,
-          "recentShare": 0.0009024772078460264,
-          "previousShare": 0.002773183648240031,
-          "delta": -0.0018707064403940044,
-          "ratio": 0.33008299636108573,
-          "direction": "down",
-          "top3Rate": 0.40816326530612246,
-          "avgPlacement": 4.142857142857143
+          "top3Rate": 0.42894736842105263,
+          "avgPlacement": 4.168421052631579
         },
         {
           "members": [
             "aya:assault_rifle",
             "seres:two_handed_sword"
           ],
-          "games": 86,
-          "previousGames": 225,
-          "recentShare": 0.001583939589280781,
-          "previousShare": 0.003758833258156668,
-          "delta": -0.0021748936688758868,
-          "ratio": 0.42440494284338187,
+          "games": 82,
+          "previousGames": 173,
+          "recentShare": 0.0013021867208715123,
+          "previousShare": 0.0028490497677942095,
+          "delta": -0.0015468630469226972,
+          "ratio": 0.4599750989189149,
           "direction": "down",
-          "top3Rate": 0.3953488372093023,
-          "avgPlacement": 4.430232558139535
+          "top3Rate": 0.3170731707317073,
+          "avgPlacement": 4.695121951219512
+        },
+        {
+          "members": [
+            "kenneth:axe",
+            "tsubame:shuriken"
+          ],
+          "games": 53,
+          "previousGames": 109,
+          "recentShare": 0.000841657270807197,
+          "previousShare": 0.001795066038668028,
+          "delta": -0.0009534087678608311,
+          "ratio": 0.47337634495532577,
+          "direction": "down",
+          "top3Rate": 0.4528301886792453,
+          "avgPlacement": 4.113207547169812
+        },
+        {
+          "members": [
+            "seres:two_handed_sword",
+            "william:throw"
+          ],
+          "games": 102,
+          "previousGames": 173,
+          "recentShare": 0.001619793238157247,
+          "previousShare": 0.0028490497677942095,
+          "delta": -0.0012292565296369625,
+          "ratio": 0.5708124721523884,
+          "direction": "down",
+          "top3Rate": 0.39215686274509803,
+          "avgPlacement": 4.450980392156863
         }
       ]
     },
@@ -2210,6 +1907,6 @@
     }
   },
   "season": 41,
-  "scannedTeams": 5283278,
-  "acceptedTeams": 482067
+  "scannedTeams": 5380039,
+  "acceptedTeams": 488433
 }
