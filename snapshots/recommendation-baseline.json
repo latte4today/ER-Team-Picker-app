@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T10:47:40.913Z",
+  "generatedAt": "2026-10-28T11:40:41.221Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c0bf9c94cf8b13b5",
+      "digest": "215da0644b960558",
       "results": [
         {
           "rank": 1,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "464fb0782f9016be",
+      "digest": "b61edd3b0427390c",
       "results": [
         {
           "rank": 1,
@@ -1343,17 +1343,17 @@
         },
         {
           "rank": 3,
+          "variantId": "aya:assault_rifle",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 1.931
+        },
+        {
+          "rank": 4,
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
           "total": 1.929
-        },
-        {
-          "rank": 4,
-          "variantId": "aya:assault_rifle",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 1.922
         },
         {
           "rank": 5,
@@ -1491,7 +1491,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8159cb634339d658",
+      "digest": "c99d7ba285531eaa",
       "results": [
         {
           "rank": 1,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "535b768522af1012",
+      "digest": "881cacaccce47b12",
       "results": [
         {
           "rank": 1,
@@ -1740,7 +1740,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9c3a08afc98e57df",
+      "digest": "d2e724fd4ce5a9ac",
       "results": [
         {
           "rank": 1,
@@ -1789,7 +1789,7 @@
           "variantId": "jackie:dual_swords",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.763
+          "total": 0.773
         },
         {
           "rank": 8,
@@ -1988,7 +1988,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c98e0a570ef914a6",
+      "digest": "ff302637bd443c20",
       "results": [
         {
           "rank": 1,
@@ -2044,7 +2044,7 @@
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.505
+          "total": 0.493
         },
         {
           "rank": 9,
@@ -2154,7 +2154,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8028cf9506ae9579",
+      "digest": "df64f3cb1f9e5dee",
       "results": [
         {
           "rank": 1,
@@ -3468,7 +3468,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "40e9c4f2ceff48df",
+      "digest": "9df5d4c6dfaaa9a8",
       "results": [
         {
           "rank": 1,
@@ -3551,7 +3551,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "788e272123a2322d",
+      "digest": "b51ae8237bfb992a",
       "results": [
         {
           "rank": 1,
@@ -3579,7 +3579,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.784
+          "total": 1.793
         },
         {
           "rank": 5,
@@ -3717,7 +3717,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f55099242f3c3085",
+      "digest": "83ab2893c1ee0091",
       "results": [
         {
           "rank": 1,
@@ -3966,7 +3966,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2c792ad1a5d0b259",
+      "digest": "05d8d290c89ef26e",
       "results": [
         {
           "rank": 1,
@@ -4049,7 +4049,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "20e774e2e1658c04",
+      "digest": "99707781687f0537",
       "results": [
         {
           "rank": 1,
@@ -4063,7 +4063,7 @@
           "variantId": "jackie:two_handed_sword",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.053
+          "total": 1.044
         },
         {
           "rank": 3,
@@ -4380,7 +4380,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fb18e885970bd131",
+      "digest": "893a06915bba72e5",
       "results": [
         {
           "rank": 1,
@@ -4415,7 +4415,7 @@
           "variantId": "cathy:dual_swords",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.808
+          "total": 0.8
         },
         {
           "rank": 6,
@@ -5694,7 +5694,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a319924eb92dabd3",
+      "digest": "ed3456e020a834e8",
       "results": [
         {
           "rank": 1,
@@ -5777,7 +5777,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c8fcbbd6a11c71a8",
+      "digest": "782ab9f5ec962c71",
       "results": [
         {
           "rank": 1,
@@ -5805,7 +5805,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.954
+          "total": 1.963
         },
         {
           "rank": 5,
@@ -5943,7 +5943,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5497ec94b8cdc7e8",
+      "digest": "3bb220cdb907b509",
       "results": [
         {
           "rank": 1,
@@ -6109,7 +6109,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "37e8bb3496d44046",
+      "digest": "5a1409ca5a60ea02",
       "results": [
         {
           "rank": 1,
@@ -6192,7 +6192,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e03bbc43807cd27d",
+      "digest": "f6865fcd85848eec",
       "results": [
         {
           "rank": 1,
@@ -6231,17 +6231,17 @@
         },
         {
           "rank": 6,
+          "variantId": "jackie:dual_swords",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.917
+        },
+        {
+          "rank": 7,
           "variantId": "piolo:nunchaku",
           "core": "7100101",
           "coreName": "금강",
           "total": 0.912
-        },
-        {
-          "rank": 7,
-          "variantId": "jackie:dual_swords",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.908
         },
         {
           "rank": 8,
@@ -6255,7 +6255,7 @@
           "variantId": "jackie:dual_swords",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.798
+          "total": 0.808
         },
         {
           "rank": 10,
@@ -6440,7 +6440,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7786180d248c707f",
+      "digest": "ab85feb32a9f636c",
       "results": [
         {
           "rank": 1,
@@ -6606,7 +6606,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "df011e7b590f0804",
+      "digest": "cce5110d6e9b643e",
       "results": [
         {
           "rank": 1,
@@ -8003,14 +8003,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "266eb7944525d68e",
+      "digest": "df006cc58d43f0e9",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.929
+          "total": 1.939
         },
         {
           "rank": 2,
@@ -8169,7 +8169,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cb10f755b0d70aff",
+      "digest": "dd2fa06f3486fb6c",
       "results": [
         {
           "rank": 1,
@@ -8666,7 +8666,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ef0ed9e3f5fc7319",
+      "digest": "986c3449e51bcff3",
       "results": [
         {
           "rank": 1,
@@ -8736,7 +8736,7 @@
           "variantId": "tazia:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.491
+          "total": 0.48
         }
       ]
     },
@@ -9980,7 +9980,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "38cc6a3d33f2b1b2",
+      "digest": "c0eca78ba8c67f99",
       "results": [
         {
           "rank": 1,
@@ -10229,7 +10229,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "287de686c0a81421",
+      "digest": "9333965718ead1c6",
       "results": [
         {
           "rank": 1,
@@ -10250,7 +10250,7 @@
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.719
+          "total": 1.728
         },
         {
           "rank": 4,
@@ -10395,7 +10395,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "afa306412e074efe",
+      "digest": "cf9d808738f7e09e",
       "results": [
         {
           "rank": 1,
@@ -10892,7 +10892,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "22ca95c2375e3342",
+      "digest": "4f79315d5fb686fe",
       "results": [
         {
           "rank": 1,
@@ -11058,7 +11058,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f1fbddb030e3e245",
+      "digest": "29eacb756a22db9b",
       "results": [
         {
           "rank": 1,
