@@ -19,7 +19,10 @@ assert.equal(matchupProfile(team(['silvia:pistol','rio:bow','lenox:whip'])).rang
 assert.notEqual(compareMatchup(team(['leni:pistol','johann:arcana','priya:guitar']),dive)?.kind,'opportunity',
   'protection without damage cannot be presented as a favorable counter-engage team');
 const lukeTeam=team(['luke:bat','rio:bow','lucia:sniper_rifle']);
-assert.equal(compareMatchup(effectiveCombatTeam(lukeTeam,{'luke:bat':'7200301'}),dive).reason,'protectAndCounter');
+assert.equal(compareMatchup(effectiveCombatTeam(lukeTeam,{'luke:bat':'7200301'}),dive).reason,'exposedBackline',
+  'healing drone does not invent a peel skill for Luke');
+assert.equal(compareMatchup(effectiveCombatTeam(lukeTeam,{'luke:bat':'7200501'}),dive).reason,'protectAndCounter',
+  'Sentinel actually grants an allied shield');
 assert.equal(compareMatchup(effectiveCombatTeam(lukeTeam,{'luke:bat':'7100501'}),dive).reason,'exposedBackline',
   'the actual selected core can change protection and the opponent advice');
 assert.equal(compareMatchup(dive,team(['rozzi:pistol','chloe:shuriken','craver:pistol'])).kind,'opportunity');

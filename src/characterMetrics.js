@@ -34,7 +34,7 @@ function estimatedMetric(character) {
     defense: clamp(
       2 +
         (tags.has("durable") ? 1.3 : 0) +
-        (tags.has("shield") ? 0.5 : 0) +
+        (tags.has("shield") || tags.has("selfShield") ? 0.5 : 0) +
         (character.role === "frontline" ? 1.2 : 0) +
         (character.role === "bruiser" ? 0.4 : 0) -
         (character.role === "ranged" || character.role === "mage" ? 0.45 : 0),

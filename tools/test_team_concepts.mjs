@@ -10,9 +10,10 @@ const { t,setLanguage }=await import('../src/i18n/index.js');
 const { effectiveCombatTeam, evaluateCandidate }=await import('../src/recommender.js');
 const team=ids=>ids.map(id=>characterVariants.find(c=>c.variantId===id));
 const sustainTeam=team(['luke:bat','sho:spear','rio:bow']);
-assert.ok(teamConcepts(effectiveCombatTeam(sustainTeam,{'luke:bat':'7200301','sho:spear':'7200301'})).includes('attrition'));
-assert.ok(!teamConcepts(effectiveCombatTeam(sustainTeam,{'luke:bat':'7100501','sho:spear':'7200201'})).includes('attrition'),
-  'selected cores, not only character names, determine the sustain concept');
+const coreSustainTeam=team(['lenox:whip','rio:bow','katja:sniper_rifle']);
+assert.ok(teamConcepts(effectiveCombatTeam(coreSustainTeam,{'lenox:whip':'7200301','rio:bow':'7200301'})).includes('attrition'));
+assert.ok(!teamConcepts(effectiveCombatTeam(coreSustainTeam,{'lenox:whip':'7100101','rio:bow':'7000701'})).includes('attrition'),
+  'actual healing effects, not offensive/support group names, determine sustain');
 const guarded=team(['lenox:whip','nicky:glove','lucia:sniper_rifle']);
 assert.deepEqual(teamCombatPlan(guarded),{primary:'protectCarry',supports:['stopEntry']},
   'a guard anchor plus ranged CC helper is a counter-engage plan, not a two-person dive');

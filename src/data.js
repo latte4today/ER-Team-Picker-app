@@ -1,4 +1,5 @@
 import { skinTemplates } from "./skinTemplates.js";
+import { intrinsicEffectTags } from "./combatEffects.js";
 
 export const roles = [
   { id: "frontline", label: "탱커" },
@@ -66,7 +67,7 @@ export const characters = [
   c("markus", "마커스", "frontline", ["initiate", "cc", "durable"], "hybrid", 3),
   c("magnus", "매그너스", "frontline", ["initiate", "cc", "durable"], "hybrid", 2),
   c("mirka", "미르카", "bruiser", ["dive", "burst", "mobility"], "hybrid", 3),
-  c("vanya", "바냐", "mage", ["poke", "shield", "zone"], "skill", 3),
+  c("vanya", "바냐", "mage", ["poke", "selfShield", "zone", "mobility"], "skill", 3),
   c("barbara", "바바라", "mage", ["zone", "poke", "objective"], "skill", 4),
   c("bernice", "버니스", "ranged", ["range", "cc", "sustained"], "basic", 3),
   c("blair", "블레어", "bruiser", ["poke", "zone", "burst"], "skill", 3),
@@ -78,7 +79,7 @@ export const characters = [
   c("sho", "쇼우", "frontline", ["durable", "peel", "sustained"], "hybrid", 3),
   c("shoichi", "쇼이치", "assassin", ["burst", "dive", "mobility", "hyperCarry"], "skill", 5),
   c("sua", "수아", "bruiser", ["cc", "durable", "sustained"], "skill", 3),
-  c("shirin", "슈린", "bruiser", ["sustain", "peel", "utility"], "skill", 3),
+  c("shirin", "슈린", "bruiser", ["sustain", "duel", "mobility", "zone"], "skill", 3),
   c("sissela", "시셀라", "mage", ["poke", "burst", "zone", "cc"], "skill", 4),
   c("silvia", "실비아", "bruiser", ["mobility", "poke", "dive"], "hybrid", 5),
   c("adela", "아델라", "mage", ["zone", "burst", "cc"], "skill", 5),
@@ -559,7 +560,7 @@ export const characterVariants = characters.flatMap((character) =>
       backlineDamage,
       ccProfile: ccProfiles[character.id] ?? emptyCcProfile,
       roleProfile: { initiate: initiateStrength, escape: escapeStrength, range: rangeScore },
-      tags: [...new Set(tags)],
+      tags: intrinsicEffectTags(character.id, [...new Set(tags)]),
     };
   }),
 );
