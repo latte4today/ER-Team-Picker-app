@@ -19,6 +19,7 @@ import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effectiveCombatTeam, updateTournamentStats } from "./recommender.js";
 import { tournamentBuilds as bundledTournamentBuilds } from "./tournamentMeta.js";
 import { matchupGuidance, createMatchupRotation } from "./matchupGuidance.js";
+import { combatRangeOf } from "./combatEffects.js";
 import { teamCombatPlan } from "./teamConcepts.js";
 import { characterSynergies } from "./characterSynergies.js";
 import { pairSynergyLiftMeta } from "./pairSynergyLift.js";
@@ -2868,7 +2869,7 @@ function compositionReason(row, isUserFeedback) {
   const characters = members.map(characterById).filter(Boolean);
   const roles = new Set(characters.map((character) => character.role));
   const tags = new Set(characters.flatMap((character) => character.tags));
-  const ranges = new Set(characters.map((character) => character.weaponRange));
+  const ranges = new Set(characters.map(combatRangeOf));
 
   if (roles.has("frontline") && (roles.has("ranged") || roles.has("mage"))) {
     return t("comp.frontlineRanged");

@@ -3,6 +3,7 @@ import { getFeedbackScore, loadFeedback } from "./feedback.js";
 import { officialPairSynergyLift } from "./pairSynergyLift.js";
 import { officialPairRoleStatsByTier as _bundledPairRoleStats } from "./pairRoleStats.js";
 import { compModel } from "./compModel.js";
+import { CORE_EFFECTS, coreEffectTags, combatRangeOf } from "./combatEffects.js";
 import {
   experimentTiers,
   oneTrickWeight,
@@ -26,7 +27,7 @@ import {
   OFFICIAL_V2_WEIGHTS as _bundledWeights,
   BAYESIAN_ALPHA as _bundledAlpha,
 } from "./officialMatchStats.js";
-import { coreRowForVariant, normalizeCoreName, normalizeTraitBuildRows } from "./traitMeta.js";
+import { coreRowForVariant, normalizeCoreName, normalizeTraitBuildRows, canonicalCoreCode } from "./traitMeta.js";
 
 let officialCandidateStatsByTier  = _bundledCandidateStats;
 let officialCompositionStatsByTier = _bundledCompositionStats;
@@ -207,6 +208,7 @@ const tagLabels = {
   poke: "recommender.tagLabels.poke",
   durable: "recommender.tagLabels.durable",
   shield: "recommender.tagLabels.shield",
+  selfShield: "recommender.tagLabels.selfShield",
   healing: "recommender.tagLabels.healing",
   utility: "recommender.tagLabels.utility",
   range: "recommender.tagLabels.range",
@@ -853,6 +855,7 @@ const TAG_VECTOR_MODS = {
   sustain:   { sustain: 0.22, durability: 0.10, support: 0.06 },
   peel:      { peel: 0.24, support: 0.15, durability: 0.06 },
   shield:    { peel: 0.18, sustain: 0.18, support: 0.14, durability: 0.06 },
+  selfShield:{ sustain: 0.18, durability: 0.06 },
   healing:   { sustain: 0.28, support: 0.18 },
   cc:        { cc: 0.15, engage: 0.06 },
   initiate:  { engage: 0.26, cc: 0.10, tempo: 0.10, frontline: 0.05 },
@@ -924,8 +927,8 @@ function characterVectorFromEffective(eff) {
 
   const rangeScore = eff.roleProfile?.range ?? 1;
   v.range += clamp((rangeScore - 1) / 4, 0, 1) * 0.85;
-  if (eff.weaponRange === "ranged") { v.range += 0.30; v.poke += 0.12; }
-  else if (eff.weaponRange === "hybrid") { v.range += 0.12; }
+  if (combatRangeOf(eff) === "ranged") { v.range += 0.30; v.poke += 0.12; }
+  else if (combatRangeOf(eff) === "hybrid") { v.range += 0.12; }
   if (eff.role === "ranged" || eff.role === "mage") v.poke += 0.18;
   if (eff.role === "assassin") { v.burst += 0.30; v.pick += 0.22; v.duel += 0.18; }
   if (bucket === "high") v.burst += 0.20;
@@ -1686,9 +1689,10 @@ function killPressureScore(candidate, selected) {
 
 function weaponBalanceScore(candidate, selected) {
   if (isSupport(candidate)) return 0;
-  const ranges = selected.map((character) => character.weaponRange);
-  if (candidate.weaponRange === "unknown") return -0.4;
-  const sameRangeCount = ranges.filter((range) => range === candidate.weaponRange).length;
+  const ranges = selected.map(combatRangeOf);
+  const candidateRange = combatRangeOf(candidate);
+  if (candidateRange === "unknown") return -0.4;
+  const sameRangeCount = ranges.filter((range) => range === candidateRange).length;
   const selectedRoles = selected.map((character) => character.role);
   const selectedTags = new Set(selected.flatMap((character) => character.tags));
   const hasFrontline = selectedRoles.some((role) => role === "frontline" || role === "bruiser");
@@ -1701,8 +1705,8 @@ function weaponBalanceScore(candidate, selected) {
         : -0.15
     : 0;
   if (sameRangeCount >= 2) return -0.8;
-  if (ranges.includes("melee") && candidate.weaponRange === "ranged") return 0.8 + shortRangeFit;
-  if (ranges.includes("ranged") && candidate.weaponRange === "melee") return 0.6 + shortRangeFit;
+  if (ranges.includes("melee") && candidateRange === "ranged") return 0.8 + shortRangeFit;
+  if (ranges.includes("ranged") && candidateRange === "melee") return 0.6 + shortRangeFit;
   return 0.2 + shortRangeFit;
 }
 
@@ -1710,7 +1714,7 @@ function conflictScore(candidate, selected) {
   if (selected.length < 2) return 0;
   const nextTeam = [...selected, candidate];
   const roles = nextTeam.map((character) => character.role);
-  const ranges = nextTeam.map((character) => character.weaponRange);
+  const ranges = nextTeam.map(combatRangeOf);
   const tags = new Set(nextTeam.flatMap((character) => character.tags));
   const totalCc = teamCcPower(nextTeam);
   const { total, average } = teamMetricProfile(nextTeam);
@@ -2796,7 +2800,7 @@ function explain(candidate, selected, scores, explainTier = "all") {
   if (scores.weaponBalance > 0.5) {
     const weaponRangeKey = candidate.tags.includes("short_range_dealer")
       ? "recommender.reason.weaponRangeShort"
-      : candidate.weaponRange === "ranged"
+      : combatRangeOf(candidate) === "ranged"
         ? "recommender.reason.weaponRangeRanged"
         : "recommender.reason.weaponRangeMelee";
     reasons.push(t(weaponRangeKey, { weapon: weaponLabel(candidate) }));
@@ -2866,11 +2870,18 @@ function traitBuildRowsFor(variantId, tier) {
 
 function coreRowFor(variantId, core, tier) {
   const rows = traitBuildRowsFor(variantId, tier);
-  return coreRowForVariant(variantId, rows, core);
+  const row = coreRowForVariant(variantId, rows, core);
+  if (row || !core) return row;
+  const code = canonicalCoreCode(core);
+  // An unobserved current core has mechanics, but no borrowed match results.
+  return code ? { core: code, name: normalizeCoreName(code), games: 0 } : null;
 }
 
 function candidateCoreOptions(variantId, tier, cores = {}) {
-  if (cores[variantId]) return [cores[variantId]];
+  if (cores[variantId]) {
+    const code = canonicalCoreCode(cores[variantId]);
+    return code ? [code] : [];
+  }
 
   const rows = traitBuildRowsFor(variantId, tier);
   if (!rows.length) return [null];
@@ -3116,19 +3127,19 @@ function applyCoreRoleProfile(character, core, tier) {
   if (!character) return character;
   const row = coreRowFor(character.variantId, core, tier);
   const code = coreCode(row ?? core);
-  if (!code) return { ...character, effectiveTier: tier };
+  if (!code || !normalizeCoreName(code)) return { ...character, effectiveTier: tier };
 
   const bucket = officialStatsBucketForTier(tier);
   const key = `${bucket}|${character.variantId}|${code}`;
   const cached = _effectiveCoreProfileCache.get(key);
   if (cached) return cached;
 
-  const profile = corePlaystyle(row, tier);
+  const profile = corePlaystyle(row ?? { core: code }, tier);
   const override = inferredCoreRoleOverride(character, row, profile, tier);
   const effective = {
     ...character,
     role: override.role ?? character.role,
-    tags: mergeTags(character.tags, override.addTags, override.removeTags),
+    tags: coreEffectTags(character.tags, mergeTags(character.tags, override.addTags, override.removeTags), code),
     damage: override.damage ?? character.damage,
     frontDamage: override.frontDamage ?? character.frontDamage,
     backlineDamage: override.backlineDamage ?? character.backlineDamage,
@@ -3208,15 +3219,7 @@ function corePlaystyle(row, tier) {
     for (const [key, value] of Object.entries(values)) profile[key] += value;
   };
 
-  if (["7000201", "7000501", "7000601", "7000701"].includes(code)) add({ damage: 0.70, tempo: 0.35 });
-  if (["7000401", "7300301"].includes(code)) add({ damage: 0.42, durability: 0.35, tempo: 0.20 });
-  if (["7300101", "7300201"].includes(code)) add({ damage: 0.45, cc: 0.20, tempo: 0.38 });
-  if (code === "7100501") add({ damage: 0.36, durability: 0.36, cc: 0.24, tempo: 0.20 });
-  if (["7100101", "7100201"].includes(code)) add({ durability: 0.78, cc: 0.12 });
-  if (code === "7100401") add({ durability: 0.45, support: 0.42, cc: 0.12 });
-  if (code === "7200101") add({ durability: 0.52, support: 0.32 });
-  if (code === "7200201") add({ support: 0.50, damage: 0.28, tempo: 0.18 });
-  if (["7200301", "7200501"].includes(code)) add({ support: 0.72, durability: 0.28 });
+  add(CORE_EFFECTS[code]?.profile ?? {});
 
   if ((row.avgDamageToPlayer ?? 0) > 0 && avg.damage > 0) {
     profile.damage += clamp(((row.avgDamageToPlayer / avg.damage) - 1) * 0.75, -0.25, 0.45);
@@ -3398,6 +3401,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
   const selected = invariantContext?.selected ?? selectedCharactersFromIds(selectedIds);
   const candidate = invariantContext?.candidate ?? _variantById.get(candidateId);
   if (!candidate) return undefined;
+  if (cores[candidate.variantId] && !canonicalCoreCode(cores[candidate.variantId])) return undefined;
   const candidateCoreRow = coreRowFor(candidate.variantId, cores[candidate.variantId], tier);
   const effectiveSelected = invariantContext?.effectiveSelected ?? effectiveTeamFor(selected, cores, tier);
   const effectiveCandidate = applyCoreRoleProfile(candidate, cores[candidate.variantId], tier);
@@ -3609,8 +3613,9 @@ function recommendationArchetype(character) {
   const ccArea = (cc.wide ?? 0) + (cc.medium ?? 0);
   const ccTotal = ccArea + (cc.targeted ?? 0) + (cc.nonTarget ?? 0) + (cc.single ?? 0) + (cc.narrow ?? 0) + (cc.veryNarrow ?? 0);
 
-  if (character.role === "support" || has("healing") || has("shield") || has("speedBoost") ||
-      (has("peel") && character.role !== "frontline")) return "support_utility";
+  // An incidental shield/heal does not turn a tank, assassin or caster into a
+  // primary support (e.g. Seres, Cathy, Vanya or Theodore).
+  if (character.role === "support") return "support_utility";
   if (character.role === "frontline") return "frontline_stabilizer";
   if (character.role === "assassin" || character.role === "bruiser") {
     return (has("dive") || has("mobility")) ? "third_melee_dive" : "tempo_skirmisher";

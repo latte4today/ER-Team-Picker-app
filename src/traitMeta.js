@@ -95,6 +95,11 @@ export function normalizeCoreName(rowOrCode) {
   return CURRENT_CORE_TRAIT_NAMES.has(name) ? name : null;
 }
 
+export function canonicalCoreCode(core) {
+  const name = normalizeCoreName(core);
+  return name ? Object.keys(CURRENT_CORE_NAME_BY_CODE).find(code => CURRENT_CORE_NAME_BY_CODE[code] === name) ?? null : null;
+}
+
 export function coreIconPath(nameOrRow) {
   const name = typeof nameOrRow === "object" ? normalizeCoreName(nameOrRow) : nameOrRow;
   const slug = CORE_ICON_SLUG_BY_NAME[name];
@@ -228,5 +233,5 @@ export function coreRowForVariant(variantId, rows = [], core = null) {
   if (!core) return normalized[0];
 
   const wanted = String(core);
-  return normalized.find((row) => String(row.core) === wanted || row.name === wanted) ?? normalized[0];
+  return normalized.find((row) => String(row.core) === wanted || row.name === wanted) ?? null;
 }

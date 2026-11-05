@@ -11,14 +11,14 @@ export function teamCombatPlan(team) {
     const tags=new Set(character.tags??[]), style=combatStyle(character);
     const dealer=(['ranged','mage','assassin'].includes(character.role)&&character.backlineDamage!=='low')
       ||character.frontDamage==='high'||(character.role==='bruiser'&&character.frontDamage!=='low');
-    const meleeDealer=dealer&&character.weaponRange==='melee'&&style!=='guardOnly';
-    endurance+=Number(tags.has('healing')||tags.has('sustain')||tags.has('shield')
+    const meleeDealer=dealer&&['frontline','bruiser','assassin'].includes(character.role)&&style!=='guardOnly';
+    endurance+=Number(tags.has('healing')||tags.has('sustain')||tags.has('shield')||tags.has('selfShield')
       ||(tags.has('durable')&&tags.has('sustained')));
     anchor+=Number(['frontline','support'].includes(character.role)
       &&(tags.has('peel')||tags.has('shield')||style==='guardOnly'||style==='guardSometimesEngage'));
     guardOnly+=Number(style==='guardOnly');
     damage+=Number(dealer);
-    ranged+=Number(dealer&&character.weaponRange==='ranged');
+    ranged+=Number(dealer&&['ranged','mage'].includes(character.role));
     meleeDamage+=Number(meleeDealer);
     first+=Number(meleeDealer&&['firstEngage','guardSometimesEngage'].includes(style));
     follow+=Number(meleeDealer&&style==='delayedEngage');
