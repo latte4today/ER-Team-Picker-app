@@ -1740,18 +1740,27 @@ function renderMatchupGuidance(team, cores = {}) {
   const rows = matchupGuidance(effectiveCombatTeam(team, ownCores, tier), tournamentBuilds,
     row => matchupReferenceCache.get(tier).get(row));
   const items = rows.map(row => {
-    const example = row.examples[0];
-    const names = example.members.map(member => {
+    const formatMember = member => {
       const character = characterById(member.variantId);
       const coreName = normalizeCoreName(member.core);
       const icon = coreIconPath(coreName);
       const core = icon ? ` <img class="matchup-core" src="${icon}" alt="${coreName}" title="${coreName}" loading="lazy">` : "";
       return `${t(`char.${character.id}`)} (${t(`weapon.${character.weapon}`)})${core}`;
-    }).join(" + ");
+    };
+    const actorNames = ids => ids.map(id => {
+      const character = characterById(id);
+      return character ? `${t(`char.${character.id}`)} (${t(`weapon.${character.weapon}`)})` : "";
+    }).filter(Boolean).join(" · ");
+    const examples = row.examples.map(example => `<li><small>${t("matchup.example", {
+      names: example.members.map(formatMember).join(" + "),
+    })}</small><p>${t(`matchup.detail.${row.reason}`, {
+      own: actorNames(example.ownActors), enemy: actorNames(example.enemyActors),
+    })}</p></li>`).join("");
     return `<li class="matchup-${row.kind}"><strong>${t(`matchup.${row.kind}`)}</strong>
-      <p>${t(`matchup.${row.reason}`)}</p><small>${t("matchup.example", { names })}</small></li>`;
+      <p>${t(`matchup.${row.reason}`)}</p><ol class="matchup-examples">${examples}</ol></li>`;
   }).join("");
   return `<section class="matchup-guidance" aria-label="${t("matchup.title")}"><strong>${t("matchup.title")}</strong>
+    <small>${t("matchup.basis")}</small>
     ${items ? `<ul>${items}</ul>` : `<p>${t("matchup.insufficient")}</p>`}</section>`;
 }
 
