@@ -669,6 +669,7 @@ export const en = {
   "recommender.reason.specNeedsRange": "The team leans short-range, so {name}'s range and poke help round it out.",
 
   "matchup.title": "Opponent composition check",
+  "matchup.refresh": "Other examples",
   "matchup.basis": "Tactical expectations from skill, weapon and core structure; not validated fight win rates or the current lobby distribution.",
   "matchup.caution": "Unfavorable",
   "matchup.opportunity": "Favorable",

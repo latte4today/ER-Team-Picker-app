@@ -4293,3 +4293,5 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
 .trend-chart-row { padding: 6px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; }
 .trend-chart-row .trend-chart-track { height: 8px; margin: 4px 0; }
 .trend-chart-row .trend-chart-stats { font-size: 10px; }
+
+.matchup-guidance > button { display: block; margin: 8px 0; padding: 6px 10px; cursor: pointer; }

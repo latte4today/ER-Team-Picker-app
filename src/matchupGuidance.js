@@ -106,7 +106,26 @@ function diverseExamples(examples, limit) {
   return selected;
 }
 
-export function matchupGuidance(ownTeam,references,resolveEnemy) {
+// Each context owns a deck of distinct observed lineups. Renderers cache the
+// returned page, advancing only on a deliberate refresh or a reopened panel.
+export function createMatchupRotation(random = Math.random, maxContexts = 100) {
+  const decks = new Map();
+  return (context, examples, limit = 3) => {
+    let state = decks.get(context);
+    if (!state) {
+      const deck = diverseExamples(examples, examples.length);
+      state = { deck, cursor: Math.floor(random() * deck.length) || 0 };
+      decks.set(context, state);
+      if (decks.size > maxContexts) decks.delete(decks.keys().next().value);
+    }
+    const count = Math.min(limit, state.deck.length);
+    const page = Array.from({ length: count }, (_, i) => state.deck[(state.cursor + i) % state.deck.length]);
+    state.cursor = (state.cursor + count) % Math.max(1, state.deck.length);
+    return page;
+  };
+}
+
+export function matchupGuidance(ownTeam,references,resolveEnemy,selectExamples = (_, examples) => diverseExamples(examples,3)) {
   if (!validTeam(ownTeam)) return [];
   const groups=new Map(), seen=new Set();
   for (const reference of references) {
@@ -130,5 +149,5 @@ export function matchupGuidance(ownTeam,references,resolveEnemy) {
   }
   return ['caution','opportunity'].flatMap(kind=>[...groups.values()].filter(row=>row.kind===kind)
     .sort((a,b)=>b.priority-a.priority||b.relevance-a.relevance||b.appearances-a.appearances).slice(0,2)
-    .map(row=>({...row,examples:diverseExamples(row.examples,3)})));
+    .map(row=>({...row,examples:selectExamples(`${row.kind}:${row.reason}`,row.examples)})));
 }

@@ -669,6 +669,7 @@ export const zhHant = {
   "tutorial.step8.body": "聯盟分頁可登錄多名玩家的實驗體池，並以實際出戰的3人為基準計算最佳陣容。",
 
   "matchup.title": "對手陣容檢查",
+  "matchup.refresh": "查看其他範例",
   "matchup.basis": "根據技能、武器和核心結構作出的戰術預期，並非已驗證的交戰勝率或目前大廳分布。",
   "matchup.caution": "不利",
   "matchup.opportunity": "有利",

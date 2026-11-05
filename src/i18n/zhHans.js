@@ -669,6 +669,7 @@ export const zhHans = {
   "tutorial.step8.body": "联盟标签页可登记多名玩家的实验体池，并以实际出战的3人为基准计算最佳阵容。",
 
   "matchup.title": "对手阵容检查",
+  "matchup.refresh": "查看其他示例",
   "matchup.basis": "根据技能、武器和核心结构作出的战术预期，并非已验证的交战胜率或当前大厅分布。",
   "matchup.caution": "不利",
   "matchup.opportunity": "有利",

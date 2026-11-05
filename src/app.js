@@ -18,7 +18,7 @@ import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effectiveCombatTeam, updateTournamentStats } from "./recommender.js";
 import { tournamentBuilds as bundledTournamentBuilds } from "./tournamentMeta.js";
-import { matchupGuidance } from "./matchupGuidance.js";
+import { matchupGuidance, createMatchupRotation } from "./matchupGuidance.js";
 import { teamCombatPlan } from "./teamConcepts.js";
 import { characterSynergies } from "./characterSynergies.js";
 import { pairSynergyLiftMeta } from "./pairSynergyLift.js";
@@ -1724,7 +1724,9 @@ function unionComboReason(combo, reasons) {
   return reasons[0] ?? t("union.reason.default");
 }
 const matchupReferenceCache = new Map();
-function renderMatchupGuidance(team, cores = {}) {
+const matchupPages = new Map();
+let rotateMatchupExamples = createMatchupRotation();
+function renderMatchupGuidance(team, cores = {}, refresh = false) {
   if (team.length !== 3) return "";
   const tier = tierSelect.value;
   if (!matchupReferenceCache.has(tier)) {
@@ -1737,8 +1739,17 @@ function renderMatchupGuidance(team, cores = {}) {
   }
   const ownCores = Object.fromEntries(team.map(character => [character.variantId,
     cores[character.variantId] ?? defaultCoreForVariant(character.variantId, tier)?.core]));
-  const rows = matchupGuidance(effectiveCombatTeam(team, ownCores, tier), tournamentBuilds,
-    row => matchupReferenceCache.get(tier).get(row));
+  const context = encodeURIComponent(JSON.stringify([tier, team.map(c => [c.variantId, ownCores[c.variantId]]).sort()]));
+  let page = matchupPages.get(context);
+  if (!page || refresh) {
+    const rows = matchupGuidance(effectiveCombatTeam(team, ownCores, tier), tournamentBuilds,
+      row => matchupReferenceCache.get(tier).get(row),
+      (reason, examples) => rotateMatchupExamples(`${context}:${reason}`, examples));
+    page = { team, cores: ownCores, rows };
+    matchupPages.set(context, page);
+    if (matchupPages.size > 100) matchupPages.delete(matchupPages.keys().next().value);
+  }
+  const rows = page.rows;
   const items = rows.map(row => {
     const formatMember = member => {
       const character = characterById(member.variantId);
@@ -1759,10 +1770,29 @@ function renderMatchupGuidance(team, cores = {}) {
     return `<li class="matchup-${row.kind}"><strong>${t(`matchup.${row.kind}`)}</strong>
       <p>${t(`matchup.${row.reason}`)}</p><ol class="matchup-examples">${examples}</ol></li>`;
   }).join("");
-  return `<section class="matchup-guidance" aria-label="${t("matchup.title")}"><strong>${t("matchup.title")}</strong>
+  return `<section class="matchup-guidance" data-matchup-context="${context}" aria-label="${t("matchup.title")}"><strong>${t("matchup.title")}</strong>
+    ${items ? `<button type="button" data-matchup-refresh>${t("matchup.refresh")}</button>` : ""}
     <small>${t("matchup.basis")}</small>
     ${items ? `<ul>${items}</ul>` : `<p>${t("matchup.insufficient")}</p>`}</section>`;
 }
+
+function refreshMatchupSection(section) {
+  const page = matchupPages.get(section.dataset.matchupContext);
+  if (page) section.outerHTML = renderMatchupGuidance(page.team, page.cores, true);
+}
+document.addEventListener("click", event => {
+  const button = event.target.closest?.('[data-matchup-refresh]');
+  if (!button) return;
+  event.stopPropagation();
+  refreshMatchupSection(button.closest('.matchup-guidance'));
+}, true);
+document.addEventListener("toggle", event => {
+  if (event.target.tagName !== 'DETAILS' || !event.target.open) return;
+  if (event.target.dataset.matchupViewed) {
+    event.target.querySelectorAll('.matchup-guidance').forEach(refreshMatchupSection);
+  }
+  event.target.dataset.matchupViewed = 'true';
+}, true);
 
 function unionSubjectName(character) {
   const name = t(`char.${character.id}`);
@@ -3164,6 +3194,16 @@ function fullTeamRecommendationKey(anchorId) {
   });
 }
 
+function topDistinctTeammates(results, limit) {
+  const seen = new Set();
+  return results.filter(row => {
+    const id = row.character.characterId;
+    if (seen.has(id)) return false;
+    seen.add(id);
+    return true;
+  }).slice(0, limit);
+}
+
 async function renderFullTeamRecommendations() {
   const anchorId = chosenPickId;
   const inputKey = fullTeamRecommendationKey(anchorId);
@@ -3184,8 +3224,8 @@ async function renderFullTeamRecommendations() {
 
   const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
   const tier = tierSelect.value;
-  const slot1Results = recommend([anchorId], tier, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap()).slice(0, 8);
-  const seen = new Set();
+  const slot1Results = topDistinctTeammates(recommend([anchorId], tier, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap()), 8);
+  const bestPairs = new Map();
 
   for (const r1 of slot1Results) {
     await yieldToUi();
@@ -3193,18 +3233,19 @@ async function renderFullTeamRecommendations() {
 
     const comboCores = { ...selectedCoresMap() };
     if (r1.recommendedCore?.core) comboCores[r1.character.variantId] = r1.recommendedCore.core;
-    const slot2Results = recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, currentRelationshipRows(), comboCores).slice(0, 3);
+    const slot2Results = topDistinctTeammates(recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, currentRelationshipRows(), comboCores), 3);
     for (const r2 of slot2Results) {
       const pairKey = [r1.character.characterId, r2.character.characterId].sort().join("+");
-      if (seen.has(pairKey)) continue;
-      seen.add(pairKey);
-      _fullTeamState.compositions.push({
+      const combinedRank = (r1.total ?? r1.score) + (r2.total ?? r2.score);
+      if ((bestPairs.get(pairKey)?.combinedRank ?? -Infinity) >= combinedRank) continue;
+      bestPairs.set(pairKey, {
         teammate1: r1,
         teammate2: r2,
-        combinedScore: parseFloat((r1.score + r2.score).toFixed(1)),
+        combinedRank,
+        combinedScore: Number(combinedRank.toFixed(1)),
       });
     }
-    _fullTeamState.compositions.sort((a, b) => b.combinedScore - a.combinedScore);
+    _fullTeamState.compositions = [...bestPairs.values()].sort((a, b) => b.combinedRank - a.combinedRank);
   }
 
   _fullTeamState.status = "done";
@@ -4614,6 +4655,8 @@ if (recoveredFeedbackCount > 0) {
       const data = await res.json();
       updateOfficialStats(data);
       matchupReferenceCache.clear();
+      matchupPages.clear();
+      rotateMatchupExamples = createMatchupRotation();
       if (data.officialCandidateStatsByTier) officialCandidateStatsByTier = data.officialCandidateStatsByTier;
       if (data.officialCompositionStatsByTier) officialCompositionStatsByTier = data.officialCompositionStatsByTier;
       if (data.officialTraitBuildStatsByTier) officialTraitBuildStatsByTier = data.officialTraitBuildStatsByTier;
@@ -4643,6 +4686,8 @@ async function refreshTournamentData() {
     tournamentBuilds = data.builds;
     tournamentStatsVersion = data.generatedAt ?? JSON.stringify([data.season, data.totalGames]);
     matchupReferenceCache.clear();
+    matchupPages.clear();
+    rotateMatchupExamples = createMatchupRotation();
     clearRecommendationCache();
     render();
     if (refreshUnion) renderUnionResults();

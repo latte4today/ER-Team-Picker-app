@@ -751,6 +751,7 @@ export const ko = {
   "recommender.reason.specNeedsRange": "근접 성향이 강해 {nameSubject} 사거리·포킹 보완 가치가 있습니다.",
 
   "matchup.title": "상대 조합 체크",
+  "matchup.refresh": "다른 예시 보기",
   "matchup.basis": "스킬·무기·특성 구조로 본 전술적 예상입니다. 상대별 교전 승률이나 현재 로비의 분포를 뜻하지 않습니다.",
   "matchup.caution": "불리",
   "matchup.opportunity": "유리",

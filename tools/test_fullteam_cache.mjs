@@ -52,3 +52,23 @@ const before = calls;
 await state.renderFullTeamRecommendations();
 assert.equal(calls, before, 'obsolete async computation must stop before scoring');
 console.log('Full-team cache regression passed: 8 input changes recompute; unchanged inputs reuse; obsolete computation stops.');
+
+// Duplicate cores used to consume the entire beam, and the first discovered
+// pair won even when a later reverse path had a higher score.
+const row=(id,total,core='7200301')=>({character:{variantId:`${id}:bow`,characterId:id},score:Number(total.toFixed(1)),total,recommendedCore:{core}});
+state.recommend=(selected)=>{
+ if(selected.length===1)return [row('a',10),row('a',9,'7100501'),row('b',8),row('c',7)];
+ if(selected[1]==='a:bow')return [row('b',1),row('b',0.9,'7100501'),row('c',0.8),row('d',0.7)];
+ if(selected[1]==='b:bow')return [row('a',6.04),row('e',1)];
+ return [row('f',1)];
+};
+assert.deepEqual(Array.from(state.topDistinctTeammates(state.recommend(['anchor']),3),r=>r.character.characterId),['a','b','c']);
+state._fullTeamState={status:'idle'};
+await state.renderFullTeamRecommendations();
+const pairs=state._fullTeamState.compositions;
+const ab=pairs.find(p=>[p.teammate1.character.characterId,p.teammate2.character.characterId].sort().join('|')==='a|b');
+assert.equal(ab.combinedRank,14.04,'retain the better reverse path using unrounded scores');
+assert.equal(ab.teammate1.character.characterId,'b');
+assert.ok(pairs.some(p=>p.teammate2.character.characterId==='d'),'duplicate cores cannot crowd out a third distinct teammate');
+assert.equal(new Set(pairs.map(p=>[p.teammate1.character.characterId,p.teammate2.character.characterId].sort().join('|'))).size,pairs.length);
+console.log('Full-team search regression passed: distinct teammate branches and strongest duplicate path.');
