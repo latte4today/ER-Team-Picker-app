@@ -1,4 +1,7 @@
 export const en = {
+  "recent.recommendedBuild": "Suggested item build",
+  "recent.buildNote": "Based on frequently completed builds. Item names are in Korean.",
+  "recent.window": "Last 7 days · change from previous patch",
   "recent.comparisonLabel": "Statistics and interpretation",
   "recommend.archetype.F2/D1/S0": "Double frontline · 1 dealer",
   "recommend.archetype.F0/D3/S0": "No-tank triple dealer",

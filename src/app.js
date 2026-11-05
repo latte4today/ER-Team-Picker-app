@@ -1766,22 +1766,19 @@ function renderMatchupGuidance(team, cores = {}, refresh = false) {
       const coreName = normalizeCoreName(member.core);
       const icon = coreIconPath(coreName);
       const core = icon ? ` <img class="matchup-core" src="${icon}" alt="${coreName}" title="${coreName}" loading="lazy">` : "";
-      return `${t(`char.${character.id}`)} (${t(`weapon.${character.weapon}`)})${core}`;
+      return `<span class="matchup-member"><img src="${character.image}" alt="" width="24" height="24" loading="lazy"><span><b>${t(`char.${character.id}`)}</b><small>${t(`weapon.${character.weapon}`)}${core}</small></span></span>`;
     };
     const actorNames = ids => ids.map(id => {
       const character = characterById(id);
       return character ? `${t(`char.${character.id}`)} (${t(`weapon.${character.weapon}`)})` : "";
     }).filter(Boolean).join(" · ");
-    const examples = row.examples.map(example => `<li><small>${t("matchup.example", {
-      names: example.members.map(formatMember).join(" + "),
-    })}</small><p>${t(`matchup.detail.${row.reason}`, {
+    const examples = row.examples.map(example => `<li><div class="matchup-lineup">${example.members.map(formatMember).join('')}</div><p>${t(`matchup.detail.${row.reason}`, {
       own: actorNames(example.ownActors), enemy: actorNames(example.enemyActors),
     })}</p></li>`).join("");
     return `<li class="matchup-${row.kind}"><strong>${t(`matchup.${row.kind}`)}</strong>
       <p>${t(`matchup.${row.reason}`)}</p><ol class="matchup-examples">${examples}</ol></li>`;
   }).join("");
   return `<section class="matchup-guidance" data-matchup-context="${context}" aria-label="${t("matchup.title")}"><strong>${t("matchup.title")}</strong>
-    ${items ? `<button type="button" data-matchup-refresh>${t("matchup.refresh")}</button>` : ""}
     <small>${t("matchup.basis")}</small>
     ${items ? `<ul>${items}</ul>` : `<p>${t("matchup.insufficient")}</p>`}</section>`;
 }
@@ -1798,15 +1795,9 @@ function renderLazyMatchupGuidance(team, cores = {}) {
 function populateLazyMatchup(details) {
   if (!details.dataset.lazyMatchup || details.dataset.matchupLoaded) return;
   const [ids, cores] = JSON.parse(decodeURIComponent(details.dataset.lazyMatchup));
-  details.querySelector('.lazy-matchup-content').innerHTML = renderMatchupGuidance(ids.map(characterById).filter(Boolean), cores);
+  details.querySelector('.lazy-matchup-content').innerHTML = renderMatchupGuidance(ids.map(characterById).filter(Boolean), cores, true);
   details.dataset.matchupLoaded = 'true';
 }
-document.addEventListener("click", event => {
-  const button = event.target.closest?.('[data-matchup-refresh]');
-  if (!button) return;
-  event.stopPropagation();
-  refreshMatchupSection(button.closest('.matchup-guidance'));
-}, true);
 document.addEventListener("toggle", event => {
   if (event.target.tagName !== 'DETAILS' || !event.target.open) return;
   populateLazyMatchup(event.target);
@@ -2960,6 +2951,8 @@ function openDashboardDetails(card, body) {
     : [...card.querySelector('summary').querySelectorAll('.combo-face strong')].map(node => node.textContent).join(' + ');
   document.querySelector('#dashboard-detail-title').textContent = title;
   const content = document.querySelector('#dashboard-detail-content');
+  if (card.dataset.matchupPresented) body.querySelectorAll('.matchup-guidance').forEach(refreshMatchupSection);
+  card.dataset.matchupPresented = 'true';
   content.innerHTML = body.innerHTML;
   content.scrollTop = 0;
   if (!dashboardDetailDialog.open) dashboardDetailDialog.showModal();
@@ -3098,7 +3091,7 @@ function renderDashboardTeamDetails(ids, { inline = false, coreOverrides = {} } 
       return `<article class="detail-role-card"><div class="detail-role-head"><img src="${c.image}" alt=""><div><strong>${t(`char.${c.id}`)}</strong><small>${characterSubtitle(c)}</small></div>${traitChip(c.variantId,tierSelect.value,{core:cores[c.variantId],name:normalizeCoreName(cores[c.variantId])})}</div>
       ${signature ? `<p>${signature}</p>` : ''}</article>`;
     }).join('')}</div>`;
-  const matchup = renderMatchupGuidance(team, cores);
+  const matchup = renderMatchupGuidance(team, cores, true);
   if (inline) return overview + roles + matchup;
   return `<div class="detail-team-roster">${ids.map(renderCharacterFace).join('')}</div>` + renderDetailPages([
     {label:t('detail.plan'),html:overview}, {label:t('detail.roles'),html:roles},
@@ -4235,6 +4228,7 @@ recommendations.addEventListener("click", (event) => {
       body.hidden = !open;
       recToggle.setAttribute("aria-expanded", String(open));
       item.classList.toggle("rec-item-open", open);
+      if (open) body.querySelectorAll('.lazy-matchup[open] .matchup-guidance').forEach(refreshMatchupSection);
     }
     return;
   }

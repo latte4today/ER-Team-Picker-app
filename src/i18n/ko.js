@@ -1,4 +1,7 @@
 export const ko = {
+  "recent.recommendedBuild": "추천 아이템 구성",
+  "recent.buildNote": "자주 완성되는 구성을 참고한 빌드입니다.",
+  "recent.window": "최근 7일 · 이전 패치 대비 변화",
   "recent.comparisonLabel": "집계 기준과 해석 안내",
   "recommend.archetype.F2/D1/S0": "더블전열·1딜",
   "recommend.archetype.F0/D3/S0": "노탱3딜",

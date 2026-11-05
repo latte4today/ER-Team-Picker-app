@@ -1,4 +1,7 @@
 export const zhHant = {
+  "recent.recommendedBuild": "推薦出裝",
+  "recent.buildNote": "參考常見的完整出裝。物品名稱使用韓語。",
+  "recent.window": "近7天 · 相較上個版本的變化",
   "recent.comparisonLabel": "統計口徑與解讀",
   "recommend.archetype.F2/D1/S0": "雙前排·1輸出",
   "recommend.archetype.F0/D3/S0": "無坦3輸出",
