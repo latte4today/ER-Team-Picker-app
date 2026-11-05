@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T13:15:45.201Z",
+  "generatedAt": "2026-11-05T13:38:25.548Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -993,7 +993,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "da9dfed21f4d14fa",
+      "digest": "3e2a17ee1f722dbc",
       "results": [
         {
           "rank": 1,
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dfd1eae94dfa0bb1",
+      "digest": "c5ad2400f9daab17",
       "results": [
         {
           "rank": 1,
@@ -1136,17 +1136,17 @@
         },
         {
           "rank": 9,
-          "variantId": "chloe:shuriken",
-          "core": "7000601",
-          "coreName": "아드레날린",
-          "total": 0.728
-        },
-        {
-          "rank": 10,
           "variantId": "adina:arcana",
           "core": "7000501",
           "coreName": "벽력",
           "total": 0.724
+        },
+        {
+          "rank": 10,
+          "variantId": "chloe:shuriken",
+          "core": "7000601",
+          "coreName": "아드레날린",
+          "total": 0.716
         }
       ]
     },
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cfb647e75dbdffc6",
+      "digest": "909e74510c57010c",
       "results": [
         {
           "rank": 1,
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e2317b2ba738c500",
+      "digest": "8e19688f5bd88f17",
       "results": [
         {
           "rank": 1,
@@ -1491,7 +1491,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2971db7ea9042d38",
+      "digest": "7228516023adcee5",
       "results": [
         {
           "rank": 1,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2583e63d1a0548ef",
+      "digest": "413dd71040223fc1",
       "results": [
         {
           "rank": 1,
@@ -1823,7 +1823,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e057a27beecfccad",
+      "digest": "5a34ac7ad1dcc665",
       "results": [
         {
           "rank": 1,
@@ -1988,7 +1988,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5a2508d27bd0ee0b",
+      "digest": "4692acc53c32de9e",
       "results": [
         {
           "rank": 1,
@@ -2071,7 +2071,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ed97b6fb03fc7a99",
+      "digest": "e9e5de1ad00b0582",
       "results": [
         {
           "rank": 1,
@@ -3219,7 +3219,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3ada3e7323cb523a",
+      "digest": "99ff60552ea3e3e6",
       "results": [
         {
           "rank": 1,
@@ -3302,7 +3302,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b418ae50695a068b",
+      "digest": "2f8862343bd45e57",
       "results": [
         {
           "rank": 1,
@@ -3468,7 +3468,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "64b5abba2c406703",
+      "digest": "5b756483ce7044c1",
       "results": [
         {
           "rank": 1,
@@ -3634,7 +3634,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "82207afc77519476",
+      "digest": "9ee7a0eb1a308180",
       "results": [
         {
           "rank": 1,
@@ -3717,7 +3717,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9e3a59c2341ed3b0",
+      "digest": "4d63bf5a9fe26101",
       "results": [
         {
           "rank": 1,
@@ -3883,7 +3883,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6591d73a84ce70bf",
+      "digest": "6c3381ca61c9f8c7",
       "results": [
         {
           "rank": 1,
@@ -3966,7 +3966,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "86345274e6e98fcf",
+      "digest": "74d1d5ea9b6d5c90",
       "results": [
         {
           "rank": 1,
@@ -4214,7 +4214,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3933b5d508eb54e9",
+      "digest": "bc71428770f48c4a",
       "results": [
         {
           "rank": 1,
@@ -4297,7 +4297,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3ef714c8863d6b2d",
+      "digest": "6dd358f1537f4a0d",
       "results": [
         {
           "rank": 1,
@@ -4353,7 +4353,7 @@
           "variantId": "jackie:two_handed_sword",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.122
+          "total": 1.111
         },
         {
           "rank": 9,
@@ -5445,7 +5445,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "be336ae9601de2ff",
+      "digest": "ec7cd194d15d9c68",
       "results": [
         {
           "rank": 1,
@@ -5528,7 +5528,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a4b1732ab45178cc",
+      "digest": "ab5374ebb13770b1",
       "results": [
         {
           "rank": 1,
@@ -5694,7 +5694,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7083e417c6325e13",
+      "digest": "1fa6deea0cc8663b",
       "results": [
         {
           "rank": 1,
@@ -5764,7 +5764,7 @@
           "variantId": "hyejin:shuriken",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.676
+          "total": 0.683
         }
       ]
     },
@@ -5777,7 +5777,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2941ed661ebca0d5",
+      "digest": "30d1e2343d9be136",
       "results": [
         {
           "rank": 1,
@@ -5812,7 +5812,7 @@
           "variantId": "hyejin:shuriken",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 1.071
+          "total": 1.088
         },
         {
           "rank": 6,
@@ -6275,7 +6275,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0dd3784f55e70a54",
+      "digest": "20cf5e395cea877d",
       "results": [
         {
           "rank": 1,
@@ -6440,7 +6440,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cbbaca753e5d670b",
+      "digest": "e8d78dc03c8dd7fc",
       "results": [
         {
           "rank": 1,
@@ -6523,7 +6523,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2d174da3b328216a",
+      "digest": "c4fb89e5888fc59b",
       "results": [
         {
           "rank": 1,
@@ -7671,7 +7671,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "78fdbf490ad87229",
+      "digest": "0298764f764801c3",
       "results": [
         {
           "rank": 1,
@@ -7754,7 +7754,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "34f6046a72d7bd89",
+      "digest": "0b2bf1b859addeb6",
       "results": [
         {
           "rank": 1,
@@ -7789,7 +7789,7 @@
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.982
+          "total": 0.971
         },
         {
           "rank": 6,
@@ -7920,7 +7920,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7bba2b028727669e",
+      "digest": "ffa9dd516fd7be33",
       "results": [
         {
           "rank": 1,
@@ -8003,7 +8003,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5d60f4aee86ca4ff",
+      "digest": "d79f436252e8404d",
       "results": [
         {
           "rank": 1,
@@ -8169,7 +8169,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "135f9beb8820097e",
+      "digest": "391b67b650a8c3cf",
       "results": [
         {
           "rank": 1,
@@ -8335,7 +8335,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3cced3b26cd45dd8",
+      "digest": "d77913c6214ff29e",
       "results": [
         {
           "rank": 1,
@@ -8418,7 +8418,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1be5c883303a990e",
+      "digest": "a1cb8e6f4f9fd165",
       "results": [
         {
           "rank": 1,
@@ -8501,7 +8501,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ffc21f9065dee094",
+      "digest": "b344597c781191d8",
       "results": [
         {
           "rank": 1,
@@ -8749,7 +8749,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c6561c21ee52549c",
+      "digest": "89637f2d7c651cd4",
       "results": [
         {
           "rank": 1,
@@ -9897,7 +9897,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5660301b9a2d8e6c",
+      "digest": "c187a266c9c93a49",
       "results": [
         {
           "rank": 1,
@@ -10146,7 +10146,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f34b900e962d71d1",
+      "digest": "d4e2500b24feee79",
       "results": [
         {
           "rank": 1,
@@ -10229,7 +10229,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0c86bbdd65c076d1",
+      "digest": "b43593ebc051e41a",
       "results": [
         {
           "rank": 1,
@@ -10296,10 +10296,10 @@
         },
         {
           "rank": 10,
-          "variantId": "sissela:shuriken",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.256
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.261
         }
       ]
     },
@@ -10312,7 +10312,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dddb827d756f18e8",
+      "digest": "00bbe92d1932ab31",
       "results": [
         {
           "rank": 1,
@@ -10395,7 +10395,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b8d9e48a5e187d22",
+      "digest": "7eb0681424b8125c",
       "results": [
         {
           "rank": 1,
@@ -10561,7 +10561,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e5bc7aa6a5866c3c",
+      "digest": "4e3fe17179d7e616",
       "results": [
         {
           "rank": 1,
@@ -10644,7 +10644,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "634c21a2bea711b9",
+      "digest": "b87287426d08bb26",
       "results": [
         {
           "rank": 1,
@@ -10690,31 +10690,31 @@
         },
         {
           "rank": 7,
+          "variantId": "hyejin:shuriken",
+          "core": "7200201",
+          "coreName": "증폭 드론",
+          "total": 0.152
+        },
+        {
+          "rank": 8,
           "variantId": "hyunwoo:glove",
           "core": "7100501",
           "coreName": "응징",
           "total": 0.13
         },
         {
-          "rank": 8,
+          "rank": 9,
           "variantId": "emma:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
           "total": 0.124
         },
         {
-          "rank": 9,
+          "rank": 10,
           "variantId": "ian:dagger",
           "core": "7100501",
           "coreName": "응징",
           "total": 0.122
-        },
-        {
-          "rank": 10,
-          "variantId": "zahir:shuriken",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.11
         }
       ]
     },
@@ -10727,7 +10727,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0c34aeadd4489b1d",
+      "digest": "18f1914c93ef9cfd",
       "results": [
         {
           "rank": 1,
@@ -10762,7 +10762,7 @@
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 0.294
+          "total": 0.29
         },
         {
           "rank": 6,
@@ -10892,7 +10892,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "81a9cbb936324b09",
+      "digest": "17bbd4c6779f0a36",
       "results": [
         {
           "rank": 1,
@@ -10975,7 +10975,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3e204d2cd6e7df7e",
+      "digest": "33e8dc7147a5cfd6",
       "results": [
         {
           "rank": 1,
@@ -11058,7 +11058,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ebc6f338d9644f56",
+      "digest": "23e327dcf125fab4",
       "results": [
         {
           "rank": 1,
