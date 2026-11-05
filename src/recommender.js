@@ -1,11 +1,13 @@
+import {isCurrentSeason, currentSeason} from './seasonContext.js';
 import { characterVariants, roleNames, synergyPairs } from "./data.js";
 import { getFeedbackScore, loadFeedback } from "./feedback.js";
-import { officialPairSynergyLift } from "./pairSynergyLift.js";
+import { officialPairSynergyLift, pairSynergyLiftMeta } from "./pairSynergyLift.js";
 import { officialPairRoleStatsByTier as _bundledPairRoleStats } from "./pairRoleStats.js";
 import { compModel } from "./compModel.js";
 import { CORE_EFFECTS, coreEffectTags, combatRangeOf } from "./combatEffects.js";
 import {recentStrengthCorrection, recentCoreRows, setRecentMeta, recentMetaVersion} from './recentMeta.js';
 import {
+  DAK_META_SOURCE,
   experimentTiers,
   oneTrickWeight,
   placementScore,
@@ -19,6 +21,7 @@ import { metricCompositionReason, teamMetricProfile } from "./characterMetrics.j
 import { dakggRealtimeStatsByVariant, realtimeStatAverages } from "./dakggRealtimeStats.js";
 import { t } from "./i18n/index.js";
 import {
+  OFFICIAL_MATCH_SOURCE as _bundledSource,
   officialCandidateStatsByTier as _bundledCandidateStats,
   officialCompositionStatsByTier as _bundledCompositionStats,
   officialPairStatsByTier as _bundledPairStats,
@@ -30,6 +33,7 @@ import {
 } from "./officialMatchStats.js";
 import { coreRowForVariant, normalizeCoreName, normalizeTraitBuildRows, canonicalCoreCode } from "./traitMeta.js";
 
+let officialStatsSource = _bundledSource;
 let officialCandidateStatsByTier  = _bundledCandidateStats;
 let officialCompositionStatsByTier = _bundledCompositionStats;
 let officialPairStatsByTier       = _bundledPairStats;
@@ -83,6 +87,7 @@ function officialStatsBucketForTier(tier = "all") {
  */
 export function updateOfficialStats(remote) {
   if (!remote) return;
+  if (remote.source) officialStatsSource = remote.source;
   if (remote.officialCandidateStatsByTier)  officialCandidateStatsByTier  = remote.officialCandidateStatsByTier;
   if (remote.officialCompositionStatsByTier) officialCompositionStatsByTier = remote.officialCompositionStatsByTier;
   if (remote.officialPairStatsByTier)       officialPairStatsByTier       = remote.officialPairStatsByTier;
@@ -1366,6 +1371,7 @@ function pairLiftKey(a, b) {
 }
 
 function evidencePairScore(a, b) {
+  if (!isCurrentSeason({seasonId:pairSynergyLiftMeta.maxSeason ?? pairSynergyLiftMeta.minSeason})) return 0;
   const row = officialPairSynergyLift[pairLiftKey(a, b)];
   if (!row) return 0;
   const sampleConfidence = clamp(Math.log10((row.n ?? 0) + 1) / Math.log10(260 + 1), 0.55, 1);
@@ -2304,8 +2310,9 @@ function leanStrengthScore(candidate, tier) {
     ((averages.avgPlacement ?? 4.5) - (stats.avgPlacement ?? averages.avgPlacement)) * 0.82
   ) * officialConfidence : 0;
 
-  const legacy = legacyDakMetaScore(candidate, tier) * (1 - officialConfidence) * 0.55;
-  const baseline = clamp(official + legacy, -2.8, 3.2);
+  const legacy = DAK_META_SOURCE.seasonKey === currentSeason().seasonKey
+    ? legacyDakMetaScore(candidate, tier) * (1 - officialConfidence) * 0.55 : 0;
+  const baseline = isCurrentSeason(officialStatsSource) ? clamp(official + legacy, -2.8, 3.2) : 0;
   return clamp(baseline + recentStrengthCorrection(candidate.variantId, tier, baseline), -2.8, 3.2);
 }
 
@@ -2390,9 +2397,9 @@ function leanPairSynergyTerm(candidate, selected, tier) {
   const total = selected.reduce((sum, teammate) => {
     const evidence = evidencePairScore(candidate.characterId, teammate.characterId);
     if (evidence !== 0) return sum + evidence;
-    const dense = officialPairSynergyScore(candidate, [teammate], tier);
+    const dense = isCurrentSeason(officialStatsSource) ? officialPairSynergyScore(candidate, [teammate], tier) : 0;
     if (dense !== 0) return sum + dense;
-    return sum + manualPairFallbackScore(candidate.characterId, teammate.characterId);
+    return sum + (isCurrentSeason(officialStatsSource) ? manualPairFallbackScore(candidate.characterId, teammate.characterId) : 0);
   }, 0);
   return total / selected.length;
 }
@@ -2463,9 +2470,9 @@ function leanCandidateComponents(candidate, selected, tier, scores, feedbackScor
     standaloneContext;
   const composition = selected.length > 0 ? (
     pairTerm * config.pairWeight +
-    scores.officialPairRole * config.pairRoleWeight +
+    (isCurrentSeason(officialStatsSource) ? (scores.officialPairRole * config.pairRoleWeight +
     scores.officialV2 * config.officialV2Weight +
-    scores.officialMatch * config.officialMatchWeight +
+    scores.officialMatch * config.officialMatchWeight) : 0) +
     fitTerm * config.fitWeight +
     heuristicTerm +
     coreTerm +
@@ -2879,7 +2886,8 @@ function traitBuildRowsFor(variantId, tier, useRecent = true) {
   const rows = officialTraitBuildStatsByTier?.[bucket]?.[variantId]
     ?? officialTraitBuildStatsByTier?.all?.[variantId]
     ?? [];
-  const normalized = normalizeTraitBuildRows(variantId, useRecent ? recentCoreRows(variantId, tier, rows) : rows);
+  const currentRows = isCurrentSeason(officialStatsSource) ? rows : [];
+  const normalized = normalizeTraitBuildRows(variantId, useRecent ? recentCoreRows(variantId, tier, currentRows) : currentRows);
   _traitBuildRowsCache.set(key, normalized);
   return normalized;
 }

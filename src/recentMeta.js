@@ -1,3 +1,4 @@
+import {isCurrentRecent, canComparePreviousPatch, seasonVersion} from './seasonContext.js';
 import {recentMetaSnapshot as bundled} from './recentMetaSnapshot.js';
 
 // Bounded observational correction, not an estimated causal win-rate gain.
@@ -21,7 +22,7 @@ export function setRecentMeta(data) {
   if(!validRecentMeta(data)||Date.parse(data.generatedAt)<=Date.parse(snapshot.generatedAt))return false;
   snapshot=structuredClone(data);version++;return true;
 }
-export function recentMetaVersion(){return `${snapshot.generatedAt}:${version}:${Math.floor(Date.now()/3600000)}`;}
+export function recentMetaVersion(){return `${snapshot.generatedAt}:${version}:${seasonVersion()}:${Math.floor(Date.now()/3600000)}`;}
 export function recentMetaSnapshot(){return snapshot;}
 
 // Source buckets do not equal the app buckets. Inexact transfer is discounted;
@@ -31,7 +32,7 @@ export function recentCohort(tier='all',now=Date.now()) {
   const transfer=({all:0.5,platinum_diamond:0.6,diamond:0.8,meteor_mithril:0.8,mithril_plus:1,demigod_eternity:0.7})[tier]??0;
   const key=high?'mithril_plus':'diamond_plus',cohort=snapshot.cohorts[key];
   const age=(now-Date.parse(cohort.updatedAt))/DAY;
-  const freshness=age< -1||age>=RECENT_META_POLICY.maxAgeDays?0:Math.min(1,(RECENT_META_POLICY.maxAgeDays-age)/5);
+  const freshness=!isCurrentRecent(snapshot,cohort)||age< -1||age>=RECENT_META_POLICY.maxAgeDays?0:Math.min(1,(RECENT_META_POLICY.maxAgeDays-age)/5);
   return {...cohort,key,transfer,freshness};
 }
 export function recentEvidence(variantId,tier='all',now=Date.now()) {
@@ -74,6 +75,6 @@ export function recentMovers(tier='all',kind='usage',now=Date.now()) {
   const cohort=recentCohort(tier,now);
   if(!cohort.freshness)return [];
   // Bonferroni-style z>=4 conservatively screens both families across 116 builds.
-  return Object.entries(cohort.rows).map(([variantId,row])=>({variantId,row,cohort,movement:movement(row,kind)}))
+  return Object.entries(cohort.rows).filter(([,row])=>canComparePreviousPatch(row.previous,cohort)).map(([variantId,row])=>({variantId,row,cohort,movement:movement(row,kind)}))
     .filter(r=>r.movement?.z>=4).sort((a,b)=>b.movement.delta-a.movement.delta).slice(0,5);
 }

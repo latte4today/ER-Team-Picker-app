@@ -394,7 +394,9 @@ async function main() {
     process.exit(1);
   }
 
-  if (!options.season)       options.season       = seedsConfig.season       ?? 39;
+  // Public live metadata is updated independently even when new-season
+  // statistics are incomplete. Explicit CLI overrides remain available.
+  if (!options.season) options.season = JSON.parse(await fs.readFile(path.join(ROOT, 'src', 'seasonState.json'), 'utf8')).seasonId;
   if (!options.teamMode)     options.teamMode     = seedsConfig.teamMode     ?? 3;
   if (!options.matchingMode) options.matchingMode = seedsConfig.matchingMode ?? 3;
   // Squad. The app only models three-person teams, so duo and cobalt rows are cost

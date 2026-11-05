@@ -1,4 +1,6 @@
 export const ko = {
+  "season.preseason": "프리시즌 · 새 메타를 반영 중입니다. 표본이 쌓이면 랭킹과 추천이 갱신됩니다.",
+  "season.warming": "새 시즌 자료 수집 중 · 이전 시즌 순위는 잠시 표시하지 않습니다.",
   "recent.recommendedBuild": "추천 아이템 구성",
   "recent.buildNote": "자주 완성되는 구성을 참고한 빌드입니다.",
   "recent.window": "최근 7일 · 이전 패치 대비 변화",

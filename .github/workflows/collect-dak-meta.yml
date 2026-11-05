@@ -8,6 +8,7 @@ name: Collect dak.gg Meta
 on:
   schedule:
     - cron: '30 4 * * *' # 04:30 UTC / 13:30 KST - outside the collect-seeds windows
+    - cron: '30 0,8,12,16,20 * * *' # Refresh season and patch cohorts every four hours.
   workflow_dispatch:
     inputs:
       rankers:
@@ -30,24 +31,30 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '20'
+      - name: Detect season independently of statistics availability
+        run: node tools/build_season_state.mjs
       - name: Collect complete current-patch cohorts
+        id: cohorts
+        continue-on-error: true
         run: node tools/build_recent_meta.mjs
       - name: Validate data and calibration safeguards
         run: |
-          node tools/test_recent_meta.mjs
+          node tools/test_season_transition.mjs
+          if [ "${{ steps.cohorts.outcome }}" = "success" ]; then node tools/test_recent_meta.mjs; fi
           node tools/recommendation_snapshot.mjs --update
       - name: Publish aggregate snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/recentMetaSnapshot.js src/recentMetaSnapshot.json snapshots/recommendation-baseline.json
+          git add src/seasonState.js src/seasonState.json src/recentMetaSnapshot.js src/recentMetaSnapshot.json snapshots/recommendation-baseline.json
           if git diff --staged --quiet; then exit 0; fi
           git commit -m "chore: refresh recent patch cohorts [skip ci]"
           pushed=0
           for attempt in 1 2 3; do
             git fetch origin main
             git rebase -X theirs origin/main || { git rebase --abort; exit 1; }
-            node tools/test_recent_meta.mjs
+            node tools/test_season_transition.mjs
+            if [ "${{ steps.cohorts.outcome }}" = "success" ]; then node tools/test_recent_meta.mjs; fi
             node tools/recommendation_snapshot.mjs --update
             git add snapshots/recommendation-baseline.json
             git diff --staged --quiet || git commit --amend --no-edit
@@ -56,6 +63,7 @@ jobs:
           done
           [ "$pushed" -eq 1 ]
   collect:
+    if: github.event_name != 'schedule' || github.event.schedule == '30 4 * * *'
     runs-on: ubuntu-latest
     timeout-minutes: 60
 

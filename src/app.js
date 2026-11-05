@@ -1,7 +1,8 @@
+import {currentSeason, setSeasonState, isCurrentSeason} from './seasonContext.js';
 import { metaMovementRows, movementBar } from "./metaMovement.js";
 import { hasFullRankedBaseline } from "./characterAvailability.js";
 import { metaTrends as bundledMetaTrends } from "./metaTrends.js";
-import {recentCoreRows, recentMetaVersion} from './recentMeta.js';
+import {recentCoreRows, recentMetaVersion, recentEvidence, recentStrengthCorrection} from './recentMeta.js';
 import {renderRecentEvidence, renderRecentDashboard} from './recentMetaView.js';
 import { characterVariants, roleNames, roles } from "./data.js";
 import {
@@ -17,7 +18,7 @@ import {
   updatePendingRemoteFeedback,
 } from "./feedback.js";
 import { matchesKoreanSearch } from "./koreanSearch.js";
-import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
+import { DAK_META_SOURCE, rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
 import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effectiveCombatTeam, updateTournamentStats, updateRecentMeta } from "./recommender.js";
 import { tournamentBuilds as bundledTournamentBuilds } from "./tournamentMeta.js";
 import { matchupGuidance, createMatchupRotation } from "./matchupGuidance.js";
@@ -29,6 +30,7 @@ import { characterDescription } from "./characterDescriptions.js";
 import { observedCharacterCompositions } from "./characterCompositions.js";
 import { loadRosterPresets, saveRosterPresets, escapePresetName } from "./rosterPresets.js";
 import {
+  OFFICIAL_MATCH_SOURCE as bundledOfficialSource,
   officialCandidateStatsByTier as bundledOfficialCandidateStatsByTier,
   officialCompositionStatsByTier as bundledOfficialCompositionStatsByTier,
   officialTraitBuildStatsByTier as bundledOfficialTraitBuildStatsByTier,
@@ -56,7 +58,7 @@ const selectedIds = new Set();
 let activeRole = "all";
 let activeRankRole = "all";
 let activeTrendSize = 2;
-const dashboardLimits = {teams: 4, characters: 8, trends: 2};
+let officialStatsSource = bundledOfficialSource;
 let metaTrends = bundledMetaTrends;
 let officialCandidateStatsByTier = bundledOfficialCandidateStatsByTier;
 let officialCompositionStatsByTier = bundledOfficialCompositionStatsByTier;
@@ -2722,6 +2724,7 @@ function rankerCompositionRows() {
 const officialCompositionRowsCache = new Map();
 
 function officialCompositionRows() {
+  if (!isCurrentSeason(officialStatsSource)) return [];
   const bucket = officialBucketForTier(tierSelect.value);
   const bucketRows = officialCompositionStatsByTier?.[bucket];
   const allRows = officialCompositionStatsByTier?.all;
@@ -2797,6 +2800,15 @@ function combinedCompositionRows(sortMode = "overall") {
 }
 
 function rankerCharacterRows(role = "all") {
+  if (!isCurrentSeason(officialStatsSource)) {
+    return characterVariants.filter(c=>role === "all" || characterRolesById(c.variantId).includes(role))
+      .map(c=>({c,e:recentEvidence(c.variantId,tierSelect.value)}))
+      .filter(({e})=>e && e.cohort.transfer > 0 && e.row.games >= 300)
+      .map(({c,e})=>({characterId:c.variantId,score:58+recentStrengthCorrection(c.variantId,tierSelect.value,0)*46,
+        games:e.row.games,top3Rate:e.top3Rate,winRate:e.winRate,avgPlacement:e.avgPlacement}))
+      .sort((a,b)=>b.score-a.score)
+      .map((row,index,all)=>({...row,tierLabel:rankTierByPercentile(index,all.length)}));
+  }
   const bucket = officialBucketForTier(tierSelect.value);
   const officialRows = officialCandidateStatsByTier?.[bucket] ?? officialCandidateStatsByTier?.all ?? {};
   const feedbackByCharacter = characterFeedbackRows();
@@ -2807,7 +2819,7 @@ function rankerCharacterRows(role = "all") {
       .map((id) => id.split(":")[0])
   );
   const ids = new Set([
-    ...Object.keys(rankerCandidateStats).filter((id) => !officialRows[id] && !officialCharactersWithVariants.has(id)),
+    ...Object.keys(rankerCandidateStats).filter((id) => DAK_META_SOURCE.seasonKey === currentSeason().seasonKey && !officialRows[id] && !officialCharactersWithVariants.has(id)),
     ...officialIds,
   ]);
 
@@ -2842,7 +2854,8 @@ function rankerCharacterRows(role = "all") {
       // on a score whose entire official spread is about 10 points, which is how it
       // came to sit first overall while placing 4.39 to the real leader's 4.05.
       // The min(8, games) term alone hands +8 to anything with eight games on it.
-      const score = official ? officialScore + voteScore : 48 + fallbackScore + voteScore;
+      const recentAdjustment = character ? recentStrengthCorrection(character.variantId, tierSelect.value, 0) * 8 : 0;
+      const score = (official ? officialScore + voteScore : 48 + fallbackScore + voteScore) + recentAdjustment;
       const stat = official ?? ranker ?? {};
       return {
         characterId: statId,
@@ -3101,19 +3114,18 @@ function renderDashboardTeamDetails(ids, { inline = false, coreOverrides = {} } 
 
 function renderHomeDashboard() {
   const key = JSON.stringify([getLanguage(), tierSelect.value, officialStatsVersion,
-    activeRankRole, activeTrendSize, dashboardLimits, metaTrends.generatedAt, dataSignature(popularFeedback), tournamentStatsVersion, recentMetaVersion(),
+    activeRankRole, activeTrendSize, metaTrends.generatedAt, dataSignature(popularFeedback), tournamentStatsVersion, recentMetaVersion(),
     dataSignature(remoteFeedback), dataSignature(currentRelationshipRows())]);
   if (key === dashboardRenderKey && recommendations.querySelector(".recommendation-hub")) return;
   dashboardRenderKey = key;
   const trendBucket = officialBucketForTier(tierSelect.value);
   const stale = !metaTrends.end || !metaTrends.latestMatchAt || Date.now()-Date.parse(metaTrends.latestMatchAt)>4*86400000;
-  const eligibleTrendRows = stale ? [] : (metaTrends.byTier?.[trendBucket]?.rows ?? [])
+  const eligibleTrendRows = stale || !isCurrentSeason(metaTrends) ? [] : (metaTrends.byTier?.[trendBucket]?.rows ?? [])
     .filter(row=>row.members.length===activeTrendSize && row.members.every(characterById) && row.members.every(id=>hasFullRankedBaseline(id.split(':')[0],metaTrends.previousStart)));
   const newCharacterNames = (metaTrends.excludedCharacters??[])
     .filter(row=>row.reason==='new-character' && characterById(row.characterId))
     .map(row=>t(`char.${characterById(row.characterId).id}`));
-  const allTrendRows = metaMovementRows(eligibleTrendRows,activeTrendSize);
-  const trendRows = metaMovementRows(eligibleTrendRows,activeTrendSize,dashboardLimits.trends);
+  const trendRows = metaMovementRows(eligibleTrendRows,activeTrendSize,Infinity);
   const trendScale = Math.max(...trendRows.map(row=>Math.abs(row.delta)),0);
   const trendDigits = activeTrendSize===3 ? 3 : 2;
   const trendItems = trendRows.map((row,index)=>{
@@ -3130,9 +3142,9 @@ function renderHomeDashboard() {
     <span>${t('trend.results',{games:row.games,top3:(row.top3Rate*100).toFixed(0)})}</span></div>
     </summary><div class="dashboard-detail-body"></div></details>`;
   }).join('');
-  const overallRows = officialCompositionRows().slice(0,14)
+  const overallRows = officialCompositionRows()
     .filter(row=>compositionMembers(row).length===3 && compositionMembers(row).every(characterById));
-  const overallItems = overallRows.slice(0,dashboardLimits.teams)
+  const overallItems = overallRows
     .map((row,index)=>{
       const members = compositionMembers(row);
       return `<details class="combo-card overall-composition-card" data-dashboard-team="${members.join('|')}">
@@ -3143,7 +3155,7 @@ function renderHomeDashboard() {
         <div class="dashboard-detail-body"></div></details>`;
     }).join('');
   const rankRows = rankerCharacterRows(activeRankRole);
-  const rankItems = rankRows.slice(0,dashboardLimits.characters)
+  const rankItems = rankRows
     .map((row, index) => {
       const character = characterBrief(row.characterId);
       const top3 = Math.round(row.top3Rate * 100);
@@ -3152,7 +3164,7 @@ function renderHomeDashboard() {
           <summary class="rank-card-summary">
             <span class="rank-number">${index + 1}</span>
             <span class="rank-tier rank-tier-${row.tierLabel.toLowerCase()}">${row.tierLabel}</span>
-            ${character.image ? `<img src="${character.image}" alt="">` : ""}
+            ${character.image ? `<img src="${character.image}" alt="" loading="lazy" decoding="async">` : ""}
             <span class="rank-card-main">
               <strong>${[character.name, character.weapon].filter(Boolean).join(" · ")}</strong>
               <small>${t("rank.scoreDetail", { count: row.games, top3 })}</small>
@@ -3166,6 +3178,7 @@ function renderHomeDashboard() {
   const rankRoleLabel = activeRankRole === "all" ? t("rank.allCharacters") : roleLabel(activeRankRole);
 
   recommendations.innerHTML = `
+    ${!isCurrentSeason(officialStatsSource) || currentSeason().phase === 'preseason' ? `<p class="season-status" role="status">${t(currentSeason().phase === 'preseason' ? 'season.preseason' : 'season.warming')}</p>` : ''}
     <div class="recommendation-hub ranking-dashboard">
       <section class="combo-section composition-overview">
         <div class="section-title-row"><h3>${t('rank.compositionTitle')}</h3></div>
@@ -3173,17 +3186,15 @@ function renderHomeDashboard() {
           <section class="overall-compositions">
             <h4>${t('rank.overallTop')}</h4>
             <p class="trend-period">${t('rank.overallBasis')}</p>
-            <div class="combo-grid overall-composition-grid">${overallItems||`<p class="empty-state">${t('rank.noData')}</p>`}</div>
-            ${overallRows.length>dashboardLimits.teams?`<button type="button" class="dashboard-more" data-dashboard-more="teams">${t('recommend.showMore',{remaining:overallRows.length-dashboardLimits.teams})}</button>`:''}
+            <div class="combo-grid overall-composition-grid dashboard-scroll" tabindex="0" role="region" aria-label="${t('rank.overallTop')}">${overallItems||`<p class="empty-state">${t(isCurrentSeason(officialStatsSource)?'rank.noData':'season.warming')}</p>`}</div>
           </section>
           <section class="trend-section">
         <div class="section-title-row"><h4>${t('trend.title')}</h4></div>
         <div class="trend-period"><p>${t('trend.period',{from:metaTrends.recentStart?new Date(metaTrends.recentStart).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—',to:metaTrends.end?new Date(Date.parse(metaTrends.end)-86400000).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—'})}</p>${newCharacterNames.length?`<p class="trend-new-character">${t('trend.newCharacterHold',{names:newCharacterNames.join(', ')})}</p>`:''}</div>
         <div class="trend-filters" aria-label="${t('trend.title')}">${[1,2,3].map(size=>`<button type="button" data-trend-size="${size}" aria-pressed="${size===activeTrendSize}">${t(`trend.size${size}`)}</button>`).join('')}</div>
-        <div class="trend-chart" role="group" aria-label="${t('trend.title')}">
+        <div class="trend-chart dashboard-scroll" tabindex="0" role="region" aria-label="${t('trend.title')}">
           <div class="combo-grid trend-grid">${trendItems||`<p class="empty-state">${t(stale?'trend.stale':'trend.empty')}</p>`}</div>
         </div>
-        ${allTrendRows.length>trendRows.length?`<button type="button" class="dashboard-more" data-dashboard-more="trends">${t('recommend.showMore',{remaining:allTrendRows.length-trendRows.length})}</button>`:''}
           </section>
         </div>
       </section>
@@ -3194,8 +3205,7 @@ function renderHomeDashboard() {
           <span>${t("rank.characterBasis", { label: rankRoleLabel, count: rankRows.length })}</span>
         </div>
         ${renderRankRoleFilters()}
-        <div class="rank-grid">${rankItems || `<p class="empty-state">${t("rank.noData")}</p>`}</div>
-        ${rankRows.length>dashboardLimits.characters?`<button type="button" class="dashboard-more" data-dashboard-more="characters">${t('recommend.showMore',{remaining:rankRows.length-dashboardLimits.characters})}</button>`:''}
+        <div class="rank-grid dashboard-scroll" tabindex="0" role="region" aria-label="${t('rank.characterTitle')}">${rankItems || `<p class="empty-state">${t(isCurrentSeason(officialStatsSource)?"rank.noData":"season.warming")}</p>`}</div>
       </section>
     </div>
   `;
@@ -4169,7 +4179,6 @@ presetSelect.addEventListener("change", () => {
 });
 renderPresetSelect();
 tierSelect.addEventListener("change", () => {
-  Object.assign(dashboardLimits,{teams:4,characters:8,trends:2});
   if (activeView === "union") renderUnion();
   scheduleRenderRecommendations();
   refreshRemoteFeedbackIfNeeded();
@@ -4185,7 +4194,6 @@ recommendations.addEventListener("click", (event) => {
   const trendTab = event.target.closest('[data-trend-size]');
   if (trendTab) {
     activeTrendSize = Number(trendTab.dataset.trendSize);
-    dashboardLimits.trends = 2;
     renderHomeDashboard();
     recommendations.querySelector(`[data-trend-size="${activeTrendSize}"]`)?.focus({preventScroll:true});
     return;
@@ -4202,20 +4210,7 @@ recommendations.addEventListener("click", (event) => {
   const rankRoleButton = event.target.closest("[data-rank-role]");
   if (rankRoleButton) {
     activeRankRole = rankRoleButton.dataset.rankRole;
-    dashboardLimits.characters = 8;
     renderRecommendations();
-    return;
-  }
-
-  const moreDashboard = event.target.closest('[data-dashboard-more]');
-  if (moreDashboard) {
-    const kind = moreDashboard.dataset.dashboardMore;
-    if (!Object.hasOwn(dashboardLimits,kind)) return;
-    const scroll = recommendations.scrollTop;
-    dashboardLimits[kind] += kind==='characters' ? 8 : 2;
-    renderHomeDashboard();
-    recommendations.scrollTop = scroll;
-    recommendations.querySelector(`[data-dashboard-more="${kind}"]`)?.focus({preventScroll:true});
     return;
   }
 
@@ -4684,6 +4679,10 @@ if (recoveredFeedbackCount > 0) {
 let renderedRecentMetaVersion = recentMetaVersion();
 async function refreshRecentMeta() {
   try {
+    try {
+      const phase = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/seasonState.json', {cache:'no-store',signal:AbortSignal.timeout(10000)});
+      if (phase.ok && setSeasonState(await phase.json())) updateOfficialStats({});
+    } catch { /* Preserve the last validated season when offline. */ }
     const response = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/recentMetaSnapshot.json', {cache:'no-store',signal:AbortSignal.timeout(15000)});
     if (response.ok) updateRecentMeta(await response.json());
   } catch { /* Validated bundled aggregates remain available offline. */ }
@@ -4699,7 +4698,7 @@ async function refreshRecentMeta() {
 refreshRecentMeta();
 window.setInterval(refreshRecentMeta, 4 * 60 * 60 * 1000);
 
-(async () => {
+async function refreshMetaTrends() {
   try {
     const response = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/metaTrends.json', {cache:'no-store',signal:AbortSignal.timeout(15000)});
     if (!response.ok) return;
@@ -4709,12 +4708,14 @@ window.setInterval(refreshRecentMeta, 4 * 60 * 60 * 1000);
     metaTrends=data;
     if (activeView==='recommendations') renderHomeDashboard();
   } catch { /* The bundled summary remains usable offline. */ }
-})();
+}
+refreshMetaTrends();
+window.setInterval(refreshMetaTrends, 4 * 60 * 60 * 1000);
 
 // ── Remote stats auto-update ─────────────────────────────────────────────────
 // compact(소용량, 추천 결과 동일) 우선 → full → 둘 다 실패 시 번들 fallback.
 // compact는 composition 저표본을 트림한 버전(lean concordance 동일 검증 완료, 계약값 min-games 20).
-(async () => {
+async function refreshOfficialData() {
   const BASE = "https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main";
   // compact 만 원격 로드(full json은 main에서 제거됨). 원격 실패 시 번들 import(officialMatchStats.js)가 오프라인 fallback.
   const STATS_URLS = [
@@ -4722,10 +4723,11 @@ window.setInterval(refreshRecentMeta, 4 * 60 * 60 * 1000);
   ];
   for (const url of STATS_URLS) {
     try {
-      const res = await fetch(url, { cache: "no-store" });
+      const res = await fetch(url, { cache: "no-store", signal:AbortSignal.timeout(30000) });
       if (!res.ok) continue;
       const data = await res.json();
       updateOfficialStats(data);
+      if (data.source) officialStatsSource = data.source;
       matchupReferenceCache.clear();
       matchupPages.clear();
       rotateMatchupExamples = createMatchupRotation();
@@ -4745,7 +4747,9 @@ window.setInterval(refreshRecentMeta, 4 * 60 * 60 * 1000);
     }
   }
   console.log("[stats] using bundled stats (all remote fetches failed)");
-})();
+}
+refreshOfficialData();
+window.setInterval(refreshOfficialData, 4 * 60 * 60 * 1000);
 
 // Data-only tournament updates reach existing deployments without another build.
 async function refreshTournamentData() {
