@@ -669,6 +669,7 @@ export const ja = {
   "tutorial.step8.body": "ユニオンタブでは複数プレイヤーの実験体の幅を登録し、実際に出場する3人を基準に最も良い構成を計算できます。",
 
   "matchup.title": "相手編成チェック",
+  "matchup.refresh": "別の例を見る",
   "matchup.basis": "スキル・武器・コア構造からの戦術的な予想です。検証済みの交戦勝率や現在のロビー分布ではありません。",
   "matchup.caution": "不利",
   "matchup.opportunity": "有利",
