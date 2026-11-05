@@ -4153,6 +4153,9 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
 .matchup-guidance p { margin: 5px 0; line-height: 1.6; }
 .matchup-guidance small { opacity: .8; line-height: 1.5; }
 .matchup-core { width: 18px; height: 18px; vertical-align: middle; object-fit: contain; }
+.matchup-guidance .matchup-examples { margin: 8px 0 0; padding-left: 20px; }
+.matchup-guidance .matchup-examples > li { padding: 5px 0; border: 0; margin: 4px 0; }
+.matchup-examples p { opacity: .9; font-size: 12px; }
 
 .recommendation-tags span.tag-negative {
   color: var(--danger);
