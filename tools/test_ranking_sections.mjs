@@ -6,6 +6,7 @@ import {metaMovementRows,movementBar} from '../src/metaMovement.js';
 const source=await fs.readFile(new URL('../src/app.js',import.meta.url),'utf8');
 const now=new Date().toISOString();
 const state={hasFullRankedBaseline,metaMovementRows,movementBar,getLanguage:()=> 'ko',tierSelect:{value:'all'},officialStatsVersion:1,activeRankRole:'all',activeTrendSize:2,
+  dashboardLimits:{teams:4,characters:8,trends:2},recentMetaVersion:()=> 'test',renderRecentDashboard:()=>'<section class="recent-meta-section">meta</section>',
   metaTrends:{generatedAt:now,latestMatchAt:now,recentStart:now,end:now,byTier:{all:{rows:[
     {members:['new:a','new:b'],delta:.01,ratio:2,previousShare:.01,recentShare:.02,games:100,top3Rate:.4},
     {members:['fall:a','fall:b'],delta:-.02,ratio:.5,previousShare:.04,recentShare:.02,games:100,top3Rate:.4},
@@ -42,3 +43,28 @@ state.renderHomeDashboard();
 assert.ok(!state.recommendations.innerHTML.includes('data-dashboard-trend="seres:'),'client also blocks legacy summaries with an incomplete new-character baseline');
 assert.match(state.recommendations.innerHTML,/1000 official games/);
 console.log('Ranking sections: cumulative official teams, rising duos and character ranking coexist; no user-vote replacement or empty-trend disappearance.');
+
+state.officialCompositionRows=()=>Array.from({length:14},(_,i)=>({candidate:`c${i}:a`,teammates:[`a${i}:a`,`b${i}:b`],games:1000,source:'official'}));
+state.rankerCharacterRows=()=>Array.from({length:24},(_,i)=>({characterId:`char${i}:a`,tierLabel:'A',games:1000,top3Rate:.4}));
+state.characterBrief=id=>({name:id,weapon:'bow'});
+state.renderHomeDashboard();
+assert.equal((state.recommendations.innerHTML.match(/data-dashboard-team=/g)??[]).length,4);
+assert.equal((state.recommendations.innerHTML.match(/data-dashboard-character=/g)??[]).length,8);
+assert.ok(state.recommendations.innerHTML.includes('ranking-dashboard'));
+assert.ok(state.recommendations.innerHTML.includes('data-dashboard-more="teams"'));
+assert.ok(state.recommendations.innerHTML.includes('data-dashboard-more="characters"'));
+state.recommendations.scrollTop=339;
+const moreStart=source.indexOf('  const moreDashboard = event.target.closest(');
+const moreEnd=source.indexOf('  const recToggle =',moreStart);
+vm.runInContext('function expandDashboard(event) {'+source.slice(moreStart,moreEnd)+'}',state);
+const more=kind=>state.expandDashboard({target:{closest:()=>({dataset:{dashboardMore:kind}})}});
+more('characters');
+assert.equal((state.recommendations.innerHTML.match(/data-dashboard-character=/g)??[]).length,16);
+assert.equal(state.recommendations.scrollTop,339,'expansion preserves the single outer scroll');
+more('characters');
+assert.equal((state.recommendations.innerHTML.match(/data-dashboard-character=/g)??[]).length,24);
+assert.ok(!state.recommendations.innerHTML.includes('data-dashboard-more="characters"'));
+more('teams');
+assert.equal((state.recommendations.innerHTML.match(/data-dashboard-team=/g)??[]).length,6);
+more('__proto__');assert.equal(state.dashboardLimits.teams,6);
+console.log('Dashboard previews: 4 teams and 8 characters initially; real expansion keeps all rows reachable and preserves scroll, with invalid categories rejected.');
