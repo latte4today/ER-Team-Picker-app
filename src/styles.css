@@ -4294,7 +4294,6 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
 .trend-chart-row .trend-chart-track { height: 8px; margin: 4px 0; }
 .trend-chart-row .trend-chart-stats { font-size: 10px; }
 
-.matchup-guidance > button { display: block; margin: 8px 0; padding: 6px 10px; cursor: pointer; }
 .recent-meta-evidence { margin: 10px 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
 .recent-meta-evidence > strong, .recent-meta-evidence > small { display: block; }
 .recent-meta-evidence p { margin: 7px 0; line-height: 1.6; overflow-wrap: anywhere; }
@@ -4403,4 +4402,40 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
 @media (max-width: 680px) {
   .ranking-dashboard .combo-split { grid-template-columns: minmax(0, 1fr); gap: 22px; }
   .ranking-dashboard > section { padding: 12px; }
+}
+
+/* Keep the scan path consistent: identity on the left, change on the right. */
+.meta-section-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 6px 16px; }
+.meta-section-heading small { color: var(--muted); font-size: 11px; }
+.ranking-dashboard .recent-meta-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+.ranking-dashboard .recent-meta-columns > section { display: grid; grid-template-rows: minmax(40px, auto) 1fr; gap: 8px; padding: 14px; }
+.ranking-dashboard .recent-meta-columns h4 { margin: 0; }
+.ranking-dashboard .recent-meta-columns ul { display: grid; grid-template-rows: repeat(3, minmax(58px, auto)); align-content: start; }
+.ranking-dashboard .recent-meta-columns .meta-mover-row { display: grid; grid-template-columns: 32px minmax(0, 1fr) max-content; align-items: center; gap: 10px; margin: 0; padding: 10px 0; }
+.meta-mover-row > img { width: 32px; height: 32px; object-fit: cover; border-radius: 6px; }
+.meta-mover-row > div { display: grid; gap: 3px; min-width: 0; }
+.meta-mover-row b { font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
+.meta-mover-row small { color: var(--muted); font-size: 11px; }
+.meta-mover-delta { justify-self: end; color: var(--accent-strong); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ranking-dashboard .recent-meta-columns .meta-mover-empty { display: flex; align-items: center; grid-row: 1 / -1; margin: 0; padding: 12px 0; border: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.recommended-build { border: 1px solid var(--line); border-radius: 7px; padding: 0 10px; }
+.recommended-build > summary { padding: 9px 0; cursor: pointer; font-size: 12px; font-weight: 650; }
+.recommended-build > small { display: block; padding-bottom: 10px; color: var(--muted); font-size: 11px; }
+.recommended-build .build-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; list-style: none; margin: 2px 0 10px; padding: 0; }
+.recommended-build .build-items li { margin: 0; padding: 7px 9px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); font-size: 12px; overflow-wrap: anywhere; }
+.rec-body { padding: 12px; gap: 10px; }
+.matchup-guidance .matchup-examples { padding: 0; list-style: none; display: grid; gap: 12px; }
+.matchup-guidance .matchup-examples > li { margin: 0; padding: 0 0 10px; border-bottom: 1px solid var(--line); }
+.matchup-guidance .matchup-examples > li:last-child { border-bottom: 0; padding-bottom: 0; }
+.matchup-lineup { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.matchup-member { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 6px; align-items: start; padding: 7px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); min-width: 0; }
+.matchup-member > img { width: 24px; height: 24px; border-radius: 4px; object-fit: cover; }
+.matchup-member > span { min-width: 0; display: grid; gap: 4px; }
+.matchup-member b { font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
+.matchup-member small { display: flex; flex-wrap: wrap; align-items: center; gap: 3px; font-size: 10px; color: var(--muted); opacity: 1; }
+.matchup-member .matchup-core { width: 14px; height: 14px; }
+@media (max-width: 820px) { .ranking-dashboard .recent-meta-columns { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) {
+  .matchup-member { grid-template-columns: minmax(0, 1fr); padding: 6px; justify-items: start; }
+  .matchup-member > img { width: 28px; height: 28px; }
 }

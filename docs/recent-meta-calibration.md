@@ -16,9 +16,9 @@ The cumulative outcome term previously drove the recent DAK outcome contribution
 
 ## User-facing evidence
 
-Recommendation details show source cohort, patch, update date, observation count, win/TOP 3 rates, exact-core rates, and a frequently completed five-item build with official Korean item names. Completed-build rates have survival/selection bias; they cannot be compared directly to overall character rates. Build growth is not inferred without historical build observations.
+Raw source cohorts, patch/update metadata and outcome counts remain internal scoring evidence. The UI does not show provider branding, source links or separate provider-statistics boxes. Recommendation details offer a frequently completed five-item build with official Korean item names, without presenting its completion-biased outcome rates as expected wins. Existing cumulative ranking statistics are unaffected. Build growth is not inferred without historical build observations.
 
-The dashboard separates pick-share growth, TOP 3 improvement, and a dedicated Mithril+ usage panel. The previous-patch reference is whatever the source supplies; window lengths and populations can differ. These are descriptive changes, not causal patch effects. At least 500 observations per period, absolute effect thresholds, and a conservative z≥4 screening threshold reduce noisy alerts, but repeated players/teams are not independent trials.
+The dashboard separates pick-share growth, TOP 3 improvement, and a dedicated Mithril+ usage panel in aligned identity/change rows. The previous-patch reference is whatever the source supplies; window lengths and populations can differ. These are descriptive changes, not causal patch effects. At least 500 observations per period, absolute effect thresholds, and a conservative z≥4 screening threshold reduce noisy alerts, but repeated players/teams are not independent trials. Opponent examples automatically advance when recommendation or dashboard details are opened again; there is no manual example-refresh control. Closed matchup panels still do no analysis.
 
 ## Refresh and validation
 

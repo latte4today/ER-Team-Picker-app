@@ -1,4 +1,7 @@
 export const zhHans = {
+  "recent.recommendedBuild": "推荐出装",
+  "recent.buildNote": "参考常见的完整出装。物品名使用韩语。",
+  "recent.window": "近7天 · 相比上个补丁的变化",
   "recent.comparisonLabel": "统计口径与解读",
   "recommend.archetype.F2/D1/S0": "双前排·1输出",
   "recommend.archetype.F0/D3/S0": "无坦3输出",

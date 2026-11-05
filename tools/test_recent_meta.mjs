@@ -60,9 +60,17 @@ restored.generatedAt=new Date(Date.parse(sparse.generatedAt)+1).toISOString();as
 
 const resolve=id=>characterVariants.find(c=>c.variantId===id);
 const html=renderRecentDashboard('all',resolve,t)+renderRecentEvidence('nia:pistol','all','7000401',t);
-assert.ok(html.includes('최근 7일')&&html.includes('TOP 3')&&html.includes('DAK.GG'));
+assert.ok(html.includes('최근 7일')&&html.includes('추천 아이템 구성'));
 assert.ok(!html.includes('undefined')&&!html.includes('[object Object]'));
-assert.ok(html.includes('noopener noreferrer'));
+assert.ok(!/DAK|dak\.gg|<a\b|최근 메타 근거|recent-meta-evidence/i.test(html),'use source data internally without exposing links or raw cohort statistics');
+for(const locale of ['ko','en','ja','zhHans','zhHant']) {
+  const dictionary=(await import(`../src/i18n/${locale}.js`))[locale];
+  const translate=(key,params={})=>String(dictionary[key]??key).replace(/\{(\w+)\}/g,(_,k)=>params[k]??'');
+  const view=renderRecentDashboard('all',resolve,translate)+renderRecentEvidence('nia:pistol','all','7000401',translate);
+  assert.ok(!/DAK|dak\.gg|<a\b|recent-meta-evidence|recent\.recommendedBuild|recent\.window/i.test(view),locale);
+  assert.equal((view.match(/class="build-items"/g)??[]).length,1,'keep the actionable five-item build');
+  assert.ok(!view.includes('undefined')&&!view.includes('[object Object]'));
+}
 for(const kind of ['usage','performance'])for(const r of recentMovers('all',kind))assert.ok(r.movement.z>=4&&r.row.games>=500&&r.row.previous.games>=500);
 
 const source=await fs.readFile(new URL('../src/app.js',import.meta.url),'utf8');
