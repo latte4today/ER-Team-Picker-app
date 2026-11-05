@@ -374,6 +374,7 @@ const playablePresets = loadRosterPresets(localStorage, characterVariants.map(c 
 const unionPresets = playablePresets;
 let activeView = appMain?.dataset.view ?? "setup";
 const navigationRenderer = createViewScheduler();
+const selectionRenderer = createViewScheduler();
 let translatedLanguage = null;
 let recommendationSurfaceView = "setup";
 const recommendationSurfaces = new Map();
@@ -1788,6 +1789,17 @@ function refreshMatchupSection(section) {
   const page = matchupPages.get(section.dataset.matchupContext);
   if (page) section.outerHTML = renderMatchupGuidance(page.team, page.cores, true);
 }
+function renderLazyMatchupGuidance(team, cores = {}) {
+  if (team.length !== 3) return '';
+  const payload = encodeURIComponent(JSON.stringify([team.map(member => member.variantId), cores]));
+  return `<details class="lazy-matchup" data-lazy-matchup="${payload}"><summary>${t('matchup.title')}</summary><div class="lazy-matchup-content"></div></details>`;
+}
+function populateLazyMatchup(details) {
+  if (!details.dataset.lazyMatchup || details.dataset.matchupLoaded) return;
+  const [ids, cores] = JSON.parse(decodeURIComponent(details.dataset.lazyMatchup));
+  details.querySelector('.lazy-matchup-content').innerHTML = renderMatchupGuidance(ids.map(characterById).filter(Boolean), cores);
+  details.dataset.matchupLoaded = 'true';
+}
 document.addEventListener("click", event => {
   const button = event.target.closest?.('[data-matchup-refresh]');
   if (!button) return;
@@ -1796,6 +1808,7 @@ document.addEventListener("click", event => {
 }, true);
 document.addEventListener("toggle", event => {
   if (event.target.tagName !== 'DETAILS' || !event.target.open) return;
+  populateLazyMatchup(event.target);
   if (event.target.dataset.matchupViewed) {
     event.target.querySelectorAll('.matchup-guidance').forEach(refreshMatchupSection);
   }
@@ -1984,7 +1997,7 @@ function renderUnionComboResults() {
           </div>
           <p>${unionComboPlan(item.combo)}</p>
           ${renderTeamConcepts(item.combo)}
-          ${renderMatchupGuidance(item.combo)}
+          ${renderLazyMatchupGuidance(item.combo)}
         </article>
       `;
     })
@@ -3340,7 +3353,7 @@ function _renderFullTeamCards() {
         ${renderTeamConcepts([characterById(chosenPickId), c1, c2].filter(Boolean), {
           ...selectedCoresMap(), [c1.variantId]: teammate1.recommendedCore?.core, [c2.variantId]: teammate2.recommendedCore?.core,
         })}
-        ${renderMatchupGuidance([characterById(chosenPickId), c1, c2].filter(Boolean), {
+        ${renderLazyMatchupGuidance([characterById(chosenPickId), c1, c2].filter(Boolean), {
           ...selectedCoresMap(), [c1.variantId]: teammate1.recommendedCore?.core, [c2.variantId]: teammate2.recommendedCore?.core,
         })}
         <div class="full-team-actions">
@@ -3510,7 +3523,7 @@ function renderRecommendations() {
               ...selectedCoresMap(), [result.character.variantId]: core?.core,
             })}
             <ul class="rec-reasons">${reasonList}</ul>
-            ${renderMatchupGuidance([...selectedIds].map(characterById).filter(Boolean).concat(result.character), {
+            ${renderLazyMatchupGuidance([...selectedIds].map(characterById).filter(Boolean).concat(result.character), {
               ...selectedCoresMap(), [result.character.variantId]: core?.core,
             })}
             ${altCoreChips(group, tierSelect.value)}
@@ -3658,7 +3671,7 @@ function renderMatchFeedback() {
         <summary>${t("recommend.details")}</summary>
         <ul>${reasonList}</ul>
       </details>
-      ${renderMatchupGuidance([...selectedIds].map(characterById).filter(Boolean).concat(chosen), matchFeedbackCoresMap())}
+      ${renderLazyMatchupGuidance([...selectedIds].map(characterById).filter(Boolean).concat(chosen), matchFeedbackCoresMap())}
     </div>
   `;
 }
@@ -3783,6 +3796,7 @@ function renderViewChrome() {
 
 function render() {
   navigationRenderer.cancel();
+  selectionRenderer.cancel();
   if (translatedLanguage !== getLanguage()) {
     applyTranslations();
     translatedLanguage = getLanguage();
@@ -3807,6 +3821,23 @@ function render() {
   refreshRemoteFeedbackIfNeeded();
   refreshPopularFeedback();
   scheduleWalkthroughRefresh();
+}
+
+function renderAfterSelection() {
+  // Paint the selected character and slots before scoring or building details.
+  renderViewChrome();
+  renderCharacters();
+  renderSelectedTeam();
+  renderManualSlots();
+  renderDetectedTeam();
+  selectionRenderer.schedule(() => {
+    if (activeView !== 'setup') return;
+    renderMatchFeedback();
+    renderRecommendations();
+    scheduleWalkthroughRefresh();
+    refreshRemoteFeedbackIfNeeded();
+    refreshPopularFeedback();
+  });
 }
 
 function renderManualSlots() {
@@ -3834,15 +3865,13 @@ characterGrid.addEventListener("click", (event) => {
     markRecentlyAssigned(id);
     assignSlot(activeSlot, id);
     activeSlot = null;
-    renderDetectedTeam();
-    render();
+    renderAfterSelection();
     return;
   }
 
   markRecentlyAssigned(id);
   assignNextPick(id);
-  renderDetectedTeam();
-  render();
+  renderAfterSelection();
 });
 
 roleFilters.addEventListener("click", (event) => {
@@ -4213,8 +4242,7 @@ recommendations.addEventListener("click", (event) => {
     assignSlot(2, v2);
     slotCores[1] = applyComboButton.dataset.comboCore1 || null;
     slotCores[2] = applyComboButton.dataset.comboCore2 || null;
-    renderDetectedTeam();
-    render();
+    renderAfterSelection();
     return;
   }
 
@@ -4223,8 +4251,7 @@ recommendations.addEventListener("click", (event) => {
 
   assignSlot(0, button.dataset.choosePick);
   slotCores[0] = button.dataset.chooseCore || null;
-  renderDetectedTeam();
-  render();
+  renderAfterSelection();
 });
 recommendations.addEventListener("toggle", (event) => {
   const card = event.target;

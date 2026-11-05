@@ -1,4 +1,5 @@
 export const ko = {
+  "recent.comparisonLabel": "집계 기준과 해석 안내",
   "recommend.archetype.F2/D1/S0": "더블전열·1딜",
   "recommend.archetype.F0/D3/S0": "노탱3딜",
   "recommend.archetype.F1/D2/S0": "정석",

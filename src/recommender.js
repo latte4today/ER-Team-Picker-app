@@ -106,10 +106,11 @@ export function updateOfficialStats(remote) {
 
 export function updateRecentMeta(data) {
   if (!setRecentMeta(data)) return false;
+  _recentCacheVersion = recentMetaVersion();
   updateOfficialStats({}); // All effective-core and strength caches depend on this evidence.
   return true;
 }
-let _recentCacheVersion = '';
+let _recentCacheVersion = recentMetaVersion();
 function ensureRecentMetaClock() {
   const version = recentMetaVersion();
   if (_recentCacheVersion === version) return;
@@ -3521,7 +3522,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
           winRate: candidateCoreRow.winRate ?? null,
         }
       : null,
-    reasons: explain(effectiveCandidate, effectiveSelected, scores, tier),
+    reasons: invariantContext?.deferExplanation ? [] : explain(effectiveCandidate, effectiveSelected, scores, tier),
   };
 }
 
@@ -3811,6 +3812,7 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
       const options = candidateCoreOptions(candidate.variantId, tier, cores);
       const invariantContext = buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows);
       invariantContext.effectiveSelected = effectiveSelected;
+      invariantContext.deferExplanation = true;
       invariantContext.selectedVector = selectedVector;
       if (deficitInfo) invariantContext.deficitInfo = deficitInfo;
       return options
@@ -3842,7 +3844,10 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   // against +0.8pp with it off) and buys no variety at all here (mean top-5 overlap
   // 14.4% with it, 11.7% without). So it only applies to the single-stage path.
   const ordered = twoStage ? deduped : diversifyRecommendations(deduped);
-  return ordered.slice(0, DIVERSITY_CONFIG.resultCap ?? RECOMMENDATION_RESULT_CAP);
+  return ordered.slice(0, DIVERSITY_CONFIG.resultCap ?? RECOMMENDATION_RESULT_CAP).map(row => ({
+    ...row,
+    reasons: explain(applyCoreRoleProfile(row.character, row.recommendedCore?.core, tier), effectiveSelected, row.scores, tier),
+  }));
   } finally {
     // recommend() is synchronous, so this swap cannot interleave with another call,
     // but it must not leak to evaluateCandidate callers either way.

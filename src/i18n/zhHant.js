@@ -1,4 +1,5 @@
 export const zhHant = {
+  "recent.comparisonLabel": "統計口徑與解讀",
   "recommend.archetype.F2/D1/S0": "雙前排·1輸出",
   "recommend.archetype.F0/D3/S0": "無坦3輸出",
   "recommend.archetype.F1/D2/S0": "標準",
