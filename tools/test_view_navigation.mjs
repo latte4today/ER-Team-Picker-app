@@ -21,7 +21,7 @@ assert.equal(events.filter(x=>x.startsWith('content:')).length,1);
 assert.equal(events.at(-1),'content:setup','rapid clicks cannot render a superseded view');
 
 const calls=[];
-const renderState={activeView:'setup',navigationRenderer:{cancel(){}},translatedLanguage:'ko',
+const renderState={activeView:'setup',navigationRenderer:{cancel(){}},selectionRenderer:{cancel(){}},translatedLanguage:'ko',
   getLanguage:()=> 'ko',applyTranslations:()=>calls.push('translations'),renderViewChrome:()=>calls.push('chrome'),
   selectedCount:{},unionParticipatingPlayers:new Set([0,1,2])};
 for(const name of ['renderRoleFilters','renderCharacters','renderPlayableTools','renderSelectedTeam',

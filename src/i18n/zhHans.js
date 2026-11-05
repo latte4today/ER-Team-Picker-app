@@ -1,4 +1,5 @@
 export const zhHans = {
+  "recent.comparisonLabel": "统计口径与解读",
   "recommend.archetype.F2/D1/S0": "双前排·1输出",
   "recommend.archetype.F0/D3/S0": "无坦3输出",
   "recommend.archetype.F1/D2/S0": "标准",

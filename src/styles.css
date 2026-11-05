@@ -4295,15 +4295,23 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
 .trend-chart-row .trend-chart-stats { font-size: 10px; }
 
 .matchup-guidance > button { display: block; margin: 8px 0; padding: 6px 10px; cursor: pointer; }
-.recent-meta-evidence { margin: 12px 0; padding: 12px; border: 1px solid var(--border, #697080); border-radius: 10px; }
+.recent-meta-evidence { margin: 10px 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
 .recent-meta-evidence > strong, .recent-meta-evidence > small { display: block; }
 .recent-meta-evidence p { margin: 7px 0; line-height: 1.6; overflow-wrap: anywhere; }
-.recent-meta-note { font-size: .82rem; opacity: .8; line-height: 1.6; }
+.recent-meta-note { font-size: 12px; color: var(--muted); line-height: 1.6; overflow-wrap: anywhere; }
 .recent-meta-evidence a, .recent-meta-section a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .recent-meta-evidence summary { cursor: pointer; padding: 7px 0; }
-.recent-meta-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.recent-meta-section { display: block; grid-column: 1 / -1; grid-row: 2; min-width: 0; }
+.recent-meta-section > * + * { margin-top: 10px; }
+.recent-meta-section h3 { font-size: 16px; color: var(--ink); line-height: 1.5; }
+.recent-meta-section h4 { margin: 0 0 10px; line-height: 1.5; }
+.recent-meta-section > details > summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+.recent-meta-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 20px; align-items: start; }
 .recent-meta-columns ul { list-style: none; padding: 0; margin: 0; }
 .recent-meta-columns li { display: grid; gap: 6px; padding: 12px 0; border-bottom: 1px solid var(--border, #697080); }
 .recent-meta-columns small { line-height: 1.6; }
+.recent-meta-columns > section { min-width: 0; }
+.recent-meta-evidence > summary { font-size: 12px; line-height: 1.6; color: var(--muted); }
+.lazy-matchup > summary { cursor: pointer; font-weight: 700; padding: 8px 0; }
 .recent-meta-columns > section:last-child:nth-child(3) { grid-column: 1 / -1; }
 @media (max-width: 640px) { .recent-meta-columns { grid-template-columns: 1fr; } }

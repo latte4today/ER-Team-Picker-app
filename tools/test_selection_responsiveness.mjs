@@ -1,0 +1,45 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import vm from 'node:vm';
+import {createViewScheduler} from '../src/viewScheduler.js';
+import {renderRecentDashboard,renderRecentEvidence} from '../src/recentMetaView.js';
+import {characterVariants} from '../src/data.js';
+
+const app=await fs.readFile(new URL('../src/app.js',import.meta.url),'utf8');
+const frames=[],tasks=[],events=[];
+const scheduler=createViewScheduler({requestFrame:cb=>frames.push(cb),scheduleTask:cb=>tasks.push(cb)});
+const state={selectionRenderer:scheduler,activeView:'setup'};
+for(const fn of ['renderViewChrome','renderCharacters','renderSelectedTeam','renderManualSlots','renderDetectedTeam','renderMatchFeedback','renderRecommendations','scheduleWalkthroughRefresh','refreshRemoteFeedbackIfNeeded','refreshPopularFeedback'])state[fn]=()=>events.push(fn);
+vm.createContext(state);
+vm.runInContext(app.slice(app.indexOf('function renderAfterSelection('),app.indexOf('function renderManualSlots(')),state);
+state.renderAfterSelection();
+assert.ok(events.includes('renderDetectedTeam')&&events.includes('renderCharacters'));
+assert.ok(!events.includes('renderRecommendations')&&!events.includes('renderMatchFeedback'),'selection must not wait for scoring');
+state.renderAfterSelection();state.renderAfterSelection();
+frames.splice(0).forEach(cb=>cb());
+assert.ok(!events.includes('renderRecommendations'),'allow a paint before scoring');
+tasks.splice(0).forEach(cb=>cb());
+assert.equal(events.filter(e=>e==='renderRecommendations').length,1,'rapid picks coalesce to the latest state');
+state.renderAfterSelection();state.activeView='union';
+frames.splice(0).forEach(cb=>cb());tasks.splice(0).forEach(cb=>cb());
+assert.equal(events.filter(e=>e==='renderRecommendations').length,1,'do not render obsolete selection into another view');
+
+let calls=0,coreMap;
+const lazy={t:k=>k,characterById:id=>({variantId:id}),renderMatchupGuidance:(team,cores)=>{calls++;coreMap=cores;return team.map(c=>c.variantId).join('|');}};
+vm.createContext(lazy);
+vm.runInContext(app.slice(app.indexOf('function renderLazyMatchupGuidance('),app.indexOf('document.addEventListener("click", event => {',app.indexOf('function renderLazyMatchupGuidance('))),lazy);
+const own=[{variantId:'a:bow'},{variantId:'b:pistol'},{variantId:'c:bat'}];
+const html=lazy.renderLazyMatchupGuidance(own,{'b:pistol':'7000401'});
+assert.equal(calls,0,'hidden matchups perform no analysis');
+assert.ok(html.startsWith('<details')&&!html.includes(' open'));
+const content={innerHTML:''},details={dataset:{lazyMatchup:html.match(/data-lazy-matchup="([^"]+)"/)[1]},querySelector:()=>content};
+lazy.populateLazyMatchup(details);assert.equal(calls,1);
+assert.equal(coreMap['b:pistol'],'7000401');assert.equal(content.innerHTML,'a:bow|b:pistol|c:bat');
+lazy.populateLazyMatchup(details);assert.equal(calls,1,'opening nested disclosures does not repeat expensive analysis');
+
+const dashboard=renderRecentDashboard('all',id=>characterVariants.find(c=>c.variantId===id),k=>k);
+assert.ok(dashboard.startsWith('<section class="recent-meta-section"'),'do not inherit fixed dashboard rows');
+const evidence=renderRecentEvidence('nia:pistol','all','7000401',k=>k);
+assert.ok(evidence.startsWith('<details')&&!evidence.includes(' open'),'long meta evidence starts collapsed');
+assert.ok(dashboard.includes('<details><summary>recent.comparisonLabel'));
+console.log('Selection responsiveness: immediate slots, paint before scoring, coalesced rapid picks, navigation cancellation; lazy matchup analysis once with exact cores; compact evidence and independent dashboard layout passed.');

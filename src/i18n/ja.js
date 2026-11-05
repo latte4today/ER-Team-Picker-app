@@ -1,4 +1,5 @@
 export const ja = {
+  "recent.comparisonLabel": "集計基準と解釈",
   "recommend.archetype.F2/D1/S0": "ダブル前衛・1火力",
   "recommend.archetype.F0/D3/S0": "タンクなし3火力",
   "recommend.archetype.F1/D2/S0": "標準",

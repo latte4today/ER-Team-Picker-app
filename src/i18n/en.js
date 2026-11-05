@@ -1,4 +1,5 @@
 export const en = {
+  "recent.comparisonLabel": "Statistics and interpretation",
   "recommend.archetype.F2/D1/S0": "Double frontline · 1 dealer",
   "recommend.archetype.F0/D3/S0": "No-tank triple dealer",
   "recommend.archetype.F1/D2/S0": "Standard",
