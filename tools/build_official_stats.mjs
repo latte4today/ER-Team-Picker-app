@@ -924,8 +924,7 @@ async function build() {
   for (const team of allTeams) {
     if (args.matchingMode !== null && team.matchingMode !== undefined
         && team.matchingMode !== args.matchingMode) { droppedByMode += 1; continue; }
-    if (seasonFilter !== null && team.seasonId !== undefined
-        && team.seasonId !== seasonFilter) { droppedBySeason += 1; continue; }
+    if (seasonFilter !== null && team.seasonId !== seasonFilter) { droppedBySeason += 1; continue; }
     const rw = recencyWeight(team.startedAt ?? team.collectedAt ?? args.collectedAt) * seasonWeightFor(team.seasonId);
     const rawPlayers = team.players ?? [];
     const players = rawPlayers

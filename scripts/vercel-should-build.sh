@@ -29,6 +29,8 @@ DATA_ONLY=(
   ':(exclude)src/dakggRealtimeStats.js'
   ':(exclude)src/recentMetaSnapshot.js'
   ':(exclude)src/recentMetaSnapshot.json'
+  ':(exclude)src/seasonState.js'
+  ':(exclude)src/seasonState.json'
   ':(exclude)src/tournamentMeta.js'
   ':(exclude)src/tournamentMeta.compact.json'
   ':(exclude)src/compModel.json'

@@ -1,4 +1,6 @@
 export const zhHans = {
+  "season.preseason": "季前赛 · 排名和推荐将随新对局数据更新。",
+  "season.warming": "新赛季数据收集中 · 暂不显示上赛季排名。",
   "recent.recommendedBuild": "推荐出装",
   "recent.buildNote": "参考常见的完整出装。物品名使用韩语。",
   "recent.window": "近7天 · 相比上个补丁的变化",

@@ -1,4 +1,6 @@
 export const en = {
+  "season.preseason": "Preseason · Rankings and recommendations update as new matches accumulate.",
+  "season.warming": "Collecting new-season data · Previous-season rankings are temporarily hidden.",
   "recent.recommendedBuild": "Suggested item build",
   "recent.buildNote": "Based on frequently completed builds. Item names are in Korean.",
   "recent.window": "Last 7 days · change from previous patch",

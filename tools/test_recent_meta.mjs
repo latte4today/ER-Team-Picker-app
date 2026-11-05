@@ -5,6 +5,7 @@ import {recentMetaSnapshot,recentCohort,recentStrengthCorrection,recentCoreRows,
 import {renderRecentDashboard,renderRecentEvidence} from '../src/recentMetaView.js';
 import {characterVariants} from '../src/data.js';
 import {normalizeTraitBuildRows,topCoreRowsForVariant} from '../src/traitMeta.js';
+import {isCurrentRecent} from '../src/seasonContext.js';
 
 globalThis.localStorage={getItem:()=>null,setItem:()=>{}};
 globalThis.document={documentElement:{lang:'ko',dataset:{}}};
@@ -15,6 +16,13 @@ const now=Date.parse(original.cohorts.diamond_plus.updatedAt)+3600000;
 assert.ok(validRecentMeta(original));
 assert.equal(Object.keys(original.cohorts.diamond_plus.rows).length,characterVariants.length);
 assert.equal(Object.keys(original.cohorts.mithril_plus.rows).length,characterVariants.length);
+if (!isCurrentRecent(original,original.cohorts.diamond_plus)) {
+  assert.equal(recentCohort('all').freshness,0,'cross-phase windows stay withheld');
+  assert.ok(renderRecentDashboard('all',()=>null,t).includes(t('recent.unavailable')));
+  assert.ok(recommend(['rio:bow','lenox:whip'],'all').every(r=>Number.isFinite(r.total)));
+  console.log('Recent-meta cold start passed: valid aggregates retained, cross-phase outcomes withheld, recommendations available.');
+  process.exit(0);
+}
 const id='nia:pistol';
 assert.notEqual(recentStrengthCorrection(id,'all',-2,now),0,'large cumulative samples must not suppress recent outcomes');
 assert.equal(recentStrengthCorrection(id,'iron_gold',-2,now),0,'do not transfer high-tier strength into low tiers');

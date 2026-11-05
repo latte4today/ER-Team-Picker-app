@@ -1,3 +1,4 @@
+import {seasonFromPage} from './season_metadata.mjs';
 // Public aggregate statistics only. Never persist page props, players or routes.
 import fs from 'node:fs/promises';
 import {characterVariants} from '../src/data.js';
@@ -20,6 +21,7 @@ async function page(url) {
 }
 const aggregate=r=>({games:r.count,wins:r.win,top3:r.top3,placement:r.place});
 const validAggregate=r=>Number.isInteger(r.games)&&r.games>0&&Number.isInteger(r.wins)&&r.wins>=0&&r.wins<=r.top3&&r.top3<=r.games&&Number.isFinite(r.placement)&&r.placement>=r.games;
+const activeSeason=JSON.parse(await fs.readFile(new URL('src/seasonState.json',root),'utf8'));
 const cohorts={};
 for(const tier of ['diamond_plus','mithril_plus']) {
   const seed=await page(`https://dak.gg/er/characters/Niah?hl=ko&tier=${tier}`);
@@ -31,6 +33,8 @@ for(const tier of ['diamond_plus','mithril_plus']) {
     while(next<jobs.length) {
       const c=jobs[next++],url=`https://dak.gg/er/characters/${encodeURIComponent(c.key)}?hl=ko&tier=${tier}`;
       const p=c.key==='Niah'?seed:await page(url);
+      const phase=seasonFromPage(p,activeSeason);
+      if (phase.seasonId!==activeSeason.seasonId || phase.patch!==activeSeason.patch || Math.floor(phase.patch/1000)!==phase.displaySeason) throw Error('Season changed or statistics lag the new season; retry later');
       const d=p.dehydratedState.queries.find(q=>q.queryKey[0]==='getCharacterStatistics')?.state.data;
       const s=d?.characterDetailStatSnapshot;
       if(d?.meta?.dt!==7||d.meta.tier!==tier||s?.matchingMode!==3||s.teamMode!==3||s.patch!==d.meta.patch)throw Error(`Wrong cohort: ${url}`);
@@ -65,7 +69,7 @@ for(const c of Object.values(cohorts))for(const row of Object.values(c.rows)) {
   row.builds=row.builds.filter(b=>b.items.every(code=>names.has(String(code))));
   for(const build of row.builds)for(const code of build.items)itemNames[code]=names.get(String(code));
 }
-const snapshot={schemaVersion:1,generatedAt:new Date().toISOString(),source:'DAK.GG public Rank/Squad aggregates',itemNameSource:COMBAT_EFFECT_SOURCE,itemNames,cohorts};
+const snapshot={schemaVersion:1,seasonId:activeSeason.seasonId,seasonKey:activeSeason.seasonKey,phase:activeSeason.phase,generatedAt:new Date().toISOString(),source:'DAK.GG public Rank/Squad aggregates',itemNameSource:COMBAT_EFFECT_SOURCE,itemNames,cohorts};
 // Only replace both outputs after every character/cohort succeeds.
 const json=JSON.stringify(snapshot);
 await fs.writeFile(new URL('src/recentMetaSnapshot.json',root),json+'\n');

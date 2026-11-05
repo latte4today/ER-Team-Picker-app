@@ -37,6 +37,10 @@ try {
   await fs.writeFile(path.join(scratch,'src/tournamentMeta.compact.json'),'new tournament data');
   commit();
   check(batch,0); // Tournament data is refreshed by the running app.
+  await fs.writeFile(path.join(scratch,'src/seasonState.json'),'new phase metadata');
+  await fs.writeFile(path.join(scratch,'src/seasonState.js'),'new phase metadata');
+  commit();
+  check(batch,0); // Phase metadata is refreshed even when a stats-only build skips.
   check(null,1);
   check('0000000000000000000000000000000000000000',1);
   await fs.appendFile(path.join(scratch,'scripts/vercel-should-build.sh'),'\n# changed gate\n');

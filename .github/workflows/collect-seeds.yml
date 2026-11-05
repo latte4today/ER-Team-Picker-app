@@ -207,7 +207,8 @@ jobs:
           node tools/build_official_stats.mjs \
             --in data/ml-training/corpus.jsonl \
             --out reports/generated/officialMatchStats.js \
-            --json-out reports/generated/officialMatchStats.json
+            --json-out reports/generated/officialMatchStats.json \
+            --season current
           node tools/build_compact_stats.mjs \
             --in reports/generated/officialMatchStats.json \
             --out src/officialMatchStats.compact.json \

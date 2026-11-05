@@ -1,4 +1,6 @@
 export const ja = {
+  "season.preseason": "プレシーズン · 新しい対戦データに応じてランキングとおすすめを更新します。",
+  "season.warming": "新シーズンのデータ収集中 · 前シーズンの順位は一時的に非表示です。",
   "recent.recommendedBuild": "おすすめ装備構成",
   "recent.buildNote": "よく完成される構成を参考にしています。アイテム名は韓国語です。",
   "recent.window": "直近7日 · 前パッチからの変化",
