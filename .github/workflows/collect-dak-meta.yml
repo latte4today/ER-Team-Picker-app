@@ -20,6 +20,41 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  recent-meta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+      - name: Collect complete current-patch cohorts
+        run: node tools/build_recent_meta.mjs
+      - name: Validate data and calibration safeguards
+        run: |
+          node tools/test_recent_meta.mjs
+          node tools/recommendation_snapshot.mjs --update
+      - name: Publish aggregate snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/recentMetaSnapshot.js src/recentMetaSnapshot.json snapshots/recommendation-baseline.json
+          if git diff --staged --quiet; then exit 0; fi
+          git commit -m "chore: refresh recent patch cohorts [skip ci]"
+          pushed=0
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase -X theirs origin/main || { git rebase --abort; exit 1; }
+            node tools/test_recent_meta.mjs
+            node tools/recommendation_snapshot.mjs --update
+            git add snapshots/recommendation-baseline.json
+            git diff --staged --quiet || git commit --amend --no-edit
+            if git push origin main; then pushed=1; break; fi
+            sleep 5
+          done
+          [ "$pushed" -eq 1 ]
   collect:
     runs-on: ubuntu-latest
     timeout-minutes: 60

@@ -19,6 +19,7 @@ let rendered = false;
 const state = {
   tierSelect:{value:'all'}, remoteFeedback:{}, currentRelationshipRows:()=>[],
   officialStatsVersion:'one',tournamentStatsVersion:'one', getLanguage:()=> 'ko', dataSignature:JSON.stringify,
+  recentMetaVersion:()=>state.recentVersion,recentVersion:'one',
   activeUnionPlayers:()=>[0,1,2], unionRosters:rosters, variantById:id=>variants.get(id),
   isUnionCalculating:false, _unionComboCache:[], _unionResultKey:'',
   unionSummary:{dataset:{},removeAttribute:()=>{}}, unionResults:{innerHTML:''},
@@ -41,7 +42,7 @@ await state.renderUnionResults();
 assert.ok(rendered);
 assert.equal(state._unionComboCache.length,24);
 assert.deepEqual([...tiers],['iron_gold']);
-state.tournamentStatsVersion='two';
+state.recentVersion='two';
 state.renderUnion();
-assert.equal(state._unionComboCache.length,0,'new tournament data invalidates completed union results');
+assert.equal(state._unionComboCache.length,0,'new recent meta invalidates completed union results');
 console.log('Union context regression passed: fixed scoring context, stale async results discarded, completed results invalidated.');

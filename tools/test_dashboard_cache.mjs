@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import vm from 'node:vm';
 import { performance } from 'node:perf_hooks';
+import {combatRangeOf} from '../src/combatEffects.js';
 globalThis.localStorage={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
 globalThis.document={documentElement:{lang:'ko',dataset:{}}};
 const {characterVariants}=await import('../src/data.js');
@@ -25,7 +26,7 @@ for (const character of characterVariants) {
   assert.equal(optimized.characterById(character.characterId), characterVariants.find(v=>v.characterId===character.characterId));
 }
 assert.equal(optimized.characterById('unknown'),undefined);
-const reasonContext={compositionMembers:row=>row.members,characterById:()=>({role:'mage',tags:[],weaponRange:'ranged'}),t:key=>key};
+const reasonContext={combatRangeOf,compositionMembers:row=>row.members,characterById:()=>({role:'mage',tags:[],weaponRange:'ranged'}),t:key=>key};
 vm.createContext(reasonContext);
 vm.runInContext(current.slice(current.indexOf('function compositionReason('),current.indexOf('function compositionDetailText(')),reasonContext);
 assert.equal(reasonContext.compositionReason({members:['a','b','c'],source:'official',top3Rate:.8},true),'comp.officialObserved');
