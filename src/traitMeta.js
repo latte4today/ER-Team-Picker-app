@@ -157,6 +157,12 @@ export function normalizeTraitBuildRows(variantId, rows = []) {
 }
 
 function computeNormalizedTraitBuildRows(variantId, rows = []) {
+  // A reviewed, current-patch sample can expand old manual practical choices.
+  // Mechanical validity still comes from the current core whitelist.
+  if (rows.length && rows.every(row => row.source === 'recent-meta')) {
+    return rows.filter(row => normalizeCoreName(row)).map(row => ({...row, name: normalizeCoreName(row)}))
+      .sort((a,b) => b.games-a.games);
+  }
   const overrideRows = variantOverrideRows(variantId, rows);
   if (overrideRows) return overrideRows;
 
@@ -217,6 +223,7 @@ export function topCoreRowsForVariant(variantId, rows = [], { limit = 3, minGame
   const normalized = normalizeTraitBuildRows(variantId, rows);
   if (!normalized.length) return [];
 
+  if (normalized[0]?.source === 'recent-meta') return normalized.filter(row=>row.games>=100&&row.corePickShare>=0.05).slice(0, limit);
   const forced = allowedCoreSetForVariant(variantId);
   if (forced) return normalized.slice(0, limit);
 

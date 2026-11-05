@@ -1,6 +1,8 @@
 import { metaMovementRows, movementBar } from "./metaMovement.js";
 import { hasFullRankedBaseline } from "./characterAvailability.js";
 import { metaTrends as bundledMetaTrends } from "./metaTrends.js";
+import {recentCoreRows, recentMetaVersion} from './recentMeta.js';
+import {renderRecentEvidence, renderRecentDashboard} from './recentMetaView.js';
 import { characterVariants, roleNames, roles } from "./data.js";
 import {
   feedbackWindowKey,
@@ -16,7 +18,7 @@ import {
 } from "./feedback.js";
 import { matchesKoreanSearch } from "./koreanSearch.js";
 import { rankerCandidateStats, rankerCompositionStats } from "./metaData.js";
-import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effectiveCombatTeam, updateTournamentStats } from "./recommender.js";
+import { evaluateCandidate, recommend, teamFitScore, updateOfficialStats, effectiveCombatTeam, updateTournamentStats, updateRecentMeta } from "./recommender.js";
 import { tournamentBuilds as bundledTournamentBuilds } from "./tournamentMeta.js";
 import { matchupGuidance, createMatchupRotation } from "./matchupGuidance.js";
 import { combatRangeOf } from "./combatEffects.js";
@@ -76,7 +78,7 @@ function traitBuildRowsForVariant(variantId, tier) {
 
 function topCoresForVariant(variantId, tier, { limit = CORE_MAX_CHOICES, minGames = CORE_MIN_GAMES } = {}) {
   const rows = traitBuildRowsForVariant(variantId, tier);
-  return topCoreRowsForVariant(variantId, rows, { limit, minGames })
+  return topCoreRowsForVariant(variantId, recentCoreRows(variantId, tier, rows), { limit, minGames })
     .map((row) => ({
       core: row.core,
       name: row.name,
@@ -1047,6 +1049,11 @@ function coreProportionZ(a, b) {
 // fit term is 0 for every core and this falls back to placement and pick rate.
 function coreRanked(group) {
   const all = [group.best, ...group.alts].filter((row) => row.recommendedCore?.name);
+  // The engine already scored current outcomes and this team's fit. Render the
+  // same winning core that ranks the card, preserving explicit user choices.
+  if (all.some(row => row.recommendedCore?.source === 'recent-meta')) {
+    return {all: [...all].sort((a,b)=>b.total-a.total), played: all.reduce((a,b)=>b.recommendedCore.games>a.recommendedCore.games?b:a), fitChosen:null};
+  }
   if (all.length < 2) return { all, played: all[0] ?? null, fitChosen: null };
 
   const played = all.reduce((a, b) => ((b.recommendedCore.games ?? 0) > (a.recommendedCore.games ?? 0) ? b : a));
@@ -2039,7 +2046,7 @@ function unionRecommendationKey() {
     rosters: players.map((player) => [...unionRosters[player]].sort()),
     tier: tierSelect.value,
     language: getLanguage(),
-    stats: officialStatsVersion,
+    stats: [officialStatsVersion, recentMetaVersion()],
     tournament: tournamentStatsVersion,
     feedback: dataSignature(remoteFeedback),
     relationships: dataSignature(currentRelationshipRows()),
@@ -3087,7 +3094,7 @@ function renderDashboardTeamDetails(ids, { inline = false, coreOverrides = {} } 
 
 function renderHomeDashboard() {
   const key = JSON.stringify([getLanguage(), tierSelect.value, officialStatsVersion,
-    activeRankRole, activeTrendSize, metaTrends.generatedAt, dataSignature(popularFeedback), tournamentStatsVersion,
+    activeRankRole, activeTrendSize, metaTrends.generatedAt, dataSignature(popularFeedback), tournamentStatsVersion, recentMetaVersion(),
     dataSignature(remoteFeedback), dataSignature(currentRelationshipRows())]);
   if (key === dashboardRenderKey && recommendations.querySelector(".recommendation-hub")) return;
   dashboardRenderKey = key;
@@ -3169,6 +3176,7 @@ function renderHomeDashboard() {
           </section>
         </div>
       </section>
+      ${renderRecentDashboard(tierSelect.value, characterById, t)}
       <section class="rank-section">
         <div class="section-title-row">
           <h3>${t("rank.characterTitle")}</h3>
@@ -3188,7 +3196,7 @@ function fullTeamRecommendationKey(anchorId) {
     tier: tierSelect.value,
     playable: [...playableVariantIds].sort(),
     cores: selectedCoresMap(),
-    stats: officialStatsVersion,
+    stats: [officialStatsVersion, recentMetaVersion()],
     tournament: tournamentStatsVersion,
     feedback: dataSignature(remoteFeedback),
     relationships: dataSignature(currentRelationshipRows()),
@@ -3322,8 +3330,10 @@ function _renderFullTeamCards() {
           <summary>${t("recommend.details")}</summary>
           <div class="full-team-detail-body">
             <p class="full-team-detail-name">${t(`char.${c1.id}`)}</p>
+            ${renderRecentEvidence(c1.variantId, tierSelect.value, teammate1.recommendedCore?.core, t)}
             <ul>${detailList1}</ul>
             <p class="full-team-detail-name">${t(`char.${c2.id}`)}</p>
+            ${renderRecentEvidence(c2.variantId, tierSelect.value, teammate2.recommendedCore?.core, t)}
             <ul>${detailList2}</ul>
           </div>
         </details>
@@ -3374,7 +3384,7 @@ function renderRecommendations() {
     remoteFeedback: dataSignature(remoteFeedback),
     popularFeedback: dataSignature(popularFeedback),
     relationshipRows: dataSignature(currentRelationshipRows()),
-    stats: officialStatsVersion,
+    stats: [officialStatsVersion, recentMetaVersion()],
     tournament: tournamentStatsVersion,
   });
   if (recommendationKey === setupRecommendationRenderKey && recommendations.childElementCount > 0) return;
@@ -3404,7 +3414,7 @@ function renderRecommendations() {
     remoteFeedback: dataSignature(remoteFeedback),
     popularFeedback: dataSignature(popularFeedback),
     relationshipRows: dataSignature(currentRelationshipRows()),
-    stats: officialStatsVersion,
+    stats: [officialStatsVersion, recentMetaVersion()],
     tournament: tournamentStatsVersion,
   });
   const results = recommendationInputKey === recommendationCacheKey && recommendationCacheResults
@@ -3493,6 +3503,7 @@ function renderRecommendations() {
             ${traitChip(result.character.variantId, tierSelect.value, core)}
             ${archetypeChip}
             ${scoreAxisChips(result.scoreAxes)}
+            ${renderRecentEvidence(result.character.variantId, tierSelect.value, core?.core, t)}
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
             ${renderTeamConcepts([...selectedIds].map(characterById).filter(Boolean).concat(result.character), {
@@ -3526,7 +3537,7 @@ function renderMatchFeedback() {
     slotAssignments,
     slotCores,
     tier: tierSelect.value,
-    stats: officialStatsVersion,
+    stats: [officialStatsVersion, recentMetaVersion()],
     tournament: tournamentStatsVersion,
     submitted: submittedFeedbackKeys.size,
     feedbackBuckets: Object.keys(remoteFeedback ?? {}).length,
@@ -4628,6 +4639,24 @@ if (recoveredFeedbackCount > 0) {
 }
 
 // Small trend summaries refresh independently from the large scoring tables.
+let renderedRecentMetaVersion = recentMetaVersion();
+async function refreshRecentMeta() {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/recentMetaSnapshot.json', {cache:'no-store',signal:AbortSignal.timeout(15000)});
+    if (response.ok) updateRecentMeta(await response.json());
+  } catch { /* Validated bundled aggregates remain available offline. */ }
+  finally {
+    if (renderedRecentMetaVersion === recentMetaVersion()) return;
+    renderedRecentMetaVersion = recentMetaVersion();
+    // Include the evidence version in every existing cache context.
+    clearRecommendationCache();
+    render();
+    if (activeSlot === null) renderDetectedTeam();
+  }
+}
+refreshRecentMeta();
+window.setInterval(refreshRecentMeta, 4 * 60 * 60 * 1000);
+
 (async () => {
   try {
     const response = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/metaTrends.json', {cache:'no-store',signal:AbortSignal.timeout(15000)});

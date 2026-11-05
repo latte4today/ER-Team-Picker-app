@@ -10,6 +10,7 @@ let mutateOnYield = null;
 const state = {
   chosenPickId: 'seres:two_handed_sword', tierSelect: { value: 'all' },
   playableVariantIds: new Set(), officialStatsVersion: 'one', tournamentStatsVersion: 'one', remoteFeedback: {},
+  recentVersion: 'one', recentMetaVersion: () => state.recentVersion,
   relationships: [], cores: {}, _fullTeamState: { status: 'idle' },
   language: 'ko', getLanguage: () => state.language,
   recommendations: { querySelector: () => true },
@@ -36,6 +37,7 @@ for (const change of [
   () => { state.playableVariantIds.add('rio:bow'); },
   () => { state.cores = { 'seres:two_handed_sword': '7200301' }; },
   () => { state.officialStatsVersion = 'two'; },
+  () => { state.recentVersion = 'two'; },
   () => { state.tournamentStatsVersion = 'two'; },
   () => { state.remoteFeedback = { 'rio:bow': 1 }; },
   () => { state.relationships = [{ candidateId: 'rio:bow' }]; },

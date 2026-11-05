@@ -4,6 +4,7 @@ import { officialPairSynergyLift } from "./pairSynergyLift.js";
 import { officialPairRoleStatsByTier as _bundledPairRoleStats } from "./pairRoleStats.js";
 import { compModel } from "./compModel.js";
 import { CORE_EFFECTS, coreEffectTags, combatRangeOf } from "./combatEffects.js";
+import {recentStrengthCorrection, recentCoreRows, setRecentMeta, recentMetaVersion} from './recentMeta.js';
 import {
   experimentTiers,
   oneTrickWeight,
@@ -101,6 +102,19 @@ export function updateOfficialStats(remote) {
   _coreStrengthCache = new Map();
   _globalWinRateCache = new Map();
   _needsNormalizer = null;
+}
+
+export function updateRecentMeta(data) {
+  if (!setRecentMeta(data)) return false;
+  updateOfficialStats({}); // All effective-core and strength caches depend on this evidence.
+  return true;
+}
+let _recentCacheVersion = '';
+function ensureRecentMetaClock() {
+  const version = recentMetaVersion();
+  if (_recentCacheVersion === version) return;
+  _recentCacheVersion = version;
+  updateOfficialStats({});
 }
 import { tournamentCompositions as bundledTournamentCompositions } from "./tournamentMeta.js";
 import { validTournamentData } from "./tournamentData.js";
@@ -2290,7 +2304,8 @@ function leanStrengthScore(candidate, tier) {
   ) * officialConfidence : 0;
 
   const legacy = legacyDakMetaScore(candidate, tier) * (1 - officialConfidence) * 0.55;
-  return clamp(official + legacy, -2.8, 3.2);
+  const baseline = clamp(official + legacy, -2.8, 3.2);
+  return clamp(baseline + recentStrengthCorrection(candidate.variantId, tier, baseline), -2.8, 3.2);
 }
 
 let _coreStrengthCache = new Map();
@@ -2348,7 +2363,7 @@ function leanCoreStrengthScore(candidate, tier) {
       const baseWin = win / games;
       const deltaFor = (row) => clamp(
         (((row.top3Rate ?? baseTop3) - baseTop3) * 7.2 + ((row.winRate ?? baseWin) - baseWin) * 4.8)
-          * officialStatConfidence(row, 900),
+          * (row.source === 'recent-meta' ? row.games / (row.games + 900) * row.performanceWeight : officialStatConfidence(row, 900)),
         -0.6,
         0.6,
       );
@@ -2855,15 +2870,15 @@ function selectedCharactersFromIds(selectedIds) {
     .filter(Boolean);
 }
 
-function traitBuildRowsFor(variantId, tier) {
+function traitBuildRowsFor(variantId, tier, useRecent = true) {
   const bucket = officialStatsBucketForTier(tier);
-  const key = `${bucket}|${variantId}`;
+  const key = `${bucket}|${variantId}|${useRecent}`;
   const cached = _traitBuildRowsCache.get(key);
   if (cached) return cached;
   const rows = officialTraitBuildStatsByTier?.[bucket]?.[variantId]
     ?? officialTraitBuildStatsByTier?.all?.[variantId]
     ?? [];
-  const normalized = normalizeTraitBuildRows(variantId, rows);
+  const normalized = normalizeTraitBuildRows(variantId, useRecent ? recentCoreRows(variantId, tier, rows) : rows);
   _traitBuildRowsCache.set(key, normalized);
   return normalized;
 }
@@ -2887,10 +2902,11 @@ function candidateCoreOptions(variantId, tier, cores = {}) {
   if (!rows.length) return [null];
 
   const topGames = rows[0]?.games ?? 0;
-  const threshold = Math.max(40, topGames * 0.12);
+  const current = rows[0]?.source === 'recent-meta';
+  const threshold = Math.max(current ? 100 : 40, topGames * (current ? 0.05 : 0.12));
   const options = rows
-    .filter((row, index) => index === 0 || (row.games ?? 0) >= threshold)
-    .slice(0, 3)
+    .filter((row, index) => current ? row.games >= 100 && row.corePickShare >= 0.05 : index === 0 || (row.games ?? 0) >= threshold)
+    .slice(0, current ? 4 : 3)
     .map((row) => row.core)
     .filter(Boolean);
 
@@ -2919,7 +2935,7 @@ function variantCoreBaseline(variantId, tier) {
   const cached = _variantCoreBaselineCache.get(key);
   if (cached) return cached;
 
-  const rows = traitBuildRowsFor(variantId, tier).filter((row) => (row.games ?? 0) > 0);
+  const rows = traitBuildRowsFor(variantId, tier, false).filter((row) => (row.games ?? 0) > 0);
   const totals = rows.reduce((state, row) => {
     const games = row.games ?? 0;
     state.games += games;
@@ -3134,8 +3150,13 @@ function applyCoreRoleProfile(character, core, tier) {
   const cached = _effectiveCoreProfileCache.get(key);
   if (cached) return cached;
 
-  const profile = corePlaystyle(row ?? { core: code }, tier);
-  const override = inferredCoreRoleOverride(character, row, profile, tier);
+  // Outcome counts from a new cohort cannot reweight older damage/CC samples.
+  // Combat identity uses its own historical measurements and reviewed mechanics.
+  const combatRow = row?.source === 'recent-meta'
+    ? traitBuildRowsFor(character.variantId, tier, false).find(r => String(r.core) === code) ?? null
+    : row;
+  const profile = corePlaystyle(combatRow ?? { core: code }, tier);
+  const override = inferredCoreRoleOverride(character, combatRow, profile, tier);
   const effective = {
     ...character,
     role: override.role ?? character.role,
@@ -3398,6 +3419,7 @@ function buildCandidateInvariantContext(selectedIds, selected, candidate, tier, 
 }
 
 export function evaluateCandidate(selectedIds, candidateId, tier = "all", remoteFeedback = {}, relationshipRows = [], cores = {}, invariantContext = null) {
+  ensureRecentMetaClock();
   const selected = invariantContext?.selected ?? selectedCharactersFromIds(selectedIds);
   const candidate = invariantContext?.candidate ?? _variantById.get(candidateId);
   if (!candidate) return undefined;
@@ -3488,6 +3510,8 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
           core: candidateCoreRow.core,
           name: normalizeCoreName(candidateCoreRow) ?? candidateCoreRow.name ?? null,
           games: candidateCoreRow.games ?? 0,
+          source: candidateCoreRow.source ?? 'archive',
+          cohort: candidateCoreRow.cohort ?? null,
           // Carried so the UI can pick and label a core by how it actually places
           // rather than by how often it is played. Across the 96 builds with two or
           // more cores at 200+ games, the most-played core is also the best-placing
@@ -3502,6 +3526,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
 }
 
 export function effectiveCombatTeam(team, cores = {}, tier = "all") {
+  ensureRecentMetaClock();
   return effectiveTeamFor(team, cores, tier);
 }
 
@@ -3750,6 +3775,7 @@ function twoStageShortlist(candidates, tier, limit) {
 }
 
 export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candidateCharacterIds = undefined, relationshipRows = [], cores = {}) {
+  ensureRecentMetaClock();
   const selected = selectedCharactersFromIds(selectedIds);
 
   const selectedCharacters = new Set(selected.map((character) => character.characterId));
