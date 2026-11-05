@@ -56,6 +56,7 @@ const selectedIds = new Set();
 let activeRole = "all";
 let activeRankRole = "all";
 let activeTrendSize = 2;
+const dashboardLimits = {teams: 4, characters: 8, trends: 2};
 let metaTrends = bundledMetaTrends;
 let officialCandidateStatsByTier = bundledOfficialCandidateStatsByTier;
 let officialCompositionStatsByTier = bundledOfficialCompositionStatsByTier;
@@ -3107,7 +3108,7 @@ function renderDashboardTeamDetails(ids, { inline = false, coreOverrides = {} } 
 
 function renderHomeDashboard() {
   const key = JSON.stringify([getLanguage(), tierSelect.value, officialStatsVersion,
-    activeRankRole, activeTrendSize, metaTrends.generatedAt, dataSignature(popularFeedback), tournamentStatsVersion, recentMetaVersion(),
+    activeRankRole, activeTrendSize, dashboardLimits, metaTrends.generatedAt, dataSignature(popularFeedback), tournamentStatsVersion, recentMetaVersion(),
     dataSignature(remoteFeedback), dataSignature(currentRelationshipRows())]);
   if (key === dashboardRenderKey && recommendations.querySelector(".recommendation-hub")) return;
   dashboardRenderKey = key;
@@ -3118,7 +3119,8 @@ function renderHomeDashboard() {
   const newCharacterNames = (metaTrends.excludedCharacters??[])
     .filter(row=>row.reason==='new-character' && characterById(row.characterId))
     .map(row=>t(`char.${characterById(row.characterId).id}`));
-  const trendRows = metaMovementRows(eligibleTrendRows,activeTrendSize);
+  const allTrendRows = metaMovementRows(eligibleTrendRows,activeTrendSize);
+  const trendRows = metaMovementRows(eligibleTrendRows,activeTrendSize,dashboardLimits.trends);
   const trendScale = Math.max(...trendRows.map(row=>Math.abs(row.delta)),0);
   const trendDigits = activeTrendSize===3 ? 3 : 2;
   const trendItems = trendRows.map((row,index)=>{
@@ -3135,8 +3137,9 @@ function renderHomeDashboard() {
     <span>${t('trend.results',{games:row.games,top3:(row.top3Rate*100).toFixed(0)})}</span></div>
     </summary><div class="dashboard-detail-body"></div></details>`;
   }).join('');
-  const overallItems = officialCompositionRows().slice(0,14)
-    .filter(row=>compositionMembers(row).length===3 && compositionMembers(row).every(characterById))
+  const overallRows = officialCompositionRows().slice(0,14)
+    .filter(row=>compositionMembers(row).length===3 && compositionMembers(row).every(characterById));
+  const overallItems = overallRows.slice(0,dashboardLimits.teams)
     .map((row,index)=>{
       const members = compositionMembers(row);
       return `<details class="combo-card overall-composition-card" data-dashboard-team="${members.join('|')}">
@@ -3147,7 +3150,7 @@ function renderHomeDashboard() {
         <div class="dashboard-detail-body"></div></details>`;
     }).join('');
   const rankRows = rankerCharacterRows(activeRankRole);
-  const rankItems = rankRows
+  const rankItems = rankRows.slice(0,dashboardLimits.characters)
     .map((row, index) => {
       const character = characterBrief(row.characterId);
       const top3 = Math.round(row.top3Rate * 100);
@@ -3170,7 +3173,7 @@ function renderHomeDashboard() {
   const rankRoleLabel = activeRankRole === "all" ? t("rank.allCharacters") : roleLabel(activeRankRole);
 
   recommendations.innerHTML = `
-    <div class="recommendation-hub">
+    <div class="recommendation-hub ranking-dashboard">
       <section class="combo-section composition-overview">
         <div class="section-title-row"><h3>${t('rank.compositionTitle')}</h3></div>
         <div class="combo-split">
@@ -3178,6 +3181,7 @@ function renderHomeDashboard() {
             <h4>${t('rank.overallTop')}</h4>
             <p class="trend-period">${t('rank.overallBasis')}</p>
             <div class="combo-grid overall-composition-grid">${overallItems||`<p class="empty-state">${t('rank.noData')}</p>`}</div>
+            ${overallRows.length>dashboardLimits.teams?`<button type="button" class="dashboard-more" data-dashboard-more="teams">${t('recommend.showMore',{remaining:overallRows.length-dashboardLimits.teams})}</button>`:''}
           </section>
           <section class="trend-section">
         <div class="section-title-row"><h4>${t('trend.title')}</h4></div>
@@ -3186,6 +3190,7 @@ function renderHomeDashboard() {
         <div class="trend-chart" role="group" aria-label="${t('trend.title')}">
           <div class="combo-grid trend-grid">${trendItems||`<p class="empty-state">${t(stale?'trend.stale':'trend.empty')}</p>`}</div>
         </div>
+        ${allTrendRows.length>trendRows.length?`<button type="button" class="dashboard-more" data-dashboard-more="trends">${t('recommend.showMore',{remaining:allTrendRows.length-trendRows.length})}</button>`:''}
           </section>
         </div>
       </section>
@@ -3197,6 +3202,7 @@ function renderHomeDashboard() {
         </div>
         ${renderRankRoleFilters()}
         <div class="rank-grid">${rankItems || `<p class="empty-state">${t("rank.noData")}</p>`}</div>
+        ${rankRows.length>dashboardLimits.characters?`<button type="button" class="dashboard-more" data-dashboard-more="characters">${t('recommend.showMore',{remaining:rankRows.length-dashboardLimits.characters})}</button>`:''}
       </section>
     </div>
   `;
@@ -4170,6 +4176,7 @@ presetSelect.addEventListener("change", () => {
 });
 renderPresetSelect();
 tierSelect.addEventListener("change", () => {
+  Object.assign(dashboardLimits,{teams:4,characters:8,trends:2});
   if (activeView === "union") renderUnion();
   scheduleRenderRecommendations();
   refreshRemoteFeedbackIfNeeded();
@@ -4185,6 +4192,7 @@ recommendations.addEventListener("click", (event) => {
   const trendTab = event.target.closest('[data-trend-size]');
   if (trendTab) {
     activeTrendSize = Number(trendTab.dataset.trendSize);
+    dashboardLimits.trends = 2;
     renderHomeDashboard();
     recommendations.querySelector(`[data-trend-size="${activeTrendSize}"]`)?.focus({preventScroll:true});
     return;
@@ -4201,7 +4209,20 @@ recommendations.addEventListener("click", (event) => {
   const rankRoleButton = event.target.closest("[data-rank-role]");
   if (rankRoleButton) {
     activeRankRole = rankRoleButton.dataset.rankRole;
+    dashboardLimits.characters = 8;
     renderRecommendations();
+    return;
+  }
+
+  const moreDashboard = event.target.closest('[data-dashboard-more]');
+  if (moreDashboard) {
+    const kind = moreDashboard.dataset.dashboardMore;
+    if (!Object.hasOwn(dashboardLimits,kind)) return;
+    const scroll = recommendations.scrollTop;
+    dashboardLimits[kind] += kind==='characters' ? 8 : 2;
+    renderHomeDashboard();
+    recommendations.scrollTop = scroll;
+    recommendations.querySelector(`[data-dashboard-more="${kind}"]`)?.focus({preventScroll:true});
     return;
   }
 

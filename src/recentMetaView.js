@@ -30,10 +30,10 @@ export function renderRecentDashboard(tier,resolve,t) {
   const cohort=recentCohort(tier);
   const cards=(kind,scopeTier=tier)=>recentMovers(scopeTier,kind).slice(0,3).map(({variantId,row,movement})=>{
     const c=resolve(variantId);if(!c)return '';
-    return `<li><b>${esc(t(`char.${c.id}`))} · ${esc(t(`weapon.${c.weapon}`))}</b>
-      <span>${esc(t(kind==='usage'?'recent.usageDelta':'recent.performanceDelta',{delta:pp(movement.delta)}))}</span>
+    return `<li><div class="recent-mover-head"><img src="${esc(c.image)}" alt="" width="32" height="32" loading="lazy"><div><b>${esc(t(`char.${c.id}`))} · ${esc(t(`weapon.${c.weapon}`))}</b>
+      <span>${esc(t(kind==='usage'?'recent.usageDelta':'recent.performanceDelta',{delta:pp(movement.delta)}))}</span></div></div>
       <small>${esc(t('recent.rates',{games:row.games.toLocaleString(),win:pct(row.wins/row.games),top3:pct(row.top3/row.games)}))}</small>
-      ${link(row.url,t('recent.source'))}</li>`;
+      ${link(row.url,'DAK.GG')}</li>`;
   }).join('')||`<li class="recent-meta-note">${esc(t('recent.noMovers'))}</li>`;
   return `<section class="recent-meta-section"><h3>${esc(t('recent.dashboard'))}</h3>
     <p class="recent-meta-note">${esc(scope(cohort,t))}</p>
