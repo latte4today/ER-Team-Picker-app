@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T12:54:46.404Z",
+  "generatedAt": "2026-11-10T13:46:18.112Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -1076,7 +1076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "840a61df34a4a800",
+      "digest": "621d38247f34cb86",
       "results": [
         {
           "rank": 1,
@@ -1242,7 +1242,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "0b8e63922d41d8cd",
+      "digest": "1dcc0d9944716f8c",
       "results": [
         {
           "rank": 1,
@@ -1657,7 +1657,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "852d0f296c02e0b6",
+      "digest": "2e2bb969aae91098",
       "results": [
         {
           "rank": 1,
@@ -1988,7 +1988,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2177e27a5f5bce43",
+      "digest": "be0983556775cfd4",
       "results": [
         {
           "rank": 1,
@@ -2071,7 +2071,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1f1d90eb8fc7af6c",
+      "digest": "1c7be6f1c1506a01",
       "results": [
         {
           "rank": 1,
@@ -3219,7 +3219,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "543b8687edfd5c7c",
+      "digest": "bed38e1796c71059",
       "results": [
         {
           "rank": 1,
@@ -3302,7 +3302,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5405be318188d27f",
+      "digest": "4ec04f1fc75bf904",
       "results": [
         {
           "rank": 1,
@@ -3330,14 +3330,14 @@
           "variantId": "leon:glove",
           "core": "7000201",
           "coreName": "취약",
-          "total": 1.072
+          "total": 1.083
         },
         {
           "rank": 5,
           "variantId": "leon:glove",
           "core": "7000701",
           "coreName": "액셀러레이터",
-          "total": 0.968
+          "total": 0.979
         },
         {
           "rank": 6,
@@ -3883,7 +3883,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "699ff95c8fb719fe",
+      "digest": "3ea136db8ba500c9",
       "results": [
         {
           "rank": 1,
@@ -3966,7 +3966,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c5876bed5a804f14",
+      "digest": "312394e0ca8a354a",
       "results": [
         {
           "rank": 1,
@@ -4049,7 +4049,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "10064646e06a8200",
+      "digest": "224983481bbd100b",
       "results": [
         {
           "rank": 1,
@@ -4214,7 +4214,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "08d5e2a3c28df9ca",
+      "digest": "b669ad7b6cf113eb",
       "results": [
         {
           "rank": 1,
@@ -4297,7 +4297,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9b0ef2906c65ae73",
+      "digest": "c19fffff5a482a68",
       "results": [
         {
           "rank": 1,
@@ -5528,7 +5528,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f94063a927f257a7",
+      "digest": "214de355c195444f",
       "results": [
         {
           "rank": 1,
@@ -5694,7 +5694,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "865961a1eefc3367",
+      "digest": "74a07ba3c810751b",
       "results": [
         {
           "rank": 1,
@@ -6440,7 +6440,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ab8b4694f28ef881",
+      "digest": "d9a6b3879ff2aa1a",
       "results": [
         {
           "rank": 1,
@@ -6523,7 +6523,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "774b287ce7a94a06",
+      "digest": "18b8942bfb07db56",
       "results": [
         {
           "rank": 1,
@@ -7754,7 +7754,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "027bd16589336a8d",
+      "digest": "05f8cbc465b0afc7",
       "results": [
         {
           "rank": 1,
@@ -7920,7 +7920,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "761735866c501ba9",
+      "digest": "c685481b1ad227fb",
       "results": [
         {
           "rank": 1,
@@ -8003,7 +8003,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "244ec58eba50d1bc",
+      "digest": "9af0c566a45ac66f",
       "results": [
         {
           "rank": 1,
@@ -8501,7 +8501,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "180bc9f148224791",
+      "digest": "c997819c0a787974",
       "results": [
         {
           "rank": 1,
@@ -8749,7 +8749,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e744b0706b1df42a",
+      "digest": "07cba309d66aeb56",
       "results": [
         {
           "rank": 1,
@@ -8912,77 +8912,77 @@
       "selected": [],
       "cores": {},
       "count": 48,
-      "digest": "00c5ec0edd576416",
+      "digest": "f737e69b7c492313",
       "results": [
         {
           "rank": 1,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 2.066
+          "total": 2.058
         },
         {
           "rank": 2,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.392
+          "total": 1.393
         },
         {
           "rank": 3,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.237
+          "total": 1.196
         },
         {
           "rank": 4,
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 1.161
+          "total": 1.164
         },
         {
           "rank": 5,
-          "variantId": "aya:pistol",
+          "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.036
+          "total": 1.044
         },
         {
           "rank": 6,
           "variantId": "jackie:axe",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 1.006
+          "total": 1.008
         },
         {
           "rank": 7,
-          "variantId": "eva:throw",
+          "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.024
+          "total": 1.035
         },
         {
           "rank": 8,
-          "variantId": "leni:pistol",
-          "core": "7200501",
-          "coreName": "헌신",
-          "total": 0.832
-        },
-        {
-          "rank": 9,
           "variantId": "nathapon:camera",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.821
+          "total": 0.812
+        },
+        {
+          "rank": 9,
+          "variantId": "leni:pistol",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.809
         },
         {
           "rank": 10,
           "variantId": "emma:arcana",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.768
+          "total": 0.778
         }
       ]
     },
@@ -8994,28 +8994,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "033fec66bf1291e1",
+      "digest": "566eecc40e2e5209",
       "results": [
         {
           "rank": 1,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.718
+          "total": 0.716
         },
         {
           "rank": 2,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.492
+          "total": 0.493
         },
         {
           "rank": 3,
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.462
+          "total": 0.463
         },
         {
           "rank": 4,
@@ -9029,42 +9029,42 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.453
+          "total": 0.441
         },
         {
           "rank": 6,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.42
+          "total": 0.425
         },
         {
           "rank": 7,
           "variantId": "jackie:axe",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.387
+          "total": 0.388
         },
         {
           "rank": 8,
           "variantId": "jackie:axe",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.377
+          "total": 0.378
         },
         {
           "rank": 9,
-          "variantId": "leni:pistol",
-          "core": "7200501",
-          "coreName": "헌신",
-          "total": 0.373
-        },
-        {
-          "rank": 10,
           "variantId": "jackie:axe",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.37
+          "total": 0.371
+        },
+        {
+          "rank": 10,
+          "variantId": "leni:pistol",
+          "core": "7200501",
+          "coreName": "헌신",
+          "total": 0.366
         }
       ]
     },
@@ -9076,28 +9076,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9a9aa4906b167c1a",
+      "digest": "afa2e4948713936a",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 2.051
+          "total": 2.04
         },
         {
           "rank": 2,
           "variantId": "alex:flex",
           "core": "7300101",
           "coreName": "스텔라 차지",
-          "total": 1.895
+          "total": 1.896
         },
         {
           "rank": 3,
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.674
+          "total": 1.659
         },
         {
           "rank": 4,
@@ -9111,14 +9111,14 @@
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.596
+          "total": 0.594
         },
         {
           "rank": 6,
           "variantId": "leon:tonfa",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.524
+          "total": 0.525
         },
         {
           "rank": 7,
@@ -9146,7 +9146,7 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.42
+          "total": 0.425
         }
       ]
     },
@@ -9158,21 +9158,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2f49dda6cc07c5b9",
+      "digest": "8350dc1e186bf4e1",
       "results": [
         {
           "rank": 1,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.628
+          "total": 0.626
         },
         {
           "rank": 2,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.492
+          "total": 0.493
         },
         {
           "rank": 3,
@@ -9186,14 +9186,14 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.453
+          "total": 0.441
         },
         {
           "rank": 5,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.42
+          "total": 0.425
         },
         {
           "rank": 6,
@@ -9214,7 +9214,7 @@
           "variantId": "nathapon:camera",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.336
+          "total": 0.334
         },
         {
           "rank": 9,
@@ -9228,7 +9228,7 @@
           "variantId": "leni:pistol",
           "core": "7200501",
           "coreName": "헌신",
-          "total": 0.296
+          "total": 0.289
         }
       ]
     },
@@ -9240,14 +9240,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b410a543674033b1",
+      "digest": "4659c94ad976a346",
       "results": [
         {
           "rank": 1,
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.587
+          "total": 1.586
         },
         {
           "rank": 2,
@@ -9261,7 +9261,7 @@
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.665
+          "total": 0.663
         },
         {
           "rank": 4,
@@ -9282,35 +9282,35 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.453
+          "total": 0.441
         },
         {
           "rank": 7,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.42
+          "total": 0.425
         },
         {
           "rank": 8,
           "variantId": "jackie:axe",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.398
+          "total": 0.399
         },
         {
           "rank": 9,
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.397
+          "total": 0.398
         },
         {
           "rank": 10,
           "variantId": "jackie:axe",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.381
+          "total": 0.382
         }
       ]
     },
@@ -9322,7 +9322,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "103f5f1f9226f369",
+      "digest": "b2a3cf3380221e57",
       "results": [
         {
           "rank": 1,
@@ -9343,49 +9343,49 @@
           "variantId": "aya:sniper_rifle",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 3.34
+          "total": 3.341
         },
         {
           "rank": 4,
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 3.097
+          "total": 3.099
         },
         {
           "rank": 5,
           "variantId": "rio:bow",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.717
+          "total": 1.722
         },
         {
           "rank": 6,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.718
+          "total": 0.716
         },
         {
           "rank": 7,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.492
+          "total": 0.493
         },
         {
           "rank": 8,
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.462
+          "total": 0.463
         },
         {
           "rank": 9,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.453
+          "total": 0.441
         },
         {
           "rank": 10,
@@ -9404,28 +9404,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e737805586db4397",
+      "digest": "dc4be12f51217a01",
       "results": [
         {
           "rank": 1,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.718
+          "total": 0.716
         },
         {
           "rank": 2,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.492
+          "total": 0.493
         },
         {
           "rank": 3,
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.462
+          "total": 0.463
         },
         {
           "rank": 4,
@@ -9439,7 +9439,7 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.453
+          "total": 0.441
         },
         {
           "rank": 6,
@@ -9450,24 +9450,24 @@
         },
         {
           "rank": 7,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.425
+        },
+        {
+          "rank": 8,
           "variantId": "jackie:axe",
           "core": "7100201",
           "coreName": "불괴",
           "total": 0.421
         },
         {
-          "rank": 8,
-          "variantId": "eva:throw",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.42
-        },
-        {
           "rank": 9,
           "variantId": "jackie:axe",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.419
+          "total": 0.42
         },
         {
           "rank": 10,
@@ -9486,35 +9486,35 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a4df6f426231f0d8",
+      "digest": "c730e36d099b106d",
       "results": [
         {
           "rank": 1,
           "variantId": "adela:rapier",
           "core": "7000201",
           "coreName": "취약",
-          "total": 2.036
+          "total": 2.04
         },
         {
           "rank": 2,
           "variantId": "adela:bat",
           "core": "7000201",
           "coreName": "취약",
-          "total": 1.984
+          "total": 1.989
         },
         {
           "rank": 3,
           "variantId": "barbara:pistol",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 1.795
+          "total": 1.794
         },
         {
           "rank": 4,
           "variantId": "barbara:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.791
+          "total": 1.79
         },
         {
           "rank": 5,
@@ -9542,21 +9542,21 @@
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.718
+          "total": 0.716
         },
         {
           "rank": 9,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.492
+          "total": 0.493
         },
         {
           "rank": 10,
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.462
+          "total": 0.463
         }
       ]
     },
@@ -9568,14 +9568,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "70711fb0b35e2654",
+      "digest": "3a726ee54d10a8e9",
       "results": [
         {
           "rank": 1,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 2.372
+          "total": 2.377
         },
         {
           "rank": 2,
@@ -9589,7 +9589,7 @@
           "variantId": "elena:rapier",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 1.698
+          "total": 1.697
         },
         {
           "rank": 4,
@@ -9603,7 +9603,7 @@
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.718
+          "total": 0.716
         },
         {
           "rank": 6,
@@ -9617,7 +9617,7 @@
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.462
+          "total": 0.463
         },
         {
           "rank": 8,
@@ -9631,7 +9631,7 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.453
+          "total": 0.441
         },
         {
           "rank": 10,
@@ -9650,7 +9650,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "94048cec3f4adb41",
+      "digest": "247fffb3cc5342ba",
       "results": [
         {
           "rank": 1,
@@ -9685,7 +9685,7 @@
           "variantId": "lenox:whip",
           "core": "7211301",
           "coreName": "폭발 선인장",
-          "total": 4.672
+          "total": 4.673
         },
         {
           "rank": 6,
@@ -9720,7 +9720,7 @@
           "variantId": "yuki:two_handed_sword",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 3.514
+          "total": 3.516
         }
       ]
     },
@@ -9732,35 +9732,35 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e77d02b2d50d1770",
+      "digest": "6dd416e6a9007eab",
       "results": [
         {
           "rank": 1,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.718
+          "total": 0.716
         },
         {
           "rank": 2,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.492
+          "total": 0.493
         },
         {
           "rank": 3,
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.462
+          "total": 0.463
         },
         {
           "rank": 4,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.453
+          "total": 0.441
         },
         {
           "rank": 5,
@@ -9771,38 +9771,38 @@
         },
         {
           "rank": 6,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.425
+        },
+        {
+          "rank": 7,
           "variantId": "jackie:axe",
           "core": "7100201",
           "coreName": "불괴",
           "total": 0.421
         },
         {
-          "rank": 7,
-          "variantId": "eva:throw",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.42
-        },
-        {
           "rank": 8,
           "variantId": "jackie:axe",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.419
+          "total": 0.42
         },
         {
           "rank": 9,
           "variantId": "nathapon:camera",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.336
+          "total": 0.334
         },
         {
           "rank": 10,
           "variantId": "emma:arcana",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.314
+          "total": 0.317
         }
       ]
     },
@@ -9814,28 +9814,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6c2cff0418fc6cda",
+      "digest": "e46e5bacfd8e8c90",
       "results": [
         {
           "rank": 1,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.718
+          "total": 0.716
         },
         {
           "rank": 2,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.492
+          "total": 0.493
         },
         {
           "rank": 3,
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.462
+          "total": 0.463
         },
         {
           "rank": 4,
@@ -9849,7 +9849,7 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.453
+          "total": 0.441
         },
         {
           "rank": 6,
@@ -9860,24 +9860,24 @@
         },
         {
           "rank": 7,
+          "variantId": "eva:throw",
+          "core": "7000501",
+          "coreName": "벽력",
+          "total": 0.425
+        },
+        {
+          "rank": 8,
           "variantId": "jackie:axe",
           "core": "7100201",
           "coreName": "불괴",
           "total": 0.421
         },
         {
-          "rank": 8,
-          "variantId": "eva:throw",
-          "core": "7000501",
-          "coreName": "벽력",
-          "total": 0.42
-        },
-        {
           "rank": 9,
           "variantId": "jackie:axe",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.419
+          "total": 0.42
         },
         {
           "rank": 10,
@@ -9897,14 +9897,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2e11eec0c3076ddd",
+      "digest": "4595ca7d279b5a54",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.245
+          "total": 1.234
         },
         {
           "rank": 2,
@@ -9918,14 +9918,14 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.868
+          "total": 0.853
         },
         {
           "rank": 4,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.497
+          "total": 0.495
         },
         {
           "rank": 5,
@@ -9939,35 +9939,35 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.42
+          "total": 0.425
         },
         {
           "rank": 7,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.375
+          "total": 0.376
         },
         {
           "rank": 8,
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 0.351
+          "total": 0.35
         },
         {
           "rank": 9,
           "variantId": "nathapon:camera",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.336
+          "total": 0.334
         },
         {
           "rank": 10,
           "variantId": "nathapon:camera",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.286
+          "total": 0.284
         }
       ]
     },
@@ -9980,14 +9980,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a220a5c5f79669ca",
+      "digest": "60e8f005ead20e94",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 1.252
+          "total": 1.241
         },
         {
           "rank": 2,
@@ -10001,14 +10001,14 @@
           "variantId": "zahir:shuriken",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.875
+          "total": 0.86
         },
         {
           "rank": 4,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.503
+          "total": 0.501
         },
         {
           "rank": 5,
@@ -10022,14 +10022,14 @@
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.42
+          "total": 0.425
         },
         {
           "rank": 7,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.411
+          "total": 0.412
         },
         {
           "rank": 8,
@@ -10043,14 +10043,14 @@
           "variantId": "nathapon:camera",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.336
+          "total": 0.334
         },
         {
           "rank": 10,
           "variantId": "nathapon:camera",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.286
+          "total": 0.284
         }
       ]
     },
@@ -10063,7 +10063,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "14f53ac24e72dea4",
+      "digest": "d3de481c4a1a600b",
       "results": [
         {
           "rank": 1,
@@ -10077,14 +10077,14 @@
           "variantId": "tia:bat",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.784
+          "total": 0.783
         },
         {
           "rank": 3,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.496
+          "total": 0.494
         },
         {
           "rank": 4,
@@ -10098,14 +10098,14 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.448
+          "total": 0.436
         },
         {
           "rank": 6,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.42
+          "total": 0.425
         },
         {
           "rank": 7,
@@ -10126,14 +10126,14 @@
           "variantId": "nathapon:camera",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.336
+          "total": 0.334
         },
         {
           "rank": 10,
           "variantId": "nathapon:camera",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.286
+          "total": 0.284
         }
       ]
     },
@@ -10146,7 +10146,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1cc282d1bb86856a",
+      "digest": "cfa065d72940f0da",
       "results": [
         {
           "rank": 1,
@@ -10167,28 +10167,28 @@
           "variantId": "aya:sniper_rifle",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.746
+          "total": 1.748
         },
         {
           "rank": 4,
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.517
+          "total": 1.519
         },
         {
           "rank": 5,
           "variantId": "rio:bow",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.864
+          "total": 0.87
         },
         {
           "rank": 6,
           "variantId": "tia:bat",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.851
+          "total": 0.85
         },
         {
           "rank": 7,
@@ -10202,21 +10202,21 @@
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.563
+          "total": 0.561
         },
         {
           "rank": 9,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.447
+          "total": 0.448
         },
         {
           "rank": 10,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.434
+          "total": 0.423
         }
       ]
     },
@@ -10229,14 +10229,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8b2f28d18621e5a6",
+      "digest": "4c909dcc614d1499",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:pistol",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.989
+          "total": 1.988
         },
         {
           "rank": 2,
@@ -10250,56 +10250,56 @@
           "variantId": "aya:sniper_rifle",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 1.726
+          "total": 1.727
         },
         {
           "rank": 4,
           "variantId": "aya:assault_rifle",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 1.507
+          "total": 1.509
         },
         {
           "rank": 5,
           "variantId": "rio:bow",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.84
+          "total": 0.846
         },
         {
           "rank": 6,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.697
+          "total": 0.685
         },
         {
           "rank": 7,
-          "variantId": "zahir:throw",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.444
-        },
-        {
-          "rank": 8,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
           "total": 0.444
         },
         {
+          "rank": 8,
+          "variantId": "zahir:throw",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.433
+        },
+        {
           "rank": 9,
           "variantId": "jackie:axe",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.415
+          "total": 0.416
         },
         {
           "rank": 10,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.387
+          "total": 0.392
         }
       ]
     },
@@ -10312,7 +10312,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "bdbabf30f6ec693b",
+      "digest": "aee43b94e08c304a",
       "results": [
         {
           "rank": 1,
@@ -10333,7 +10333,7 @@
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.718
+          "total": 0.716
         },
         {
           "rank": 4,
@@ -10347,7 +10347,7 @@
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.462
+          "total": 0.463
         },
         {
           "rank": 6,
@@ -10368,14 +10368,14 @@
           "variantId": "jackie:axe",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.419
+          "total": 0.42
         },
         {
           "rank": 9,
           "variantId": "leni:pistol",
           "core": "7200501",
           "coreName": "헌신",
-          "total": 0.373
+          "total": 0.366
         },
         {
           "rank": 10,
@@ -10395,14 +10395,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c33bad5ef5552090",
+      "digest": "cede8891115eba68",
       "results": [
         {
           "rank": 1,
           "variantId": "elena:rapier",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.993
+          "total": 0.992
         },
         {
           "rank": 2,
@@ -10430,7 +10430,7 @@
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.718
+          "total": 0.716
         },
         {
           "rank": 6,
@@ -10441,31 +10441,31 @@
         },
         {
           "rank": 7,
-          "variantId": "mai:whip",
-          "core": "7200301",
-          "coreName": "치유 드론",
-          "total": 0.462
-        },
-        {
-          "rank": 8,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.459
+          "total": 0.464
+        },
+        {
+          "rank": 8,
+          "variantId": "mai:whip",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.463
         },
         {
           "rank": 9,
           "variantId": "jackie:axe",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.377
+          "total": 0.378
         },
         {
           "rank": 10,
           "variantId": "leni:pistol",
           "core": "7200501",
           "coreName": "헌신",
-          "total": 0.373
+          "total": 0.366
         }
       ]
     },
@@ -10478,7 +10478,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "655dc7e2046e8bc1",
+      "digest": "f0905ae878eacb3c",
       "results": [
         {
           "rank": 1,
@@ -10513,7 +10513,7 @@
           "variantId": "lenox:whip",
           "core": "7211301",
           "coreName": "폭발 선인장",
-          "total": 2.472
+          "total": 2.473
         },
         {
           "rank": 6,
@@ -10548,7 +10548,7 @@
           "variantId": "yuki:two_handed_sword",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.714
+          "total": 1.716
         }
       ]
     },
@@ -10561,7 +10561,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f6fb4e87626d680a",
+      "digest": "0f6c3467210a0cc2",
       "results": [
         {
           "rank": 1,
@@ -10589,7 +10589,7 @@
           "variantId": "lenox:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 2.35
+          "total": 2.351
         },
         {
           "rank": 5,
@@ -10631,7 +10631,7 @@
           "variantId": "yuki:two_handed_sword",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.714
+          "total": 1.716
         }
       ]
     },
@@ -10644,28 +10644,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "904fbc0f25f33e58",
+      "digest": "8c2c2bcc0bc5b220",
       "results": [
         {
           "rank": 1,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.481
+          "total": 0.478
         },
         {
           "rank": 2,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.306
+          "total": 0.294
         },
         {
           "rank": 3,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.271
+          "total": 0.277
         },
         {
           "rank": 4,
@@ -10679,42 +10679,42 @@
           "variantId": "jackie:axe",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.24
+          "total": 0.252
         },
         {
           "rank": 6,
           "variantId": "jackie:axe",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.229
+          "total": 0.241
         },
         {
           "rank": 7,
           "variantId": "jackie:axe",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.226
+          "total": 0.238
         },
         {
           "rank": 8,
           "variantId": "ian:dagger",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.201
+          "total": 0.196
         },
         {
           "rank": 9,
           "variantId": "nathapon:camera",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.187
+          "total": 0.185
         },
         {
           "rank": 10,
           "variantId": "mai:whip",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.161
+          "total": 0.162
         }
       ]
     },
@@ -10727,14 +10727,14 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cd6754fcb8d99c58",
+      "digest": "7b8e3134e3bd3602",
       "results": [
         {
           "rank": 1,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.718
+          "total": 0.716
         },
         {
           "rank": 2,
@@ -10748,14 +10748,14 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.453
+          "total": 0.441
         },
         {
           "rank": 4,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.42
+          "total": 0.425
         },
         {
           "rank": 5,
@@ -10769,7 +10769,7 @@
           "variantId": "nathapon:camera",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.336
+          "total": 0.334
         },
         {
           "rank": 7,
@@ -10783,21 +10783,21 @@
           "variantId": "jackie:axe",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.329
+          "total": 0.33
         },
         {
           "rank": 9,
           "variantId": "jackie:axe",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.304
+          "total": 0.305
         },
         {
           "rank": 10,
           "variantId": "jackie:axe",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.301
+          "total": 0.302
         }
       ]
     },
@@ -10809,21 +10809,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "78d9213ad61b36e1",
+      "digest": "eaa0cc05bbd5022f",
       "results": [
         {
           "rank": 1,
           "variantId": "yan:glove",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.646
+          "total": 0.644
         },
         {
           "rank": 2,
           "variantId": "chloe:shuriken",
           "core": "7000601",
           "coreName": "아드레날린",
-          "total": 0.492
+          "total": 0.493
         },
         {
           "rank": 3,
@@ -10837,35 +10837,35 @@
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.453
+          "total": 0.441
         },
         {
           "rank": 5,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.42
+          "total": 0.425
         },
         {
           "rank": 6,
           "variantId": "jackie:axe",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.397
+          "total": 0.398
         },
         {
           "rank": 7,
           "variantId": "jackie:axe",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.387
+          "total": 0.388
         },
         {
           "rank": 8,
           "variantId": "jackie:axe",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.381
+          "total": 0.382
         },
         {
           "rank": 9,
@@ -10879,7 +10879,7 @@
           "variantId": "nathapon:camera",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.336
+          "total": 0.334
         }
       ]
     },
@@ -10892,28 +10892,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4bc84ca30598a274",
+      "digest": "d5b250d68c8dc2a9",
       "results": [
         {
           "rank": 1,
           "variantId": "zahir:throw",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.382
+          "total": 0.371
         },
         {
           "rank": 2,
           "variantId": "eva:throw",
           "core": "7000501",
           "coreName": "벽력",
-          "total": 0.354
+          "total": 0.359
         },
         {
           "rank": 3,
           "variantId": "jackie:axe",
           "core": "7200201",
           "coreName": "증폭 드론",
-          "total": 0.336
+          "total": 0.337
         },
         {
           "rank": 4,
@@ -10934,35 +10934,35 @@
           "variantId": "jackie:axe",
           "core": "7100201",
           "coreName": "불괴",
-          "total": 0.318
+          "total": 0.319
         },
         {
           "rank": 7,
           "variantId": "jackie:axe",
           "core": "7100501",
           "coreName": "응징",
-          "total": 0.317
+          "total": 0.318
         },
         {
           "rank": 8,
           "variantId": "nathapon:camera",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 0.25
+          "total": 0.248
         },
         {
           "rank": 9,
           "variantId": "aya:pistol",
           "core": "7300201",
           "coreName": "도깨비불",
-          "total": 0.232
+          "total": 0.231
         },
         {
           "rank": 10,
           "variantId": "rozzi:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.222
+          "total": 0.221
         }
       ]
     },
@@ -10975,7 +10975,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5d2b526ba487b278",
+      "digest": "54177a8fac1edceb",
       "results": [
         {
           "rank": 1,
@@ -11045,7 +11045,7 @@
           "variantId": "yuki:two_handed_sword",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.661
+          "total": 1.663
         }
       ]
     },
@@ -11058,7 +11058,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ab258ca80e267e63",
+      "digest": "57219e3d0b0d3891",
       "results": [
         {
           "rank": 1,
@@ -11121,14 +11121,14 @@
           "variantId": "yuki:dual_swords",
           "core": "7000701",
           "coreName": "액셀러레이터",
-          "total": 1.437
+          "total": 1.436
         },
         {
           "rank": 10,
           "variantId": "yuki:two_handed_sword",
           "core": "7100401",
           "coreName": "빛의 수호",
-          "total": 1.428
+          "total": 1.429
         }
       ]
     }
