@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T12:31:13.810Z",
+  "generatedAt": "2026-11-13T12:43:25.426Z",
   "note": "Baseline snapshot for recommendation results when no trait cores are explicitly selected.",
   "cases": [
     {
@@ -172,7 +172,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "184f0440b203c439",
+      "digest": "71626f8926416852",
       "results": [
         {
           "rank": 1,
@@ -254,7 +254,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b848f55ac57f7072",
+      "digest": "32b41c93ee0c0857",
       "results": [
         {
           "rank": 1,
@@ -336,7 +336,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c78ac1129758b5fc",
+      "digest": "37148bcd031effd7",
       "results": [
         {
           "rank": 1,
@@ -993,21 +993,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fd35c93776513271",
+      "digest": "6090d5af5c359d37",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.141
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -1039,31 +1039,31 @@
         },
         {
           "rank": 7,
-          "variantId": "haze:assault_rifle",
+          "variantId": "eva:throw",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 8,
-          "variantId": "henry:shuriken",
+          "variantId": "jenny:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 9,
-          "variantId": "eva:throw",
+          "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.097
+          "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "katja:sniper_rifle",
+          "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
-          "total": 0.096
+          "total": 0.1
         }
       ]
     },
@@ -1076,28 +1076,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "67fef6cdd0331930",
+      "digest": "98efc8565d729d61",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:assault_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.156
+          "total": 0.16
         },
         {
           "rank": 4,
@@ -1159,7 +1159,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9b1c740a3fb2918f",
+      "digest": "222f73947cc476e6",
       "results": [
         {
           "rank": 1,
@@ -1212,21 +1212,21 @@
         },
         {
           "rank": 8,
-          "variantId": "katja:sniper_rifle",
+          "variantId": "eva:throw",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 9,
-          "variantId": "haze:assault_rifle",
+          "variantId": "jenny:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "henry:shuriken",
+          "variantId": "katja:sniper_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
@@ -1242,60 +1242,60 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7c27d1bc42cdfaf6",
+      "digest": "aeb4217466e02bc1",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:assault_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.156
+          "total": 0.16
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.137
+          "total": 0.154
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.1
-        },
-        {
-          "rank": 5,
-          "variantId": "arda:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.1
-        },
-        {
-          "rank": 6,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
-          "rank": 7,
+          "rank": 5,
           "variantId": "isol:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
+          "rank": 6,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
+          "rank": 7,
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
           "rank": 8,
-          "variantId": "yumin:arcana",
+          "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
           "total": 0.1
@@ -1305,14 +1305,14 @@
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.097
         },
         {
           "rank": 10,
-          "variantId": "henry:shuriken",
+          "variantId": "yumin:arcana",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.095
         }
       ]
     },
@@ -1325,7 +1325,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "390dd28163ca96b1",
+      "digest": "d46f83401e518701",
       "results": [
         {
           "rank": 1,
@@ -1336,14 +1336,14 @@
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
-          "total": 0.134
+          "total": 0.13
         },
         {
           "rank": 3,
-          "variantId": "leon:glove",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -1353,49 +1353,49 @@
           "variantId": "leon:tonfa",
           "core": null,
           "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 5,
-          "variantId": "magnus:bat",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 6,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 7,
-          "variantId": "yuki:dual_swords",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 8,
-          "variantId": "luke:bat",
-          "core": "7200301",
-          "coreName": "치유 드론",
           "total": 0.128
         },
         {
-          "rank": 9,
-          "variantId": "johann:arcana",
+          "rank": 5,
+          "variantId": "leon:glove",
           "core": null,
           "coreName": null,
-          "total": 0.125
+          "total": 0.127
+        },
+        {
+          "rank": 6,
+          "variantId": "magnus:bat",
+          "core": null,
+          "coreName": null,
+          "total": 0.126
+        },
+        {
+          "rank": 7,
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.126
+        },
+        {
+          "rank": 8,
+          "variantId": "aya:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.122
+        },
+        {
+          "rank": 9,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.12
         },
         {
           "rank": 10,
           "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
-          "total": 0.124
+          "total": 0.116
         }
       ]
     },
@@ -1491,7 +1491,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "73de000a3d2914b7",
+      "digest": "d936f5d2c233b777",
       "results": [
         {
           "rank": 1,
@@ -1516,49 +1516,49 @@
         },
         {
           "rank": 4,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.13
+        },
+        {
+          "rank": 5,
           "variantId": "magnus:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 5,
+          "rank": 6,
           "variantId": "magnus:bat",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 6,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
           "rank": 7,
-          "variantId": "yuki:dual_swords",
+          "variantId": "johann:arcana",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 8,
-          "variantId": "eleven:hammer",
+          "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 9,
-          "variantId": "hyunwoo:glove",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 10,
-          "variantId": "hyunwoo:tonfa",
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -1574,7 +1574,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "117654703bdc1efb",
+      "digest": "d25dda0ed76cd97f",
       "results": [
         {
           "rank": 1,
@@ -1657,21 +1657,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "39d6a10cc96f1226",
+      "digest": "63ea9407dbb1ed81",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.118
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -1682,9 +1682,9 @@
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
+          "variantId": "mirka:hammer",
+          "core": null,
+          "coreName": null,
           "total": 0.1
         },
         {
@@ -1706,7 +1706,7 @@
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.092
+          "total": 0.09
         },
         {
           "rank": 8,
@@ -1717,17 +1717,17 @@
         },
         {
           "rank": 9,
+          "variantId": "blair:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.083
+        },
+        {
+          "rank": 10,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.081
-        },
-        {
-          "rank": 10,
-          "variantId": "magnus:bat",
-          "core": null,
-          "coreName": null,
-          "total": 0.075
         }
       ]
     },
@@ -1740,77 +1740,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6cbf6c8f92095f14",
+      "digest": "ec13d703c279f837",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.066
+          "total": 0.074
         },
         {
           "rank": 2,
-          "variantId": "yuki:dual_swords",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.022
+          "total": 0.059
         },
         {
           "rank": 3,
-          "variantId": "yuki:two_handed_sword",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
-          "total": 0.02
+          "total": 0.043
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.011
+          "variantId": "yuki:two_handed_sword",
+          "core": null,
+          "coreName": null,
+          "total": 0.031
         },
         {
           "rank": 5,
-          "variantId": "ian:dagger",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": 0.008
+          "variantId": "laura:whip",
+          "core": null,
+          "coreName": null,
+          "total": 0.017
         },
         {
           "rank": 6,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": -0.009
+          "total": 0.012
         },
         {
           "rank": 7,
           "variantId": "hisui:two_handed_sword",
           "core": null,
           "coreName": null,
-          "total": -0.01
+          "total": -0.002
         },
         {
           "rank": 8,
-          "variantId": "haze:assault_rifle",
-          "core": null,
-          "coreName": null,
-          "total": -0.011
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": -0.005
         },
         {
           "rank": 9,
-          "variantId": "bihyung:bat",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": -0.013
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": -0.006
         },
         {
           "rank": 10,
-          "variantId": "fenrir:glove",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": -0.018
+          "variantId": "mirka:hammer",
+          "core": null,
+          "coreName": null,
+          "total": -0.008
         }
       ]
     },
@@ -1823,60 +1823,60 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "896b46e43e649571",
+      "digest": "8cfe68a45f3813c7",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.158
+          "total": 0.16
         },
         {
           "rank": 3,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.147
+          "total": 0.157
         },
         {
           "rank": 4,
-          "variantId": "leon:tonfa",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 5,
           "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 6,
+          "rank": 5,
           "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 7,
+          "rank": 6,
           "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
+          "rank": 7,
+          "variantId": "leon:glove",
+          "core": null,
+          "coreName": null,
+          "total": 0.126
+        },
+        {
           "rank": 8,
-          "variantId": "hyunwoo:tonfa",
+          "variantId": "leon:tonfa",
           "core": null,
           "coreName": null,
           "total": 0.126
@@ -1890,10 +1890,10 @@
         },
         {
           "rank": 10,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.1
+          "variantId": "magnus:bat",
+          "core": null,
+          "coreName": null,
+          "total": 0.108
         }
       ]
     },
@@ -1905,7 +1905,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b4b1776154d04a95",
+      "digest": "16549c810a0a2702",
       "results": [
         {
           "rank": 1,
@@ -1988,77 +1988,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "de00a0f7c1b4c3a9",
+      "digest": "32eef180be91f0a5",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.119
+          "total": 0.1
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.089
-        },
-        {
-          "rank": 3,
           "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.072
+          "total": 0.098
+        },
+        {
+          "rank": 3,
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.069
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.051
-        },
-        {
-          "rank": 5,
           "variantId": "isol:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.042
+          "total": 0.023
+        },
+        {
+          "rank": 5,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.015
         },
         {
           "rank": 6,
-          "variantId": "rio:bow",
-          "core": null,
-          "coreName": null,
-          "total": 0.038
-        },
-        {
-          "rank": 7,
-          "variantId": "jackie:dual_swords",
-          "core": null,
-          "coreName": null,
-          "total": 0.037
-        },
-        {
-          "rank": 8,
-          "variantId": "katja:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.034
-        },
-        {
-          "rank": 9,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.031
+          "total": 0.012
         },
         {
-          "rank": 10,
+          "rank": 7,
+          "variantId": "rio:bow",
+          "core": null,
+          "coreName": null,
+          "total": 0.01
+        },
+        {
+          "rank": 8,
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.029
+          "total": 0.009
+        },
+        {
+          "rank": 9,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.008
+        },
+        {
+          "rank": 10,
+          "variantId": "yuki:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.008
         }
       ]
     },
@@ -2071,77 +2071,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "95529d5d77c7bf5f",
+      "digest": "7ef3bcbe89476356",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.122
         },
         {
           "rank": 2,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.093
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.122
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
-          "core": null,
-          "coreName": null,
-          "total": 0.076
-        },
-        {
-          "rank": 4,
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.058
         },
         {
-          "rank": 5,
+          "rank": 4,
           "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.047
         },
         {
-          "rank": 6,
-          "variantId": "aya:assault_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.043
-        },
-        {
-          "rank": 7,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.042
-        },
-        {
-          "rank": 8,
-          "variantId": "sissela:shuriken",
-          "core": null,
-          "coreName": null,
-          "total": 0.041
-        },
-        {
-          "rank": 9,
-          "variantId": "lucia:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.039
-        },
-        {
-          "rank": 10,
+          "rank": 5,
           "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
           "total": 0.035
+        },
+        {
+          "rank": 6,
+          "variantId": "aya:assault_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.034
+        },
+        {
+          "rank": 7,
+          "variantId": "sissela:shuriken",
+          "core": null,
+          "coreName": null,
+          "total": 0.033
+        },
+        {
+          "rank": 8,
+          "variantId": "nia:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.03
+        },
+        {
+          "rank": 9,
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.029
+        },
+        {
+          "rank": 10,
+          "variantId": "isol:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.027
         }
       ]
     },
@@ -2154,7 +2154,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a36000ab2eae4ec1",
+      "digest": "1608c039e8382c12",
       "results": [
         {
           "rank": 1,
@@ -2200,28 +2200,28 @@
         },
         {
           "rank": 7,
-          "variantId": "charlotte:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 8,
           "variantId": "johann:arcana",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 9,
+          "rank": 8,
           "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 10,
+          "rank": 9,
           "variantId": "yuki:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.13
+        },
+        {
+          "rank": 10,
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -2398,7 +2398,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c9ad5d142d003531",
+      "digest": "c889c6247169c662",
       "results": [
         {
           "rank": 1,
@@ -2480,7 +2480,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "c04a131654fd982e",
+      "digest": "627b168bad6cafa3",
       "results": [
         {
           "rank": 1,
@@ -2562,7 +2562,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ce6bdc706c4270b8",
+      "digest": "cb8168253db09c7f",
       "results": [
         {
           "rank": 1,
@@ -3219,21 +3219,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "af64e6ac0b92c02c",
+      "digest": "5eb4a81e024d714d",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.141
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -3265,31 +3265,31 @@
         },
         {
           "rank": 7,
-          "variantId": "haze:assault_rifle",
+          "variantId": "eva:throw",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 8,
-          "variantId": "henry:shuriken",
+          "variantId": "jenny:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 9,
-          "variantId": "eva:throw",
+          "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.097
+          "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "katja:sniper_rifle",
+          "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
-          "total": 0.096
+          "total": 0.1
         }
       ]
     },
@@ -3302,28 +3302,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "379862a3f53a256b",
+      "digest": "a5ad8a6d0d86f6d1",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:assault_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.158
+          "total": 0.16
         },
         {
           "rank": 4,
@@ -3385,7 +3385,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "36dc007710e7c4c5",
+      "digest": "b59546ae4bbaad0b",
       "results": [
         {
           "rank": 1,
@@ -3438,21 +3438,21 @@
         },
         {
           "rank": 8,
-          "variantId": "katja:sniper_rifle",
+          "variantId": "eva:throw",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 9,
-          "variantId": "haze:assault_rifle",
+          "variantId": "jenny:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "henry:shuriken",
+          "variantId": "katja:sniper_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
@@ -3468,60 +3468,60 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "48f19d26090dc25d",
+      "digest": "ded84f29b107ee7f",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:assault_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.156
+          "total": 0.16
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.138
+          "total": 0.155
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.1
-        },
-        {
-          "rank": 5,
-          "variantId": "arda:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.1
-        },
-        {
-          "rank": 6,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
-          "rank": 7,
+          "rank": 5,
           "variantId": "isol:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
+          "rank": 6,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
+          "rank": 7,
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
           "rank": 8,
-          "variantId": "yumin:arcana",
+          "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
           "total": 0.1
@@ -3531,14 +3531,14 @@
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.097
         },
         {
           "rank": 10,
-          "variantId": "henry:shuriken",
+          "variantId": "yumin:arcana",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.095
         }
       ]
     },
@@ -3551,7 +3551,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cb6dc906fce63c05",
+      "digest": "d71dc50403bdb140",
       "results": [
         {
           "rank": 1,
@@ -3562,14 +3562,14 @@
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
-          "total": 0.134
+          "total": 0.13
         },
         {
           "rank": 3,
-          "variantId": "leon:glove",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -3579,49 +3579,49 @@
           "variantId": "leon:tonfa",
           "core": null,
           "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 5,
-          "variantId": "magnus:bat",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 6,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 7,
-          "variantId": "yuki:dual_swords",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 8,
-          "variantId": "luke:bat",
-          "core": "7200301",
-          "coreName": "치유 드론",
           "total": 0.128
         },
         {
-          "rank": 9,
-          "variantId": "johann:arcana",
+          "rank": 5,
+          "variantId": "leon:glove",
           "core": null,
           "coreName": null,
-          "total": 0.125
+          "total": 0.127
+        },
+        {
+          "rank": 6,
+          "variantId": "magnus:bat",
+          "core": null,
+          "coreName": null,
+          "total": 0.126
+        },
+        {
+          "rank": 7,
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.126
+        },
+        {
+          "rank": 8,
+          "variantId": "aya:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.122
+        },
+        {
+          "rank": 9,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.12
         },
         {
           "rank": 10,
           "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
-          "total": 0.124
+          "total": 0.116
         }
       ]
     },
@@ -3634,7 +3634,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "dbec43184a3782fa",
+      "digest": "22ed15f4b9541ba5",
       "results": [
         {
           "rank": 1,
@@ -3717,7 +3717,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "761ca4576425d2cf",
+      "digest": "2a8db226387f5615",
       "results": [
         {
           "rank": 1,
@@ -3742,49 +3742,49 @@
         },
         {
           "rank": 4,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.13
+        },
+        {
+          "rank": 5,
           "variantId": "magnus:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 5,
+          "rank": 6,
           "variantId": "magnus:bat",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 6,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
           "rank": 7,
-          "variantId": "yuki:dual_swords",
+          "variantId": "johann:arcana",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 8,
-          "variantId": "eleven:hammer",
+          "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 9,
-          "variantId": "hyunwoo:glove",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 10,
-          "variantId": "hyunwoo:tonfa",
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -3800,7 +3800,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f07312c6b6756f0a",
+      "digest": "701e5462bdd19a1e",
       "results": [
         {
           "rank": 1,
@@ -3883,21 +3883,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "39d6a10cc96f1226",
+      "digest": "63ea9407dbb1ed81",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.118
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -3908,9 +3908,9 @@
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
+          "variantId": "mirka:hammer",
+          "core": null,
+          "coreName": null,
           "total": 0.1
         },
         {
@@ -3932,7 +3932,7 @@
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.092
+          "total": 0.09
         },
         {
           "rank": 8,
@@ -3943,17 +3943,17 @@
         },
         {
           "rank": 9,
+          "variantId": "blair:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.083
+        },
+        {
+          "rank": 10,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.081
-        },
-        {
-          "rank": 10,
-          "variantId": "magnus:bat",
-          "core": null,
-          "coreName": null,
-          "total": 0.075
         }
       ]
     },
@@ -3966,77 +3966,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ba30af66ee7f08c0",
+      "digest": "390d64c9a9354a06",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.067
+          "total": 0.075
         },
         {
           "rank": 2,
-          "variantId": "yuki:dual_swords",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.023
+          "total": 0.06
         },
         {
           "rank": 3,
-          "variantId": "yuki:two_handed_sword",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
-          "total": 0.021
+          "total": 0.044
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.011
+          "variantId": "yuki:two_handed_sword",
+          "core": null,
+          "coreName": null,
+          "total": 0.032
         },
         {
           "rank": 5,
-          "variantId": "ian:dagger",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": 0.008
+          "variantId": "laura:whip",
+          "core": null,
+          "coreName": null,
+          "total": 0.017
         },
         {
           "rank": 6,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": -0.009
+          "total": 0.012
         },
         {
           "rank": 7,
           "variantId": "hisui:two_handed_sword",
           "core": null,
           "coreName": null,
-          "total": -0.01
+          "total": -0.002
         },
         {
           "rank": 8,
-          "variantId": "haze:assault_rifle",
-          "core": null,
-          "coreName": null,
-          "total": -0.011
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": -0.003
         },
         {
           "rank": 9,
-          "variantId": "bihyung:bat",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": -0.014
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": -0.007
         },
         {
           "rank": 10,
-          "variantId": "fenrir:glove",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": -0.018
+          "variantId": "mirka:hammer",
+          "core": null,
+          "coreName": null,
+          "total": -0.009
         }
       ]
     },
@@ -4049,77 +4049,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "145df4f8eae2ba5e",
+      "digest": "f335e34cd243a2a4",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.16
+        },
+        {
+          "rank": 3,
           "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 3,
+          "rank": 4,
           "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 4,
-          "variantId": "leon:tonfa",
-          "core": null,
-          "coreName": null,
-          "total": 0.122
-        },
-        {
           "rank": 5,
-          "variantId": "aya:pistol",
+          "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
-          "total": 0.104
+          "total": 0.113
         },
         {
           "rank": 6,
-          "variantId": "hyunwoo:glove",
+          "variantId": "leon:glove",
           "core": null,
           "coreName": null,
           "total": 0.104
         },
         {
           "rank": 7,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.1
+          "variantId": "leon:tonfa",
+          "core": null,
+          "coreName": null,
+          "total": 0.104
         },
         {
           "rank": 8,
-          "variantId": "markus:hammer",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.103
         },
         {
           "rank": 9,
-          "variantId": "arda:arcana",
+          "variantId": "markus:axe",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "sua:bat",
+          "variantId": "markus:hammer",
           "core": null,
           "coreName": null,
-          "total": 0.098
+          "total": 0.1
         }
       ]
     },
@@ -4131,7 +4131,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "de2f92fed5848e6e",
+      "digest": "b73ad9a8b5d090ba",
       "results": [
         {
           "rank": 1,
@@ -4214,77 +4214,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fae3b74478e2c09b",
+      "digest": "617f887caea3cec1",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.119
+          "total": 0.1
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.089
-        },
-        {
-          "rank": 3,
           "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.072
+          "total": 0.098
+        },
+        {
+          "rank": 3,
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.07
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.051
-        },
-        {
-          "rank": 5,
           "variantId": "isol:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.042
+          "total": 0.023
+        },
+        {
+          "rank": 5,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.015
         },
         {
           "rank": 6,
-          "variantId": "rio:bow",
-          "core": null,
-          "coreName": null,
-          "total": 0.038
-        },
-        {
-          "rank": 7,
-          "variantId": "jackie:dual_swords",
-          "core": null,
-          "coreName": null,
-          "total": 0.037
-        },
-        {
-          "rank": 8,
-          "variantId": "katja:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.034
-        },
-        {
-          "rank": 9,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.031
+          "total": 0.012
         },
         {
-          "rank": 10,
+          "rank": 7,
+          "variantId": "rio:bow",
+          "core": null,
+          "coreName": null,
+          "total": 0.01
+        },
+        {
+          "rank": 8,
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.029
+          "total": 0.009
+        },
+        {
+          "rank": 9,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.008
+        },
+        {
+          "rank": 10,
+          "variantId": "yuki:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.008
         }
       ]
     },
@@ -4297,77 +4297,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3b550a6d763d6c78",
+      "digest": "78c983ab69b92186",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.122
         },
         {
           "rank": 2,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.093
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.122
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
-          "core": null,
-          "coreName": null,
-          "total": 0.076
-        },
-        {
-          "rank": 4,
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.058
         },
         {
-          "rank": 5,
+          "rank": 4,
           "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.047
         },
         {
-          "rank": 6,
-          "variantId": "aya:assault_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.043
-        },
-        {
-          "rank": 7,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.042
-        },
-        {
-          "rank": 8,
-          "variantId": "sissela:shuriken",
-          "core": null,
-          "coreName": null,
-          "total": 0.041
-        },
-        {
-          "rank": 9,
-          "variantId": "lucia:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.039
-        },
-        {
-          "rank": 10,
+          "rank": 5,
           "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
           "total": 0.035
+        },
+        {
+          "rank": 6,
+          "variantId": "aya:assault_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.034
+        },
+        {
+          "rank": 7,
+          "variantId": "sissela:shuriken",
+          "core": null,
+          "coreName": null,
+          "total": 0.033
+        },
+        {
+          "rank": 8,
+          "variantId": "nia:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.031
+        },
+        {
+          "rank": 9,
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.029
+        },
+        {
+          "rank": 10,
+          "variantId": "isol:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.027
         }
       ]
     },
@@ -4380,7 +4380,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a36000ab2eae4ec1",
+      "digest": "f55435705441a492",
       "results": [
         {
           "rank": 1,
@@ -4426,28 +4426,28 @@
         },
         {
           "rank": 7,
-          "variantId": "charlotte:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 8,
           "variantId": "johann:arcana",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 9,
+          "rank": 8,
           "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 10,
+          "rank": 9,
           "variantId": "yuki:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.13
+        },
+        {
+          "rank": 10,
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -4624,7 +4624,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "aca7f67d7a03998e",
+      "digest": "e7c49393a6fdd58d",
       "results": [
         {
           "rank": 1,
@@ -4706,7 +4706,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ebf4c627f7e83513",
+      "digest": "bbfe3f6fbf29568d",
       "results": [
         {
           "rank": 1,
@@ -4788,7 +4788,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "650034afef763188",
+      "digest": "5a9e6941b263ce7c",
       "results": [
         {
           "rank": 1,
@@ -5445,21 +5445,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8d850dbcd92aa5ce",
+      "digest": "1345dbeb42f2d73f",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.141
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -5491,31 +5491,31 @@
         },
         {
           "rank": 7,
-          "variantId": "haze:assault_rifle",
+          "variantId": "eva:throw",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 8,
-          "variantId": "henry:shuriken",
+          "variantId": "jenny:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 9,
-          "variantId": "eva:throw",
+          "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.097
+          "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "katja:sniper_rifle",
+          "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
-          "total": 0.096
+          "total": 0.1
         }
       ]
     },
@@ -5528,28 +5528,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6d0ddd79c76b5ae1",
+      "digest": "5a228f7e83c4316e",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:assault_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.156
+          "total": 0.16
         },
         {
           "rank": 4,
@@ -5611,7 +5611,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "37915db992a5e346",
+      "digest": "f56761ed9dd1bf26",
       "results": [
         {
           "rank": 1,
@@ -5664,21 +5664,21 @@
         },
         {
           "rank": 8,
-          "variantId": "katja:sniper_rifle",
+          "variantId": "eva:throw",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 9,
-          "variantId": "haze:assault_rifle",
+          "variantId": "jenny:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "henry:shuriken",
+          "variantId": "katja:sniper_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
@@ -5694,60 +5694,60 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "3866989419ddae1d",
+      "digest": "ac9c50afb7b861f1",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:assault_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.156
+          "total": 0.16
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.137
+          "total": 0.154
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.1
-        },
-        {
-          "rank": 5,
-          "variantId": "arda:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.1
-        },
-        {
-          "rank": 6,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
-          "rank": 7,
+          "rank": 5,
           "variantId": "isol:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
+          "rank": 6,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
+          "rank": 7,
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
           "rank": 8,
-          "variantId": "yumin:arcana",
+          "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
           "total": 0.1
@@ -5757,14 +5757,14 @@
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.097
         },
         {
           "rank": 10,
-          "variantId": "henry:shuriken",
+          "variantId": "yumin:arcana",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.095
         }
       ]
     },
@@ -5777,7 +5777,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8f1fb79ccc9651ce",
+      "digest": "d46f83401e518701",
       "results": [
         {
           "rank": 1,
@@ -5788,14 +5788,14 @@
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
-          "total": 0.134
+          "total": 0.13
         },
         {
           "rank": 3,
-          "variantId": "leon:glove",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -5805,49 +5805,49 @@
           "variantId": "leon:tonfa",
           "core": null,
           "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 5,
-          "variantId": "magnus:bat",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 6,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 7,
-          "variantId": "yuki:dual_swords",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 8,
-          "variantId": "luke:bat",
-          "core": "7200301",
-          "coreName": "치유 드론",
           "total": 0.128
         },
         {
-          "rank": 9,
-          "variantId": "johann:arcana",
+          "rank": 5,
+          "variantId": "leon:glove",
           "core": null,
           "coreName": null,
-          "total": 0.125
+          "total": 0.127
+        },
+        {
+          "rank": 6,
+          "variantId": "magnus:bat",
+          "core": null,
+          "coreName": null,
+          "total": 0.126
+        },
+        {
+          "rank": 7,
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.126
+        },
+        {
+          "rank": 8,
+          "variantId": "aya:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.122
+        },
+        {
+          "rank": 9,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.12
         },
         {
           "rank": 10,
           "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
-          "total": 0.124
+          "total": 0.116
         }
       ]
     },
@@ -5860,7 +5860,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e602ca5f78d5b5f6",
+      "digest": "715cf2efa58ac83c",
       "results": [
         {
           "rank": 1,
@@ -5943,7 +5943,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6779a6e744c1886e",
+      "digest": "063f51d6dbfab3dd",
       "results": [
         {
           "rank": 1,
@@ -5968,49 +5968,49 @@
         },
         {
           "rank": 4,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.13
+        },
+        {
+          "rank": 5,
           "variantId": "magnus:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 5,
+          "rank": 6,
           "variantId": "magnus:bat",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 6,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
           "rank": 7,
-          "variantId": "yuki:dual_swords",
+          "variantId": "johann:arcana",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 8,
-          "variantId": "eleven:hammer",
+          "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 9,
-          "variantId": "hyunwoo:glove",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 10,
-          "variantId": "hyunwoo:tonfa",
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -6026,7 +6026,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8a20c0fd9fb417f7",
+      "digest": "075af717679585ae",
       "results": [
         {
           "rank": 1,
@@ -6109,21 +6109,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4d7cbc8e01583422",
+      "digest": "63ea9407dbb1ed81",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.118
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -6134,9 +6134,9 @@
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
+          "variantId": "mirka:hammer",
+          "core": null,
+          "coreName": null,
           "total": 0.1
         },
         {
@@ -6158,7 +6158,7 @@
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.092
+          "total": 0.09
         },
         {
           "rank": 8,
@@ -6169,17 +6169,17 @@
         },
         {
           "rank": 9,
+          "variantId": "blair:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.083
+        },
+        {
+          "rank": 10,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.081
-        },
-        {
-          "rank": 10,
-          "variantId": "magnus:bat",
-          "core": null,
-          "coreName": null,
-          "total": 0.075
         }
       ]
     },
@@ -6192,77 +6192,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f92e33d3ce7e35da",
+      "digest": "06842c143e9d3ea4",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.066
+          "total": 0.074
         },
         {
           "rank": 2,
-          "variantId": "yuki:dual_swords",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.022
+          "total": 0.059
         },
         {
           "rank": 3,
-          "variantId": "yuki:two_handed_sword",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
-          "total": 0.02
+          "total": 0.043
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.011
+          "variantId": "yuki:two_handed_sword",
+          "core": null,
+          "coreName": null,
+          "total": 0.031
         },
         {
           "rank": 5,
-          "variantId": "ian:dagger",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": 0.008
+          "variantId": "laura:whip",
+          "core": null,
+          "coreName": null,
+          "total": 0.017
         },
         {
           "rank": 6,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": -0.009
+          "total": 0.012
         },
         {
           "rank": 7,
           "variantId": "hisui:two_handed_sword",
           "core": null,
           "coreName": null,
-          "total": -0.009
+          "total": -0.001
         },
         {
           "rank": 8,
-          "variantId": "haze:assault_rifle",
-          "core": null,
-          "coreName": null,
-          "total": -0.011
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": -0.005
         },
         {
           "rank": 9,
-          "variantId": "bihyung:bat",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": -0.013
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": -0.007
         },
         {
           "rank": 10,
-          "variantId": "fenrir:glove",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": -0.019
+          "variantId": "mirka:hammer",
+          "core": null,
+          "coreName": null,
+          "total": -0.008
         }
       ]
     },
@@ -6275,63 +6275,63 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6052a3c5ab1e8aa5",
+      "digest": "b5d62229aa9aed42",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.158
+          "total": 0.16
         },
         {
           "rank": 3,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.148
+          "total": 0.157
         },
         {
           "rank": 4,
-          "variantId": "leon:tonfa",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 5,
           "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 6,
+          "rank": 5,
           "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 7,
+          "rank": 6,
           "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 8,
-          "variantId": "hyunwoo:tonfa",
+          "rank": 7,
+          "variantId": "leon:glove",
           "core": null,
           "coreName": null,
-          "total": 0.12
+          "total": 0.126
+        },
+        {
+          "rank": 8,
+          "variantId": "leon:tonfa",
+          "core": null,
+          "coreName": null,
+          "total": 0.126
         },
         {
           "rank": 9,
@@ -6342,10 +6342,10 @@
         },
         {
           "rank": 10,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.1
+          "variantId": "magnus:bat",
+          "core": null,
+          "coreName": null,
+          "total": 0.108
         }
       ]
     },
@@ -6357,7 +6357,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ff8f48fad066e295",
+      "digest": "c249703178770a8b",
       "results": [
         {
           "rank": 1,
@@ -6440,77 +6440,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "add98b4f58413a77",
+      "digest": "e04d6b24a68567ac",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.119
+          "total": 0.1
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.089
-        },
-        {
-          "rank": 3,
           "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.072
+          "total": 0.098
+        },
+        {
+          "rank": 3,
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.069
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.051
-        },
-        {
-          "rank": 5,
           "variantId": "isol:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.042
+          "total": 0.023
+        },
+        {
+          "rank": 5,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.015
         },
         {
           "rank": 6,
-          "variantId": "rio:bow",
-          "core": null,
-          "coreName": null,
-          "total": 0.038
-        },
-        {
-          "rank": 7,
-          "variantId": "jackie:dual_swords",
-          "core": null,
-          "coreName": null,
-          "total": 0.037
-        },
-        {
-          "rank": 8,
-          "variantId": "katja:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.034
-        },
-        {
-          "rank": 9,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.031
+          "total": 0.011
         },
         {
-          "rank": 10,
+          "rank": 7,
+          "variantId": "rio:bow",
+          "core": null,
+          "coreName": null,
+          "total": 0.01
+        },
+        {
+          "rank": 8,
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.029
+          "total": 0.009
+        },
+        {
+          "rank": 9,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.008
+        },
+        {
+          "rank": 10,
+          "variantId": "yuki:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.008
         }
       ]
     },
@@ -6523,77 +6523,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "878e0975389101b7",
+      "digest": "fb2bfe660c8f7ede",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.122
         },
         {
           "rank": 2,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.093
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.122
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
-          "core": null,
-          "coreName": null,
-          "total": 0.076
-        },
-        {
-          "rank": 4,
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.058
         },
         {
-          "rank": 5,
+          "rank": 4,
           "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.047
         },
         {
-          "rank": 6,
-          "variantId": "aya:assault_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.043
-        },
-        {
-          "rank": 7,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.042
-        },
-        {
-          "rank": 8,
-          "variantId": "sissela:shuriken",
-          "core": null,
-          "coreName": null,
-          "total": 0.041
-        },
-        {
-          "rank": 9,
-          "variantId": "lucia:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.039
-        },
-        {
-          "rank": 10,
+          "rank": 5,
           "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
           "total": 0.035
+        },
+        {
+          "rank": 6,
+          "variantId": "aya:assault_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.034
+        },
+        {
+          "rank": 7,
+          "variantId": "sissela:shuriken",
+          "core": null,
+          "coreName": null,
+          "total": 0.033
+        },
+        {
+          "rank": 8,
+          "variantId": "nia:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.031
+        },
+        {
+          "rank": 9,
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.029
+        },
+        {
+          "rank": 10,
+          "variantId": "isol:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.027
         }
       ]
     },
@@ -6606,7 +6606,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "cbfdc95f581c2f41",
+      "digest": "50ce5dd3188080cf",
       "results": [
         {
           "rank": 1,
@@ -6652,28 +6652,28 @@
         },
         {
           "rank": 7,
-          "variantId": "charlotte:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 8,
           "variantId": "johann:arcana",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 9,
+          "rank": 8,
           "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 10,
+          "rank": 9,
           "variantId": "yuki:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.13
+        },
+        {
+          "rank": 10,
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -6850,7 +6850,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "7be7a5d275bd26ec",
+      "digest": "ed3de4febf3c7477",
       "results": [
         {
           "rank": 1,
@@ -6932,7 +6932,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b7fae11c02b433fe",
+      "digest": "e89392ca236fe698",
       "results": [
         {
           "rank": 1,
@@ -7014,7 +7014,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "256f5aac7ebe923c",
+      "digest": "e919a5d55cbc91c5",
       "results": [
         {
           "rank": 1,
@@ -7671,21 +7671,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4863736041881dfa",
+      "digest": "cd8e5f5100e46232",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.141
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -7717,31 +7717,31 @@
         },
         {
           "rank": 7,
-          "variantId": "haze:assault_rifle",
+          "variantId": "eva:throw",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 8,
-          "variantId": "henry:shuriken",
+          "variantId": "jenny:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 9,
-          "variantId": "eva:throw",
+          "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.097
+          "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "katja:sniper_rifle",
+          "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
-          "total": 0.096
+          "total": 0.1
         }
       ]
     },
@@ -7754,28 +7754,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "41f6d9ed2391d669",
+      "digest": "c21b2dfac3c8e7c9",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:assault_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.155
+          "total": 0.16
         },
         {
           "rank": 4,
@@ -7837,7 +7837,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "94fab5bafaf38194",
+      "digest": "464c0c6ce8598d6c",
       "results": [
         {
           "rank": 1,
@@ -7890,21 +7890,21 @@
         },
         {
           "rank": 8,
-          "variantId": "katja:sniper_rifle",
+          "variantId": "eva:throw",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 9,
-          "variantId": "haze:assault_rifle",
+          "variantId": "jenny:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "henry:shuriken",
+          "variantId": "katja:sniper_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
@@ -7920,60 +7920,60 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d36e52b22df576a5",
+      "digest": "820c1d285c7ac0d1",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:assault_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.156
+          "total": 0.16
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.137
+          "total": 0.154
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.1
-        },
-        {
-          "rank": 5,
-          "variantId": "arda:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.1
-        },
-        {
-          "rank": 6,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
-          "rank": 7,
+          "rank": 5,
           "variantId": "isol:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
+          "rank": 6,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
+          "rank": 7,
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
           "rank": 8,
-          "variantId": "yumin:arcana",
+          "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
           "total": 0.1
@@ -7983,14 +7983,14 @@
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.097
         },
         {
           "rank": 10,
-          "variantId": "henry:shuriken",
+          "variantId": "yumin:arcana",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.095
         }
       ]
     },
@@ -8003,7 +8003,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b7595072bbaefdd8",
+      "digest": "cb69f0f9427a0490",
       "results": [
         {
           "rank": 1,
@@ -8014,14 +8014,14 @@
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
-          "total": 0.134
+          "total": 0.13
         },
         {
           "rank": 3,
-          "variantId": "leon:glove",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -8031,49 +8031,49 @@
           "variantId": "leon:tonfa",
           "core": null,
           "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 5,
-          "variantId": "magnus:bat",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 6,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 7,
-          "variantId": "yuki:dual_swords",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 8,
-          "variantId": "luke:bat",
-          "core": "7200301",
-          "coreName": "치유 드론",
           "total": 0.128
         },
         {
-          "rank": 9,
-          "variantId": "johann:arcana",
+          "rank": 5,
+          "variantId": "leon:glove",
+          "core": null,
+          "coreName": null,
+          "total": 0.127
+        },
+        {
+          "rank": 6,
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
           "total": 0.126
+        },
+        {
+          "rank": 7,
+          "variantId": "magnus:bat",
+          "core": null,
+          "coreName": null,
+          "total": 0.125
+        },
+        {
+          "rank": 8,
+          "variantId": "aya:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.122
+        },
+        {
+          "rank": 9,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.12
         },
         {
           "rank": 10,
           "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
-          "total": 0.124
+          "total": 0.116
         }
       ]
     },
@@ -8086,7 +8086,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8691a7b3d41dcf3e",
+      "digest": "b29ab04942432bc7",
       "results": [
         {
           "rank": 1,
@@ -8146,14 +8146,14 @@
         },
         {
           "rank": 9,
-          "variantId": "jackie:two_handed_sword",
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 10,
-          "variantId": "jackie:axe",
+          "variantId": "jackie:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -8169,7 +8169,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f0d5a3de29becc42",
+      "digest": "5f02e31a20ff16da",
       "results": [
         {
           "rank": 1,
@@ -8194,49 +8194,49 @@
         },
         {
           "rank": 4,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.13
+        },
+        {
+          "rank": 5,
           "variantId": "magnus:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 5,
+          "rank": 6,
           "variantId": "magnus:bat",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 6,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
           "rank": 7,
-          "variantId": "yuki:dual_swords",
+          "variantId": "johann:arcana",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 8,
-          "variantId": "eleven:hammer",
+          "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 9,
-          "variantId": "hyunwoo:glove",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 10,
-          "variantId": "hyunwoo:tonfa",
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -8252,7 +8252,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "8b96f952ce6353cd",
+      "digest": "c3636b93f0991042",
       "results": [
         {
           "rank": 1,
@@ -8335,21 +8335,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f942a514006a7209",
+      "digest": "17c45c05a4288d5d",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.135
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -8384,27 +8384,27 @@
           "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
-          "total": 0.111
+          "total": 0.103
         },
         {
           "rank": 8,
-          "variantId": "hyunwoo:tonfa",
+          "variantId": "mirka:hammer",
           "core": null,
           "coreName": null,
-          "total": 0.111
+          "total": 0.1
         },
         {
           "rank": 9,
-          "variantId": "leon:tonfa",
+          "variantId": "alonso:glove",
           "core": null,
           "coreName": null,
-          "total": 0.102
+          "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
+          "variantId": "haze:assault_rifle",
+          "core": null,
+          "coreName": null,
           "total": 0.1
         }
       ]
@@ -8418,77 +8418,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9bc0c9e47e59b92e",
+      "digest": "d759cd5b5a49688a",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.064
+          "total": 0.072
         },
         {
           "rank": 2,
-          "variantId": "yuki:dual_swords",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.022
+          "total": 0.057
         },
         {
           "rank": 3,
-          "variantId": "yuki:two_handed_sword",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
-          "total": 0.019
+          "total": 0.042
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.011
+          "variantId": "yuki:two_handed_sword",
+          "core": null,
+          "coreName": null,
+          "total": 0.03
         },
         {
           "rank": 5,
-          "variantId": "ian:dagger",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": 0.009
+          "variantId": "laura:whip",
+          "core": null,
+          "coreName": null,
+          "total": 0.018
         },
         {
           "rank": 6,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": -0.009
+          "total": 0.012
         },
         {
           "rank": 7,
           "variantId": "hisui:two_handed_sword",
           "core": null,
           "coreName": null,
-          "total": -0.009
+          "total": -0.001
         },
         {
           "rank": 8,
-          "variantId": "haze:assault_rifle",
-          "core": null,
-          "coreName": null,
-          "total": -0.011
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": -0.005
         },
         {
           "rank": 9,
-          "variantId": "bihyung:bat",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": -0.013
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": -0.006
         },
         {
           "rank": 10,
-          "variantId": "fenrir:glove",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": -0.018
+          "variantId": "mirka:hammer",
+          "core": null,
+          "coreName": null,
+          "total": -0.008
         }
       ]
     },
@@ -8501,63 +8501,63 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "fa57cb9e4b8fff71",
+      "digest": "f1a6fefcd6255b3b",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.157
+          "total": 0.16
         },
         {
           "rank": 3,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.148
+          "total": 0.157
         },
         {
           "rank": 4,
-          "variantId": "leon:tonfa",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 5,
           "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 6,
+          "rank": 5,
           "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 7,
+          "rank": 6,
           "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 8,
-          "variantId": "hyunwoo:tonfa",
+          "rank": 7,
+          "variantId": "leon:glove",
           "core": null,
           "coreName": null,
-          "total": 0.12
+          "total": 0.126
+        },
+        {
+          "rank": 8,
+          "variantId": "leon:tonfa",
+          "core": null,
+          "coreName": null,
+          "total": 0.125
         },
         {
           "rank": 9,
@@ -8568,10 +8568,10 @@
         },
         {
           "rank": 10,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.1
+          "variantId": "magnus:bat",
+          "core": null,
+          "coreName": null,
+          "total": 0.108
         }
       ]
     },
@@ -8583,7 +8583,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2b8df8339ec0cdef",
+      "digest": "3ae0889271352a94",
       "results": [
         {
           "rank": 1,
@@ -8666,77 +8666,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5c08040a7343b5ec",
+      "digest": "e04d6b24a68567ac",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.119
+          "total": 0.1
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.088
-        },
-        {
-          "rank": 3,
           "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.072
+          "total": 0.098
+        },
+        {
+          "rank": 3,
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.069
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.051
-        },
-        {
-          "rank": 5,
           "variantId": "isol:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.042
+          "total": 0.023
+        },
+        {
+          "rank": 5,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.015
         },
         {
           "rank": 6,
-          "variantId": "rio:bow",
-          "core": null,
-          "coreName": null,
-          "total": 0.038
-        },
-        {
-          "rank": 7,
-          "variantId": "jackie:dual_swords",
-          "core": null,
-          "coreName": null,
-          "total": 0.037
-        },
-        {
-          "rank": 8,
-          "variantId": "katja:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.034
-        },
-        {
-          "rank": 9,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.031
+          "total": 0.011
         },
         {
-          "rank": 10,
+          "rank": 7,
+          "variantId": "rio:bow",
+          "core": null,
+          "coreName": null,
+          "total": 0.01
+        },
+        {
+          "rank": 8,
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.029
+          "total": 0.009
+        },
+        {
+          "rank": 9,
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": 0.008
+        },
+        {
+          "rank": 10,
+          "variantId": "yuki:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.008
         }
       ]
     },
@@ -8749,7 +8749,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a57bd40c8fd7f85e",
+      "digest": "935a5ca2bf0743d8",
       "results": [
         {
           "rank": 1,
@@ -8760,66 +8760,66 @@
         },
         {
           "rank": 2,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.093
-        },
-        {
-          "rank": 3,
           "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.076
+          "total": 0.121
         },
         {
-          "rank": 4,
+          "rank": 3,
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.058
         },
         {
-          "rank": 5,
+          "rank": 4,
           "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.047
         },
         {
-          "rank": 6,
-          "variantId": "aya:assault_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.043
-        },
-        {
-          "rank": 7,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.042
-        },
-        {
-          "rank": 8,
-          "variantId": "sissela:shuriken",
-          "core": null,
-          "coreName": null,
-          "total": 0.041
-        },
-        {
-          "rank": 9,
-          "variantId": "lucia:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.039
-        },
-        {
-          "rank": 10,
+          "rank": 5,
           "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
           "total": 0.035
+        },
+        {
+          "rank": 6,
+          "variantId": "aya:assault_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.034
+        },
+        {
+          "rank": 7,
+          "variantId": "sissela:shuriken",
+          "core": null,
+          "coreName": null,
+          "total": 0.033
+        },
+        {
+          "rank": 8,
+          "variantId": "nia:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.03
+        },
+        {
+          "rank": 9,
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.029
+        },
+        {
+          "rank": 10,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.027
         }
       ]
     },
@@ -8832,7 +8832,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a36000ab2eae4ec1",
+      "digest": "cd1dee165b8d4435",
       "results": [
         {
           "rank": 1,
@@ -8878,28 +8878,28 @@
         },
         {
           "rank": 7,
-          "variantId": "charlotte:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 8,
           "variantId": "johann:arcana",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 9,
+          "rank": 8,
           "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 10,
+          "rank": 9,
           "variantId": "yuki:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.13
+        },
+        {
+          "rank": 10,
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -9076,7 +9076,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "84030b4158f560a7",
+      "digest": "96f423f660039490",
       "results": [
         {
           "rank": 1,
@@ -9158,7 +9158,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "9f1d4fbc580943d3",
+      "digest": "1b4163895a8c8c74",
       "results": [
         {
           "rank": 1,
@@ -9240,7 +9240,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "4ab9a91c7acd59c5",
+      "digest": "f8daeeb2e307cee2",
       "results": [
         {
           "rank": 1,
@@ -9897,21 +9897,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "e5547c8d97ff7629",
+      "digest": "79a36cc51f083ae1",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.141
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -9943,31 +9943,31 @@
         },
         {
           "rank": 7,
-          "variantId": "haze:assault_rifle",
+          "variantId": "eva:throw",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 8,
-          "variantId": "henry:shuriken",
+          "variantId": "jenny:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
           "rank": 9,
-          "variantId": "eva:throw",
+          "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.097
+          "total": 0.1
         },
         {
           "rank": 10,
-          "variantId": "katja:sniper_rifle",
+          "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
-          "total": 0.096
+          "total": 0.1
         }
       ]
     },
@@ -9980,28 +9980,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "91be980ece629a67",
+      "digest": "8c8639b08ab193d0",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:assault_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.155
+          "total": 0.16
         },
         {
           "rank": 4,
@@ -10063,7 +10063,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "74bb2456f3c07020",
+      "digest": "6f266310f9c14127",
       "results": [
         {
           "rank": 1,
@@ -10091,7 +10091,7 @@
           "variantId": "jackie:dagger",
           "core": null,
           "coreName": null,
-          "total": 0.123
+          "total": 0.112
         },
         {
           "rank": 5,
@@ -10109,28 +10109,28 @@
         },
         {
           "rank": 7,
-          "variantId": "arda:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.1
-        },
-        {
-          "rank": 8,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
-          "rank": 9,
+          "rank": 8,
           "variantId": "isol:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
-          "rank": 10,
+          "rank": 9,
           "variantId": "yumin:arcana",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
+          "rank": 10,
+          "variantId": "justina:crossbow",
           "core": null,
           "coreName": null,
           "total": 0.1
@@ -10146,60 +10146,60 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d9f0fec652f7f4b6",
+      "digest": "4f1e5050359f48da",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:assault_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.155
+          "total": 0.159
         },
         {
           "rank": 3,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.138
+          "total": 0.154
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.1
-        },
-        {
-          "rank": 5,
-          "variantId": "arda:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.1
-        },
-        {
-          "rank": 6,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
-          "rank": 7,
+          "rank": 5,
           "variantId": "isol:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
+          "rank": 6,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
+          "rank": 7,
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.1
+        },
+        {
           "rank": 8,
-          "variantId": "yumin:arcana",
+          "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
           "total": 0.1
@@ -10209,14 +10209,14 @@
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.096
         },
         {
           "rank": 10,
-          "variantId": "henry:shuriken",
+          "variantId": "yumin:arcana",
           "core": null,
           "coreName": null,
-          "total": 0.1
+          "total": 0.095
         }
       ]
     },
@@ -10229,7 +10229,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "f6a868c02a241f35",
+      "digest": "6de5f323639c9567",
       "results": [
         {
           "rank": 1,
@@ -10240,66 +10240,66 @@
         },
         {
           "rank": 2,
-          "variantId": "aya:sniper_rifle",
-          "core": null,
-          "coreName": null,
-          "total": 0.133
-        },
-        {
-          "rank": 3,
-          "variantId": "leon:glove",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 4,
-          "variantId": "magnus:bat",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 5,
           "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 6,
+          "rank": 3,
           "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 7,
-          "variantId": "leon:tonfa",
+          "rank": 4,
+          "variantId": "leon:glove",
           "core": null,
           "coreName": null,
-          "total": 0.126
+          "total": 0.127
+        },
+        {
+          "rank": 5,
+          "variantId": "magnus:bat",
+          "core": null,
+          "coreName": null,
+          "total": 0.125
+        },
+        {
+          "rank": 6,
+          "variantId": "aya:sniper_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.125
+        },
+        {
+          "rank": 7,
+          "variantId": "aya:pistol",
+          "core": null,
+          "coreName": null,
+          "total": 0.122
         },
         {
           "rank": 8,
           "variantId": "luke:bat",
           "core": "7200301",
           "coreName": "치유 드론",
-          "total": 0.126
+          "total": 0.118
         },
         {
           "rank": 9,
-          "variantId": "johann:arcana",
-          "core": null,
-          "coreName": null,
-          "total": 0.126
-        },
-        {
-          "rank": 10,
           "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
-          "total": 0.125
+          "total": 0.117
+        },
+        {
+          "rank": 10,
+          "variantId": "jackie:axe",
+          "core": null,
+          "coreName": null,
+          "total": 0.102
         }
       ]
     },
@@ -10312,7 +10312,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "5565b6bea904352a",
+      "digest": "fddd01a9bc263809",
       "results": [
         {
           "rank": 1,
@@ -10372,14 +10372,14 @@
         },
         {
           "rank": 9,
-          "variantId": "jackie:two_handed_sword",
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 10,
-          "variantId": "jackie:axe",
+          "variantId": "jackie:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -10395,7 +10395,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1e5cbeee3b31d172",
+      "digest": "5dc698c9a074349c",
       "results": [
         {
           "rank": 1,
@@ -10434,35 +10434,35 @@
         },
         {
           "rank": 6,
-          "variantId": "yuki:two_handed_sword",
+          "variantId": "johann:arcana",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 7,
-          "variantId": "yuki:dual_swords",
+          "variantId": "yuki:two_handed_sword",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 8,
-          "variantId": "eleven:hammer",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 9,
-          "variantId": "hyunwoo:glove",
+          "variantId": "eleven:hammer",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
           "rank": 10,
-          "variantId": "hyunwoo:tonfa",
+          "variantId": "hyunwoo:glove",
           "core": null,
           "coreName": null,
           "total": 0.13
@@ -10478,7 +10478,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "2860acabd319331c",
+      "digest": "c7696ff09b206388",
       "results": [
         {
           "rank": 1,
@@ -10561,21 +10561,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "1e53e0a59bc18e6e",
+      "digest": "81a068d29f8d00d5",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.118
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -10586,9 +10586,9 @@
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
+          "variantId": "mirka:hammer",
+          "core": null,
+          "coreName": null,
           "total": 0.1
         },
         {
@@ -10610,7 +10610,7 @@
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.092
+          "total": 0.09
         },
         {
           "rank": 8,
@@ -10621,17 +10621,17 @@
         },
         {
           "rank": 9,
+          "variantId": "blair:dual_swords",
+          "core": null,
+          "coreName": null,
+          "total": 0.083
+        },
+        {
+          "rank": 10,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.08
-        },
-        {
-          "rank": 10,
-          "variantId": "magnus:bat",
-          "core": null,
-          "coreName": null,
-          "total": 0.075
         }
       ]
     },
@@ -10644,77 +10644,77 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "a81ad166cdb60a8a",
+      "digest": "60b52f564b026a09",
       "results": [
         {
           "rank": 1,
           "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.062
+          "total": 0.07
         },
         {
           "rank": 2,
-          "variantId": "yuki:dual_swords",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
-          "total": 0.021
+          "total": 0.057
         },
         {
           "rank": 3,
-          "variantId": "yuki:two_handed_sword",
+          "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
-          "total": 0.019
+          "total": 0.042
         },
         {
           "rank": 4,
-          "variantId": "ian:dagger",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": 0.011
+          "variantId": "yuki:two_handed_sword",
+          "core": null,
+          "coreName": null,
+          "total": 0.03
         },
         {
           "rank": 5,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.01
+          "variantId": "laura:whip",
+          "core": null,
+          "coreName": null,
+          "total": 0.018
         },
         {
           "rank": 6,
-          "variantId": "hisui:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": -0.01
-        },
-        {
-          "rank": 7,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": -0.012
+          "total": 0.009
+        },
+        {
+          "rank": 7,
+          "variantId": "hisui:two_handed_sword",
+          "core": null,
+          "coreName": null,
+          "total": -0.002
         },
         {
           "rank": 8,
-          "variantId": "haze:assault_rifle",
-          "core": null,
-          "coreName": null,
-          "total": -0.012
+          "variantId": "luke:bat",
+          "core": "7200301",
+          "coreName": "치유 드론",
+          "total": -0.004
         },
         {
           "rank": 9,
-          "variantId": "bihyung:bat",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": -0.013
+          "variantId": "mirka:hammer",
+          "core": null,
+          "coreName": null,
+          "total": -0.008
         },
         {
           "rank": 10,
-          "variantId": "fenrir:glove",
-          "core": "7100501",
-          "coreName": "응징",
-          "total": -0.017
+          "variantId": "jenny:pistol",
+          "core": null,
+          "coreName": null,
+          "total": -0.01
         }
       ]
     },
@@ -10727,28 +10727,28 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "b5c3a4317f9b20c1",
+      "digest": "ed3ed9f51620d4b7",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.156
+          "total": 0.16
         },
         {
           "rank": 3,
           "variantId": "aya:assault_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.144
+          "total": 0.154
         },
         {
           "rank": 4,
@@ -10773,30 +10773,30 @@
         },
         {
           "rank": 7,
-          "variantId": "hyunwoo:tonfa",
+          "variantId": "leon:glove",
           "core": null,
           "coreName": null,
-          "total": 0.117
+          "total": 0.125
         },
         {
           "rank": 8,
+          "variantId": "magnus:bat",
+          "core": null,
+          "coreName": null,
+          "total": 0.108
+        },
+        {
+          "rank": 9,
           "variantId": "magnus:hammer",
           "core": null,
           "coreName": null,
           "total": 0.107
         },
         {
-          "rank": 9,
+          "rank": 10,
           "variantId": "nia:pistol",
           "core": "7000401",
           "coreName": "흡혈마",
-          "total": 0.1
-        },
-        {
-          "rank": 10,
-          "variantId": "markus:axe",
-          "core": null,
-          "coreName": null,
           "total": 0.1
         }
       ]
@@ -10809,7 +10809,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "ac0a03b747e44c12",
+      "digest": "fb8b8b9366b2fedc",
       "results": [
         {
           "rank": 1,
@@ -10892,7 +10892,7 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "d161b438aed71b1d",
+      "digest": "d2873397c9a1dc3f",
       "results": [
         {
           "rank": 1,
@@ -10924,45 +10924,45 @@
         },
         {
           "rank": 5,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 6,
           "variantId": "yuki:dual_swords",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 7,
+          "rank": 6,
           "variantId": "jackie:dagger",
           "core": null,
           "coreName": null,
           "total": 0.13
         },
         {
-          "rank": 8,
-          "variantId": "jackie:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.13
-        },
-        {
-          "rank": 9,
+          "rank": 7,
           "variantId": "jackie:axe",
           "core": null,
           "coreName": null,
-          "total": 0.13
+          "total": 0.129
         },
         {
-          "rank": 10,
+          "rank": 8,
           "variantId": "jackie:dual_swords",
           "core": null,
           "coreName": null,
-          "total": 0.13
+          "total": 0.126
+        },
+        {
+          "rank": 9,
+          "variantId": "yuki:two_handed_sword",
+          "core": null,
+          "coreName": null,
+          "total": 0.124
+        },
+        {
+          "rank": 10,
+          "variantId": "jackie:two_handed_sword",
+          "core": null,
+          "coreName": null,
+          "total": 0.121
         }
       ]
     },
@@ -10975,21 +10975,21 @@
       ],
       "cores": {},
       "count": 48,
-      "digest": "6a625449a860c4e5",
+      "digest": "9e531df03df603c2",
       "results": [
         {
           "rank": 1,
-          "variantId": "aya:sniper_rifle",
+          "variantId": "aya:pistol",
           "core": null,
           "coreName": null,
           "total": 0.16
         },
         {
           "rank": 2,
-          "variantId": "aya:pistol",
+          "variantId": "aya:sniper_rifle",
           "core": null,
           "coreName": null,
-          "total": 0.129
+          "total": 0.16
         },
         {
           "rank": 3,
@@ -11000,52 +11000,52 @@
         },
         {
           "rank": 4,
-          "variantId": "nia:pistol",
-          "core": "7000401",
-          "coreName": "흡혈마",
-          "total": 0.1
-        },
-        {
-          "rank": 5,
           "variantId": "haze:assault_rifle",
           "core": null,
           "coreName": null,
           "total": 0.1
         },
         {
+          "rank": 5,
+          "variantId": "nia:pistol",
+          "core": "7000401",
+          "coreName": "흡혈마",
+          "total": 0.098
+        },
+        {
           "rank": 6,
-          "variantId": "yuki:two_handed_sword",
-          "core": null,
-          "coreName": null,
-          "total": 0.097
-        },
-        {
-          "rank": 7,
-          "variantId": "jackie:dagger",
-          "core": null,
-          "coreName": null,
-          "total": 0.095
-        },
-        {
-          "rank": 8,
-          "variantId": "aya:assault_rifle",
+          "variantId": "jenny:pistol",
           "core": null,
           "coreName": null,
           "total": 0.094
         },
         {
-          "rank": 9,
+          "rank": 7,
           "variantId": "isol:pistol",
           "core": null,
           "coreName": null,
           "total": 0.089
         },
         {
-          "rank": 10,
+          "rank": 8,
+          "variantId": "eva:throw",
+          "core": null,
+          "coreName": null,
+          "total": 0.088
+        },
+        {
+          "rank": 9,
           "variantId": "henry:shuriken",
           "core": null,
           "coreName": null,
           "total": 0.087
+        },
+        {
+          "rank": 10,
+          "variantId": "aya:assault_rifle",
+          "core": null,
+          "coreName": null,
+          "total": 0.084
         }
       ]
     },
