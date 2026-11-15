@@ -1,4 +1,7 @@
 export const ko = {
+  "recent.preseasonWindow": "최근 3일 · 같은 패치의 앞 구간 대비 · 잠정 신호",
+  "recent.preseasonStrong": "최근 성적 상위",
+  "recent.preseasonPending": "같은 패치에서 비교할 표본이 쌓이면 최근 상승을 표시합니다.",
   "season.dashboardTitle": "프리시즌 조합 분석",
   "season.tierGuide": "프리시즌 추천과 랭킹에는 티어 구분이 없는 일반 스쿼드 표본을 사용합니다. 내 티어는 지금 저장하거나 나중에 설정할 수 있습니다.",
   "season.preseason": "프리시즌 · 일반 스쿼드 잠정 집계",
@@ -7,7 +10,7 @@ export const ko = {
   "season.practiceBasis": "역할을 맞춘 예시입니다. 조합 승률 순위는 표본이 쌓이면 표시합니다.",
   "season.noCompare": "정규 시즌과 프리시즌은 표본이 달라 증감을 비교하지 않습니다.",
   "season.normalBuild": "현재 패치 일반전에서 관측한 장비 조합입니다. 게임 내 새 루트를 확인하세요.",
-  "season.normalRecommendation": "프리시즌 추천 · 역할과 교전 방식이 우선이며, 현재 일반전 성적을 제한적으로 반영합니다.",
+  "season.normalRecommendation": "프리시즌 추천 · 역할과 교전 방식이 우선이며, 최근 일반전 성적과 상승세를 빠르게 반영합니다.",
   "patch13.title": "13.0 프리시즌 변경점",
   "patch13.characters": "실험체 밸런스",
   "patch13.combat": "교전과 장비",

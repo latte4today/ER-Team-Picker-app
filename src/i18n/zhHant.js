@@ -1,4 +1,7 @@
 export const zhHant = {
+  "recent.preseasonWindow": "最近3天 · 對比同版本較早時段 · 暫定",
+  "recent.preseasonStrong": "近期表現突出",
+  "recent.preseasonPending": "同版本累積足夠對局後將顯示上升趨勢。",
   "season.preseason": "季前賽 · 一般小隊暫定統計",
   "season.warming": "新賽季資料收集中 · 暫不顯示上賽季排名。",
   "recent.recommendedBuild": "推薦出裝",

@@ -1,4 +1,7 @@
 export const en = {
+  "recent.preseasonWindow": "Last 3 days vs. earlier in the same patch · Early signals",
+  "recent.preseasonStrong": "Strong recent performers",
+  "recent.preseasonPending": "Trends will appear once there are enough matches to compare within this patch.",
   "season.dashboardTitle": "Preseason team analysis",
   "season.tierGuide": "Preseason recommendations and rankings use Normal Squad data with no tier split. You can save your tier now or set it later.",
   "season.preseason": "Preseason · Preliminary Normal Squad data",
@@ -7,7 +10,7 @@ export const en = {
   "season.practiceBasis": "Role-balanced examples. Trio rankings return once match evidence is available.",
   "season.noCompare": "Preseason performance is not compared with ranked results.",
   "season.normalBuild": "Observed in Normal matches on the current patch. Check your new in-game route.",
-  "season.normalRecommendation": "Preseason · Team fit comes first, with a small adjustment from current Normal matches.",
+  "season.normalRecommendation": "Preseason · Team fit comes first, with a more responsive adjustment from recent Normal matches.",
   "patch13.title": "13.0 preseason changes",
   "patch13.characters": "Character balance",
   "patch13.combat": "Combat and equipment",

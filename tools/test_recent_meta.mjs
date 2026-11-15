@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import vm from 'node:vm';
-import {recentMetaSnapshot,recentCohort,recentStrengthCorrection,recentCoreRows,recentMovers,validRecentMeta,RECENT_META_POLICY} from '../src/recentMeta.js';
+import {recentMetaSnapshot,recentCohort,recentStrengthCorrection,recentCoreRows,recentMovers,validRecentMeta,RECENT_META_POLICY,PRESEASON_META_POLICY,preseasonHasPulse,recentRankingEvidence} from '../src/recentMeta.js';
 import {renderRecentDashboard,renderRecentEvidence} from '../src/recentMetaView.js';
 import {characterVariants} from '../src/data.js';
 import {normalizeTraitBuildRows,topCoreRowsForVariant} from '../src/traitMeta.js';
@@ -24,7 +24,7 @@ if (original.phase==='preseason') {
   assert.equal(recentCohort('all',observed).freshness,1);
   assert.equal(recentCohort('iron_gold',observed).transfer,recentCohort('mithril_plus',observed).transfer);
   assert.ok(recentCohort('all',observed).transfer<0.5,'normal outcomes have reduced weight');
-  assert.deepEqual(recentMovers('all','performance',observed),[]);
+  if (!cohort.pulse) assert.deepEqual(recentMovers('all','performance',observed),[]);
   const id='nia:pistol';
   const correction=recentStrengthCorrection(id,'all',-1,observed);
   assert.notEqual(correction,0);
@@ -46,15 +46,44 @@ if (original.phase==='preseason') {
       assert.ok(patchNoteForCharacter('istvan',t).includes('자가 회복'));
       assert.ok(patchNotesForItems(['고스트'],t)[0].includes('10초'));
       const html=renderRecentDashboard('all',find,t);
-      assert.ok(html.includes('13.0')&&!/DAK|dak\.gg|<a\b/.test(html));
+      assert.ok(html.includes(t('recent.dashboard'))&&!html.includes(t('patch13.title'))&&!/DAK|dak\.gg|<a\b/.test(html));
     }
     const before=evaluateCandidate(['rio:bow','lenox:whip'],id,'all').total;
     const shifted=structuredClone(original);
     shifted.generatedAt=new Date(Date.parse(original.generatedAt)+1000).toISOString();
+    delete shifted.cohorts.unrank.pulse;
     const row=shifted.cohorts.unrank.rows[id];
     row.wins=row.games;row.top3=row.games;row.placement=row.games;
     assert.ok(updateRecentMeta(shifted));
     assert.ok(evaluateCandidate(['rio:bow','lenox:whip'],id,'all').total>before,'normal outcomes reach the final recommendation');
+
+    const fixture=structuredClone(shifted);
+    const f=fixture.cohorts.unrank;
+    f.pulse={days:3,updatedAt:f.updatedAt,averages:{winRate:.1,top3Rate:.4,avgPlacement:4.5},rows:{}};
+    const ids=Object.keys(f.rows),pop=10000*ids.length;
+    for(const key of ids) {
+      // Independent halves: each build starts at 40% TOP 3 in both windows.
+      const pulse={games:10000,top3:4000,wins:1000,placement:45000,population:pop};
+      f.pulse.rows[key]=pulse;
+      Object.assign(f.rows[key],{games:20000,top3:8000,wins:2000,placement:90000,pickShare:10000/pop,cores:[],builds:[]});
+    }
+    const bump=key=>fixture.generatedAt=new Date(Date.parse(fixture.generatedAt)+key).toISOString();
+    bump(1);assert.ok(updateRecentMeta(fixture));
+    const unshifted=recentStrengthCorrection(id,'all',0);
+    assert.equal(recentMovers('all','performance').length,0);
+    f.pulse.rows[id].top3+=60;f.rows[id].top3+=60; // +0.6 percentage points vs the earlier half.
+    bump(1);assert.ok(updateRecentMeta(fixture));
+    // A 0.6-point move with n=10k per half is too noisy on its own.
+    assert.equal(recentMovers('all','performance').length,0);
+    f.pulse.rows[id].top3+=20;f.rows[id].top3+=20; // +0.8pp, enough at this sample size.
+    bump(1);assert.ok(updateRecentMeta(fixture));
+    assert.equal(recentMovers('all','performance')[0]?.variantId,id);
+    assert.ok(recentStrengthCorrection(id,'all',0)>unshifted);
+    assert.equal(recentRankingEvidence(id,'all').row.games,10000);
+    assert.ok(preseasonHasPulse('all'));
+    assert.ok(!preseasonHasPulse('all',observed+3*86400000));
+    assert.ok(Math.abs(recentStrengthCorrection(id,'all',20))<=PRESEASON_META_POLICY.maxCorrection);
+
   } finally {Date.now=realNow;}
   console.log('Preseason: exact current Normal patch, 116 variants, bounded tier-neutral scoring, live traits/builds, distinct practice teams and patch guidance.');
   process.exit(0);

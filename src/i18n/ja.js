@@ -1,4 +1,7 @@
 export const ja = {
+  "recent.preseasonWindow": "直近3日 · 同じパッチの前期間と比較 · 暫定",
+  "recent.preseasonStrong": "好成績の実験体",
+  "recent.preseasonPending": "同じパッチ内で比較できる試合数が集まると上昇傾向が表示されます。",
   "season.preseason": "プレシーズン · ノーマルスクワッド暫定集計",
   "season.warming": "新シーズンのデータ収集中 · 前シーズンの順位は一時的に非表示です。",
   "recent.recommendedBuild": "おすすめ装備構成",
