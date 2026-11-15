@@ -1,3 +1,4 @@
+import {characterVariants} from './data.js';
 import {isCurrentRecent, canComparePreviousPatch, seasonVersion} from './seasonContext.js';
 import {recentMetaSnapshot as bundled} from './recentMetaSnapshot.js';
 
@@ -8,15 +9,20 @@ let version=0;
 const DAY=86400000;
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const validRow=r=>r&&Number.isInteger(r.games)&&r.games>0&&Number.isInteger(r.wins)&&Number.isInteger(r.top3)&&r.wins>=0&&r.wins<=r.top3&&r.top3<=r.games&&Number.isFinite(r.placement)&&r.placement>=r.games&&Number.isFinite(r.pickShare)&&r.pickShare>=0&&r.pickShare<=1;
+const variantIds = characterVariants.map(c=>c.variantId);
 export function validRecentMeta(data) {
   if(data?.schemaVersion!==1||!Number.isFinite(Date.parse(data.generatedAt)))return false;
   if(Date.parse(data.generatedAt)>Date.now()+3600000)return false;
-  const cs=['diamond_plus','mithril_plus'].map(k=>data.cohorts?.[k]);
-  return cs.every(c=>c&&Number.isInteger(c.patch)&&c.days===7&&Number.isFinite(Date.parse(c.updatedAt))&&Date.parse(c.updatedAt)<=Date.parse(data.generatedAt)+3600000&&Object.keys(c.rows??{}).length>=Object.keys(bundled.cohorts.diamond_plus.rows).length&&
-    Object.keys(bundled.cohorts.diamond_plus.rows).every(id=>c.rows[id])&&
+  if (!['ranked','preseason'].includes(data.phase)) return false;
+  const preseason=data.phase==='preseason';
+  const keys=preseason?['unrank']:['diamond_plus','mithril_plus'];
+  if(Object.keys(data.cohorts??{}).length!==keys.length)return false;
+  const cs=keys.map(k=>data.cohorts?.[k]);
+  return cs.every(c=>c&&Number.isInteger(c.patch)&&c.days===7&&(preseason?c.matchingMode===2:(c.matchingMode??3)===3)&&Number.isFinite(Date.parse(c.updatedAt))&&Date.parse(c.updatedAt)<=Date.parse(data.generatedAt)+3600000&&Object.keys(c.rows??{}).length>=variantIds.length&&
+    variantIds.every(id=>c.rows[id])&&
     ['winRate','top3Rate','avgPlacement'].every(k=>Number.isFinite(c.averages?.[k]))&&c.averages.winRate>=0&&c.averages.winRate<=c.averages.top3Rate&&c.averages.top3Rate<=1&&c.averages.avgPlacement>=1&&
     Object.entries(c.rows).every(([id,r])=>/^[a-z_]+:[a-z_]+$/.test(id)&&validRow(r)&&Array.isArray(r.cores)&&r.cores.every(x=>validRow({...x,pickShare:x.games/r.games})&&/^\d{7}$/.test(x.core))&&
-      Array.isArray(r.builds)&&r.builds.length<=3&&r.builds.every(b=>Array.isArray(b.items)&&b.items.length===5&&b.items.every(code=>Number.isInteger(code)&&typeof data.itemNames?.[code]==='string')&&validRow({...b,pickShare:b.games/r.games}))))&&cs[0].patch===cs[1].patch;
+      Array.isArray(r.builds)&&r.builds.length<=3&&r.builds.every(b=>Array.isArray(b.items)&&b.items.length===5&&b.items.every(code=>Number.isInteger(code)&&typeof data.itemNames?.[code]==='string')&&validRow({...b,pickShare:b.games/r.games}))))&&cs.every(c=>c.patch===cs[0].patch);
 }
 export function setRecentMeta(data) {
   if(!validRecentMeta(data)||Date.parse(data.generatedAt)<=Date.parse(snapshot.generatedAt))return false;
@@ -29,8 +35,9 @@ export function recentMetaSnapshot(){return snapshot;}
 // lower tiers receive no high-tier performance correction.
 export function recentCohort(tier='all',now=Date.now()) {
   const high=['meteor_mithril','mithril_plus','demigod_eternity'].includes(tier);
-  const transfer=({all:0.5,platinum_diamond:0.6,diamond:0.8,meteor_mithril:0.8,mithril_plus:1,demigod_eternity:0.7})[tier]??0;
-  const key=high?'mithril_plus':'diamond_plus',cohort=snapshot.cohorts[key];
+  const preseason=snapshot.phase==='preseason';
+  const transfer=preseason?0.30:({all:0.5,platinum_diamond:0.6,diamond:0.8,meteor_mithril:0.8,mithril_plus:1,demigod_eternity:0.7})[tier]??0;
+  const key=preseason?'unrank':high?'mithril_plus':'diamond_plus',cohort=snapshot.cohorts[key];
   const age=(now-Date.parse(cohort.updatedAt))/DAY;
   const freshness=!isCurrentRecent(snapshot,cohort)||age< -1||age>=RECENT_META_POLICY.maxAgeDays?0:Math.min(1,(RECENT_META_POLICY.maxAgeDays-age)/5);
   return {...cohort,key,transfer,freshness};
@@ -73,7 +80,7 @@ function movement(r,kind) {
 }
 export function recentMovers(tier='all',kind='usage',now=Date.now()) {
   const cohort=recentCohort(tier,now);
-  if(!cohort.freshness)return [];
+  if(!cohort.freshness||cohort.key==='unrank')return [];
   // Bonferroni-style z>=4 conservatively screens both families across 116 builds.
   return Object.entries(cohort.rows).filter(([,row])=>canComparePreviousPatch(row.previous,cohort)).map(([variantId,row])=>({variantId,row,cohort,movement:movement(row,kind)}))
     .filter(r=>r.movement?.z>=4).sort((a,b)=>b.movement.delta-a.movement.delta).slice(0,5);

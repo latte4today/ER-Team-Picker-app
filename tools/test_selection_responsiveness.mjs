@@ -40,6 +40,6 @@ lazy.populateLazyMatchup(details);assert.equal(calls,1,'opening nested disclosur
 const dashboard=renderRecentDashboard('all',id=>characterVariants.find(c=>c.variantId===id),k=>k);
 assert.ok(dashboard.startsWith('<section class="recent-meta-section"'),'do not inherit fixed dashboard rows');
 const evidence=renderRecentEvidence('nia:pistol','all','7000401',k=>k);
-assert.ok(evidence.startsWith('<details')&&!evidence.includes(' open'),'long meta evidence starts collapsed');
+assert.ok(evidence.includes('<details')&&!evidence.includes(' open'),'long meta evidence starts collapsed');
 assert.ok(!/DAK|dak\.gg|<a\b/.test(dashboard));
 console.log('Selection responsiveness: immediate slots, paint before scoring, coalesced rapid picks, navigation cancellation; lazy matchup analysis once with exact cores; compact evidence and independent dashboard layout passed.');

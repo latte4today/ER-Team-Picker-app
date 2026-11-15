@@ -31,9 +31,12 @@ export function isCurrentRecent(source, cohort) {
     && source.phase === state.phase && cohort?.patch === state.patch
     && Math.floor(cohort.patch / 1000) === state.displaySeason
     // A seven-day window crossing a phase boundary is deliberately withheld.
-    && Date.parse(cohort.updatedAt) - cohort.days * 86400000 >= Date.parse(state.phaseStartedAt);
+    && (state.phase === 'preseason'
+      // Normal play and exact patch isolate 13.0 from the previous Ranked phase.
+      ? cohort.matchingMode === 2 && Date.parse(cohort.updatedAt) >= Date.parse(state.phaseStartedAt)
+      : (cohort.matchingMode ?? 3) === 3 && Date.parse(cohort.updatedAt) - cohort.days * 86400000 >= Date.parse(state.phaseStartedAt));
 }
 export function canComparePreviousPatch(previous, cohort) {
-  return previous && Math.floor(previous.patch / 1000) === state.displaySeason
+  return state.phase === 'ranked' && previous && Math.floor(previous.patch / 1000) === state.displaySeason
     && Date.parse(cohort.updatedAt) - 2 * cohort.days * 86400000 >= Date.parse(state.phaseStartedAt);
 }

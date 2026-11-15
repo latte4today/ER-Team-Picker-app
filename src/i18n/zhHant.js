@@ -1,5 +1,5 @@
 export const zhHant = {
-  "season.preseason": "季前賽 · 排名與推薦將隨新對局資料更新。",
+  "season.preseason": "季前賽 · 一般小隊暫定統計",
   "season.warming": "新賽季資料收集中 · 暫不顯示上賽季排名。",
   "recent.recommendedBuild": "推薦出裝",
   "recent.buildNote": "參考常見的完整出裝。物品名稱使用韓語。",

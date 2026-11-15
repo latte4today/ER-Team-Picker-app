@@ -6,14 +6,60 @@ import {renderRecentDashboard,renderRecentEvidence} from '../src/recentMetaView.
 import {characterVariants} from '../src/data.js';
 import {normalizeTraitBuildRows,topCoreRowsForVariant} from '../src/traitMeta.js';
 import {isCurrentRecent} from '../src/seasonContext.js';
+import {preseasonTeamExamples,patchNoteForCharacter,patchNotesForItems} from '../src/preseason.js';
 
 globalThis.localStorage={getItem:()=>null,setItem:()=>{}};
 globalThis.document={documentElement:{lang:'ko',dataset:{}}};
 const {t}=await import('../src/i18n/index.js');
 const {evaluateCandidate,recommend,updateRecentMeta}=await import('../src/recommender.js');
 const original=structuredClone(recentMetaSnapshot());
-const now=Date.parse(original.cohorts.diamond_plus.updatedAt)+3600000;
 assert.ok(validRecentMeta(original));
+if (original.phase==='preseason') {
+  const cohort=original.cohorts.unrank;
+  assert.equal(cohort.matchingMode,2);
+  assert.equal(Object.keys(cohort.rows).length,characterVariants.length);
+  const wrong=structuredClone(original);wrong.cohorts.unrank.matchingMode=3;
+  assert.equal(validRecentMeta(wrong),false,'never accept Ranked data as Normal');
+  const observed=Date.parse(cohort.updatedAt)+3600000;
+  assert.equal(recentCohort('all',observed).freshness,1);
+  assert.equal(recentCohort('iron_gold',observed).transfer,recentCohort('mithril_plus',observed).transfer);
+  assert.ok(recentCohort('all',observed).transfer<0.5,'normal outcomes have reduced weight');
+  assert.deepEqual(recentMovers('all','performance',observed),[]);
+  const id='nia:pistol';
+  const correction=recentStrengthCorrection(id,'all',-1,observed);
+  assert.notEqual(correction,0);
+  assert.equal(correction,recentStrengthCorrection(id,'mithril_plus',-1,observed));
+  assert.equal(recentStrengthCorrection(id,'all',-1,observed+8*86400000),0);
+  assert.ok(recentCoreRows(id,'all',[],observed).length);
+  const find=id=>characterVariants.find(c=>c.variantId===id||c.characterId===id);
+  const teams=preseasonTeamExamples(characterVariants.map(c=>({characterId:c.variantId})),find);
+  assert.ok(teams.length>=3);
+  for(const team of teams) {
+    assert.equal(new Set(team.members.map(id=>find(id).characterId)).size,3);
+    assert.deepEqual(team.members.map(id=>find(id).role),team.roles);
+  }
+  const realNow=Date.now;
+  try {
+    Date.now=()=>observed;
+    assert.ok(renderRecentEvidence(id,'all',null,t).includes('build-items'));
+    if(cohort.patch===13000) {
+      assert.ok(patchNoteForCharacter('istvan',t).includes('자가 회복'));
+      assert.ok(patchNotesForItems(['고스트'],t)[0].includes('10초'));
+      const html=renderRecentDashboard('all',find,t);
+      assert.ok(html.includes('13.0')&&!/DAK|dak\.gg|<a\b/.test(html));
+    }
+    const before=evaluateCandidate(['rio:bow','lenox:whip'],id,'all').total;
+    const shifted=structuredClone(original);
+    shifted.generatedAt=new Date(Date.parse(original.generatedAt)+1000).toISOString();
+    const row=shifted.cohorts.unrank.rows[id];
+    row.wins=row.games;row.top3=row.games;row.placement=row.games;
+    assert.ok(updateRecentMeta(shifted));
+    assert.ok(evaluateCandidate(['rio:bow','lenox:whip'],id,'all').total>before,'normal outcomes reach the final recommendation');
+  } finally {Date.now=realNow;}
+  console.log('Preseason: exact current Normal patch, 116 variants, bounded tier-neutral scoring, live traits/builds, distinct practice teams and patch guidance.');
+  process.exit(0);
+}
+const now=Date.parse(original.cohorts.diamond_plus.updatedAt)+3600000;
 assert.equal(Object.keys(original.cohorts.diamond_plus.rows).length,characterVariants.length);
 assert.equal(Object.keys(original.cohorts.mithril_plus.rows).length,characterVariants.length);
 if (!isCurrentRecent(original,original.cohorts.diamond_plus)) {

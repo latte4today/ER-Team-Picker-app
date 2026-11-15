@@ -23,14 +23,15 @@ assert.equal(recentEvidence(characterVariants[0].variantId,'all'),null,'previous
 assert.equal(setSeasonState(old),false,'no phase rollback');
 assert.equal(setSeasonState({...next,generatedAt:new Date(now+2).toISOString(),patch:next.patch-1}),false,'no patch rollback');
 assert.equal(validSeasonState({...next,phase:'ranked'}),false);
-const c={patch:next.patch,days:7,updatedAt:new Date(now+8*86400000).toISOString()};
+const c={patch:next.patch,days:7,matchingMode:2,updatedAt:new Date(now+8*86400000).toISOString()};
 const fresh={seasonId:next.seasonId,seasonKey:next.seasonKey,phase:next.phase};
 assert.ok(isCurrentRecent(fresh,c));
-assert.equal(isCurrentRecent(fresh,{...c,updatedAt:new Date(now+86400000).toISOString()}),false,'withhold rolling windows crossing preseason start');
+assert.ok(isCurrentRecent(fresh,{...c,updatedAt:new Date(now+86400000).toISOString()}),'exact-patch Normal data need not wait seven days');
+assert.equal(isCurrentRecent(fresh,{...c,matchingMode:3}),false,'Ranked data cannot feed a preseason cohort');
 assert.equal(isCurrentRecent(fresh,{...c,patch:old.patch}),false,'never relabel a lagging patch with the new season');
 assert.equal(canComparePreviousPatch({patch:old.patch},c),false);
 assert.equal(canComparePreviousPatch({patch:next.patch-10},c),false);
-assert.ok(canComparePreviousPatch({patch:next.patch},{...c,updatedAt:new Date(now+15*86400000).toISOString()}));
+assert.equal(canComparePreviousPatch({patch:next.patch},{...c,updatedAt:new Date(now+15*86400000).toISOString()}),false,'no preseason movers');
 // Actual recommendation path must remain usable without any new outcome rows.
 const recommendations=recommend(['rio:bow','lenox:whip'],'all');
 assert.ok(recommendations.length>0&&recommendations.every(r=>Number.isFinite(r.total)));
@@ -54,9 +55,8 @@ try {
   Date.now=()=>now+8*86400000;
   const freshSnapshot=structuredClone(recentMetaSnapshot());
   Object.assign(freshSnapshot,fresh,{generatedAt:new Date(Date.now()).toISOString()});
-  for(const cohort of Object.values(freshSnapshot.cohorts)) {
-    cohort.patch=next.patch;cohort.updatedAt=freshSnapshot.generatedAt;
-  }
+  const cohort=freshSnapshot.cohorts.unrank??freshSnapshot.cohorts.diamond_plus;
+  freshSnapshot.cohorts={unrank:{...cohort,patch:next.patch,matchingMode:2,updatedAt:freshSnapshot.generatedAt}};
   assert.ok(setRecentMeta(freshSnapshot));
   assert.ok(recentEvidence(id,'all'));
   const source=await fs.readFile(new URL('../src/app.js',import.meta.url),'utf8');
@@ -67,7 +67,7 @@ try {
   const score=()=>context.rankerCharacterRows().find(r=>r.characterId===id).score;
   const first=score();
   const changed=structuredClone(freshSnapshot);changed.generatedAt=new Date(Date.now()+1).toISOString();
-  const row=changed.cohorts.diamond_plus.rows[id];row.wins=row.games;row.top3=row.games;row.placement=row.games;
+  const row=changed.cohorts.unrank.rows[id];row.wins=row.games;row.top3=row.games;row.placement=row.games;
   assert.ok(setRecentMeta(changed));assert.ok(score()>first,'new outcomes reach the displayed ranking score');
   const second=score();
   changed.generatedAt=new Date(Date.now()+2).toISOString();row.pickShare=.5;
