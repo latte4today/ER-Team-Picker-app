@@ -3,7 +3,7 @@ import {currentSeason, setSeasonState, isCurrentSeason} from './seasonContext.js
 import { metaMovementRows, movementBar } from "./metaMovement.js";
 import { hasFullRankedBaseline } from "./characterAvailability.js";
 import { metaTrends as bundledMetaTrends } from "./metaTrends.js";
-import {recentCoreRows, recentMetaVersion, recentEvidence, recentStrengthCorrection} from './recentMeta.js';
+import {recentCoreRows, recentMetaVersion, recentRankingEvidence, recentStrengthCorrection, PRESEASON_META_POLICY} from './recentMeta.js';
 import {renderRecentEvidence, renderRecentDashboard} from './recentMetaView.js';
 import { characterVariants, roleNames, roles } from "./data.js";
 import {
@@ -2809,8 +2809,8 @@ function combinedCompositionRows(sortMode = "overall") {
 function rankerCharacterRows(role = "all") {
   if (currentSeason().phase==='preseason'||!isCurrentSeason(officialStatsSource)) {
     return characterVariants.filter(c=>role === "all" || characterRolesById(c.variantId).includes(role))
-      .map(c=>({c,e:recentEvidence(c.variantId,tierSelect.value)}))
-      .filter(({e})=>e && e.cohort.transfer > 0 && e.row.games >= 300)
+      .map(c=>({c,e:recentRankingEvidence(c.variantId,tierSelect.value)}))
+      .filter(({e})=>e && e.cohort.transfer > 0 && e.row.games >= (e.cohort.key==='unrank'?PRESEASON_META_POLICY.minGames:300))
       .map(({c,e})=>({characterId:c.variantId,score:58+recentStrengthCorrection(c.variantId,tierSelect.value,0)*46,
         games:e.row.games,top3Rate:e.top3Rate,winRate:e.winRate,avgPlacement:e.avgPlacement}))
       .sort((a,b)=>b.score-a.score)

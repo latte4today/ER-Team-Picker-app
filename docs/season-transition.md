@@ -15,10 +15,11 @@
 - Recent cohorts must match both the active phase and patch. Ranked seven-day
   windows crossing the first observed phase boundary are withheld. Preseason
   collects a separate Normal/Squad cohort (matching mode 2, team mode 3), so
-  an exact-patch preseason sample can be used before seven days elapse. Its
-  transfer factor is 0.30 for every tier; the UI marks its provisional results
-  and does not compare them to Ranked. Ranked statistics never consume it.
-  Patch movers require
+  an exact-patch preseason sample can be used before seven days elapse.
+  Preseason uses a smaller minimum sample and stronger shrinkage-adjusted
+  recent score than regular season. Its data is tier-neutral and the UI marks
+  results as provisional. Ranked statistics never consume it.
+  Ranked patch movers require
   both comparison windows to fall in the current phase and patch family; the
   first observed transition time is conservative, not a claimed launch time.
 - Recent individual/core outcomes require minimum samples and shrinkage. Mere
@@ -46,7 +47,16 @@ win rates. Trait picks require a minimum count and share, and Normal build
 suggestions exclude builds with top-three rates far below their variant's
 observed baseline. Build frequency remains observational, not proof of an item
 causing better results. Unknown item IDs are omitted until their names are
-resolved. The 13.0 UI notes are scoped to that patch; 13.1 does not inherit them.
+resolved. The 13.0 detail notes are scoped to that patch; 13.1 does not inherit
+them. The bottom panel displays trends rather than the patch notes.
+
+The preseason pulse uses the latest three days against the earlier part of the
+same patch: subtract the three-day counts from the aligned seven-day totals
+instead of comparing overlapping windows. Both windows must be the same mode,
+patch and collection period; missing or inconsistent rows use the longer
+baseline. Short signals expire after 48 hours without a refresh. Pick share is
+display-only; a credible TOP 3 change adds a bounded adjustment to scores.
+Normal pulse data and thresholds are disabled as soon as Ranked is detected.
 
 Sources: [13.0 systems](https://playeternalreturn.com/posts/news/3948),
 [13.0 characters and items](https://playeternalreturn.com/posts/news/3949?hl=ko-KR),

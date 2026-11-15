@@ -30,7 +30,7 @@ for(const tier of preseason?['unrank']:['diamond_plus','mithril_plus']) {
   const chars=seed.dehydratedState.queries.find(q=>q.queryKey[0]==='GET_CHARACTERS_KEY').state.data.characters;
   const wanted=new Set(characterVariants.map(v=>v.characterId));
   const jobs=chars.filter(c=>wanted.has(FALLBACK_CHARACTER_CODE_TO_ID[c.id]));
-  const rows={};let next=0,patch=null,updatedAt=Infinity;
+  const rows={},shortRows={};let next=0,patch=null,updatedAt=Infinity,shortUpdatedAt=Infinity;
   await Promise.all(Array.from({length:3},async()=>{
     while(next<jobs.length) {
       const c=jobs[next++],url=`https://dak.gg/er/characters/${encodeURIComponent(c.key)}?hl=ko&tier=${tier}`;
@@ -55,12 +55,45 @@ for(const tier of preseason?['unrank']:['diamond_plus','mithril_plus']) {
         if(!validAggregate(row)||row.cores.some(x=>!validAggregate(x)))throw Error(`Invalid aggregates: ${v.variantId}`);
         rows[v.variantId]=row;
       }
+      if(preseason) {
+        // Compare two windows from one patch and mode. A failed short window
+        // must not prevent publication of the otherwise complete base snapshot.
+        try {
+          const shortPage=await page(url+'&dt=3');
+          const shortPhase=seasonFromPage(shortPage,activeSeason);
+          const short=shortPage.dehydratedState.queries.find(q=>q.queryKey[0]==='getCharacterStatistics')?.state.data;
+          const window=short?.characterDetailStatSnapshot;
+          const stamp=Number(short?.meta?.updatedAt);
+          if(shortPhase.seasonId!==activeSeason.seasonId||short?.meta?.dt!==3||short.meta.tier!==tier||
+             window?.dt!==3||window.matchingMode!==2||window.teamMode!==3||window.patch!==s.patch||
+             Math.abs(stamp-Number(d.meta.updatedAt))>10*60000||!Number.isFinite(stamp))continue;
+          shortUpdatedAt=Math.min(shortUpdatedAt,stamp);
+          for(const w of window.characterDetailStat.weaponStats) {
+            const v=characterVariants.find(v=>v.characterId===id&&(v.weapon===weaponIds[w.key]||v.weapon==='flex'));
+            if(!v||shortRows[v.variantId])continue;
+            const current={...aggregate(w),population:window.tierCount};
+            const total=rows[v.variantId];
+            if(!validAggregate(current)||!total||current.games>total.games||current.wins>total.wins||
+               current.top3>total.top3||current.placement>total.placement||
+               !Number.isSafeInteger(current.population)||current.population<current.games)continue;
+            shortRows[v.variantId]=current;
+          }
+        } catch { /* Use the complete seven-day cohort when the short window is unavailable. */ }
+      }
     }
   }));
   if(Object.keys(rows).length!==characterVariants.length||!Number.isFinite(updatedAt))throw Error(`Incomplete ${tier} snapshot`);
   const values=Object.values(rows),n=values.reduce((a,r)=>a+r.games,0);
   cohorts[tier]={patch,days:7,matchingMode:expectedMode,updatedAt:new Date(updatedAt).toISOString(),rows,averages:{
     winRate:values.reduce((a,r)=>a+r.wins,0)/n,top3Rate:values.reduce((a,r)=>a+r.top3,0)/n,avgPlacement:values.reduce((a,r)=>a+r.placement,0)/n}};
+  if(preseason&&Object.keys(shortRows).length>=Math.ceil(characterVariants.length*0.8)){
+    const short=Object.values(shortRows),games=short.reduce((sum,row)=>sum+row.games,0);
+    cohorts[tier].pulse={days:3,updatedAt:new Date(shortUpdatedAt).toISOString(),rows:shortRows,averages:{
+      winRate:short.reduce((sum,row)=>sum+row.wins,0)/games,
+      top3Rate:short.reduce((sum,row)=>sum+row.top3,0)/games,
+      avgPlacement:short.reduce((sum,row)=>sum+row.placement,0)/games}};
+    console.log(`Short preseason window: ${short.length} variants, ${games} observations`);
+  } else if(preseason) console.warn(`Short window unavailable: ${Object.keys(shortRows).length}/${characterVariants.length} verified variants`);
   console.log(`${tier}: ${values.length} variants, patch ${patch}; aggregate observations ${n} (cohorts overlap)`);
 }
 if(!preseason&&cohorts.diamond_plus.patch!==cohorts.mithril_plus.patch)throw Error('Cross-cohort patch mismatch');

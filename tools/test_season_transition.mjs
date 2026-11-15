@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import vm from 'node:vm';
 import {seasonFromPage} from './season_metadata.mjs';
 import {currentSeason,validSeasonState,setSeasonState,isCurrentSeason,isCurrentRecent,canComparePreviousPatch} from '../src/seasonContext.js';
-import {recentMetaSnapshot,recentEvidence,recentMetaVersion,setRecentMeta,recentStrengthCorrection} from '../src/recentMeta.js';
+import {recentMetaSnapshot,recentEvidence,recentRankingEvidence,PRESEASON_META_POLICY,recentMetaVersion,setRecentMeta,recentStrengthCorrection} from '../src/recentMeta.js';
 import {characterVariants} from '../src/data.js';
 globalThis.localStorage={getItem:()=>null,setItem:()=>{}};
 globalThis.document={documentElement:{lang:'ko',dataset:{}}};
@@ -56,11 +56,12 @@ try {
   const freshSnapshot=structuredClone(recentMetaSnapshot());
   Object.assign(freshSnapshot,fresh,{generatedAt:new Date(Date.now()).toISOString()});
   const cohort=freshSnapshot.cohorts.unrank??freshSnapshot.cohorts.diamond_plus;
+  delete cohort.pulse;
   freshSnapshot.cohorts={unrank:{...cohort,patch:next.patch,matchingMode:2,updatedAt:freshSnapshot.generatedAt}};
   assert.ok(setRecentMeta(freshSnapshot));
   assert.ok(recentEvidence(id,'all'));
   const source=await fs.readFile(new URL('../src/app.js',import.meta.url),'utf8');
-  const context={characterVariants,isCurrentSeason,currentSeason,recentEvidence,recentStrengthCorrection,
+  const context={characterVariants,isCurrentSeason,currentSeason,recentRankingEvidence,PRESEASON_META_POLICY,recentStrengthCorrection,
     officialStatsSource:{currentSeason:old.seasonId},tierSelect:{value:'all'},rankTierByPercentile:()=> 'B'};
   vm.createContext(context);
   vm.runInContext(source.slice(source.indexOf('function rankerCharacterRows('),source.indexOf('function renderRankRoleFilters(')),context);
@@ -77,6 +78,15 @@ try {
   assert.ok(setSeasonState(regular));
   assert.equal(recentEvidence(id,'all'),null,'preseason results cannot leak into the following regular season');
   assert.equal(context.rankerCharacterRows().length,0,'a new phase never displays previous-phase ranks');
+  Date.now=()=>now+16*86400000;
+  const ranked={...structuredClone(changed),generatedAt:new Date(Date.now()).toISOString(),seasonId:regular.seasonId,
+    seasonKey:regular.seasonKey,phase:'ranked',cohorts:{}};
+  const rankedRows={...changed.cohorts.unrank,updatedAt:ranked.generatedAt,matchingMode:3};
+  for(const key of ['diamond_plus','mithril_plus'])ranked.cohorts[key]=rankedRows;
+  assert.ok(setRecentMeta(ranked));
+  assert.equal(recentRankingEvidence(id,'all').cohort.key,'diamond_plus');
+  assert.equal(recentStrengthCorrection(id,'iron_gold',-1),0,'ranked restores the original tier-based transfer rules');
+  assert.ok(Math.abs(recentStrengthCorrection(id,'all',-20))<=0.45,'ranked restores its original correction cap');
 } finally {Date.now=realNow;}
 for(const lang of ['ko','en','ja','zhHans','zhHant']) {
   const dictionary=(await import(`../src/i18n/${lang}.js`))[lang];

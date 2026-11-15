@@ -4,12 +4,27 @@ import {recentMetaSnapshot as bundled} from './recentMetaSnapshot.js';
 
 // Bounded observational correction, not an estimated causal win-rate gain.
 export const RECENT_META_POLICY=Object.freeze({minGames:300,priorGames:1500,maxBlend:0.35,maxCorrection:0.45,maxAgeDays:7,minCoreGames:100,minCoreShare:0.05});
+export const PRESEASON_META_POLICY=Object.freeze({minGames:120,priorGames:650,maxBlend:0.48,maxCorrection:0.55,maxMomentum:0.16,maxPulseAgeDays:2});
 let snapshot=bundled;
 let version=0;
 const DAY=86400000;
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const validRow=r=>r&&Number.isInteger(r.games)&&r.games>0&&Number.isInteger(r.wins)&&Number.isInteger(r.top3)&&r.wins>=0&&r.wins<=r.top3&&r.top3<=r.games&&Number.isFinite(r.placement)&&r.placement>=r.games&&Number.isFinite(r.pickShare)&&r.pickShare>=0&&r.pickShare<=1;
 const variantIds = characterVariants.map(c=>c.variantId);
+function validPulse(cohort) {
+  const p=cohort.pulse;
+  if(!p)return true; // Keeps older snapshots usable when the short window is unavailable.
+  return p.days===3&&Number.isFinite(Date.parse(p.updatedAt))
+    &&Math.abs(Date.parse(p.updatedAt)-Date.parse(cohort.updatedAt))<=10*60000
+    &&Object.keys(p.rows??{}).length>=Math.ceil(variantIds.length*0.8)
+    &&['winRate','top3Rate','avgPlacement'].every(k=>Number.isFinite(p.averages?.[k]))
+    &&p.averages.winRate>=0&&p.averages.winRate<=p.averages.top3Rate&&p.averages.top3Rate<=1&&p.averages.avgPlacement>=1
+    &&Object.keys(p.rows).every(id=>{
+      const r=p.rows[id],total=cohort.rows[id];
+      return total&&r&&Number.isSafeInteger(r.population)&&r.population>=r.games&&validRow({...r,pickShare:r.games/r.population})
+        &&['games','wins','top3','placement'].every(k=>r[k]<=total[k]);
+    });
+}
 export function validRecentMeta(data) {
   if(data?.schemaVersion!==1||!Number.isFinite(Date.parse(data.generatedAt)))return false;
   if(Date.parse(data.generatedAt)>Date.now()+3600000)return false;
@@ -22,7 +37,8 @@ export function validRecentMeta(data) {
     variantIds.every(id=>c.rows[id])&&
     ['winRate','top3Rate','avgPlacement'].every(k=>Number.isFinite(c.averages?.[k]))&&c.averages.winRate>=0&&c.averages.winRate<=c.averages.top3Rate&&c.averages.top3Rate<=1&&c.averages.avgPlacement>=1&&
     Object.entries(c.rows).every(([id,r])=>/^[a-z_]+:[a-z_]+$/.test(id)&&validRow(r)&&Array.isArray(r.cores)&&r.cores.every(x=>validRow({...x,pickShare:x.games/r.games})&&/^\d{7}$/.test(x.core))&&
-      Array.isArray(r.builds)&&r.builds.length<=3&&r.builds.every(b=>Array.isArray(b.items)&&b.items.length===5&&b.items.every(code=>Number.isInteger(code)&&typeof data.itemNames?.[code]==='string')&&validRow({...b,pickShare:b.games/r.games}))))&&cs.every(c=>c.patch===cs[0].patch);
+      Array.isArray(r.builds)&&r.builds.length<=3&&r.builds.every(b=>Array.isArray(b.items)&&b.items.length===5&&b.items.every(code=>Number.isInteger(code)&&typeof data.itemNames?.[code]==='string')&&validRow({...b,pickShare:b.games/r.games})))
+    &&(preseason?validPulse(c):!c.pulse))&&cs.every(c=>c.patch===cs[0].patch);
 }
 export function setRecentMeta(data) {
   if(!validRecentMeta(data)||Date.parse(data.generatedAt)<=Date.parse(snapshot.generatedAt))return false;
@@ -49,11 +65,23 @@ export function recentEvidence(variantId,tier='all',now=Date.now()) {
 }
 export function recentStrengthCorrection(variantId,tier,baseline,now=Date.now()) {
   const e=recentEvidence(variantId,tier,now);
-  if(!e||!e.cohort.transfer||e.row.games<RECENT_META_POLICY.minGames)return 0;
-  const a=e.cohort.averages;
-  const recent=(e.top3Rate-a.top3Rate)*7.2+(e.winRate-a.winRate)*4.8+(a.avgPlacement-e.avgPlacement)*0.82;
-  const weight=RECENT_META_POLICY.maxBlend*e.cohort.transfer*e.cohort.freshness*e.row.games/(e.row.games+RECENT_META_POLICY.priorGames);
-  return clamp((recent-baseline)*weight,-RECENT_META_POLICY.maxCorrection,RECENT_META_POLICY.maxCorrection);
+  if(!e||!e.cohort.transfer)return 0;
+  const preseason=e.cohort.key==='unrank';
+  const policy=preseason?PRESEASON_META_POLICY:RECENT_META_POLICY;
+  const pulse=currentPulse(e.cohort,now);
+  const short=pulse?.rows[variantId];
+  const hasShort=short&&short.games>=policy.minGames;
+  const form=hasShort?recentRankingEvidence(variantId,tier,now):e;
+  if(form.row.games<policy.minGames)return 0;
+  const a=hasShort?pulse.averages:e.cohort.averages;
+  const recent=(form.top3Rate-a.top3Rate)*7.2+(form.winRate-a.winRate)*4.8+(a.avgPlacement-form.avgPlacement)*0.82;
+  const weight=policy.maxBlend*(preseason?0.55:e.cohort.transfer)*e.cohort.freshness*form.row.games/(form.row.games+policy.priorGames);
+  const change=hasShort?pulseShift(e.row,short,'performance'):null;
+  // Selection share is a watch signal only. A modest, bounded lift goes only
+  // to an observed performance change with adequate independent samples.
+  const momentum=change&&Math.abs(change.z)>=1&&Math.abs(change.delta)>=0.005
+    ? clamp(change.delta*9*change.confidence,-policy.maxMomentum,policy.maxMomentum)*e.cohort.freshness : 0;
+  return clamp((recent-baseline)*weight+momentum,-policy.maxCorrection,policy.maxCorrection);
 }
 
 // Keep historical combat measurements for that exact core, replacing only its
@@ -78,9 +106,54 @@ function movement(r,kind) {
   const delta=current-previous,z=se>0?delta/se:0;
   return Number.isFinite(z)&&delta>=(kind==='usage'?0.0025:0.02)?{delta,z}:null;
 }
+function currentPulse(cohort,now) {
+  const p=cohort.key==='unrank'&&cohort.freshness?cohort.pulse:null;
+  return p&&now-Date.parse(p.updatedAt)<PRESEASON_META_POLICY.maxPulseAgeDays*DAY?p:null;
+}
+export function preseasonHasPulse(tier='all',now=Date.now()) {
+  return Boolean(currentPulse(recentCohort(tier,now),now));
+}
+function pulsePair(total,short) {
+  if(!total?.pickShare||!short)return null;
+  const n=Math.round(total.games/total.pickShare);
+  const previous={games:total.games-short.games,wins:total.wins-short.wins,
+    top3:total.top3-short.top3,placement:total.placement-short.placement,population:n-short.population};
+  if(previous.games<PRESEASON_META_POLICY.minGames||short.games<PRESEASON_META_POLICY.minGames
+    ||previous.population<previous.games||!Number.isSafeInteger(previous.population)
+    ||!validRow({...previous,pickShare:previous.games/previous.population}))return null;
+  return {current:short,previous};
+}
+function pulseShift(total,short,kind) {
+  const pair=pulsePair(total,short);if(!pair)return null;
+  const {current:c,previous:p}=pair;
+  const usage=kind==='usage';
+  const n=usage?c.population:c.games,oldN=usage?p.population:p.games;
+  const count=usage?c.games:c.top3,oldCount=usage?p.games:p.top3;
+  const delta=count/n-oldCount/oldN;
+  const pooled=(count+oldCount)/(n+oldN),se=Math.sqrt(pooled*(1-pooled)*(1/n+1/oldN));
+  if(!(se>0))return null;
+  const z=delta/se,smallerSample=Math.min(c.games,p.games);
+  return {delta,z,confidence:smallerSample/(smallerSample+600)};
+}
+export function recentRankingEvidence(variantId,tier,now=Date.now()) {
+  const e=recentEvidence(variantId,tier,now);
+  if(!e)return null;
+  const pulse=currentPulse(e.cohort,now),short=pulse?.rows[variantId];
+  if(!short||short.games<PRESEASON_META_POLICY.minGames)return e;
+  return {...e,row:{...e.row,...short},winRate:short.wins/short.games,
+    top3Rate:short.top3/short.games,avgPlacement:short.placement/short.games};
+}
 export function recentMovers(tier='all',kind='usage',now=Date.now()) {
   const cohort=recentCohort(tier,now);
-  if(!cohort.freshness||cohort.key==='unrank')return [];
+  if(!cohort.freshness)return [];
+  if(cohort.key==='unrank'){
+    const pulse=currentPulse(cohort,now);
+    if(!pulse)return [];
+    const minimum=kind==='usage'?0.00025:0.005;
+    return Object.entries(pulse.rows).map(([variantId,row])=>({variantId,row,cohort,movement:pulseShift(cohort.rows[variantId],row,kind)}))
+      .filter(r=>r.movement&&r.movement.delta>=minimum&&r.movement.z>=1)
+      .sort((a,b)=>b.movement.delta*b.movement.confidence-a.movement.delta*a.movement.confidence).slice(0,5);
+  }
   // Bonferroni-style z>=4 conservatively screens both families across 116 builds.
   return Object.entries(cohort.rows).filter(([,row])=>canComparePreviousPatch(row.previous,cohort)).map(([variantId,row])=>({variantId,row,cohort,movement:movement(row,kind)}))
     .filter(r=>r.movement?.z>=4).sort((a,b)=>b.movement.delta-a.movement.delta).slice(0,5);

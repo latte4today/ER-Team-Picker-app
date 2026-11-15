@@ -1,4 +1,7 @@
 export const zhHans = {
+  "recent.preseasonWindow": "最近3天 · 对比同版本较早时段 · 暂定",
+  "recent.preseasonStrong": "近期表现突出",
+  "recent.preseasonPending": "同版本积累足够对局后将显示上升趋势。",
   "season.preseason": "季前赛 · 普通小队暂定统计",
   "season.warming": "新赛季数据收集中 · 暂不显示上赛季排名。",
   "recent.recommendedBuild": "推荐出装",
