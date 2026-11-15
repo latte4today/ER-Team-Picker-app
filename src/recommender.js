@@ -105,6 +105,7 @@ export function updateOfficialStats(remote) {
   _teamShapeCache = new Map();
   _traitBuildRowsCache = new Map();
   _coreStrengthCache = new Map();
+  _leanStrengthCache.clear();
   _globalWinRateCache = new Map();
   _needsNormalizer = null;
 }
@@ -122,9 +123,10 @@ function ensureRecentMetaClock() {
   _recentCacheVersion = version;
   updateOfficialStats({});
 }
-import { tournamentCompositions as bundledTournamentCompositions } from "./tournamentMeta.js";
+import { tournamentSeason as bundledTournamentSeason, tournamentCompositions as bundledTournamentCompositions } from "./tournamentMeta.js";
 import { validTournamentData } from "./tournamentData.js";
 let tournamentCompositions = bundledTournamentCompositions;
+let tournamentSeason = bundledTournamentSeason;
 import {
   cannotStartEngage,
   helpsMeleeEngage,
@@ -179,22 +181,22 @@ for (const row of tournamentCompositions) {
 }
 
 // Pre-resolved tournament row teams for tournamentArchetypeScore (avoids repeated .find calls)
-let _tournamentCompositionTeams = tournamentCompositions.map((row) => ({
-  row,
-  team: (row.members ?? []).map((id) => _firstByCharacterId.get(id)).filter(Boolean),
-  memberSet: new Set(row.members ?? []),
-}));
+function tournamentReference(row) {
+  const team=(row.members??[]).map(id=>_firstByCharacterId.get(id)).filter(Boolean);
+  return {row,team,memberSet:new Set(row.members),average:teamMetricProfile(team).average};
+}
+let _tournamentCompositionTeams = tournamentCompositions.map(tournamentReference);
 
 export function updateTournamentStats(data) {
   if (!validTournamentData(data)) return false;
   tournamentCompositions = data.compositions;
+  tournamentSeason = data.season;
   _tournamentCompositionByCandidate.clear();
   for (const row of tournamentCompositions) for (const id of row.members) {
     if (!_tournamentCompositionByCandidate.has(id)) _tournamentCompositionByCandidate.set(id, []);
     _tournamentCompositionByCandidate.get(id).push(row);
   }
-  _tournamentCompositionTeams = tournamentCompositions.map(row => ({ row,
-    team: row.members.map(id => _firstByCharacterId.get(id)), memberSet: new Set(row.members) }));
+  _tournamentCompositionTeams = tournamentCompositions.map(tournamentReference);
   return true;
 }
 
@@ -2210,9 +2212,7 @@ function characterByCharacterId(characterId) {
   return _firstByCharacterId.get(characterId);
 }
 
-function metricSimilarityScore(team, referenceTeam) {
-  const teamAverage = teamMetricProfile(team).average;
-  const referenceAverage = teamMetricProfile(referenceTeam).average;
+function metricSimilarityScore(teamAverage, referenceAverage) {
   const fields = ["damage", "defense", "crowdControl", "mobility", "utility"];
   const distance = fields.reduce((sum, field) => sum + Math.abs((teamAverage[field] ?? 0) - (referenceAverage[field] ?? 0)), 0);
   return Math.max(0, 1 - distance / 7.5);
@@ -2222,11 +2222,12 @@ function tournamentArchetypeScore(candidate, selected) {
   const team = [...selected, candidate];
   if (team.length < 3 || tournamentCompositions.length === 0) return 0;
 
-  const aggregate = _tournamentCompositionTeams.reduce((state, { row, team: referenceTeam, memberSet }) => {
+  const teamAverage=teamMetricProfile(team).average;
+  const aggregate = _tournamentCompositionTeams.reduce((state, { row, team: referenceTeam, memberSet, average }) => {
     if (referenceTeam.length < 3) return state;
 
     const overlap = team.reduce((n, c) => n + (memberSet.has(c.characterId) ? 1 : 0), 0);
-    const similarity = metricSimilarityScore(team, referenceTeam);
+    const similarity = metricSimilarityScore(teamAverage, average);
     if (similarity < 0.72 && overlap === 0) return state;
 
     const result = tournamentResultScore(row);
@@ -2300,7 +2301,10 @@ function combinedMetaScore(candidate, tier) {
   return clamp(officialScore * officialWeight + legacyScore * legacyWeight, -1.1, 1.25);
 }
 
+const _leanStrengthCache = new Map();
 function leanStrengthScore(candidate, tier) {
+  const key = `${tier}|${candidate.variantId}`;
+  if (_leanStrengthCache.has(key)) return _leanStrengthCache.get(key);
   const stats = officialCandidateStats(candidate, tier);
   const averages = officialTierAverages(tier, "all");
   const officialConfidence = officialStatConfidence(stats, 260);
@@ -2313,7 +2317,9 @@ function leanStrengthScore(candidate, tier) {
   const legacy = DAK_META_SOURCE.seasonKey === currentSeason().seasonKey
     ? legacyDakMetaScore(candidate, tier) * (1 - officialConfidence) * 0.55 : 0;
   const baseline = isCurrentSeason(officialStatsSource) ? clamp(official + legacy, -2.8, 3.2) : 0;
-  return clamp(baseline + recentStrengthCorrection(candidate.variantId, tier, baseline), -2.8, 3.2);
+  const value = clamp(baseline + recentStrengthCorrection(candidate.variantId, tier, baseline), -2.8, 3.2);
+  _leanStrengthCache.set(key, value);
+  return value;
 }
 
 let _coreStrengthCache = new Map();
@@ -2350,7 +2356,7 @@ function leanCoreStrengthScore(candidate, tier) {
   if (!core) return 0;
 
   const bucket = officialStatsBucketForTier(tier);
-  const key = `${bucket}|${candidate.variantId}|${core}`;
+  const key = `${tier}|${candidate.variantId}|${core}`;
   const cached = _coreStrengthCache.get(key);
   if (cached !== undefined) return cached;
 
@@ -2873,14 +2879,16 @@ function explain(candidate, selected, scores, explainTier = "all") {
 }
 
 function selectedCharactersFromIds(selectedIds) {
-  return selectedIds
-    .map((id) => _variantById.get(id))
-    .filter(Boolean);
+  const seen = new Set();
+  return selectedIds.map(id=>_variantById.get(id)).filter(c=>{
+    if (!c || seen.has(c.characterId)) return false;
+    seen.add(c.characterId);return true;
+  });
 }
 
 function traitBuildRowsFor(variantId, tier, useRecent = true) {
   const bucket = officialStatsBucketForTier(tier);
-  const key = `${bucket}|${variantId}|${useRecent}`;
+  const key = `${useRecent ? tier : bucket}|${variantId}|${useRecent}`;
   const cached = _traitBuildRowsCache.get(key);
   if (cached) return cached;
   const rows = officialTraitBuildStatsByTier?.[bucket]?.[variantId]
@@ -3155,7 +3163,7 @@ function applyCoreRoleProfile(character, core, tier) {
   if (!code || !normalizeCoreName(code)) return { ...character, effectiveTier: tier };
 
   const bucket = officialStatsBucketForTier(tier);
-  const key = `${bucket}|${character.variantId}|${code}`;
+  const key = `${tier}|${character.variantId}|${code}`;
   const cached = _effectiveCoreProfileCache.get(key);
   if (cached) return cached;
 
@@ -3406,22 +3414,25 @@ function feedbackCandidateId(candidate, coreRow = null) {
 }
 
 function buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows) {
+  const officialCurrent=isCurrentSeason(officialStatsSource);
+  const dakCurrent=DAK_META_SOURCE.seasonKey===currentSeason().seasonKey;
+  const tournamentCurrent=isCurrentSeason({seasonId:tournamentSeason});
   return {
     selected,
     candidate,
     scores: {
       synergy: pairScore(candidate, selected),
-      dakComposition: dakCompositionScore(candidate, selected),
-      tournamentComposition: tournamentCompositionScore(candidate, selected),
-      tournamentArchetype: tournamentArchetypeScore(candidate, selected),
-      dakTier: dakTierScore(candidate, tier),
-      dakStatistics: dakStatisticsScore(candidate, tier),
-      dakRealtime: dakRealtimeScore(candidate),
-      officialMeta: officialMetaScore(candidate, tier),
-      legacyMeta: legacyDakMetaScore(candidate, tier),
-      meta: combinedMetaScore(candidate, tier),
-      officialMatch: officialMatchScore(candidate, selected, tier),
-      officialV2: officialV2Score(candidate, selected, tier),
+      dakComposition: dakCurrent ? dakCompositionScore(candidate, selected) : 0,
+      tournamentComposition: tournamentCurrent ? tournamentCompositionScore(candidate, selected) : 0,
+      tournamentArchetype: tournamentCurrent ? tournamentArchetypeScore(candidate, selected) : 0,
+      dakTier: dakCurrent ? dakTierScore(candidate, tier) : 0,
+      dakStatistics: dakCurrent ? dakStatisticsScore(candidate, tier) : 0,
+      dakRealtime: dakCurrent ? dakRealtimeScore(candidate) : 0,
+      officialMeta: officialCurrent ? officialMetaScore(candidate, tier) : 0,
+      legacyMeta: dakCurrent ? legacyDakMetaScore(candidate, tier) : 0,
+      meta: officialCurrent ? (dakCurrent ? combinedMetaScore(candidate, tier) : officialMetaScore(candidate,tier)) : 0,
+      officialMatch: officialCurrent ? officialMatchScore(candidate, selected, tier) : 0,
+      officialV2: officialCurrent ? officialV2Score(candidate, selected, tier) : 0,
       relationship: relationshipScore(candidate, selected, tier, relationshipRows),
     },
   };
@@ -3431,7 +3442,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
   ensureRecentMetaClock();
   const selected = invariantContext?.selected ?? selectedCharactersFromIds(selectedIds);
   const candidate = invariantContext?.candidate ?? _variantById.get(candidateId);
-  if (!candidate) return undefined;
+  if (!candidate || (!invariantContext && selected.some(c=>c.characterId===candidate.characterId))) return undefined;
   if (cores[candidate.variantId] && !canonicalCoreCode(cores[candidate.variantId])) return undefined;
   const candidateCoreRow = coreRowFor(candidate.variantId, cores[candidate.variantId], tier);
   const effectiveSelected = invariantContext?.effectiveSelected ?? effectiveTeamFor(selected, cores, tier);
@@ -3459,7 +3470,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     teamShape: teamShapeScore(effectiveCandidate, effectiveSelected),
     conflict: conflictScore(effectiveCandidate, effectiveSelected),
     compositionGuide: compositionGuideScore(effectiveCandidate, effectiveSelected),
-    officialPairRole: officialPairRoleScore(effectiveCandidate, effectiveSelected, tier),
+    officialPairRole: isCurrentSeason(officialStatsSource) ? officialPairRoleScore(effectiveCandidate, effectiveSelected, tier) : 0,
     officialCore:  officialCoreScore(candidate, tier, cores),
     officialCoreFit: officialCoreFitScore(effectiveCandidate, effectiveSelected, tier, cores),
     officialCoreRoleShift: officialCoreRoleShiftScore(effectiveCandidate, effectiveSelected, tier, cores),
@@ -3783,13 +3794,13 @@ function twoStageShortlist(candidates, tier, limit) {
     .map((row) => row.candidate);
 }
 
-export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candidateCharacterIds = undefined, relationshipRows = [], cores = {}) {
+export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candidateCharacterIds = undefined, relationshipRows = [], cores = {}, options = {}) {
   ensureRecentMetaClock();
   const selected = selectedCharactersFromIds(selectedIds);
+  const normalizedIds = selected.map(c=>c.variantId);
 
   const selectedCharacters = new Set(selected.map((character) => character.characterId));
   const candidatePool = candidateCharacterIds?.length ? new Set(candidateCharacterIds) : undefined;
-  const candidateUsesVariants = candidateCharacterIds?.some((id) => String(id).includes(":")) ?? false;
 
   // Selected team's effective state is invariant across all candidates/cores in this pass.
   // Compute once and reuse instead of recomputing inside every evaluateCandidate call.
@@ -3801,7 +3812,7 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
 
   let pool = characterVariants
     .filter((candidate) => !selectedCharacters.has(candidate.characterId))
-    .filter((candidate) => !candidatePool || candidatePool.has(candidateUsesVariants ? candidate.variantId : candidate.characterId));
+    .filter((candidate) => !candidatePool || (candidatePool.has(candidate.variantId)||candidatePool.has(candidate.characterId)));
 
   // Two-stage only has meaning once there is a team to fit; with nothing picked the
   // ranking is individual merit either way.
@@ -3818,14 +3829,14 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   const scored = pool
     .flatMap((candidate) => {
       const options = candidateCoreOptions(candidate.variantId, tier, cores);
-      const invariantContext = buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows);
+      const invariantContext = buildCandidateInvariantContext(normalizedIds, selected, candidate, tier, remoteFeedback, relationshipRows);
       invariantContext.effectiveSelected = effectiveSelected;
       invariantContext.deferExplanation = true;
       invariantContext.selectedVector = selectedVector;
       if (deficitInfo) invariantContext.deficitInfo = deficitInfo;
       return options
         .map((core) => evaluateCandidate(
-          selectedIds,
+          normalizedIds,
           candidate.variantId,
           tier,
           remoteFeedback,
@@ -3852,7 +3863,21 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   // against +0.8pp with it off) and buys no variety at all here (mean top-5 overlap
   // 14.4% with it, 11.7% without). So it only applies to the single-stage path.
   const ordered = twoStage ? deduped : diversifyRecommendations(deduped);
-  return ordered.slice(0, DIVERSITY_CONFIG.resultCap ?? RECOMMENDATION_RESULT_CAP).map(row => ({
+  // Allocate result slots to distinct characters before emitting their core choices.
+  // The draft UI can show more useful picks while still letting users change cores.
+  const take = Math.max(1, Math.min(RECOMMENDATION_RESULT_CAP, options.limit ?? 24));
+  const chosen = new Map();
+  for (const row of ordered) {
+    const id=row.character.characterId;
+    if (!chosen.has(id) && chosen.size<take) chosen.set(id,{first:row,alternates:[]});
+    else if (options.includeAlternates!==false && chosen.get(id)?.first.character.variantId===row.character.variantId) {
+      const group=chosen.get(id);
+      if(group.first!==row)group.alternates.push(row);
+    }
+  }
+  const groups=[...chosen.values()];
+  const results=groups.map(group=>group.first).concat(groups.flatMap(group=>group.alternates));
+  return options.includeReasons===false ? results : results.map(row => ({
     ...row,
     reasons: explain(applyCoreRoleProfile(row.character, row.recommendedCore?.core, tier), effectiveSelected, row.scores, tier),
   }));

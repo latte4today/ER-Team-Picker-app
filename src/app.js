@@ -1,3 +1,4 @@
+import {calibratedRankScore, rankBaseline, isValidRankStat} from './rankQuality.js';
 import {preseasonTeamExamples} from './preseason.js';
 import {currentSeason, setSeasonState, isCurrentSeason} from './seasonContext.js';
 import { metaMovementRows, movementBar } from "./metaMovement.js";
@@ -2503,11 +2504,6 @@ function officialBucketForTier(tier = "all") {
     : "all";
 }
 
-function rankingConfidence(games = 0, fullConfidenceGames = 260) {
-  if (games <= 0) return 0;
-  return Math.max(0, Math.min(1, Math.log10(games + 1) / Math.log10(fullConfidenceGames + 1)));
-}
-
 function placementRankingScore(row) {
   return (
     (row.winRate ?? 0) * 240 +
@@ -2567,126 +2563,6 @@ function characterFeedbackRows() {
   return rows;
 }
 
-function characterRankGroup(character) {
-  if (!character) return "all";
-  if (character.role === "support") return "support";
-  if (character.role === "frontline" || character.role === "bruiser") return "front";
-  if (character.role === "ranged" || character.role === "mage") return "backline";
-  if (character.role === "assassin") return "assassin";
-  return "all";
-}
-
-function relativeScore(value, baseline, scale = 1) {
-  if (!Number.isFinite(value) || !Number.isFinite(baseline) || baseline <= 0) return 0;
-  return Math.max(-1.2, Math.min(1.2, ((value - baseline) / baseline) * scale));
-}
-
-function placementDeltaScore(value, baseline) {
-  if (!Number.isFinite(value) || !Number.isFinite(baseline)) return 0;
-  return Math.max(-1.2, Math.min(1.2, (baseline - value) / 1.35));
-}
-
-function officialCharacterRankAverages(officialRows, group) {
-  const rows = Object.entries(officialRows)
-    .map(([characterId, stat]) => ({ character: characterById(characterId), stat }))
-    .filter(({ character, stat }) => character && stat?.games > 0);
-  // Normalised against the whole pool, not the role group. Group-relative made sense
-  // while damage carried up to 30% of the score - a support cannot be compared to a
-  // backline on damage dealt. The score is now win rate, top-3 rate and placement,
-  // which mean the same thing whatever the role, and normalising per group let a
-  // build be first overall by being good *for a support* while placing 4.39 against
-  // a 4.05 at the top. Against real average placement: group-relative 0.851, pool
-  // 0.928.
-  const sourceRows = rows;
-
-  const totals = sourceRows.reduce((state, { stat }) => {
-    const games = stat.games ?? 0;
-    state.games += games;
-    state.winRate += (stat.winRate ?? 0) * games;
-    state.top3Rate += (stat.top3Rate ?? 0) * games;
-    state.avgPlacement += (stat.avgPlacement ?? 4.5) * games;
-    state.avgDamageToPlayer += (stat.avgDamageToPlayer ?? 0) * games;
-    state.avgDamageFromPlayer += (stat.avgDamageFromPlayer ?? 0) * games;
-    state.avgCcTime += (stat.avgCcTime ?? 0) * games;
-    return state;
-  }, {
-    games: 0,
-    winRate: 0,
-    top3Rate: 0,
-    avgPlacement: 0,
-    avgDamageToPlayer: 0,
-    avgDamageFromPlayer: 0,
-    avgCcTime: 0,
-  });
-
-  if (totals.games <= 0) {
-    return {
-      winRate: 0.14,
-      top3Rate: 0.42,
-      avgPlacement: 4.5,
-      avgDamageToPlayer: 14000,
-      avgDamageFromPlayer: 14000,
-      avgCcTime: 40,
-    };
-  }
-
-  return {
-    winRate: totals.winRate / totals.games,
-    top3Rate: totals.top3Rate / totals.games,
-    avgPlacement: totals.avgPlacement / totals.games,
-    avgDamageToPlayer: totals.avgDamageToPlayer / totals.games,
-    avgDamageFromPlayer: totals.avgDamageFromPlayer / totals.games,
-    avgCcTime: totals.avgCcTime / totals.games,
-  };
-}
-
-// Damage dealt, damage taken and CC time used to carry up to 30% of this score.
-// Checked against what the builds actually do - their real average placement, which
-// none of these weights feed into - they are close to worthless and actively drag
-// the composite down:
-//
-//   single stat vs real placement:  damage 0.290  damage taken 0.290  cc 0.127
-//                                   top-3 rate 0.991  win rate 0.572
-//
-//   whole score vs real placement:  with them 0.702, without them 0.862
-//
-// That gap is what a ranking tab looks like when it rewards doing damage instead of
-// winning: markus:axe sat 18th while placing 83rd, garnet:bat 23rd while placing
-// 81st, and martina:camera was buried at 97th while placing 32nd. The three stats
-// stay on the card - they describe how a character plays and that is worth seeing -
-// they just no longer decide where it ranks. Their weight is redistributed across
-// the outcome terms in each group's own proportions.
-function characterRankingWeights(group) {
-  if (group === "support") {
-    return { win: 0.29, top3: 0.42, placement: 0.29, damage: 0, durability: 0, cc: 0 };
-  }
-  if (group === "front") {
-    return { win: 0.34, top3: 0.37, placement: 0.29, damage: 0, durability: 0, cc: 0 };
-  }
-  if (group === "backline") {
-    return { win: 0.35, top3: 0.39, placement: 0.26, damage: 0, durability: 0, cc: 0 };
-  }
-  if (group === "assassin") {
-    return { win: 0.38, top3: 0.34, placement: 0.28, damage: 0, durability: 0, cc: 0 };
-  }
-  return { win: 0.34, top3: 0.37, placement: 0.29, damage: 0, durability: 0, cc: 0 };
-}
-
-function officialCharacterRankingScore(character, stat, officialRows) {
-  if (!stat?.games) return 0;
-  const group = characterRankGroup(character);
-  const avg = officialCharacterRankAverages(officialRows, group);
-  const w = characterRankingWeights(group);
-  const raw =
-    relativeScore(stat.winRate ?? avg.winRate, avg.winRate, 1.15) * w.win +
-    relativeScore(stat.top3Rate ?? avg.top3Rate, avg.top3Rate, 1.05) * w.top3 +
-    placementDeltaScore(stat.avgPlacement ?? avg.avgPlacement, avg.avgPlacement) * w.placement +
-    relativeScore(stat.avgDamageToPlayer ?? avg.avgDamageToPlayer, avg.avgDamageToPlayer, 0.9) * w.damage +
-    relativeScore(stat.avgDamageFromPlayer ?? avg.avgDamageFromPlayer, avg.avgDamageFromPlayer, 0.65) * w.durability +
-    relativeScore(stat.avgCcTime ?? avg.avgCcTime, avg.avgCcTime, 0.7) * w.cc;
-  return 58 + raw * 46 * rankingConfidence(stat.games ?? 0, 260);
-}
-
 // Fixed cut-offs at 76/66/55/44 against a score that actually spans 47 to 67: 98 of
 // 115 builds came out B, one came out A, and no build in the game could reach S.
 // A tier badge that says the same thing about everything is not a tier badge.
@@ -2734,38 +2610,40 @@ function officialCompositionRows() {
   if (!isCurrentSeason(officialStatsSource)) return [];
   const bucket = officialBucketForTier(tierSelect.value);
   const bucketRows = officialCompositionStatsByTier?.[bucket];
-  const allRows = officialCompositionStatsByTier?.all;
+  const candidateRows = officialCandidateStatsByTier?.[bucket];
   const cached = officialCompositionRowsCache.get(bucket);
-  if (cached && cached.bucketRows === bucketRows && cached.allRows === allRows) return cached.rows;
-  const sourceRows = bucket === "all" ? bucketRows ?? [] : [...(bucketRows ?? []), ...(allRows ?? [])];
+  if (cached && cached.bucketRows === bucketRows && cached.candidateRows === candidateRows) return cached.rows;
+  const sourceRows = bucketRows ?? [];
 
   const rows = new Map();
   sourceRows.forEach((row) => {
-    if (!row?.candidate || !row?.teammates?.length) return;
-    const key = compositionCanonicalKey(row);
-    if (!key) return;
+    if (!isValidRankStat(row) || row.teammates?.length!==2) return;
+    const members=[row.candidate,...row.teammates];
+    const a=characterById(members[0]),b=characterById(members[1]),c=characterById(members[2]);
+    if(!a||!b||!c||a.characterId===b.characterId||a.characterId===c.characterId||b.characterId===c.characterId)return;
+    const key=members.sort().join("+");
     const previous = rows.get(key);
     if (!previous || (row.games ?? 0) > (previous.games ?? 0)) {
       rows.set(key, row);
     }
   });
 
-  // Keep only the 16 rows actually displayed, without copying/sorting every row.
-  // Insert after equal scores to preserve the previous stable sorting order.
-  const top = [];
-  for (const row of rows.values()) {
-    const score = placementRankingScore(row) * rankingConfidence(row.games ?? 0, 80)
-      + Math.min(14, (row.games ?? 0) * 0.35);
-    if (top.length === 16 && score <= top[15].score) continue;
-    let index = top.findIndex((entry) => entry.score < score);
-    if (index < 0) index = top.length;
-    top.splice(index, 0, { row, score });
-    if (top.length > 16) top.pop();
+  const limit=24;
+  const top=[];
+  const prior=rankBaseline(Object.values(candidateRows??{}));
+  const compare=(a,b)=>b.score-a.score||b.row.games-a.row.games||a.key.localeCompare(b.key,'en');
+  for(const [key,row] of rows){
+    const entry={row,key,score:calibratedRankScore(row,prior,120)};
+    if(top.length===limit&&compare(entry,top.at(-1))>=0)continue;
+    let index=top.findIndex(current=>compare(entry,current)<0);
+    if(index<0)index=top.length;
+    top.splice(index,0,entry);
+    if(top.length>limit)top.pop();
   }
   const result = top.map(({ row, score }) => ({
     ...row, score, teamKey: [...row.teammates].sort().join("+"), candidateId: row.candidate, source: "official",
   }));
-  officialCompositionRowsCache.set(bucket, { bucketRows, allRows, rows: result });
+  officialCompositionRowsCache.set(bucket, { bucketRows, candidateRows, rows: result });
   return result;
 }
 
@@ -2807,79 +2685,57 @@ function combinedCompositionRows(sortMode = "overall") {
 }
 
 function rankerCharacterRows(role = "all") {
-  if (currentSeason().phase==='preseason'||!isCurrentSeason(officialStatsSource)) {
-    return characterVariants.filter(c=>role === "all" || characterRolesById(c.variantId).includes(role))
-      .map(c=>({c,e:recentRankingEvidence(c.variantId,tierSelect.value)}))
-      .filter(({e})=>e && e.cohort.transfer > 0 && e.row.games >= (e.cohort.key==='unrank'?PRESEASON_META_POLICY.minGames:300))
-      .map(({c,e})=>({characterId:c.variantId,score:58+recentStrengthCorrection(c.variantId,tierSelect.value,0)*46,
-        games:e.row.games,top3Rate:e.top3Rate,winRate:e.winRate,avgPlacement:e.avgPlacement}))
-      .sort((a,b)=>b.score-a.score)
-      .map((row,index,all)=>({...row,tierLabel:rankTierByPercentile(index,all.length)}));
-  }
-  const bucket = officialBucketForTier(tierSelect.value);
-  const officialRows = officialCandidateStatsByTier?.[bucket] ?? officialCandidateStatsByTier?.all ?? {};
-  const feedbackByCharacter = characterFeedbackRows();
-  const officialIds = Object.keys(officialRows);
-  const officialCharactersWithVariants = new Set(
-    officialIds
-      .filter((id) => id.includes(":"))
-      .map((id) => id.split(":")[0])
-  );
-  const ids = new Set([
-    ...Object.keys(rankerCandidateStats).filter((id) => DAK_META_SOURCE.seasonKey === currentSeason().seasonKey && !officialRows[id] && !officialCharactersWithVariants.has(id)),
-    ...officialIds,
-  ]);
+  const tier=tierSelect.value;
+  const phase=currentSeason();
+  const recentOnly=phase.phase==='preseason'||!isCurrentSeason(officialStatsSource);
+  const bucket=recentOnly?'all':officialBucketForTier(tier);
+  const officialRows=recentOnly?null:officialCandidateStatsByTier?.[bucket]??{};
+  const feedback=recentOnly?null:popularFeedback;
+  const version=recentMetaVersion();
+  const cache=rankerCharacterRows.cache??=new Map();
+  const saved=cache.get(tier);
+  const byRole=(rows)=>role==='all'?rows:rows.filter(row=>characterRolesById(row.characterId).includes(role));
+  if(saved?.version===version&&saved.stats===officialRows&&saved.feedback===feedback)return byRole(saved.rows);
 
-  return [...ids]
-    .filter((statId) => role === "all" || characterRolesById(statId).includes(role))
-    .map((statId) => {
-      const character = characterById(statId);
-      const characterId = character?.characterId ?? statId.split(":")[0];
-      const official = officialRows[statId];
-      const ranker = rankerCandidateStats[statId] ?? rankerCandidateStats[characterId];
-      const feedback = feedbackByCharacter.get(statId) ?? feedbackByCharacter.get(characterId) ?? { likes: 0, dislikes: 0, total: 0 };
-      const officialScore = official && character
-        ? officialCharacterRankingScore(character, official, officialRows)
-        : 0;
-      const fallbackScore = ranker
-        ? ((ranker.top3Rate ?? 0) * 30 + (ranker.winRate ?? 0) * 34 + Math.min(8, ranker.games ?? 0) - Math.max(0, (ranker.avgPlacement ?? 4.5) - 4.5) * 4) * 0.18
-        : 0;
-      // userFeedbackBonus scales to 42 and this multiplied it by another 1.35, so a
-      // build with six likes and no dislikes collected 31.8 points. The official
-      // score spans about 23 points across the whole roster, so a handful of votes
-      // outweighed tens of thousands of games: coreline:arcana sat first on 55.8
-      // official + 31.8 votes while zahir:shuriken, the best official score in the
-      // game at 69.7, had one like and one dislike and fell to 34th.
-      //
-      // Votes are a tiebreaker here, not the signal. Capped at +/-3 points and
-      // shrunk by sample size, so twenty votes reach half of it.
-      const voteScore = rankingVoteBonus(feedback.likes, feedback.dislikes, feedback.total);
-      // The dak ranker numbers are a fallback for builds the official archive has no
-      // row for - they are not extra evidence for builds it does. They were being
-      // added on top, and they are computed off a handful of games from leaderboard
-      // players: coreline:arcana had a 10-game ranker row at 70% top-3, worth +7.06
-      // on a score whose entire official spread is about 10 points, which is how it
-      // came to sit first overall while placing 4.39 to the real leader's 4.05.
-      // The min(8, games) term alone hands +8 to anything with eight games on it.
-      const recentAdjustment = character ? recentStrengthCorrection(character.variantId, tierSelect.value, 0) * 8 : 0;
-      const score = (official ? officialScore + voteScore : 48 + fallbackScore + voteScore) + recentAdjustment;
-      const stat = official ?? ranker ?? {};
-      return {
-        characterId: statId,
-        score,
-        tierLabel: "B",
-        games: stat.games ?? 0,
-        avgPlacement: stat.avgPlacement,
-        top3Rate: stat.top3Rate ?? 0,
-        winRate: stat.winRate ?? 0,
-        avgDamageToPlayer: stat.avgDamageToPlayer,
-        avgDamageFromPlayer: stat.avgDamageFromPlayer,
-        avgCcTime: stat.avgCcTime,
-        votes: feedback.total,
-      };
-    })
-    .sort((a, b) => b.score - a.score)
-    .map((row, index, all) => ({ ...row, tierLabel: rankTierByPercentile(index, all.length) }));
+  let rows;
+  if(recentOnly){
+    rows=characterVariants.flatMap(c=>{
+      const e=recentRankingEvidence(c.variantId,tier);
+      if(!e||!e.cohort.transfer||e.row.games<(e.cohort.key==='unrank'?PRESEASON_META_POLICY.minGames:300))return [];
+      return [{characterId:c.variantId,score:58+recentStrengthCorrection(c.variantId,tier,0)*46,
+        games:e.row.games,top3Rate:e.top3Rate,winRate:e.winRate,avgPlacement:e.avgPlacement}];
+    });
+  } else {
+    const feedbackByCharacter=characterFeedbackRows();
+    const prior=rankBaseline(characterVariants.map(c=>officialRows[c.variantId]));
+    const variantsPerCharacter=new Map();
+    for(const c of characterVariants)variantsPerCharacter.set(c.characterId,(variantsPerCharacter.get(c.characterId)??0)+1);
+    const legacyAvailable=DAK_META_SOURCE.seasonKey===phase.seasonKey&&bucket==='all';
+    rows=characterVariants.flatMap(c=>{
+      const official=officialRows[c.variantId];
+      const ranked=legacyAvailable
+        ? rankerCandidateStats[c.variantId]??(variantsPerCharacter.get(c.characterId)===1?rankerCandidateStats[c.characterId]:null)
+        : null;
+      const raw=isValidRankStat(official)?official:isValidRankStat(ranked)&&ranked.games>=30?ranked:null;
+      if(!raw)return [];
+      const vote=feedbackByCharacter.get(c.variantId)??(variantsPerCharacter.get(c.characterId)===1?feedbackByCharacter.get(c.characterId):null);
+      const strength=calibratedRankScore(raw,prior,raw===official?260:520);
+      const adjustment=recentStrengthCorrection(c.variantId,tier,strength);
+      const score=58+(strength+adjustment*.55)*22;
+      const votes=vote?.total??0;
+      const tieBreak=vote?rankingVoteBonus(vote.likes,vote.dislikes,votes):0;
+      return [{...raw,characterId:c.variantId,score,votes,tieBreak}];
+    });
+  }
+  rows.sort((a,b)=>b.score-a.score||(b.tieBreak??0)-(a.tieBreak??0)||b.games-a.games||a.characterId.localeCompare(b.characterId,'en'));
+  let first=0;
+  rows=rows.map((row,index,all)=>{
+    if(index===0||row.score!==all[index-1].score)first=index;
+    return {...row,tierLabel:rankTierByPercentile(first,all.length)};
+  });
+  if(cache.size>=20&&!cache.has(tier))cache.clear();
+  cache.set(tier,{version,stats:officialRows,feedback,rows});
+  return byRole(rows);
 }
 
 function renderRankRoleFilters() {
@@ -3274,7 +3130,7 @@ async function renderFullTeamRecommendations() {
 
   const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
   const tier = tierSelect.value;
-  const slot1Results = topDistinctTeammates(recommend([anchorId], tier, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap()), 8);
+  const slot1Results = topDistinctTeammates(recommend([anchorId], tier, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap(), {limit:8,includeAlternates:false}), 8);
   const bestPairs = new Map();
 
   for (const r1 of slot1Results) {
@@ -3283,7 +3139,7 @@ async function renderFullTeamRecommendations() {
 
     const comboCores = { ...selectedCoresMap() };
     if (r1.recommendedCore?.core) comboCores[r1.character.variantId] = r1.recommendedCore.core;
-    const slot2Results = topDistinctTeammates(recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, currentRelationshipRows(), comboCores), 3);
+    const slot2Results = topDistinctTeammates(recommend([anchorId, r1.character.variantId], tier, remoteFeedback, playablePool, currentRelationshipRows(), comboCores, {limit:3,includeAlternates:false}), 3);
     for (const r2 of slot2Results) {
       const pairKey = [r1.character.characterId, r2.character.characterId].sort().join("+");
       const combinedRank = (r1.total ?? r1.score) + (r2.total ?? r2.score);
@@ -3482,13 +3338,8 @@ function renderRecommendations() {
     else byVariant.set(key, { best: row, alts: [] });
   }
   const unique = [...byVariant.values()];
-  // group.best is now the build's best-placing core rather than an arbitrary
-  // first-in-list (see leanCoreStrengthScore). coreRanked still decides what to
-  // show, because it adds one thing the score deliberately leaves out: which of
-  // the cores that are not significantly worse fits *this* team.
-  for (const group of unique) {
-    group.display = coreRanked(group).all[0] ?? group.best;
-  }
+  // Keep the exact weapon/core pair that earned each rank on its card.
+  for (const group of unique) group.display = group.best;
   const visible = unique.slice(0, recommendLimit);
   const hasMore = unique.length > recommendLimit;
   // One compact row per rank, details behind a click. The measurement only supports
@@ -3565,7 +3416,7 @@ function renderRecommendations() {
     .join("");
   const list = `<ol class="rec-list">${cards}</ol>`;
   const showMoreBtn = hasMore
-    ? `<button class="show-more-button" type="button" data-show-more-recommendations>${t("recommend.showMore", { remaining: results.length - recommendLimit })}</button>`
+    ? `<button class="show-more-button" type="button" data-show-more-recommendations>${t("recommend.showMore", { remaining: unique.length - recommendLimit })}</button>`
     : "";
   recommendations.innerHTML = feedbackCTABanner() + preseasonRecommendationNotice() + recommendationStageNotice() + list + showMoreBtn;
 }

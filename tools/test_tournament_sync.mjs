@@ -4,6 +4,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { discoverTournamentGames } from './tournament_discovery.mjs';
 import { validTournamentData } from '../src/tournamentData.js';
+import { currentSeason } from '../src/seasonContext.js';
 globalThis.localStorage={getItem:()=>null,setItem:()=>{}};
 const { updateTournamentStats, evaluateCandidate }=await import('../src/recommender.js');
 const pages=[{count:4,gameInfos:[{gameId:8041,seasonId:41},{gameId:7726,seasonId:41}]},
@@ -31,7 +32,10 @@ try {
   assert.equal(payload.compositions[0].appearances,2);
   assert.ok(validTournamentData(payload));
   const before=evaluateCandidate(['rio:bow','lucia:sniper_rifle'],'seres:two_handed_sword').scores.tournamentComposition;
-  assert.ok(updateTournamentStats(payload));
+  assert.ok(updateTournamentStats({...payload,season:currentSeason().seasonId-1}));
+  assert.equal(evaluateCandidate(['rio:bow','lucia:sniper_rifle'],'seres:two_handed_sword').scores.tournamentComposition,0,
+    'stale tournament outcomes cannot appear as current evidence');
+  assert.ok(updateTournamentStats({...payload,season:currentSeason().seasonId}));
   const after=evaluateCandidate(['rio:bow','lucia:sniper_rifle'],'seres:two_handed_sword').scores.tournamentComposition;
   assert.notEqual(before,after,'remote tournament updates rebuild scoring indexes');
   assert.equal(updateTournamentStats({}),false);

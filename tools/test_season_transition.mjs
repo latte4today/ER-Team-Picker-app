@@ -61,7 +61,7 @@ try {
   assert.ok(setRecentMeta(freshSnapshot));
   assert.ok(recentEvidence(id,'all'));
   const source=await fs.readFile(new URL('../src/app.js',import.meta.url),'utf8');
-  const context={characterVariants,isCurrentSeason,currentSeason,recentRankingEvidence,PRESEASON_META_POLICY,recentStrengthCorrection,
+  const context={characterVariants,isCurrentSeason,currentSeason,recentRankingEvidence,PRESEASON_META_POLICY,recentStrengthCorrection,recentMetaVersion,
     officialStatsSource:{currentSeason:old.seasonId},tierSelect:{value:'all'},rankTierByPercentile:()=> 'B'};
   vm.createContext(context);
   vm.runInContext(source.slice(source.indexOf('function rankerCharacterRows('),source.indexOf('function renderRankRoleFilters(')),context);

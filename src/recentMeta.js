@@ -4,6 +4,7 @@ import {recentMetaSnapshot as bundled} from './recentMetaSnapshot.js';
 
 // Bounded observational correction, not an estimated causal win-rate gain.
 export const RECENT_META_POLICY=Object.freeze({minGames:300,priorGames:1500,maxBlend:0.35,maxCorrection:0.45,maxAgeDays:7,minCoreGames:100,minCoreShare:0.05});
+export const META_RANK_LIMIT=10;
 export const PRESEASON_META_POLICY=Object.freeze({minGames:120,priorGames:650,maxBlend:0.48,maxCorrection:0.55,maxMomentum:0.16,maxPulseAgeDays:2});
 let snapshot=bundled;
 let version=0;
@@ -152,9 +153,9 @@ export function recentMovers(tier='all',kind='usage',now=Date.now()) {
     const minimum=kind==='usage'?0.00025:0.005;
     return Object.entries(pulse.rows).map(([variantId,row])=>({variantId,row,cohort,movement:pulseShift(cohort.rows[variantId],row,kind)}))
       .filter(r=>r.movement&&r.movement.delta>=minimum&&r.movement.z>=1)
-      .sort((a,b)=>b.movement.delta*b.movement.confidence-a.movement.delta*a.movement.confidence).slice(0,5);
+      .sort((a,b)=>b.movement.delta*b.movement.confidence-a.movement.delta*a.movement.confidence).slice(0,META_RANK_LIMIT);
   }
   // Bonferroni-style z>=4 conservatively screens both families across 116 builds.
   return Object.entries(cohort.rows).filter(([,row])=>canComparePreviousPatch(row.previous,cohort)).map(([variantId,row])=>({variantId,row,cohort,movement:movement(row,kind)}))
-    .filter(r=>r.movement?.z>=4).sort((a,b)=>b.movement.delta-a.movement.delta).slice(0,5);
+    .filter(r=>r.movement?.z>=4).sort((a,b)=>b.movement.delta-a.movement.delta).slice(0,META_RANK_LIMIT);
 }
