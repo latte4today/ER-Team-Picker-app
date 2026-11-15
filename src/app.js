@@ -1,3 +1,4 @@
+import {preseasonTeamExamples} from './preseason.js';
 import {currentSeason, setSeasonState, isCurrentSeason} from './seasonContext.js';
 import { metaMovementRows, movementBar } from "./metaMovement.js";
 import { hasFullRankedBaseline } from "./characterAvailability.js";
@@ -71,6 +72,7 @@ const CORE_MAX_CHOICES = 3;
 const CORE_MIN_GAMES = 30;
 
 function traitBuildRowsForVariant(variantId, tier) {
+  if (!isCurrentSeason(officialStatsSource)) return [];
   const bucket = officialBucketForTier(tier);
   const byBucket = officialTraitBuildStatsByTier?.[bucket] ?? {};
   const all = officialTraitBuildStatsByTier?.all ?? {};
@@ -515,6 +517,8 @@ if (!hasStoredLanguage()) {
 
 function openTierGuideModal() {
   if (!tierGuideModal || localStorage.getItem(tierGuideStorageKey) === "true") return;
+  const body = tierGuideModal.querySelector('[data-i18n="tierGuide.body"]');
+  if (body) body.textContent = t(currentSeason().phase === 'preseason' ? 'season.tierGuide' : 'tierGuide.body');
   tierGuideSelect.value = tierSelect.value;
   tierGuideModal.hidden = false;
   window.setTimeout(() => tierGuideSelect.focus(), 40);
@@ -1226,6 +1230,9 @@ function feedbackCTABanner() {
 
 // Replaced a two-line paragraph about which stage of the draft you are in. The row
 // markers need explaining and the paragraph did not, so this takes that space.
+function preseasonRecommendationNotice() {
+  return currentSeason().phase==='preseason' ? `<p class="season-status" role="status">${t('season.normalRecommendation')}</p>` : '';
+}
 function recommendationStageNotice() {
   if (selectedIds.size === 0) return "";
   return `
@@ -2800,7 +2807,7 @@ function combinedCompositionRows(sortMode = "overall") {
 }
 
 function rankerCharacterRows(role = "all") {
-  if (!isCurrentSeason(officialStatsSource)) {
+  if (currentSeason().phase==='preseason'||!isCurrentSeason(officialStatsSource)) {
     return characterVariants.filter(c=>role === "all" || characterRolesById(c.variantId).includes(role))
       .map(c=>({c,e:recentEvidence(c.variantId,tierSelect.value)}))
       .filter(({e})=>e && e.cohort.transfer > 0 && e.row.games >= 300)
@@ -3005,7 +3012,7 @@ function renderDashboardCharacterDetails(id) {
   const signature = characterDescription(character, t);
   const cores = topCoresForVariant(character.variantId, tierSelect.value);
   const bucket = officialBucketForTier(tierSelect.value);
-  const observed = observedCharacterCompositions(officialCompositionStatsByTier?.[bucket] ?? [], character.variantId)
+  const observed = !isCurrentSeason(officialStatsSource) ? [] : observedCharacterCompositions(officialCompositionStatsByTier?.[bucket] ?? [], character.variantId)
     .filter(row => compositionMembers(row).every(characterById));
   const values = {
     Games: row.games, Top3: `${Math.round(row.top3Rate * 100)}%`, Win: `${Math.round(row.winRate * 100)}%`,
@@ -3017,7 +3024,8 @@ function renderDashboardCharacterDetails(id) {
   const overview = `<div class="detail-identity"><img src="${character.image}" alt=""><div><strong>${roleLabel(character.role)}</strong><small>${t(`weapon.${character.weapon}`)}</small></div>
     <div class="detail-identity-core">${traitChip(character.variantId, tierSelect.value)}</div></div>
     ${signature ? `<p class="detail-brief">${signature}</p>` : ''}
-    <dl class="detail-stat-grid">${Object.entries(values).map(([key, value]) => `<div><dt>${t(`rank.detail${key}`)}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
+    ${currentSeason().phase==='preseason'?renderRecentEvidence(id,tierSelect.value,null,t):''}
+    <dl class="detail-stat-grid">${Object.entries(values).filter(([key,value])=>value!=null&&(currentSeason().phase!=='preseason'||['Games','Top3','Win','Placement'].includes(key))).map(([key, value]) => `<div><dt>${t(`rank.detail${key}`)}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
   const coreDetails = `${cores.length ? `<table class="dashboard-core-table"><thead><tr>
       <th>${t('rank.coreName')}</th><th>${t('rank.detailGames')}</th><th>${t('rank.detailTop3')}</th><th>${t('rank.detailWin')}</th>
       </tr></thead><tbody>${cores.map(core => `<tr><td>${traitChip(character.variantId, tierSelect.value, core)}</td>
@@ -3055,6 +3063,7 @@ function renderTrendDetails(ids) {
 
 function renderCharacterSynergies(character) {
   const characters = new Map(characterVariants.map(c => [c.characterId,c]));
+  if (!isCurrentSeason({seasonId:pairSynergyLiftMeta.maxSeason ?? pairSynergyLiftMeta.minSeason})) return `<p>${t('rank.noSynergy')}</p>`;
   const groups = characterSynergies(character.characterId, officialPairSynergyLift,
     new Set(characters.keys()), { minSamples: pairSynergyLiftMeta.minSamples });
   return `<p class="detail-section-note">${t('rank.synergyBasis')}</p>` +
@@ -3118,11 +3127,12 @@ function renderHomeDashboard() {
     dataSignature(remoteFeedback), dataSignature(currentRelationshipRows())]);
   if (key === dashboardRenderKey && recommendations.querySelector(".recommendation-hub")) return;
   dashboardRenderKey = key;
+  const preseason = currentSeason().phase === 'preseason';
   const trendBucket = officialBucketForTier(tierSelect.value);
-  const stale = !metaTrends.end || !metaTrends.latestMatchAt || Date.now()-Date.parse(metaTrends.latestMatchAt)>4*86400000;
+  const stale = preseason || !isCurrentSeason(metaTrends) || !metaTrends.end || !metaTrends.latestMatchAt || Date.now()-Date.parse(metaTrends.latestMatchAt)>4*86400000;
   const eligibleTrendRows = stale || !isCurrentSeason(metaTrends) ? [] : (metaTrends.byTier?.[trendBucket]?.rows ?? [])
     .filter(row=>row.members.length===activeTrendSize && row.members.every(characterById) && row.members.every(id=>hasFullRankedBaseline(id.split(':')[0],metaTrends.previousStart)));
-  const newCharacterNames = (metaTrends.excludedCharacters??[])
+  const newCharacterNames = (stale?[]:metaTrends.excludedCharacters??[])
     .filter(row=>row.reason==='new-character' && characterById(row.characterId))
     .map(row=>t(`char.${characterById(row.characterId).id}`));
   const trendRows = metaMovementRows(eligibleTrendRows,activeTrendSize,Infinity);
@@ -3142,9 +3152,9 @@ function renderHomeDashboard() {
     <span>${t('trend.results',{games:row.games,top3:(row.top3Rate*100).toFixed(0)})}</span></div>
     </summary><div class="dashboard-detail-body"></div></details>`;
   }).join('');
-  const overallRows = officialCompositionRows()
+  const overallRows = (preseason?[]:officialCompositionRows())
     .filter(row=>compositionMembers(row).length===3 && compositionMembers(row).every(characterById));
-  const overallItems = overallRows
+  const rankedItems = overallRows
     .map((row,index)=>{
       const members = compositionMembers(row);
       return `<details class="combo-card overall-composition-card" data-dashboard-team="${members.join('|')}">
@@ -3155,6 +3165,15 @@ function renderHomeDashboard() {
         <div class="dashboard-detail-body"></div></details>`;
     }).join('');
   const rankRows = rankerCharacterRows(activeRankRole);
+  const examples = preseason && !overallRows.length
+    ? preseasonTeamExamples(activeRankRole==='all'?rankRows:rankerCharacterRows('all'),characterById) : [];
+  const overallItems = rankedItems || examples.map(({members,roles})=>`
+    <details class="combo-card overall-composition-card" data-dashboard-team="${members.join('|')}">
+      <summary><div class="combo-card-head"><strong>${roles.map(roleLabel).join(' · ')}</strong></div>
+      <div class="combo-members">${members.map(renderCharacterFace).join('')}</div>
+      <span class="dashboard-expand-hint">${t('rank.teamDetails')} ⌄</span></summary>
+      <div class="dashboard-detail-body"></div>
+    </details>`).join('');
   const rankItems = rankRows
     .map((row, index) => {
       const character = characterBrief(row.characterId);
@@ -3184,16 +3203,16 @@ function renderHomeDashboard() {
         <div class="section-title-row"><h3>${t('rank.compositionTitle')}</h3></div>
         <div class="combo-split">
           <section class="overall-compositions">
-            <h4>${t('rank.overallTop')}</h4>
-            <p class="trend-period">${t('rank.overallBasis')}</p>
-            <div class="combo-grid overall-composition-grid dashboard-scroll" tabindex="0" role="region" aria-label="${t('rank.overallTop')}">${overallItems||`<p class="empty-state">${t(isCurrentSeason(officialStatsSource)?'rank.noData':'season.warming')}</p>`}</div>
+            <h4>${t(preseason?'season.practiceTeams':'rank.overallTop')}</h4>
+            <p class="trend-period">${t(preseason?'season.practiceBasis':'rank.overallBasis')}</p>
+            <div class="combo-grid overall-composition-grid dashboard-scroll" tabindex="0" role="region" aria-label="${t(preseason?'season.practiceTeams':'rank.overallTop')}">${overallItems||`<p class="empty-state">${t(isCurrentSeason(officialStatsSource)?'rank.noData':'season.warming')}</p>`}</div>
           </section>
           <section class="trend-section">
         <div class="section-title-row"><h4>${t('trend.title')}</h4></div>
-        <div class="trend-period"><p>${t('trend.period',{from:metaTrends.recentStart?new Date(metaTrends.recentStart).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—',to:metaTrends.end?new Date(Date.parse(metaTrends.end)-86400000).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—'})}</p>${newCharacterNames.length?`<p class="trend-new-character">${t('trend.newCharacterHold',{names:newCharacterNames.join(', ')})}</p>`:''}</div>
-        <div class="trend-filters" aria-label="${t('trend.title')}">${[1,2,3].map(size=>`<button type="button" data-trend-size="${size}" aria-pressed="${size===activeTrendSize}">${t(`trend.size${size}`)}</button>`).join('')}</div>
+        ${preseason?'':`<div class="trend-period"><p>${stale?t('trend.stale'):t('trend.period',{from:metaTrends.recentStart?new Date(metaTrends.recentStart).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—',to:metaTrends.end?new Date(Date.parse(metaTrends.end)-86400000).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).slice(5):'—'})}</p>${newCharacterNames.length?`<p class="trend-new-character">${t('trend.newCharacterHold',{names:newCharacterNames.join(', ')})}</p>`:''}</div>
+        <div class="trend-filters" aria-label="${t('trend.title')}">${[1,2,3].map(size=>`<button type="button" data-trend-size="${size}" aria-pressed="${size===activeTrendSize}">${t(`trend.size${size}`)}</button>`).join('')}</div>`}
         <div class="trend-chart dashboard-scroll" tabindex="0" role="region" aria-label="${t('trend.title')}">
-          <div class="combo-grid trend-grid">${trendItems||`<p class="empty-state">${t(stale?'trend.stale':'trend.empty')}</p>`}</div>
+          <div class="combo-grid trend-grid">${trendItems||`<p class="empty-state">${t(preseason?'season.noCompare':stale?'trend.stale':'trend.empty')}</p>`}</div>
         </div>
           </section>
         </div>
@@ -3202,7 +3221,7 @@ function renderHomeDashboard() {
       <section class="rank-section">
         <div class="section-title-row">
           <h3>${t("rank.characterTitle")}</h3>
-          <span>${t("rank.characterBasis", { label: rankRoleLabel, count: rankRows.length })}</span>
+          <span>${t(preseason?'season.normalBasis':'rank.characterBasis', { label: rankRoleLabel, count: rankRows.length })}</span>
         </div>
         ${renderRankRoleFilters()}
         <div class="rank-grid dashboard-scroll" tabindex="0" role="region" aria-label="${t('rank.characterTitle')}">${rankItems || `<p class="empty-state">${t(isCurrentSeason(officialStatsSource)?"rank.noData":"season.warming")}</p>`}</div>
@@ -3384,7 +3403,7 @@ function _renderFullTeamCards() {
     footer = `<div class="show-more-loading"><span class="show-more-spinner"></span>${t("fullTeam.calculating")}</div>`;
   }
 
-  recommendations.innerHTML = feedbackCTABanner() + header + cards + footer;
+  recommendations.innerHTML = feedbackCTABanner() + preseasonRecommendationNotice() + header + cards + footer;
 }
 
 function renderRecommendations() {
@@ -3548,7 +3567,7 @@ function renderRecommendations() {
   const showMoreBtn = hasMore
     ? `<button class="show-more-button" type="button" data-show-more-recommendations>${t("recommend.showMore", { remaining: results.length - recommendLimit })}</button>`
     : "";
-  recommendations.innerHTML = feedbackCTABanner() + recommendationStageNotice() + list + showMoreBtn;
+  recommendations.innerHTML = feedbackCTABanner() + preseasonRecommendationNotice() + recommendationStageNotice() + list + showMoreBtn;
 }
 
 function renderMatchFeedback() {
@@ -3797,7 +3816,9 @@ function renderViewChrome() {
     selectedCount.nextElementSibling.textContent = t("topbar.unionSuffix");
   } else {
     topbarEyebrow.textContent = activeView === "recommendations" ? "Meta Dashboard" : "Squad Draft Assistant";
-    topbarTitle.textContent = activeView === "recommendations" ? t("topbar.title.recommendations") : t("topbar.title.setup");
+    topbarTitle.textContent = activeView === "recommendations"
+      ? t(currentSeason().phase === 'preseason' ? 'season.dashboardTitle' : 'topbar.title.recommendations')
+      : t("topbar.title.setup");
     selectedCount.textContent = selectedIds.size;
     selectedCount.nextElementSibling.textContent = t("topbar.selectedSuffix");
   }
@@ -4681,7 +4702,11 @@ async function refreshRecentMeta() {
   try {
     try {
       const phase = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/seasonState.json', {cache:'no-store',signal:AbortSignal.timeout(10000)});
-      if (phase.ok && setSeasonState(await phase.json())) updateOfficialStats({});
+      if (phase.ok && setSeasonState(await phase.json())) {
+        updateOfficialStats({});
+        matchupReferenceCache.clear();
+        matchupPages.clear();
+      }
     } catch { /* Preserve the last validated season when offline. */ }
     const response = await fetch('https://raw.githubusercontent.com/latte4today/ER-Team-Picker-app/main/src/recentMetaSnapshot.json', {cache:'no-store',signal:AbortSignal.timeout(15000)});
     if (response.ok) updateRecentMeta(await response.json());

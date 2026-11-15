@@ -2672,7 +2672,7 @@ function explain(candidate, selected, scores, explainTier = "all") {
   const signature = signatureReason(candidate);
 
   if (VECTOR_SCORING_FLAGS.useLeanScoring) {
-    const ocs = officialCandidateStats(candidate, explainTier);
+    const ocs = isCurrentSeason(officialStatsSource) ? officialCandidateStats(candidate, explainTier) : null;
     if (ocs && (scores.dakStatistics >= 0.6 || scores.officialMatch >= 0.5 || scores.meta >= 0.65)) {
       reasons.push(t("recommender.reason.officialStrongStats", {
         name: characterName(candidate),
@@ -2697,8 +2697,8 @@ function explain(candidate, selected, scores, explainTier = "all") {
       }
     }
   }
-  if (scores.officialPairRole >= 0.24) reasons.push(t("recommender.reason.pairRolePositive", { role: roleLabel(candidate) }));
-  if (scores.officialPairRole <= -0.24) reasons.push(t("recommender.reason.pairRoleNegative", { role: roleLabel(candidate) }));
+  if (isCurrentSeason(officialStatsSource) && scores.officialPairRole >= 0.24) reasons.push(t("recommender.reason.pairRolePositive", { role: roleLabel(candidate) }));
+  if (isCurrentSeason(officialStatsSource) && scores.officialPairRole <= -0.24) reasons.push(t("recommender.reason.pairRoleNegative", { role: roleLabel(candidate) }));
   reasons.push(...specializationReasons(candidate, selected, scores));
 
   if (scores.teamShape <= -2.2) {

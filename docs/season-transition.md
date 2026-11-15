@@ -12,8 +12,13 @@
   individual, core-outcome and pair-outcome scores are disabled. Structural team
   coverage and reviewed character mechanics keep recommendations usable while
   current outcomes accumulate. Legacy ranker rows cannot fill new-phase gaps.
-- Recent cohorts must match both the active phase and patch. Seven-day windows
-  crossing the first observed phase boundary are withheld. Patch movers require
+- Recent cohorts must match both the active phase and patch. Ranked seven-day
+  windows crossing the first observed phase boundary are withheld. Preseason
+  collects a separate Normal/Squad cohort (matching mode 2, team mode 3), so
+  an exact-patch preseason sample can be used before seven days elapse. Its
+  transfer factor is 0.30 for every tier; the UI marks its provisional results
+  and does not compare them to Ranked. Ranked statistics never consume it.
+  Patch movers require
   both comparison windows to fall in the current phase and patch family; the
   first observed transition time is conservative, not a claimed launch time.
 - Recent individual/core outcomes require minimum samples and shrinkage. Mere
@@ -31,6 +36,22 @@
 - New/reworked abilities, traits and items still need a mechanics review; an
   outcome collector does not infer changed skill semantics. No measured win-rate
   improvement is claimed by these guards.
+
+## Season 13 preseason
+
+13.0 switched the public statistics sample to Normal while Ranked was closed.
+The snapshot captured 116 character/weapon builds. Practice trios are generated
+from distinct, complementary roles in this sample; they are not observed trio
+win rates. Trait picks require a minimum count and share, and Normal build
+suggestions exclude builds with top-three rates far below their variant's
+observed baseline. Build frequency remains observational, not proof of an item
+causing better results. Unknown item IDs are omitted until their names are
+resolved. The 13.0 UI notes are scoped to that patch; 13.1 does not inherit them.
+
+Sources: [13.0 systems](https://playeternalreturn.com/posts/news/3948),
+[13.0 characters and items](https://playeternalreturn.com/posts/news/3949?hl=ko-KR),
+[13.0a announcement](https://steamcommunity.com/app/1049590/allnews?l=english),
+[13.0b announcement](https://steamcommunity.com/games/1049590/announcements/detail/708914425087656360).
 
 Checks: `node tools/test_season_transition.mjs`, `node tools/test_recent_meta.mjs`,
 `node tools/test_ranking_sections.mjs`, `node tools/recommendation_snapshot.mjs`.
