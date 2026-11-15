@@ -24,6 +24,10 @@ const templates = [
   ['bruiser','ranged','support'],
   ['frontline','assassin','mage'],
   ['frontline','bruiser','ranged'],
+  ['bruiser','mage','support'],
+  ['frontline','ranged','support'],
+  ['bruiser','assassin','ranged'],
+  ['frontline','bruiser','mage'],
 ];
 export function preseasonTeamExamples(rankRows, resolve) {
   const candidates=rankRows.map(row=>resolve(row.characterId)).filter(Boolean);
