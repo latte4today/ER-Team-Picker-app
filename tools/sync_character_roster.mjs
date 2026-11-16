@@ -255,10 +255,10 @@ async function main() {
 
   // 1. The character code map. Missing entries here silently drop match rows.
   {
-    const file = path.join(ROOT, "tools", "character_code_map.mjs");
+    const file = path.join(ROOT, "src", "officialCharacterCodes.js");
     const text = await fs.readFile(file, "utf8");
     const block = additions.map((entry) => `  ${entry.code}: "${entry.id}",`).join("\n");
-    if (!text.includes("\n};\n")) throw new Error("character_code_map.mjs: no closing brace found");
+    if (!text.includes("\n};\n")) throw new Error("officialCharacterCodes.js: no closing brace found");
     writes.push([file, text.replace("\n};\n", `\n${block}\n};\n`)]);
   }
 

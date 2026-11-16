@@ -284,6 +284,15 @@
                   <span class="sync-chip" id="sync-status" data-i18n="sync.local"></span>
                 </div>
               </div>
+              <form class="player-history" id="player-history-form" role="search" hidden>
+                <label for="player-history-nickname" data-i18n="playerHistory.title"></label>
+                <div class="player-history-controls">
+                  <input id="player-history-nickname" type="search" maxlength="32" required autocomplete="off" spellcheck="false" data-i18n-placeholder="playerHistory.placeholder">
+                  <button class="ghost-button" id="player-history-search" type="submit" data-i18n="playerHistory.search"></button>
+                  <button class="ghost-button" id="player-history-clear" type="button" data-i18n="playerHistory.clear" hidden></button>
+                </div>
+                <p id="player-history-status" role="status"></p>
+              </form>
               <div class="recommendations" id="recommendations"></div>
             </section>
 

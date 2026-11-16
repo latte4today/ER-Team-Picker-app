@@ -75,7 +75,7 @@ const {setLanguage,t}=await import('../src/i18n/index.js');
 for(const lang of ['ko','en','ja','zhHans','zhHant']){
   setLanguage(lang);
   for(const key of ['rank.characterDetails','rank.teamDetails','rank.coreTitle','rank.memberRoles',
-    'rank.coreComparison','rank.coreName','rank.observedTeams','rank.noObservedTeams',
+    'rank.coreComparison','rank.coreName','rank.observedTeams','rank.noObservedTeams','rank.preseasonObservedTeams','rank.pendingObservedTeams',
     'detail.overview','detail.cores','detail.teams','detail.plan','detail.roles','detail.matchups',
     'detail.synergies','rank.synergyBasis','rank.synergyPositive','rank.synergyNegative',
     'rank.synergyImprovement','rank.synergyDecline','rank.synergySamples','rank.noSynergy',

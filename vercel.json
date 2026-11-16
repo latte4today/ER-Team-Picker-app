@@ -2,7 +2,7 @@
   "ignoreCommand": "bash scripts/vercel-should-build.sh",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!api(?:/|$)).*)",
       "destination": "/index.html"
     }
   ],

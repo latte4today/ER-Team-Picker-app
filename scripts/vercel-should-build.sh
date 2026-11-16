@@ -37,7 +37,7 @@ DATA_ONLY=(
 )
 
 # Only these ever reach the browser.
-DEPLOYED=(index.html src assets scripts vercel.json .vercelignore)
+DEPLOYED=(index.html src assets api scripts vercel.json .vercelignore)
 
 # Compare against the last successful deployment, not the immediate parent.
 # A pushed batch can end with a stats/CI commit after an app change; HEAD^ would
