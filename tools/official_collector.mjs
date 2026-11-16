@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireEnv } from "./env.mjs";
 import { encounterStats } from "./encounter_stats.mjs";
+import { officialGameRows, officialUserId } from "../src/officialApiResponse.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -200,24 +201,6 @@ function extractRankInfo(payload) {
   return { tierBucket: "unknown" };
 }
 
-function userIdOf(value) {
-  if (!value || typeof value !== "object") return undefined;
-  const direct = firstValue(value, ["userId", "user_id", "uid"]);
-  if (direct) return direct;
-  if (Array.isArray(value)) {
-    for (const item of value) {
-      const found = userIdOf(item);
-      if (found) return found;
-    }
-    return undefined;
-  }
-  for (const item of Object.values(value)) {
-    const found = userIdOf(item);
-    if (found) return found;
-  }
-  return undefined;
-}
-
 async function lookupUserId(client, nickname) {
   const encoded = encodeURIComponent(nickname);
   const candidates = [
@@ -231,7 +214,7 @@ async function lookupUserId(client, nickname) {
       // Do not cache nickname lookup results. The API intentionally returns
       // non-stable user identifiers to prevent persistent user tracking.
       const payload = await client.getJson(endpoint, { cache: false });
-      const userId = userIdOf(payload);
+      const userId = officialUserId(payload);
       if (userId) return userId;
     } catch {
       // Try the next known endpoint shape.
@@ -250,7 +233,7 @@ async function lookupRankInfo(client, userId, season, teamMode) {
 }
 
 function gameRows(payload) {
-  return payload?.userGames ?? payload?.games ?? payload?.gameDetails ?? payload?.data ?? [];
+  return officialGameRows(payload) ?? [];
 }
 
 function gameIdOf(row) {
