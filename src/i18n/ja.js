@@ -1,4 +1,11 @@
 export const ja = {
+  "draftFit.frontline": "前衛を補完",
+  "draftFit.damage": "火力を補完",
+  "draftFit.engage": "交戦開始",
+  "draftFit.peel": "味方を保護",
+  "draftFit.range": "射程を補完",
+  "draftFit.limited": "補完は限定的",
+  "draftFit.hint": "チームに足りない役割が基準です。勝率の等級ではありません。",
   "recent.preseasonWindow": "直近3日 · 同じパッチの前期間と比較 · 暫定",
   "recent.preseasonStrong": "好成績の実験体",
   "recent.preseasonPending": "同じパッチ内で比較できる試合数が集まると上昇傾向が表示されます。",

@@ -1,4 +1,11 @@
 export const en = {
+  "draftFit.frontline": "Frontline",
+  "draftFit.damage": "Damage",
+  "draftFit.engage": "Engage",
+  "draftFit.peel": "Protection",
+  "draftFit.range": "Range",
+  "draftFit.limited": "Limited fit",
+  "draftFit.hint": "Recommendations fill team gaps. Labels are not win-rate grades.",
   "recent.preseasonWindow": "Last 3 days vs. earlier in the same patch · Early signals",
   "recent.preseasonStrong": "Strong recent performers",
   "recent.preseasonPending": "Trends will appear once there are enough matches to compare within this patch.",
