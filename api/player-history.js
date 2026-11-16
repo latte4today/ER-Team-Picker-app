@@ -1,5 +1,6 @@
 import { setTimeout as delay } from "node:timers/promises";
 import { addSquadResult, recentSquadGames, summarizePlayerMatches } from "../src/playerHistory.js";
+import { officialGameRows, officialUserId } from "../src/officialApiResponse.js";
 
 const OFFICIAL_API = "https://open-api.bser.io";
 const DESKTOP_ORIGIN = "http://127.0.0.1:34579";
@@ -57,7 +58,8 @@ async function fetchSquadSummary(matches, seasonId, apiKey, signal) {
     try {
       await delay(450, undefined, { signal });
       const detail = await officialJson(`/v1/games/${match.gameId}`, apiKey, signal);
-      if (Array.isArray(detail.userGames) && addSquadResult(records, match, detail.userGames)) inspected += 1;
+      const rows = officialGameRows(detail);
+      if (rows && addSquadResult(records, match, rows)) inspected += 1;
     } catch (error) {
       if (signal.aborted || error.code === "busy" || error.code === "unconfigured") break;
     }
@@ -102,14 +104,15 @@ export default {
     try {
       const signal = AbortSignal.any([request.signal, AbortSignal.timeout(7500)]);
       const account = await officialJson(`/v1/user/nickname?query=${encodeURIComponent(nickname)}`, apiKey, signal);
-      const uid = account.user?.uid;
-      if (typeof uid !== "string" || !uid) return reply({ error: "notFound" }, 404);
+      const uid = officialUserId(account);
+      if (!uid) return reply({ error: "unavailable" }, 502);
       try {
         const history = await officialJson(`/v1/user/games/uid/${encodeURIComponent(uid)}`, apiKey, signal);
-        if (!Array.isArray(history.userGames)) return reply({ error: "unavailable" }, 502);
-        const profile = summarizePlayerMatches(history.userGames);
+        const matches = officialGameRows(history);
+        if (!matches) return reply({ error: "unavailable" }, 502);
+        const profile = summarizePlayerMatches(matches);
         if (Number.isSafeInteger(seasonId) && seasonId > 0 && seasonId < 10_000) {
-          profile.squads = await fetchSquadSummary(history.userGames, seasonId, apiKey, signal);
+          profile.squads = await fetchSquadSummary(matches, seasonId, apiKey, signal);
         }
         return reply(profile);
       } catch (error) {

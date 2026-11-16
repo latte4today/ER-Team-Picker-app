@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
 import playerHistoryApi from "../api/player-history.js";
 import { addSquadResult, personalPickEvidence, playerComparisonSeason, recentSquadGames, summarizePlayerMatches } from "../src/playerHistory.js";
+import { officialGameRows, officialUserId } from "../src/officialApiResponse.js";
+
+assert.equal(officialUserId({ user: { uid: "documented" } }), "documented");
+assert.equal(officialUserId({ user: { userNum: 12 } }), undefined);
+assert.deepEqual(officialGameRows({ data: { userGames: [] } }), []);
 
 globalThis.localStorage = { getItem: () => null };
 globalThis.document = { documentElement: { lang: "ko", dataset: {} } };
@@ -102,10 +107,11 @@ try {
     const path = new URL(url);
     if (path.pathname === "/v1/user/nickname") {
       if (path.searchParams.get("query") === "unknown") return Response.json({ code: 404 }, { status: 404 });
+      if (path.searchParams.get("query") === "no-id") return Response.json({ code: 200, user: {} });
       assert.equal(path.searchParams.get("query"), "프로필+1");
-      return Response.json({ code: 200, user: { uid: "fixture-uid" } });
+      return Response.json({ code: 200, user: { userId: "fixture-uid" } });
     }
-    if (path.pathname === "/v1/user/games/uid/fixture-uid") return Response.json({ code: 200, userGames: matches });
+    if (path.pathname === "/v1/user/games/uid/fixture-uid") return Response.json({ code: 200, data: { games: matches } });
     const gameId = Number(path.pathname.split("/").at(-1));
     assert.equal(path.pathname, `/v1/games/${gameId}`);
     return Response.json({ code: 200, userGames: squadRows(gameId) });
@@ -124,6 +130,7 @@ try {
   assert.doesNotMatch(JSON.stringify(summary), /hidden-|fixture-uid/);
   assert.equal(calls, 5);
   assert.equal((await playerHistoryApi.fetch(request("unknown"))).status, 404);
+  assert.equal((await playerHistoryApi.fetch(request("no-id"))).status, 502);
 } finally {
   globalThis.fetch = originalFetch;
   if (providedKey === undefined) delete process.env.ER_API_KEY;
