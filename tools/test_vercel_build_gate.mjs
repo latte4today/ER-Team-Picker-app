@@ -43,9 +43,14 @@ try {
   check(batch,0); // Phase metadata is refreshed even when a stats-only build skips.
   check(null,1);
   check('0000000000000000000000000000000000000000',1);
+  const beforeApi = git('rev-parse','HEAD');
+  await fs.mkdir(path.join(scratch,'api'));
+  await fs.writeFile(path.join(scratch,'api/player-history.js'),'new route');
+  const afterApi = commit();
+  check(beforeApi,1);
   await fs.appendFile(path.join(scratch,'scripts/vercel-should-build.sh'),'\n# changed gate\n');
   commit();
-  check(batch,1);
+  check(afterApi,1);
 } finally {
   assert.ok(scratch.startsWith(path.resolve(root,'../..') + path.sep));
   await fs.rm(scratch,{recursive:true,force:true});

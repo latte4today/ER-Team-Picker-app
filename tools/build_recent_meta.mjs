@@ -21,7 +21,61 @@ async function page(url) {
 }
 const aggregate=r=>({games:r.count,wins:r.win,top3:r.top3,placement:r.place});
 const validAggregate=r=>Number.isInteger(r.games)&&r.games>0&&Number.isInteger(r.wins)&&r.wins>=0&&r.wins<=r.top3&&r.top3<=r.games&&Number.isFinite(r.placement)&&r.placement>=r.games;
+function observedBuilds(weapon) {
+  const builds = (weapon.itemBuildStats ?? [])
+    .filter((row) => row.count >= 20 && row.count <= weapon.count && row.key?.length === 5 &&
+      row.key.every((code) => Number.isSafeInteger(code) && code > 0) && new Set(row.key).size === 5)
+    .map((row) => ({ items: row.key, ...aggregate(row) }))
+    .filter(validAggregate)
+    .sort((a, b) => b.games - a.games);
+  const seen = new Set();
+  const unique = builds.filter((build) => {
+    const key = build.items.join("+");
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  if (!unique.length) return [];
+  const [common, ...rest] = unique;
+  const score = (build) => (build.top3 + 40 * weapon.top3 / weapon.count) / (build.games + 40);
+  const higherTop3 = rest.filter((build) => build.games >= 40 && score(build) > score(common) + 0.025)
+    .sort((a, b) => score(b) - score(a))[0];
+  const distinct = rest.filter((b) => b !== higherTop3);
+  const reference = higherTop3 ? [common, higherTop3] : [common];
+  const changes = (b) => Math.min(...reference.map((other) => b.items.filter((item) => !other.items.includes(item)).length));
+  distinct.sort((a, b) => changes(b) - changes(a) || b.games - a.games);
+  return [...reference, ...distinct.filter((b) => changes(b) > 0).slice(0, 3 - reference.length)];
+}
+const itemsUrl = "https://er.dakgg.io/api/v1/data/items?hl=ko";
+async function loadItemCatalog(patch) {
+  const response = await fetch(itemsUrl, { signal: AbortSignal.timeout(15_000) });
+  if (!response.ok) throw Error("Item catalog unavailable");
+  const { items } = await response.json();
+  const version = Math.floor(patch / 1000) + "." + Math.floor(patch % 1000 / 10) + ".";
+  const expectedBase = "https://cdn.dak.gg/assets/er/game-assets/" + version;
+  return new Map(items.filter((item) => item.imageUrl?.startsWith(expectedBase)).map((item) => [item.id, item]));
+}
+
+const itemStats = new Map([
+  ["공격력", "attack"], ["스킬 증폭", "amp"], ["방어력", "defense"], ["최대 체력", "health"],
+  ["공격 속도", "attackSpeed"], ["쿨다운 감소", "cooldown"], ["치명타 확률", "crit"],
+  ["이동 속도", "move"], ["모든 피해 흡혈", "lifesteal"], ["주는 치유 증가", "healing"],
+]);
+const percentItemStats = new Set(["attackSpeed", "crit", "lifesteal", "healing"]);
+function itemDisplayData(item) {
+  const stats = {};
+  // Extract only unconditional stats. Adaptive, level-scaled and passive
+  // numbers are intentionally kept out of the sums.
+  for (const [, label, value, unit] of String(item.tooltip ?? "").matchAll(/^([^\r\n+]+?)\s+\+([0-9]+(?:\.[0-9]+)?)(%?)\s*$/gm)) {
+    const key = itemStats.get(label.trim());
+    if (key === "move" && unit === "%") stats.movePercent = Number(value);
+    else if (key && (unit === "%") === percentItemStats.has(key)) stats[key] = Number(value);
+  }
+  const effects = [...new Set(Array.from(String(item.tooltip ?? "").matchAll(/<b><color=yellow>([^<>\r\n]{1,32})<\/color><\/b>/gi), (match) => match[1]))].slice(0, 3);
+  return { icon: item.imageUrl, stats, effects };
+}
 const activeSeason=JSON.parse(await fs.readFile(new URL('src/seasonState.json',root),'utf8'));
+const catalogPromise = loadItemCatalog(activeSeason.patch).catch(() => new Map());
 const preseason=activeSeason.phase==='preseason';
 const expectedMode=preseason?2:3;
 const cohorts={};
@@ -51,7 +105,7 @@ for(const tier of preseason?['unrank']:['diamond_plus','mithril_plus']) {
         const row={...aggregate(w),pickShare:w.count/s.tierCount,url,
           previous:previous?{...aggregate(previous),patch:previous.patch,pickShare:previous.count/previous.tierCount}:null,
           cores:(w.traitCoreStats??[]).map(x=>({core:String(x.key),...aggregate(x)})),
-          builds:(w.itemBuildStats??[]).filter(x=>x.count>=100&&x.key?.length===5&&(!preseason||x.top3/x.count>=w.top3/w.count-.05)).sort((a,b)=>b.count-a.count).slice(0,3).map(x=>({items:x.key,...aggregate(x)}))};
+          builds:observedBuilds(w)};
         if(!validAggregate(row)||row.cores.some(x=>!validAggregate(x)))throw Error(`Invalid aggregates: ${v.variantId}`);
         rows[v.variantId]=row;
       }
@@ -97,14 +151,28 @@ for(const tier of preseason?['unrank']:['diamond_plus','mithril_plus']) {
   console.log(`${tier}: ${values.length} variants, patch ${patch}; aggregate observations ${n} (cohorts overlap)`);
 }
 if(!preseason&&cohorts.diamond_plus.patch!==cohorts.mithril_plus.patch)throw Error('Cross-cohort patch mismatch');
-const l10n=await fetch(COMBAT_EFFECT_SOURCE,{signal:AbortSignal.timeout(25000)}).then(r=>{if(!r.ok)throw Error('Item localization unavailable');return r.text();});
-const names=new Map([...l10n.matchAll(/^Item\/Name\/(\d+)┃([^\r\n]+)/gm)].map(m=>[m[1],m[2]]));
-const itemNames={};
-for(const c of Object.values(cohorts))for(const row of Object.values(c.rows)) {
-  row.builds=row.builds.filter(b=>b.items.every(code=>names.has(String(code))));
-  for(const build of row.builds)for(const code of build.items)itemNames[code]=names.get(String(code));
+const catalog = await catalogPromise;
+const usedCodes = new Set(Object.values(cohorts).flatMap((c) =>
+  Object.values(c.rows).flatMap((row) => row.builds.flatMap((build) => build.items))));
+const names = new Map([...catalog].map(([id, item]) => [id, item.name]));
+if ([...usedCodes].some((id) => !names.get(id))) {
+  const l10n = await fetch(COMBAT_EFFECT_SOURCE, { signal: AbortSignal.timeout(15_000) })
+    .then((r) => r.ok ? r.text() : "").catch(() => "");
+  for (const [, code, name] of l10n.matchAll(/^Item\/Name\/(\d+)┃([^\r\n]+)/gm)) {
+    if (!names.get(Number(code))) names.set(Number(code), name);
+  }
 }
-const snapshot={schemaVersion:1,seasonId:activeSeason.seasonId,seasonKey:activeSeason.seasonKey,phase:activeSeason.phase,generatedAt:new Date().toISOString(),source:preseason?'Public Normal/Squad aggregates':'Public Ranked/Squad aggregates',itemNameSource:COMBAT_EFFECT_SOURCE,itemNames,cohorts};
+const itemNames = {};
+const itemDetails = {};
+for(const c of Object.values(cohorts))for(const row of Object.values(c.rows)) {
+  row.builds=row.builds.filter(b=>b.items.every(code=>names.get(code)));
+  for(const build of row.builds)for(const code of build.items) {
+    itemNames[code] = names.get(code);
+    if (catalog.has(code) && !itemDetails[code]) itemDetails[code] = itemDisplayData(catalog.get(code));
+  }
+}
+if (usedCodes.size && !Object.keys(itemNames).length) throw Error("Could not resolve item names");
+const snapshot={schemaVersion:1,seasonId:activeSeason.seasonId,seasonKey:activeSeason.seasonKey,phase:activeSeason.phase,generatedAt:new Date().toISOString(),source:preseason?'Public Normal/Squad aggregates':'Public Ranked/Squad aggregates',itemNameSource:catalog.size?itemsUrl:COMBAT_EFFECT_SOURCE,itemNames,itemDetails,cohorts};
 // Only replace both outputs after every character/cohort succeeds.
 const json=JSON.stringify(snapshot);
 await fs.writeFile(new URL('src/recentMetaSnapshot.json',root),json+'\n');

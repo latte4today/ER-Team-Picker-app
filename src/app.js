@@ -53,6 +53,7 @@ import { applyTranslations, getLanguage, hasStoredLanguage, setLanguage, t } fro
 import { loadPopularFeedback, loadRemoteFeedback, recordRemoteFeedback, submitContactMessage } from "./supabaseFeedback.js";
 import { appVersion, releaseConfig } from "./updateConfig.js?v=0.3.9";
 import { createViewScheduler } from "./viewScheduler.js";
+import { personalPickEvidence, playerComparisonSeason } from "./playerHistory.js";
 
 const isElectron = /electron/i.test(navigator.userAgent);
 
@@ -185,6 +186,18 @@ const characterGrid = document.querySelector("#character-grid");
 const selectedTeam = document.querySelector("#selected-team");
 const matchFeedback = document.querySelector("#match-feedback");
 const recommendations = document.querySelector("#recommendations");
+const playerHistoryForm = document.querySelector("#player-history-form");
+const playerHistoryNickname = document.querySelector("#player-history-nickname");
+const playerHistorySearch = document.querySelector("#player-history-search");
+const playerHistoryClear = document.querySelector("#player-history-clear");
+const playerHistoryStatus = document.querySelector("#player-history-status");
+const playerHistoryEndpoint = isElectron
+  ? "https://er-team-picker-app.vercel.app/api/player-history"
+  : "/api/player-history";
+let playerHistory = null;
+let playerHistoryRequest = null;
+let playerHistoryRevision = 0;
+let playerHistoryMessage = null;
 const recommendTitle = document.querySelector("#recommend-section h2");
 const selectedCount = document.querySelector("#selected-count");
 const clearButton = document.querySelector("#clear-button");
@@ -2503,7 +2516,7 @@ function currentRelationshipRows() {
   return Array.isArray(popularFeedback) ? popularFeedback : [];
 }
 
-function officialBucketForTier(tier = "all") {
+function officialBucketForTier(tier = "all", fallback = "all") {
   const bucketMap = {
     all: "all",
     iron_gold: "iron_gold",
@@ -2518,7 +2531,7 @@ function officialBucketForTier(tier = "all") {
   const preferred = bucketMap[tier] ?? tier ?? "all";
   return officialCandidateStatsByTier?.[preferred] || officialCompositionStatsByTier?.[preferred]
     ? preferred
-    : "all";
+    : fallback;
 }
 
 function placementRankingScore(row) {
@@ -2885,8 +2898,12 @@ function renderDashboardCharacterDetails(id) {
   const signature = characterDescription(character, t);
   const cores = topCoresForVariant(character.variantId, tierSelect.value);
   const bucket = officialBucketForTier(tierSelect.value);
-  const observed = !isCurrentSeason(officialStatsSource) ? [] : observedCharacterCompositions(officialCompositionStatsByTier?.[bucket] ?? [], character.variantId)
+  const preseason = currentSeason().phase === "preseason";
+  const hasCurrentRankedTeams = !preseason && isCurrentSeason(officialStatsSource);
+  const observed = !hasCurrentRankedTeams ? [] : observedCharacterCompositions(officialCompositionStatsByTier?.[bucket] ?? [], character.variantId)
     .filter(row => compositionMembers(row).every(characterById));
+  const teamEmptyKey = preseason ? "rank.preseasonObservedTeams" : !hasCurrentRankedTeams
+    ? "rank.pendingObservedTeams" : "rank.noObservedTeams";
   const values = {
     Games: row.games, Top3: `${Math.round(row.top3Rate * 100)}%`, Win: `${Math.round(row.winRate * 100)}%`,
     Placement: Number.isFinite(row.avgPlacement) ? row.avgPlacement.toFixed(2) : '—',
@@ -2897,7 +2914,7 @@ function renderDashboardCharacterDetails(id) {
   const overview = `<div class="detail-identity"><img src="${character.image}" alt=""><div><strong>${roleLabel(character.role)}</strong><small>${t(`weapon.${character.weapon}`)}</small></div>
     <div class="detail-identity-core">${traitChip(character.variantId, tierSelect.value)}</div></div>
     ${signature ? `<p class="detail-brief">${signature}</p>` : ''}
-    ${currentSeason().phase==='preseason'?renderRecentEvidence(id,tierSelect.value,null,t):''}
+    ${renderRecentEvidence(character.variantId,tierSelect.value,null,t)}
     <dl class="detail-stat-grid">${Object.entries(values).filter(([key,value])=>value!=null&&(currentSeason().phase!=='preseason'||['Games','Top3','Win','Placement'].includes(key))).map(([key, value]) => `<div><dt>${t(`rank.detail${key}`)}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
   const coreDetails = `${cores.length ? `<table class="dashboard-core-table"><thead><tr>
       <th>${t('rank.coreName')}</th><th>${t('rank.detailGames')}</th><th>${t('rank.detailTop3')}</th><th>${t('rank.detailWin')}</th>
@@ -2911,7 +2928,7 @@ function renderDashboardCharacterDetails(id) {
         <p>${compositionDetailText({ ...row, source: 'official' })}</p>
         <span class="dashboard-expand-hint">${t('detail.plan')} <span aria-hidden="true">⌄</span></span>
         </summary><div class="dashboard-detail-body"></div></details>`;
-    }).join('') : `<p>${t('rank.noObservedTeams')}</p>`}`;
+    }).join('') : `<p>${t(teamEmptyKey)}</p>`}`;
   return renderDetailPages([
     {label:t('detail.overview'),html:overview}, {label:t('detail.cores'),html:coreDetails},
     {label:t('detail.teams'),html:teams},
@@ -3279,6 +3296,104 @@ function _renderFullTeamCards() {
   recommendations.innerHTML = feedbackCTABanner() + preseasonRecommendationNotice() + header + cards + footer;
 }
 
+function renderPlayerHistoryStatus() {
+  playerHistorySearch.disabled = Boolean(playerHistoryRequest);
+  playerHistoryClear.hidden = !playerHistoryRequest && !playerHistoryMessage && !playerHistory;
+  const message = playerHistoryMessage ? t(playerHistoryMessage, playerHistory ?? {}) : "";
+  if (!playerHistory) {
+    playerHistoryStatus.textContent = message;
+    return;
+  }
+  const comparison = playerHistoryComparison();
+  const hint = tierSelect.value === "all" ? t("playerHistory.selectTier")
+    : comparison ? t(comparison.cohort.weight === 1 ? "playerHistory.tierCohort" : "playerHistory.previousCohort", { tier: comparison.label })
+      : t("playerHistory.noCohort");
+  playerHistoryStatus.textContent = `${message} · ${hint}`;
+}
+
+function playerHistoryComparison() {
+  const cohort = playerComparisonSeason(currentSeason(), officialStatsSource);
+  const tier = tierSelect.value;
+  const bucket = tier !== "all" ? officialBucketForTier(tier, null) : null;
+  const candidates = officialCandidateStatsByTier?.[bucket];
+  if (!cohort || !candidates) return null;
+  const label = bucket === "iron_gold" ? t("playerHistory.ironGold") : tierSelect.selectedOptions[0]?.textContent;
+  return { cohort, label, candidates, compositions: officialCompositionStatsByTier?.[bucket] };
+}
+
+function updatePlayerHistory(message, profile = null) {
+  if (playerHistory !== profile) playerHistoryRevision += 1;
+  playerHistory = profile;
+  playerHistoryMessage = message;
+  renderPlayerHistoryStatus();
+  if (activeView === "setup") renderRecommendations();
+}
+
+playerHistoryForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const nickname = playerHistoryNickname.value.trim();
+  if (!nickname || playerHistoryRequest) return;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10_000);
+  playerHistoryRequest = controller;
+  updatePlayerHistory("playerHistory.loading");
+  let message = "playerHistory.unavailable";
+  let profile = null;
+  try {
+    const response = await fetch(playerHistoryEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nickname, comparisonSeason: playerComparisonSeason(currentSeason(), officialStatsSource)?.id }),
+      signal: controller.signal,
+    });
+    const body = await response.json();
+    if (response.ok && Array.isArray(body.variants)) {
+      const hasHistory = body.variants.length > 0;
+      if (hasHistory) profile = { ...body, nickname };
+      message = hasHistory ? "playerHistory.applied" : "playerHistory.empty";
+    } else if (["notFound", "busy", "unconfigured", "invalid"].includes(body.error)) {
+      message = `playerHistory.${body.error}`;
+    }
+  } catch {
+    // Keep the draft usable while the profile service is unavailable.
+  } finally {
+    clearTimeout(timeout);
+    if (playerHistoryRequest === controller) {
+      playerHistoryRequest = null;
+      updatePlayerHistory(message, profile);
+    }
+  }
+});
+
+async function enablePlayerHistoryIfAvailable() {
+  try {
+    const response = await fetch(playerHistoryEndpoint, { cache: "no-store", signal: AbortSignal.timeout(4500) });
+    if (response.ok && (await response.json()).enabled === true) playerHistoryForm.hidden = false;
+  } catch { /* Keep the draft screen usable without a history service. */ }
+}
+
+playerHistoryClear.addEventListener("click", () => {
+  playerHistoryRequest?.abort();
+  playerHistoryRequest = null;
+  playerHistoryNickname.value = "";
+  updatePlayerHistory(null);
+  playerHistoryNickname.focus();
+});
+
+function playerEvidenceText(evidence) {
+  if (!evidence) return "";
+  const percent = (rate) => (100 * rate).toFixed(1) + "%";
+  const lines = [t("playerHistory.games", { ranked: evidence.rankedGames, normal: evidence.normalGames })];
+  for (const [key, result] of [["individual", evidence.individual], ["squad", evidence.squad]]) {
+    if (!result) continue;
+    lines.push(t(`playerHistory.${key}Compare`, {
+      games: result.games, top3: percent(result.top3Rate), tierTop3: percent(result.referenceTop3),
+      win: percent(result.winRate), tierWin: percent(result.referenceWin),
+    }));
+  }
+  return lines.map((line) => `<p class="player-history-evidence">${line}</p>`).join("");
+}
+
 function renderRecommendations() {
   if (activeView === "union") return;
   if (activeView === "recommendations") {
@@ -3287,6 +3402,9 @@ function renderRecommendations() {
     return;
   }
 
+  renderPlayerHistoryStatus();
+  const season = currentSeason();
+  const personalKey = playerHistory ? [playerHistoryRevision, season.seasonId, season.phase] : null;
   const recommendationKey = JSON.stringify({
     language: getLanguage(),
     selected: [...selectedIds].sort(),
@@ -3295,6 +3413,7 @@ function renderRecommendations() {
     playable: [...playableVariantIds].sort(),
     cores: selectedCoresMap(),
     limit: recommendLimit,
+    personal: personalKey,
     remoteFeedback: dataSignature(remoteFeedback),
     popularFeedback: dataSignature(popularFeedback),
     relationshipRows: dataSignature(currentRelationshipRows()),
@@ -3319,11 +3438,16 @@ function renderRecommendations() {
   }
 
   const playablePool = playableVariantIds.size > 0 ? [...playableVariantIds] : undefined;
+  const comparison = playerHistory ? playerHistoryComparison() : null;
+  const playerEvidence = playerHistory
+    ? personalPickEvidence(playerHistory, comparison?.cohort, comparison?.candidates, comparison?.compositions, [...selectedIds])
+    : null;
   const recommendationInputKey = JSON.stringify({
     language: getLanguage(),
     selected: [...selectedIds].sort(),
     tier: tierSelect.value,
     playable: playablePool ? [...playablePool].sort() : null,
+    personal: personalKey,
     cores: selectedCoresMap(),
     remoteFeedback: dataSignature(remoteFeedback),
     popularFeedback: dataSignature(popularFeedback),
@@ -3333,7 +3457,7 @@ function renderRecommendations() {
   });
   const results = recommendationInputKey === recommendationCacheKey && recommendationCacheResults
     ? recommendationCacheResults
-    : recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap());
+    : recommend([...selectedIds], tierSelect.value, remoteFeedback, playablePool, currentRelationshipRows(), selectedCoresMap(), { playerEvidence });
   if (recommendationInputKey !== recommendationCacheKey) {
     recommendationCacheKey = recommendationInputKey;
     recommendationCacheResults = results;
@@ -3389,6 +3513,10 @@ function renderRecommendations() {
         : "";
       const name = t(`char.${result.character.id}`);
       const candidateRates = officialRatesForVariant(result.character.variantId);
+      const experience = playerEvidence?.get(result.character.variantId);
+      const experienceLabel = playerEvidenceText(experience);
+      const personalDirection = experience?.bonus > 0.025 ? t("playerHistory.raised")
+        : experience?.bonus < -0.025 ? t("playerHistory.lowered") : "";
       return `
         <li class="rec-item">
           <button class="rec-head${result.draftFit?" rec-head-draft":""}" type="button" data-rec-toggle aria-expanded="false">
@@ -3399,7 +3527,7 @@ function renderRecommendations() {
             </span>
             <span class="rec-id">
               <b>${name}</b>
-              <small>${t(`weapon.${result.character.weapon}`)}</small>
+              <small>${t(`weapon.${result.character.weapon}`)}${personalDirection ? ` · ${personalDirection}` : ""}</small>
             </span>
             ${playstyleChip(candidateRates.top3Rate, candidateRates.winRate) || '<span class="rec-style-slot"></span>'}
             ${result.draftFit ? "" : synergyFaces(result.character) || '<span class="rec-syn-row"></span>'}
@@ -3412,6 +3540,7 @@ function renderRecommendations() {
             ${traitChip(result.character.variantId, tierSelect.value, core)}
             ${archetypeChip}
             ${scoreAxisChips(result.scoreAxes,result.draftFit)}
+            ${experienceLabel}
             ${renderRecentEvidence(result.character.variantId, tierSelect.value, core?.core, t)}
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
@@ -4667,6 +4796,7 @@ window.setInterval(refreshTournamentData, 4 * 60 * 60 * 1000);
 
 setupErUpdater();
 render();
+void enablePlayerHistoryIfAvailable();
 if (hasStoredLanguage()) {
   window.setTimeout(() => {
     openTierGuideModal();

@@ -14,6 +14,7 @@ const {t}=await import('../src/i18n/index.js');
 const {evaluateCandidate,recommend,updateRecentMeta}=await import('../src/recommender.js');
 const original=structuredClone(recentMetaSnapshot());
 assert.ok(validRecentMeta(original));
+const visibleText = (html) => html.replace(/<[^>]*>/g, "");
 if (original.phase==='preseason') {
   const cohort=original.cohorts.unrank;
   assert.equal(cohort.matchingMode,2);
@@ -41,7 +42,21 @@ if (original.phase==='preseason') {
   const realNow=Date.now;
   try {
     Date.now=()=>observed;
-    assert.ok(renderRecentEvidence(id,'all',null,t).includes('build-items'));
+    const buildView = renderRecentEvidence(id,'all',null,t);
+    assert.ok(buildView.includes('build-items'));
+    if (original.itemDetails) {
+      assert.ok(buildView.includes('ItemIcon_') && buildView.includes(t('recent.buildDelta')));
+      const formerlyEmpty = renderRecentEvidence('priya:guitar','all',null,t);
+      assert.equal((formerlyEmpty.match(/class="item-build-option"/g) ?? []).length, 3);
+      const broken = structuredClone(original);
+      const code = Object.keys(broken.itemDetails)[0];
+      broken.itemDetails[code].icon = 'https://example.invalid/ItemIcon_' + code + '.png';
+      assert.equal(validRecentMeta(broken), false);
+    }
+    assert.ok(renderRecentEvidence('no-data:bat','all',null,t).includes(t('recent.buildSampleMissing')));
+    Date.now=()=>observed+8*86400000;
+    assert.ok(renderRecentEvidence(id,'all',null,t).includes(t('recent.buildPatchPending')));
+    Date.now=()=>observed;
     if(cohort.patch===13000) {
       assert.ok(patchNoteForCharacter('istvan',t).includes('자가 회복'));
       assert.ok(patchNotesForItems(['고스트'],t)[0].includes('10초'));
@@ -145,13 +160,14 @@ const resolve=id=>characterVariants.find(c=>c.variantId===id);
 const html=renderRecentDashboard('all',resolve,t)+renderRecentEvidence('nia:pistol','all','7000401',t);
 assert.ok(html.includes('최근 7일')&&html.includes('추천 아이템 구성'));
 assert.ok(!html.includes('undefined')&&!html.includes('[object Object]'));
-assert.ok(!/DAK|dak\.gg|<a\b|최근 메타 근거|recent-meta-evidence/i.test(html),'use source data internally without exposing links or raw cohort statistics');
+assert.ok(!/DAK|dak\.gg|최근 메타 근거/i.test(visibleText(html))&&!/<a\b|recent-meta-evidence/i.test(html),'use source data internally without exposing links or raw cohort statistics');
 for(const locale of ['ko','en','ja','zhHans','zhHant']) {
   const dictionary=(await import(`../src/i18n/${locale}.js`))[locale];
   const translate=(key,params={})=>String(dictionary[key]??key).replace(/\{(\w+)\}/g,(_,k)=>params[k]??'');
   const view=renderRecentDashboard('all',resolve,translate)+renderRecentEvidence('nia:pistol','all','7000401',translate);
-  assert.ok(!/DAK|dak\.gg|<a\b|recent-meta-evidence|recent\.recommendedBuild|recent\.window/i.test(view),locale);
-  assert.equal((view.match(/class="build-items"/g)??[]).length,1,'keep the actionable five-item build');
+  assert.ok(!/DAK|dak\.gg|recent\.recommendedBuild|recent\.window/i.test(visibleText(view))&&!/<a\b|recent-meta-evidence/i.test(view),locale);
+  const buildCount = (view.match(/class="build-items"/g)??[]).length;
+  assert.ok(buildCount >= 1 && buildCount <= 3, 'show up to three observed builds');
   assert.ok(!view.includes('undefined')&&!view.includes('[object Object]'));
 }
 for(const kind of ['usage','performance'])for(const r of recentMovers('all',kind))assert.ok(r.movement.z>=4&&r.row.games>=500&&r.row.previous.games>=500);

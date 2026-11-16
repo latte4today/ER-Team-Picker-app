@@ -3688,7 +3688,7 @@ function recommendationArchetype(character) {
   return "backline_dps";
 }
 
-function diversifyRecommendations(sortedResults, config = DIVERSITY_CONFIG) {
+function diversifyRecommendations(sortedResults, config = DIVERSITY_CONFIG, score = (row) => row.total) {
   if (!config?.enabled || sortedResults.length <= 2) return sortedResults;
   const { top6PerArchetype, top12PerArchetype, top12PerVariant, top12PerCharacter, maxScoreDropToPromote } = config;
   const capAt = (pos) => (pos < 6 ? top6PerArchetype : pos < 12 ? top12PerArchetype : Infinity);
@@ -3714,7 +3714,7 @@ function diversifyRecommendations(sortedResults, config = DIVERSITY_CONFIG) {
 
     if ((counts[arche(head)] ?? 0) >= cap || (variantCounts[variant(head)] ?? 0) >= variantCap || (characterCounts[character(head)] ?? 0) >= characterCap) {
       for (let i = 1; i < pool.length; i++) {
-        if (head.total - pool[i].total > maxScoreDropToPromote) break;
+        if (score(head) - score(pool[i]) > maxScoreDropToPromote) break;
         if ((counts[arche(pool[i])] ?? 0) < cap && (variantCounts[variant(pool[i])] ?? 0) < variantCap && (characterCounts[character(pool[i])] ?? 0) < characterCap) { pickIdx = i; break; }
       }
     }
@@ -3840,6 +3840,15 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
     Object.assign(LEAN_SCORING_CONFIG, TWO_STAGE_ORDERING_WEIGHTS);
   }
 
+  const playerEvidence = options.playerEvidence;
+  const orderingScore = (result) => {
+    const evidence = playerEvidence?.get(result.character.variantId);
+    if (!evidence) return result.total;
+    // Familiarity can break close calls. A pick that fills no clear gap receives
+    // less of a boost. Keep the displayed draft-fit score on its original scale.
+    return result.total + evidence.bonus * (result.draftFit && !result.draftFit.primary ? 0.35 : 1);
+  };
+
   try {
   const scored = pool
     .flatMap((candidate) => {
@@ -3863,7 +3872,7 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
         .filter(Boolean);
     })
     .filter(Boolean)
-    .sort((a, b) => b.total - a.total);
+    .sort((a, b) => orderingScore(b) - orderingScore(a));
 
   const seen = new Set();
   const deduped = scored.filter((r) => {
@@ -3878,7 +3887,7 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   // for it twice: promoting lower-scored candidates costs outcome quality (-2.3pp
   // against +0.8pp with it off) and buys no variety at all here (mean top-5 overlap
   // 14.4% with it, 11.7% without). So it only applies to the single-stage path.
-  const ordered = twoStage ? deduped : diversifyRecommendations(deduped);
+  const ordered = twoStage ? deduped : diversifyRecommendations(deduped, DIVERSITY_CONFIG, orderingScore);
   // Allocate result slots to distinct characters before emitting their core choices.
   // The draft UI can show more useful picks while still letting users change cores.
   const take = Math.max(1, Math.min(RECOMMENDATION_RESULT_CAP, options.limit ?? 24));

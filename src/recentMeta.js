@@ -12,6 +12,8 @@ const DAY=86400000;
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const validRow=r=>r&&Number.isInteger(r.games)&&r.games>0&&Number.isInteger(r.wins)&&Number.isInteger(r.top3)&&r.wins>=0&&r.wins<=r.top3&&r.top3<=r.games&&Number.isFinite(r.placement)&&r.placement>=r.games&&Number.isFinite(r.pickShare)&&r.pickShare>=0&&r.pickShare<=1;
 const variantIds = characterVariants.map(c=>c.variantId);
+const ITEM_ICON_URL = /^https:\/\/cdn\.dak\.gg\/assets\/er\/game-assets\/\d+\.\d+\.\d+\/ItemIcon_\d+\.png$/;
+export const validBuildIcon = (icon, code) => typeof icon === "string" && ITEM_ICON_URL.test(icon) && icon.endsWith(`/ItemIcon_${code}.png`);
 function validPulse(cohort) {
   const p=cohort.pulse;
   if(!p)return true; // Keeps older snapshots usable when the short window is unavailable.
@@ -30,6 +32,12 @@ export function validRecentMeta(data) {
   if(data?.schemaVersion!==1||!Number.isFinite(Date.parse(data.generatedAt)))return false;
   if(Date.parse(data.generatedAt)>Date.now()+3600000)return false;
   if (!['ranked','preseason'].includes(data.phase)) return false;
+  if (data.itemDetails !== undefined &&
+      (!data.itemDetails || typeof data.itemDetails !== "object" ||
+        Object.entries(data.itemDetails).some(([code, item]) => !item || !data.itemNames?.[code] ||
+          !validBuildIcon(item.icon, code) || !item.stats || !Object.values(item.stats).every(Number.isFinite) ||
+          !Array.isArray(item.effects) || item.effects.length > 3 ||
+          !item.effects.every((effect) => typeof effect === "string" && effect.length <= 32)))) return false;
   const preseason=data.phase==='preseason';
   const keys=preseason?['unrank']:['diamond_plus','mithril_plus'];
   if(Object.keys(data.cohorts??{}).length!==keys.length)return false;
