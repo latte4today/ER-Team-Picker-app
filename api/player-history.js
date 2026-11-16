@@ -1,10 +1,11 @@
 import { setTimeout as delay } from "node:timers/promises";
 import { addSquadResult, recentSquadGames, summarizePlayerMatches } from "../src/playerHistory.js";
-import { officialGameRows, officialUserId } from "../src/officialApiResponse.js";
+import { officialGameCursor, officialGameRows, officialUserId } from "../src/officialApiResponse.js";
 
 const OFFICIAL_API = "https://open-api.bser.io";
 const DESKTOP_ORIGIN = "http://127.0.0.1:34579";
 const TEAM_SAMPLE_LIMIT = 8;
+const HISTORY_PAGE_LIMIT = 8;
 const requestWindows = new Map();
 let activeLookups = 0;
 let upstreamRetryAt = 0;
@@ -67,6 +68,31 @@ async function fetchSquadSummary(matches, seasonId, apiKey, signal) {
   return { seasonId, inspected, requested: sample.length, entries: [...records.values()] };
 }
 
+async function fetchMatchHistory(uid, apiKey, signal) {
+  const historyPath = `/v1/user/games/uid/${encodeURIComponent(uid)}`;
+  const firstPage = await officialJson(historyPath, apiKey, signal);
+  const firstRows = officialGameRows(firstPage);
+  if (!firstRows) throw new UpstreamError("unavailable");
+  const matches = [...firstRows];
+  const seen = new Set();
+  let cursor = officialGameCursor(firstPage);
+  for (let page = 1; page < HISTORY_PAGE_LIMIT && cursor && !seen.has(cursor); page += 1) {
+    seen.add(cursor);
+    try {
+      await delay(850, undefined, { signal });
+      const history = await officialJson(`${historyPath}?next=${encodeURIComponent(cursor)}`, apiKey, signal);
+      const rows = officialGameRows(history);
+      if (!rows?.length) break;
+      matches.push(...rows);
+      cursor = officialGameCursor(history);
+    } catch {
+      // A later unavailable page must not erase matches already read.
+      break;
+    }
+  }
+  return matches;
+}
+
 export default {
   async fetch(request) {
     const origin = request.headers.get("origin");
@@ -102,14 +128,13 @@ export default {
     if (rateLimited(request, Date.now())) return reply({ error: "busy" }, 429);
     activeLookups += 1;
     try {
-      const signal = AbortSignal.any([request.signal, AbortSignal.timeout(7500)]);
+      const signal = AbortSignal.any([request.signal, AbortSignal.timeout(12500)]);
       const account = await officialJson(`/v1/user/nickname?query=${encodeURIComponent(nickname)}`, apiKey, signal);
       const uid = officialUserId(account);
       if (!uid) return reply({ error: "unavailable" }, 502);
       try {
-        const history = await officialJson(`/v1/user/games/uid/${encodeURIComponent(uid)}`, apiKey, signal);
-        const matches = officialGameRows(history);
-        if (!matches) return reply({ error: "unavailable" }, 502);
+        const historySignal = AbortSignal.any([signal, AbortSignal.timeout(8800)]);
+        const matches = await fetchMatchHistory(uid, apiKey, historySignal);
         const profile = summarizePlayerMatches(matches);
         if (Number.isSafeInteger(seasonId) && seasonId > 0 && seasonId < 10_000) {
           profile.squads = await fetchSquadSummary(matches, seasonId, apiKey, signal);

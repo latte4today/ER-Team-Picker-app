@@ -3334,7 +3334,7 @@ playerHistoryForm.addEventListener("submit", async (event) => {
   const nickname = playerHistoryNickname.value.trim();
   if (!nickname || playerHistoryRequest) return;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10_000);
+  const timeout = setTimeout(() => controller.abort(), 15_000);
   playerHistoryRequest = controller;
   updatePlayerHistory("playerHistory.loading");
   let message = "playerHistory.unavailable";
