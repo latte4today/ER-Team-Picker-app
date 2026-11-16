@@ -793,11 +793,17 @@ function shouldShowInitialWalkthrough() {
     && localStorage.getItem(walkthroughDisabledStorageKey) !== "true";
 }
 
-function scoreAxisChips(scoreAxes) {
+function draftFitBadge(fit) {
+  if (!fit) return "";
+  const label=t(`draftFit.${fit.primary ?? "limited"}`);
+  return `<span class="draft-fit-badge" title="${t("draftFit.hint")}">${label}</span>`;
+}
+
+function scoreAxisChips(scoreAxes,draftFit=null) {
   if (!scoreAxes) return "";
   const chip = (key, value, kind) => {
     const numeric = Number(value) || 0;
-    const signed = `${numeric >= 0 ? "+" : ""}${numeric.toFixed(1)}`;
+    const signed = `${numeric >= 0 ? "+" : ""}${numeric.toFixed(draftFit?2:1)}`;
     const tone = numeric >= 0.2 ? "positive" : numeric <= -0.2 ? "negative" : "neutral";
     return `<span class="score-axis score-axis-${kind} score-axis-${tone}">${t(key)} ${signed}</span>`;
   };
@@ -943,7 +949,12 @@ function characterSubtitle(character) {
 // Faces of the teammates this pick has *measured* synergy with. Only the 161
 // character pairs that cleared FDR appear here - the rest have data but no verdict,
 // and inventing a verdict for them would be the thing this whole app tries not to do.
+function hasCurrentPairEvidence() {
+  return isCurrentSeason({seasonId:pairSynergyLiftMeta.maxSeason ?? pairSynergyLiftMeta.minSeason});
+}
+
 function synergyFaces(candidate) {
+  if (!hasCurrentPairEvidence()) return "";
   const rows = [];
   for (const variantId of selectedIds) {
     const mate = variantById(variantId);
@@ -977,6 +988,11 @@ const PLAYSTYLE_BAND = 0.05;
 
 // Official placement rates for a build, in the bucket the tier selector is on.
 function officialRatesForVariant(variantId) {
+  if (currentSeason().phase==="preseason" || !isCurrentSeason(officialStatsSource)) {
+    const evidence=recentRankingEvidence(variantId,tierSelect.value);
+    const min=evidence?.cohort.key==="unrank"?PRESEASON_META_POLICY.minGames:300;
+    return evidence?.row.games>=min? { top3Rate:evidence.top3Rate,winRate:evidence.winRate } : {};
+  }
   const bucket = officialBucketForTier(tierSelect.value);
   const row = officialCandidateStatsByTier?.[bucket]?.[variantId]
     ?? officialCandidateStatsByTier?.all?.[variantId];
@@ -1238,12 +1254,13 @@ function recommendationStageNotice() {
   if (selectedIds.size === 0) return "";
   return `
     <div class="rec-legend">
+      ${(currentSeason().phase==="preseason" || !isCurrentSeason(officialStatsSource)) ? `<small>${t("draftFit.hint")}</small>` : ""}
       <span class="rec-style rec-style-ceiling">${PLAYSTYLE_ICONS.ceiling}<span>${t("recommend.styleCeiling")}</span></span>
       <small>${t("recommend.legendCeiling")}</small>
       <span class="rec-style rec-style-steady">${PLAYSTYLE_ICONS.steady}<span>${t("recommend.styleSteady")}</span></span>
       <small>${t("recommend.legendSteady")}</small>
-      <span class="rec-legend-syn"><i class="rec-syn rec-syn-good"></i><i class="rec-syn rec-syn-bad"></i></span>
-      <small>${t("recommend.legendSynergy")}</small>
+      ${hasCurrentPairEvidence()?`<span class="rec-legend-syn"><i class="rec-syn rec-syn-good"></i><i class="rec-syn rec-syn-bad"></i></span>
+      <small>${t("recommend.legendSynergy")}</small>`:""}
     </div>
   `;
 }
@@ -3195,7 +3212,7 @@ function _renderFullTeamCards() {
       <article class="full-team-card">
         <div class="full-team-header">
           <span class="recommendation-rank">${t("fullTeam.rank", { index: index + 1 })}</span>
-          ${qualityBadge(combinedScore, { divisor: 2, compact: true })}
+          ${draftFitBadge(teammate2.draftFit) || qualityBadge(combinedScore, { divisor: 2, compact: true })}
         </div>
         <div class="full-team-members">
           <div class="full-team-member">
@@ -3374,7 +3391,7 @@ function renderRecommendations() {
       const candidateRates = officialRatesForVariant(result.character.variantId);
       return `
         <li class="rec-item">
-          <button class="rec-head" type="button" data-rec-toggle aria-expanded="false">
+          <button class="rec-head${result.draftFit?" rec-head-draft":""}" type="button" data-rec-toggle aria-expanded="false">
             <span class="rec-num">${index + 1}</span>
             <span class="rec-face">
               <img src="${result.character.image}" alt="" loading="lazy" onerror="this.hidden = true; this.nextElementSibling.hidden = false;">
@@ -3385,16 +3402,16 @@ function renderRecommendations() {
               <small>${t(`weapon.${result.character.weapon}`)}</small>
             </span>
             ${playstyleChip(candidateRates.top3Rate, candidateRates.winRate) || '<span class="rec-style-slot"></span>'}
-            ${synergyFaces(result.character) || '<span class="rec-syn-row"></span>'}
+            ${result.draftFit ? "" : synergyFaces(result.character) || '<span class="rec-syn-row"></span>'}
             ${coreIcon || '<span class="rec-core-slot"></span>'}
-            ${qualityBadge(result.score, { compact: true })}
+            ${draftFitBadge(result.draftFit) || qualityBadge(result.total, { compact: true })}
             <span class="rec-caret" aria-hidden="true"></span>
           </button>
           <div class="rec-body" hidden>
             <p class="rec-body-role">${characterSubtitle(result.character)}</p>
             ${traitChip(result.character.variantId, tierSelect.value, core)}
             ${archetypeChip}
-            ${scoreAxisChips(result.scoreAxes)}
+            ${scoreAxisChips(result.scoreAxes,result.draftFit)}
             ${renderRecentEvidence(result.character.variantId, tierSelect.value, core?.core, t)}
             <p class="recommendation-summary">${compactText}</p>
             <div class="recommendation-tags">${compactLabels}</div>
@@ -3455,7 +3472,7 @@ function renderMatchFeedback() {
     .map(renderReasonTag)
     .join("");
   const compactText = compactReasonText(evaluation?.reasons ?? []);
-  const score = canRateMatch && evaluation ? qualityBadge(evaluation.score, { compact: true }) : "";
+  const score = canRateMatch && evaluation ? (draftFitBadge(evaluation.draftFit) || qualityBadge(evaluation.total, { compact: true })) : "";
   const currentFeedbackKey = canRateMatch ? feedbackWindowKey(feedbackTeamIds, chosenFeedbackId, tierSelect.value) : "";
   const hasSubmittedFeedback =
     canRateMatch &&

@@ -1,3 +1,4 @@
+import {draftCoverage,draftFit} from './draftFit.js';
 import {isCurrentSeason, currentSeason} from './seasonContext.js';
 import { characterVariants, roleNames, synergyPairs } from "./data.js";
 import { getFeedbackScore, loadFeedback } from "./feedback.js";
@@ -916,8 +917,12 @@ function empiricalVectorRow(character, core, tier = "all") {
     ?? rows[character.variantId];
 }
 
+function useStructuralDraftFit() {
+  return currentSeason().phase==="preseason" || !isCurrentSeason(officialStatsSource);
+}
+
 function blendEmpiricalVector(manual, character, core, tier = "all") {
-  if (!VECTOR_SCORING_FLAGS.useEmpiricalVectorBlend) return manual;
+  if (useStructuralDraftFit() || !VECTOR_SCORING_FLAGS.useEmpiricalVectorBlend) return manual;
   const blend = clamp(Number(VECTOR_SCORING_FLAGS.empiricalVectorBlend ?? 0), 0, 1);
   if (blend <= 0) return manual;
 
@@ -2439,7 +2444,7 @@ function leanFitTerm(scores) {
   );
 }
 
-function leanCandidateComponents(candidate, selected, tier, scores, feedbackScore, fitOverride = null) {
+function leanCandidateComponents(candidate, selected, tier, scores, feedbackScore, fitOverride = null, structuralFit = null) {
   const config = LEAN_SCORING_CONFIG;
   const strengthScore = leanStrengthScore(candidate, tier);
   const pairTerm = leanPairSynergyTerm(candidate, selected, tier);
@@ -2463,6 +2468,11 @@ function leanCandidateComponents(candidate, selected, tier, scores, feedbackScor
   // changing the trait changes the character's score with or without teammates.
   const coreStrengthTerm = leanCoreStrengthScore(candidate, tier) * config.coreStrengthWeight;
   const stackPenalty = leanStackPenalty(candidate, selected, config);
+  if (structuralFit) {
+    const individual = strengthScore * 0.30 + coreStrengthTerm * 0.5 - candidate.difficulty * config.difficultyWeight;
+    const composition = structuralFit.score - stackPenalty + clamp(scores.relationship + feedbackScore, -.25, .25);
+    return { individual, composition, total: individual+composition };
+  }
   const strengthWeight = selected.length > 0
     ? config.selectedStrengthWeight
     : config.strengthWeight;
@@ -3449,6 +3459,9 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
   const effectiveCandidate = applyCoreRoleProfile(candidate, cores[candidate.variantId], tier);
   const selectedVector = invariantContext?.selectedVector ?? teamVectorFromEffective(effectiveSelected);
   const candidateVector = characterVectorFromEffective(effectiveCandidate);
+  const structuralFit=selected.length>0 && useStructuralDraftFit()
+    ? draftFit(invariantContext?.draftCoverage ?? draftCoverage(effectiveSelected, selectedVector.members), effectiveCandidate, candidateVector)
+    : null;
   const invariantScores = invariantContext?.scores ?? buildCandidateInvariantContext(selectedIds, selected, candidate, tier, remoteFeedback, relationshipRows).scores;
   const candidateFeedbackId = feedbackCandidateId(candidate, candidateCoreRow);
   const feedbackScore = (
@@ -3510,7 +3523,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     fitOverride = deficitFitScore(candidateVector, deficitInfo.deficits, deficitInfo.coverage);
   }
   const scoreAxes = VECTOR_SCORING_FLAGS.useLeanScoring
-    ? leanCandidateComponents(effectiveCandidate, effectiveSelected, tier, scores, feedbackScore, fitOverride)
+    ? leanCandidateComponents(effectiveCandidate, effectiveSelected, tier, scores, feedbackScore, fitOverride, structuralFit)
     : null;
   const total = scoreAxes?.total ?? legacyTotal;
 
@@ -3519,6 +3532,7 @@ export function evaluateCandidate(selectedIds, candidateId, tier = "all", remote
     score: Number(total.toFixed(1)),
     total: Number(total.toFixed(3)),
     scores,
+    draftFit: structuralFit,
     scoreAxes: scoreAxes ? {
       individual: Number(scoreAxes.individual.toFixed(3)),
       composition: Number(scoreAxes.composition.toFixed(3)),
@@ -3806,6 +3820,7 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
   // Compute once and reuse instead of recomputing inside every evaluateCandidate call.
   const effectiveSelected = effectiveTeamFor(selected, cores, tier);
   const selectedVector = teamVectorFromEffective(effectiveSelected);
+  const coverage = selected.length>0 && useStructuralDraftFit() ? draftCoverage(effectiveSelected, selectedVector.members) : null;
   const deficitInfo = (VECTOR_SCORING_FLAGS.useDeficitFitModel && selected.length > 0)
     ? computeDeficitInfo(selectedVector)
     : null;
@@ -3833,6 +3848,7 @@ export function recommend(selectedIds, tier = "all", remoteFeedback = {}, candid
       invariantContext.effectiveSelected = effectiveSelected;
       invariantContext.deferExplanation = true;
       invariantContext.selectedVector = selectedVector;
+      invariantContext.draftCoverage = coverage;
       if (deficitInfo) invariantContext.deficitInfo = deficitInfo;
       return options
         .map((core) => evaluateCandidate(

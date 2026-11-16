@@ -1,4 +1,11 @@
 export const zhHant = {
+  "draftFit.frontline": "補前排",
+  "draftFit.damage": "補輸出",
+  "draftFit.engage": "開團",
+  "draftFit.peel": "保護隊友",
+  "draftFit.range": "補射程",
+  "draftFit.limited": "補位有限",
+  "draftFit.hint": "推薦依據隊伍缺口，標籤不是勝率評級。",
   "recent.preseasonWindow": "最近3天 · 對比同版本較早時段 · 暫定",
   "recent.preseasonStrong": "近期表現突出",
   "recent.preseasonPending": "同版本累積足夠對局後將顯示上升趨勢。",

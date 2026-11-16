@@ -1,4 +1,11 @@
 export const ko = {
+  "draftFit.frontline": "전열 보완",
+  "draftFit.damage": "화력 보완",
+  "draftFit.engage": "교전 개시",
+  "draftFit.peel": "아군 보호",
+  "draftFit.range": "사거리 보완",
+  "draftFit.limited": "보완 제한",
+  "draftFit.hint": "팀의 빈 역할을 기준으로 추천합니다. 표시는 승률 등급이 아닙니다.",
   "recent.preseasonWindow": "최근 3일 · 같은 패치의 앞 구간 대비 · 잠정 신호",
   "recent.preseasonStrong": "최근 성적 상위",
   "recent.preseasonPending": "같은 패치에서 비교할 표본이 쌓이면 최근 상승을 표시합니다.",

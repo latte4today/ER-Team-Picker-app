@@ -1,4 +1,11 @@
 export const zhHans = {
+  "draftFit.frontline": "补前排",
+  "draftFit.damage": "补输出",
+  "draftFit.engage": "开团",
+  "draftFit.peel": "保护队友",
+  "draftFit.range": "补射程",
+  "draftFit.limited": "补位有限",
+  "draftFit.hint": "推荐依据队伍缺口，标签不是胜率评级。",
   "recent.preseasonWindow": "最近3天 · 对比同版本较早时段 · 暂定",
   "recent.preseasonStrong": "近期表现突出",
   "recent.preseasonPending": "同版本积累足够对局后将显示上升趋势。",

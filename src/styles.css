@@ -4456,3 +4456,17 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
   .ranking-dashboard { --ranking-panel-height: 640px; }
   .ranking-dashboard .combo-split { grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
 }
+
+.rec-head.rec-head-draft {
+  grid-template-columns: 16px 22px minmax(0, 1fr) 40px 16px minmax(54px,max-content) 10px;
+}
+.draft-fit-badge {
+  padding: 3px 5px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  font-size: 10px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
