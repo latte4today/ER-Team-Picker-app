@@ -20,3 +20,10 @@ export function officialGameRows(payload) {
   }
   return undefined;
 }
+
+export function officialGameCursor(payload) {
+  const cursor = payload?.next ?? payload?.data?.next;
+  if (typeof cursor === "string" && cursor.trim() && cursor.trim() !== "0") return cursor.trim();
+  if (Number.isSafeInteger(cursor) && cursor > 0) return String(cursor);
+  return null;
+}

@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import playerHistoryApi from "../api/player-history.js";
 import { addSquadResult, personalPickEvidence, playerComparisonSeason, recentSquadGames, summarizePlayerMatches } from "../src/playerHistory.js";
-import { officialGameRows, officialUserId } from "../src/officialApiResponse.js";
+import { officialGameCursor, officialGameRows, officialUserId } from "../src/officialApiResponse.js";
 
 assert.equal(officialUserId({ user: { uid: "documented" } }), "documented");
 assert.equal(officialUserId({ user: { userNum: 12 } }), undefined);
 assert.deepEqual(officialGameRows({ data: { userGames: [] } }), []);
+assert.equal(officialGameCursor({ data: { next: 1234 } }), "1234");
+assert.equal(officialGameCursor({ next: 0 }), null);
 
 globalThis.localStorage = { getItem: () => null };
 globalThis.document = { documentElement: { lang: "ko", dataset: {} } };
@@ -111,7 +113,11 @@ try {
       assert.equal(path.searchParams.get("query"), "프로필+1");
       return Response.json({ code: 200, user: { userId: "fixture-uid" } });
     }
-    if (path.pathname === "/v1/user/games/uid/fixture-uid") return Response.json({ code: 200, data: { games: matches } });
+    if (path.pathname === "/v1/user/games/uid/fixture-uid") {
+      if (!path.searchParams.has("next")) return Response.json({ code: 200, data: { games: matches.slice(0, 10), next: 31 } });
+      assert.equal(path.searchParams.get("next"), "31");
+      return Response.json({ code: 200, userGames: matches.slice(10), next: 31 });
+    }
     const gameId = Number(path.pathname.split("/").at(-1));
     assert.equal(path.pathname, `/v1/games/${gameId}`);
     return Response.json({ code: 200, userGames: squadRows(gameId) });
@@ -128,7 +134,7 @@ try {
   assert.equal(summary.squads.inspected, 3);
   assert.equal(summary.squads.entries[0].games, 3);
   assert.doesNotMatch(JSON.stringify(summary), /hidden-|fixture-uid/);
-  assert.equal(calls, 5);
+  assert.equal(calls, 6);
   assert.equal((await playerHistoryApi.fetch(request("unknown"))).status, 404);
   assert.equal((await playerHistoryApi.fetch(request("no-id"))).status, 502);
 } finally {
