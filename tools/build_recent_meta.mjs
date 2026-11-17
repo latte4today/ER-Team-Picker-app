@@ -1,4 +1,4 @@
-import {seasonFromPage} from './season_metadata.mjs';
+import {seasonFromPage, publicPage as page} from './season_metadata.mjs';
 // Public aggregate statistics only. Never persist page props, players or routes.
 import fs from 'node:fs/promises';
 import {characterVariants} from '../src/data.js';
@@ -7,18 +7,6 @@ import {COMBAT_EFFECT_SOURCE} from '../src/combatEffects.js';
 
 const weaponIds={1:'glove',2:'tonfa',3:'bat',4:'whip',5:'throw',6:'shuriken',7:'bow',8:'crossbow',9:'pistol',10:'assault_rifle',11:'sniper_rifle',13:'hammer',14:'axe',15:'dagger',16:'two_handed_sword',18:'dual_swords',19:'spear',20:'nunchaku',21:'rapier',22:'guitar',23:'camera',24:'arcana',25:'vf_prosthetic'};
 const root=new URL('../',import.meta.url);
-async function page(url) {
-  let error;
-  for(let attempt=0;attempt<3;attempt++)try {
-    const r=await fetch(url,{signal:AbortSignal.timeout(25000),headers:{'User-Agent':'ER-Team-Picker aggregate updater'}});
-    if(!r.ok)throw Error(`HTTP ${r.status}`);
-    const html=await r.text();
-    const data=JSON.parse(html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/)?.[1]??'null');
-    if(!data?.props?.pageProps)throw Error('Missing server statistics');
-    return data.props.pageProps;
-  }catch(e){error=e;}
-  throw Error(`${url}: ${error.message}`);
-}
 const aggregate=r=>({games:r.count,wins:r.win,top3:r.top3,placement:r.place});
 const validAggregate=r=>Number.isInteger(r.games)&&r.games>0&&Number.isInteger(r.wins)&&r.wins>=0&&r.wins<=r.top3&&r.top3<=r.games&&Number.isFinite(r.placement)&&r.placement>=r.games;
 function observedBuilds(weapon) {
