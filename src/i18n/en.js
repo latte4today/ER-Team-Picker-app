@@ -1,4 +1,10 @@
 export const en = {
+  "season.referenceNotice": "Preseason reference data is available while Ranked data is collected.",
+  "season.referenceTeams": "Preseason team examples",
+  "season.referenceTeamBasis": "Role-balanced examples using frequently played preseason characters.",
+  "season.referenceRankBasis": "Preseason Normal · By pick share · {date}",
+  "season.referenceBadge": "Normal",
+  "season.referenceRow": "{share}% picked · {top3}% TOP 3 · {count} games",
   "season.openingWindow": "Ranked opening · Last 3 days",
   "season.openingCollected": "Three-day Ranked samples have reduced weight. Trait outcomes need seven days of data, and patch trends need two comparable windows.",
   "season.openingBuilds": "These item builds were observed in early Ranked play. More data is needed to compare their outcomes.",

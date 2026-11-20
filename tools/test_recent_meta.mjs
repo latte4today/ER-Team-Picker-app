@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import vm from 'node:vm';
-import {recentMetaSnapshot,recentCohort,recentStrengthCorrection,recentCoreRows,recentMovers,validRecentMeta,RECENT_META_POLICY,PRESEASON_META_POLICY,preseasonHasPulse,recentRankingEvidence} from '../src/recentMeta.js';
+import {preseasonReference,recentMetaSnapshot,recentCohort,recentStrengthCorrection,recentCoreRows,recentMovers,validRecentMeta,RECENT_META_POLICY,PRESEASON_META_POLICY,preseasonHasPulse,recentRankingEvidence} from '../src/recentMeta.js';
 import {renderRecentDashboard,renderRecentEvidence} from '../src/recentMetaView.js';
 import {characterVariants} from '../src/data.js';
 import {normalizeTraitBuildRows,topCoreRowsForVariant} from '../src/traitMeta.js';
@@ -19,6 +19,12 @@ if (original.phase==='preseason') {
   const cohort=original.cohorts.unrank;
   if (!isCurrentRecent(original,cohort)) {
     assert.equal(recentCohort('all').freshness,0);
+    const reference=preseasonReference();
+    if(reference){
+      assert.equal(reference.rows.length,characterVariants.length);
+      assert.ok(reference.rows.every((row,i,rows)=>!i||row.pickShare<=rows[i-1].pickShare));
+      assert.equal(recentStrengthCorrection(reference.rows[0].characterId,'all',0),0);
+    }
     assert.ok(recommend(['rio:bow','lenox:whip'],'all').length>0);
     console.log('Previous preseason sample is withheld during the ranked transition.');
     process.exit(0);

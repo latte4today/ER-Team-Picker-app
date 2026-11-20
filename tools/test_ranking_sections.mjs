@@ -16,7 +16,7 @@ const state={hasFullRankedBaseline,metaMovementRows,movementBar,getLanguage:()=>
   compositionMembers:row=>[...row.teammates,row.candidate],characterById:()=>({}),
   renderCharacterFace:id=>`<span>${id}</span>`,compositionDetailText:row=>`${row.games} official games`,
   compositionReason:row=>{assert.equal(row.source,'official');return 'Cumulative';},
-  rankerCharacterRows:()=>[],t:key=>key,renderRankRoleFilters:()=>'',
+  rankerCharacterRows:()=>[],preseasonReference:()=>null,t:key=>key,renderRankRoleFilters:()=>'',
   combinedCompositionRows:()=>{throw new Error('User recommendation ranking must not replace either section');}};
 vm.createContext(state);
 vm.runInContext(source.slice(source.indexOf('function renderHomeDashboard('),source.indexOf('function fullTeamRecommendationKey(')),state);
@@ -65,3 +65,17 @@ assert.match(state.recommendations.innerHTML,/season.normalBasis/);
 assert.match(state.recommendations.innerHTML,/season.practiceBasis/);
 assert.match(state.recommendations.innerHTML,/data-dashboard-team="a:bow\|b:axe\|c:whip"/);
 assert.doesNotMatch(state.recommendations.innerHTML,/1000 official games|trend\.period|data-dashboard-trend=/);
+
+state.currentSeason=()=>({phase:'ranked'});
+state.officialCompositionRows=()=>[];
+state.rankerCharacterRows=()=>[];
+state.preseasonReference=()=>({updatedAt:now,rows:[{characterId:'fallback:bow',games:800,top3Rate:.4,pickShare:.03}]});
+state.dashboardRenderKey='';state.renderHomeDashboard();
+assert.match(state.recommendations.innerHTML,/season.referenceRankBasis/);
+assert.match(state.recommendations.innerHTML,/season.referenceTeams/);
+assert.match(state.recommendations.innerHTML,/data-dashboard-character="fallback:bow"/);
+assert.doesNotMatch(state.recommendations.innerHTML,/rank-tier-a/);
+state.rankerCharacterRows=()=>[{characterId:'ranked:bow',games:500,tierLabel:'A',top3Rate:.4}];
+state.dashboardRenderKey='';state.renderHomeDashboard();
+assert.match(state.recommendations.innerHTML,/data-dashboard-character="ranked:bow"/);
+assert.doesNotMatch(state.recommendations.innerHTML,/data-dashboard-character="fallback:bow"/);

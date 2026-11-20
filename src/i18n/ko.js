@@ -1,4 +1,10 @@
 export const ko = {
+  "season.referenceNotice": "정규 시즌 데이터를 모으는 동안 프리시즌 자료를 참고용으로 표시합니다.",
+  "season.referenceTeams": "프리시즌 참고 조합",
+  "season.referenceTeamBasis": "프리시즌에 많이 사용한 실험체를 역할별로 구성한 예시입니다.",
+  "season.referenceRankBasis": "프리시즌 일반 대전 · 선택률 순 · {date} 기준",
+  "season.referenceBadge": "일반",
+  "season.referenceRow": "선택률 {share}% · TOP 3 {top3}% · {count}경기",
   "season.openingWindow": "정규 시즌 랭크 · 최근 3일",
   "season.openingCollected": "3일 랭크 표본을 낮은 비중으로 반영합니다. 특성 성적은 7일 표본이 확보되고, 패치 간 변화는 비교 조건이 충족되면 표시합니다.",
   "season.openingBuilds": "시즌 초반 랭크에서 관측된 아이템 구성입니다. 성적 차이는 표본이 더 쌓인 뒤 비교합니다.",

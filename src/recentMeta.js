@@ -1,5 +1,5 @@
 import {characterVariants} from './data.js';
-import {isCurrentRecent, canComparePreviousPatch, seasonVersion} from './seasonContext.js';
+import {currentSeason, isCurrentRecent, canComparePreviousPatch, seasonVersion} from './seasonContext.js';
 import {recentMetaSnapshot as bundled} from './recentMetaSnapshot.js';
 
 // Bounded observational correction, not an estimated causal win-rate gain.
@@ -7,6 +7,7 @@ export const RECENT_META_POLICY=Object.freeze({minGames:300,priorGames:1500,maxB
 export const META_RANK_LIMIT=10;
 export const PRESEASON_META_POLICY=Object.freeze({minGames:120,priorGames:650,maxBlend:0.48,maxCorrection:0.55,maxMomentum:0.16,maxPulseAgeDays:2});
 let snapshot=bundled;
+let previousPreseason=bundled.phase==='preseason'?bundled:null;
 let version=0;
 const DAY=86400000;
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -51,10 +52,27 @@ export function validRecentMeta(data) {
 }
 export function setRecentMeta(data) {
   if(!validRecentMeta(data)||Date.parse(data.generatedAt)<=Date.parse(snapshot.generatedAt))return false;
-  snapshot=structuredClone(data);version++;return true;
+  snapshot=structuredClone(data);
+  if(snapshot.phase==='preseason')previousPreseason=snapshot;
+  version++;return true;
 }
 export function recentMetaVersion(){return `${snapshot.generatedAt}:${version}:${seasonVersion()}:${Math.floor(Date.now()/3600000)}`;}
 export function recentMetaSnapshot(){return snapshot;}
+
+// Display only. All recommendation evidence goes through isCurrentRecent.
+export function preseasonReference() {
+  const season = currentSeason();
+  const saved = previousPreseason?.cohorts.unrank;
+  if (season.phase !== 'ranked' || !saved || saved.matchingMode !== 2
+      || previousPreseason.seasonId >= season.seasonId
+      || previousPreseason.seasonKey !== `PRE_${season.seasonKey}`
+      || Math.floor(saved.patch / 1000) !== season.displaySeason
+      || !(Date.parse(saved.updatedAt) < Date.parse(season.phaseStartedAt))) return null;
+  const rows = Object.entries(saved.rows).map(([characterId, row]) => ({
+    characterId, games: row.games, top3Rate: row.top3 / row.games, pickShare: row.pickShare,
+  })).sort((a,b) => b.pickShare - a.pickShare || b.games - a.games);
+  return { rows, updatedAt: saved.updatedAt };
+}
 
 // Source buckets do not equal the app buckets. Inexact transfer is discounted;
 // lower tiers receive no high-tier performance correction.

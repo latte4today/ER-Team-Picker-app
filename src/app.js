@@ -5,7 +5,7 @@ import {mountDraftAssist} from './draftAssist.js';
 import { metaMovementRows, movementBar } from "./metaMovement.js";
 import { hasFullRankedBaseline } from "./characterAvailability.js";
 import { metaTrends as bundledMetaTrends } from "./metaTrends.js";
-import {recentCoreRows, recentMetaVersion, recentRankingEvidence, recentStrengthCorrection, PRESEASON_META_POLICY} from './recentMeta.js';
+import {preseasonReference, recentCoreRows, recentMetaVersion, recentRankingEvidence, recentStrengthCorrection, PRESEASON_META_POLICY} from './recentMeta.js';
 import {renderRecentEvidence, renderRecentDashboard} from './recentMetaView.js';
 import { characterVariants, roleNames, roles } from "./data.js";
 import {
@@ -3056,9 +3056,16 @@ function renderHomeDashboard() {
         <span class="dashboard-expand-hint">${t('rank.teamDetails')} ⌄</span></summary>
         <div class="dashboard-detail-body"></div></details>`;
     }).join('');
-  const rankRows = rankerCharacterRows(activeRankRole);
-  const examples = preseason && !overallRows.length
-    ? preseasonTeamExamples(activeRankRole==='all'?rankRows:rankerCharacterRows('all'),characterById) : [];
+  const currentRankRows = rankerCharacterRows(activeRankRole);
+  const reference = !preseason && (!overallRows.length || !currentRankRows.length) ? preseasonReference() : null;
+  const allCurrentRankRows = activeRankRole === 'all' ? currentRankRows : rankerCharacterRows('all');
+  const showReferenceRanks = Boolean(reference && !allCurrentRankRows.length);
+  const rankRows = showReferenceRanks
+    ? reference.rows.filter(row => activeRankRole === 'all' || characterRolesById(row.characterId).includes(activeRankRole))
+    : currentRankRows;
+  const exampleRows = preseason ? allCurrentRankRows : reference?.rows ?? [];
+  const showExamples = !overallRows.length && exampleRows.length > 0;
+  const examples = showExamples ? preseasonTeamExamples(exampleRows,characterById) : [];
   const overallItems = rankedItems || examples.map(({members,roles})=>`
     <details class="combo-card overall-composition-card" data-dashboard-team="${members.join('|')}">
       <summary><div class="combo-card-head"><strong>${roles.map(roleLabel).join(' · ')}</strong></div>
@@ -3074,11 +3081,13 @@ function renderHomeDashboard() {
         <details class="rank-card" data-dashboard-character="${row.characterId}">
           <summary class="rank-card-summary">
             <span class="rank-number">${index + 1}</span>
-            <span class="rank-tier rank-tier-${row.tierLabel.toLowerCase()}">${row.tierLabel}</span>
+            ${showReferenceRanks ? `<span class="rank-tier">${t("season.referenceBadge")}</span>` : `<span class="rank-tier rank-tier-${row.tierLabel.toLowerCase()}">${row.tierLabel}</span>`}
             ${character.image ? `<img src="${character.image}" alt="" loading="lazy" decoding="async">` : ""}
             <span class="rank-card-main">
               <strong>${[character.name, character.weapon].filter(Boolean).join(" · ")}</strong>
-              <small>${t("rank.scoreDetail", { count: row.games, top3 })}</small>
+              <small>${showReferenceRanks
+                ? t("season.referenceRow", { count: row.games, top3, share: (row.pickShare * 100).toFixed(2) })
+                : t("rank.scoreDetail", { count: row.games, top3 })}</small>
               <span class="dashboard-expand-hint">${t('rank.characterDetails')} <span aria-hidden="true">⌄</span></span>
             </span>
           </summary><div class="dashboard-detail-body"></div>
@@ -3087,17 +3096,22 @@ function renderHomeDashboard() {
     })
     .join("");
   const rankRoleLabel = activeRankRole === "all" ? t("rank.allCharacters") : roleLabel(activeRankRole);
+  const compositionTitle = preseason ? 'season.practiceTeams' : examples.length ? 'season.referenceTeams' : 'rank.overallTop';
+  const compositionBasis = preseason ? 'season.practiceBasis' : examples.length ? 'season.referenceTeamBasis' : 'rank.overallBasis';
+  const rankBasis = showReferenceRanks ? t('season.referenceRankBasis', {
+    date: new Date(reference.updatedAt).toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }),
+  }) : t(preseason ? 'season.normalBasis' : 'rank.characterBasis', { label: rankRoleLabel, count: rankRows.length });
 
   recommendations.innerHTML = `
-    ${!isCurrentSeason(officialStatsSource) || currentSeason().phase === 'preseason' ? `<p class="season-status" role="status">${t(currentSeason().phase === 'preseason' ? 'season.preseason' : 'season.warming')}</p>` : ''}
+    ${!isCurrentSeason(officialStatsSource) || preseason ? `<p class="season-status" role="status">${t(preseason ? 'season.preseason' : showReferenceRanks || examples.length ? 'season.referenceNotice' : 'season.warming')}</p>` : ''}
     <div class="recommendation-hub ranking-dashboard">
       <section class="combo-section composition-overview">
         <div class="section-title-row"><h3>${t('rank.compositionTitle')}</h3></div>
         <div class="combo-split">
           <section class="overall-compositions">
-            <h4>${t(preseason?'season.practiceTeams':'rank.overallTop')}</h4>
-            <p class="trend-period">${t(preseason?'season.practiceBasis':'rank.overallBasis')}</p>
-            <div class="combo-grid overall-composition-grid dashboard-scroll" tabindex="0" role="region" aria-label="${t(preseason?'season.practiceTeams':'rank.overallTop')}">${overallItems||`<p class="empty-state">${t(isCurrentSeason(officialStatsSource)?'rank.noData':'season.warming')}</p>`}</div>
+            <h4>${t(compositionTitle)}</h4>
+            <p class="trend-period">${t(compositionBasis)}</p>
+            <div class="combo-grid overall-composition-grid dashboard-scroll" tabindex="0" role="region" aria-label="${t(compositionTitle)}">${overallItems||`<p class="empty-state">${t(isCurrentSeason(officialStatsSource)?'rank.noData':'season.warming')}</p>`}</div>
           </section>
           <section class="trend-section">
         <div class="section-title-row"><h4>${t('trend.title')}</h4></div>
@@ -3113,7 +3127,7 @@ function renderHomeDashboard() {
       <section class="rank-section">
         <div class="section-title-row">
           <h3>${t("rank.characterTitle")}</h3>
-          <span>${t(preseason?'season.normalBasis':'rank.characterBasis', { label: rankRoleLabel, count: rankRows.length })}</span>
+          <span>${rankBasis}</span>
         </div>
         ${renderRankRoleFilters()}
         <div class="rank-grid dashboard-scroll" tabindex="0" role="region" aria-label="${t('rank.characterTitle')}">${rankItems || `<p class="empty-state">${t(isCurrentSeason(officialStatsSource)?"rank.noData":"season.warming")}</p>`}</div>
