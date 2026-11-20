@@ -4556,3 +4556,25 @@ details[open] > summary .dashboard-expand-hint > span { transform: rotate(180deg
   line-height: 1.35;
   white-space: nowrap;
 }
+.draft-assist {
+  margin-top: 12px;
+}
+
+.draft-assist [hidden] {
+  display: none;
+}
+
+.draft-assist-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.draft-assist .helper-text {
+  margin: 8px 0 0;
+}
+
+.draft-preview {
+  margin: 8px 0 0;
+  padding-inline-start: 24px;
+}

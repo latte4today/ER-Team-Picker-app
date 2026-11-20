@@ -42,12 +42,12 @@ export function validRecentMeta(data) {
   const keys=preseason?['unrank']:['diamond_plus','mithril_plus'];
   if(Object.keys(data.cohorts??{}).length!==keys.length)return false;
   const cs=keys.map(k=>data.cohorts?.[k]);
-  return cs.every(c=>c&&Number.isInteger(c.patch)&&c.days===7&&(preseason?c.matchingMode===2:(c.matchingMode??3)===3)&&Number.isFinite(Date.parse(c.updatedAt))&&Date.parse(c.updatedAt)<=Date.parse(data.generatedAt)+3600000&&Object.keys(c.rows??{}).length>=variantIds.length&&
+  return cs.every(c=>c&&Number.isInteger(c.patch)&&(preseason?c.days===7&&c.matchingMode===2:[3,7].includes(c.days)&&(c.matchingMode??3)===3)&&Number.isFinite(Date.parse(c.updatedAt))&&Date.parse(c.updatedAt)<=Date.parse(data.generatedAt)+3600000&&Object.keys(c.rows??{}).length>=variantIds.length&&
     variantIds.every(id=>c.rows[id])&&
     ['winRate','top3Rate','avgPlacement'].every(k=>Number.isFinite(c.averages?.[k]))&&c.averages.winRate>=0&&c.averages.winRate<=c.averages.top3Rate&&c.averages.top3Rate<=1&&c.averages.avgPlacement>=1&&
     Object.entries(c.rows).every(([id,r])=>/^[a-z_]+:[a-z_]+$/.test(id)&&validRow(r)&&Array.isArray(r.cores)&&r.cores.every(x=>validRow({...x,pickShare:x.games/r.games})&&/^\d{7}$/.test(x.core))&&
       Array.isArray(r.builds)&&r.builds.length<=3&&r.builds.every(b=>Array.isArray(b.items)&&b.items.length===5&&b.items.every(code=>Number.isInteger(code)&&typeof data.itemNames?.[code]==='string')&&validRow({...b,pickShare:b.games/r.games})))
-    &&(preseason?validPulse(c):!c.pulse))&&cs.every(c=>c.patch===cs[0].patch);
+    &&(preseason?validPulse(c):!c.pulse))&&cs.every(c=>c.patch===cs[0].patch&&c.days===cs[0].days);
 }
 export function setRecentMeta(data) {
   if(!validRecentMeta(data)||Date.parse(data.generatedAt)<=Date.parse(snapshot.generatedAt))return false;
@@ -65,7 +65,7 @@ export function recentCohort(tier='all',now=Date.now()) {
   const key=preseason?'unrank':high?'mithril_plus':'diamond_plus',cohort=snapshot.cohorts[key];
   const age=(now-Date.parse(cohort.updatedAt))/DAY;
   const freshness=!isCurrentRecent(snapshot,cohort)||age< -1||age>=RECENT_META_POLICY.maxAgeDays?0:Math.min(1,(RECENT_META_POLICY.maxAgeDays-age)/5);
-  return {...cohort,key,transfer,freshness};
+  return {...cohort,key,transfer:cohort.days===3&&!preseason?transfer*0.5:transfer,freshness};
 }
 export function recentEvidence(variantId,tier='all',now=Date.now()) {
   const cohort=recentCohort(tier,now),row=cohort.rows[variantId];
@@ -97,7 +97,7 @@ export function recentStrengthCorrection(variantId,tier,baseline,now=Date.now())
 // outcome fields. Missing cores get no borrowed damage/healing measurements.
 export function recentCoreRows(variantId,tier,legacy=[],now=Date.now()) {
   const e=recentEvidence(variantId,tier,now);
-  if(!e||!e.cohort.transfer||e.cohort.freshness<0.6||e.row.games<300)return legacy;
+  if(!e||!e.cohort.transfer||e.cohort.days===3||e.cohort.freshness<0.6||e.row.games<300)return legacy;
   if(!e.row.cores.some(r=>r.games>=100&&r.games/e.row.games>=0.05))return legacy;
   const rows=e.row.cores.filter(r=>r.games>0)
     .sort((a,b)=>b.games-a.games).map(r=>({...legacy.find(x=>String(x.core)===r.core),core:r.core,games:r.games,corePickShare:r.games/e.row.games,

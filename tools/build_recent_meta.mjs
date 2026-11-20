@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import {characterVariants} from '../src/data.js';
 import {FALLBACK_CHARACTER_CODE_TO_ID} from './character_code_map.mjs';
 import {COMBAT_EFFECT_SOURCE} from '../src/combatEffects.js';
+import {isRankedWindowInPhase} from '../src/seasonContext.js';
 
 const weaponIds={1:'glove',2:'tonfa',3:'bat',4:'whip',5:'throw',6:'shuriken',7:'bow',8:'crossbow',9:'pistol',10:'assault_rifle',11:'sniper_rifle',13:'hammer',14:'axe',15:'dagger',16:'two_handed_sword',18:'dual_swords',19:'spear',20:'nunchaku',21:'rapier',22:'guitar',23:'camera',24:'arcana',25:'vf_prosthetic'};
 const root=new URL('../',import.meta.url);
@@ -66,22 +67,36 @@ const activeSeason=JSON.parse(await fs.readFile(new URL('src/seasonState.json',r
 const catalogPromise = loadItemCatalog(activeSeason.patch).catch(() => new Map());
 const preseason=activeSeason.phase==='preseason';
 const expectedMode=preseason?2:3;
+const statQuery = (pageData) => pageData.dehydratedState.queries.find(q=>q.queryKey[0]==='getCharacterStatistics')?.state.data;
+const seedUrl = tier => `https://dak.gg/er/characters/Niah?hl=ko&tier=${tier}`;
+function rankedWindow(data, days) {
+  return isRankedWindowInPhase({days, matchingMode:data?.characterDetailStatSnapshot?.matchingMode,
+    updatedAt:new Date(Number(data?.meta?.updatedAt)).toJSON()},activeSeason);
+}
+let days=7;
+if (!preseason) {
+  const seed=statQuery(await page(seedUrl('diamond_plus')));
+  const updatedAt=new Date(Number(seed?.meta?.updatedAt)).toJSON();
+  if (!isRankedWindowInPhase({days, matchingMode:seed?.characterDetailStatSnapshot?.matchingMode,updatedAt},activeSeason)) days=3;
+}
 const cohorts={};
 for(const tier of preseason?['unrank']:['diamond_plus','mithril_plus']) {
-  const seed=await page(`https://dak.gg/er/characters/Niah?hl=ko&tier=${tier}`);
+  const windowQuery=days===7?'':`&dt=${days}`;
+  const seed=await page(seedUrl(tier)+windowQuery);
   const chars=seed.dehydratedState.queries.find(q=>q.queryKey[0]==='GET_CHARACTERS_KEY').state.data.characters;
   const wanted=new Set(characterVariants.map(v=>v.characterId));
   const jobs=chars.filter(c=>wanted.has(FALLBACK_CHARACTER_CODE_TO_ID[c.id]));
   const rows={},shortRows={};let next=0,patch=null,updatedAt=Infinity,shortUpdatedAt=Infinity;
   await Promise.all(Array.from({length:3},async()=>{
     while(next<jobs.length) {
-      const c=jobs[next++],url=`https://dak.gg/er/characters/${encodeURIComponent(c.key)}?hl=ko&tier=${tier}`;
+      const c=jobs[next++],url=`https://dak.gg/er/characters/${encodeURIComponent(c.key)}?hl=ko&tier=${tier}${windowQuery}`;
       const p=c.key==='Niah'?seed:await page(url);
       const phase=seasonFromPage(p,activeSeason);
       if (phase.seasonId!==activeSeason.seasonId || phase.patch!==activeSeason.patch || Math.floor(phase.patch/1000)!==phase.displaySeason) throw Error('Season changed or statistics lag the new season; retry later');
       const d=p.dehydratedState.queries.find(q=>q.queryKey[0]==='getCharacterStatistics')?.state.data;
       const s=d?.characterDetailStatSnapshot;
-      if(d?.meta?.dt!==7||d.meta.tier!==tier||s?.matchingMode!==expectedMode||s.dt!==7||s.teamMode!==3||s.patch!==d.meta.patch)throw Error(`Wrong cohort: ${url}`);
+      if(d?.meta?.dt!==days||d.meta.tier!==tier||s?.matchingMode!==expectedMode||s.dt!==days||s.teamMode!==3||s.patch!==d.meta.patch)throw Error(`Wrong cohort: ${url}`);
+      if(!preseason&&!rankedWindow(d,days))throw Error('Ranked window still overlaps preseason; retry after the collection cutoff');
       if(patch!==null&&patch!==s.patch)throw Error('Patch changed during collection; retry the whole snapshot');
       patch=s.patch;updatedAt=Math.min(updatedAt,Number(d.meta.updatedAt));
       const id=FALLBACK_CHARACTER_CODE_TO_ID[c.id];
@@ -89,7 +104,7 @@ for(const tier of preseason?['unrank']:['diamond_plus','mithril_plus']) {
         const v=characterVariants.find(v=>v.characterId===id&&(v.weapon===weaponIds[w.key]||v.weapon==='flex'));
         if(!v)throw Error(`Unmapped weapon ${id}:${w.key}`);
         if(rows[v.variantId])throw Error(`Ambiguous variant ${v.variantId}; do not double count weapon observations`);
-        const previous=preseason?null:w.prevPatchStats?.find(x=>x.patch<s.patch);
+        const previous=preseason||days!==7?null:w.prevPatchStats?.find(x=>x.patch<s.patch);
         const row={...aggregate(w),pickShare:w.count/s.tierCount,url,
           previous:previous?{...aggregate(previous),patch:previous.patch,pickShare:previous.count/previous.tierCount}:null,
           cores:(w.traitCoreStats??[]).map(x=>({core:String(x.key),...aggregate(x)})),
@@ -126,7 +141,7 @@ for(const tier of preseason?['unrank']:['diamond_plus','mithril_plus']) {
   }));
   if(Object.keys(rows).length!==characterVariants.length||!Number.isFinite(updatedAt))throw Error(`Incomplete ${tier} snapshot`);
   const values=Object.values(rows),n=values.reduce((a,r)=>a+r.games,0);
-  cohorts[tier]={patch,days:7,matchingMode:expectedMode,updatedAt:new Date(updatedAt).toISOString(),rows,averages:{
+  cohorts[tier]={patch,days,matchingMode:expectedMode,updatedAt:new Date(updatedAt).toISOString(),rows,averages:{
     winRate:values.reduce((a,r)=>a+r.wins,0)/n,top3Rate:values.reduce((a,r)=>a+r.top3,0)/n,avgPlacement:values.reduce((a,r)=>a+r.placement,0)/n}};
   if(preseason&&Object.keys(shortRows).length>=Math.ceil(characterVariants.length*0.8)){
     const short=Object.values(shortRows),games=short.reduce((sum,row)=>sum+row.games,0);

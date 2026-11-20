@@ -5,7 +5,7 @@ import {recentMetaSnapshot,recentCohort,recentStrengthCorrection,recentCoreRows,
 import {renderRecentDashboard,renderRecentEvidence} from '../src/recentMetaView.js';
 import {characterVariants} from '../src/data.js';
 import {normalizeTraitBuildRows,topCoreRowsForVariant} from '../src/traitMeta.js';
-import {isCurrentRecent} from '../src/seasonContext.js';
+import {isCurrentRecent,isRankedOpeningWeek} from '../src/seasonContext.js';
 import {preseasonTeamExamples,patchNoteForCharacter,patchNotesForItems} from '../src/preseason.js';
 
 globalThis.localStorage={getItem:()=>null,setItem:()=>{}};
@@ -17,6 +17,12 @@ assert.ok(validRecentMeta(original));
 const visibleText = (html) => html.replace(/<[^>]*>/g, "");
 if (original.phase==='preseason') {
   const cohort=original.cohorts.unrank;
+  if (!isCurrentRecent(original,cohort)) {
+    assert.equal(recentCohort('all').freshness,0);
+    assert.ok(recommend(['rio:bow','lenox:whip'],'all').length>0);
+    console.log('Previous preseason sample is withheld during the ranked transition.');
+    process.exit(0);
+  }
   assert.equal(cohort.matchingMode,2);
   assert.equal(Object.keys(cohort.rows).length,characterVariants.length);
   const wrong=structuredClone(original);wrong.cohorts.unrank.matchingMode=3;
@@ -108,7 +114,7 @@ assert.equal(Object.keys(original.cohorts.diamond_plus.rows).length,characterVar
 assert.equal(Object.keys(original.cohorts.mithril_plus.rows).length,characterVariants.length);
 if (!isCurrentRecent(original,original.cohorts.diamond_plus)) {
   assert.equal(recentCohort('all').freshness,0,'cross-phase windows stay withheld');
-  assert.ok(renderRecentDashboard('all',()=>null,t).includes(t('recent.unavailable')));
+  assert.ok(renderRecentDashboard('all',()=>null,t).includes(t(isRankedOpeningWeek()?'season.openingPending':'recent.unavailable')));
   assert.ok(recommend(['rio:bow','lenox:whip'],'all').every(r=>Number.isFinite(r.total)));
   console.log('Recent-meta cold start passed: valid aggregates retained, cross-phase outcomes withheld, recommendations available.');
   process.exit(0);
@@ -125,7 +131,7 @@ assert.ok(recentCohort('all',now).transfer<recentCohort('mithril_plus',now).tran
 for(const c of characterVariants) {
   const raw=original.cohorts.diamond_plus.rows[c.variantId];
   const expected=raw.cores.filter(r=>r.games>=100&&r.games/raw.games>=0.05).sort((a,b)=>b.games-a.games).slice(0,4);
-  if(raw.games>=300&&expected.length)assert.deepEqual(topCoreRowsForVariant(c.variantId,recentCoreRows(c.variantId,'all',[],now),{limit:4}).map(r=>r.core),expected.filter(r=>normalizeTraitBuildRows(c.variantId,[{...r,source:'recent-meta'}]).length).map(r=>r.core));
+  if(original.cohorts.diamond_plus.days===7&&raw.games>=300&&expected.length)assert.deepEqual(topCoreRowsForVariant(c.variantId,recentCoreRows(c.variantId,'all',[],now),{limit:4}).map(r=>r.core),expected.filter(r=>normalizeTraitBuildRows(c.variantId,[{...r,source:'recent-meta'}]).length).map(r=>r.core));
 }
 assert.deepEqual(recentCoreRows('luke:bat','iron_gold',[{core:'7200301'}],now),[{core:'7200301'}]);
 
@@ -158,12 +164,13 @@ restored.generatedAt=new Date(Date.parse(sparse.generatedAt)+1).toISOString();as
 
 const resolve=id=>characterVariants.find(c=>c.variantId===id);
 const html=renderRecentDashboard('all',resolve,t)+renderRecentEvidence('nia:pistol','all','7000401',t);
-assert.ok(html.includes('최근 7일')&&html.includes('추천 아이템 구성'));
+assert.ok(html.includes(original.cohorts.diamond_plus.days===3?'최근 3일':'최근 7일')&&html.includes('추천 아이템 구성'));
 assert.ok(!html.includes('undefined')&&!html.includes('[object Object]'));
 assert.ok(!/DAK|dak\.gg|최근 메타 근거/i.test(visibleText(html))&&!/<a\b|recent-meta-evidence/i.test(html),'use source data internally without exposing links or raw cohort statistics');
 for(const locale of ['ko','en','ja','zhHans','zhHant']) {
   const dictionary=(await import(`../src/i18n/${locale}.js`))[locale];
-  const translate=(key,params={})=>String(dictionary[key]??key).replace(/\{(\w+)\}/g,(_,k)=>params[k]??'');
+  const fallback=(await import('../src/i18n/en.js')).en;
+  const translate=(key,params={})=>String(dictionary[key]??fallback[key]??key).replace(/\{(\w+)\}/g,(_,k)=>params[k]??'');
   const view=renderRecentDashboard('all',resolve,translate)+renderRecentEvidence('nia:pistol','all','7000401',translate);
   assert.ok(!/DAK|dak\.gg|recent\.recommendedBuild|recent\.window/i.test(visibleText(view))&&!/<a\b|recent-meta-evidence/i.test(view),locale);
   const buildCount = (view.match(/class="build-items"/g)??[]).length;

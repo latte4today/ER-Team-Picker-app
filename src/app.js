@@ -1,6 +1,7 @@
 import {calibratedRankScore, rankBaseline, isValidRankStat} from './rankQuality.js';
 import {preseasonTeamExamples} from './preseason.js';
-import {currentSeason, setSeasonState, isCurrentSeason} from './seasonContext.js';
+import {currentSeason, setSeasonState, isCurrentSeason, isRankedOpeningWeek} from './seasonContext.js';
+import {mountDraftAssist} from './draftAssist.js';
 import { metaMovementRows, movementBar } from "./metaMovement.js";
 import { hasFullRankedBaseline } from "./characterAvailability.js";
 import { metaTrends as bundledMetaTrends } from "./metaTrends.js";
@@ -1260,14 +1261,15 @@ function feedbackCTABanner() {
 
 // Replaced a two-line paragraph about which stage of the draft you are in. The row
 // markers need explaining and the paragraph did not, so this takes that space.
-function preseasonRecommendationNotice() {
-  return currentSeason().phase==='preseason' ? `<p class="season-status" role="status">${t('season.normalRecommendation')}</p>` : '';
+function seasonRecommendationNotice() {
+  if (currentSeason().phase === 'preseason') return `<p class="season-status" role="status">${t('season.normalRecommendation')}</p>`;
+  return isRankedOpeningWeek() ? `<p class="season-status" role="status">${t('season.openingRecommendation')}</p>` : '';
 }
 function recommendationStageNotice() {
   if (selectedIds.size === 0) return "";
   return `
     <div class="rec-legend">
-      ${(currentSeason().phase==="preseason" || !isCurrentSeason(officialStatsSource)) ? `<small>${t("draftFit.hint")}</small>` : ""}
+      ${(currentSeason().phase==="preseason" || isRankedOpeningWeek() || !isCurrentSeason(officialStatsSource)) ? `<small>${t("draftFit.hint")}</small>` : ""}
       <span class="rec-style rec-style-ceiling">${PLAYSTYLE_ICONS.ceiling}<span>${t("recommend.styleCeiling")}</span></span>
       <small>${t("recommend.legendCeiling")}</small>
       <span class="rec-style rec-style-steady">${PLAYSTYLE_ICONS.steady}<span>${t("recommend.styleSteady")}</span></span>
@@ -3293,7 +3295,7 @@ function _renderFullTeamCards() {
     footer = `<div class="show-more-loading"><span class="show-more-spinner"></span>${t("fullTeam.calculating")}</div>`;
   }
 
-  recommendations.innerHTML = feedbackCTABanner() + preseasonRecommendationNotice() + header + cards + footer;
+  recommendations.innerHTML = feedbackCTABanner() + seasonRecommendationNotice() + header + cards + footer;
 }
 
 function renderPlayerHistoryStatus() {
@@ -3564,7 +3566,7 @@ function renderRecommendations() {
   const showMoreBtn = hasMore
     ? `<button class="show-more-button" type="button" data-show-more-recommendations>${t("recommend.showMore", { remaining: unique.length - recommendLimit })}</button>`
     : "";
-  recommendations.innerHTML = feedbackCTABanner() + preseasonRecommendationNotice() + recommendationStageNotice() + list + showMoreBtn;
+  recommendations.innerHTML = feedbackCTABanner() + seasonRecommendationNotice() + recommendationStageNotice() + list + showMoreBtn;
 }
 
 function renderMatchFeedback() {
@@ -4795,6 +4797,20 @@ refreshTournamentData();
 window.setInterval(refreshTournamentData, 4 * 60 * 60 * 1000);
 
 setupErUpdater();
+mountDraftAssist({
+  t,
+  isElectron,
+  getManualTeam: () => [...selectedIds],
+  recommendTeam: (ids) => recommend(ids, tierSelect.value, {}, playableVariantIds.size ? [...playableVariantIds] : undefined,
+    [], {}, { limit: 12, includeReasons: false, includeAlternates: false }),
+  confirmTeam: ([first, second]) => {
+    if (slotAssignments[1] !== first) assignSlot(1, first);
+    if (slotAssignments[2] !== second) assignSlot(2, second);
+    activeSlot = null;
+    renderAfterSelection();
+  },
+  recommendationVersion: () => JSON.stringify([tierSelect.value, getLanguage(), [...playableVariantIds], recentMetaVersion(), officialStatsVersion]),
+});
 render();
 void enablePlayerHistoryIfAvailable();
 if (hasStoredLanguage()) {
