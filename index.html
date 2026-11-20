@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ER Team Picker</title>
     <link rel="icon" href="assets/app-icon.png" type="image/png">
-    <link rel="stylesheet" href="src/styles.css?v=0.3.9">
+    <link rel="stylesheet" href="src/styles.css?v=0.3.9-13.1">
     <style>
       /* ── Splash screen ── */
       #splash-screen {
@@ -235,6 +235,16 @@
               </div>
               <div class="selected-team" id="selected-team"></div>
               <div class="detected-team" id="detected-team"></div>
+              <div class="draft-assist" id="draft-assist" hidden>
+                <div class="draft-assist-actions">
+                  <button class="ghost-button" id="draft-overlay" type="button" data-i18n="draftAssist.overlay"></button>
+                  <button class="ghost-button" id="draft-capture" type="button" data-i18n="draftAssist.capture"></button>
+                  <button class="ghost-button" id="draft-stop" type="button" data-i18n="draftAssist.stop" hidden></button>
+                  <button class="ghost-button" id="draft-apply" type="button" data-i18n="draftAssist.apply" hidden></button>
+                </div>
+                <p class="helper-text" id="draft-status" role="status" data-i18n="draftAssist.hint"></p>
+                <ol id="draft-preview" class="draft-preview" hidden></ol>
+              </div>
             </section>
 
             <section class="panel guide-strip">
@@ -467,7 +477,7 @@
       </div>
       <div id="dashboard-detail-content" class="dashboard-detail-body dashboard-modal-content" tabindex="0"></div>
     </dialog>
-    <script type="module" src="src/app.js?v=0.3.9"></script>
+    <script type="module" src="src/app.js?v=0.3.9-13.1"></script>
     <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>

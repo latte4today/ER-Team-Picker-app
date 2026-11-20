@@ -1,5 +1,5 @@
 import {patchNoteForCharacter, patchNotesForItems} from './preseason.js';
-import {currentSeason} from './seasonContext.js';
+import {currentSeason,isRankedOpeningWeek} from './seasonContext.js';
 import {recentEvidence,recentMovers,recentCohort,recentMetaSnapshot,preseasonHasPulse,recentStrengthCorrection,META_RANK_LIMIT,PRESEASON_META_POLICY,validBuildIcon} from './recentMeta.js';
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -35,9 +35,9 @@ function buildStatText(items, reference, details, t) {
   return visible.map(({ stat, value }) => `${t(`recent.itemStat.${stat === "movePercent" ? "move" : stat}`)} ${value > 0 ? "+" : ""}${value}${PERCENT_STATS.has(stat) ? "%" : ""}`).join(" · ");
 }
 
-function renderBuild(build, index, common, details, names, t) {
+function renderBuild(build, index, common, details, names, t, provisional) {
   const other = index > 0;
-  const moreTop3 = other && build.games >= 40 && build.top3 / build.games > common.top3 / common.games + 0.025;
+  const moreTop3 = !provisional && other && build.games >= 40 && build.top3 / build.games > common.top3 / common.games + 0.025;
   const label = t(!other ? "recent.buildCommon" : moreTop3 ? "recent.buildTop3" : "recent.buildAlternative");
   const reference = other ? common.items : null;
   const changes = other ? build.items.filter((code) => !common.items.includes(code)) : build.items;
@@ -61,6 +61,7 @@ function renderBuild(build, index, common, details, names, t) {
 
 export function renderRecentEvidence(id,tier,_core,t) {
   const e=recentEvidence(id,tier);
+  const provisional = e?.cohort.days === 3;
   const note=patchNoteForCharacter(id.split(':')[0],t);
   const patchNote=note?`<p class="detail-section-note">${esc(note)}</p>`:'';
   const { itemNames: names, itemDetails: details } = recentMetaSnapshot();
@@ -73,8 +74,8 @@ export function renderRecentEvidence(id,tier,_core,t) {
   }).sort((a, b) => b.games - a.games);
   const missingBuildMessage = e || recentCohort(tier).freshness ? "recent.buildSampleMissing" : "recent.buildPatchPending";
   return patchNote+`<details class="recommended-build"><summary>${esc(t('recent.recommendedBuild'))}</summary>
-    ${builds.length ? `<small>${esc(t(e.cohort.key === "unrank" ? "season.normalBuild" : "recent.buildNote"))}</small>
-    <div class="item-build-list">${builds.map((build, index) => renderBuild(build, index, builds[0], details, names, t)).join("")}</div>
+    ${builds.length ? `<small>${esc(t(e.cohort.key === "unrank" ? "season.normalBuild" : provisional ? "season.openingBuilds" : "recent.buildNote"))}</small>
+    <div class="item-build-list">${builds.map((build, index) => renderBuild(build, index, builds[0], details, names, t, provisional)).join("")}</div>
     <small>${esc(t("recent.buildFinishedNote"))}</small>` : `<small>${esc(t(missingBuildMessage))}</small>`}
   </details>`;
 }
@@ -83,6 +84,7 @@ export function renderRecentDashboard(tier,resolve,t) {
   const preseason=currentSeason().phase==='preseason';
   const short=preseason&&preseasonHasPulse(tier);
   const cohort=recentCohort(tier);
+  const earlyRanked = !preseason && cohort.freshness > 0 && cohort.days === 3;
   const cards=(kind,scopeTier=tier)=>recentMovers(scopeTier,kind).map(({variantId,movement},i)=>{
     const c=resolve(variantId);if(!c)return '';
     return `<li class="meta-mover-row"><span class="meta-rank">${i+1}</span><img src="${esc(c.image)}" alt="" width="32" height="32" loading="lazy">
@@ -95,7 +97,8 @@ export function renderRecentDashboard(tier,resolve,t) {
     .map(({id,row},i)=>{const c=resolve(id);return `<li class="meta-mover-row"><span class="meta-rank">${i+1}</span>
       <img src="${esc(c.image)}" alt="" width="32" height="32" loading="lazy"><div><b>${esc(t(`char.${c.id}`))}</b><small>${esc(t(`weapon.${c.weapon}`))}</small></div>
       <strong class="meta-mover-delta">TOP 3 ${(row.top3/row.games*100).toFixed(1)}%</strong></li>`;}).join(''):'';
-  return `<section class="recent-meta-section"><div class="meta-section-heading"><h3>${esc(t('recent.dashboard'))}</h3><small>${esc(t(preseason?'recent.preseasonWindow':'recent.window'))}</small></div>
-    ${cohort.freshness&&(!preseason||short)?`<div class="recent-meta-columns"><section><h4>${esc(t('recent.usage'))}</h4><ul tabindex="0">${cards('usage')}</ul></section><section><h4>${esc(t('recent.performance'))}</h4><ul tabindex="0">${cards('performance')}</ul></section>${preseason?(strong?`<section><h4>${esc(t('recent.preseasonStrong'))}</h4><ul tabindex="0">${strong}</ul></section>`:''):cohort.key!=='mithril_plus'&&recentCohort('mithril_plus').freshness?`<section><h4>${esc(t('recent.upperUsage'))}</h4><ul tabindex="0">${cards('usage','mithril_plus')}</ul></section>`:''}</div>`:`<p class="recent-meta-note">${esc(t(preseason?'recent.preseasonPending':'recent.unavailable'))}</p>`}
+  return `<section class="recent-meta-section"><div class="meta-section-heading"><h3>${esc(t('recent.dashboard'))}</h3><small>${esc(t(preseason?'recent.preseasonWindow':earlyRanked?'season.openingWindow':'recent.window'))}</small></div>
+    ${earlyRanked ? `<p class="recent-meta-note">${esc(t('season.openingCollected'))}</p>` :
+    cohort.freshness&&(!preseason||short)?`<div class="recent-meta-columns"><section><h4>${esc(t('recent.usage'))}</h4><ul tabindex="0">${cards('usage')}</ul></section><section><h4>${esc(t('recent.performance'))}</h4><ul tabindex="0">${cards('performance')}</ul></section>${preseason?(strong?`<section><h4>${esc(t('recent.preseasonStrong'))}</h4><ul tabindex="0">${strong}</ul></section>`:''):cohort.key!=='mithril_plus'&&recentCohort('mithril_plus').freshness?`<section><h4>${esc(t('recent.upperUsage'))}</h4><ul tabindex="0">${cards('usage','mithril_plus')}</ul></section>`:''}</div>`:`<p class="recent-meta-note">${esc(t(preseason?'recent.preseasonPending':isRankedOpeningWeek()?'season.openingPending':'recent.unavailable'))}</p>`}
   </section>`;
 }

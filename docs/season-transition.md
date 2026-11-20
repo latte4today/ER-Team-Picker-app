@@ -12,8 +12,12 @@
   individual, core-outcome and pair-outcome scores are disabled. Structural team
   coverage and reviewed character mechanics keep recommendations usable while
   current outcomes accumulate. Legacy ranker rows cannot fill new-phase gaps.
-- Recent cohorts must match both the active phase and patch. Ranked seven-day
-  windows crossing the first observed phase boundary are withheld. Preseason
+- Recent cohorts must match both the active phase and patch. Ranked windows
+  crossing the first observed phase boundary are withheld. A verified
+  three-day Ranked window can contribute at half the normal transfer weight
+  until both cohorts have a full seven-day window. The first week prioritizes
+  team role coverage. Short Ranked windows do not drive trait outcomes or
+  patch comparisons. Preseason
   collects a separate Normal/Squad cohort (matching mode 2, team mode 3), so
   an exact-patch preseason sample can be used before seven days elapse.
   Preseason uses a smaller minimum sample and stronger shrinkage-adjusted

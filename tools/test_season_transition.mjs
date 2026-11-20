@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import vm from 'node:vm';
 import {seasonFromPage} from './season_metadata.mjs';
-import {currentSeason,validSeasonState,setSeasonState,isCurrentSeason,isCurrentRecent,canComparePreviousPatch} from '../src/seasonContext.js';
+import {currentSeason,validSeasonState,setSeasonState,isCurrentSeason,isCurrentRecent,canComparePreviousPatch,isRankedOpeningWeek} from '../src/seasonContext.js';
 import {recentMetaSnapshot,recentEvidence,recentRankingEvidence,PRESEASON_META_POLICY,recentMetaVersion,setRecentMeta,recentStrengthCorrection} from '../src/recentMeta.js';
 import {characterVariants} from '../src/data.js';
 globalThis.localStorage={getItem:()=>null,setItem:()=>{}};
@@ -82,6 +82,19 @@ try {
   const ranked={...structuredClone(changed),generatedAt:new Date(Date.now()).toISOString(),seasonId:regular.seasonId,
     seasonKey:regular.seasonKey,phase:'ranked',cohorts:{}};
   const rankedRows={...changed.cohorts.unrank,updatedAt:ranked.generatedAt,matchingMode:3};
+  const day=86400000;
+  const start=Date.parse(regular.phaseStartedAt);
+  const short={...rankedRows,days:3,updatedAt:new Date(start+3*day).toISOString()};
+  assert.ok(isRankedOpeningWeek(start+6*day));
+  assert.equal(isRankedOpeningWeek(start+7*day),false);
+  assert.equal(isCurrentRecent(ranked,{...short,updatedAt:new Date(start+3*day-1).toISOString()}),false);
+  assert.ok(isCurrentRecent(ranked,short));
+  assert.equal(isCurrentRecent(ranked,{...short,days:7}),false);
+  assert.equal(canComparePreviousPatch({patch:regular.patch},short),false);
+  const shortSnapshot={...ranked,generatedAt:new Date(Date.now()-1).toISOString(),
+    cohorts:{diamond_plus:short,mithril_plus:short}};
+  assert.ok(setRecentMeta(shortSnapshot));
+  assert.equal(recentRankingEvidence(id,'all',start+3*day).cohort.transfer,0.25);
   for(const key of ['diamond_plus','mithril_plus'])ranked.cohorts[key]=rankedRows;
   assert.ok(setRecentMeta(ranked));
   assert.equal(recentRankingEvidence(id,'all').cohort.key,'diamond_plus');

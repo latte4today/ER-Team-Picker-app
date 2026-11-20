@@ -1,5 +1,5 @@
 import {draftCoverage,draftFit} from './draftFit.js';
-import {isCurrentSeason, currentSeason} from './seasonContext.js';
+import {isCurrentSeason, currentSeason, isRankedOpeningWeek} from './seasonContext.js';
 import { characterVariants, roleNames, synergyPairs } from "./data.js";
 import { getFeedbackScore, loadFeedback } from "./feedback.js";
 import { officialPairSynergyLift, pairSynergyLiftMeta } from "./pairSynergyLift.js";
@@ -918,7 +918,7 @@ function empiricalVectorRow(character, core, tier = "all") {
 }
 
 function useStructuralDraftFit() {
-  return currentSeason().phase==="preseason" || !isCurrentSeason(officialStatsSource);
+  return currentSeason().phase==="preseason" || isRankedOpeningWeek() || !isCurrentSeason(officialStatsSource);
 }
 
 function blendEmpiricalVector(manual, character, core, tier = "all") {

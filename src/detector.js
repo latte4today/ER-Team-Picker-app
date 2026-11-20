@@ -28,9 +28,12 @@ const MIN_CONFIDENCE = 0.5;
 
 function drawToCanvas(image, canvas) {
   const context = canvas.getContext("2d", { willReadFrequently: true });
-  canvas.width = image.naturalWidth;
-  canvas.height = image.naturalHeight;
-  context.drawImage(image, 0, 0);
+  const width = image.videoWidth || image.naturalWidth;
+  const height = image.videoHeight || image.naturalHeight;
+  const scale = Math.min(1, 1280 / width);
+  canvas.width = Math.round(width * scale);
+  canvas.height = Math.round(height * scale);
+  context.drawImage(image, 0, 0, canvas.width, canvas.height);
   return context;
 }
 
@@ -150,7 +153,8 @@ async function loadWeaponTemplates() {
         };
       }),
     );
-    weaponTemplatesPromise = Promise.all(entries);
+    weaponTemplatesPromise = Promise.allSettled(entries)
+      .then((results) => results.flatMap((result) => result.status === "fulfilled" ? [result.value] : []));
   }
   return weaponTemplatesPromise;
 }
@@ -169,18 +173,22 @@ function bestMatch(slotThumb, templates) {
     if (!grouped.has(match.character.id)) grouped.set(match.character.id, match);
   }
 
-  return [...grouped.values()].sort((a, b) => b.confidence - a.confidence)[0];
+  const [first, second] = grouped.values();
+  return first && { ...first, margin: second ? first.confidence - second.confidence : 0 };
 }
 
 function bestWeaponMatch(slotThumb, templates) {
   if (templates.length === 0) return undefined;
-  return templates
+  const ranked = templates
     .map((template) => ({
       weapon: template.weapon,
       template: template.src,
       confidence: Math.max(0, 1 - imageDistance(slotThumb, template.thumb)),
     }))
-    .sort((a, b) => b.confidence - a.confidence)[0];
+    .sort((a, b) => b.confidence - a.confidence);
+  const first = ranked[0];
+  const second = ranked.find((match) => match.weapon !== first.weapon);
+  return { ...first, margin: second ? first.confidence - second.confidence : 0 };
 }
 
 function chooseBestLayout(layoutMatches) {
@@ -190,6 +198,7 @@ function chooseBestLayout(layoutMatches) {
 export async function detectTeamFromScreenshot(image, canvas) {
   const context = drawToCanvas(image, canvas);
   const templates = await loadTemplates();
+  if (!templates.length) return [];
   const weaponTemplateList = await loadWeaponTemplates();
   const layoutMatches = TEAM_SLOT_LAYOUTS.map((layout) => {
     const matches = layout.slots.map((slot, slotIndex) => {
@@ -205,6 +214,7 @@ export async function detectTeamFromScreenshot(image, canvas) {
         ...characterMatch,
         weapon: weaponMatch?.weapon,
         weaponConfidence: weaponMatch?.confidence ?? 0,
+        weaponMargin: weaponMatch?.margin ?? 0,
         slotIndex,
         isSelf: slot.self,
         layout: layout.name,
