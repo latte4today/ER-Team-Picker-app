@@ -1,2 +1,2 @@
 // Generated public season metadata.
-export const seasonState = {"schemaVersion":1,"generatedAt":"2026-11-20T13:29:01.966Z","seasonId":43,"seasonKey":"SEASON_22","displaySeason":13,"phase":"ranked","patch":13010,"phaseStartedAt":"2026-11-19T13:45:44.372Z"};
+export const seasonState = {"schemaVersion":1,"generatedAt":"2026-11-20T17:10:15.035Z","seasonId":43,"seasonKey":"SEASON_22","displaySeason":13,"phase":"ranked","patch":13010,"phaseStartedAt":"2026-11-19T13:45:44.372Z"};
