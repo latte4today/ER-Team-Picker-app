@@ -722,6 +722,7 @@ export const en = {
   "char.mai": "Mai",
   "char.markus": "Markus",
   "char.martina": "Martina",
+  "char.meissa": "Meissa",
   "char.mirka": "Mirka",
   "char.nadine": "Nadine",
   "char.nathapon": "Nathapon",

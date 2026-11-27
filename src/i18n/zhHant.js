@@ -665,6 +665,7 @@ export const zhHant = {
   "char.mai": "梅",
   "char.markus": "馬庫斯",
   "char.martina": "瑪蒂娜",
+  "char.meissa": "彌莎",
   "char.mirka": "米爾卡",
   "char.nadine": "娜汀",
   "char.nathapon": "納塔朋",
